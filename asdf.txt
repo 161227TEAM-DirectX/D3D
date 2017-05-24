@@ -1,5 +1,9 @@
 <<<<<<< HEAD
+hello kimtaeseung
+=======
+<<<<<<< HEAD
 asdfsdfsdf
 =======
 ﻿안녕하이소
 >>>>>>> c4872e647575bf71753d83b3daa60ea9b503478a
+>>>>>>> 9f29e69f98697d787b022f03b1fcc85fb221ef78
