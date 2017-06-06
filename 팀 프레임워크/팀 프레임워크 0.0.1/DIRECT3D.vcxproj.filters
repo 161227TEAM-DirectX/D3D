@@ -1,0 +1,460 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="GameFrameword3D">
+      <UniqueIdentifier>{c8dd825d-2bd9-4556-b535-28ce64c7a21b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame">
+      <UniqueIdentifier>{03a573a8-7190-406d-a729-1dd0b1c29548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WinMain">
+      <UniqueIdentifier>{7a330a86-3f3d-46bc-9f8a-6c1a2c04d78c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\MyUtil">
+      <UniqueIdentifier>{82d0c768-8547-4083-a94a-e793b97fd363}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FX Files">
+      <UniqueIdentifier>{d739b6f3-f7ed-478c-b6a1-ca9de04cf8e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\BaseObject">
+      <UniqueIdentifier>{5ebd70fc-3d7c-4788-aff5-067692d58dda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\BoundBox">
+      <UniqueIdentifier>{d4bef6e2-fcd0-4de1-8ec6-95265d04cbf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Terrain">
+      <UniqueIdentifier>{3ddf39fc-731f-4f5c-b83f-0993a4e2d08a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Transform">
+      <UniqueIdentifier>{7fc2d724-5147-4cad-9267-42f59a5694e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Light">
+      <UniqueIdentifier>{0886260c-2111-4370-bc10-3e67a06e88f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Camera">
+      <UniqueIdentifier>{619bcb28-7856-48e7-8646-11769b6e75cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\SkinnedAni">
+      <UniqueIdentifier>{615b43d5-a2b4-45eb-bfff-91802031d7c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\xMesh">
+      <UniqueIdentifier>{6f085a66-dede-4155-976d-f16732491c00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Particle">
+      <UniqueIdentifier>{c204f9bf-d7bc-4de8-9da9-a485cdb0cd4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Frustum">
+      <UniqueIdentifier>{60ee832d-3b10-4d99-8a4b-1fa16028e3bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Manager">
+      <UniqueIdentifier>{369f663f-3514-4640-a917-6059f473774b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\GameObject">
+      <UniqueIdentifier>{76f25462-bdf9-450b-a0e0-c61896956c3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Manager\Resource">
+      <UniqueIdentifier>{618d8c5d-ef08-4959-9d24-f3c96cedcd63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Manager\IO">
+      <UniqueIdentifier>{9a382a7e-ed0b-4fe2-b635-5e616124b469}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Manager\Camera">
+      <UniqueIdentifier>{23d39210-b985-4572-aa25-f6955dbbc004}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Manager\Font">
+      <UniqueIdentifier>{42bc13c2-c3fa-4750-9286-97b15d3ea8d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Manager\Gizmo">
+      <UniqueIdentifier>{0073e84f-e28e-45be-8656-e90b21dba2f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Manager\Key">
+      <UniqueIdentifier>{fdef8ca4-cae3-4006-b7f2-22b87cd1767f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Manager\Physics">
+      <UniqueIdentifier>{32563d8a-09ea-42ed-9598-ee0f0df6e35c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Manager\Scene">
+      <UniqueIdentifier>{94c57b09-79ad-4269-b6e1-aa11d38f905a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Manager\Sprite">
+      <UniqueIdentifier>{1308d416-39fa-44b1-9d62-35706ba280b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Manager\Time">
+      <UniqueIdentifier>{6f184a5e-f3af-4f2b-8ae8-978c498b2bc4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="WinMain.cpp">
+      <Filter>WinMain</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>WinMain</Filter>
+    </ClCompile>
+    <ClCompile Include="gameNode.cpp">
+      <Filter>MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="mainGame.cpp">
+      <Filter>MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="myUtil.cpp">
+      <Filter>GameFrameword3D\MyUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="treeNode.cpp">
+      <Filter>GameFrameword3D\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="gameObject.cpp">
+      <Filter>GameFrameword3D\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="characterController.cpp">
+      <Filter>GameFrameword3D\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="cube.cpp">
+      <Filter>GameFrameword3D\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="transform.cpp">
+      <Filter>GameFrameword3D\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="baseObject.cpp">
+      <Filter>GameFrameword3D\BaseObject</Filter>
+    </ClCompile>
+    <ClCompile Include="boundSphere.cpp">
+      <Filter>GameFrameword3D\BoundBox</Filter>
+    </ClCompile>
+    <ClCompile Include="boundBox.cpp">
+      <Filter>GameFrameword3D\BoundBox</Filter>
+    </ClCompile>
+    <ClCompile Include="boundObject.cpp">
+      <Filter>GameFrameword3D\BaseObject</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>GameFrameword3D\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="light.cpp">
+      <Filter>GameFrameword3D\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="lightDirection.cpp">
+      <Filter>GameFrameword3D\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="lightPoint.cpp">
+      <Filter>GameFrameword3D\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="xMeshStatic.cpp">
+      <Filter>GameFrameword3D\xMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="xMesh.cpp">
+      <Filter>GameFrameword3D\xMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="quadTree.cpp">
+      <Filter>GameFrameword3D\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="terrain.cpp">
+      <Filter>GameFrameword3D\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="boneHierachy.cpp">
+      <Filter>GameFrameword3D\SkinnedAni</Filter>
+    </ClCompile>
+    <ClCompile Include="skinnedAnimation.cpp">
+      <Filter>GameFrameword3D\SkinnedAni</Filter>
+    </ClCompile>
+    <ClCompile Include="xMeshSkinned.cpp">
+      <Filter>GameFrameword3D\xMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="particle.cpp">
+      <Filter>GameFrameword3D\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="particleQuad.cpp">
+      <Filter>GameFrameword3D\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="quadParticleEmitter.cpp">
+      <Filter>GameFrameword3D\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="particleEmitter.cpp">
+      <Filter>GameFrameword3D\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="frustum.cpp">
+      <Filter>GameFrameword3D\Frustum</Filter>
+    </ClCompile>
+    <ClCompile Include="testScene.cpp" />
+    <ClCompile Include="resourceManager.cpp">
+      <Filter>GameFrameword3D\Manager\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="rmShaderFX.cpp">
+      <Filter>GameFrameword3D\Manager\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="rmSkinnedMesh.cpp">
+      <Filter>GameFrameword3D\Manager\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="rmStaticMesh.cpp">
+      <Filter>GameFrameword3D\Manager\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="rmTexture.cpp">
+      <Filter>GameFrameword3D\Manager\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ioBaseManager.cpp">
+      <Filter>GameFrameword3D\Manager\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="cameraManager.cpp">
+      <Filter>GameFrameword3D\Manager\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="fontManager.cpp">
+      <Filter>GameFrameword3D\Manager\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="gizmoManager.cpp">
+      <Filter>GameFrameword3D\Manager\Gizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="keyManager.cpp">
+      <Filter>GameFrameword3D\Manager\Key</Filter>
+    </ClCompile>
+    <ClCompile Include="physicsManager.cpp">
+      <Filter>GameFrameword3D\Manager\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneManager.cpp">
+      <Filter>GameFrameword3D\Manager\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="spriteManager.cpp">
+      <Filter>GameFrameword3D\Manager\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="timeManager.cpp">
+      <Filter>GameFrameword3D\Manager\Time</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>WinMain</Filter>
+    </ClInclude>
+    <ClInclude Include="gameNode.h">
+      <Filter>MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="mainGame.h">
+      <Filter>MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="singletonBase.h">
+      <Filter>GameFrameword3D\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="myUtil.h">
+      <Filter>GameFrameword3D\MyUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="treeNode.h">
+      <Filter>GameFrameword3D\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObject.h">
+      <Filter>GameFrameword3D\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="characterController.h">
+      <Filter>GameFrameword3D\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="cube.h">
+      <Filter>GameFrameword3D\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="transform.h">
+      <Filter>GameFrameword3D\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="baseObject.h">
+      <Filter>GameFrameword3D\BaseObject</Filter>
+    </ClInclude>
+    <ClInclude Include="boundSphere.h">
+      <Filter>GameFrameword3D\BoundBox</Filter>
+    </ClInclude>
+    <ClInclude Include="boundBox.h">
+      <Filter>GameFrameword3D\BoundBox</Filter>
+    </ClInclude>
+    <ClInclude Include="boundObject.h">
+      <Filter>GameFrameword3D\BaseObject</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>GameFrameword3D\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="light.h">
+      <Filter>GameFrameword3D\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="lightDirection.h">
+      <Filter>GameFrameword3D\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="lightPoint.h">
+      <Filter>GameFrameword3D\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="xMeshStatic.h">
+      <Filter>GameFrameword3D\xMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="xMesh.h">
+      <Filter>GameFrameword3D\xMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="quadTree.h">
+      <Filter>GameFrameword3D\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="terrain.h">
+      <Filter>GameFrameword3D\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="boneHierachy.h">
+      <Filter>GameFrameword3D\SkinnedAni</Filter>
+    </ClInclude>
+    <ClInclude Include="skinnedAnimation.h">
+      <Filter>GameFrameword3D\SkinnedAni</Filter>
+    </ClInclude>
+    <ClInclude Include="xMeshSkinned.h">
+      <Filter>GameFrameword3D\xMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="particle.h">
+      <Filter>GameFrameword3D\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="particleQuad.h">
+      <Filter>GameFrameword3D\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="quadParticleEmitter.h">
+      <Filter>GameFrameword3D\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="particleEmitter.h">
+      <Filter>GameFrameword3D\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="frustum.h">
+      <Filter>GameFrameword3D\Frustum</Filter>
+    </ClInclude>
+    <ClInclude Include="testScene.h" />
+    <ClInclude Include="resourceManager.h">
+      <Filter>GameFrameword3D\Manager\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="rmShaderFX.h">
+      <Filter>GameFrameword3D\Manager\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="rmSkinnedMesh.h">
+      <Filter>GameFrameword3D\Manager\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="rmStaticMesh.h">
+      <Filter>GameFrameword3D\Manager\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="rmTexture.h">
+      <Filter>GameFrameword3D\Manager\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ioBaseManager.h">
+      <Filter>GameFrameword3D\Manager\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="cameraManager.h">
+      <Filter>GameFrameword3D\Manager\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="fontManager.h">
+      <Filter>GameFrameword3D\Manager\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="gizmoManager.h">
+      <Filter>GameFrameword3D\Manager\Gizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="keyManager.h">
+      <Filter>GameFrameword3D\Manager\Key</Filter>
+    </ClInclude>
+    <ClInclude Include="physicsManager.h">
+      <Filter>GameFrameword3D\Manager\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="sceneManager.h">
+      <Filter>GameFrameword3D\Manager\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="spriteManager.h">
+      <Filter>GameFrameword3D\Manager\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="timeManager.h">
+      <Filter>GameFrameword3D\Manager\Time</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Texture_Gray.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Texture_Mask.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Texture_Terrain.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="TextureAlpha.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="TextureBlinn.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="TextureNormal.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="TextureNormal2.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="리소스\FX\EnvironmentCUBE.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\AddLight.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\BlinnPhong.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\Distort_1.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\EnvironmentCube.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\GrassMesh.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\HLSL_LambertLighting.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\HLSL_VertexSpecular.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\HSLS_BaseColor.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\ModelPixel.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\Phong.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\PostEffect.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\SkinnedMesh.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\SkinnedMesh0.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\StaticMesh.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\StaticMesh_master.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\StaticMesh2.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\TerrainBase.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\Texture.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\Texture_Gray.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\Texture_Mask.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\Texture_Terrain.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\TextureAlpha.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\TextureBlinn.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\TextureNormal.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\TextureNormal2.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\TreeMesh.fx">
+      <Filter>FX Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>
