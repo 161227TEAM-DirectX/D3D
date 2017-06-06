@@ -47,8 +47,8 @@ public:
 	virtual HRESULT init(string filePath, D3DXMATRIXA16* pmatCorrection = NULL);
 	virtual void release();
 	void update();
-	virtual void render(transform* pTrans);
-	void renderBoneName(camera* pCam, transform* transform = NULL);
+	virtual void render(dx::transform* pTrans);
+	void renderBoneName(camera* pCam, dx::transform* transform = NULL);
 
 	void Play(string animName, float crossFadeTime = 0.0);
 	void Play(int animIndex, float crossFadeTime = 0.0);

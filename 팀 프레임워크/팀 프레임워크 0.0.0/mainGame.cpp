@@ -9,7 +9,7 @@ HRESULT mainGame::init(void)
 	this->initManager();
 
 	//씬추가
-	SCENEMANAGER->addScene("test", new testScene);
+	SCENEMANAGER->addScene("test", new cLoadingBarTest);
 	//씬초기화
 	SCENEMANAGER->changeScene("test");
 
@@ -54,7 +54,7 @@ void mainGame::render(void)
 		//디바이스 렌더링 시작
 		_device->BeginScene();
 		//씬매니져 렌더
-		//SCENEMANAGER->render();
+		SCENEMANAGER->render();
 
 		//디버그 모드에서만 실행
 #ifdef _DEBUG 

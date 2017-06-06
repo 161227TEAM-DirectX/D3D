@@ -120,12 +120,12 @@ void timeManager::render(void)
 	{
 		char str[128];
 		sprintf(str, "FPS: %d", _frameRate);
-		FONTMANAGER->fontOut(str, WINSIZEX / 2, 0, 0xffffff00);
+		FONTMANAGER->fontOut(str, 0, 0, 0xffffff00);
 		//한프레임당 경과시간
-		sprintf(str, "DeltaTime: %.2f", _timeElapsed);
-		FONTMANAGER->fontOut(str, WINSIZEX / 2, 25, 0xffffff00);
+		//sprintf(str, "DeltaTime: %.2f", _timeElapsed);
+		//FONTMANAGER->fontOut(str, 0, 25, 0xffffff00);
 		//전체시간
-		sprintf(str, "WorldTime: %.2f", _worldTime);
-		FONTMANAGER->fontOut(str, WINSIZEX / 2, 50, 0xffffff00);
+		//sprintf(str, "WorldTime: %.2f", _worldTime);
+		//FONTMANAGER->fontOut(str, 0, 50, 0xffffff00);
 	}
 }

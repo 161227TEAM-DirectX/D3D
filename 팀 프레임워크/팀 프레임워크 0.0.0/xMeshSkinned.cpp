@@ -147,7 +147,7 @@ void xMeshSkinned::update()
 	}
 }
 
-void xMeshSkinned::render(transform * pTrans)
+void xMeshSkinned::render(dx::transform * pTrans)
 {
 	D3DXMATRIXA16 matFinal;
 	//Transform 이 들어왔다면...
@@ -174,7 +174,7 @@ void xMeshSkinned::render(transform * pTrans)
 }
 
 //본을 보여준다.
-void xMeshSkinned::renderBoneName(camera * pCam, transform * transform)
+void xMeshSkinned::renderBoneName(camera * pCam, dx::transform * transform)
 {
 	D3DXMATRIXA16 matFinal;
 

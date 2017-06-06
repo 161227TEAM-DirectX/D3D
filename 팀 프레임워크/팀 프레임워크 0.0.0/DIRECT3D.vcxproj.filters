@@ -46,41 +46,77 @@
     <Filter Include="GameFrameword3D\Frustum">
       <UniqueIdentifier>{60ee832d-3b10-4d99-8a4b-1fa16028e3bb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFrameword3D\Manager">
-      <UniqueIdentifier>{369f663f-3514-4640-a917-6059f473774b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameFrameword3D\GameObject">
       <UniqueIdentifier>{76f25462-bdf9-450b-a0e0-c61896956c3f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFrameword3D\Manager\Resource">
+    <Filter Include="GameFrameword3D\Manager%28매크로%29">
+      <UniqueIdentifier>{21275c07-e6f0-4213-b160-13f824b2251c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Manager%28상속%29">
+      <UniqueIdentifier>{369f663f-3514-4640-a917-6059f473774b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Manager%28상속%29\Resource">
       <UniqueIdentifier>{618d8c5d-ef08-4959-9d24-f3c96cedcd63}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFrameword3D\Manager\IO">
+    <Filter Include="GameFrameword3D\Manager%28상속%29\IO">
       <UniqueIdentifier>{9a382a7e-ed0b-4fe2-b635-5e616124b469}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFrameword3D\Manager\Camera">
+    <Filter Include="GameFrameword3D\Manager%28상속%29\Camera">
       <UniqueIdentifier>{23d39210-b985-4572-aa25-f6955dbbc004}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFrameword3D\Manager\Font">
+    <Filter Include="GameFrameword3D\Manager%28상속%29\Font">
       <UniqueIdentifier>{42bc13c2-c3fa-4750-9286-97b15d3ea8d2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFrameword3D\Manager\Gizmo">
+    <Filter Include="GameFrameword3D\Manager%28상속%29\Gizmo">
       <UniqueIdentifier>{0073e84f-e28e-45be-8656-e90b21dba2f5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFrameword3D\Manager\Key">
+    <Filter Include="GameFrameword3D\Manager%28상속%29\Key">
       <UniqueIdentifier>{fdef8ca4-cae3-4006-b7f2-22b87cd1767f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFrameword3D\Manager\Physics">
+    <Filter Include="GameFrameword3D\Manager%28상속%29\Physics">
       <UniqueIdentifier>{32563d8a-09ea-42ed-9598-ee0f0df6e35c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFrameword3D\Manager\Scene">
+    <Filter Include="GameFrameword3D\Manager%28상속%29\Scene">
       <UniqueIdentifier>{94c57b09-79ad-4269-b6e1-aa11d38f905a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFrameword3D\Manager\Sprite">
+    <Filter Include="GameFrameword3D\Manager%28상속%29\Sprite">
       <UniqueIdentifier>{1308d416-39fa-44b1-9d62-35706ba280b7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFrameword3D\Manager\Time">
+    <Filter Include="GameFrameword3D\Manager%28상속%29\Time">
       <UniqueIdentifier>{6f184a5e-f3af-4f2b-8ae8-978c498b2bc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Manager%28매크로%29\Object">
+      <UniqueIdentifier>{1ea0530a-fb4a-4471-bef5-900a71b27a76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Object">
+      <UniqueIdentifier>{b2100f4e-e003-4567-9559-5aa13ef0cdd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\UI">
+      <UniqueIdentifier>{68affc7a-e929-48d0-9cc8-ee561545e6fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\UI\01.ImageView">
+      <UniqueIdentifier>{b461c23d-9cd0-4f50-8f2f-397a80e6c9cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\UI\00.Object">
+      <UniqueIdentifier>{f5750b29-a518-4f91-9253-6d912bba683a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Manager%28매크로%29\Texture">
+      <UniqueIdentifier>{61b9e73f-0bc9-461f-bdd3-9c30d034c5ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\UI\02.Button">
+      <UniqueIdentifier>{1011b1a7-5d35-46bf-bf6b-b8348c00344b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Picking">
+      <UniqueIdentifier>{2068e408-93a9-473d-a34b-1d0749859c99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\UI\03.LoadingBar">
+      <UniqueIdentifier>{3f64c98b-e558-4a7d-b6da-fcfcf7f971f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z예제">
+      <UniqueIdentifier>{01978b5a-ca7e-4368-b5ba-104d8c615b2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z예제\로딩바">
+      <UniqueIdentifier>{b4958c71-6179-4893-ace0-6d0822eb97cd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -174,48 +210,74 @@
     <ClCompile Include="frustum.cpp">
       <Filter>GameFrameword3D\Frustum</Filter>
     </ClCompile>
-    <ClCompile Include="testScene.cpp" />
     <ClCompile Include="resourceManager.cpp">
-      <Filter>GameFrameword3D\Manager\Resource</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Resource</Filter>
     </ClCompile>
     <ClCompile Include="rmShaderFX.cpp">
-      <Filter>GameFrameword3D\Manager\Resource</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Resource</Filter>
     </ClCompile>
     <ClCompile Include="rmSkinnedMesh.cpp">
-      <Filter>GameFrameword3D\Manager\Resource</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Resource</Filter>
     </ClCompile>
     <ClCompile Include="rmStaticMesh.cpp">
-      <Filter>GameFrameword3D\Manager\Resource</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Resource</Filter>
     </ClCompile>
     <ClCompile Include="rmTexture.cpp">
-      <Filter>GameFrameword3D\Manager\Resource</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Resource</Filter>
     </ClCompile>
     <ClCompile Include="ioBaseManager.cpp">
-      <Filter>GameFrameword3D\Manager\IO</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\IO</Filter>
     </ClCompile>
     <ClCompile Include="cameraManager.cpp">
-      <Filter>GameFrameword3D\Manager\Camera</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Camera</Filter>
     </ClCompile>
     <ClCompile Include="fontManager.cpp">
-      <Filter>GameFrameword3D\Manager\Font</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Font</Filter>
     </ClCompile>
     <ClCompile Include="gizmoManager.cpp">
-      <Filter>GameFrameword3D\Manager\Gizmo</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Gizmo</Filter>
     </ClCompile>
     <ClCompile Include="keyManager.cpp">
-      <Filter>GameFrameword3D\Manager\Key</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Key</Filter>
     </ClCompile>
     <ClCompile Include="physicsManager.cpp">
-      <Filter>GameFrameword3D\Manager\Physics</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Physics</Filter>
     </ClCompile>
     <ClCompile Include="sceneManager.cpp">
-      <Filter>GameFrameword3D\Manager\Scene</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Scene</Filter>
     </ClCompile>
     <ClCompile Include="spriteManager.cpp">
-      <Filter>GameFrameword3D\Manager\Sprite</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="timeManager.cpp">
-      <Filter>GameFrameword3D\Manager\Time</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="cObjectManager.cpp">
+      <Filter>GameFrameword3D\Manager%28매크로%29\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="cObject.cpp">
+      <Filter>GameFrameword3D\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="cUIObject.cpp">
+      <Filter>GameFrameword3D\UI\00.Object</Filter>
+    </ClCompile>
+    <ClCompile Include="cUIImageView.cpp">
+      <Filter>GameFrameword3D\UI\01.ImageView</Filter>
+    </ClCompile>
+    <ClCompile Include="cTextureManager.cpp">
+      <Filter>GameFrameword3D\Manager%28매크로%29\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="cUIButton.cpp">
+      <Filter>GameFrameword3D\UI\02.Button</Filter>
+    </ClCompile>
+    <ClCompile Include="cPicking.cpp">
+      <Filter>GameFrameword3D\Picking</Filter>
+    </ClCompile>
+    <ClCompile Include="cUILoadingBar.cpp">
+      <Filter>GameFrameword3D\UI\03.LoadingBar</Filter>
+    </ClCompile>
+    <ClCompile Include="cLoadingBarTest.cpp">
+      <Filter>Z예제\로딩바</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -229,7 +291,7 @@
       <Filter>MainGame</Filter>
     </ClInclude>
     <ClInclude Include="singletonBase.h">
-      <Filter>GameFrameword3D\Manager</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29</Filter>
     </ClInclude>
     <ClInclude Include="myUtil.h">
       <Filter>GameFrameword3D\MyUtil</Filter>
@@ -309,48 +371,74 @@
     <ClInclude Include="frustum.h">
       <Filter>GameFrameword3D\Frustum</Filter>
     </ClInclude>
-    <ClInclude Include="testScene.h" />
     <ClInclude Include="resourceManager.h">
-      <Filter>GameFrameword3D\Manager\Resource</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Resource</Filter>
     </ClInclude>
     <ClInclude Include="rmShaderFX.h">
-      <Filter>GameFrameword3D\Manager\Resource</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Resource</Filter>
     </ClInclude>
     <ClInclude Include="rmSkinnedMesh.h">
-      <Filter>GameFrameword3D\Manager\Resource</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Resource</Filter>
     </ClInclude>
     <ClInclude Include="rmStaticMesh.h">
-      <Filter>GameFrameword3D\Manager\Resource</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Resource</Filter>
     </ClInclude>
     <ClInclude Include="rmTexture.h">
-      <Filter>GameFrameword3D\Manager\Resource</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Resource</Filter>
     </ClInclude>
     <ClInclude Include="ioBaseManager.h">
-      <Filter>GameFrameword3D\Manager\IO</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\IO</Filter>
     </ClInclude>
     <ClInclude Include="cameraManager.h">
-      <Filter>GameFrameword3D\Manager\Camera</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Camera</Filter>
     </ClInclude>
     <ClInclude Include="fontManager.h">
-      <Filter>GameFrameword3D\Manager\Font</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Font</Filter>
     </ClInclude>
     <ClInclude Include="gizmoManager.h">
-      <Filter>GameFrameword3D\Manager\Gizmo</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Gizmo</Filter>
     </ClInclude>
     <ClInclude Include="keyManager.h">
-      <Filter>GameFrameword3D\Manager\Key</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Key</Filter>
     </ClInclude>
     <ClInclude Include="physicsManager.h">
-      <Filter>GameFrameword3D\Manager\Physics</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Physics</Filter>
     </ClInclude>
     <ClInclude Include="sceneManager.h">
-      <Filter>GameFrameword3D\Manager\Scene</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Scene</Filter>
     </ClInclude>
     <ClInclude Include="spriteManager.h">
-      <Filter>GameFrameword3D\Manager\Sprite</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="timeManager.h">
-      <Filter>GameFrameword3D\Manager\Time</Filter>
+      <Filter>GameFrameword3D\Manager%28상속%29\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="cObjectManager.h">
+      <Filter>GameFrameword3D\Manager%28매크로%29\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="cObject.h">
+      <Filter>GameFrameword3D\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="cUIObject.h">
+      <Filter>GameFrameword3D\UI\00.Object</Filter>
+    </ClInclude>
+    <ClInclude Include="cUIImageView.h">
+      <Filter>GameFrameword3D\UI\01.ImageView</Filter>
+    </ClInclude>
+    <ClInclude Include="cTextureManager.h">
+      <Filter>GameFrameword3D\Manager%28매크로%29\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="cUIButton.h">
+      <Filter>GameFrameword3D\UI\02.Button</Filter>
+    </ClInclude>
+    <ClInclude Include="cPicking.h">
+      <Filter>GameFrameword3D\Picking</Filter>
+    </ClInclude>
+    <ClInclude Include="cUILoadingBar.h">
+      <Filter>GameFrameword3D\UI\03.LoadingBar</Filter>
+    </ClInclude>
+    <ClInclude Include="cLoadingBarTest.h">
+      <Filter>Z예제\로딩바</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

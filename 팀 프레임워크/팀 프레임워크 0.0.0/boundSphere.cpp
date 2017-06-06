@@ -2,7 +2,7 @@
 #include "boundSphere.h"
 
 //월드단위의 센터와 반지름을 얻는다
-void boundSphere::getWorldCenterRadius(transform * trans, D3DXVECTOR3 * center, float * raius)
+void boundSphere::getWorldCenterRadius(dx::transform * trans, D3DXVECTOR3 * center, float * raius)
 {
 	//최종행렬 가져오기
 	D3DXMATRIXA16 matFinal = trans->GetFinalMatrix();
@@ -24,7 +24,7 @@ void boundSphere::getWorldCenterRadius(transform * trans, D3DXVECTOR3 * center, 
 
 
 //월드 단위로 그리기
-void boundSphere::renderGizmo(transform * trans)
+void boundSphere::renderGizmo(dx::transform * trans)
 {
 	D3DXVECTOR3 worldCenter;
 	float radius;

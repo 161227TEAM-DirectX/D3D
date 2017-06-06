@@ -3,7 +3,7 @@
 
 light::light() : _intensity(1.0f)
 {
-	_transform = new transform;
+	_transform = new dx::transform;
 }
 
 light::~light()

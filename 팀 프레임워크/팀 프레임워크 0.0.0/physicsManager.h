@@ -13,7 +13,7 @@ public:
 	bool isRayHitBound(
 		LPRay ray,					//레이
 		boundSphere* bound,			//바운드구
-		transform* boundTrans,		//바운드트렌스폼
+		dx::transform* boundTrans,		//바운드트렌스폼
 		D3DXVECTOR3* hitPos,		//히트 위치 (NULL이면 대입안됨)
 		D3DXVECTOR3* hitNormal);	//히트 노말 (NULL이면 대입안됨)
 
@@ -21,7 +21,7 @@ public:
 	bool isRayHitBound(
 		LPRay ray,					//레이
 		boundBox* bound,			//바운드박스
-		transform* boundTrans,		//바운드트렌스폼
+		dx::transform* boundTrans,		//바운드트렌스폼
 		D3DXVECTOR3* hitPos,		//히트 위치 (NULL이면 대입안됨)
 		D3DXVECTOR3* hitNormal);	//히트 노말 (NULL이면 대입안됨)
 
@@ -45,19 +45,19 @@ public:
 	bool isOverlap(baseObject* objA, baseObject* objB);
 	
 	//두개의 바운드에 대한 충돌정보를 확인
-	bool isOverlap(transform* transA, boundSphere* boundA, transform* transB, boundSphere* boundB);
-	bool isOverlap(transform* transA, boundBox* boundA, transform* transB, boundBox* boundB);
-	bool isOverlap(transform* transA, boundSphere* boundA, transform* transB, boundBox* boundB);
-	bool isOverlap(transform* transA, boundBox* boundA, transform* transB, boundSphere* boundB);
+	bool isOverlap(dx::transform* transA, boundSphere* boundA, dx::transform* transB, boundSphere* boundB);
+	bool isOverlap(dx::transform* transA, boundBox* boundA, dx::transform* transB, boundBox* boundB);
+	bool isOverlap(dx::transform* transA, boundSphere* boundA, dx::transform* transB, boundBox* boundB);
+	bool isOverlap(dx::transform* transA, boundBox* boundA, dx::transform* transB, boundSphere* boundB);
 
 	bool isBlocking(baseObject* objA, baseObject* objB, float moveFactor = 0.0f);
 	bool isBlocking(
-		transform* transA, boundSphere* boundA,
-		transform* transB, boundSphere* boundB,
+		dx::transform* transA, boundSphere* boundA,
+		dx::transform* transB, boundSphere* boundB,
 		float moveFactor = 0.0f);
 	bool isBlocking(
-		transform* transA, boundBox* boundA,
-		transform* transB, boundBox* boundB,
+		dx::transform* transA, boundBox* boundA,
+		dx::transform* transB, boundBox* boundB,
 		float moveFactor = 0.0f);
 
 	//점 3개로 무한 평면 만들기

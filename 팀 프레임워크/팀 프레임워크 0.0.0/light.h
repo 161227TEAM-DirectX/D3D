@@ -3,7 +3,7 @@
 class light
 {
 public:
-	transform*	_transform;	//라이트 트랜스폼
+	dx::transform*	_transform;	//라이트 트랜스폼
 	D3DXCOLOR	_color;		//라이트 컬러
 	float		_intensity;	//라이트 강도
 

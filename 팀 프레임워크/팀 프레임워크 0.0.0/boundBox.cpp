@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "boundBox.h"
 
-void boundBox::getWorldBox(transform * trans, D3DXVECTOR3 * outBoxPos)
+void boundBox::getWorldBox(dx::transform * trans, D3DXVECTOR3 * outBoxPos)
 {
 	//   5-------6
 	//  /|      /|
@@ -29,7 +29,7 @@ void boundBox::getWorldBox(transform * trans, D3DXVECTOR3 * outBoxPos)
 	}
 }
 
-void boundBox::getWorldAABBMinMax(transform * trans, D3DXVECTOR3 * min, D3DXVECTOR3 * max)
+void boundBox::getWorldAABBMinMax(dx::transform * trans, D3DXVECTOR3 * min, D3DXVECTOR3 * max)
 {
 	//변환된 박스의 월드위치 8개를 얻는다
 	D3DXVECTOR3 worldPos[8];
@@ -52,7 +52,7 @@ void boundBox::getWorldAABBMinMax(transform * trans, D3DXVECTOR3 * min, D3DXVECT
 	}
 }
 
-void boundBox::renderGizmo(transform * trans)
+void boundBox::renderGizmo(dx::transform * trans)
 {
 	//변환된 박스의 월드위치 8개를 얻는다
 	D3DXVECTOR3 worldPos[8];

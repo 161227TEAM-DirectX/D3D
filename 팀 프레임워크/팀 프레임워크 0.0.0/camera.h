@@ -2,7 +2,7 @@
 #include "transform.h"
 #include "frustum.h"
 
-class camera : public transform
+class camera : public dx::transform
 {
 public:
 	float				_fov;					//카메라 화각

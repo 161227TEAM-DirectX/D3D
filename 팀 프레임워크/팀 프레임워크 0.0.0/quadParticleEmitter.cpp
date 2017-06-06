@@ -258,7 +258,7 @@ void quadParticleEmitter::StopEmission()
 	this->_bEmission = false;
 }
 
-void quadParticleEmitter::setCameraSort(transform * pCameraTrans, bool bSort)
+void quadParticleEmitter::setCameraSort(dx::transform * pCameraTrans, bool bSort)
 {
 	this->_pCameraTransform = pCameraTrans;		//카메라 소트 기억
 	this->_bCameraSort = bSort;

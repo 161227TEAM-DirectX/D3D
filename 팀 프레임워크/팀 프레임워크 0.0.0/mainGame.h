@@ -1,6 +1,6 @@
 #pragma once
 /*앞으로 씬의 헤더만 이곳에서 추가할것!!!*/
-#include "testScene.h"
+#include "cLoadingBarTest.h"
 
 class mainGame
 {

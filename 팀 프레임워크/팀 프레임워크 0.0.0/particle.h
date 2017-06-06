@@ -16,7 +16,7 @@ typedef vector<float>		VEC_SCALE;
 class particle
 {
 public:
-	transform		_transform;				//파티클의 위치값
+	dx::transform		_transform;				//파티클의 위치값
 
 private:
 	bool			_bLive;					//활성화 여부

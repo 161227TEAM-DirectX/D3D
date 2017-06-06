@@ -14,7 +14,7 @@ private:
 	DWORD					_dwParticleCount;		//활성화 순번
 	VEC_COLOR				_Colors;				//파티클 컬러 배열
 	VEC_SCALE				_Scales;				//파티클 사이즈 배열
-	transform*				_pCameraTransform;		//카메라 트랜스폼
+	dx::transform*			_pCameraTransform;		//카메라 트랜스폼
 	bool					_bCameraSort;			//카메라 거리별 소트할꺼냐?
 	
 	//파티클 라이브 타임 최대 최소
@@ -88,7 +88,7 @@ public:
 	void StopEmission();			//파티클 생성 중지
 
 	//카메라 소팅을 할꺼니?
-	void setCameraSort(transform* pCameraTrans, bool bSort);
+	void setCameraSort(dx::transform* pCameraTrans, bool bSort);
 
 	void SetRenderLocal(bool bLocal) { _bLocal = bLocal; }
 

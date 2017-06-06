@@ -16,8 +16,8 @@ typedef struct _D3DXFRAME
 struct BONE : public D3DXFRAME
 {
 	D3DXMATRIXA16 CombinedTransformationMatrix;			//계층구조의 부모 행렬이 적용되어 변환이 완료된 행렬
-	transform*	pBoneTransform;
-	transform*	pApplyTransform;
+	dx::transform*	pBoneTransform;
+	dx::transform*	pApplyTransform;
 };
 
 

@@ -4,7 +4,7 @@ class baseObject
 {
 public:
 	xMesh*				_mesh;					//³»°¡ »ç¿ëÇÒ ¸Þ½¬
-	transform*			_transform;				//Æ®·»½ºÆû
+	dx::transform*			_transform;				//Æ®·»½ºÆû
 	boundBox			_boundBox;				//Ãæµ¹¹Ú½º
 	bool				_ignoreCreateShadow;	//½¦µµ¿ì¸Ê ¸¸µé¶§ ¹«½ÃµÇ³Ä?
 

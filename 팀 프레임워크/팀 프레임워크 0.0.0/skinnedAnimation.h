@@ -4,7 +4,7 @@
 class skinnedAnimation
 {
 private:
-	typedef map<BONE*, transform*>				MAP_BONETRANSFORM;	//매핑되는 본Transform 맵
+	typedef map<BONE*, dx::transform*>				MAP_BONETRANSFORM;	//매핑되는 본Transform 맵
 	typedef map<string, LPD3DXANIMATIONSET >	MAP_ANIMSET;
 	typedef vector< LPD3DXANIMATIONSET >		VEC_ANIMSET;
 
@@ -34,8 +34,8 @@ public:
 	HRESULT	init(xMeshSkinned* pSkinnedMesh);
 	void release();
 	void update();
-	void render(transform* _transform);
-	void renderBoneName(camera* pCam, transform* _transform);
+	void render(dx::transform* _transform);
+	void renderBoneName(camera* pCam, dx::transform* _transform);
 
 	void Play(string animName, float crossFadeTime = 0.0);
 	void Play(int animIndex, float crossFadeTime = 0.0);
@@ -45,8 +45,8 @@ public:
 	void Stop() { _bPlay = false; }
 	void SetPlaySpeed(float speed);
 
-	void AddBoneTransform(std::string boneName, transform* _transform);
-	void AddApplyTransform(std::string boneName, transform* _transform);
+	void AddBoneTransform(std::string boneName, dx::transform* _transform);
+	void AddApplyTransform(std::string boneName, dx::transform* _transform);
 	void RemoveBoneTransform(std::string boneName);
 	void RemoveApplyTransform(std::string boneName);
 

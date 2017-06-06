@@ -122,7 +122,7 @@ void skinnedAnimation::update()
 	}
 }
 
-void skinnedAnimation::render(transform * _transform)
+void skinnedAnimation::render(dx::transform * _transform)
 {
 	//현재 자신의 Animation 정보로 세팅
 	_pAnimController->AdvanceTime(_fAnimDelta, NULL);
@@ -141,7 +141,7 @@ void skinnedAnimation::render(transform * _transform)
 	_pSkinnedMesh->render(_transform);
 }
 
-void skinnedAnimation::renderBoneName(camera * pCam, transform * _transform)
+void skinnedAnimation::renderBoneName(camera * pCam, dx::transform * _transform)
 {
 	//현재 자신의 Animation 정보로 세팅
 	_pAnimController->AdvanceTime(_fAnimDelta, NULL);
@@ -249,13 +249,13 @@ void skinnedAnimation::SetPlaySpeed(float speed)
 	_pAnimController->SetTrackSpeed(0, speed);
 }
 
-void skinnedAnimation::AddBoneTransform(string boneName, transform * _transform)
+void skinnedAnimation::AddBoneTransform(string boneName, dx::transform * _transform)
 {
 	BONE* pBone = this->_pSkinnedMesh->GetFineBONE(boneName);
 	this->_mapBoneTransform.insert(make_pair(pBone, _transform));
 }
 
-void skinnedAnimation::AddApplyTransform(string boneName, transform * _transform)
+void skinnedAnimation::AddApplyTransform(string boneName, dx::transform * _transform)
 {
 	BONE* pBone = this->_pSkinnedMesh->GetFineBONE(boneName);
 	this->_mapApplyBoneTransform.insert(std::make_pair(pBone, _transform));

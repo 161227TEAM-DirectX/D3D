@@ -41,14 +41,17 @@ namespace myUtil
 
 		//정점계산 처리방식을 지정할 플래그 값
 		DWORD vertexProcessing = 0;
+
 		//정점 처리와 정점 광원 처리를 하드웨어에서 지원하냐?
-		if (caps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT)
+		//D3DCREATE_MULTITHREADED를 해줘야 다이렉트를 멀티쓰레드 환경에서 사용할 수 있다. 
+		//이렇게 하지 않으면 다이렉트 관련 함수를 멀티쓰레드에서 사용시 프로그램이 정지할수 있다.
+		if(caps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT)
 		{
-			vertexProcessing = D3DCREATE_HARDWARE_VERTEXPROCESSING;
+			vertexProcessing = D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED;
 		}
 		else
 		{
-			vertexProcessing = D3DCREATE_SOFTWARE_VERTEXPROCESSING;
+			vertexProcessing = D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED;
 		}
 
 		//3. D3DPRESENT_PARAMETERS 구조체 정보를 생성

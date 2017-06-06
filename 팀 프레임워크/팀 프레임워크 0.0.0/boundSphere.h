@@ -9,9 +9,9 @@ public:
 
 public:
 	//월드단위의 센터와 반지름을 얻는다
-	void getWorldCenterRadius(transform* trans, D3DXVECTOR3* center, float* raius);
+	void getWorldCenterRadius(dx::transform* trans, D3DXVECTOR3* center, float* raius);
 	//월드 단위로 그리기
-	virtual void renderGizmo(transform* trans);
+	virtual void renderGizmo(dx::transform* trans);
 	//바운드 세팅하기
 	virtual void setBound(D3DXVECTOR3* center, D3DXVECTOR3* halfSize);
 

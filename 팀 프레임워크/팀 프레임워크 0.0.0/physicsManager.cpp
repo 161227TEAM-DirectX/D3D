@@ -10,7 +10,7 @@ void physicsManager::release(void)
 {
 }
 
-bool physicsManager::isRayHitBound(LPRay ray, boundSphere * bound, transform * boundTrans, D3DXVECTOR3 * hitPos, D3DXVECTOR3 * hitNormal)
+bool physicsManager::isRayHitBound(LPRay ray, boundSphere * bound, dx::transform * boundTrans, D3DXVECTOR3 * hitPos, D3DXVECTOR3 * hitNormal)
 {
 	//위치 값 
 	D3DXMATRIXA16 matWorld = boundTrans->GetFinalMatrix();
@@ -103,7 +103,7 @@ bool physicsManager::isRayHitBound(LPRay ray, boundSphere * bound, transform * b
 	return true;
 }
 
-bool physicsManager::isRayHitBound(LPRay ray, boundBox * bound, transform * boundTrans, D3DXVECTOR3 * hitPos, D3DXVECTOR3 * hitNormal)
+bool physicsManager::isRayHitBound(LPRay ray, boundBox * bound, dx::transform * boundTrans, D3DXVECTOR3 * hitPos, D3DXVECTOR3 * hitNormal)
 {
 	//에시당초 구랑 충돌안하면 사각형과 죽었다깨어나도 안된다...
 	if (this->isRayHitBound(
@@ -456,7 +456,7 @@ bool physicsManager::isOverlap(baseObject * objA, baseObject * objB)
 		objB->_transform, &objB->_boundBox);
 }
 
-bool physicsManager::isOverlap(transform * transA, boundSphere * boundA, transform * transB, boundSphere * boundB)
+bool physicsManager::isOverlap(dx::transform * transA, boundSphere * boundA, dx::transform * transB, boundSphere * boundB)
 {
 	//월드 구정보를 얻는다.
 	D3DXVECTOR3 centerA;
@@ -484,7 +484,7 @@ bool physicsManager::isOverlap(transform * transA, boundSphere * boundA, transfo
 	return true;
 }
 
-bool physicsManager::isOverlap(transform * transA, boundBox * boundA, transform * transB, boundBox * boundB)
+bool physicsManager::isOverlap(dx::transform * transA, boundBox * boundA, dx::transform * transB, boundBox * boundB)
 {
 	//월드 구정보를 얻는다.
 	D3DXVECTOR3 centerA;
@@ -766,12 +766,12 @@ bool physicsManager::isOverlap(transform * transA, boundBox * boundA, transform 
 	return true;
 }
 
-bool physicsManager::isOverlap(transform * transA, boundSphere * boundA, transform * transB, boundBox * boundB)
+bool physicsManager::isOverlap(dx::transform * transA, boundSphere * boundA, dx::transform * transB, boundBox * boundB)
 {
 	return true;
 }
 
-bool physicsManager::isOverlap(transform * transA, boundBox * boundA, transform * transB, boundSphere * boundB)
+bool physicsManager::isOverlap(dx::transform * transA, boundBox * boundA, dx::transform * transB, boundSphere * boundB)
 {
 	return true;
 }
@@ -787,12 +787,12 @@ bool physicsManager::isBlocking(baseObject * objA, baseObject * objB, float move
 //moveFactor 가 0 일수록 겹칩에 대해 B 가 움직인다.
 //moveFactor 가 0.5 이면 겹칩에 대해 A 와 B 가 똑같은량으로 움직인다.
 //moveFactor 가 1 일수록 겹칩에 대해 A 가 움직인다.
-bool physicsManager::isBlocking(transform * transA, boundSphere * boundA, transform * transB, boundSphere * boundB, float moveFactor)
+bool physicsManager::isBlocking(dx::transform * transA, boundSphere * boundA, dx::transform * transB, boundSphere * boundB, float moveFactor)
 {
 	return true;
 }
 
-bool physicsManager::isBlocking(transform * transA, boundBox * boundA, transform * transB, boundBox * boundB, float moveFactor)
+bool physicsManager::isBlocking(dx::transform * transA, boundBox * boundA, dx::transform * transB, boundBox * boundB, float moveFactor)
 {
 	//둘이 충돌되지 않았으면 할필요없다
 	if (isOverlap(transA, boundA, transB, boundB) == false) return false;

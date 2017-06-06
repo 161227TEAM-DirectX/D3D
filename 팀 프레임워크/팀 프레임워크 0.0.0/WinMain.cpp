@@ -8,7 +8,10 @@
 //====================================================================
 HWND _hWnd;				//윈도우 핸들(자신의 프로그램에서 돌고있는 윈도우 번호)
 HINSTANCE _hInstance;	//프로그램 인스턴스 핸들 (OS 가 부여한 프로그램 번호)
-float _timeDelta;		
+float _timeDelta;	
+
+CRITICAL_SECTION _cs;	//임계 영역은 구간을 설정하여 그 구간에 진입한 쓰레드가 벗어날 때까지 
+						//해당 구간이 끝날 때까지 다른 쓰레드가 임계 영역에 진입하는 것을 막는다.
 
 //메인게임 클래스
 mainGame _mg;
@@ -102,6 +105,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 	//윈도우 클래스 등록해제 (해줘도 그만 안해줘도 그만..)
 	UnregisterClass(WINNAME, hInstance);
 	
+	//스레드 삭제
+	DeleteCriticalSection(&_cs);
+
 	//윈도우 프로그램 종료	
 	return (int)message.wParam;
 }

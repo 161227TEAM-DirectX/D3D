@@ -187,7 +187,7 @@ void xMeshStatic::release(void)
 	SAFE_RELEASE(_mesh);
 }
 
-void xMeshStatic::render(transform * trans)
+void xMeshStatic::render(dx::transform * trans)
 {
 	//월드행렬 세팅
 	D3DXMATRIXA16 matWorld = trans->GetFinalMatrix();

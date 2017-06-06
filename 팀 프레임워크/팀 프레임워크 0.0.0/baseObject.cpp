@@ -3,7 +3,7 @@
 
 baseObject::baseObject() : _isActive(FALSE), _mesh(NULL), _skinnedAnim(NULL)
 {
-	_transform = new transform;
+	_transform = new dx::transform;
 	_ignoreCreateShadow = false;
 }
 

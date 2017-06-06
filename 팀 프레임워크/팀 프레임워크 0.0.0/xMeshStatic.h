@@ -41,7 +41,7 @@ public:
 
 	virtual HRESULT init(string filePath, D3DXMATRIXA16* matCorrection = NULL);
 	virtual void release(void);
-	virtual void render(transform* trans);
+	virtual void render(dx::transform* trans);
 
 	//카메라 세팅하기
 	static void setCamera(camera* camera);
