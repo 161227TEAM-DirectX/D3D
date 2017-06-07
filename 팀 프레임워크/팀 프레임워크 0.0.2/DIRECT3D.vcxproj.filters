@@ -133,6 +133,9 @@
     <Filter Include="GameFrameword3D\Monster">
       <UniqueIdentifier>{4b80f731-a373-43b2-9a98-b5715dd477cc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameFrameword3D\Action\Boss">
+      <UniqueIdentifier>{3483c4d7-0e5e-46ea-b3e7-a293ee105721}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -330,6 +333,21 @@
     <ClCompile Include="monster.cpp">
       <Filter>GameFrameword3D\Monster</Filter>
     </ClCompile>
+    <ClCompile Include="bossActionAttack.cpp">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="bossActionMove.cpp">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="bossActionSkill.cpp">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="bossActionCinema.cpp">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="bossMonster.cpp">
+      <Filter>GameFrameword3D\Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -525,6 +543,21 @@
       <Filter>GameFrameword3D\Node</Filter>
     </ClInclude>
     <ClInclude Include="monster.h">
+      <Filter>GameFrameword3D\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionAttack.h">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionMove.h">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionSkill.h">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionCinema.h">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="bossMonster.h">
       <Filter>GameFrameword3D\Monster</Filter>
     </ClInclude>
   </ItemGroup>

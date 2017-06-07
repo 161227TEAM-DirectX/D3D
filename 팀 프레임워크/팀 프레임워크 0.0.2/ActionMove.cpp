@@ -78,8 +78,8 @@ int ActionMove::Update()
 
 		return LHS::ACTIONRESULT::ACTION_ATT;
 	}
-
-	//플레이어가 내 탐색 범위를 벗어나게 되면 스탠딩 상태로 돌아간다.
+	
+	//플레이어가 내 탐색 범위를 벗어나게 되면 리젠장소로 돌아간다.
 	monster* temp = dynamic_cast<monster*>(owner);
 	if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
 	{

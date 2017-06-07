@@ -15,8 +15,6 @@ HRESULT terrainPickingTest::init(void)
 		250.0f,
 		10,
 		50);
-	
-
 	_trans = new dx::transform;
 	_dirLight = new lightDirection;
 	_hitPos = D3DXVECTOR3(0, 0, 0);

@@ -21,8 +21,6 @@ const float RANGE = 2.5f;
 class monster : public baseObject
 {
 private:
-	Action*					CurrAction;				//현재 활성화된 행동 클래스
-	Action*					NextAction;				//다음 활성화될 행동 클래스
 	terrain*				linkTerrain;			//링크되서 받아오는 지형클래스
 	vector<baseObject*>*	linkObject;				//참조함수를 통해 받아오는 오브젝트(건물)들의 벡터
 	baseObject*				player;					//플레이어 정보 참조용
@@ -38,6 +36,10 @@ protected:
 	boundBox range;								//탐색범위
 	boundBox hitBox;							//공격용탐색박스
 	LHS::ACTIONRESULT result;					//액션을 위한 입력값
+
+protected:
+	Action*					CurrAction;				//현재 활성화된 행동 클래스
+	Action*					NextAction;				//다음 활성화될 행동 클래스
 public:
 	monster();
 	~monster();
@@ -78,12 +80,11 @@ public:
 	inline LHS::ACTIONRESULT& getResult(void) { return result; }
 
 	//override로 필요하면 재정의 해서 사용하기
-	void baseObjectEnable() override;			//BaseObject가 활성화 될때 실행
-	void baseObjectDisable() override;			//BaseObject가 비활성화 될때 실행
-	void baseObjectUpdate() override;			//BaseObject가 Update 때 실행
-	void baseObjectNoActiveUpdate() override;	//BaseObject가 비활성화시 업데이트 실행
-	void baseObjectRender() override;			//BaseObject를 그릴때 실행
+	virtual void baseObjectEnable() override;			//BaseObject가 활성화 될때 실행
+	virtual void baseObjectDisable() override;			//BaseObject가 비활성화 될때 실행
+	virtual void baseObjectUpdate() override;			//BaseObject가 Update 때 실행
+	virtual void baseObjectNoActiveUpdate() override;	//BaseObject가 비활성화시 업데이트 실행
+	virtual void baseObjectRender() override;			//BaseObject를 그릴때 실행
 
 	void stateSwitch(void);
 };
-
