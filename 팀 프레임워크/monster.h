@@ -21,8 +21,6 @@ const float RANGE = 2.5f;
 class monster : public baseObject
 {
 private:
-	Action*					CurrAction;				//현재 활성화된 행동 클래스
-	Action*					NextAction;				//다음 활성화될 행동 클래스
 	terrain*				linkTerrain;			//링크되서 받아오는 지형클래스
 	vector<baseObject*>*	linkObject;				//참조함수를 통해 받아오는 오브젝트(건물)들의 벡터
 	baseObject*				player;					//플레이어 정보 참조용
@@ -38,6 +36,9 @@ protected:
 	boundBox range;								//탐색범위
 	boundBox hitBox;							//공격용탐색박스
 	LHS::ACTIONRESULT result;					//액션을 위한 입력값
+protected:
+	Action*					CurrAction;				//현재 활성화된 행동 클래스
+	Action*					NextAction;				//다음 활성화될 행동 클래스
 public:
 	monster();
 	~monster();

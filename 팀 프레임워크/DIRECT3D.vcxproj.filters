@@ -178,6 +178,9 @@
     <Filter Include="Z테스트\이현총\테스트용">
       <UniqueIdentifier>{ba7b33f9-39b4-4e72-b35c-6d80956a1859}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameFrameword3D\Action\Boss">
+      <UniqueIdentifier>{56d09b57-16cd-4ec0-bb84-f0323e64432a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -492,6 +495,21 @@
     <ClCompile Include="skill00_03.cpp">
       <Filter>Z테스트\이현총</Filter>
     </ClCompile>
+    <ClCompile Include="bossActionAttack.cpp">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="bossActionCinema.cpp">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="bossActionMove.cpp">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="bossActionSkill.cpp">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="bossMonster.cpp">
+      <Filter>GameFrameword3D\Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -805,6 +823,21 @@
     </ClInclude>
     <ClInclude Include="skill00_03.h">
       <Filter>Z테스트\이현총</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionAttack.h">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionCinema.h">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionMove.h">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionSkill.h">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="bossMonster.h">
+      <Filter>GameFrameword3D\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
