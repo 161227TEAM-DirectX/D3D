@@ -15,7 +15,6 @@ private:
 		SELECT_OBJECT,
 		SELECT_NONE
 	};
-
 private:
 //	dijkstra*			tempDijkstra;
 	monster*			player;
