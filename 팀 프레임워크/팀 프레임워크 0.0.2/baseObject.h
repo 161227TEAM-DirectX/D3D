@@ -4,7 +4,7 @@ class baseObject
 {
 public:
 	xMesh*				_mesh;					//내가 사용할 메쉬
-	dx::transform*			_transform;				//트렌스폼
+	dx::transform*		_transform;				//트렌스폼
 	boundBox			_boundBox;				//충돌박스
 	bool				_ignoreCreateShadow;	//쉐도우맵 만들때 무시되냐?
 
@@ -30,6 +30,8 @@ public:
 	void setActive(bool isActive);
 	//활성화 여부를 얻는다.
 	bool getActive() { return _isActive; }
+
+	skinnedAnimation& getSkinnedAnim(void) { return *_skinnedAnim; }
 
 	//세팅된 메쉬에 따라 바운드박스를 재계산 한다.
 	void computeBoundBox();

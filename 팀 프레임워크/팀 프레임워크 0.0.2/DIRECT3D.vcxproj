@@ -76,6 +76,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -144,6 +146,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Action.h" />
+    <ClInclude Include="ActionAttack.h" />
+    <ClInclude Include="ActionDie.h" />
+    <ClInclude Include="ActionMove.h" />
+    <ClInclude Include="ActionReMove.h" />
+    <ClInclude Include="ActionSeq.h" />
+    <ClInclude Include="ActionStanding.h" />
+    <ClInclude Include="ActionStun.h" />
     <ClInclude Include="baseObject.h" />
     <ClInclude Include="boneHierachy.h" />
     <ClInclude Include="boundBox.h" />
@@ -162,6 +172,7 @@
     <ClInclude Include="cUIImageView.h" />
     <ClInclude Include="cUILoadingBar.h" />
     <ClInclude Include="cUIObject.h" />
+    <ClInclude Include="dijkstra.h" />
     <ClInclude Include="fontManager.h" />
     <ClInclude Include="frustum.h" />
     <ClInclude Include="gameNode.h" />
@@ -173,7 +184,9 @@
     <ClInclude Include="lightDirection.h" />
     <ClInclude Include="lightPoint.h" />
     <ClInclude Include="mainGame.h" />
+    <ClInclude Include="monster.h" />
     <ClInclude Include="myUtil.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="particle.h" />
     <ClInclude Include="particleQuad.h" />
     <ClInclude Include="particleEmitter.h" />
@@ -191,6 +204,7 @@
     <ClInclude Include="spriteManager.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="terrain.h" />
+    <ClInclude Include="terrainPickingTest.h" />
     <ClInclude Include="timeManager.h" />
     <ClInclude Include="transform.h" />
     <ClInclude Include="treeNode.h" />
@@ -199,6 +213,14 @@
     <ClInclude Include="xMeshStatic.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Action.cpp" />
+    <ClCompile Include="ActionAttack.cpp" />
+    <ClCompile Include="ActionDie.cpp" />
+    <ClCompile Include="ActionMove.cpp" />
+    <ClCompile Include="ActionReMove.cpp" />
+    <ClCompile Include="ActionSeq.cpp" />
+    <ClCompile Include="ActionStanding.cpp" />
+    <ClCompile Include="ActionStun.cpp" />
     <ClCompile Include="baseObject.cpp" />
     <ClCompile Include="boneHierachy.cpp" />
     <ClCompile Include="boundBox.cpp" />
@@ -217,6 +239,7 @@
     <ClCompile Include="cUIImageView.cpp" />
     <ClCompile Include="cUILoadingBar.cpp" />
     <ClCompile Include="cUIObject.cpp" />
+    <ClCompile Include="dijkstra.cpp" />
     <ClCompile Include="fontManager.cpp" />
     <ClCompile Include="frustum.cpp" />
     <ClCompile Include="gameNode.cpp" />
@@ -228,7 +251,9 @@
     <ClCompile Include="lightDirection.cpp" />
     <ClCompile Include="lightPoint.cpp" />
     <ClCompile Include="mainGame.cpp" />
+    <ClCompile Include="monster.cpp" />
     <ClCompile Include="myUtil.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="particle.cpp" />
     <ClCompile Include="particleQuad.cpp" />
     <ClCompile Include="particleEmitter.cpp" />
@@ -244,6 +269,7 @@
     <ClCompile Include="skinnedAnimation.cpp" />
     <ClCompile Include="spriteManager.cpp" />
     <ClCompile Include="terrain.cpp" />
+    <ClCompile Include="terrainPickingTest.cpp" />
     <ClCompile Include="timeManager.cpp" />
     <ClCompile Include="transform.cpp" />
     <ClCompile Include="treeNode.cpp" />

@@ -16,6 +16,8 @@
 //레이 구조체
 typedef struct tagRay
 {
+	tagRay() { this->origin = D3DXVECTOR3(0.0f, 0.0f, 0.0f); this->direction = D3DXVECTOR3(0.0f, 0.0f, 0.0f); }
+	tagRay(D3DXVECTOR3& origin, D3DXVECTOR3& direction) { this->origin = origin; this->direction = direction; }
 	D3DXVECTOR3 origin;		//직선의 시작위치
 	D3DXVECTOR3	direction;	//직선의 방향(정규화 되어 있어야 함)
 }Ray, *LPRay;

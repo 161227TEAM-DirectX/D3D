@@ -19,8 +19,13 @@ xMeshSkinned::xMeshSkinned()
 
 HRESULT xMeshSkinned::init(string filePath, D3DXMATRIXA16 * pmatCorrection)
 {
+	this->filePath = filePath;
 	//보정행렬이 들어왔다면...
-	if (pmatCorrection) _matCorrection = *pmatCorrection;
+	if (pmatCorrection)
+	{
+		scale = fabsf(pmatCorrection->_11);
+		_matCorrection = *pmatCorrection;
+	}
 	else D3DXMatrixIdentity(&_matCorrection);
 
 	_pSkinnedEffect = _sSkinnedMeshEffect;

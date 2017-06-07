@@ -1,4 +1,5 @@
 #pragma once
+#include "dijkstra.h"
 
 class quadTree;
 
@@ -36,6 +37,7 @@ private:
 	LPDIRECT3DTEXTURE9				_texTile_2;			//지형 2 층 타일 텍스쳐
 	LPDIRECT3DTEXTURE9				_texTile_3;			//지형 3 층 타일 텍스쳐
 	LPDIRECT3DTEXTURE9				_texSlat;			//스플렛팅 텍스쳐
+	dijkstra*						dijk;				//다익스트라 클래스
 
 	float _cellScale;				//셀 간격
 	float _heightScale;				//높이 스케일(픽셀컬러가 255일때 높이)
@@ -89,6 +91,7 @@ public:
 	//해당 X, Z 위치의 경사 벡터를 얻는다.
 	bool getSlant(D3DXVECTOR3* pOut, float gravityPower, float x, float z);
 
+	dijkstra&	getDijkstra(void) { return *dijk; }
 private:
 	//지형클래스 내부에서만 사용할 함수
 	//지형 정점 만들기

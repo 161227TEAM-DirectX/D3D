@@ -25,11 +25,13 @@
 #include <vector>
 #include <map>
 #include <set>
+#include <queue>
 using namespace std;
 
 // DIRECT3D 헤더 및 라이브러리 추가
 #include <d3d9.h>
 #include <d3dx9.h>
+
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
 
@@ -173,6 +175,25 @@ extern HWND				_hWnd;
 extern HINSTANCE		_hInstance;
 extern float			_timeDelta;
 extern CRITICAL_SECTION _cs;
+
+namespace LHS
+{
+	enum ACTIONRESULT
+	{
+		ACTION_FINISH = 0,
+		ACTION_FAIL,
+		ACTION_PLAY,
+		ACTION_STAND,
+		ACTION_ATT,
+		ACTION_MOVE,
+		ACTION_REMOVE,
+		ACTION_STUN,
+		ACTION_DIE,
+		ACTION_NONE
+	};
+
+	const float MOVETIME = 1.5f;
+}
 
 //====================================================================
 //			## FVF ## (정점 하나에 대한 정보를 정의하는 구조체)

@@ -37,6 +37,7 @@ xMeshStatic::~xMeshStatic()
 
 HRESULT xMeshStatic::init(string filePath, D3DXMATRIXA16 * matCorrection)
 {
+	this->filePath = filePath;
 	LPD3DXBUFFER pAdjacency = NULL;	//인접 버퍼
 	LPD3DXBUFFER pMaterial = NULL;	//재질 버퍼
 
@@ -171,6 +172,7 @@ HRESULT xMeshStatic::init(string filePath, D3DXMATRIXA16 * matCorrection)
 	//보정행렬을 받았다면..
 	if (matCorrection) 
 	{
+		scale = fabsf(matCorrection->_11);
 		meshCorrection(matCorrection);
 	}
 	else 

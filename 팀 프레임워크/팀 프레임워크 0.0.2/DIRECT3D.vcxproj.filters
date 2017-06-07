@@ -118,6 +118,21 @@
     <Filter Include="Z예제\로딩바">
       <UniqueIdentifier>{b4958c71-6179-4893-ace0-6d0822eb97cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Z이현수">
+      <UniqueIdentifier>{d1f5d6e0-5f98-47f0-a12f-5badd3d91d71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Action">
+      <UniqueIdentifier>{1357b203-b657-45e5-9515-b4fb0c2a838b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\dijkstra">
+      <UniqueIdentifier>{04bcc1df-4c1a-48bb-a281-8ad9be0a5b5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Node">
+      <UniqueIdentifier>{414693ff-75af-47c4-8c35-82ff015fb3c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Monster">
+      <UniqueIdentifier>{4b80f731-a373-43b2-9a98-b5715dd477cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -279,6 +294,42 @@
     <ClCompile Include="cLoadingBarTest.cpp">
       <Filter>Z예제\로딩바</Filter>
     </ClCompile>
+    <ClCompile Include="terrainPickingTest.cpp">
+      <Filter>Z이현수</Filter>
+    </ClCompile>
+    <ClCompile Include="Action.cpp">
+      <Filter>GameFrameword3D\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionAttack.cpp">
+      <Filter>GameFrameword3D\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionDie.cpp">
+      <Filter>GameFrameword3D\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionMove.cpp">
+      <Filter>GameFrameword3D\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionReMove.cpp">
+      <Filter>GameFrameword3D\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionSeq.cpp">
+      <Filter>GameFrameword3D\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionStanding.cpp">
+      <Filter>GameFrameword3D\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionStun.cpp">
+      <Filter>GameFrameword3D\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="dijkstra.cpp">
+      <Filter>GameFrameword3D\dijkstra</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>GameFrameword3D\Node</Filter>
+    </ClCompile>
+    <ClCompile Include="monster.cpp">
+      <Filter>GameFrameword3D\Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -439,6 +490,42 @@
     </ClInclude>
     <ClInclude Include="cLoadingBarTest.h">
       <Filter>Z예제\로딩바</Filter>
+    </ClInclude>
+    <ClInclude Include="terrainPickingTest.h">
+      <Filter>Z이현수</Filter>
+    </ClInclude>
+    <ClInclude Include="Action.h">
+      <Filter>GameFrameword3D\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionAttack.h">
+      <Filter>GameFrameword3D\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionDie.h">
+      <Filter>GameFrameword3D\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionMove.h">
+      <Filter>GameFrameword3D\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionReMove.h">
+      <Filter>GameFrameword3D\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionSeq.h">
+      <Filter>GameFrameword3D\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionStanding.h">
+      <Filter>GameFrameword3D\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionStun.h">
+      <Filter>GameFrameword3D\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="dijkstra.h">
+      <Filter>GameFrameword3D\dijkstra</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>GameFrameword3D\Node</Filter>
+    </ClInclude>
+    <ClInclude Include="monster.h">
+      <Filter>GameFrameword3D\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

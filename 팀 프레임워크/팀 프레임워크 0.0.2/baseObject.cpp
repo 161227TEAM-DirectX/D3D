@@ -103,7 +103,18 @@ void baseObject::computeBoundBox()
 		}
 		else//세팅된 메쉬가 xMeshSkinned 라면 임시로 바운드 박스만들기
 		{
-			_boundBox.setBound(&D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+			D3DXMATRIX matScaling;
+			D3DXMatrixScaling(&matScaling, _mesh->getScale()/2, _mesh->getScale()/2, _mesh->getScale()/2);
+			xMesh* mesh = RM_XMESH->getResource(_mesh->getFilePath(), matScaling);
+			xMeshStatic* staticMesh = dynamic_cast<xMeshStatic*>(mesh);
+			
+			_boundBox._localCenter = staticMesh->_boundCenter;
+			_boundBox._halfSize = staticMesh->_boundHalfSize;
+			_boundBox._localMinPos = staticMesh->_boundMin;
+			_boundBox._localMaxPos = staticMesh->_boundMax;
+			_boundBox._radius = staticMesh->_boundRadius;
+
+			//_boundBox.setBound(&D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(10.0f, 10.0f, 10.0f));
 		}
 	}
 }
@@ -123,5 +134,5 @@ void baseObject::baseObjectRender()
 		}
 	}
 	//오브젝트 바운드박스 보여주기
-	//_boundBox.renderGizmo(_transform);
+	_boundBox.renderGizmo(_transform);
 }

@@ -61,7 +61,7 @@ inline void resourceManager<T, A>::removeResource(string filePath)
 		//찾은 리소스 해제
 		releaseResource(find->second);
 		//반복자 삭제
-		_resourceTable.remove(find);
+		_resourceTable.erase(find);
 	}
 }
 

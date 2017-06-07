@@ -63,6 +63,8 @@ HRESULT terrain::init(char * heightMapName, char * tile_0, char * tile_1, char *
 
 	//ÁöÇü ¼ÎÀÌ´õÀÌÆåÆ® ·Îµù
 	_terrainEffect = RM_SHADERFX->getResource("Resources/Shaders/TerrainBase.fx");
+
+	dijk = new dijkstra;
 }
 
 void terrain::release(void)
