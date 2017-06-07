@@ -11,7 +11,16 @@ HRESULT mainGame::init(void)
 //===================================================================================
 //이현총 씬 테스트 헤더파일
 //===================================================================================
-
+	SCENEMANAGER->addScene("파티클 테스트", new particleTest);
+	SCENEMANAGER->addScene("파티클 테스트2", new particleTest02);
+	SCENEMANAGER->addScene("파티클 테스트3", new particleTest03);
+	SCENEMANAGER->addScene("파티클 테스트4", new particleTest04);
+	SCENEMANAGER->addScene("파티클 테스트5", new particleTest05);
+	SCENEMANAGER->addScene("파티클 테스트6", new particleTest06);
+	SCENEMANAGER->addScene("파티클 테스트7", new particleTest07);
+	SCENEMANAGER->addScene("파티클 테스트8", new particleTest08);
+	SCENEMANAGER->addScene("파티클 테스트9", new particleTest09);
+	SCENEMANAGER->addScene("파티클 테스트10", new particleTest10);
 
 //===================================================================================
 //이현수 씬 테스트 헤더파일
@@ -24,7 +33,7 @@ HRESULT mainGame::init(void)
 //===================================================================================
 	////씬추가
 	//SCENEMANAGER->addScene("test", new cLoadingBarTest);
-	SCENEMANAGER->addScene("test", new cLoadingTest);
+	//SCENEMANAGER->addScene("test", new cLoadingTest);
 
 //===================================================================================
 //김태훈 씬 테스트 헤더파일
@@ -37,7 +46,7 @@ HRESULT mainGame::init(void)
 
 
 	//씬초기화
-	SCENEMANAGER->changeScene("test");
+	SCENEMANAGER->changeScene("파티클 테스트8");
 	return S_OK;
 }
 
@@ -114,6 +123,7 @@ void mainGame::initManager(void)
 	RM_SKINNED->init();					//RM스킨드X메쉬 초기화
 	PHYSICSMANAGER->init();				//피직스매니져 초기화
 	SPRITEMANAGER->init();				//스프라이트매니져 초기화
+	PSM->ParticleSystemSetInit();		//파티클시스템매니져 초기화
 }
 
 //==================================================================
@@ -151,6 +161,10 @@ void mainGame::releaseManager(void)
 	//스프라이트매니져 싱글톤 해제
 	SPRITEMANAGER->release();
 	SPRITEMANAGER->releaseSingleton();
+	//파티클시스템매니져 싱글톤 해제
+	PSM->ParticleSystemSetRelease();
+	PSM->releaseSingleton();
+
 	//디바이스 해제
 	ReleaseDevice();
 }

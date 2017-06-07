@@ -121,6 +121,7 @@ using namespace myUtil;
 #include "physicsManager.h"
 #include "spriteManager.h"
 #include "ioBaseManager.h"
+#include "dxParticleSystemManager.h"
 
 #include "cObjectManager.h"
 #include "cTextureManager.h"
@@ -142,7 +143,7 @@ using namespace myUtil;
 #define PHYSICSMANAGER physicsManager::getSingleton()
 #define SPRITEMANAGER spriteManager::getSingleton()
 #define IOBASEMANAGER ioBaseManager::getSingleton()
-
+#define PSM	dxParticleSystemManager::getSingleton()
 
 
 
