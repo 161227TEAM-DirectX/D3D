@@ -11,22 +11,22 @@ HRESULT mainGame::init(void)
 //===================================================================================
 //이현총 씬 테스트 헤더파일
 //===================================================================================
-	SCENEMANAGER->addScene("파티클 테스트", new particleTest);
-	SCENEMANAGER->addScene("파티클 테스트2", new particleTest02);
-	SCENEMANAGER->addScene("파티클 테스트3", new particleTest03);
-	SCENEMANAGER->addScene("파티클 테스트4", new particleTest04);
-	SCENEMANAGER->addScene("파티클 테스트5", new particleTest05);
-	SCENEMANAGER->addScene("파티클 테스트6", new particleTest06);
-	SCENEMANAGER->addScene("파티클 테스트7", new particleTest07);
-	SCENEMANAGER->addScene("파티클 테스트8", new particleTest08);
-	SCENEMANAGER->addScene("파티클 테스트9", new particleTest09);
-	SCENEMANAGER->addScene("파티클 테스트10", new particleTest10);
+	//SCENEMANAGER->addScene("test", new particleTest);
+	//SCENEMANAGER->addScene("test", new particleTest02);
+	//SCENEMANAGER->addScene("test", new particleTest03);
+	//SCENEMANAGER->addScene("test", new particleTest04);
+	//SCENEMANAGER->addScene("test", new particleTest05);
+	//SCENEMANAGER->addScene("test", new particleTest06);
+	//SCENEMANAGER->addScene("test", new particleTest07);
+	//SCENEMANAGER->addScene("test", new particleTest08);
+	//SCENEMANAGER->addScene("test", new particleTest09);
+	//SCENEMANAGER->addScene("test", new particleTest10);
 
 //===================================================================================
 //이현수 씬 테스트 헤더파일
 //===================================================================================
 	//씬추가
-	//SCENEMANAGER->addScene("test", new terrainPickingTest);
+	SCENEMANAGER->addScene("test", new terrainPickingTest);
 
 //===================================================================================
 //김만웅 씬 테스트 헤더파일
@@ -46,7 +46,7 @@ HRESULT mainGame::init(void)
 
 
 	//씬초기화
-	SCENEMANAGER->changeScene("파티클 테스트8");
+	SCENEMANAGER->changeScene("test");
 	return S_OK;
 }
 

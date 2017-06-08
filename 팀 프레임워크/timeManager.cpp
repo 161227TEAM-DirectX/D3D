@@ -119,7 +119,7 @@ void timeManager::render(void)
 	if (!KEYMANAGER->isToggleKey(VK_F8))
 	{
 		char str[128];
-		sprintf(str, "FPS: %d", _frameRate);
+		sprintf_s(str, "FPS: %d", _frameRate);
 		FONTMANAGER->fontOut(str, 0, 0, 0xffffff00);
 		//한프레임당 경과시간
 		//sprintf(str, "DeltaTime: %.2f", _timeElapsed);

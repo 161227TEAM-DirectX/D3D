@@ -484,7 +484,7 @@ void xMeshSkinned::RenderChildBoneName(camera * pCam, BONE * pBone, D3DXVECTOR3 
 		pBone->CombinedTransformationMatrix._42,
 		pBone->CombinedTransformationMatrix._43);
 
-	sprintf(szTemp, "%s", pBone->Name);
+	sprintf_s(szTemp, "%s", pBone->Name);
 
 	DWORD color = 0xff808000;
 	DWORD textColor = 0xffffff00;
