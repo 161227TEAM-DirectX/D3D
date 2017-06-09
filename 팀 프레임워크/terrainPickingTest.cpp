@@ -34,12 +34,12 @@ HRESULT terrainPickingTest::init(void)
 	mat = matScaling * matRotate;
 
 	enemy = new baseObject;
-	enemy->setMesh(RM_XMESH->getResource("Resources/Meshes/x/deathWing.x", mat));
+	enemy->setMesh(RM_XMESH->getResource("Resources/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
 	enemy->setActive(true);
 
 	//임시 몬스터 구현 코드
 	player = new monster;
-	player->setMesh(RM_SKINNED->getResource("Resources/Meshes/x/deathWing.x", mat));
+	player->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
 	player->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
 	player->setRegenPosition(0.0f, tempY, 0.0f);
 	player->LinkObject(testObject);

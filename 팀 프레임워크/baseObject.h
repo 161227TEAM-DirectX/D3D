@@ -37,6 +37,6 @@ public:
 	void computeBoundBox();
 
 	baseObject();
-	~baseObject();
+	virtual ~baseObject();
 };
 

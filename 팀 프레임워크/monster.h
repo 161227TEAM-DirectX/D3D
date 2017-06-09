@@ -41,7 +41,7 @@ protected:
 	Action*					NextAction;				//다음 활성화될 행동 클래스
 public:
 	monster();
-	~monster();
+	virtual ~monster();
 
 	inline int& getHP(void) { return HP; }
 	inline void setHP(const int& temp) { HP = temp; }
@@ -72,6 +72,7 @@ public:
 	inline vector<baseObject*>& getObject(void) { return *linkObject; }
 
 	inline void LinkPlayer(baseObject* player) { this->player = player; }
+	inline baseObject& getPlayer(void) { return *player; }
 
 	inline boundBox& getRange(void) { return range; }
 	inline boundBox& getHitBox(void) { return hitBox; }

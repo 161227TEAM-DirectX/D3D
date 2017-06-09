@@ -20,7 +20,7 @@ int ActionAttack::Start()
 {
 	if (!owner)return LHS::ACTIONRESULT::ACTION_FINISH;
 
-	owner->getSkinnedAnim().Play("Attack2H");
+	owner->getSkinnedAnim().Play("Attack01");
 
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
 }

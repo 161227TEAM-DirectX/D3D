@@ -1,9 +1,13 @@
 #pragma once
 #include "monster.h"
+#include "bossActionAttack.h"
+#include "bossActionCinema.h"
+#include "bossActionMove.h"
+#include "bossActionSkill.h"
 class bossMonster : public monster
 {
 private:
-
+	int Frequency;								//ºóµµÀ²
 public:
 	bossMonster();
 	~bossMonster();

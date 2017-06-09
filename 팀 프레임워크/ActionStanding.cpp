@@ -16,7 +16,7 @@ int ActionStanding::Start()
 {
 	if (!owner)return LHS::ACTIONRESULT::ACTION_FINISH;
 //	temp.setBound(&owner->_skTransform->GetWorldPosition(), &D3DXVECTOR3(RANGE, RANGE, RANGE));
-	owner->getSkinnedAnim().Play("Stand");
+	owner->getSkinnedAnim().Play("Stand01");
 	PassedTime = 0.0f;
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }
