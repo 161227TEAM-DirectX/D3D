@@ -1,0 +1,763 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="GameFrameword3D">
+      <UniqueIdentifier>{c8dd825d-2bd9-4556-b535-28ce64c7a21b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest">
+      <UniqueIdentifier>{dadaa058-2546-44db-b08b-d15423e496ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame">
+      <UniqueIdentifier>{03a573a8-7190-406d-a729-1dd0b1c29548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WinMain">
+      <UniqueIdentifier>{7a330a86-3f3d-46bc-9f8a-6c1a2c04d78c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\매니져">
+      <UniqueIdentifier>{369f663f-3514-4640-a917-6059f473774b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\폴리곤그리기">
+      <UniqueIdentifier>{d0b34e95-d3ab-441f-9017-b853d820edfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\폰트테스트">
+      <UniqueIdentifier>{11e50c24-bc27-4baf-81f6-06c502d043a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\디렉션">
+      <UniqueIdentifier>{4c49e838-2d26-4690-855b-2479cb0b1184}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\텍스쳐">
+      <UniqueIdentifier>{260ddf5d-fc4f-41b3-bdf7-2b1a256a735f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\기즈모">
+      <UniqueIdentifier>{4338ffa0-b307-4f80-943d-f460d6ec1ac5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\게임오브젝트">
+      <UniqueIdentifier>{76f25462-bdf9-450b-a0e0-c61896956c3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\큐브맨">
+      <UniqueIdentifier>{991dd3bb-eacd-40d2-9c8b-a08b15c8bbc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\로테이트">
+      <UniqueIdentifier>{f7f1094c-9580-49e7-a538-f76d42b8d664}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\트렌스폼">
+      <UniqueIdentifier>{de51b458-01f8-4c11-ae18-05b632224aee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\계층구조">
+      <UniqueIdentifier>{8b0c321a-bf30-4855-ba7d-097813ec27dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\키애니메이션">
+      <UniqueIdentifier>{c67443ff-1646-4cfc-a2a2-38b2fc59c6e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\조명재질">
+      <UniqueIdentifier>{36942a17-2a0a-4445-801d-8eb382757f72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\MyUtil">
+      <UniqueIdentifier>{82d0c768-8547-4083-a94a-e793b97fd363}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FX Files">
+      <UniqueIdentifier>{d739b6f3-f7ed-478c-b6a1-ca9de04cf8e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\빌보드">
+      <UniqueIdentifier>{b63acb4a-4f19-461c-9fbf-703680d0c361}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\환경맵%28스카이큐브%29">
+      <UniqueIdentifier>{69871823-0f13-47e7-96a2-5fcbf8071172}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\셰이더 + 텍스쳐">
+      <UniqueIdentifier>{a1f0d79d-5cfd-4045-8430-ee5bb1b445e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\x파일로딩">
+      <UniqueIdentifier>{85b91274-7de6-46e2-9542-49e24950e31d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\BaseObject">
+      <UniqueIdentifier>{5ebd70fc-3d7c-4788-aff5-067692d58dda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\BoundBox">
+      <UniqueIdentifier>{d4bef6e2-fcd0-4de1-8ec6-95265d04cbf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\바운딩박스">
+      <UniqueIdentifier>{75974f7e-3239-49a9-a745-cd5f168c7196}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\바운딩박스 + 충돌">
+      <UniqueIdentifier>{88fa99fa-0a2b-4207-836a-21d10cb6e76c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\레이캐스트">
+      <UniqueIdentifier>{98f254eb-2356-49bd-9f9a-08a8f61792a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\스프라이트">
+      <UniqueIdentifier>{69c02b04-48d2-4a23-b617-edc3bb103360}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Terrain">
+      <UniqueIdentifier>{3ddf39fc-731f-4f5c-b83f-0993a4e2d08a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Transform">
+      <UniqueIdentifier>{7fc2d724-5147-4cad-9267-42f59a5694e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Light">
+      <UniqueIdentifier>{0886260c-2111-4370-bc10-3e67a06e88f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Camera">
+      <UniqueIdentifier>{619bcb28-7856-48e7-8646-11769b6e75cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\지형 + 피킹">
+      <UniqueIdentifier>{f7e3d78a-b479-4dc8-bfe1-7f98308327d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\스킨드애니메이션">
+      <UniqueIdentifier>{ffe5fbc3-4466-4492-8467-bc7e2bc29dbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\SkinnedAni">
+      <UniqueIdentifier>{615b43d5-a2b4-45eb-bfff-91802031d7c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\xMesh">
+      <UniqueIdentifier>{6f085a66-dede-4155-976d-f16732491c00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Particle">
+      <UniqueIdentifier>{c204f9bf-d7bc-4de8-9da9-a485cdb0cd4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\파티클">
+      <UniqueIdentifier>{1ce37db5-49d2-45aa-a4ce-a24d737f2a30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\Frustum">
+      <UniqueIdentifier>{60ee832d-3b10-4d99-8a4b-1fa16028e3bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\절두체컬링 + RTT">
+      <UniqueIdentifier>{1286144f-9c14-47ec-a2ee-2b8e3b6d4e61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTest\쉐도우">
+      <UniqueIdentifier>{43cb87c0-2d3d-4538-bf13-5964773c775d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrameWorkTest">
+      <UniqueIdentifier>{5cad33b2-99f1-46dc-a932-b14ee6e2ba18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{d614b151-976d-44e9-ad78-70993082b1b9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="WinMain.cpp">
+      <Filter>WinMain</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>WinMain</Filter>
+    </ClCompile>
+    <ClCompile Include="gameNode.cpp">
+      <Filter>MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="mainGame.cpp">
+      <Filter>MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="keyManager.cpp">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="timeManager.cpp">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneManager.cpp">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="myUtil.cpp">
+      <Filter>GameFrameword3D\MyUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="grid.cpp">
+      <Filter>GameTest\폴리곤그리기</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneTest_0.cpp">
+      <Filter>GameTest\폴리곤그리기</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneTest_1.cpp">
+      <Filter>GameTest\폴리곤그리기</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneTest_2.cpp">
+      <Filter>GameTest\폴리곤그리기</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneTest_3.cpp">
+      <Filter>GameTest\폴리곤그리기</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneTest_4.cpp">
+      <Filter>GameTest\폴리곤그리기</Filter>
+    </ClCompile>
+    <ClCompile Include="fontTestScene.cpp">
+      <Filter>GameTest\폰트테스트</Filter>
+    </ClCompile>
+    <ClCompile Include="fontManager.cpp">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="directionTestScene.cpp">
+      <Filter>GameTest\디렉션</Filter>
+    </ClCompile>
+    <ClCompile Include="textureTestScene.cpp">
+      <Filter>GameTest\텍스쳐</Filter>
+    </ClCompile>
+    <ClCompile Include="gizmoManager.cpp">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="gizmoTestScene.cpp">
+      <Filter>GameTest\기즈모</Filter>
+    </ClCompile>
+    <ClCompile Include="treeNode.cpp">
+      <Filter>GameFrameword3D\게임오브젝트</Filter>
+    </ClCompile>
+    <ClCompile Include="gameObject.cpp">
+      <Filter>GameFrameword3D\게임오브젝트</Filter>
+    </ClCompile>
+    <ClCompile Include="characterController.cpp">
+      <Filter>GameFrameword3D\게임오브젝트</Filter>
+    </ClCompile>
+    <ClCompile Include="cubeManScene.cpp">
+      <Filter>GameTest\큐브맨</Filter>
+    </ClCompile>
+    <ClCompile Include="cube.cpp">
+      <Filter>GameFrameword3D\게임오브젝트</Filter>
+    </ClCompile>
+    <ClCompile Include="cameraManager.cpp">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="rotateTest_0.cpp">
+      <Filter>GameTest\로테이트</Filter>
+    </ClCompile>
+    <ClCompile Include="rotateTest_1.cpp">
+      <Filter>GameTest\로테이트</Filter>
+    </ClCompile>
+    <ClCompile Include="transform.cpp">
+      <Filter>GameFrameword3D\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="transformTest.cpp">
+      <Filter>GameTest\트렌스폼</Filter>
+    </ClCompile>
+    <ClCompile Include="hierarchyScene0.cpp">
+      <Filter>GameTest\계층구조</Filter>
+    </ClCompile>
+    <ClCompile Include="hierarchyScene1.cpp">
+      <Filter>GameTest\계층구조</Filter>
+    </ClCompile>
+    <ClCompile Include="hierarchyScene2.cpp">
+      <Filter>GameTest\계층구조</Filter>
+    </ClCompile>
+    <ClCompile Include="hierarchyScene3.cpp">
+      <Filter>GameTest\계층구조</Filter>
+    </ClCompile>
+    <ClCompile Include="aniTestScene.cpp">
+      <Filter>GameTest\키애니메이션</Filter>
+    </ClCompile>
+    <ClCompile Include="keyFrameAniTestScene.cpp">
+      <Filter>GameTest\키애니메이션</Filter>
+    </ClCompile>
+    <ClCompile Include="lightTestScene.cpp">
+      <Filter>GameTest\조명재질</Filter>
+    </ClCompile>
+    <ClCompile Include="defMeshMaterialScene.cpp">
+      <Filter>GameTest\조명재질</Filter>
+    </ClCompile>
+    <ClCompile Include="shaderTestScene.cpp">
+      <Filter>GameTest\셰이더 + 텍스쳐</Filter>
+    </ClCompile>
+    <ClCompile Include="phongShaderTest.cpp">
+      <Filter>GameTest\셰이더 + 텍스쳐</Filter>
+    </ClCompile>
+    <ClCompile Include="shaderTextureTest.cpp">
+      <Filter>GameTest\셰이더 + 텍스쳐</Filter>
+    </ClCompile>
+    <ClCompile Include="textureFilterTest.cpp">
+      <Filter>GameTest\텍스쳐</Filter>
+    </ClCompile>
+    <ClCompile Include="shaderHW1.cpp">
+      <Filter>GameTest\셰이더 + 텍스쳐</Filter>
+    </ClCompile>
+    <ClCompile Include="shaderHW2.cpp">
+      <Filter>GameTest\셰이더 + 텍스쳐</Filter>
+    </ClCompile>
+    <ClCompile Include="shaderHW3.cpp">
+      <Filter>GameTest\셰이더 + 텍스쳐</Filter>
+    </ClCompile>
+    <ClCompile Include="billboardTest.cpp">
+      <Filter>GameTest\빌보드</Filter>
+    </ClCompile>
+    <ClCompile Include="normalTest1.cpp">
+      <Filter>GameTest\셰이더 + 텍스쳐</Filter>
+    </ClCompile>
+    <ClCompile Include="normalTest2.cpp">
+      <Filter>GameTest\셰이더 + 텍스쳐</Filter>
+    </ClCompile>
+    <ClCompile Include="resourceManager.cpp">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="rmShaderFX.cpp">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="rmTexture.cpp">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="skyCubeTest.cpp">
+      <Filter>GameTest\환경맵%28스카이큐브%29</Filter>
+    </ClCompile>
+    <ClCompile Include="xMeshLoading.cpp">
+      <Filter>GameTest\x파일로딩</Filter>
+    </ClCompile>
+    <ClCompile Include="xMeshLoadinigWithCorrectMatrix.cpp">
+      <Filter>GameTest\x파일로딩</Filter>
+    </ClCompile>
+    <ClCompile Include="useXMeshClass.cpp">
+      <Filter>GameTest\x파일로딩</Filter>
+    </ClCompile>
+    <ClCompile Include="rmStaticMesh.cpp">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="baseObject.cpp">
+      <Filter>GameFrameword3D\BaseObject</Filter>
+    </ClCompile>
+    <ClCompile Include="boundSphere.cpp">
+      <Filter>GameFrameword3D\BoundBox</Filter>
+    </ClCompile>
+    <ClCompile Include="boundBox.cpp">
+      <Filter>GameFrameword3D\BoundBox</Filter>
+    </ClCompile>
+    <ClCompile Include="boundBoxTest.cpp">
+      <Filter>GameTest\바운딩박스</Filter>
+    </ClCompile>
+    <ClCompile Include="playerPlane.cpp">
+      <Filter>GameTest\바운딩박스</Filter>
+    </ClCompile>
+    <ClCompile Include="enemyPlane.cpp">
+      <Filter>GameTest\바운딩박스</Filter>
+    </ClCompile>
+    <ClCompile Include="physicsManager.cpp">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="collisionTest.cpp">
+      <Filter>GameTest\바운딩박스 + 충돌</Filter>
+    </ClCompile>
+    <ClCompile Include="raycastTest.cpp">
+      <Filter>GameTest\레이캐스트</Filter>
+    </ClCompile>
+    <ClCompile Include="spriteTest.cpp">
+      <Filter>GameTest\스프라이트</Filter>
+    </ClCompile>
+    <ClCompile Include="spriteManager.cpp">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="boundObject.cpp">
+      <Filter>GameFrameword3D\BaseObject</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>GameFrameword3D\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="light.cpp">
+      <Filter>GameFrameword3D\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="lightDirection.cpp">
+      <Filter>GameFrameword3D\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="lightPoint.cpp">
+      <Filter>GameFrameword3D\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="xMeshStatic.cpp">
+      <Filter>GameFrameword3D\xMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="xMesh.cpp">
+      <Filter>GameFrameword3D\xMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="quadTree.cpp">
+      <Filter>GameFrameword3D\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="terrain.cpp">
+      <Filter>GameFrameword3D\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="terrainPickingTest.cpp">
+      <Filter>GameTest\지형 + 피킹</Filter>
+    </ClCompile>
+    <ClCompile Include="skinnedAniTest.cpp">
+      <Filter>GameTest\스킨드애니메이션</Filter>
+    </ClCompile>
+    <ClCompile Include="boneHierachy.cpp">
+      <Filter>GameFrameword3D\SkinnedAni</Filter>
+    </ClCompile>
+    <ClCompile Include="skinnedAnimation.cpp">
+      <Filter>GameFrameword3D\SkinnedAni</Filter>
+    </ClCompile>
+    <ClCompile Include="xMeshSkinned.cpp">
+      <Filter>GameFrameword3D\xMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="rmSkinnedMesh.cpp">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="particle.cpp">
+      <Filter>GameFrameword3D\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="particleQuad.cpp">
+      <Filter>GameFrameword3D\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="quadParticleEmitter.cpp">
+      <Filter>GameFrameword3D\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="_1pointPaticle.cpp">
+      <Filter>GameTest\파티클</Filter>
+    </ClCompile>
+    <ClCompile Include="_2particleEmitter.cpp">
+      <Filter>GameTest\파티클</Filter>
+    </ClCompile>
+    <ClCompile Include="_3quadParticleEmitter.cpp">
+      <Filter>GameTest\파티클</Filter>
+    </ClCompile>
+    <ClCompile Include="_4snowPaticle.cpp">
+      <Filter>GameTest\파티클</Filter>
+    </ClCompile>
+    <ClCompile Include="particleEmitter.cpp">
+      <Filter>GameFrameword3D\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="frustum.cpp">
+      <Filter>GameFrameword3D\Frustum</Filter>
+    </ClCompile>
+    <ClCompile Include="frustumTest.cpp">
+      <Filter>GameTest\절두체컬링 + RTT</Filter>
+    </ClCompile>
+    <ClCompile Include="renderToTexture1.cpp">
+      <Filter>GameTest\절두체컬링 + RTT</Filter>
+    </ClCompile>
+    <ClCompile Include="renderToTexture2.cpp">
+      <Filter>GameTest\절두체컬링 + RTT</Filter>
+    </ClCompile>
+    <ClCompile Include="shadowTest1.cpp">
+      <Filter>GameTest\쉐도우</Filter>
+    </ClCompile>
+    <ClCompile Include="shadowTest2.cpp">
+      <Filter>GameTest\쉐도우</Filter>
+    </ClCompile>
+    <ClCompile Include="testScene1.cpp">
+      <Filter>FrameWorkTest</Filter>
+    </ClCompile>
+    <ClCompile Include="xPlayer.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>WinMain</Filter>
+    </ClInclude>
+    <ClInclude Include="gameNode.h">
+      <Filter>MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="mainGame.h">
+      <Filter>MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="singletonBase.h">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="keyManager.h">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="sceneManager.h">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="myUtil.h">
+      <Filter>GameFrameword3D\MyUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="grid.h">
+      <Filter>GameTest\폴리곤그리기</Filter>
+    </ClInclude>
+    <ClInclude Include="sceneTest_0.h">
+      <Filter>GameTest\폴리곤그리기</Filter>
+    </ClInclude>
+    <ClInclude Include="sceneTest_1.h">
+      <Filter>GameTest\폴리곤그리기</Filter>
+    </ClInclude>
+    <ClInclude Include="sceneTest_2.h">
+      <Filter>GameTest\폴리곤그리기</Filter>
+    </ClInclude>
+    <ClInclude Include="sceneTest_3.h">
+      <Filter>GameTest\폴리곤그리기</Filter>
+    </ClInclude>
+    <ClInclude Include="sceneTest_4.h">
+      <Filter>GameTest\폴리곤그리기</Filter>
+    </ClInclude>
+    <ClInclude Include="fontTestScene.h">
+      <Filter>GameTest\폰트테스트</Filter>
+    </ClInclude>
+    <ClInclude Include="fontManager.h">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="directionTestScene.h">
+      <Filter>GameTest\디렉션</Filter>
+    </ClInclude>
+    <ClInclude Include="timeManager.h">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="textureTestScene.h">
+      <Filter>GameTest\텍스쳐</Filter>
+    </ClInclude>
+    <ClInclude Include="gizmoManager.h">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="gizmoTestScene.h">
+      <Filter>GameTest\기즈모</Filter>
+    </ClInclude>
+    <ClInclude Include="treeNode.h">
+      <Filter>GameFrameword3D\게임오브젝트</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObject.h">
+      <Filter>GameFrameword3D\게임오브젝트</Filter>
+    </ClInclude>
+    <ClInclude Include="characterController.h">
+      <Filter>GameFrameword3D\게임오브젝트</Filter>
+    </ClInclude>
+    <ClInclude Include="cubeManScene.h">
+      <Filter>GameTest\큐브맨</Filter>
+    </ClInclude>
+    <ClInclude Include="cube.h">
+      <Filter>GameFrameword3D\게임오브젝트</Filter>
+    </ClInclude>
+    <ClInclude Include="cameraManager.h">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="rotateTest_0.h">
+      <Filter>GameTest\로테이트</Filter>
+    </ClInclude>
+    <ClInclude Include="rotateTest_1.h">
+      <Filter>GameTest\로테이트</Filter>
+    </ClInclude>
+    <ClInclude Include="transform.h">
+      <Filter>GameFrameword3D\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="transformTest.h">
+      <Filter>GameTest\트렌스폼</Filter>
+    </ClInclude>
+    <ClInclude Include="hierarchyScene0.h">
+      <Filter>GameTest\계층구조</Filter>
+    </ClInclude>
+    <ClInclude Include="hierarchyScene1.h">
+      <Filter>GameTest\계층구조</Filter>
+    </ClInclude>
+    <ClInclude Include="hierarchyScene2.h">
+      <Filter>GameTest\계층구조</Filter>
+    </ClInclude>
+    <ClInclude Include="hierarchyScene3.h">
+      <Filter>GameTest\계층구조</Filter>
+    </ClInclude>
+    <ClInclude Include="aniTestScene.h">
+      <Filter>GameTest\키애니메이션</Filter>
+    </ClInclude>
+    <ClInclude Include="keyFrameAniTestScene.h">
+      <Filter>GameTest\키애니메이션</Filter>
+    </ClInclude>
+    <ClInclude Include="lightTestScene.h">
+      <Filter>GameTest\조명재질</Filter>
+    </ClInclude>
+    <ClInclude Include="defMeshMaterialScene.h">
+      <Filter>GameTest\조명재질</Filter>
+    </ClInclude>
+    <ClInclude Include="shaderTestScene.h">
+      <Filter>GameTest\셰이더 + 텍스쳐</Filter>
+    </ClInclude>
+    <ClInclude Include="phongShaderTest.h">
+      <Filter>GameTest\셰이더 + 텍스쳐</Filter>
+    </ClInclude>
+    <ClInclude Include="shaderTextureTest.h">
+      <Filter>GameTest\셰이더 + 텍스쳐</Filter>
+    </ClInclude>
+    <ClInclude Include="textureFilterTest.h">
+      <Filter>GameTest\텍스쳐</Filter>
+    </ClInclude>
+    <ClInclude Include="shaderHW1.h">
+      <Filter>GameTest\셰이더 + 텍스쳐</Filter>
+    </ClInclude>
+    <ClInclude Include="shaderHW2.h">
+      <Filter>GameTest\셰이더 + 텍스쳐</Filter>
+    </ClInclude>
+    <ClInclude Include="shaderHW3.h">
+      <Filter>GameTest\셰이더 + 텍스쳐</Filter>
+    </ClInclude>
+    <ClInclude Include="billboardTest.h">
+      <Filter>GameTest\빌보드</Filter>
+    </ClInclude>
+    <ClInclude Include="normalTest1.h">
+      <Filter>GameTest\셰이더 + 텍스쳐</Filter>
+    </ClInclude>
+    <ClInclude Include="normalTest2.h">
+      <Filter>GameTest\셰이더 + 텍스쳐</Filter>
+    </ClInclude>
+    <ClInclude Include="resourceManager.h">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="rmShaderFX.h">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="rmTexture.h">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="skyCubeTest.h">
+      <Filter>GameTest\환경맵%28스카이큐브%29</Filter>
+    </ClInclude>
+    <ClInclude Include="xMeshLoading.h">
+      <Filter>GameTest\x파일로딩</Filter>
+    </ClInclude>
+    <ClInclude Include="xMeshLoadinigWithCorrectMatrix.h">
+      <Filter>GameTest\x파일로딩</Filter>
+    </ClInclude>
+    <ClInclude Include="useXMeshClass.h">
+      <Filter>GameTest\x파일로딩</Filter>
+    </ClInclude>
+    <ClInclude Include="rmStaticMesh.h">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="baseObject.h">
+      <Filter>GameFrameword3D\BaseObject</Filter>
+    </ClInclude>
+    <ClInclude Include="boundSphere.h">
+      <Filter>GameFrameword3D\BoundBox</Filter>
+    </ClInclude>
+    <ClInclude Include="boundBox.h">
+      <Filter>GameFrameword3D\BoundBox</Filter>
+    </ClInclude>
+    <ClInclude Include="boundBoxTest.h">
+      <Filter>GameTest\바운딩박스</Filter>
+    </ClInclude>
+    <ClInclude Include="playerPlane.h">
+      <Filter>GameTest\바운딩박스</Filter>
+    </ClInclude>
+    <ClInclude Include="enemyPlane.h">
+      <Filter>GameTest\바운딩박스</Filter>
+    </ClInclude>
+    <ClInclude Include="physicsManager.h">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="collisionTest.h">
+      <Filter>GameTest\바운딩박스 + 충돌</Filter>
+    </ClInclude>
+    <ClInclude Include="raycastTest.h">
+      <Filter>GameTest\레이캐스트</Filter>
+    </ClInclude>
+    <ClInclude Include="spriteTest.h">
+      <Filter>GameTest\스프라이트</Filter>
+    </ClInclude>
+    <ClInclude Include="spriteManager.h">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="boundObject.h">
+      <Filter>GameFrameword3D\BaseObject</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>GameFrameword3D\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="light.h">
+      <Filter>GameFrameword3D\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="lightDirection.h">
+      <Filter>GameFrameword3D\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="lightPoint.h">
+      <Filter>GameFrameword3D\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="xMeshStatic.h">
+      <Filter>GameFrameword3D\xMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="xMesh.h">
+      <Filter>GameFrameword3D\xMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="quadTree.h">
+      <Filter>GameFrameword3D\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="terrain.h">
+      <Filter>GameFrameword3D\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="terrainPickingTest.h">
+      <Filter>GameTest\지형 + 피킹</Filter>
+    </ClInclude>
+    <ClInclude Include="skinnedAniTest.h">
+      <Filter>GameTest\스킨드애니메이션</Filter>
+    </ClInclude>
+    <ClInclude Include="boneHierachy.h">
+      <Filter>GameFrameword3D\SkinnedAni</Filter>
+    </ClInclude>
+    <ClInclude Include="skinnedAnimation.h">
+      <Filter>GameFrameword3D\SkinnedAni</Filter>
+    </ClInclude>
+    <ClInclude Include="xMeshSkinned.h">
+      <Filter>GameFrameword3D\xMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="rmSkinnedMesh.h">
+      <Filter>GameFrameword3D\매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="particle.h">
+      <Filter>GameFrameword3D\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="particleQuad.h">
+      <Filter>GameFrameword3D\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="quadParticleEmitter.h">
+      <Filter>GameFrameword3D\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="_1pointPaticle.h">
+      <Filter>GameTest\파티클</Filter>
+    </ClInclude>
+    <ClInclude Include="_2particleEmitter.h">
+      <Filter>GameTest\파티클</Filter>
+    </ClInclude>
+    <ClInclude Include="_3quadParticleEmitter.h">
+      <Filter>GameTest\파티클</Filter>
+    </ClInclude>
+    <ClInclude Include="_4snowPaticle.h">
+      <Filter>GameTest\파티클</Filter>
+    </ClInclude>
+    <ClInclude Include="particleEmitter.h">
+      <Filter>GameFrameword3D\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="frustum.h">
+      <Filter>GameFrameword3D\Frustum</Filter>
+    </ClInclude>
+    <ClInclude Include="frustumTest.h">
+      <Filter>GameTest\절두체컬링 + RTT</Filter>
+    </ClInclude>
+    <ClInclude Include="renderToTexture1.h">
+      <Filter>GameTest\절두체컬링 + RTT</Filter>
+    </ClInclude>
+    <ClInclude Include="renderToTexture2.h">
+      <Filter>GameTest\절두체컬링 + RTT</Filter>
+    </ClInclude>
+    <ClInclude Include="shadowTest1.h">
+      <Filter>GameTest\쉐도우</Filter>
+    </ClInclude>
+    <ClInclude Include="shadowTest2.h">
+      <Filter>GameTest\쉐도우</Filter>
+    </ClInclude>
+    <ClInclude Include="testScene1.h">
+      <Filter>FrameWorkTest</Filter>
+    </ClInclude>
+    <ClInclude Include="xPlayer.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Texture_Gray.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Texture_Mask.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Texture_Terrain.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="TextureAlpha.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="TextureBlinn.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="TextureNormal.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="TextureNormal2.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="리소스\FX\EnvironmentCUBE.fx">
+      <Filter>FX Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>
