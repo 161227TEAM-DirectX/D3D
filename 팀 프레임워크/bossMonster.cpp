@@ -2,7 +2,7 @@
 #include "bossMonster.h"
 
 
-bossMonster::bossMonster() : monster()
+bossMonster::bossMonster() : monster(), Frequency(0)
 {
 }
 
@@ -70,5 +70,27 @@ void bossMonster::baseObjectRender()
 
 void bossMonster::switchState(void)
 {
-
+	switch (result)
+	{
+	case LHS::BOSSAC_ATT:
+		break;
+	case LHS::BOSSAC_DIE:
+		break;
+	case LHS::BOSSAC_FAIL:
+		break;
+	case LHS::BOSSAC_FINISH:
+		break;
+	case LHS::BOSSAC_MOVE:
+		break;
+	case LHS::BOSSAC_NONE:
+		break;
+	case LHS::BOSSAC_PLAY:
+		break;
+	case LHS::BOSSAC_REMOVE:
+		break;
+	case LHS::BOSSAC_SKILL:
+		break;
+	case LHS::BOSSAC_STAND:
+		break;
+	}
 }

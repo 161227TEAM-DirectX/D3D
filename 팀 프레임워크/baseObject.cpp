@@ -104,15 +104,19 @@ void baseObject::computeBoundBox()
 		else//세팅된 메쉬가 xMeshSkinned 라면 임시로 바운드 박스만들기
 		{
 			D3DXMATRIX matScaling;
-			//D3DXMatrixScaling(&matScaling, _mesh->getScale()/2, _mesh->getScale()/2, _mesh->getScale()/2);
-			xMesh* mesh = RM_XMESH->getResource(_mesh->getFilePath(), matScaling);
+			D3DXMATRIX mat;
+			D3DXMATRIX matRotate;
+			D3DXMatrixScaling(&matScaling, _mesh->getScale()/2, _mesh->getScale()/2, _mesh->getScale()/2);
+			D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
+			mat = matScaling * matRotate;
+			xMesh* mesh = RM_XMESH->getResource(_mesh->getFilePath(), mat);
 			xMeshStatic* staticMesh = dynamic_cast<xMeshStatic*>(mesh);
 			
 			_boundBox._localCenter = staticMesh->_boundCenter;
-			_boundBox._halfSize = staticMesh->_boundHalfSize/2;
-			_boundBox._localMinPos = staticMesh->_boundMin/2;
-			_boundBox._localMaxPos = staticMesh->_boundMax/2;
-			_boundBox._radius = staticMesh->_boundRadius/2;
+			_boundBox._halfSize = staticMesh->_boundHalfSize;
+			_boundBox._localMinPos = staticMesh->_boundMin;
+			_boundBox._localMaxPos = staticMesh->_boundMax;
+			_boundBox._radius = staticMesh->_boundRadius;
 
 			//_boundBox.setBound(&D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(10.0f, 10.0f, 10.0f));
 		}
