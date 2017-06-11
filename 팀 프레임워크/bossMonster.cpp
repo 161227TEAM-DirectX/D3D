@@ -26,7 +26,7 @@ void bossMonster::baseObjectEnable()
 	soul = myUtil::RandomIntRange(MINGS, MAXGS);
 	att = DEFAULTATT;
 	def = DEFAULTDEF;
-	CurrAction = new bossActionCinema;
+	CurrAction = new bossActionAttack;
 	CurrAction->setOwner(this);
 	CurrAction->setObject(&monster::getObject());
 	CurrAction->setRand(monster::getTerrain());

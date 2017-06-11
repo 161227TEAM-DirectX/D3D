@@ -99,7 +99,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 		_timeDelta = TIMEMANAGER->getElapedTime();
 		if ((_timeDelta - _oldTimeDelta) > Gap)
 		{
-			_timeDelta = _oldTimeDelta;
+			_timeDelta = Gap;
 		}
 		_oldTimeDelta = _timeDelta;
 		_mg.update();

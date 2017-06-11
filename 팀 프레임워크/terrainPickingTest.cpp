@@ -73,28 +73,28 @@ HRESULT terrainPickingTest::init(void)
 	_sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(90), 0, 0);
 	this->setEnvironment("Resources/TextureCUBE/SuperKanjiCube.dds");
 
-	//라이트 세팅
-	lightDirection* light1 = new lightDirection;
-	light1->_color = D3DXCOLOR(1, 1, 1, 1);
-	light1->_intensity = 1.0f;
+	////라이트 세팅
+	//lightDirection* light1 = new lightDirection;
+	//light1->_color = D3DXCOLOR(1, 1, 1, 1);
+	//light1->_intensity = 1.0f;
 
-	lightPoint* light2 = new lightPoint;
-	light2->_color = D3DXCOLOR(1, 0, 0, 0);
-	light2->_minRange = 5.0f;
-	light2->_maxRange = 10.0f;
-	light2->_distancePow = 10.0f;
+	//lightPoint* light2 = new lightPoint;
+	//light2->_color = D3DXCOLOR(1, 0, 0, 0);
+	//light2->_minRange = 5.0f;
+	//light2->_maxRange = 10.0f;
+	//light2->_distancePow = 10.0f;
 
-	lightPoint* light3 = new lightPoint;
-	light3->_color = D3DXCOLOR(0, 1, 0, 0);
-	light3->_minRange = 5.0f;
-	light3->_maxRange = 10.0f;
-	light3->_distancePow = 10.0f;
-	light3->_transform->SetWorldPosition(3, 3, 0);
-	light3->_intensity = 0.5f;
+	//lightPoint* light3 = new lightPoint;
+	//light3->_color = D3DXCOLOR(0, 1, 0, 0);
+	//light3->_minRange = 5.0f;
+	//light3->_maxRange = 10.0f;
+	//light3->_distancePow = 10.0f;
+	//light3->_transform->SetWorldPosition(3, 3, 0);
+	//light3->_intensity = 0.5f;
 
-	_lights.push_back(light1);
-	_lights.push_back(light2);
-	_lights.push_back(light3);
+	//_lights.push_back(light1);
+	//_lights.push_back(light2);
+	//_lights.push_back(light3);
 
 	lButtonState = SELECTFUNC::SELECT_NONE;
 

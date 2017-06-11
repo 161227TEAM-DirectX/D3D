@@ -3,6 +3,9 @@
 #include "bossMonster.h"
 class bossActionAttack : public Action
 {
+private:
+	float passedTime;
+	float activeTime;
 public:
 	bossActionAttack();
 	~bossActionAttack();
