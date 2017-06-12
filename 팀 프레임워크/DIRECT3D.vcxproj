@@ -160,6 +160,7 @@
     <ClInclude Include="bossActionCinema.h" />
     <ClInclude Include="bossActionMove.h" />
     <ClInclude Include="bossActionSkill.h" />
+    <ClInclude Include="bossActionSkillFire.h" />
     <ClInclude Include="bossMonster.h" />
     <ClInclude Include="boundBox.h" />
     <ClInclude Include="boundObject.h" />
@@ -271,6 +272,7 @@
     <ClCompile Include="bossActionCinema.cpp" />
     <ClCompile Include="bossActionMove.cpp" />
     <ClCompile Include="bossActionSkill.cpp" />
+    <ClCompile Include="bossActionSkillFire.cpp" />
     <ClCompile Include="bossMonster.cpp" />
     <ClCompile Include="boundBox.cpp" />
     <ClCompile Include="boundObject.cpp" />

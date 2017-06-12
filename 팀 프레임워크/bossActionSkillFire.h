@@ -1,16 +1,10 @@
 #pragma once
 #include "Action.h"
-class bossActionMove : public Action
+class bossActionSkillFire : public Action
 {
-private:
-	D3DXVECTOR3 to;
-	D3DXVECTOR3 from;
-	D3DXVECTOR3 range;
-
-	float speed;
 public:
-	bossActionMove();
-	~bossActionMove();
+	bossActionSkillFire();
+	~bossActionSkillFire();
 
 	//액션의 시작을 정의하는 함수 - 순수가상함수
 	int Start() override;

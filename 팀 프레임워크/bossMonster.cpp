@@ -26,7 +26,7 @@ void bossMonster::baseObjectEnable()
 	soul = myUtil::RandomIntRange(MINGS, MAXGS);
 	att = DEFAULTATT;
 	def = DEFAULTDEF;
-	CurrAction = new bossActionAttack;
+	CurrAction = new bossActionMove;
 	CurrAction->setOwner(this);
 	CurrAction->setObject(&monster::getObject());
 	CurrAction->setRand(monster::getTerrain());
@@ -72,25 +72,21 @@ void bossMonster::switchState(void)
 {
 	switch (result)
 	{
-	case LHS::BOSSAC_ATT:
+	case LHS::ACTION_ATT:
 		break;
-	case LHS::BOSSAC_DIE:
+	case LHS::ACTION_DIE:
 		break;
-	case LHS::BOSSAC_FAIL:
+	case LHS::ACTION_FAIL:
 		break;
-	case LHS::BOSSAC_FINISH:
+	case LHS::ACTION_FINISH:
 		break;
-	case LHS::BOSSAC_MOVE:
+	case LHS::ACTION_MOVE:
 		break;
-	case LHS::BOSSAC_NONE:
+	case LHS::ACTION_NONE:
 		break;
-	case LHS::BOSSAC_PLAY:
-		break;
-	case LHS::BOSSAC_REMOVE:
-		break;
-	case LHS::BOSSAC_SKILL:
-		break;
-	case LHS::BOSSAC_STAND:
+	case LHS::ACTION_PLAY:
+		return;
+	case LHS::ACTION_REMOVE:
 		break;
 	}
 }

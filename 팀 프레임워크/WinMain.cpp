@@ -95,11 +95,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 		//타임매니져 업데이트(FPS 60)
 		TIMEMANAGER->update(60.0f);
 		_timeDelta = TIMEMANAGER->getElapedTime();
-		if ((_timeDelta - _oldTimeDelta) > Gap)
-		{
-			_timeDelta = Gap;
-		}
-		_oldTimeDelta = _timeDelta;
 		_mg.update();
 		_mg.render();
 	}

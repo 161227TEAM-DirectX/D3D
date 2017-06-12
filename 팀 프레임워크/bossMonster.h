@@ -4,6 +4,7 @@
 #include "bossActionCinema.h"
 #include "bossActionMove.h"
 #include "bossActionSkill.h"
+#include "bossActionSkillFire.h"
 class bossMonster : public monster
 {
 private:

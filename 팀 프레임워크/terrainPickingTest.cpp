@@ -73,6 +73,9 @@ HRESULT terrainPickingTest::init(void)
 	_sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(90), 0, 0);
 	this->setEnvironment("Resources/TextureCUBE/SuperKanjiCube.dds");
 
+	_mainCamera->SetWorldPosition(0.0f, 60.0f, 10.0f);
+	_mainCamera->LookPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+
 	////라이트 세팅
 	//lightDirection* light1 = new lightDirection;
 	//light1->_color = D3DXCOLOR(1, 1, 1, 1);

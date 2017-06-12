@@ -510,6 +510,9 @@
     <ClCompile Include="bossMonster.cpp">
       <Filter>GameFrameword3D\Monster</Filter>
     </ClCompile>
+    <ClCompile Include="bossActionSkillFire.cpp">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -838,6 +841,9 @@
     </ClInclude>
     <ClInclude Include="bossMonster.h">
       <Filter>GameFrameword3D\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionSkillFire.h">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
