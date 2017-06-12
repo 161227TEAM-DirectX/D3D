@@ -4,7 +4,7 @@
 
 
 ActionReMove::ActionReMove()
-	:m_fPassedTime(0.0f)
+	:Action(), m_fPassedTime(0.0f)
 {
 }
 

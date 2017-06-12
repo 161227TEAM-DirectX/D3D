@@ -3,6 +3,7 @@
 
 
 bossActionCinema::bossActionCinema()
+	:Action()
 {
 }
 

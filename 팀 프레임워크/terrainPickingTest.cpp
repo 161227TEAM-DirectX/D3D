@@ -5,12 +5,12 @@ HRESULT terrainPickingTest::init(void)
 {
 	_terrain = new terrain;
 	_terrain->init(
-		"Resources/Textures/Height_map1024.jpg",
+		"Resources/Textures/MyHeight512.bmp",
 		"Resources/Textures/Sheep_terrain1.jpg",
 		"Resources/Textures/Sheep_terrain2.jpg",
 		"Resources/Textures/Sheep_terrain3.jpg",
 		"Resources/Textures/Sheep_terrain4.jpg",
-		"Resources/Textures/image.bmp",
+		"Resources/Textures/Sheep_Splat.bmp",
 		1.0f,
 		200.0f,
 		3,
@@ -18,12 +18,12 @@ HRESULT terrainPickingTest::init(void)
 
 	_terrainShadow = new terrain;
 	_terrainShadow->init(
-		"Resources/Textures/Height_map1024.jpg",
+		"Resources/Textures/MyHeight512.bmp",
 		"Resources/Textures/Sheep_terrain1.jpg",
 		"Resources/Textures/Sheep_terrain2.jpg",
 		"Resources/Textures/Sheep_terrain3.jpg",
 		"Resources/Textures/Sheep_terrain4.jpg",
-		"Resources/Textures/image.bmp",
+		"Resources/Textures/Sheep_Splat.bmp",
 		4.0f,
 		200.0f,
 		10,

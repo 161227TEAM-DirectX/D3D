@@ -2,7 +2,7 @@
 #include "bossActionAttack.h"
 
 
-bossActionAttack::bossActionAttack() : passedTime(0.0f), activeTime(2.0f)
+bossActionAttack::bossActionAttack() :Action(), passedTime(0.0f), activeTime(2.0f)
 {
 }
 

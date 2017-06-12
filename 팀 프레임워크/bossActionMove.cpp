@@ -3,6 +3,7 @@
 
 
 bossActionMove::bossActionMove()
+	:Action()
 {
 }
 

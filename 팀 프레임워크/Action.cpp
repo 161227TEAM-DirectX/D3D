@@ -3,7 +3,7 @@
 
 
 Action::Action()
-	:owner(nullptr), deleGate(nullptr), object(nullptr), rand(nullptr)
+	:owner(nullptr), deleGate(nullptr), object(nullptr), rand(nullptr), Gap(0.0001f)
 {
 }
 

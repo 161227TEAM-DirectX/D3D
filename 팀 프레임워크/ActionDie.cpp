@@ -3,6 +3,7 @@
 
 
 ActionDie::ActionDie()
+	:Action()
 {
 }
 

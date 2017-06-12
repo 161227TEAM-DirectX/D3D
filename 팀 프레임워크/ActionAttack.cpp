@@ -3,7 +3,7 @@
 
 
 ActionAttack::ActionAttack()
-	:PassedTime(0.0f)
+	:Action(), PassedTime(0.0f)
 {
 }
 
