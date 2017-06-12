@@ -24,6 +24,7 @@ int bossActionSkillFire::Start()
 
 int bossActionSkillFire::Update()
 {
+	
 	if (strcmp(owner->getSkinnedAnim().getAnimationSet()->GetName(), "Animation_65"))
 	{
 		if (owner->getSkinnedAnim().getAnimationPlayFactor() < 0.99f) return LHS::ACTIONRESULT::ACTION_PLAY;
@@ -32,7 +33,7 @@ int bossActionSkillFire::Update()
 			owner->getSkinnedAnim().Play("Animation_14");
 		}
 	}
-
+	//액션 종료 조건이 필요.
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.99f)
 	{
 

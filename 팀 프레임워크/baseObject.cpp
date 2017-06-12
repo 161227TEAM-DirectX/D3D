@@ -118,6 +118,19 @@ void baseObject::computeBoundBox()
 			_boundBox._localMaxPos = staticMesh->_boundMax;
 			_boundBox._radius = staticMesh->_boundRadius;
 
+			if (strcmp("Resource/Meshes/BossMonster/deathwing_ok/x/deathWing.x", _mesh->getFilePath().c_str()))
+			{
+				//보스의 바운드 박스를 재설정.
+				_boundBox._localMaxPos = _boundBox._localMaxPos / 2;
+				_boundBox._localCenter = (_boundBox._localMinPos + _boundBox._localMaxPos)*0.5f;
+				_boundBox._halfSize = D3DXVECTOR3(
+					_boundBox._localMaxPos.x - _boundBox._localMinPos.x,
+					_boundBox._localMaxPos.y - _boundBox._localMinPos.y,
+					_boundBox._localMaxPos.z - _boundBox._localMinPos.z)*0.5f;
+
+				_boundBox._radius = D3DXVec3Length(&(_boundBox._localCenter - _boundBox._localMinPos));
+			}
+
 			//_boundBox.setBound(&D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(10.0f, 10.0f, 10.0f));
 		}
 	}

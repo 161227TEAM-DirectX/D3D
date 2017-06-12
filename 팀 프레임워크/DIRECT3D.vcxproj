@@ -158,9 +158,12 @@
     <ClInclude Include="boneHierachy.h" />
     <ClInclude Include="bossActionAttack.h" />
     <ClInclude Include="bossActionCinema.h" />
+    <ClInclude Include="bossActionControl.h" />
     <ClInclude Include="bossActionMove.h" />
     <ClInclude Include="bossActionSkill.h" />
+    <ClInclude Include="bossActionSkillBattleRoar.h" />
     <ClInclude Include="bossActionSkillFire.h" />
+    <ClInclude Include="bossActionSkillTailAtt.h" />
     <ClInclude Include="bossMonster.h" />
     <ClInclude Include="boundBox.h" />
     <ClInclude Include="boundObject.h" />
@@ -270,9 +273,12 @@
     <ClCompile Include="boneHierachy.cpp" />
     <ClCompile Include="bossActionAttack.cpp" />
     <ClCompile Include="bossActionCinema.cpp" />
+    <ClCompile Include="bossActionControl.cpp" />
     <ClCompile Include="bossActionMove.cpp" />
     <ClCompile Include="bossActionSkill.cpp" />
+    <ClCompile Include="bossActionSkillBattleRoar.cpp" />
     <ClCompile Include="bossActionSkillFire.cpp" />
+    <ClCompile Include="bossActionSkillTailAtt.cpp" />
     <ClCompile Include="bossMonster.cpp" />
     <ClCompile Include="boundBox.cpp" />
     <ClCompile Include="boundObject.cpp" />

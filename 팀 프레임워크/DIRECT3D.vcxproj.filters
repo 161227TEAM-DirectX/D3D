@@ -513,6 +513,15 @@
     <ClCompile Include="bossActionSkillFire.cpp">
       <Filter>GameFrameword3D\Action\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="bossActionSkillBattleRoar.cpp">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="bossActionSkillTailAtt.cpp">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="bossActionControl.cpp">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -845,6 +854,13 @@
     <ClInclude Include="bossActionSkillFire.h">
       <Filter>GameFrameword3D\Action\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="bossActionSkillBattleRoar.h">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionSkillTailAtt.h">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionControl.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Texture_Gray.fx">

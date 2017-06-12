@@ -40,14 +40,15 @@ HRESULT terrainPickingTest::init(void)
 
 	//임시 플레이어 코드
 	D3DXMATRIX mat;
-	D3DXMATRIX matScaling;
+//	D3DXMATRIX matScaling;
 	D3DXMATRIX matRotate;
-	D3DXMatrixScaling(&matScaling, 0.1f, 0.1f, 0.1f);
+//	D3DXMatrixScaling(&matScaling, 0.1f, 0.1f, 0.1f);
 	D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
-	mat = matScaling * matRotate;
+	mat = /*matScaling **/ matRotate;
 
 	enemy = new baseObject;
 	enemy->setMesh(RM_XMESH->getResource("Resources/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
+	enemy->_transform->SetScale(0.1f, 0.1f, 0.1f);
 	enemy->setActive(true);
 	this->_renderObjects.push_back(enemy);
 
@@ -60,9 +61,12 @@ HRESULT terrainPickingTest::init(void)
 	//player->LinkTerrain(*_terrain);
 	//player->LinkPlayer(enemy);
 	//player->setActive(true);
+	//D3DXMatrixScaling(&matScaling, 0.5f, 0.5f, 0.5f);
+	//mat = matScaling * matRotate;
 
 	boss = new bossMonster;
 	boss->setMesh(RM_SKINNED->getResource("Resources/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
+	boss->_transform->SetScale(0.5f, 0.5f, 0.5f);
 	boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
 	boss->LinkObject(testObject);
 	boss->LinkTerrain(*_terrain);
@@ -74,7 +78,7 @@ HRESULT terrainPickingTest::init(void)
 	this->setEnvironment("Resources/TextureCUBE/SuperKanjiCube.dds");
 
 	_mainCamera->SetWorldPosition(0.0f, 60.0f, 10.0f);
-	_mainCamera->LookPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	_mainCamera->LookPosition(boss->_transform->GetWorldPosition());
 
 	////라이트 세팅
 	//lightDirection* light1 = new lightDirection;
