@@ -540,9 +540,6 @@
     <ClCompile Include="bossActionLanding.cpp">
       <Filter>GameFramework3D\ActionBoss</Filter>
     </ClCompile>
-    <ClCompile Include="bossActionSkillFlyStandingFire.cpp">
-      <Filter>GameFramework3D\ActionBoss</Filter>
-    </ClCompile>
     <ClCompile Include="bossActionControl.cpp">
       <Filter>GameFramework3D\ActionBoss\BossControl</Filter>
     </ClCompile>
@@ -551,6 +548,9 @@
     </ClCompile>
     <ClCompile Include="bossActionFlyDie.cpp">
       <Filter>GameFramework3D\ActionBoss</Filter>
+    </ClCompile>
+    <ClCompile Include="kimsTestScene.cpp">
+      <Filter>GameFramework3D\xPlayer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -905,9 +905,6 @@
     <ClInclude Include="bossActionLanding.h">
       <Filter>GameFramework3D\ActionBoss</Filter>
     </ClInclude>
-    <ClInclude Include="bossActionSkillFlyStandingFire.h">
-      <Filter>GameFramework3D\ActionBoss</Filter>
-    </ClInclude>
     <ClInclude Include="bossActionControl.h">
       <Filter>GameFramework3D\ActionBoss\BossControl</Filter>
     </ClInclude>
@@ -916,6 +913,9 @@
     </ClInclude>
     <ClInclude Include="bossActionFlyDie.h">
       <Filter>GameFramework3D\ActionBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="kimsTestScene.h">
+      <Filter>GameFramework3D\xPlayer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
