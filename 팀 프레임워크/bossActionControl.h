@@ -2,6 +2,8 @@
 #include "bossActionAttack.h"
 #include "bossActionCinema.h"
 #include "bossActionMove.h"
+#include "bossActionStanding.h"
+#include "bossActionFly.h"
 #include "bossActionSkill.h"
 #include "bossActionSkillFire.h"
 #include "bossActionSkillBattleRoar.h"

@@ -522,6 +522,10 @@
     <ClCompile Include="bossActionControl.cpp">
       <Filter>GameFrameword3D\Action\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="bossActionStanding.cpp">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="bossActionFly.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -860,7 +864,11 @@
     <ClInclude Include="bossActionSkillTailAtt.h">
       <Filter>GameFrameword3D\Action\Boss</Filter>
     </ClInclude>
-    <ClInclude Include="bossActionControl.h" />
+    <ClInclude Include="bossActionControl.h">
+      <Filter>GameFrameword3D\Action\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionStanding.h" />
+    <ClInclude Include="bossActionFly.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Texture_Gray.fx">

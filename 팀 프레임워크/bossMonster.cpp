@@ -30,6 +30,7 @@ void bossMonster::baseObjectEnable()
 	soul = myUtil::RandomIntRange(MINGS, MAXGS);
 	att = DEFAULTATT;
 	def = DEFAULTDEF;
+
 	//컨트롤에 의한 초기 액션
 	control->Init(CurrAction, result);
 }
