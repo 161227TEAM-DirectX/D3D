@@ -15,12 +15,13 @@ monster::~monster()
 
 void monster::baseObjectEnable()
 {
-	range.setBound(&D3DXVECTOR3(0.0f, 0.0f, 0.0f), &D3DXVECTOR3(RANGE, RANGE, RANGE));
-	D3DXVECTOR3 tempPosition = _transform->GetForward();
+	D3DXVECTOR3 temp(_boundBox._localCenter);
+	temp.z = _boundBox._localMaxPos.z;
+	//���ڽ� - �������� �ʿ������� �ǹ��̴�..... �ʿ� �ϰ���?
 
-	tempPosition.z *= 0.1f;
-	tempPosition.y = 0.07f;
-	hitBox.setBound(&tempPosition, &D3DXVECTOR3(0.04f, 0.06f, 0.06f));
+	range.setBound(&D3DXVECTOR3(0.0f, 0.0f, 0.0f), &D3DXVECTOR3(RANGE, RANGE, RANGE));
+	//�浹�ڽ�
+	hitBox.setBound(&temp, &D3DXVECTOR3(_transform->GetScale().x * 1.6f, _transform->GetScale().y * 2.9f, _transform->GetScale().z * 2.9f));
 
 	HP = myUtil::RandomIntRange(MINHM, MAXHM);
 	mana = myUtil::RandomIntRange(MINHM, MAXHM);
