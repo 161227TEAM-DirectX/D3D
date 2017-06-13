@@ -26,8 +26,7 @@ HRESULT mainGame::init(void)
 //ÀÌÇö¼ö ¾À Å×½ºÆ® Çì´õÆÄÀÏ
 //===================================================================================
 	//¾ÀÃß°¡
-	//SCENEMANAGER->addScene("test", new terrainPickingTest);
-	SCENEMANAGER->addScene("test2", new kimsTestScene);
+	SCENEMANAGER->addScene("test", new terrainPickingTest);
 
 //===================================================================================
 //±è¸¸¿õ ¾À Å×½ºÆ® Çì´õÆÄÀÏ
@@ -47,7 +46,7 @@ HRESULT mainGame::init(void)
 
 
 	//¾ÀÃÊ±âÈ­
-	SCENEMANAGER->changeScene("test2");
+	SCENEMANAGER->changeScene("test");
 	return S_OK;
 }
 

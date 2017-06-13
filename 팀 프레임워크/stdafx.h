@@ -3,7 +3,6 @@
 // 들어 있는 포함 파일입니다.
 //
 #pragma once
-#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console" )
 
 #include <SDKDDKVer.h>
 
@@ -126,7 +125,6 @@ using namespace myUtil;
 
 #include "cObjectManager.h"
 #include "cTextureManager.h"
-#include "xPlayerStatus.h"
 
 
 //====================================================================
@@ -146,7 +144,7 @@ using namespace myUtil;
 #define SPRITEMANAGER spriteManager::getSingleton()
 #define IOBASEMANAGER ioBaseManager::getSingleton()
 #define PSM	dxParticleSystemManager::getSingleton()
-#define PLAYERSTAT xPlayerStatus::getSingleton()
+
 
 
 //====================================================================

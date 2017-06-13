@@ -160,18 +160,12 @@
     <ClInclude Include="bossActionCinema.h" />
     <ClInclude Include="bossActionControl.h" />
     <ClInclude Include="bossActionFly.h" />
-<<<<<<< HEAD
-=======
     <ClInclude Include="bossActionLanding.h" />
->>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
     <ClInclude Include="bossActionMove.h" />
     <ClInclude Include="bossActionSkill.h" />
     <ClInclude Include="bossActionSkillBattleRoar.h" />
     <ClInclude Include="bossActionSkillFire.h" />
-<<<<<<< HEAD
-=======
     <ClInclude Include="bossActionSkillFlyStandingFire.h" />
->>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
     <ClInclude Include="bossActionSkillTailAtt.h" />
     <ClInclude Include="bossActionStanding.h" />
     <ClInclude Include="bossMonster.h" />
@@ -223,7 +217,6 @@
     <ClInclude Include="gizmoManager.h" />
     <ClInclude Include="ioBaseManager.h" />
     <ClInclude Include="keyManager.h" />
-    <ClInclude Include="kimsTestScene.h" />
     <ClInclude Include="light.h" />
     <ClInclude Include="lightDirection.h" />
     <ClInclude Include="lightPoint.h" />
@@ -288,18 +281,12 @@
     <ClCompile Include="bossActionCinema.cpp" />
     <ClCompile Include="bossActionControl.cpp" />
     <ClCompile Include="bossActionFly.cpp" />
-<<<<<<< HEAD
-=======
     <ClCompile Include="bossActionLanding.cpp" />
->>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
     <ClCompile Include="bossActionMove.cpp" />
     <ClCompile Include="bossActionSkill.cpp" />
     <ClCompile Include="bossActionSkillBattleRoar.cpp" />
     <ClCompile Include="bossActionSkillFire.cpp" />
-<<<<<<< HEAD
-=======
     <ClCompile Include="bossActionSkillFlyStandingFire.cpp" />
->>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
     <ClCompile Include="bossActionSkillTailAtt.cpp" />
     <ClCompile Include="bossActionStanding.cpp" />
     <ClCompile Include="bossMonster.cpp" />
@@ -351,7 +338,6 @@
     <ClCompile Include="gizmoManager.cpp" />
     <ClCompile Include="ioBaseManager.cpp" />
     <ClCompile Include="keyManager.cpp" />
-    <ClCompile Include="kimsTestScene.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="lightDirection.cpp" />
     <ClCompile Include="lightPoint.cpp" />

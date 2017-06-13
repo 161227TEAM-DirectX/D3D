@@ -18,22 +18,10 @@ HRESULT xPlayer::init()
 	_stunnedTime = 0.0f;
 	_castingTime = 0.0f;
 	_playSpeed = 1.0f;
-<<<<<<< HEAD
-	_degree = 0.0f;
-	_baseHeight = 0.0f;
-	_jumpPower = 2.0f;
-	_jumpSpeed = 1.0f;
-	_jumpHeight = 0.0f;
-
-	_isOnBattle = false;
-
-	
-=======
 
 	_isOnBattle = false;
 
 	_jumpHeight = 0;
->>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
 
 	//데이터를 로딩해 이전의 스테이터스와 장비상태를 초기화한다.
 	LoadData();
@@ -53,19 +41,6 @@ HRESULT xPlayer::init()
 			RM_SKINNED->getResource("Resources/Player/FHUMAN_NONE/FHUMAN.X", &matCorrection);
 		break;
 
-<<<<<<< HEAD
-	case A_ROBE:
-		pSkinned =
-			RM_SKINNED->getResource("Resources/Player/FHUMAN_ROBE/FHUMAN.X", &matCorrection);
-		break;
-
-	case A_LEATHER:
-		pSkinned =
-			RM_SKINNED->getResource("Resources/Player/FHUMAN_LEATHER/FHUMAN.X", &matCorrection);
-		break;
-
-	case A_PLATE:
-=======
 	case A_LEATHER:
 
 		pSkinned =
@@ -80,7 +55,6 @@ HRESULT xPlayer::init()
 
 	case A_PLATE:
 
->>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
 		pSkinned =
 			RM_SKINNED->getResource("Resources/Player/FHUMAN_PLATE/FHUMAN.X", &matCorrection);
 		break;
@@ -171,11 +145,7 @@ void xPlayer::update()
 
 	if (Weapons != W_NONE)
 	{
-<<<<<<< HEAD
-		D3DXMATRIX matHand = _EquipSocket.find("SHIELD")->second->CombinedTransformationMatrix;
-=======
 		D3DXMATRIX matHand = _EquipSocket.find("RHAND")->second->CombinedTransformationMatrix;
->>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
 		_weaponObject->_transform->SetWorldMatrix(matHand);
 		_weaponObject->update();
 	}
@@ -186,10 +156,6 @@ void xPlayer::update()
 
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
-<<<<<<< HEAD
-
-=======
->>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
 			playerAttack();
 		}
 		if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
@@ -220,11 +186,6 @@ void xPlayer::render()
 	FONTMANAGER->fontOut(to_string(_state), 100, 0, 0xffffffff);
 
 	FONTMANAGER->fontOut("HP : " + to_string(_Hp), 500, 0, 0xffffffff);
-<<<<<<< HEAD
-
-	FONTMANAGER->fontOut("Degree : " + to_string(_degree), 500, 50, 0xffffffff);
-=======
->>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
 }
 
 void xPlayer::release(void)
@@ -262,19 +223,7 @@ void xPlayer::userPlayerControl()
 
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
-<<<<<<< HEAD
-		_state = P_JUMPUP;
-	}
-	if (KEYMANAGER->isOnceKeyDown('2'))
-	{
-		_state = P_JUMP;
-	}
-	if (KEYMANAGER->isOnceKeyDown('3'))
-	{
-		_state = P_JUMPDOWN;
-=======
 		_Hp++;
->>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
 	}
 
 	//임시 컨트롤용 코드
@@ -359,10 +308,6 @@ void xPlayer::playerStateManager()
 {
 	if (_Hp <= 0) _state = P_DEATH;
 	string aa = _playerObject->_skinnedAnim->getAnimationSet()->GetName();
-<<<<<<< HEAD
-	D3DXVECTOR3 pos = _playerObject->_transform->GetWorldPosition();
-=======
->>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
 	switch (_state)
 	{
 	case P_STAND:
@@ -385,11 +330,7 @@ void xPlayer::playerStateManager()
 			{
 				if (PHYSICSMANAGER->isOverlap(_playerObject->_transform, &_attackBound, targetMonster->_transform, &targetMonster->_boundBox))
 				{
-<<<<<<< HEAD
-					//exit(0);
-=======
 					exit(0);
->>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
 				}
 
 				if (_isOnBattle)
@@ -453,75 +394,6 @@ void xPlayer::playerStateManager()
 		}
 		break;
 	case P_JUMPUP:
-<<<<<<< HEAD
-		_baseHeight = linkTerrain->getHeight(pos.x, pos.z);
-		if (aa == "JUMPST")
-		{
-			/*
-			if (_playerObject->_skinnedAnim->getAnimFactor() < 0.05);
-			{
-				_degree = 0;
-			}*/
-			
-			_degree += _timeDelta;
-			_jumpHeight = _baseHeight + _jumpPower * sinf(D3DXToRadian(90.0f * _degree * _jumpSpeed));
-			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
-			{
-				_state = P_JUMP;
-				_playerObject->_transform->SetWorldPosition(pos.x, _jumpHeight, pos.z);
-			}
-			else if (pos.y < linkTerrain->getHeight(pos.x, pos.z))
-			{
-				_state = P_JUMPDOWN;
-				_playerObject->_transform->SetWorldPosition(pos.x, _jumpHeight, pos.z);
-			}
-			else
-			{
-				_playerObject->_transform->SetWorldPosition(pos.x, _jumpHeight, pos.z);
-			}
-		}
-		
-		
-		break;
-	case P_JUMP:
-		if (aa == "JUMP")
-		{
-			_degree += _timeDelta;
-			_jumpHeight = _baseHeight + _jumpPower * sinf(D3DXToRadian(90.0f * _degree * _jumpSpeed));
-			linkTerrain->getHeight(pos.x, pos.z);
-
-			if (_degree > 2.0f)
-			{
-				_state = P_JUMPDOWN;
-			}
-			else if (pos.y < linkTerrain->getHeight(pos.x, pos.z))
-			{
-				_state = P_JUMPDOWN;
-				_playerObject->_transform->SetWorldPosition(pos.x, linkTerrain->getHeight(pos.x, pos.z), pos.z);
-			}
-			else
-			{
-				_playerObject->_transform->SetWorldPosition(pos.x, _jumpHeight, pos.z);
-			}
-		}
-		break;
-	case P_JUMPDOWN:
-		if (aa == "JUMPED")
-		{
-			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.7)//애니메이션 다 재생했으면
-			{
-				_degree = 0;
-				if (_isOnBattle)
-				{
-					_state = P_READYTOATTACK;
-				}
-				else
-				{
-					_state = P_STAND;
-				}
-			}
-		}
-=======
 
 		break;
 	case P_JUMP:
@@ -529,7 +401,6 @@ void xPlayer::playerStateManager()
 		break;
 	case P_JUMPDOWN:
 
->>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
 		break;
 	case P_STUN:
 		if (_stunnedTime < 0)
@@ -586,10 +457,6 @@ void xPlayer::playerAnimationManager()
 	{
 	case P_STAND:
 		_playSpeed = 1.0f;
-<<<<<<< HEAD
-		_degree = 0.0f;
-=======
->>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
 		_playerObject->_skinnedAnim->Play("S", 0.2f);
 		break;
 	case P_RUN:
@@ -599,10 +466,6 @@ void xPlayer::playerAnimationManager()
 		_playerObject->_skinnedAnim->Play("W", 0.2f);
 		break;
 	case P_READYTOATTACK:
-<<<<<<< HEAD
-		_degree = 0.0f;
-=======
->>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
 		_playerObject->_skinnedAnim->Play("RD1H", 0.3f);
 		break;
 	case P_ATTACK:
@@ -625,17 +488,10 @@ void xPlayer::playerAnimationManager()
 		_playerObject->_skinnedAnim->Play("JUMPST", 0.2f);
 		break;
 	case P_JUMP:
-<<<<<<< HEAD
-		_playerObject->_skinnedAnim->Play("JUMP");
-		break;
-	case P_JUMPDOWN:
-		_playerObject->_skinnedAnim->Play("JUMPED");
-=======
 		_playerObject->_skinnedAnim->Play("JUMP", 0.2f);
 		break;
 	case P_JUMPDOWN:
 		_playerObject->_skinnedAnim->Play("JUMPED", 0.2f);
->>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
 		break;
 	case P_STUN:
 		_playerObject->_skinnedAnim->Play("STUN");
