@@ -7,10 +7,11 @@ public:
 	dx::transform*		_transform;				//트렌스폼
 	boundBox			_boundBox;				//충돌박스
 	bool				_ignoreCreateShadow;	//쉐도우맵 만들때 무시되냐?
+	skinnedAnimation*	_skinnedAnim;			//스킨드 애니메이션
 
 protected:
 	bool				_isActive;				//활성화 여부
-	skinnedAnimation*	_skinnedAnim;			//스킨드 애니메이션
+	
 
 protected:
 	//override로 필요하면 재정의 해서 사용하기

@@ -3,7 +3,7 @@
 
 
 ActionAttack::ActionAttack()
-	:PassedTime(0.0f)
+	:Action(), PassedTime(0.0f)
 {
 }
 
@@ -27,6 +27,9 @@ int ActionAttack::Start()
 
 int ActionAttack::Update()
 {
+	//아직 공격 모션 중이라면 검사를 하지 말아라.
+	if (owner->getSkinnedAnim().getAnimationPlayFactor() < 0.99f) return LHS::ACTIONRESULT::ACTION_PLAY;
+
 	//stun에 걸렸는지 확인 구문
 	/*
 	if(스턴 상태 확인)

@@ -1,13 +1,11 @@
 #pragma once
 #include "monster.h"
-#include "bossActionAttack.h"
-#include "bossActionCinema.h"
-#include "bossActionMove.h"
-#include "bossActionSkill.h"
+class bossActionControl;
 class bossMonster : public monster
 {
 private:
 	int Frequency;								//빈도율
+	bossActionControl* control;
 public:
 	bossMonster();
 	~bossMonster();
@@ -18,7 +16,5 @@ public:
 	void baseObjectUpdate() override;			//BaseObject가 Update 때 실행
 	void baseObjectNoActiveUpdate() override;	//BaseObject가 비활성화시 업데이트 실행
 	void baseObjectRender() override;			//BaseObject를 그릴때 실행
-
-	void switchState(void);
 };
 

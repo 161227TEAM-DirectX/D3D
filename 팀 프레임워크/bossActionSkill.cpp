@@ -3,6 +3,7 @@
 
 
 bossActionSkill::bossActionSkill()
+	:Action()
 {
 }
 

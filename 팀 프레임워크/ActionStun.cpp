@@ -3,7 +3,7 @@
 
 
 ActionStun::ActionStun()
-	:actionTime(5.0f)
+	:Action(), actionTime(5.0f)
 {
 }
 

@@ -53,7 +53,7 @@ int ActionStanding::Update()
 
 	//owner는 baseobject클래스이고 monster클래스가 필요하기에 타입 캐스팅.
 	monster* temp = dynamic_cast<monster*>(owner);
-
+	
 	//몬스터의 범위 박스에 케릭터가 오면 케릭터의 위치로 이동 - enemy설정이 필요함.
 	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
 	{

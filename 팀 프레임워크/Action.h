@@ -20,6 +20,9 @@ protected:
 	terrain*				rand;				// 액션 및 이동 중 높이값을 가져오기 위한 변수
 	vector<baseObject*>*	object;				// 오브젝트 정보, 장애물
 	baseObject*				enemy;				// 플레이어 정보
+
+	float _oldTimeDelta;
+	const float Gap;
 public:
 	Action();
 	virtual ~Action();

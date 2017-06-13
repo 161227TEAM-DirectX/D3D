@@ -9,8 +9,6 @@
 HWND _hWnd;				//윈도우 핸들(자신의 프로그램에서 돌고있는 윈도우 번호)
 HINSTANCE _hInstance;	//프로그램 인스턴스 핸들 (OS 가 부여한 프로그램 번호)
 float _timeDelta;	
-float _oldTimeDelta = 0;
-const float Gap = 0.1f;
 
 CRITICAL_SECTION _cs;	//임계 영역은 구간을 설정하여 그 구간에 진입한 쓰레드가 벗어날 때까지 
 						//해당 구간이 끝날 때까지 다른 쓰레드가 임계 영역에 진입하는 것을 막는다.
@@ -97,11 +95,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 		//타임매니져 업데이트(FPS 60)
 		TIMEMANAGER->update(60.0f);
 		_timeDelta = TIMEMANAGER->getElapedTime();
-		if ((_timeDelta - _oldTimeDelta) > Gap)
-		{
-			_timeDelta = _oldTimeDelta;
-		}
-		_oldTimeDelta = _timeDelta;
 		_mg.update();
 		_mg.render();
 	}

@@ -6,9 +6,7 @@
 #include "bossMonster.h"
 #include "xPlayer.h"
 
-
-
-class terrainPickingTest : public gameNode
+class kimsTestScene : public gameNode
 {
 private:
 	enum SELECTFUNC
@@ -21,7 +19,7 @@ private:
 	};
 
 private:
-//	dijkstra*			tempDijkstra;
+	//	dijkstra*			tempDijkstra;
 	xPlayer* _player;
 
 	monster*			player;
@@ -34,13 +32,13 @@ private:
 	D3DXVECTOR3			_hitPos;	//히트 포지션
 	SELECTFUNC			lButtonState;
 	vector<light*>		_lights;
-	
-	
+
+
 	vector<baseObject*> testObject;
 
 	vector<baseObject*>		_renderObjects;		//씬에 배치된 랜더 오브젝트 배열
 	vector<baseObject*>		_cullObjects;		//컬링된 오브젝트
-	
+
 
 
 	int sour;					//노드 연결시 출발 노드 인덱스값
@@ -61,7 +59,7 @@ public:
 	//피킹된 위치에 오브젝트를 추가합니다.
 	void addObject(void);
 
-	terrainPickingTest() {}
-	~terrainPickingTest() {}
+	kimsTestScene() {};
+	~kimsTestScene() {};
 };
 

@@ -1,24 +1,28 @@
 #include "stdafx.h"
 #include "bossMonster.h"
+#include "bossActionControl.h"
 
 
 bossMonster::bossMonster() : monster(), Frequency(0)
 {
+	control = new bossActionControl(this);
 }
 
 
 bossMonster::~bossMonster()
 {
+	SAFE_DELETE(control);
 }
 
 void bossMonster::baseObjectEnable()
 {
+	D3DXVECTOR3 temp(_boundBox._localCenter);
+	temp.z = _boundBox._localMaxPos.z;
+	//경계박스 - 보스에게 필요한지는 의문이다..... 필요 하겠지?
 	range.setBound(&D3DXVECTOR3(0.0f, 0.0f, 0.0f), &D3DXVECTOR3(RANGE, RANGE, RANGE));
-	D3DXVECTOR3 tempPosition = _transform->GetForward();
 
-	tempPosition.z *= 0.1f;
-	tempPosition.y = 0.07f;
-	hitBox.setBound(&tempPosition, &D3DXVECTOR3(0.04f, 0.06f, 0.06f));
+	//충돌박스
+	hitBox.setBound(&temp, &D3DXVECTOR3(_transform->GetScale().x * 2.6f, _transform->GetScale().y * 2.9f, _transform->GetScale().z * 2.9f));
 
 	HP = myUtil::RandomIntRange(MINHM, MAXHM);
 	mana = myUtil::RandomIntRange(MINHM, MAXHM);
@@ -26,12 +30,9 @@ void bossMonster::baseObjectEnable()
 	soul = myUtil::RandomIntRange(MINGS, MAXGS);
 	att = DEFAULTATT;
 	def = DEFAULTDEF;
-	CurrAction = new bossActionCinema;
-	CurrAction->setOwner(this);
-	CurrAction->setObject(&monster::getObject());
-	CurrAction->setRand(monster::getTerrain());
-	CurrAction->setEnemy(&monster::getPlayer());
-	result = (LHS::ACTIONRESULT)CurrAction->Start();
+
+	//컨트롤에 의한 초기 액션
+	control->Init(CurrAction, result);
 }
 
 void bossMonster::baseObjectDisable()
@@ -40,7 +41,7 @@ void bossMonster::baseObjectDisable()
 
 void bossMonster::baseObjectUpdate()
 {
-	switchState();
+	control->switchState(result);
 
 	if (NextAction != nullptr)
 	{
@@ -63,34 +64,7 @@ void bossMonster::baseObjectRender()
 {
 	if (_skinnedAnim != nullptr) _skinnedAnim->render(_transform);
 	hitBox.renderGizmo(_transform);
-	range.renderGizmo(_transform);
+	//range.renderGizmo(_transform);
 
 	_boundBox.renderGizmo(_transform);
-}
-
-void bossMonster::switchState(void)
-{
-	switch (result)
-	{
-	case LHS::BOSSAC_ATT:
-		break;
-	case LHS::BOSSAC_DIE:
-		break;
-	case LHS::BOSSAC_FAIL:
-		break;
-	case LHS::BOSSAC_FINISH:
-		break;
-	case LHS::BOSSAC_MOVE:
-		break;
-	case LHS::BOSSAC_NONE:
-		break;
-	case LHS::BOSSAC_PLAY:
-		break;
-	case LHS::BOSSAC_REMOVE:
-		break;
-	case LHS::BOSSAC_SKILL:
-		break;
-	case LHS::BOSSAC_STAND:
-		break;
-	}
 }

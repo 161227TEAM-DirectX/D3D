@@ -50,6 +50,13 @@ public:
 	void RemoveBoneTransform(std::string boneName);
 	void RemoveApplyTransform(std::string boneName);
 
+	double& getAnimationPlayFactor(void) { return _AnimationPlayFactor; }
+	LPD3DXANIMATIONSET& getAnimationSet(void) { return _pNowPlayAnimationSet; }
+
+	xMeshSkinned* getSkinnedMesh() { return _pSkinnedMesh; }
+	//LPD3DXANIMATIONSET getNowPlayanim() { return _pNowPlayAnimationSet; }
+	float getAnimFactor() { return _AnimationPlayFactor; }
+
 public:
 	skinnedAnimation();
 	~skinnedAnimation();

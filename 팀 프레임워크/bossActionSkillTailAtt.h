@@ -1,14 +1,12 @@
 #pragma once
 #include "Action.h"
-#include "bossMonster.h"
-class bossActionAttack : public Action
+class bossActionSkillTailAtt : public Action
 {
 private:
-	float passedTime;
-	float activeTime;
+	int Frequency;
 public:
-	bossActionAttack();
-	~bossActionAttack();
+	bossActionSkillTailAtt();
+	~bossActionSkillTailAtt();
 
 	//액션의 시작을 정의하는 함수 - 순수가상함수
 	int Start() override;

@@ -2,7 +2,7 @@
 #include "ActionSeq.h"
 
 ActionSeq::ActionSeq()
-	:CurrIdx(0), isCheck(false)
+	:Action(), CurrIdx(0), isCheck(false)
 {
 }
 

@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "terrainPickingTest.h"
+#include "kimsTestScene.h"
 
-HRESULT terrainPickingTest::init(void)
+HRESULT kimsTestScene::init(void)
 {
 	_terrain = new terrain;
 	_terrain->init(
@@ -28,21 +28,21 @@ HRESULT terrainPickingTest::init(void)
 		200.0f,
 		10,
 		100);
-	
+
 
 	_trans = new dx::transform;
 	_dirLight = new lightDirection;
 	_hitPos = D3DXVECTOR3(0, 0, 0);
 
-//	tempDijkstra = new dijkstra;
+	//	tempDijkstra = new dijkstra;
 
 	float tempY = _terrain->getHeight(0.0f, 0.0f);
 
 	//임시 플레이어 코드
 	D3DXMATRIX mat;
-//	D3DXMATRIX matScaling;
+	//	D3DXMATRIX matScaling;
 	D3DXMATRIX matRotate;
-//	D3DXMatrixScaling(&matScaling, 0.1f, 0.1f, 0.1f);
+	//	D3DXMatrixScaling(&matScaling, 0.1f, 0.1f, 0.1f);
 	D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
 	mat = /*matScaling **/ matRotate;
 
@@ -112,15 +112,15 @@ HRESULT terrainPickingTest::init(void)
 	sour = -1;
 	dest = -1;
 
-	
-	
+
+
 	_player->setTargetMonster(*player);
-	
+
 
 	return S_OK;
 }
 
-void terrainPickingTest::release(void)
+void kimsTestScene::release(void)
 {
 	_player->release();
 	SAFE_DELETE(_player);
@@ -139,15 +139,15 @@ void terrainPickingTest::release(void)
 	SAFE_DELETE(_terrain);
 	SAFE_DELETE(_trans);
 	SAFE_DELETE(_dirLight);*/
-//	SAFE_DELETE(tempDijkstra);
+	//	SAFE_DELETE(tempDijkstra);
 }
 
-void terrainPickingTest::update(void)
+void kimsTestScene::update(void)
 {
 	_sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
 
-//	lButtonStateChange();
-//	selectLButton();
+	//	lButtonStateChange();
+	//	selectLButton();
 
 	for (int i = 0; i < this->_renderObjects.size(); i++)
 	{
@@ -163,7 +163,7 @@ void terrainPickingTest::update(void)
 	//boss->update();
 }
 
-void terrainPickingTest::render(void)
+void kimsTestScene::render(void)
 {
 	//카메라에 컬링된거만....
 	this->_cullObjects.clear();
@@ -195,7 +195,7 @@ void terrainPickingTest::render(void)
 	xMeshSkinned::setTechniqueName("Toon");
 	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resources/Testures/Ramp_1.png"));
 	xMeshSkinned::setBaseLight(this->_sceneBaseDirectionLight);
-	
+
 	_player->render();
 
 	for (int i = 0; i < this->_cullObjects.size(); i++)
@@ -203,7 +203,7 @@ void terrainPickingTest::render(void)
 		this->_cullObjects[i]->render();
 	}
 	_terrain->render(_mainCamera, _sceneBaseDirectionLight, _directionLightCamera);
-	
+
 	RM_SKINNED->getResource("Resources/Player/FHUMAN_PLATE/FHUMAN.X")->ShowAnimationName(0, 0);
 	//_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 	//포그세팅 0xff806A12
@@ -249,9 +249,9 @@ void terrainPickingTest::render(void)
 	//	xMeshSkinned::_sSkinnedMeshEffect->SetInt("LightNum", _lights.size());
 	//	xMeshSkinned::setCamera(_mainCamera);
 	//}
-	
 
-//	boss->render();
+
+	//	boss->render();
 
 	//if (!testObject.empty())
 	//{
@@ -261,7 +261,7 @@ void terrainPickingTest::render(void)
 	//	}
 	//}
 
-//	_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+	//	_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 
 	const vector<Node*>& temp = _terrain->getDijkstra().getVecNode();
 	for (size_t i = 0; i < temp.size(); i++)
@@ -280,14 +280,14 @@ void terrainPickingTest::render(void)
 		sprintf_s(tempchar, "경로(노드인덱스) : ");
 		FONTMANAGER->fontOut(tempchar, 0, 85, 0xffffffff);
 		int position = 0;
-		for (int i = _terrain->getDijkstra().getPath().size() -1; i >= 0 ; --i)
+		for (int i = _terrain->getDijkstra().getPath().size() - 1; i >= 0; --i)
 		{
 			sprintf_s(tempchar, "%d->", _terrain->getDijkstra().getPath()[i]);
 			FONTMANAGER->fontOut(tempchar, 195 + position * 55, 85, 0xffffffff);
 			position++;
 		}
 	}
-	
+
 
 	////Hit 위치에 구만들기
 	//GIZMOMANAGER->WireSphere(_hitPos, 0.5f, 0xffff0000);
@@ -297,7 +297,7 @@ void terrainPickingTest::render(void)
 	//_trans->RenderGimozo();
 }
 
-void terrainPickingTest::lButtonStateChange(void)
+void kimsTestScene::lButtonStateChange(void)
 {
 	if (KEYMANAGER->isOnceKeyDown('1')) lButtonState = SELECTFUNC::SELECT_NODE;
 	else if (KEYMANAGER->isOnceKeyDown('2')) lButtonState = SELECTFUNC::SELECT_LINE;
@@ -306,7 +306,7 @@ void terrainPickingTest::lButtonStateChange(void)
 	else if (KEYMANAGER->isOnceKeyDown('5')) lButtonState = SELECTFUNC::SELECT_NONE;
 }
 
-void terrainPickingTest::selectLButton(void)
+void kimsTestScene::selectLButton(void)
 {
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
@@ -319,7 +319,7 @@ void terrainPickingTest::selectLButton(void)
 
 		switch (lButtonState)
 		{
-		case terrainPickingTest::SELECT_NODE:
+		case kimsTestScene::SELECT_NODE:
 			//Terrain 이랑 Ray체크
 			if (_terrain->isIntersectRay(&_hitPos, &ray))
 			{
@@ -327,8 +327,8 @@ void terrainPickingTest::selectLButton(void)
 				//tempDijkstra->addNode(_hitPos);
 			}
 			break;
-		case terrainPickingTest::SELECT_LINE:
-			
+		case kimsTestScene::SELECT_LINE:
+
 			for (int i = 0; i < temp.size(); i++)
 			{
 				if (PHYSICSMANAGER->isRayHitSphere(&ray, &temp[i]->getPosition(), temp[i]->getRadius(), nullptr, nullptr))
@@ -342,26 +342,26 @@ void terrainPickingTest::selectLButton(void)
 				}
 			}
 			break;
-		case terrainPickingTest::SELECT_MOVING:
+		case kimsTestScene::SELECT_MOVING:
 		{
 			if (_terrain->isIntersectRay(&_hitPos, &ray))
 			{
 				//player.getAction().setRand(_terrain);
-			//	tempDijkstra->FindPath(_hitPos, player->_skTransform->GetWorldPosition()/*, testObject*/);
-			//	player->setNextAction(tempDijkstra->OptimizedAction(*player, _terrain, testObject, player->_skTransform->GetWorldPosition(), _hitPos));
+				//	tempDijkstra->FindPath(_hitPos, player->_skTransform->GetWorldPosition()/*, testObject*/);
+				//	player->setNextAction(tempDijkstra->OptimizedAction(*player, _terrain, testObject, player->_skTransform->GetWorldPosition(), _hitPos));
 			}
 		}
-			break;
-		case terrainPickingTest::SELECT_OBJECT:
+		break;
+		case kimsTestScene::SELECT_OBJECT:
 			if (_terrain->isIntersectRay(&_hitPos, &ray)) addObject();
 			break;
-		case terrainPickingTest::SELECT_NONE:
+		case kimsTestScene::SELECT_NONE:
 			break;
 		}
 	}
 }
 
-void terrainPickingTest::addObject(void)
+void kimsTestScene::addObject(void)
 {
 	enemy->_transform->SetWorldPosition(_hitPos);
 }

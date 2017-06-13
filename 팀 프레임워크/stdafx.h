@@ -3,6 +3,7 @@
 // 들어 있는 포함 파일입니다.
 //
 #pragma once
+#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console" )
 
 #include <SDKDDKVer.h>
 
@@ -125,6 +126,7 @@ using namespace myUtil;
 
 #include "cObjectManager.h"
 #include "cTextureManager.h"
+#include "xPlayerStatus.h"
 
 
 //====================================================================
@@ -144,7 +146,7 @@ using namespace myUtil;
 #define SPRITEMANAGER spriteManager::getSingleton()
 #define IOBASEMANAGER ioBaseManager::getSingleton()
 #define PSM	dxParticleSystemManager::getSingleton()
-
+#define PLAYERSTAT xPlayerStatus::getSingleton()
 
 
 //====================================================================
@@ -187,20 +189,24 @@ namespace LHS
 		ACTION_STAND,
 		ACTION_ATT,
 		ACTION_MOVE,
+		ACTION_FLY,
 		ACTION_REMOVE,
 		ACTION_STUN,
 		ACTION_DIE,
 		ACTION_NONE,
-		BOSSAC_FINISH,
-		BOSSAC_FAIL,
-		BOSSAC_PLAY,
-		BOSSAC_STAND,
-		BOSSAC_ATT,
-		BOSSAC_SKILL,
-		BOSSAC_MOVE,
-		BOSSAC_REMOVE,
-		BOSSAC_DIE,
-		BOSSAC_NONE
+		ACTION_SKILL_TAIL,
+		ACTION_SKILL_FIRE,
+		ACTION_SKILL_FLY_FIRE
+		//BOSSAC_FINISH,
+		//BOSSAC_FAIL,
+		//BOSSAC_PLAY,
+		//BOSSAC_STAND,
+		//BOSSAC_ATT,
+		//BOSSAC_SKILL,
+		//BOSSAC_MOVE,
+		//BOSSAC_REMOVE,
+		//BOSSAC_DIE,
+		//BOSSAC_NONE
 	};
 
 	enum BOSSACTIONRESULT
