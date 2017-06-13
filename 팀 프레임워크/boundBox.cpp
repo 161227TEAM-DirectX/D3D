@@ -104,6 +104,58 @@ void boundBox::renderGizmo(dx::transform * trans)
 	//GIZMOMANAGER->AABB(min, max, 0xff008800);
 }
 
+void boundBox::renderGizmo(dx::transform * trans, D3DCOLOR color)
+{
+	//변환된 박스의 월드위치 8개를 얻는다
+	D3DXVECTOR3 worldPos[8];
+	this->getWorldBox(trans, worldPos);
+
+	//   5-------6
+	//  /|      /|
+	// 1-------2 |
+	// | 4-----|-7
+	// |/      |/
+	// 0-------3 
+
+	//OBB 박스 그린다
+	GIZMOMANAGER->Line(worldPos[0], worldPos[1], color);
+	GIZMOMANAGER->Line(worldPos[1], worldPos[2], color);
+	GIZMOMANAGER->Line(worldPos[2], worldPos[3], color);
+	GIZMOMANAGER->Line(worldPos[3], worldPos[0], color);
+
+	GIZMOMANAGER->Line(worldPos[4], worldPos[5], color);
+	GIZMOMANAGER->Line(worldPos[5], worldPos[6], color);
+	GIZMOMANAGER->Line(worldPos[6], worldPos[7], color);
+	GIZMOMANAGER->Line(worldPos[7], worldPos[4], color);
+
+	GIZMOMANAGER->Line(worldPos[0], worldPos[4], color);
+	GIZMOMANAGER->Line(worldPos[1], worldPos[5], color);
+	GIZMOMANAGER->Line(worldPos[2], worldPos[6], color);
+	GIZMOMANAGER->Line(worldPos[3], worldPos[7], color);
+
+	D3DXVECTOR3 min;
+	D3DXVECTOR3 max;
+
+	//얻은 8 개의 최대 최소를 구하자.
+	min = worldPos[0];
+	max = worldPos[0];
+
+	for (int i = 1; i < 8; i++)
+	{
+		if (min.x > worldPos[i].x) min.x = worldPos[i].x;
+		else if (max.x < worldPos[i].x) max.x = worldPos[i].x;
+
+		if (min.y > worldPos[i].y) min.y = worldPos[i].y;
+		else if (max.y < worldPos[i].y) max.y = worldPos[i].y;
+
+		if (min.z > worldPos[i].z) min.z = worldPos[i].z;
+		else if (max.z < worldPos[i].z) max.z = worldPos[i].z;
+	}
+
+	//AABB 그린다.
+	//GIZMOMANAGER->AABB(min, max, 0xff008800);
+}
+
 void boundBox::setBound(D3DXVECTOR3 * center, D3DXVECTOR3 * halfSize)
 {
 	boundSphere::setBound(center, halfSize);

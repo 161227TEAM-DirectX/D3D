@@ -38,7 +38,11 @@ void bossActionControl::switchState(LHS::ACTIONRESULT& result)
 
 void bossActionControl::Init(Action *& CurrAction, LHS::ACTIONRESULT& result)
 {
+<<<<<<< HEAD
 	CurrAction = new bossActionFly;
+=======
+	CurrAction = new bossActionSkillFlyStandingFire;
+>>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
 	CurrAction->setOwner(linkBoss);
 	CurrAction->setObject(&linkBoss->getObject());
 	CurrAction->setRand(linkBoss->getTerrain());

@@ -118,7 +118,13 @@ void baseObject::computeBoundBox()
 			_boundBox._localMaxPos = staticMesh->_boundMax;
 			_boundBox._radius = staticMesh->_boundRadius;
 
+<<<<<<< HEAD
 			if (strcmp("Resource/Meshes/BossMonster/deathwing_ok/x/deathWing.x", _mesh->getFilePath().c_str()))
+=======
+			string temp = _mesh->getFilePath();
+
+			if (!strcmp("Resources/Meshes/BossMonster/deathwing_ok/x/deathWing.x", temp.c_str()))
+>>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
 			{
 				//보스의 바운드 박스를 재설정.
 				_boundBox._localMaxPos = _boundBox._localMaxPos / 2;

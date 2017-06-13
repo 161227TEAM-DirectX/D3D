@@ -1,0 +1,974 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="FX Files">
+      <UniqueIdentifier>{d739b6f3-f7ed-478c-b6a1-ca9de04cf8e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트">
+      <UniqueIdentifier>{01978b5a-ca7e-4368-b5ba-104d8c615b2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\김만웅">
+      <UniqueIdentifier>{fd0ebae9-efab-4380-8f88-5f7c31338496}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\김만웅\00.로딩바">
+      <UniqueIdentifier>{b4958c71-6179-4893-ace0-6d0822eb97cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\김만웅\01.로딩%28멀티쓰레드%29">
+      <UniqueIdentifier>{a029890b-7525-4576-8000-574479f3492e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\김태승">
+      <UniqueIdentifier>{a7965570-cd23-47fc-a6c0-0da14dc3eab1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\김태훈">
+      <UniqueIdentifier>{e6c94347-385c-4b2c-af9e-fc69d9c25706}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\이현수">
+      <UniqueIdentifier>{d1f5d6e0-5f98-47f0-a12f-5badd3d91d71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\이현총">
+      <UniqueIdentifier>{58902e39-b2bd-4ad8-bba6-fc69be3df71f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\이현총\dx파티클">
+      <UniqueIdentifier>{adbca726-28b4-49e2-b7e8-08545dba2f48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\이현총\dx파티클\모듈">
+      <UniqueIdentifier>{f0944b83-cb55-4449-a011-5fa582cba929}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\이현총\dx파티클\스킬 매니져">
+      <UniqueIdentifier>{6396ffa8-cad8-498c-bfbd-881c13cde972}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\이현총\dx파티클\이미터">
+      <UniqueIdentifier>{cb7c5640-5766-41db-925e-00697431f376}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\이현총\dx파티클\파티클 매니져">
+      <UniqueIdentifier>{ccb22cac-61f4-411d-ac40-3a492466e032}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\이현총\dx파티클\파티클 세트">
+      <UniqueIdentifier>{7c5abe4a-9386-4d42-bcbb-1f40ced20772}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\이현총\dx파티클\모듈\모듈키트">
+      <UniqueIdentifier>{4bea8af7-4480-4f45-a681-888fcce21c7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\이현총\dx파티클\모듈\모듈모음">
+      <UniqueIdentifier>{f0460e1e-e6b4-4376-ba01-387ce80091da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\이현총\테스트용">
+      <UniqueIdentifier>{ba7b33f9-39b4-4e72-b35c-6d80956a1859}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameManager%28상속%29">
+      <UniqueIdentifier>{369f663f-3514-4640-a917-6059f473774b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameManager%28상속%29\Resource">
+      <UniqueIdentifier>{618d8c5d-ef08-4959-9d24-f3c96cedcd63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameManager%28상속%29\IO">
+      <UniqueIdentifier>{9a382a7e-ed0b-4fe2-b635-5e616124b469}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameManager%28상속%29\Camera">
+      <UniqueIdentifier>{23d39210-b985-4572-aa25-f6955dbbc004}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameManager%28상속%29\Font">
+      <UniqueIdentifier>{42bc13c2-c3fa-4750-9286-97b15d3ea8d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameManager%28상속%29\Gizmo">
+      <UniqueIdentifier>{0073e84f-e28e-45be-8656-e90b21dba2f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameManager%28상속%29\Key">
+      <UniqueIdentifier>{fdef8ca4-cae3-4006-b7f2-22b87cd1767f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameManager%28상속%29\Physics">
+      <UniqueIdentifier>{32563d8a-09ea-42ed-9598-ee0f0df6e35c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameManager%28상속%29\Scene">
+      <UniqueIdentifier>{94c57b09-79ad-4269-b6e1-aa11d38f905a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameManager%28상속%29\Sprite">
+      <UniqueIdentifier>{1308d416-39fa-44b1-9d62-35706ba280b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameManager%28상속%29\Time">
+      <UniqueIdentifier>{6f184a5e-f3af-4f2b-8ae8-978c498b2bc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameManager%28매크로%29">
+      <UniqueIdentifier>{21275c07-e6f0-4213-b160-13f824b2251c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameManager%28매크로%29\Object">
+      <UniqueIdentifier>{1ea0530a-fb4a-4471-bef5-900a71b27a76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameManager%28매크로%29\Texture">
+      <UniqueIdentifier>{61b9e73f-0bc9-461f-bdd3-9c30d034c5ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{7a330a86-3f3d-46bc-9f8a-6c1a2c04d78c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D">
+      <UniqueIdentifier>{c8dd825d-2bd9-4556-b535-28ce64c7a21b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\MyUtil">
+      <UniqueIdentifier>{82d0c768-8547-4083-a94a-e793b97fd363}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\BaseObject">
+      <UniqueIdentifier>{5ebd70fc-3d7c-4788-aff5-067692d58dda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\BoundBox">
+      <UniqueIdentifier>{d4bef6e2-fcd0-4de1-8ec6-95265d04cbf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\Terrain">
+      <UniqueIdentifier>{3ddf39fc-731f-4f5c-b83f-0993a4e2d08a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\Transform">
+      <UniqueIdentifier>{7fc2d724-5147-4cad-9267-42f59a5694e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\Light">
+      <UniqueIdentifier>{0886260c-2111-4370-bc10-3e67a06e88f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\Camera">
+      <UniqueIdentifier>{619bcb28-7856-48e7-8646-11769b6e75cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\SkinnedAni">
+      <UniqueIdentifier>{615b43d5-a2b4-45eb-bfff-91802031d7c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\xMesh">
+      <UniqueIdentifier>{6f085a66-dede-4155-976d-f16732491c00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\Particle">
+      <UniqueIdentifier>{c204f9bf-d7bc-4de8-9da9-a485cdb0cd4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\Frustum">
+      <UniqueIdentifier>{60ee832d-3b10-4d99-8a4b-1fa16028e3bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\GameObject">
+      <UniqueIdentifier>{76f25462-bdf9-450b-a0e0-c61896956c3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\Object">
+      <UniqueIdentifier>{b2100f4e-e003-4567-9559-5aa13ef0cdd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\UI">
+      <UniqueIdentifier>{68affc7a-e929-48d0-9cc8-ee561545e6fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\UI\01.ImageView">
+      <UniqueIdentifier>{b461c23d-9cd0-4f50-8f2f-397a80e6c9cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\UI\00.Object">
+      <UniqueIdentifier>{f5750b29-a518-4f91-9253-6d912bba683a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\UI\02.Button">
+      <UniqueIdentifier>{1011b1a7-5d35-46bf-bf6b-b8348c00344b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\UI\03.LoadingBar">
+      <UniqueIdentifier>{3f64c98b-e558-4a7d-b6da-fcfcf7f971f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\UI\04.Loading%28멀티쓰레드%29">
+      <UniqueIdentifier>{2dd94494-d1d2-48a2-9e0c-00bce90e4a06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\Picking">
+      <UniqueIdentifier>{2068e408-93a9-473d-a34b-1d0749859c99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\Action">
+      <UniqueIdentifier>{1357b203-b657-45e5-9515-b4fb0c2a838b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\dijkstra">
+      <UniqueIdentifier>{04bcc1df-4c1a-48bb-a281-8ad9be0a5b5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\Node">
+      <UniqueIdentifier>{414693ff-75af-47c4-8c35-82ff015fb3c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\Monster">
+      <UniqueIdentifier>{4b80f731-a373-43b2-9a98-b5715dd477cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\GameNode">
+      <UniqueIdentifier>{64b45e4d-7691-46c2-a78d-ee587861ca94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\Scene">
+      <UniqueIdentifier>{e2895136-dbb3-45c4-8c77-7b72322bbc75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\김만웅\02.씬%28게임노드사용X%29">
+      <UniqueIdentifier>{a1d9f852-9826-40bf-ac60-df9197dbd738}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameManager%28매크로%29\Scene">
+      <UniqueIdentifier>{3b607de7-bb55-488d-bcba-e0d1d25adc2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\김만웅\03.카메라 그림자 분리">
+      <UniqueIdentifier>{481e32c0-8a4c-4294-a568-ea4a6e9ae5b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\Loading%28미완성%29">
+      <UniqueIdentifier>{d370e17c-b4ff-4a88-8d31-21f648490e87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\김만웅\04.스킨드메쉬 구경">
+      <UniqueIdentifier>{76532d37-3977-4169-abe2-12469c786fe4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="WinMain.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="myUtil.cpp">
+      <Filter>GameFramework3D\MyUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="treeNode.cpp">
+      <Filter>GameFramework3D\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="gameObject.cpp">
+      <Filter>GameFramework3D\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="characterController.cpp">
+      <Filter>GameFramework3D\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="cube.cpp">
+      <Filter>GameFramework3D\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="transform.cpp">
+      <Filter>GameFramework3D\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="baseObject.cpp">
+      <Filter>GameFramework3D\BaseObject</Filter>
+    </ClCompile>
+    <ClCompile Include="boundSphere.cpp">
+      <Filter>GameFramework3D\BoundBox</Filter>
+    </ClCompile>
+    <ClCompile Include="boundBox.cpp">
+      <Filter>GameFramework3D\BoundBox</Filter>
+    </ClCompile>
+    <ClCompile Include="boundObject.cpp">
+      <Filter>GameFramework3D\BaseObject</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>GameFramework3D\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="light.cpp">
+      <Filter>GameFramework3D\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="lightDirection.cpp">
+      <Filter>GameFramework3D\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="lightPoint.cpp">
+      <Filter>GameFramework3D\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="xMeshStatic.cpp">
+      <Filter>GameFramework3D\xMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="xMesh.cpp">
+      <Filter>GameFramework3D\xMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="quadTree.cpp">
+      <Filter>GameFramework3D\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="terrain.cpp">
+      <Filter>GameFramework3D\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="boneHierachy.cpp">
+      <Filter>GameFramework3D\SkinnedAni</Filter>
+    </ClCompile>
+    <ClCompile Include="skinnedAnimation.cpp">
+      <Filter>GameFramework3D\SkinnedAni</Filter>
+    </ClCompile>
+    <ClCompile Include="xMeshSkinned.cpp">
+      <Filter>GameFramework3D\xMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="particle.cpp">
+      <Filter>GameFramework3D\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="particleQuad.cpp">
+      <Filter>GameFramework3D\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="quadParticleEmitter.cpp">
+      <Filter>GameFramework3D\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="particleEmitter.cpp">
+      <Filter>GameFramework3D\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="frustum.cpp">
+      <Filter>GameFramework3D\Frustum</Filter>
+    </ClCompile>
+    <ClCompile Include="resourceManager.cpp">
+      <Filter>GameManager%28상속%29\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="rmShaderFX.cpp">
+      <Filter>GameManager%28상속%29\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="rmSkinnedMesh.cpp">
+      <Filter>GameManager%28상속%29\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="rmStaticMesh.cpp">
+      <Filter>GameManager%28상속%29\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="rmTexture.cpp">
+      <Filter>GameManager%28상속%29\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ioBaseManager.cpp">
+      <Filter>GameManager%28상속%29\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="cameraManager.cpp">
+      <Filter>GameManager%28상속%29\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="fontManager.cpp">
+      <Filter>GameManager%28상속%29\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="gizmoManager.cpp">
+      <Filter>GameManager%28상속%29\Gizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="keyManager.cpp">
+      <Filter>GameManager%28상속%29\Key</Filter>
+    </ClCompile>
+    <ClCompile Include="physicsManager.cpp">
+      <Filter>GameManager%28상속%29\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneManager.cpp">
+      <Filter>GameManager%28상속%29\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="spriteManager.cpp">
+      <Filter>GameManager%28상속%29\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="timeManager.cpp">
+      <Filter>GameManager%28상속%29\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="cObjectManager.cpp">
+      <Filter>GameManager%28매크로%29\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="cObject.cpp">
+      <Filter>GameFramework3D\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="cUIObject.cpp">
+      <Filter>GameFramework3D\UI\00.Object</Filter>
+    </ClCompile>
+    <ClCompile Include="cUIImageView.cpp">
+      <Filter>GameFramework3D\UI\01.ImageView</Filter>
+    </ClCompile>
+    <ClCompile Include="cTextureManager.cpp">
+      <Filter>GameManager%28매크로%29\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="cUIButton.cpp">
+      <Filter>GameFramework3D\UI\02.Button</Filter>
+    </ClCompile>
+    <ClCompile Include="cPicking.cpp">
+      <Filter>GameFramework3D\Picking</Filter>
+    </ClCompile>
+    <ClCompile Include="cUILoadingBar.cpp">
+      <Filter>GameFramework3D\UI\03.LoadingBar</Filter>
+    </ClCompile>
+    <ClCompile Include="cLoadingBarTest.cpp">
+      <Filter>Z테스트\김만웅\00.로딩바</Filter>
+    </ClCompile>
+    <ClCompile Include="terrainPickingTest.cpp">
+      <Filter>Z테스트\이현수</Filter>
+    </ClCompile>
+    <ClCompile Include="Action.cpp">
+      <Filter>GameFramework3D\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionAttack.cpp">
+      <Filter>GameFramework3D\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionDie.cpp">
+      <Filter>GameFramework3D\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionMove.cpp">
+      <Filter>GameFramework3D\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionReMove.cpp">
+      <Filter>GameFramework3D\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionSeq.cpp">
+      <Filter>GameFramework3D\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionStanding.cpp">
+      <Filter>GameFramework3D\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionStun.cpp">
+      <Filter>GameFramework3D\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="dijkstra.cpp">
+      <Filter>GameFramework3D\dijkstra</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>GameFramework3D\Node</Filter>
+    </ClCompile>
+    <ClCompile Include="monster.cpp">
+      <Filter>GameFramework3D\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="cUILoading.cpp">
+      <Filter>GameFramework3D\UI\04.Loading%28멀티쓰레드%29</Filter>
+    </ClCompile>
+    <ClCompile Include="cLoadingTest.cpp">
+      <Filter>Z테스트\김만웅\01.로딩%28멀티쓰레드%29</Filter>
+    </ClCompile>
+    <ClCompile Include="dxAccelerationModule.cpp">
+      <Filter>Z테스트\이현총\dx파티클\모듈\모듈모음</Filter>
+    </ClCompile>
+    <ClCompile Include="dxCircleModule.cpp">
+      <Filter>Z테스트\이현총\dx파티클\모듈\모듈모음</Filter>
+    </ClCompile>
+    <ClCompile Include="dxColorModule.cpp">
+      <Filter>Z테스트\이현총\dx파티클\모듈\모듈모음</Filter>
+    </ClCompile>
+    <ClCompile Include="dxLifeTimeModule.cpp">
+      <Filter>Z테스트\이현총\dx파티클\모듈\모듈모음</Filter>
+    </ClCompile>
+    <ClCompile Include="dxPositionModule.cpp">
+      <Filter>Z테스트\이현총\dx파티클\모듈\모듈모음</Filter>
+    </ClCompile>
+    <ClCompile Include="dxRotationModule.cpp">
+      <Filter>Z테스트\이현총\dx파티클\모듈\모듈모음</Filter>
+    </ClCompile>
+    <ClCompile Include="dxSizeModule.cpp">
+      <Filter>Z테스트\이현총\dx파티클\모듈\모듈모음</Filter>
+    </ClCompile>
+    <ClCompile Include="dxUVModule.cpp">
+      <Filter>Z테스트\이현총\dx파티클\모듈\모듈모음</Filter>
+    </ClCompile>
+    <ClCompile Include="dxVelocityModule.cpp">
+      <Filter>Z테스트\이현총\dx파티클\모듈\모듈모음</Filter>
+    </ClCompile>
+    <ClCompile Include="dxModule.cpp">
+      <Filter>Z테스트\이현총\dx파티클\모듈\모듈키트</Filter>
+    </ClCompile>
+    <ClCompile Include="dxModuleKit.cpp">
+      <Filter>Z테스트\이현총\dx파티클\모듈\모듈키트</Filter>
+    </ClCompile>
+    <ClCompile Include="dxSkill.cpp">
+      <Filter>Z테스트\이현총\dx파티클\스킬 매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="dxSkillManager.cpp">
+      <Filter>Z테스트\이현총\dx파티클\스킬 매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="dxBoardEmitter.cpp">
+      <Filter>Z테스트\이현총\dx파티클\이미터</Filter>
+    </ClCompile>
+    <ClCompile Include="dxEmitter.cpp">
+      <Filter>Z테스트\이현총\dx파티클\이미터</Filter>
+    </ClCompile>
+    <ClCompile Include="dxMeshEmitter.cpp">
+      <Filter>Z테스트\이현총\dx파티클\이미터</Filter>
+    </ClCompile>
+    <ClCompile Include="dxPlaneEmitter.cpp">
+      <Filter>Z테스트\이현총\dx파티클\이미터</Filter>
+    </ClCompile>
+    <ClCompile Include="dxPointEmitter.cpp">
+      <Filter>Z테스트\이현총\dx파티클\이미터</Filter>
+    </ClCompile>
+    <ClCompile Include="dxParticle.cpp">
+      <Filter>Z테스트\이현총\dx파티클\파티클 매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="dxParticleSystem.cpp">
+      <Filter>Z테스트\이현총\dx파티클\파티클 매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="dxParticleSystemManager.cpp">
+      <Filter>Z테스트\이현총\dx파티클\파티클 매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="dxParticleSystemSet.cpp">
+      <Filter>Z테스트\이현총\dx파티클\파티클 매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="PS_Set00.cpp">
+      <Filter>Z테스트\이현총\dx파티클\파티클 세트</Filter>
+    </ClCompile>
+    <ClCompile Include="particleTest.cpp">
+      <Filter>Z테스트\이현총\테스트용</Filter>
+    </ClCompile>
+    <ClCompile Include="particleTest02.cpp">
+      <Filter>Z테스트\이현총\테스트용</Filter>
+    </ClCompile>
+    <ClCompile Include="particleTest03.cpp">
+      <Filter>Z테스트\이현총\테스트용</Filter>
+    </ClCompile>
+    <ClCompile Include="particleTest04.cpp">
+      <Filter>Z테스트\이현총\테스트용</Filter>
+    </ClCompile>
+    <ClCompile Include="particleTest05.cpp">
+      <Filter>Z테스트\이현총\테스트용</Filter>
+    </ClCompile>
+    <ClCompile Include="particleTest06.cpp">
+      <Filter>Z테스트\이현총\테스트용</Filter>
+    </ClCompile>
+    <ClCompile Include="particleTest07.cpp">
+      <Filter>Z테스트\이현총\테스트용</Filter>
+    </ClCompile>
+    <ClCompile Include="particleTest08.cpp">
+      <Filter>Z테스트\이현총\테스트용</Filter>
+    </ClCompile>
+    <ClCompile Include="particleTest09.cpp">
+      <Filter>Z테스트\이현총\테스트용</Filter>
+    </ClCompile>
+    <ClCompile Include="particleTest10.cpp">
+      <Filter>Z테스트\이현총\테스트용</Filter>
+    </ClCompile>
+    <ClCompile Include="skill00.cpp">
+      <Filter>Z테스트\이현총</Filter>
+    </ClCompile>
+    <ClCompile Include="skill00_01.cpp">
+      <Filter>Z테스트\이현총</Filter>
+    </ClCompile>
+    <ClCompile Include="skill00_02.cpp">
+      <Filter>Z테스트\이현총</Filter>
+    </ClCompile>
+    <ClCompile Include="skill00_03.cpp">
+      <Filter>Z테스트\이현총</Filter>
+    </ClCompile>
+    <ClCompile Include="gameNode.cpp">
+      <Filter>GameFramework3D\GameNode</Filter>
+    </ClCompile>
+    <ClCompile Include="mainGame.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="iScene.cpp">
+      <Filter>GameFramework3D\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="cSceneTest.cpp">
+      <Filter>Z테스트\김만웅\02.씬%28게임노드사용X%29</Filter>
+    </ClCompile>
+    <ClCompile Include="cSceneManager.cpp">
+      <Filter>GameManager%28매크로%29\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="iGameNode.cpp">
+      <Filter>GameFramework3D\GameNode</Filter>
+    </ClCompile>
+    <ClCompile Include="cGameNodeTest.cpp">
+      <Filter>Z테스트\김만웅\03.카메라 그림자 분리</Filter>
+    </ClCompile>
+    <ClCompile Include="cLoading.cpp">
+      <Filter>GameFramework3D\Loading%28미완성%29</Filter>
+    </ClCompile>
+    <ClCompile Include="cMeshTest.cpp">
+      <Filter>Z테스트\김만웅\04.스킨드메쉬 구경</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="singletonBase.h">
+      <Filter>GameManager%28상속%29</Filter>
+    </ClInclude>
+    <ClInclude Include="myUtil.h">
+      <Filter>GameFramework3D\MyUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="treeNode.h">
+      <Filter>GameFramework3D\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObject.h">
+      <Filter>GameFramework3D\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="characterController.h">
+      <Filter>GameFramework3D\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="cube.h">
+      <Filter>GameFramework3D\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="transform.h">
+      <Filter>GameFramework3D\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="baseObject.h">
+      <Filter>GameFramework3D\BaseObject</Filter>
+    </ClInclude>
+    <ClInclude Include="boundSphere.h">
+      <Filter>GameFramework3D\BoundBox</Filter>
+    </ClInclude>
+    <ClInclude Include="boundBox.h">
+      <Filter>GameFramework3D\BoundBox</Filter>
+    </ClInclude>
+    <ClInclude Include="boundObject.h">
+      <Filter>GameFramework3D\BaseObject</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>GameFramework3D\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="light.h">
+      <Filter>GameFramework3D\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="lightDirection.h">
+      <Filter>GameFramework3D\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="lightPoint.h">
+      <Filter>GameFramework3D\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="xMeshStatic.h">
+      <Filter>GameFramework3D\xMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="xMesh.h">
+      <Filter>GameFramework3D\xMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="quadTree.h">
+      <Filter>GameFramework3D\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="terrain.h">
+      <Filter>GameFramework3D\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="boneHierachy.h">
+      <Filter>GameFramework3D\SkinnedAni</Filter>
+    </ClInclude>
+    <ClInclude Include="skinnedAnimation.h">
+      <Filter>GameFramework3D\SkinnedAni</Filter>
+    </ClInclude>
+    <ClInclude Include="xMeshSkinned.h">
+      <Filter>GameFramework3D\xMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="particle.h">
+      <Filter>GameFramework3D\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="particleQuad.h">
+      <Filter>GameFramework3D\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="quadParticleEmitter.h">
+      <Filter>GameFramework3D\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="particleEmitter.h">
+      <Filter>GameFramework3D\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="frustum.h">
+      <Filter>GameFramework3D\Frustum</Filter>
+    </ClInclude>
+    <ClInclude Include="resourceManager.h">
+      <Filter>GameManager%28상속%29\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="rmShaderFX.h">
+      <Filter>GameManager%28상속%29\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="rmSkinnedMesh.h">
+      <Filter>GameManager%28상속%29\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="rmStaticMesh.h">
+      <Filter>GameManager%28상속%29\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="rmTexture.h">
+      <Filter>GameManager%28상속%29\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ioBaseManager.h">
+      <Filter>GameManager%28상속%29\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="cameraManager.h">
+      <Filter>GameManager%28상속%29\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="fontManager.h">
+      <Filter>GameManager%28상속%29\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="gizmoManager.h">
+      <Filter>GameManager%28상속%29\Gizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="keyManager.h">
+      <Filter>GameManager%28상속%29\Key</Filter>
+    </ClInclude>
+    <ClInclude Include="physicsManager.h">
+      <Filter>GameManager%28상속%29\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="sceneManager.h">
+      <Filter>GameManager%28상속%29\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="spriteManager.h">
+      <Filter>GameManager%28상속%29\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="timeManager.h">
+      <Filter>GameManager%28상속%29\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="cObjectManager.h">
+      <Filter>GameManager%28매크로%29\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="cObject.h">
+      <Filter>GameFramework3D\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="cUIObject.h">
+      <Filter>GameFramework3D\UI\00.Object</Filter>
+    </ClInclude>
+    <ClInclude Include="cUIImageView.h">
+      <Filter>GameFramework3D\UI\01.ImageView</Filter>
+    </ClInclude>
+    <ClInclude Include="cTextureManager.h">
+      <Filter>GameManager%28매크로%29\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="cUIButton.h">
+      <Filter>GameFramework3D\UI\02.Button</Filter>
+    </ClInclude>
+    <ClInclude Include="cPicking.h">
+      <Filter>GameFramework3D\Picking</Filter>
+    </ClInclude>
+    <ClInclude Include="cUILoadingBar.h">
+      <Filter>GameFramework3D\UI\03.LoadingBar</Filter>
+    </ClInclude>
+    <ClInclude Include="cLoadingBarTest.h">
+      <Filter>Z테스트\김만웅\00.로딩바</Filter>
+    </ClInclude>
+    <ClInclude Include="terrainPickingTest.h">
+      <Filter>Z테스트\이현수</Filter>
+    </ClInclude>
+    <ClInclude Include="Action.h">
+      <Filter>GameFramework3D\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionAttack.h">
+      <Filter>GameFramework3D\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionDie.h">
+      <Filter>GameFramework3D\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionMove.h">
+      <Filter>GameFramework3D\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionReMove.h">
+      <Filter>GameFramework3D\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionSeq.h">
+      <Filter>GameFramework3D\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionStanding.h">
+      <Filter>GameFramework3D\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionStun.h">
+      <Filter>GameFramework3D\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="dijkstra.h">
+      <Filter>GameFramework3D\dijkstra</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>GameFramework3D\Node</Filter>
+    </ClInclude>
+    <ClInclude Include="monster.h">
+      <Filter>GameFramework3D\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="cUILoading.h">
+      <Filter>GameFramework3D\UI\04.Loading%28멀티쓰레드%29</Filter>
+    </ClInclude>
+    <ClInclude Include="cLoadingTest.h">
+      <Filter>Z테스트\김만웅\01.로딩%28멀티쓰레드%29</Filter>
+    </ClInclude>
+    <ClInclude Include="dxAccelerationModule.h">
+      <Filter>Z테스트\이현총\dx파티클\모듈\모듈모음</Filter>
+    </ClInclude>
+    <ClInclude Include="dxCircleModule.h">
+      <Filter>Z테스트\이현총\dx파티클\모듈\모듈모음</Filter>
+    </ClInclude>
+    <ClInclude Include="dxColorModule.h">
+      <Filter>Z테스트\이현총\dx파티클\모듈\모듈모음</Filter>
+    </ClInclude>
+    <ClInclude Include="dxLifeTimeModule.h">
+      <Filter>Z테스트\이현총\dx파티클\모듈\모듈모음</Filter>
+    </ClInclude>
+    <ClInclude Include="dxPositionModule.h">
+      <Filter>Z테스트\이현총\dx파티클\모듈\모듈모음</Filter>
+    </ClInclude>
+    <ClInclude Include="dxRotationModule.h">
+      <Filter>Z테스트\이현총\dx파티클\모듈\모듈모음</Filter>
+    </ClInclude>
+    <ClInclude Include="dxSizeModule.h">
+      <Filter>Z테스트\이현총\dx파티클\모듈\모듈모음</Filter>
+    </ClInclude>
+    <ClInclude Include="dxUVModule.h">
+      <Filter>Z테스트\이현총\dx파티클\모듈\모듈모음</Filter>
+    </ClInclude>
+    <ClInclude Include="dxVelocityModule.h">
+      <Filter>Z테스트\이현총\dx파티클\모듈\모듈모음</Filter>
+    </ClInclude>
+    <ClInclude Include="dxModule.h">
+      <Filter>Z테스트\이현총\dx파티클\모듈\모듈키트</Filter>
+    </ClInclude>
+    <ClInclude Include="dxModuleKit.h">
+      <Filter>Z테스트\이현총\dx파티클\모듈\모듈키트</Filter>
+    </ClInclude>
+    <ClInclude Include="dxSkill.h">
+      <Filter>Z테스트\이현총\dx파티클\스킬 매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="dxSkillManager.h">
+      <Filter>Z테스트\이현총\dx파티클\스킬 매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="dxBoardEmitter.h">
+      <Filter>Z테스트\이현총\dx파티클\이미터</Filter>
+    </ClInclude>
+    <ClInclude Include="dxEmitter.h">
+      <Filter>Z테스트\이현총\dx파티클\이미터</Filter>
+    </ClInclude>
+    <ClInclude Include="dxMeshEmitter.h">
+      <Filter>Z테스트\이현총\dx파티클\이미터</Filter>
+    </ClInclude>
+    <ClInclude Include="dxPlaneEmitter.h">
+      <Filter>Z테스트\이현총\dx파티클\이미터</Filter>
+    </ClInclude>
+    <ClInclude Include="dxPointEmitter.h">
+      <Filter>Z테스트\이현총\dx파티클\이미터</Filter>
+    </ClInclude>
+    <ClInclude Include="dxParticle.h">
+      <Filter>Z테스트\이현총\dx파티클\파티클 매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="dxParticleSystem.h">
+      <Filter>Z테스트\이현총\dx파티클\파티클 매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="dxParticleSystemManager.h">
+      <Filter>Z테스트\이현총\dx파티클\파티클 매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="dxParticleSystemSet.h">
+      <Filter>Z테스트\이현총\dx파티클\파티클 매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="PS_Set00.h">
+      <Filter>Z테스트\이현총\dx파티클\파티클 세트</Filter>
+    </ClInclude>
+    <ClInclude Include="particleTest.h">
+      <Filter>Z테스트\이현총\테스트용</Filter>
+    </ClInclude>
+    <ClInclude Include="particleTest02.h">
+      <Filter>Z테스트\이현총\테스트용</Filter>
+    </ClInclude>
+    <ClInclude Include="particleTest03.h">
+      <Filter>Z테스트\이현총\테스트용</Filter>
+    </ClInclude>
+    <ClInclude Include="particleTest04.h">
+      <Filter>Z테스트\이현총\테스트용</Filter>
+    </ClInclude>
+    <ClInclude Include="particleTest05.h">
+      <Filter>Z테스트\이현총\테스트용</Filter>
+    </ClInclude>
+    <ClInclude Include="particleTest06.h">
+      <Filter>Z테스트\이현총\테스트용</Filter>
+    </ClInclude>
+    <ClInclude Include="particleTest07.h">
+      <Filter>Z테스트\이현총\테스트용</Filter>
+    </ClInclude>
+    <ClInclude Include="particleTest08.h">
+      <Filter>Z테스트\이현총\테스트용</Filter>
+    </ClInclude>
+    <ClInclude Include="particleTest09.h">
+      <Filter>Z테스트\이현총\테스트용</Filter>
+    </ClInclude>
+    <ClInclude Include="particleTest10.h">
+      <Filter>Z테스트\이현총\테스트용</Filter>
+    </ClInclude>
+    <ClInclude Include="skill00.h">
+      <Filter>Z테스트\이현총</Filter>
+    </ClInclude>
+    <ClInclude Include="skill00_01.h">
+      <Filter>Z테스트\이현총</Filter>
+    </ClInclude>
+    <ClInclude Include="skill00_02.h">
+      <Filter>Z테스트\이현총</Filter>
+    </ClInclude>
+    <ClInclude Include="skill00_03.h">
+      <Filter>Z테스트\이현총</Filter>
+    </ClInclude>
+    <ClInclude Include="gameNode.h">
+      <Filter>GameFramework3D\GameNode</Filter>
+    </ClInclude>
+    <ClInclude Include="mainGame.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="iScene.h">
+      <Filter>GameFramework3D\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="cSceneTest.h">
+      <Filter>Z테스트\김만웅\02.씬%28게임노드사용X%29</Filter>
+    </ClInclude>
+    <ClInclude Include="cSceneManager.h">
+      <Filter>GameManager%28매크로%29\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="iGameNode.h">
+      <Filter>GameFramework3D\GameNode</Filter>
+    </ClInclude>
+    <ClInclude Include="cGameNodeTest.h">
+      <Filter>Z테스트\김만웅\03.카메라 그림자 분리</Filter>
+    </ClInclude>
+    <ClInclude Include="cLoading.h">
+      <Filter>GameFramework3D\Loading%28미완성%29</Filter>
+    </ClInclude>
+    <ClInclude Include="cMeshTest.h">
+      <Filter>Z테스트\김만웅\04.스킨드메쉬 구경</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Texture_Gray.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Texture_Mask.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Texture_Terrain.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="TextureAlpha.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="TextureBlinn.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="TextureNormal.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="TextureNormal2.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="리소스\FX\EnvironmentCUBE.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\AddLight.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\BlinnPhong.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\Distort_1.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\EnvironmentCube.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\GrassMesh.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\HLSL_LambertLighting.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\HLSL_VertexSpecular.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\HSLS_BaseColor.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\ModelPixel.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\Phong.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\PostEffect.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\SkinnedMesh.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\SkinnedMesh0.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\StaticMesh.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\StaticMesh_master.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\StaticMesh2.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\TerrainBase.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\Texture.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\Texture_Gray.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\Texture_Mask.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\Texture_Terrain.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\TextureAlpha.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\TextureBlinn.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\TextureNormal.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\TextureNormal2.fx">
+      <Filter>FX Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\TreeMesh.fx">
+      <Filter>FX Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>

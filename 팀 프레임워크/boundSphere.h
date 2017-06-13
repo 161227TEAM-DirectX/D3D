@@ -12,6 +12,7 @@ public:
 	void getWorldCenterRadius(dx::transform* trans, D3DXVECTOR3* center, float* raius);
 	//월드 단위로 그리기
 	virtual void renderGizmo(dx::transform* trans);
+	virtual void renderGizmo(dx::transform* trans, D3DCOLOR color);
 	//바운드 세팅하기
 	virtual void setBound(D3DXVECTOR3* center, D3DXVECTOR3* halfSize);
 

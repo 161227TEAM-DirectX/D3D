@@ -1,18 +1,27 @@
 #pragma once
+<<<<<<< HEAD
 #include "gameNode.h"
 #include "singletonBase.h"
+=======
+#include "singletonBase.h"
+#include "gameNode.h"
+>>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
 
 enum PL_WEAPON
 {
 	W_NONE = 0,
 	W_BLACK_WING,
+<<<<<<< HEAD
 	W_대충대충검,
+=======
+>>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
 	W_END
 };
 
 enum PL_ARMOR
 {
 	A_NONE = 0,
+<<<<<<< HEAD
 	A_ROBE,
 	A_LEATHER,
 	A_PLATE,
@@ -43,3 +52,32 @@ public:
 	xPlayerStatus() {};
 	~xPlayerStatus() {};
 };
+=======
+	A_LEATHER,
+	A_ROBE,
+	A_PLATE,
+	A_END
+};
+
+
+class xPlayerStatus : public singletonBase<xPlayerStatus>
+{
+private:
+	float _exp;
+	int _att;
+	int _def;
+	int _hp;
+	int _mp;
+	
+
+public:
+	xPlayerStatus();
+	~xPlayerStatus();
+
+	
+
+	int& getHp() { return _hp; }
+	int& getMp() { return _mp; }
+};
+
+>>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60

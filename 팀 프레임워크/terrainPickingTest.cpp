@@ -51,11 +51,19 @@ HRESULT terrainPickingTest::init(void)
 	//enemy->_transform->SetScale(0.1f, 0.1f, 0.1f);
 	//enemy->setActive(true);
 	//this->_renderObjects.push_back(enemy);
+<<<<<<< HEAD
+=======
+
+	_player = new xPlayer;
+	_player->setlinkTerrain(*_terrain);
+	_player->init();
+>>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
 
 	_player = new xPlayer;
 	_player->setlinkTerrain(*_terrain);
 	_player->init();
 	//임시 몬스터 구현 코드
+<<<<<<< HEAD
 	player = new monster;
 	player->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
 	player->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
@@ -77,6 +85,30 @@ HRESULT terrainPickingTest::init(void)
 	//boss->LinkPlayer(enemy);
 	//boss->setActive(true);
 	//this->_renderObjects.push_back(boss);
+=======
+	//player = new monster;
+	//player->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/arcanegolem_ok/x/golem2.x", mat));
+	//player->_transform->SetScale(0.1f, 0.1f, 0.1f);
+	//player->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+	//player->setRegenPosition(0.0f, tempY, 0.0f);
+	//player->LinkObject(testObject);
+	//player->LinkTerrain(*_terrain);
+	//player->LinkPlayer(_player->getPlayerObject());
+	//player->setActive(true);
+	//this->_renderObjects.push_back(player);
+	//D3DXMatrixScaling(&matScaling, 0.5f, 0.5f, 0.5f);
+	//mat = matScaling * matRotate;
+
+	boss = new bossMonster;
+	boss->setMesh(RM_SKINNED->getResource("Resources/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
+	boss->_transform->SetScale(0.5f, 0.5f, 0.5f);
+	boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+	boss->LinkObject(testObject);
+	boss->LinkTerrain(*_terrain);
+	boss->LinkPlayer(enemy);
+	boss->setActive(true);
+	this->_renderObjects.push_back(boss);
+>>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
 
 	_sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(90), 0, 0);
 	this->setEnvironment("Resources/TextureCUBE/SuperKanjiCube.dds");
@@ -112,11 +144,16 @@ HRESULT terrainPickingTest::init(void)
 	sour = -1;
 	dest = -1;
 
+<<<<<<< HEAD
 	
 	
 	_player->setTargetMonster(*player);
 	
 
+=======
+	_player->setTargetMonster(*player);
+	
+>>>>>>> d6e334270052364b68749c2834fb5bad8b2deb60
 	return S_OK;
 }
 
