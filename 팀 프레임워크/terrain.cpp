@@ -421,14 +421,16 @@ HRESULT terrain::createTerrain(int smooth, int tileNum)
 			if (x == _verNumX - 1) 
 			{
 				int idx = z * _verNumX + x - 1;
-				pos.y = _terrainVertices[idx].pos.y;
+				pos.y = 0;
+				//pos.y = _terrainVertices[idx].pos.y;
 			}
 
 			//세로 마지막 라인이라면 (이전 위쪽의 정점 Y 위치와 맞춘다)
 			else if (z == _verNumZ - 1) 
 			{
 				int idx = (z - 1) * _verNumX + x;
-				pos.y = _terrainVertices[idx].pos.y;
+				pos.y = 0;
+				//pos.y = _terrainVertices[idx].pos.y;
 			}
 			else
 			{
@@ -446,7 +448,8 @@ HRESULT terrain::createTerrain(int smooth, int tileNum)
 				float factor = (r + g + b) / 3.0f;
 
 				//높이 값
-				pos.y = factor * _heightScale;
+				pos.y = 0;
+				//pos.y = factor * _heightScale;
 			}
 
 			//정점 UV 계산

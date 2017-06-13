@@ -4,6 +4,9 @@
 //#include "dijkstra.h"
 #include "monster.h"
 #include "bossMonster.h"
+#include "xPlayer.h"
+
+
 
 class terrainPickingTest : public gameNode
 {
@@ -19,6 +22,8 @@ private:
 
 private:
 //	dijkstra*			tempDijkstra;
+	xPlayer* _player;
+
 	monster*			player;
 	bossMonster*		boss;
 	baseObject*			enemy;
@@ -29,10 +34,14 @@ private:
 	D3DXVECTOR3			_hitPos;	//히트 포지션
 	SELECTFUNC			lButtonState;
 	vector<light*>		_lights;
+	
+	
 	vector<baseObject*> testObject;
 
 	vector<baseObject*>		_renderObjects;		//씬에 배치된 랜더 오브젝트 배열
 	vector<baseObject*>		_cullObjects;		//컬링된 오브젝트
+	
+
 
 	int sour;					//노드 연결시 출발 노드 인덱스값
 	int dest;					//노드 연결시 목적지 노드 인덱스값

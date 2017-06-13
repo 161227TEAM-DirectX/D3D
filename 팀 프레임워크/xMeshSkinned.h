@@ -72,6 +72,10 @@ public:
 	//본이름으로 본찾는다.
 	BONE* GetFineBONE(std::string boneName);
 
+	bool& get_bPlay() { return _bPlay; }
+
+	MAP_ANIMSET& getAnimMap() { return _mapAnimSet; }
+
 private:
 	//본 행렬을 세팅한다.
 	void InitBoneMatrixPointer(BONE* pBone);

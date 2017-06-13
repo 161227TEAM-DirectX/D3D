@@ -102,15 +102,15 @@ void monster::stateSwitch(void)
 		NextAction->setEnemy(player);
 		break;
 		// 이동이 필요한 경우
-	case LHS::ACTIONRESULT::ACTION_MOVE:
-		linkTerrain->getDijkstra().FindPath(_transform->GetWorldPosition(), player->_transform->GetWorldPosition());
-		NextAction = linkTerrain->getDijkstra().OptimizedAction(*this, *player, linkTerrain, *linkObject, _transform->GetWorldPosition(), player->_transform->GetWorldPosition());
-		break;
+	//case LHS::ACTIONRESULT::ACTION_MOVE:
+	//	linkTerrain->getDijkstra().FindPath(_transform->GetWorldPosition(), player->_transform->GetWorldPosition());
+	//	NextAction = linkTerrain->getDijkstra().OptimizedAction(*this, *player, linkTerrain, *linkObject, _transform->GetWorldPosition(), player->_transform->GetWorldPosition());
+	//	break;
 		//원래의 리젠 위치로 돌아가야 하는 경우
-	case LHS::ACTIONRESULT::ACTION_REMOVE:
-		linkTerrain->getDijkstra().FindPath(_transform->GetWorldPosition(), regenPosition);
-		NextAction = linkTerrain->getDijkstra().OptimizedAction(*this, linkTerrain, *linkObject, _transform->GetWorldPosition(), regenPosition);
-		break;
+	//case LHS::ACTIONRESULT::ACTION_REMOVE:
+	//	linkTerrain->getDijkstra().FindPath(_transform->GetWorldPosition(), regenPosition);
+	//	NextAction = linkTerrain->getDijkstra().OptimizedAction(*this, linkTerrain, *linkObject, _transform->GetWorldPosition(), regenPosition);
+	//	break;
 		//공격을 해야 하는 경우
 	case LHS::ACTIONRESULT::ACTION_ATT:
 	{

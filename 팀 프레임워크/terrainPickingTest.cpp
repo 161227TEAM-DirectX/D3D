@@ -46,39 +46,43 @@ HRESULT terrainPickingTest::init(void)
 	D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
 	mat = /*matScaling **/ matRotate;
 
-	enemy = new baseObject;
-	enemy->setMesh(RM_XMESH->getResource("Resources/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
-	enemy->_transform->SetScale(0.1f, 0.1f, 0.1f);
-	enemy->setActive(true);
-	this->_renderObjects.push_back(enemy);
+	//enemy = new baseObject;
+	//enemy->setMesh(RM_XMESH->getResource("Resources/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
+	//enemy->_transform->SetScale(0.1f, 0.1f, 0.1f);
+	//enemy->setActive(true);
+	//this->_renderObjects.push_back(enemy);
 
+	_player = new xPlayer;
+	_player->setlinkTerrain(*_terrain);
+	_player->init();
 	//임시 몬스터 구현 코드
-	//player = new monster;
-	//player->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
-	//player->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
-	//player->setRegenPosition(0.0f, tempY, 0.0f);
-	//player->LinkObject(testObject);
-	//player->LinkTerrain(*_terrain);
-	//player->LinkPlayer(enemy);
-	//player->setActive(true);
+	player = new monster;
+	player->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
+	player->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+	player->setRegenPosition(0.0f, tempY, 0.0f);
+	player->LinkObject(testObject);
+	player->LinkTerrain(*_terrain);
+	player->LinkPlayer(_player->getPlayerObject());
+	player->setActive(true);
+	this->_renderObjects.push_back(player);
 	//D3DXMatrixScaling(&matScaling, 0.5f, 0.5f, 0.5f);
 	//mat = matScaling * matRotate;
 
-	boss = new bossMonster;
-	boss->setMesh(RM_SKINNED->getResource("Resources/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
-	boss->_transform->SetScale(0.5f, 0.5f, 0.5f);
-	boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
-	boss->LinkObject(testObject);
-	boss->LinkTerrain(*_terrain);
-	boss->LinkPlayer(enemy);
-	boss->setActive(true);
-	this->_renderObjects.push_back(boss);
+	//boss = new bossMonster;
+	//boss->setMesh(RM_SKINNED->getResource("Resources/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
+	//boss->_transform->SetScale(0.5f, 0.5f, 0.5f);
+	//boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+	//boss->LinkObject(testObject);
+	//boss->LinkTerrain(*_terrain);
+	//boss->LinkPlayer(enemy);
+	//boss->setActive(true);
+	//this->_renderObjects.push_back(boss);
 
 	_sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(90), 0, 0);
 	this->setEnvironment("Resources/TextureCUBE/SuperKanjiCube.dds");
 
-	_mainCamera->SetWorldPosition(0.0f, 60.0f, 10.0f);
-	_mainCamera->LookPosition(boss->_transform->GetWorldPosition());
+	//_mainCamera->SetWorldPosition(0.0f, 60.0f, 10.0f);
+	//_mainCamera->LookPosition(boss->_transform->GetWorldPosition());
 
 	////라이트 세팅
 	//lightDirection* light1 = new lightDirection;
@@ -108,11 +112,19 @@ HRESULT terrainPickingTest::init(void)
 	sour = -1;
 	dest = -1;
 
+	
+	
+	_player->setTargetMonster(*player);
+	
+
 	return S_OK;
 }
 
 void terrainPickingTest::release(void)
 {
+	_player->release();
+	SAFE_DELETE(_player);
+
 	//오브젝트 해제
 	for (int i = 0; i < this->_renderObjects.size(); i++)
 	{
@@ -134,18 +146,17 @@ void terrainPickingTest::update(void)
 {
 	_sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
 
-	lButtonStateChange();
-	selectLButton();
+//	lButtonStateChange();
+//	selectLButton();
 
 	for (int i = 0; i < this->_renderObjects.size(); i++)
 	{
 		_renderObjects[i]->update();
 	}
 
-	_mainCamera->LookPosition(boss->_transform->GetWorldPosition());
-
 	//쉐도우맵 준비
 	this->readyShadowMap(&this->_renderObjects, this->_terrainShadow);
+	_player->update();
 
 	//player._skTransform->DefaultMyControl(_timeDelta);
 	//enemy->update();
@@ -184,13 +195,16 @@ void terrainPickingTest::render(void)
 	xMeshSkinned::setTechniqueName("Toon");
 	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resources/Testures/Ramp_1.png"));
 	xMeshSkinned::setBaseLight(this->_sceneBaseDirectionLight);
+	
+	_player->render();
 
 	for (int i = 0; i < this->_cullObjects.size(); i++)
 	{
 		this->_cullObjects[i]->render();
 	}
 	_terrain->render(_mainCamera, _sceneBaseDirectionLight, _directionLightCamera);
-
+	
+	RM_SKINNED->getResource("Resources/Player/FHUMAN_PLATE/FHUMAN.X")->ShowAnimationName(0, 0);
 	//_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 	//포그세팅 0xff806A12
 	//_device->SetRenderState(D3DRS_FOGENABLE, TRUE);					//포그 사용여부
