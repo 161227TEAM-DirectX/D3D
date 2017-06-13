@@ -172,9 +172,6 @@
     <Filter Include="GameFramework3D\Node">
       <UniqueIdentifier>{414693ff-75af-47c4-8c35-82ff015fb3c0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework3D\Monster">
-      <UniqueIdentifier>{4b80f731-a373-43b2-9a98-b5715dd477cc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameFramework3D\xPlayer">
       <UniqueIdentifier>{7347c473-da58-457e-a5fa-2da6de176e8e}</UniqueIdentifier>
     </Filter>
@@ -184,8 +181,11 @@
     <Filter Include="GameFramework3D\ActionBoss\BossControl">
       <UniqueIdentifier>{d177c4cf-fc20-4f26-8a21-7e1a0847f89a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework3D\BaseObject\BoundBox">
+    <Filter Include="GameFramework3D\BoundBox">
       <UniqueIdentifier>{d4bef6e2-fcd0-4de1-8ec6-95265d04cbf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\Monster">
+      <UniqueIdentifier>{4b80f731-a373-43b2-9a98-b5715dd477cc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -223,10 +223,10 @@
       <Filter>GameFramework3D\BaseObject</Filter>
     </ClCompile>
     <ClCompile Include="boundSphere.cpp">
-      <Filter>GameFramework3D\BaseObject\BoundBox</Filter>
+      <Filter>GameFramework3D\BoundBox</Filter>
     </ClCompile>
     <ClCompile Include="boundBox.cpp">
-      <Filter>GameFramework3D\BaseObject\BoundBox</Filter>
+      <Filter>GameFramework3D\BoundBox</Filter>
     </ClCompile>
     <ClCompile Include="boundObject.cpp">
       <Filter>GameFramework3D\BaseObject</Filter>
@@ -582,10 +582,10 @@
       <Filter>GameFramework3D\BaseObject</Filter>
     </ClInclude>
     <ClInclude Include="boundSphere.h">
-      <Filter>GameFramework3D\BaseObject\BoundBox</Filter>
+      <Filter>GameFramework3D\BoundBox</Filter>
     </ClInclude>
     <ClInclude Include="boundBox.h">
-      <Filter>GameFramework3D\BaseObject\BoundBox</Filter>
+      <Filter>GameFramework3D\BoundBox</Filter>
     </ClInclude>
     <ClInclude Include="boundObject.h">
       <Filter>GameFramework3D\BaseObject</Filter>
