@@ -23,7 +23,7 @@ int bossActionAttack::Start()
 
 int bossActionAttack::Update()
 {
-	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.99f)
+	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.9f)
 	{
 		passedTime = 0.0f;
 		int random = myUtil::RandomIntRange(1, 5);

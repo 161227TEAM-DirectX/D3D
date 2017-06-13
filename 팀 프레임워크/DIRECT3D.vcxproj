@@ -159,7 +159,9 @@
     <ClInclude Include="bossActionAttack.h" />
     <ClInclude Include="bossActionCinema.h" />
     <ClInclude Include="bossActionControl.h" />
+    <ClInclude Include="bossActionDie.h" />
     <ClInclude Include="bossActionFly.h" />
+    <ClInclude Include="bossActionFlyDie.h" />
     <ClInclude Include="bossActionLanding.h" />
     <ClInclude Include="bossActionMove.h" />
     <ClInclude Include="bossActionSkill.h" />
@@ -280,7 +282,9 @@
     <ClCompile Include="bossActionAttack.cpp" />
     <ClCompile Include="bossActionCinema.cpp" />
     <ClCompile Include="bossActionControl.cpp" />
+    <ClCompile Include="bossActionDie.cpp" />
     <ClCompile Include="bossActionFly.cpp" />
+    <ClCompile Include="bossActionFlyDie.cpp" />
     <ClCompile Include="bossActionLanding.cpp" />
     <ClCompile Include="bossActionMove.cpp" />
     <ClCompile Include="bossActionSkill.cpp" />

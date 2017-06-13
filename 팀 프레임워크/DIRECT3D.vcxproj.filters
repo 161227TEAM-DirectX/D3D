@@ -546,6 +546,12 @@
     <ClCompile Include="bossActionControl.cpp">
       <Filter>GameFramework3D\ActionBoss\BossControl</Filter>
     </ClCompile>
+    <ClCompile Include="bossActionDie.cpp">
+      <Filter>GameFramework3D\ActionBoss</Filter>
+    </ClCompile>
+    <ClCompile Include="bossActionFlyDie.cpp">
+      <Filter>GameFramework3D\ActionBoss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -904,6 +910,12 @@
     </ClInclude>
     <ClInclude Include="bossActionControl.h">
       <Filter>GameFramework3D\ActionBoss\BossControl</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionDie.h">
+      <Filter>GameFramework3D\ActionBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionFlyDie.h">
+      <Filter>GameFramework3D\ActionBoss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,8 @@
 #include "bossActionStanding.h"
 #include "bossActionFly.h"
 #include "bossActionLanding.h"
+#include "bossActionFlyDie.h"
+#include "bossActionDie.h"
 #include "bossActionSkill.h"
 #include "bossActionSkillFire.h"
 #include "bossActionSkillBattleRoar.h"

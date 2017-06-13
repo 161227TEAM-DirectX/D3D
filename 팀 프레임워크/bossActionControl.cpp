@@ -26,6 +26,7 @@ void bossActionControl::switchState(LHS::ACTIONRESULT& result)
 	case LHS::ACTION_FINISH:
 		break;
 	case LHS::ACTION_MOVE:
+		
 		break;
 	case LHS::ACTION_NONE:
 		break;
@@ -38,7 +39,7 @@ void bossActionControl::switchState(LHS::ACTIONRESULT& result)
 
 void bossActionControl::Init(Action *& CurrAction, LHS::ACTIONRESULT& result)
 {
-	CurrAction = new bossActionSkillFlyStandingFire;
+	CurrAction = new bossActionCinema;
 	CurrAction->setOwner(linkBoss);
 	CurrAction->setObject(&linkBoss->getObject());
 	CurrAction->setRand(linkBoss->getTerrain());

@@ -17,7 +17,7 @@ int bossActionSkillFire::Start()
 	if (!owner)return LHS::ACTIONRESULT::ACTION_FINISH;
 
 	//보스몬스터의 공격모션 아무거나 시작.
-	owner->getSkinnedAnim().PlayOneShot("Animation_65");
+	owner->getSkinnedAnim().Play("Animation_65");
 
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
 }
@@ -25,9 +25,9 @@ int bossActionSkillFire::Start()
 int bossActionSkillFire::Update()
 {
 	
-	if (strcmp(owner->getSkinnedAnim().getAnimationSet()->GetName(), "Animation_65"))
+	if (!strcmp(owner->getSkinnedAnim().getAnimationSet()->GetName(), "Animation_65"))
 	{
-		if (owner->getSkinnedAnim().getAnimationPlayFactor() < 0.99f) return LHS::ACTIONRESULT::ACTION_PLAY;
+		if (owner->getSkinnedAnim().getAnimationPlayFactor() < 0.9f) return LHS::ACTIONRESULT::ACTION_PLAY;
 		else
 		{
 			owner->getSkinnedAnim().Play("Animation_14");
@@ -36,7 +36,7 @@ int bossActionSkillFire::Update()
 	//액션 종료 조건이 필요.
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.99f)
 	{
-
+	
 	}
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
