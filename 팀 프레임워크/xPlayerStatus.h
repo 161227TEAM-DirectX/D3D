@@ -5,8 +5,11 @@
 enum PL_WEAPON
 {
 	W_NONE = 0,
+	W_WOOD,
+	W_BROAD,
+	W_KATANA,
+	W_DEAMON,
 	W_BLACK_WING,
-	W_대충대충검,
 	W_END
 };
 
@@ -18,6 +21,18 @@ enum PL_ARMOR
 	A_PLATE,
 	A_END
 };
+
+enum PL_SHIELD
+{
+	SH_NONE = 0,
+	SH_BUCKLER,
+	SH_BRONZE,
+	SH_KITE,
+	SH_SPIKE,
+	SH_CROSS,
+	SH_END
+};
+
 class xPlayerStatus : public singletonBase<xPlayerStatus>
 {
 private:

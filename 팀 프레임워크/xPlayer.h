@@ -23,6 +23,10 @@ enum PL_STATE
 	P_MOVE,
 	P_READYTOATTACK,
 	P_ATTACK,
+	P_ATTACK2,
+	P_ATTACK3,
+	P_ATTACK4,
+	P_ATTACK5,
 	P_READYSPELL,
 	P_CASTSPELL,
 	P_READYOMNI,
@@ -47,6 +51,7 @@ private:
 	PL_STATE _state;
 	PL_STATE _prevState;
 	PL_WEAPON Weapons;
+	PL_SHIELD Shields;
 	PL_ARMOR Equipments;
 	int _Hp;
 	int _Att;
@@ -68,6 +73,7 @@ private:
 private:
 	baseObject* _playerObject;
 	baseObject* _weaponObject;
+	baseObject* _shieldObject;
 
 	dx::transform _attackTrans;
 	boundBox _attackBound;

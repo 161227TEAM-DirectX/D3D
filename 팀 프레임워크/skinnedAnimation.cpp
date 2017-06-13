@@ -84,6 +84,23 @@ void skinnedAnimation::update()
 				this->Stop();
 			}
 		}
+
+		//else
+		//{
+		//	//현제 Animation 을 1 번Track 으로 세팅
+		//	_fCrossFadeTime = 0.15;
+		//	_fLeftCrossFadeTime = 0.15;
+
+		//	_pAnimController->SetTrackAnimationSet(1, _pNowPlayAnimationSet);
+		//	_pAnimController->SetTrackPosition(1, _Track_Desc_0.Position);	//이전에 플레이 되던 위치로 세팅
+		//	_pAnimController->SetTrackEnable(1, true);						//1 번 Track 활성화
+		//	_pAnimController->SetTrackWeight(1, 1.0f);						//1 번 Track 가중치
+		//	_pAnimController->SetTrackSpeed(1, _Track_Desc_0.Speed);		//속도 
+
+		//	_pAnimController->SetTrackAnimationSet(0, _pNowPlayAnimationSet);
+		//	_pAnimController->SetTrackPosition(0, 0.0f);
+		//	_pAnimController->SetTrackWeight(0, 0.0f);						//가중치는 0 으로 
+		//}
 	}
 	_AnimationPlayFactor = _AnimationPlayFactor - (int)_AnimationPlayFactor;	//정수부분 안생기게....
 
