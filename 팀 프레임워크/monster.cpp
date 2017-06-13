@@ -18,8 +18,8 @@ void monster::baseObjectEnable()
 	D3DXVECTOR3 temp(_boundBox._localCenter);
 	temp.z = _boundBox._localMaxPos.z;
 	//���ڽ� - �������� �ʿ������� �ǹ��̴�..... �ʿ� �ϰ���?
-	range.setBound(&D3DXVECTOR3(0.0f, 0.0f, 0.0f), &D3DXVECTOR3(RANGE, RANGE, RANGE));
 
+	range.setBound(&D3DXVECTOR3(0.0f, 0.0f, 0.0f), &D3DXVECTOR3(RANGE, RANGE, RANGE));
 	//�浹�ڽ�
 	hitBox.setBound(&temp, &D3DXVECTOR3(_transform->GetScale().x * 1.6f, _transform->GetScale().y * 2.9f, _transform->GetScale().z * 2.9f));
 
@@ -65,9 +65,9 @@ void monster::baseObjectRender()
 {
 	if (_skinnedAnim != nullptr) _skinnedAnim->render(_transform);
 	hitBox.renderGizmo(_transform);
-	//range.renderGizmo(_transform);
+	range.renderGizmo(_transform);
 
-	_boundBox.renderGizmo(_transform, D3DCOLOR_XRGB(255,0,0));
+	_boundBox.renderGizmo(_transform);
 }
 
 void monster::stateSwitch(void)

@@ -1,4 +1,4 @@
-ï»¿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="MainGame">
@@ -10,55 +10,55 @@
     <Filter Include="FX Files">
       <UniqueIdentifier>{d739b6f3-f7ed-478c-b6a1-ca9de04cf8e0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Zí…ŒìŠ¤íŠ¸">
+    <Filter Include="ZÅ×½ºÆ®">
       <UniqueIdentifier>{01978b5a-ca7e-4368-b5ba-104d8c615b2b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Zí…ŒìŠ¤íŠ¸\ê¹€ë§Œì›…">
+    <Filter Include="ZÅ×½ºÆ®\±è¸¸¿õ">
       <UniqueIdentifier>{fd0ebae9-efab-4380-8f88-5f7c31338496}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Zí…ŒìŠ¤íŠ¸\ê¹€ë§Œì›…\00.ë¡œë”©ë°”">
+    <Filter Include="ZÅ×½ºÆ®\±è¸¸¿õ\00.·Îµù¹Ù">
       <UniqueIdentifier>{b4958c71-6179-4893-ace0-6d0822eb97cd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Zí…ŒìŠ¤íŠ¸\ê¹€ë§Œì›…\01.ë¡œë”©%28ë©€í‹°ì“°ë ˆë“œ%29">
+    <Filter Include="ZÅ×½ºÆ®\±è¸¸¿õ\01.·Îµù%28¸ÖÆ¼¾²·¹µå%29">
       <UniqueIdentifier>{a029890b-7525-4576-8000-574479f3492e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Zí…ŒìŠ¤íŠ¸\ê¹€íƒœìŠ¹">
+    <Filter Include="ZÅ×½ºÆ®\±èÅÂ½Â">
       <UniqueIdentifier>{a7965570-cd23-47fc-a6c0-0da14dc3eab1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Zí…ŒìŠ¤íŠ¸\ê¹€íƒœí›ˆ">
+    <Filter Include="ZÅ×½ºÆ®\±èÅÂÈÆ">
       <UniqueIdentifier>{e6c94347-385c-4b2c-af9e-fc69d9c25706}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Zí…ŒìŠ¤íŠ¸\ì´í˜„ìˆ˜">
+    <Filter Include="ZÅ×½ºÆ®\ÀÌÇö¼ö">
       <UniqueIdentifier>{d1f5d6e0-5f98-47f0-a12f-5badd3d91d71}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´">
+    <Filter Include="ZÅ×½ºÆ®\ÀÌÇöÃÑ">
       <UniqueIdentifier>{58902e39-b2bd-4ad8-bba6-fc69be3df71f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´">
+    <Filter Include="ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬">
       <UniqueIdentifier>{adbca726-28b4-49e2-b7e8-08545dba2f48}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ">
+    <Filter Include="ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ">
       <UniqueIdentifier>{f0944b83-cb55-4449-a011-5fa582cba929}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ìŠ¤í‚¬ ë§¤ë‹ˆì ¸">
+    <Filter Include="ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\½ºÅ³ ¸Å´ÏÁ®">
       <UniqueIdentifier>{6396ffa8-cad8-498c-bfbd-881c13cde972}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ì´ë¯¸í„°">
+    <Filter Include="ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÀÌ¹ÌÅÍ">
       <UniqueIdentifier>{cb7c5640-5766-41db-925e-00697431f376}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\íŒŒí‹°í´ ë§¤ë‹ˆì ¸">
+    <Filter Include="ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÆÄÆ¼Å¬ ¸Å´ÏÁ®">
       <UniqueIdentifier>{ccb22cac-61f4-411d-ac40-3a492466e032}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\íŒŒí‹°í´ ì„¸íŠ¸">
+    <Filter Include="ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÆÄÆ¼Å¬ ¼¼Æ®">
       <UniqueIdentifier>{7c5abe4a-9386-4d42-bcbb-1f40ced20772}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆí‚¤íŠ¸">
+    <Filter Include="ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâÅ°Æ®">
       <UniqueIdentifier>{4bea8af7-4480-4f45-a681-888fcce21c7e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆëª¨ìŒ">
+    <Filter Include="ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâ¸ğÀ½">
       <UniqueIdentifier>{f0460e1e-e6b4-4376-ba01-387ce80091da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\í…ŒìŠ¤íŠ¸ìš©">
+    <Filter Include="ZÅ×½ºÆ®\ÀÌÇöÃÑ\Å×½ºÆ®¿ë">
       <UniqueIdentifier>{ba7b33f9-39b4-4e72-b35c-6d80956a1859}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameFramework3D">
@@ -100,46 +100,46 @@
     <Filter Include="GameFramework3D\GameObject">
       <UniqueIdentifier>{76f25462-bdf9-450b-a0e0-c61896956c3f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework3D\Manager%28ë§¤í¬ë¡œ%29">
+    <Filter Include="GameFramework3D\Manager%28¸ÅÅ©·Î%29">
       <UniqueIdentifier>{21275c07-e6f0-4213-b160-13f824b2251c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework3D\Manager%28ë§¤í¬ë¡œ%29\Object">
+    <Filter Include="GameFramework3D\Manager%28¸ÅÅ©·Î%29\Object">
       <UniqueIdentifier>{1ea0530a-fb4a-4471-bef5-900a71b27a76}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework3D\Manager%28ë§¤í¬ë¡œ%29\Texture">
+    <Filter Include="GameFramework3D\Manager%28¸ÅÅ©·Î%29\Texture">
       <UniqueIdentifier>{61b9e73f-0bc9-461f-bdd3-9c30d034c5ef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework3D\Manager%28ìƒì†%29">
+    <Filter Include="GameFramework3D\Manager%28»ó¼Ó%29">
       <UniqueIdentifier>{369f663f-3514-4640-a917-6059f473774b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework3D\Manager%28ìƒì†%29\Resource">
+    <Filter Include="GameFramework3D\Manager%28»ó¼Ó%29\Resource">
       <UniqueIdentifier>{618d8c5d-ef08-4959-9d24-f3c96cedcd63}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework3D\Manager%28ìƒì†%29\IO">
+    <Filter Include="GameFramework3D\Manager%28»ó¼Ó%29\IO">
       <UniqueIdentifier>{9a382a7e-ed0b-4fe2-b635-5e616124b469}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework3D\Manager%28ìƒì†%29\Camera">
+    <Filter Include="GameFramework3D\Manager%28»ó¼Ó%29\Camera">
       <UniqueIdentifier>{23d39210-b985-4572-aa25-f6955dbbc004}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework3D\Manager%28ìƒì†%29\Font">
+    <Filter Include="GameFramework3D\Manager%28»ó¼Ó%29\Font">
       <UniqueIdentifier>{42bc13c2-c3fa-4750-9286-97b15d3ea8d2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework3D\Manager%28ìƒì†%29\Gizmo">
+    <Filter Include="GameFramework3D\Manager%28»ó¼Ó%29\Gizmo">
       <UniqueIdentifier>{0073e84f-e28e-45be-8656-e90b21dba2f5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework3D\Manager%28ìƒì†%29\Key">
+    <Filter Include="GameFramework3D\Manager%28»ó¼Ó%29\Key">
       <UniqueIdentifier>{fdef8ca4-cae3-4006-b7f2-22b87cd1767f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework3D\Manager%28ìƒì†%29\Physics">
+    <Filter Include="GameFramework3D\Manager%28»ó¼Ó%29\Physics">
       <UniqueIdentifier>{32563d8a-09ea-42ed-9598-ee0f0df6e35c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework3D\Manager%28ìƒì†%29\Scene">
+    <Filter Include="GameFramework3D\Manager%28»ó¼Ó%29\Scene">
       <UniqueIdentifier>{94c57b09-79ad-4269-b6e1-aa11d38f905a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework3D\Manager%28ìƒì†%29\Sprite">
+    <Filter Include="GameFramework3D\Manager%28»ó¼Ó%29\Sprite">
       <UniqueIdentifier>{1308d416-39fa-44b1-9d62-35706ba280b7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework3D\Manager%28ìƒì†%29\Time">
+    <Filter Include="GameFramework3D\Manager%28»ó¼Ó%29\Time">
       <UniqueIdentifier>{6f184a5e-f3af-4f2b-8ae8-978c498b2bc4}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameFramework3D\Object">
@@ -160,7 +160,7 @@
     <Filter Include="GameFramework3D\UI\03.LoadingBar">
       <UniqueIdentifier>{3f64c98b-e558-4a7d-b6da-fcfcf7f971f4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework3D\UI\04.Loading%28ë©€í‹°ì“°ë ˆë“œ%29">
+    <Filter Include="GameFramework3D\UI\04.Loading%28¸ÖÆ¼¾²·¹µå%29">
       <UniqueIdentifier>{2dd94494-d1d2-48a2-9e0c-00bce90e4a06}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameFramework3D\Picking">
@@ -277,49 +277,49 @@
       <Filter>GameFramework3D\Frustum</Filter>
     </ClCompile>
     <ClCompile Include="resourceManager.cpp">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Resource</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Resource</Filter>
     </ClCompile>
     <ClCompile Include="rmShaderFX.cpp">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Resource</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Resource</Filter>
     </ClCompile>
     <ClCompile Include="rmSkinnedMesh.cpp">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Resource</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Resource</Filter>
     </ClCompile>
     <ClCompile Include="rmStaticMesh.cpp">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Resource</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Resource</Filter>
     </ClCompile>
     <ClCompile Include="rmTexture.cpp">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Resource</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Resource</Filter>
     </ClCompile>
     <ClCompile Include="ioBaseManager.cpp">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\IO</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\IO</Filter>
     </ClCompile>
     <ClCompile Include="cameraManager.cpp">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Camera</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Camera</Filter>
     </ClCompile>
     <ClCompile Include="fontManager.cpp">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Font</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Font</Filter>
     </ClCompile>
     <ClCompile Include="gizmoManager.cpp">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Gizmo</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Gizmo</Filter>
     </ClCompile>
     <ClCompile Include="keyManager.cpp">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Key</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Key</Filter>
     </ClCompile>
     <ClCompile Include="physicsManager.cpp">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Physics</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Physics</Filter>
     </ClCompile>
     <ClCompile Include="sceneManager.cpp">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Scene</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Scene</Filter>
     </ClCompile>
     <ClCompile Include="spriteManager.cpp">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Sprite</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="timeManager.cpp">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Time</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Time</Filter>
     </ClCompile>
     <ClCompile Include="cObjectManager.cpp">
-      <Filter>GameFramework3D\Manager%28ë§¤í¬ë¡œ%29\Object</Filter>
+      <Filter>GameFramework3D\Manager%28¸ÅÅ©·Î%29\Object</Filter>
     </ClCompile>
     <ClCompile Include="cObject.cpp">
       <Filter>GameFramework3D\Object</Filter>
@@ -331,7 +331,7 @@
       <Filter>GameFramework3D\UI\01.ImageView</Filter>
     </ClCompile>
     <ClCompile Include="cTextureManager.cpp">
-      <Filter>GameFramework3D\Manager%28ë§¤í¬ë¡œ%29\Texture</Filter>
+      <Filter>GameFramework3D\Manager%28¸ÅÅ©·Î%29\Texture</Filter>
     </ClCompile>
     <ClCompile Include="cUIButton.cpp">
       <Filter>GameFramework3D\UI\02.Button</Filter>
@@ -343,10 +343,10 @@
       <Filter>GameFramework3D\UI\03.LoadingBar</Filter>
     </ClCompile>
     <ClCompile Include="cLoadingBarTest.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ê¹€ë§Œì›…\00.ë¡œë”©ë°”</Filter>
+      <Filter>ZÅ×½ºÆ®\±è¸¸¿õ\00.·Îµù¹Ù</Filter>
     </ClCompile>
     <ClCompile Include="terrainPickingTest.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ìˆ˜</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇö¼ö</Filter>
     </ClCompile>
     <ClCompile Include="Action.cpp">
       <Filter>GameFramework3D\Action</Filter>
@@ -382,121 +382,121 @@
       <Filter>GameFramework3D\Monster</Filter>
     </ClCompile>
     <ClCompile Include="cUILoading.cpp">
-      <Filter>GameFramework3D\UI\04.Loading%28ë©€í‹°ì“°ë ˆë“œ%29</Filter>
+      <Filter>GameFramework3D\UI\04.Loading%28¸ÖÆ¼¾²·¹µå%29</Filter>
     </ClCompile>
     <ClCompile Include="cLoadingTest.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ê¹€ë§Œì›…\01.ë¡œë”©%28ë©€í‹°ì“°ë ˆë“œ%29</Filter>
+      <Filter>ZÅ×½ºÆ®\±è¸¸¿õ\01.·Îµù%28¸ÖÆ¼¾²·¹µå%29</Filter>
     </ClCompile>
     <ClCompile Include="dxAccelerationModule.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆëª¨ìŒ</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâ¸ğÀ½</Filter>
     </ClCompile>
     <ClCompile Include="dxCircleModule.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆëª¨ìŒ</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâ¸ğÀ½</Filter>
     </ClCompile>
     <ClCompile Include="dxColorModule.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆëª¨ìŒ</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâ¸ğÀ½</Filter>
     </ClCompile>
     <ClCompile Include="dxLifeTimeModule.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆëª¨ìŒ</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâ¸ğÀ½</Filter>
     </ClCompile>
     <ClCompile Include="dxPositionModule.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆëª¨ìŒ</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâ¸ğÀ½</Filter>
     </ClCompile>
     <ClCompile Include="dxRotationModule.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆëª¨ìŒ</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâ¸ğÀ½</Filter>
     </ClCompile>
     <ClCompile Include="dxSizeModule.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆëª¨ìŒ</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâ¸ğÀ½</Filter>
     </ClCompile>
     <ClCompile Include="dxUVModule.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆëª¨ìŒ</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâ¸ğÀ½</Filter>
     </ClCompile>
     <ClCompile Include="dxVelocityModule.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆëª¨ìŒ</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâ¸ğÀ½</Filter>
     </ClCompile>
     <ClCompile Include="dxModule.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆí‚¤íŠ¸</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâÅ°Æ®</Filter>
     </ClCompile>
     <ClCompile Include="dxModuleKit.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆí‚¤íŠ¸</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâÅ°Æ®</Filter>
     </ClCompile>
     <ClCompile Include="dxSkill.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ìŠ¤í‚¬ ë§¤ë‹ˆì ¸</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\½ºÅ³ ¸Å´ÏÁ®</Filter>
     </ClCompile>
     <ClCompile Include="dxSkillManager.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ìŠ¤í‚¬ ë§¤ë‹ˆì ¸</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\½ºÅ³ ¸Å´ÏÁ®</Filter>
     </ClCompile>
     <ClCompile Include="dxBoardEmitter.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ì´ë¯¸í„°</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÀÌ¹ÌÅÍ</Filter>
     </ClCompile>
     <ClCompile Include="dxEmitter.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ì´ë¯¸í„°</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÀÌ¹ÌÅÍ</Filter>
     </ClCompile>
     <ClCompile Include="dxMeshEmitter.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ì´ë¯¸í„°</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÀÌ¹ÌÅÍ</Filter>
     </ClCompile>
     <ClCompile Include="dxPlaneEmitter.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ì´ë¯¸í„°</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÀÌ¹ÌÅÍ</Filter>
     </ClCompile>
     <ClCompile Include="dxPointEmitter.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ì´ë¯¸í„°</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÀÌ¹ÌÅÍ</Filter>
     </ClCompile>
     <ClCompile Include="dxParticle.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\íŒŒí‹°í´ ë§¤ë‹ˆì ¸</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÆÄÆ¼Å¬ ¸Å´ÏÁ®</Filter>
     </ClCompile>
     <ClCompile Include="dxParticleSystem.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\íŒŒí‹°í´ ë§¤ë‹ˆì ¸</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÆÄÆ¼Å¬ ¸Å´ÏÁ®</Filter>
     </ClCompile>
     <ClCompile Include="dxParticleSystemManager.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\íŒŒí‹°í´ ë§¤ë‹ˆì ¸</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÆÄÆ¼Å¬ ¸Å´ÏÁ®</Filter>
     </ClCompile>
     <ClCompile Include="dxParticleSystemSet.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\íŒŒí‹°í´ ë§¤ë‹ˆì ¸</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÆÄÆ¼Å¬ ¸Å´ÏÁ®</Filter>
     </ClCompile>
     <ClCompile Include="PS_Set00.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\íŒŒí‹°í´ ì„¸íŠ¸</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÆÄÆ¼Å¬ ¼¼Æ®</Filter>
     </ClCompile>
     <ClCompile Include="particleTest.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\í…ŒìŠ¤íŠ¸ìš©</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\Å×½ºÆ®¿ë</Filter>
     </ClCompile>
     <ClCompile Include="particleTest02.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\í…ŒìŠ¤íŠ¸ìš©</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\Å×½ºÆ®¿ë</Filter>
     </ClCompile>
     <ClCompile Include="particleTest03.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\í…ŒìŠ¤íŠ¸ìš©</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\Å×½ºÆ®¿ë</Filter>
     </ClCompile>
     <ClCompile Include="particleTest04.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\í…ŒìŠ¤íŠ¸ìš©</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\Å×½ºÆ®¿ë</Filter>
     </ClCompile>
     <ClCompile Include="particleTest05.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\í…ŒìŠ¤íŠ¸ìš©</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\Å×½ºÆ®¿ë</Filter>
     </ClCompile>
     <ClCompile Include="particleTest06.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\í…ŒìŠ¤íŠ¸ìš©</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\Å×½ºÆ®¿ë</Filter>
     </ClCompile>
     <ClCompile Include="particleTest07.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\í…ŒìŠ¤íŠ¸ìš©</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\Å×½ºÆ®¿ë</Filter>
     </ClCompile>
     <ClCompile Include="particleTest08.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\í…ŒìŠ¤íŠ¸ìš©</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\Å×½ºÆ®¿ë</Filter>
     </ClCompile>
     <ClCompile Include="particleTest09.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\í…ŒìŠ¤íŠ¸ìš©</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\Å×½ºÆ®¿ë</Filter>
     </ClCompile>
     <ClCompile Include="particleTest10.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\í…ŒìŠ¤íŠ¸ìš©</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\Å×½ºÆ®¿ë</Filter>
     </ClCompile>
     <ClCompile Include="skill00.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ</Filter>
     </ClCompile>
     <ClCompile Include="skill00_01.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ</Filter>
     </ClCompile>
     <ClCompile Include="skill00_02.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ</Filter>
     </ClCompile>
     <ClCompile Include="skill00_03.cpp">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ</Filter>
     </ClCompile>
     <ClCompile Include="bossActionAttack.cpp">
       <Filter>GameFramework3D\Action\Boss</Filter>
@@ -556,7 +556,7 @@
       <Filter>MainGame</Filter>
     </ClInclude>
     <ClInclude Include="singletonBase.h">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29</Filter>
     </ClInclude>
     <ClInclude Include="myUtil.h">
       <Filter>GameFramework3D\MyUtil</Filter>
@@ -637,49 +637,49 @@
       <Filter>GameFramework3D\Frustum</Filter>
     </ClInclude>
     <ClInclude Include="resourceManager.h">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Resource</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Resource</Filter>
     </ClInclude>
     <ClInclude Include="rmShaderFX.h">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Resource</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Resource</Filter>
     </ClInclude>
     <ClInclude Include="rmSkinnedMesh.h">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Resource</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Resource</Filter>
     </ClInclude>
     <ClInclude Include="rmStaticMesh.h">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Resource</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Resource</Filter>
     </ClInclude>
     <ClInclude Include="rmTexture.h">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Resource</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Resource</Filter>
     </ClInclude>
     <ClInclude Include="ioBaseManager.h">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\IO</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\IO</Filter>
     </ClInclude>
     <ClInclude Include="cameraManager.h">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Camera</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Camera</Filter>
     </ClInclude>
     <ClInclude Include="fontManager.h">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Font</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Font</Filter>
     </ClInclude>
     <ClInclude Include="gizmoManager.h">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Gizmo</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Gizmo</Filter>
     </ClInclude>
     <ClInclude Include="keyManager.h">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Key</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Key</Filter>
     </ClInclude>
     <ClInclude Include="physicsManager.h">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Physics</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Physics</Filter>
     </ClInclude>
     <ClInclude Include="sceneManager.h">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Scene</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Scene</Filter>
     </ClInclude>
     <ClInclude Include="spriteManager.h">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Sprite</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="timeManager.h">
-      <Filter>GameFramework3D\Manager%28ìƒì†%29\Time</Filter>
+      <Filter>GameFramework3D\Manager%28»ó¼Ó%29\Time</Filter>
     </ClInclude>
     <ClInclude Include="cObjectManager.h">
-      <Filter>GameFramework3D\Manager%28ë§¤í¬ë¡œ%29\Object</Filter>
+      <Filter>GameFramework3D\Manager%28¸ÅÅ©·Î%29\Object</Filter>
     </ClInclude>
     <ClInclude Include="cObject.h">
       <Filter>GameFramework3D\Object</Filter>
@@ -691,7 +691,7 @@
       <Filter>GameFramework3D\UI\01.ImageView</Filter>
     </ClInclude>
     <ClInclude Include="cTextureManager.h">
-      <Filter>GameFramework3D\Manager%28ë§¤í¬ë¡œ%29\Texture</Filter>
+      <Filter>GameFramework3D\Manager%28¸ÅÅ©·Î%29\Texture</Filter>
     </ClInclude>
     <ClInclude Include="cUIButton.h">
       <Filter>GameFramework3D\UI\02.Button</Filter>
@@ -703,10 +703,10 @@
       <Filter>GameFramework3D\UI\03.LoadingBar</Filter>
     </ClInclude>
     <ClInclude Include="cLoadingBarTest.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ê¹€ë§Œì›…\00.ë¡œë”©ë°”</Filter>
+      <Filter>ZÅ×½ºÆ®\±è¸¸¿õ\00.·Îµù¹Ù</Filter>
     </ClInclude>
     <ClInclude Include="terrainPickingTest.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ìˆ˜</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇö¼ö</Filter>
     </ClInclude>
     <ClInclude Include="Action.h">
       <Filter>GameFramework3D\Action</Filter>
@@ -742,121 +742,121 @@
       <Filter>GameFramework3D\Monster</Filter>
     </ClInclude>
     <ClInclude Include="cUILoading.h">
-      <Filter>GameFramework3D\UI\04.Loading%28ë©€í‹°ì“°ë ˆë“œ%29</Filter>
+      <Filter>GameFramework3D\UI\04.Loading%28¸ÖÆ¼¾²·¹µå%29</Filter>
     </ClInclude>
     <ClInclude Include="cLoadingTest.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ê¹€ë§Œì›…\01.ë¡œë”©%28ë©€í‹°ì“°ë ˆë“œ%29</Filter>
+      <Filter>ZÅ×½ºÆ®\±è¸¸¿õ\01.·Îµù%28¸ÖÆ¼¾²·¹µå%29</Filter>
     </ClInclude>
     <ClInclude Include="dxAccelerationModule.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆëª¨ìŒ</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâ¸ğÀ½</Filter>
     </ClInclude>
     <ClInclude Include="dxCircleModule.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆëª¨ìŒ</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâ¸ğÀ½</Filter>
     </ClInclude>
     <ClInclude Include="dxColorModule.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆëª¨ìŒ</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâ¸ğÀ½</Filter>
     </ClInclude>
     <ClInclude Include="dxLifeTimeModule.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆëª¨ìŒ</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâ¸ğÀ½</Filter>
     </ClInclude>
     <ClInclude Include="dxPositionModule.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆëª¨ìŒ</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâ¸ğÀ½</Filter>
     </ClInclude>
     <ClInclude Include="dxRotationModule.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆëª¨ìŒ</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâ¸ğÀ½</Filter>
     </ClInclude>
     <ClInclude Include="dxSizeModule.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆëª¨ìŒ</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâ¸ğÀ½</Filter>
     </ClInclude>
     <ClInclude Include="dxUVModule.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆëª¨ìŒ</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâ¸ğÀ½</Filter>
     </ClInclude>
     <ClInclude Include="dxVelocityModule.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆëª¨ìŒ</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâ¸ğÀ½</Filter>
     </ClInclude>
     <ClInclude Include="dxModule.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆí‚¤íŠ¸</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâÅ°Æ®</Filter>
     </ClInclude>
     <ClInclude Include="dxModuleKit.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ëª¨ë“ˆ\ëª¨ë“ˆí‚¤íŠ¸</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\¸ğµâ\¸ğµâÅ°Æ®</Filter>
     </ClInclude>
     <ClInclude Include="dxSkill.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ìŠ¤í‚¬ ë§¤ë‹ˆì ¸</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\½ºÅ³ ¸Å´ÏÁ®</Filter>
     </ClInclude>
     <ClInclude Include="dxSkillManager.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ìŠ¤í‚¬ ë§¤ë‹ˆì ¸</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\½ºÅ³ ¸Å´ÏÁ®</Filter>
     </ClInclude>
     <ClInclude Include="dxBoardEmitter.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ì´ë¯¸í„°</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÀÌ¹ÌÅÍ</Filter>
     </ClInclude>
     <ClInclude Include="dxEmitter.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ì´ë¯¸í„°</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÀÌ¹ÌÅÍ</Filter>
     </ClInclude>
     <ClInclude Include="dxMeshEmitter.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ì´ë¯¸í„°</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÀÌ¹ÌÅÍ</Filter>
     </ClInclude>
     <ClInclude Include="dxPlaneEmitter.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ì´ë¯¸í„°</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÀÌ¹ÌÅÍ</Filter>
     </ClInclude>
     <ClInclude Include="dxPointEmitter.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\ì´ë¯¸í„°</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÀÌ¹ÌÅÍ</Filter>
     </ClInclude>
     <ClInclude Include="dxParticle.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\íŒŒí‹°í´ ë§¤ë‹ˆì ¸</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÆÄÆ¼Å¬ ¸Å´ÏÁ®</Filter>
     </ClInclude>
     <ClInclude Include="dxParticleSystem.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\íŒŒí‹°í´ ë§¤ë‹ˆì ¸</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÆÄÆ¼Å¬ ¸Å´ÏÁ®</Filter>
     </ClInclude>
     <ClInclude Include="dxParticleSystemManager.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\íŒŒí‹°í´ ë§¤ë‹ˆì ¸</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÆÄÆ¼Å¬ ¸Å´ÏÁ®</Filter>
     </ClInclude>
     <ClInclude Include="dxParticleSystemSet.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\íŒŒí‹°í´ ë§¤ë‹ˆì ¸</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÆÄÆ¼Å¬ ¸Å´ÏÁ®</Filter>
     </ClInclude>
     <ClInclude Include="PS_Set00.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\dxíŒŒí‹°í´\íŒŒí‹°í´ ì„¸íŠ¸</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\dxÆÄÆ¼Å¬\ÆÄÆ¼Å¬ ¼¼Æ®</Filter>
     </ClInclude>
     <ClInclude Include="particleTest.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\í…ŒìŠ¤íŠ¸ìš©</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\Å×½ºÆ®¿ë</Filter>
     </ClInclude>
     <ClInclude Include="particleTest02.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\í…ŒìŠ¤íŠ¸ìš©</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\Å×½ºÆ®¿ë</Filter>
     </ClInclude>
     <ClInclude Include="particleTest03.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\í…ŒìŠ¤íŠ¸ìš©</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\Å×½ºÆ®¿ë</Filter>
     </ClInclude>
     <ClInclude Include="particleTest04.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\í…ŒìŠ¤íŠ¸ìš©</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\Å×½ºÆ®¿ë</Filter>
     </ClInclude>
     <ClInclude Include="particleTest05.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\í…ŒìŠ¤íŠ¸ìš©</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\Å×½ºÆ®¿ë</Filter>
     </ClInclude>
     <ClInclude Include="particleTest06.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\í…ŒìŠ¤íŠ¸ìš©</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\Å×½ºÆ®¿ë</Filter>
     </ClInclude>
     <ClInclude Include="particleTest07.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\í…ŒìŠ¤íŠ¸ìš©</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\Å×½ºÆ®¿ë</Filter>
     </ClInclude>
     <ClInclude Include="particleTest08.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\í…ŒìŠ¤íŠ¸ìš©</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\Å×½ºÆ®¿ë</Filter>
     </ClInclude>
     <ClInclude Include="particleTest09.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\í…ŒìŠ¤íŠ¸ìš©</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\Å×½ºÆ®¿ë</Filter>
     </ClInclude>
     <ClInclude Include="particleTest10.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´\í…ŒìŠ¤íŠ¸ìš©</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ\Å×½ºÆ®¿ë</Filter>
     </ClInclude>
     <ClInclude Include="skill00.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ</Filter>
     </ClInclude>
     <ClInclude Include="skill00_01.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ</Filter>
     </ClInclude>
     <ClInclude Include="skill00_02.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ</Filter>
     </ClInclude>
     <ClInclude Include="skill00_03.h">
-      <Filter>Zí…ŒìŠ¤íŠ¸\ì´í˜„ì´</Filter>
+      <Filter>ZÅ×½ºÆ®\ÀÌÇöÃÑ</Filter>
     </ClInclude>
     <ClInclude Include="bossActionAttack.h">
       <Filter>GameFramework3D\Action\Boss</Filter>
@@ -925,7 +925,7 @@
     <None Include="TextureNormal2.fx">
       <Filter>FX Files</Filter>
     </None>
-    <None Include="ë¦¬ì†ŒìŠ¤\FX\EnvironmentCUBE.fx">
+    <None Include="¸®¼Ò½º\FX\EnvironmentCUBE.fx">
       <Filter>FX Files</Filter>
     </None>
     <None Include="Resources\Shaders\AddLight.fx">
