@@ -178,8 +178,11 @@
     <Filter Include="Z테스트\이현총\테스트용">
       <UniqueIdentifier>{ba7b33f9-39b4-4e72-b35c-6d80956a1859}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFrameword3D\Action\Boss">
+    <Filter Include="GameFrameword3D\ActionBoss">
       <UniqueIdentifier>{56d09b57-16cd-4ec0-bb84-f0323e64432a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFrameword3D\ActionBoss\BossControl">
+      <UniqueIdentifier>{0a6857ae-6c6e-4697-a793-6c6e6a617fca}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -496,36 +499,44 @@
       <Filter>Z테스트\이현총</Filter>
     </ClCompile>
     <ClCompile Include="bossActionAttack.cpp">
-      <Filter>GameFrameword3D\Action\Boss</Filter>
+      <Filter>GameFrameword3D\ActionBoss</Filter>
     </ClCompile>
     <ClCompile Include="bossActionCinema.cpp">
-      <Filter>GameFrameword3D\Action\Boss</Filter>
+      <Filter>GameFrameword3D\ActionBoss</Filter>
     </ClCompile>
     <ClCompile Include="bossActionMove.cpp">
-      <Filter>GameFrameword3D\Action\Boss</Filter>
+      <Filter>GameFrameword3D\ActionBoss</Filter>
     </ClCompile>
     <ClCompile Include="bossActionSkill.cpp">
-      <Filter>GameFrameword3D\Action\Boss</Filter>
+      <Filter>GameFrameword3D\ActionBoss</Filter>
     </ClCompile>
     <ClCompile Include="bossMonster.cpp">
       <Filter>GameFrameword3D\Monster</Filter>
     </ClCompile>
     <ClCompile Include="bossActionSkillFire.cpp">
-      <Filter>GameFrameword3D\Action\Boss</Filter>
+      <Filter>GameFrameword3D\ActionBoss</Filter>
     </ClCompile>
     <ClCompile Include="bossActionSkillBattleRoar.cpp">
-      <Filter>GameFrameword3D\Action\Boss</Filter>
+      <Filter>GameFrameword3D\ActionBoss</Filter>
     </ClCompile>
     <ClCompile Include="bossActionSkillTailAtt.cpp">
-      <Filter>GameFrameword3D\Action\Boss</Filter>
-    </ClCompile>
-    <ClCompile Include="bossActionControl.cpp">
-      <Filter>GameFrameword3D\Action\Boss</Filter>
+      <Filter>GameFrameword3D\ActionBoss</Filter>
     </ClCompile>
     <ClCompile Include="bossActionStanding.cpp">
-      <Filter>GameFrameword3D\Action\Boss</Filter>
+      <Filter>GameFrameword3D\ActionBoss</Filter>
     </ClCompile>
-    <ClCompile Include="bossActionFly.cpp" />
+    <ClCompile Include="bossActionFly.cpp">
+      <Filter>GameFrameword3D\ActionBoss</Filter>
+    </ClCompile>
+    <ClCompile Include="bossActionControl.cpp">
+      <Filter>GameFrameword3D\ActionBoss\BossControl</Filter>
+    </ClCompile>
+    <ClCompile Include="bossActionLanding.cpp">
+      <Filter>GameFrameword3D\ActionBoss</Filter>
+    </ClCompile>
+    <ClCompile Include="bossActionSkillFlyStandingFire.cpp">
+      <Filter>GameFrameword3D\ActionBoss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -841,34 +852,44 @@
       <Filter>Z테스트\이현총</Filter>
     </ClInclude>
     <ClInclude Include="bossActionAttack.h">
-      <Filter>GameFrameword3D\Action\Boss</Filter>
+      <Filter>GameFrameword3D\ActionBoss</Filter>
     </ClInclude>
     <ClInclude Include="bossActionCinema.h">
-      <Filter>GameFrameword3D\Action\Boss</Filter>
+      <Filter>GameFrameword3D\ActionBoss</Filter>
     </ClInclude>
     <ClInclude Include="bossActionMove.h">
-      <Filter>GameFrameword3D\Action\Boss</Filter>
+      <Filter>GameFrameword3D\ActionBoss</Filter>
     </ClInclude>
     <ClInclude Include="bossActionSkill.h">
-      <Filter>GameFrameword3D\Action\Boss</Filter>
+      <Filter>GameFrameword3D\ActionBoss</Filter>
     </ClInclude>
     <ClInclude Include="bossMonster.h">
       <Filter>GameFrameword3D\Monster</Filter>
     </ClInclude>
     <ClInclude Include="bossActionSkillFire.h">
-      <Filter>GameFrameword3D\Action\Boss</Filter>
+      <Filter>GameFrameword3D\ActionBoss</Filter>
     </ClInclude>
     <ClInclude Include="bossActionSkillBattleRoar.h">
-      <Filter>GameFrameword3D\Action\Boss</Filter>
+      <Filter>GameFrameword3D\ActionBoss</Filter>
     </ClInclude>
     <ClInclude Include="bossActionSkillTailAtt.h">
-      <Filter>GameFrameword3D\Action\Boss</Filter>
+      <Filter>GameFrameword3D\ActionBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionStanding.h">
+      <Filter>GameFrameword3D\ActionBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionFly.h">
+      <Filter>GameFrameword3D\ActionBoss</Filter>
     </ClInclude>
     <ClInclude Include="bossActionControl.h">
-      <Filter>GameFrameword3D\Action\Boss</Filter>
+      <Filter>GameFrameword3D\ActionBoss\BossControl</Filter>
     </ClInclude>
-    <ClInclude Include="bossActionStanding.h" />
-    <ClInclude Include="bossActionFly.h" />
+    <ClInclude Include="bossActionLanding.h">
+      <Filter>GameFrameword3D\ActionBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionSkillFlyStandingFire.h">
+      <Filter>GameFrameword3D\ActionBoss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Texture_Gray.fx">

@@ -142,6 +142,8 @@ void terrainPickingTest::update(void)
 		_renderObjects[i]->update();
 	}
 
+	_mainCamera->LookPosition(boss->_transform->GetWorldPosition());
+
 	//½¦µµ¿ì¸Ê ÁØºñ
 	this->readyShadowMap(&this->_renderObjects, this->_terrainShadow);
 
