@@ -11,6 +11,7 @@
 #include "bossActionSkillFire.h"
 #include "bossActionSkillBattleRoar.h"
 #include "bossActionSkillTailAtt.h"
+#include "bossActionSkillFlyStandingFire.h"
 class bossMonster;
 class bossActionControl
 {
