@@ -17,10 +17,10 @@ void monster::baseObjectEnable()
 {
 	D3DXVECTOR3 temp(_boundBox._localCenter);
 	temp.z = _boundBox._localMaxPos.z;
-	//°æ°è¹Ú½º - º¸½º¿¡°Ô ÇÊ¿äÇÑÁö´Â ÀÇ¹®ÀÌ´Ù..... ÇÊ¿ä ÇÏ°ÚÁö?
+	//ï¿½ï¿½ï¿½Ú½ï¿½ - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¹ï¿½ï¿½Ì´ï¿½..... ï¿½Ê¿ï¿½ ï¿½Ï°ï¿½ï¿½ï¿½?
 	range.setBound(&D3DXVECTOR3(0.0f, 0.0f, 0.0f), &D3DXVECTOR3(RANGE, RANGE, RANGE));
 
-	//Ãæµ¹¹Ú½º
+	//ï¿½æµ¹ï¿½Ú½ï¿½
 	hitBox.setBound(&temp, &D3DXVECTOR3(_transform->GetScale().x * 1.6f, _transform->GetScale().y * 2.9f, _transform->GetScale().z * 2.9f));
 
 	HP = myUtil::RandomIntRange(MINHM, MAXHM);

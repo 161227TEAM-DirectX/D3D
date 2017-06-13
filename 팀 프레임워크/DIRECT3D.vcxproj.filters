@@ -70,6 +70,9 @@
     <Filter Include="GameFramework3D\BaseObject">
       <UniqueIdentifier>{5ebd70fc-3d7c-4788-aff5-067692d58dda}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameFramework3D\BoundBox">
+      <UniqueIdentifier>{d4bef6e2-fcd0-4de1-8ec6-95265d04cbf8}</UniqueIdentifier>
+    </Filter>
     <Filter Include="GameFramework3D\Terrain">
       <UniqueIdentifier>{3ddf39fc-731f-4f5c-b83f-0993a4e2d08a}</UniqueIdentifier>
     </Filter>
@@ -166,26 +169,20 @@
     <Filter Include="GameFramework3D\Action">
       <UniqueIdentifier>{1357b203-b657-45e5-9515-b4fb0c2a838b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameFramework3D\Action\Boss">
+      <UniqueIdentifier>{56d09b57-16cd-4ec0-bb84-f0323e64432a}</UniqueIdentifier>
+    </Filter>
     <Filter Include="GameFramework3D\dijkstra">
       <UniqueIdentifier>{04bcc1df-4c1a-48bb-a281-8ad9be0a5b5a}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameFramework3D\Node">
       <UniqueIdentifier>{414693ff-75af-47c4-8c35-82ff015fb3c0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework3D\xPlayer">
-      <UniqueIdentifier>{7347c473-da58-457e-a5fa-2da6de176e8e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameFramework3D\ActionBoss">
-      <UniqueIdentifier>{56d09b57-16cd-4ec0-bb84-f0323e64432a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameFramework3D\ActionBoss\BossControl">
-      <UniqueIdentifier>{d177c4cf-fc20-4f26-8a21-7e1a0847f89a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameFramework3D\BoundBox">
-      <UniqueIdentifier>{d4bef6e2-fcd0-4de1-8ec6-95265d04cbf8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameFramework3D\Monster">
       <UniqueIdentifier>{4b80f731-a373-43b2-9a98-b5715dd477cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework3D\xPlayer">
+      <UniqueIdentifier>{7347c473-da58-457e-a5fa-2da6de176e8e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -502,49 +499,44 @@
       <Filter>Z테스트\이현총</Filter>
     </ClCompile>
     <ClCompile Include="bossActionAttack.cpp">
-      <Filter>GameFramework3D\ActionBoss</Filter>
+      <Filter>GameFramework3D\Action\Boss</Filter>
     </ClCompile>
     <ClCompile Include="bossActionCinema.cpp">
-      <Filter>GameFramework3D\ActionBoss</Filter>
+      <Filter>GameFramework3D\Action\Boss</Filter>
     </ClCompile>
     <ClCompile Include="bossActionMove.cpp">
-      <Filter>GameFramework3D\ActionBoss</Filter>
+      <Filter>GameFramework3D\Action\Boss</Filter>
     </ClCompile>
     <ClCompile Include="bossActionSkill.cpp">
-      <Filter>GameFramework3D\ActionBoss</Filter>
+      <Filter>GameFramework3D\Action\Boss</Filter>
     </ClCompile>
     <ClCompile Include="bossMonster.cpp">
       <Filter>GameFramework3D\Monster</Filter>
     </ClCompile>
     <ClCompile Include="bossActionSkillFire.cpp">
-      <Filter>GameFramework3D\ActionBoss</Filter>
+      <Filter>GameFramework3D\Action\Boss</Filter>
     </ClCompile>
     <ClCompile Include="bossActionSkillBattleRoar.cpp">
-      <Filter>GameFramework3D\ActionBoss</Filter>
+      <Filter>GameFramework3D\Action\Boss</Filter>
     </ClCompile>
     <ClCompile Include="bossActionSkillTailAtt.cpp">
-      <Filter>GameFramework3D\ActionBoss</Filter>
+      <Filter>GameFramework3D\Action\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="bossActionControl.cpp">
+      <Filter>GameFramework3D\Action\Boss</Filter>
     </ClCompile>
     <ClCompile Include="bossActionStanding.cpp">
-      <Filter>GameFramework3D\ActionBoss</Filter>
+      <Filter>GameFramework3D\Action\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="bossActionFly.cpp" />
     <ClCompile Include="xPlayer.cpp">
       <Filter>GameFramework3D\xPlayer</Filter>
     </ClCompile>
     <ClCompile Include="xPlayerStatus.cpp">
       <Filter>GameFramework3D\xPlayer</Filter>
     </ClCompile>
-    <ClCompile Include="bossActionFly.cpp">
-      <Filter>GameFramework3D\ActionBoss</Filter>
-    </ClCompile>
-    <ClCompile Include="bossActionLanding.cpp">
-      <Filter>GameFramework3D\ActionBoss</Filter>
-    </ClCompile>
-    <ClCompile Include="bossActionSkillFlyStandingFire.cpp">
-      <Filter>GameFramework3D\ActionBoss</Filter>
-    </ClCompile>
-    <ClCompile Include="bossActionControl.cpp">
-      <Filter>GameFramework3D\ActionBoss\BossControl</Filter>
+    <ClCompile Include="kimsTestScene.cpp">
+      <Filter>GameFramework3D\xPlayer</Filter>
     </ClCompile>
     <ClCompile Include="bossActionDie.cpp">
       <Filter>GameFramework3D\ActionBoss</Filter>
@@ -867,49 +859,42 @@
       <Filter>Z테스트\이현총</Filter>
     </ClInclude>
     <ClInclude Include="bossActionAttack.h">
-      <Filter>GameFramework3D\ActionBoss</Filter>
+      <Filter>GameFramework3D\Action\Boss</Filter>
     </ClInclude>
     <ClInclude Include="bossActionCinema.h">
-      <Filter>GameFramework3D\ActionBoss</Filter>
+      <Filter>GameFramework3D\Action\Boss</Filter>
     </ClInclude>
     <ClInclude Include="bossActionMove.h">
-      <Filter>GameFramework3D\ActionBoss</Filter>
+      <Filter>GameFramework3D\Action\Boss</Filter>
     </ClInclude>
     <ClInclude Include="bossActionSkill.h">
-      <Filter>GameFramework3D\ActionBoss</Filter>
+      <Filter>GameFramework3D\Action\Boss</Filter>
     </ClInclude>
     <ClInclude Include="bossMonster.h">
       <Filter>GameFramework3D\Monster</Filter>
     </ClInclude>
     <ClInclude Include="bossActionSkillFire.h">
-      <Filter>GameFramework3D\ActionBoss</Filter>
+      <Filter>GameFramework3D\Action\Boss</Filter>
     </ClInclude>
     <ClInclude Include="bossActionSkillBattleRoar.h">
-      <Filter>GameFramework3D\ActionBoss</Filter>
+      <Filter>GameFramework3D\Action\Boss</Filter>
     </ClInclude>
     <ClInclude Include="bossActionSkillTailAtt.h">
-      <Filter>GameFramework3D\ActionBoss</Filter>
+      <Filter>GameFramework3D\Action\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="bossActionControl.h">
+      <Filter>GameFramework3D\Action\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionStanding.h" />
+    <ClInclude Include="bossActionFly.h" />
     <ClInclude Include="xPlayer.h">
       <Filter>GameFramework3D\xPlayer</Filter>
     </ClInclude>
     <ClInclude Include="xPlayerStatus.h">
       <Filter>GameFramework3D\xPlayer</Filter>
     </ClInclude>
-    <ClInclude Include="bossActionFly.h">
-      <Filter>GameFramework3D\ActionBoss</Filter>
-    </ClInclude>
-    <ClInclude Include="bossActionStanding.h">
-      <Filter>GameFramework3D\ActionBoss</Filter>
-    </ClInclude>
-    <ClInclude Include="bossActionLanding.h">
-      <Filter>GameFramework3D\ActionBoss</Filter>
-    </ClInclude>
-    <ClInclude Include="bossActionSkillFlyStandingFire.h">
-      <Filter>GameFramework3D\ActionBoss</Filter>
-    </ClInclude>
-    <ClInclude Include="bossActionControl.h">
-      <Filter>GameFramework3D\ActionBoss\BossControl</Filter>
+    <ClInclude Include="kimsTestScene.h">
+      <Filter>GameFramework3D\xPlayer</Filter>
     </ClInclude>
     <ClInclude Include="bossActionDie.h">
       <Filter>GameFramework3D\ActionBoss</Filter>

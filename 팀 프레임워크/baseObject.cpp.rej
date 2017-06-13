@@ -1,0 +1,12 @@
+diff a/팀 프레임워크/baseObject.cpp b/팀 프레임워크/baseObject.cpp	(rejected hunks)
+@@ -118,9 +118,7 @@
+ 			_boundBox._localMaxPos = staticMesh->_boundMax;
+ 			_boundBox._radius = staticMesh->_boundRadius;
+ 
+-			string temp = _mesh->getFilePath();
+-
+-			if (!strcmp("Resources/Meshes/BossMonster/deathwing_ok/x/deathWing.x", temp.c_str()))
++			if (strcmp("Resource/Meshes/BossMonster/deathwing_ok/x/deathWing.x", _mesh->getFilePath().c_str()))
+ 			{
+ 				//������ �ٿ�� �ڽ��� �缳��.
+ 				_boundBox._localMaxPos = _boundBox._localMaxPos / 2;

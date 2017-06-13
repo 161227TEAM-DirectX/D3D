@@ -32,14 +32,6 @@ void boundSphere::renderGizmo(dx::transform * trans)
 	GIZMOMANAGER->WireSphere(worldCenter, radius, 0xffffff00);
 }
 
-void boundSphere::renderGizmo(dx::transform * trans, D3DCOLOR color)
-{
-	D3DXVECTOR3 worldCenter;
-	float radius;
-	this->getWorldCenterRadius(trans, &worldCenter, &radius);
-	GIZMOMANAGER->WireSphere(worldCenter, radius, color);
-}
-
 //바운드 세팅하기
 void boundSphere::setBound(D3DXVECTOR3 * center, D3DXVECTOR3 * halfSize)
 {

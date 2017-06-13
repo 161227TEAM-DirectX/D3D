@@ -1,0 +1,16 @@
+diff a/팀 프레임워크/boundSphere.cpp b/팀 프레임워크/boundSphere.cpp	(rejected hunks)
+@@ -32,14 +32,6 @@
+ 	GIZMOMANAGER->WireSphere(worldCenter, radius, 0xffffff00);
+ }
+ 
+-void boundSphere::renderGizmo(dx::transform * trans, D3DCOLOR color)
+-{
+-	D3DXVECTOR3 worldCenter;
+-	float radius;
+-	this->getWorldCenterRadius(trans, &worldCenter, &radius);
+-	GIZMOMANAGER->WireSphere(worldCenter, radius, color);
+-}
+-
+ //�ٿ�� �����ϱ�
+ void boundSphere::setBound(D3DXVECTOR3 * center, D3DXVECTOR3 * halfSize)
+ {

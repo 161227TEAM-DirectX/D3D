@@ -4,14 +4,16 @@
 #include "bossActionMove.h"
 #include "bossActionStanding.h"
 #include "bossActionFly.h"
+<<<<<<< HEAD
 #include "bossActionLanding.h"
 #include "bossActionFlyDie.h"
 #include "bossActionDie.h"
+=======
+>>>>>>> db041f6741b33c85b3cac01450c2fbaa9cc8e6d7
 #include "bossActionSkill.h"
 #include "bossActionSkillFire.h"
 #include "bossActionSkillBattleRoar.h"
 #include "bossActionSkillTailAtt.h"
-#include "bossActionSkillFlyStandingFire.h"
 class bossMonster;
 class bossActionControl
 {

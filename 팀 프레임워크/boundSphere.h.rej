@@ -1,0 +1,9 @@
+diff a/팀 프레임워크/boundSphere.h b/팀 프레임워크/boundSphere.h	(rejected hunks)
+@@ -12,7 +12,6 @@
+ 	void getWorldCenterRadius(dx::transform* trans, D3DXVECTOR3* center, float* raius);
+ 	//���� ������ �׸���
+ 	virtual void renderGizmo(dx::transform* trans);
+-	virtual void renderGizmo(dx::transform* trans, D3DCOLOR color);
+ 	//�ٿ�� �����ϱ�
+ 	virtual void setBound(D3DXVECTOR3* center, D3DXVECTOR3* halfSize);
+ 
