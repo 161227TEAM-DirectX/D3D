@@ -56,9 +56,14 @@ private:
 	float _stunnedTime;
 	float _castingTime;
 	
-	float _jumpHeight; //점프높이!
+	float _baseHeight;//점프시작높이
+	float _jumpHeight;//점프높이!
+	float _jumpPower;//점프파워
+	float _degree;//삼각함수 높이
+	float _jumpSpeed;
 
 	float _playSpeed;
+
 
 private:
 	baseObject* _playerObject;

@@ -15,13 +15,12 @@ monster::~monster()
 
 void monster::baseObjectEnable()
 {
-	D3DXVECTOR3 temp(_boundBox._localCenter);
-	temp.z = _boundBox._localMaxPos.z;
-	//경계박스 - 보스에게 필요한지는 의문이다..... 필요 하겠지?
 	range.setBound(&D3DXVECTOR3(0.0f, 0.0f, 0.0f), &D3DXVECTOR3(RANGE, RANGE, RANGE));
+	D3DXVECTOR3 tempPosition = _transform->GetForward();
 
-	//충돌박스
-	hitBox.setBound(&temp, &D3DXVECTOR3(_transform->GetScale().x * 1.6f, _transform->GetScale().y * 2.9f, _transform->GetScale().z * 2.9f));
+	tempPosition.z *= 0.1f;
+	tempPosition.y = 0.07f;
+	hitBox.setBound(&tempPosition, &D3DXVECTOR3(0.04f, 0.06f, 0.06f));
 
 	HP = myUtil::RandomIntRange(MINHM, MAXHM);
 	mana = myUtil::RandomIntRange(MINHM, MAXHM);
@@ -65,9 +64,9 @@ void monster::baseObjectRender()
 {
 	if (_skinnedAnim != nullptr) _skinnedAnim->render(_transform);
 	hitBox.renderGizmo(_transform);
-	//range.renderGizmo(_transform);
+	range.renderGizmo(_transform);
 
-	_boundBox.renderGizmo(_transform, D3DCOLOR_XRGB(255,0,0));
+	_boundBox.renderGizmo(_transform);
 }
 
 void monster::stateSwitch(void)

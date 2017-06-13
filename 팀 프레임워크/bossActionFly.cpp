@@ -25,14 +25,13 @@ int bossActionFly::Update()
 	string name = owner->getSkinnedAnim().getAnimationSet()->GetName();
 	if (!strcmp("Animation_44", name.c_str()))
 	{
-		if (owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.95f)
+		if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.99f)
 		{
-			owner->_transform->MovePositionSelf(0.0f, 3.3f, 0.0f);
+			owner->_transform->MovePositionSelf(0.0f, 1.5f, 0.0f);
 			owner->getSkinnedAnim().Play("Animation_48");
-			return LHS::ACTIONRESULT::ACTION_PLAY;
 		}
 
-		//owner->_transform->MovePositionSelf(0.0f, 0.05f, 0.0f);
+		return LHS::ACTIONRESULT::ACTION_PLAY;
 	}
 
 	//if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.99f)

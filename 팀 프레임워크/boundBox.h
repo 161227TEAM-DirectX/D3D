@@ -13,7 +13,6 @@ public:
 
 	//월드 단위로 그리기
 	virtual void renderGizmo(dx::transform* trans) override;
-	virtual void renderGizmo(dx::transform* trans, D3DCOLOR color) override;
 	//바운드 세팅하기
 	virtual void setBound(D3DXVECTOR3* center, D3DXVECTOR3* halfSize) override;
 

@@ -160,12 +160,10 @@
     <ClInclude Include="bossActionCinema.h" />
     <ClInclude Include="bossActionControl.h" />
     <ClInclude Include="bossActionFly.h" />
-    <ClInclude Include="bossActionLanding.h" />
     <ClInclude Include="bossActionMove.h" />
     <ClInclude Include="bossActionSkill.h" />
     <ClInclude Include="bossActionSkillBattleRoar.h" />
     <ClInclude Include="bossActionSkillFire.h" />
-    <ClInclude Include="bossActionSkillFlyStandingFire.h" />
     <ClInclude Include="bossActionSkillTailAtt.h" />
     <ClInclude Include="bossActionStanding.h" />
     <ClInclude Include="bossMonster.h" />
@@ -217,6 +215,7 @@
     <ClInclude Include="gizmoManager.h" />
     <ClInclude Include="ioBaseManager.h" />
     <ClInclude Include="keyManager.h" />
+    <ClInclude Include="kimsTestScene.h" />
     <ClInclude Include="light.h" />
     <ClInclude Include="lightDirection.h" />
     <ClInclude Include="lightPoint.h" />
@@ -281,12 +280,10 @@
     <ClCompile Include="bossActionCinema.cpp" />
     <ClCompile Include="bossActionControl.cpp" />
     <ClCompile Include="bossActionFly.cpp" />
-    <ClCompile Include="bossActionLanding.cpp" />
     <ClCompile Include="bossActionMove.cpp" />
     <ClCompile Include="bossActionSkill.cpp" />
     <ClCompile Include="bossActionSkillBattleRoar.cpp" />
     <ClCompile Include="bossActionSkillFire.cpp" />
-    <ClCompile Include="bossActionSkillFlyStandingFire.cpp" />
     <ClCompile Include="bossActionSkillTailAtt.cpp" />
     <ClCompile Include="bossActionStanding.cpp" />
     <ClCompile Include="bossMonster.cpp" />
@@ -338,6 +335,7 @@
     <ClCompile Include="gizmoManager.cpp" />
     <ClCompile Include="ioBaseManager.cpp" />
     <ClCompile Include="keyManager.cpp" />
+    <ClCompile Include="kimsTestScene.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="lightDirection.cpp" />
     <ClCompile Include="lightPoint.cpp" />
