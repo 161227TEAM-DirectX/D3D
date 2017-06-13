@@ -538,6 +538,12 @@
     <ClCompile Include="kimsTestScene.cpp">
       <Filter>GameFramework3D\xPlayer</Filter>
     </ClCompile>
+    <ClCompile Include="bossActionDie.cpp">
+      <Filter>GameFramework3D\ActionBoss</Filter>
+    </ClCompile>
+    <ClCompile Include="bossActionFlyDie.cpp">
+      <Filter>GameFramework3D\ActionBoss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -889,6 +895,12 @@
     </ClInclude>
     <ClInclude Include="kimsTestScene.h">
       <Filter>GameFramework3D\xPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionDie.h">
+      <Filter>GameFramework3D\ActionBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionFlyDie.h">
+      <Filter>GameFramework3D\ActionBoss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

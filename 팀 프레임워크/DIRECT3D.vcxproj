@@ -1,4 +1,4 @@
-ï»¿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -159,7 +159,10 @@
     <ClInclude Include="bossActionAttack.h" />
     <ClInclude Include="bossActionCinema.h" />
     <ClInclude Include="bossActionControl.h" />
+    <ClInclude Include="bossActionDie.h" />
     <ClInclude Include="bossActionFly.h" />
+    <ClInclude Include="bossActionFlyDie.h" />
+    <ClInclude Include="bossActionLanding.h" />
     <ClInclude Include="bossActionMove.h" />
     <ClInclude Include="bossActionSkill.h" />
     <ClInclude Include="bossActionSkillBattleRoar.h" />
@@ -279,7 +282,10 @@
     <ClCompile Include="bossActionAttack.cpp" />
     <ClCompile Include="bossActionCinema.cpp" />
     <ClCompile Include="bossActionControl.cpp" />
+    <ClCompile Include="bossActionDie.cpp" />
     <ClCompile Include="bossActionFly.cpp" />
+    <ClCompile Include="bossActionFlyDie.cpp" />
+    <ClCompile Include="bossActionLanding.cpp" />
     <ClCompile Include="bossActionMove.cpp" />
     <ClCompile Include="bossActionSkill.cpp" />
     <ClCompile Include="bossActionSkillBattleRoar.cpp" />
@@ -420,7 +426,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ë¦¬ì†ŒìŠ¤\FX\EnvironmentCUBE.fx">
+    <None Include="¸®¼Ò½º\FX\EnvironmentCUBE.fx">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

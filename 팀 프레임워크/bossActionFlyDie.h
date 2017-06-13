@@ -1,13 +1,11 @@
 #pragma once
 #include "Action.h"
-class bossActionCinema : public Action
+class bossActionFlyDie : public Action
 {
 private:
-	float actionTime;
-	float passedTime;
 public:
-	bossActionCinema();
-	~bossActionCinema();
+	bossActionFlyDie();
+	~bossActionFlyDie();
 
 	//액션의 시작을 정의하는 함수 - 순수가상함수
 	int Start() override;
