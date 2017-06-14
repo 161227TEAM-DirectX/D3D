@@ -55,6 +55,7 @@ HRESULT terrainPickingTest::init(void)
 	_player = new xPlayer;
 	_player->setlinkTerrain(*_terrain);
 	_player->init();
+	_player->getPlayerObject()->_transform->SetWorldPosition(20.0f, 0.0f, -20.0f);
 
 	//임시 몬스터 구현 코드
 	//player = new monster;
@@ -76,7 +77,7 @@ HRESULT terrainPickingTest::init(void)
 	boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
 	boss->LinkObject(testObject);
 	boss->LinkTerrain(*_terrain);
-	boss->LinkPlayer(enemy);
+	boss->LinkPlayer(_player->getPlayerObject());
 	boss->setActive(true);
 	this->_renderObjects.push_back(boss);
 

@@ -17,6 +17,7 @@ const int MINGS = 500;
 const int DEFAULTATT = 200;
 const int DEFAULTDEF = 50;
 const float RANGE = 2.5f;
+const float BOSSRANGE = 20.0f;
 
 class monster : public baseObject
 {
@@ -79,7 +80,8 @@ public:
 
 	inline LHS::ACTIONRESULT& getResult(void) { return result; }
 
-
+	inline void setNextAction(Action* Next) { this->NextAction = Next; }
+	inline Action& getNextAction(void) { return *NextAction; }
 
 	//override로 필요하면 재정의 해서 사용하기
  	virtual void baseObjectEnable() override;			//BaseObject가 활성화 될때 실행

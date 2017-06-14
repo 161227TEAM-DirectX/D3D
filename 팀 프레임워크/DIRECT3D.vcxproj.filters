@@ -555,6 +555,12 @@
     <ClCompile Include="bossActionSkillFlyStandingFire.cpp">
       <Filter>GameFramework3D\ActionBoss</Filter>
     </ClCompile>
+    <ClCompile Include="bossActionFlyMove.cpp">
+      <Filter>GameFramework3D\ActionBoss</Filter>
+    </ClCompile>
+    <ClCompile Include="bossActionSkillFlyFire.cpp">
+      <Filter>GameFramework3D\ActionBoss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -921,6 +927,12 @@
       <Filter>GameFramework3D\xPlayer</Filter>
     </ClInclude>
     <ClInclude Include="bossActionSkillFlyStandingFire.h">
+      <Filter>GameFramework3D\ActionBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionFlyMove.h">
+      <Filter>GameFramework3D\ActionBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionSkillFlyFire.h">
       <Filter>GameFramework3D\ActionBoss</Filter>
     </ClInclude>
   </ItemGroup>

@@ -162,11 +162,13 @@
     <ClInclude Include="bossActionDie.h" />
     <ClInclude Include="bossActionFly.h" />
     <ClInclude Include="bossActionFlyDie.h" />
+    <ClInclude Include="bossActionFlyMove.h" />
     <ClInclude Include="bossActionLanding.h" />
     <ClInclude Include="bossActionMove.h" />
     <ClInclude Include="bossActionSkill.h" />
     <ClInclude Include="bossActionSkillBattleRoar.h" />
     <ClInclude Include="bossActionSkillFire.h" />
+    <ClInclude Include="bossActionSkillFlyFire.h" />
     <ClInclude Include="bossActionSkillFlyStandingFire.h" />
     <ClInclude Include="bossActionSkillTailAtt.h" />
     <ClInclude Include="bossActionStanding.h" />
@@ -286,11 +288,13 @@
     <ClCompile Include="bossActionDie.cpp" />
     <ClCompile Include="bossActionFly.cpp" />
     <ClCompile Include="bossActionFlyDie.cpp" />
+    <ClCompile Include="bossActionFlyMove.cpp" />
     <ClCompile Include="bossActionLanding.cpp" />
     <ClCompile Include="bossActionMove.cpp" />
     <ClCompile Include="bossActionSkill.cpp" />
     <ClCompile Include="bossActionSkillBattleRoar.cpp" />
     <ClCompile Include="bossActionSkillFire.cpp" />
+    <ClCompile Include="bossActionSkillFlyFire.cpp" />
     <ClCompile Include="bossActionSkillFlyStandingFire.cpp" />
     <ClCompile Include="bossActionSkillTailAtt.cpp" />
     <ClCompile Include="bossActionStanding.cpp" />

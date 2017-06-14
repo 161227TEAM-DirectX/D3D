@@ -1,5 +1,6 @@
 #pragma once
 #include "Action.h"
+#include "bossMonster.h"
 class bossActionMove : public Action
 {
 private:
@@ -7,7 +8,9 @@ private:
 	D3DXVECTOR3 from;
 	D3DXVECTOR3 range;
 
-	float speed;
+	bool ch;
+	int resultValue;
+	vector<int> list;
 public:
 	bossActionMove();
 	~bossActionMove();

@@ -19,7 +19,7 @@ void bossMonster::baseObjectEnable()
 	D3DXVECTOR3 temp(_boundBox._localCenter);
 	temp.z = _boundBox._localMaxPos.z;
 	//경계박스 - 보스에게 필요한지는 의문이다..... 필요 하겠지?
-	range.setBound(&D3DXVECTOR3(0.0f, 0.0f, 0.0f), &D3DXVECTOR3(RANGE, RANGE, RANGE));
+	range.setBound(&D3DXVECTOR3(0.0f, 0.0f, 0.0f), &D3DXVECTOR3(_transform->GetScale().x * BOSSRANGE, _transform->GetScale().y * BOSSRANGE, _transform->GetScale().z * BOSSRANGE));
 
 	//충돌박스
 	hitBox.setBound(&temp, &D3DXVECTOR3(_transform->GetScale().x * 2.6f, _transform->GetScale().y * 2.9f, _transform->GetScale().z * 2.9f));
@@ -63,8 +63,8 @@ void bossMonster::baseObjectNoActiveUpdate()
 void bossMonster::baseObjectRender()
 {
 	if (_skinnedAnim != nullptr) _skinnedAnim->render(_transform);
-	hitBox.renderGizmo(_transform);
-	//range.renderGizmo(_transform);
+	hitBox.renderGizmo(_transform, D3DCOLOR_XRGB(255,0,0));
+	range.renderGizmo(_transform, D3DCOLOR_XRGB(0,255,0));
 
 	_boundBox.renderGizmo(_transform);
 }
