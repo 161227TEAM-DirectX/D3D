@@ -39,7 +39,7 @@ HRESULT mainGame::init(void)
 //===================================================================================
 //±èÅÂÈÆ ¾À Å×½ºÆ® Çì´õÆÄÀÏ
 //===================================================================================
-	SCENEMANAGER->addScene("test2", new kimsTestScene);
+	SCENEMANAGER->addScene("test", new kimsTestScene);
 
 //===================================================================================
 //±èÅÂ½Â ¾À Å×½ºÆ® Çì´õÆÄÀÏ
@@ -47,7 +47,7 @@ HRESULT mainGame::init(void)
 
 
 	//¾ÀÃÊ±âÈ­
-	SCENEMANAGER->changeScene("test2");
+	SCENEMANAGER->changeScene("test");
 	return S_OK;
 }
 
