@@ -448,8 +448,8 @@ HRESULT terrain::createTerrain(int smooth, int tileNum)
 				float factor = (r + g + b) / 3.0f;
 
 				//높이 값
-				//pos.y = 0;
-				pos.y = factor * _heightScale;
+				pos.y = 0;
+				//pos.y = factor * _heightScale;
 			}
 
 			//정점 UV 계산

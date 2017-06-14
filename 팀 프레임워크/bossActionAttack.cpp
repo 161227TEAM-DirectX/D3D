@@ -2,7 +2,7 @@
 #include "bossActionAttack.h"
 
 
-bossActionAttack::bossActionAttack() :Action(), passedTime(0.0f), activeTime(2.0f)
+bossActionAttack::bossActionAttack() :Action(), passedTime(0.0f), activeTime(2.0f), resultValue(0)
 {
 }
 
@@ -18,11 +18,29 @@ int bossActionAttack::Start()
 	//보스몬스터의 공격모션 아무거나 시작.
 	owner->getSkinnedAnim().Play("Animation_12");
 
+	//확률을 위한 벡터 및 시드 초기화
+	int seed = 0;
+
+	seed = 1;
+	for (int i = 0; i < 5; i++)
+	{
+		list.push_back(seed);
+	}
+	seed = 2;
+	list.push_back(seed);
+	list.push_back(seed);
+	seed = 3;
+	list.push_back(seed);
+	list.push_back(seed);
+	list.push_back(seed);
+
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
 }
 
 int bossActionAttack::Update()
 {
+	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
+
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.9f)
 	{
 		passedTime = 0.0f;
@@ -49,15 +67,36 @@ int bossActionAttack::Update()
 			owner->getSkinnedAnim().Play("Animation_10");
 			break;
 		}
+	//	bool check = ;
+		//적이 나의 hit박스 안에 없다면 이동해라.
+		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), enemy->_transform, &enemy->_boundBox))
+		{
+			int index = myUtil::RandomIntRange(0, 9);
+			resultValue = list[index];
+
+			switch (resultValue)
+			{
+			case 1:
+				return LHS::ACTIONRESULT::ACTION_MOVE;
+				break;
+			case 2:
+				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
+				{
+					return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
+				}
+				break;
+			case 3:
+				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
+				{
+					return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
+				}
+				break;
+			}
+		}
 	}
 
-	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
-	//적이 나의 hit박스 안에 없다면 이동해라.
-	//if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->_boundBox, enemy->_transform, &enemy->_boundBox))
-	//{
-	//	owner->getSkinnedAnim().Stop();
-	//	return LHS::ACTIONRESULT::ACTION_MOVE;
-	//}
+	
+	
 
 	//
 

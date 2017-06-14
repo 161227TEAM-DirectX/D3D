@@ -6,6 +6,9 @@ class bossActionAttack : public Action
 private:
 	float passedTime;
 	float activeTime;
+
+	int resultValue;
+	vector<int> list;
 public:
 	bossActionAttack();
 	~bossActionAttack();

@@ -10,6 +10,7 @@ private:
 
 	bool ch;
 	int resultValue;
+	float index;
 	vector<int> list;
 public:
 	bossActionMove();
