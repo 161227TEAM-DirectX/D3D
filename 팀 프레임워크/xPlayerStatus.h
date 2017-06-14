@@ -1,10 +1,14 @@
 #pragma once
-#include "singletonBase.h"
 #include "gameNode.h"
+#include "singletonBase.h"
 
 enum PL_WEAPON
 {
 	W_NONE = 0,
+	W_WOOD,
+	W_BROAD,
+	W_KATANA,
+	W_DEAMON,
 	W_BLACK_WING,
 	W_END
 };
@@ -12,30 +16,45 @@ enum PL_WEAPON
 enum PL_ARMOR
 {
 	A_NONE = 0,
-	A_LEATHER,
 	A_ROBE,
+	A_LEATHER,
 	A_PLATE,
 	A_END
 };
 
+enum PL_SHIELD
+{
+	SH_NONE = 0,
+	SH_BUCKLER,
+	SH_BRONZE,
+	SH_KITE,
+	SH_SPIKE,
+	SH_CROSS,
+	SH_END
+};
 
 class xPlayerStatus : public singletonBase<xPlayerStatus>
 {
 private:
-	float _exp;
-	int _att;
-	int _def;
-	int _hp;
-	int _mp;
-	
+	SYNTHESIZE(int, _lv, Lv);
+	SYNTHESIZE(int, _att, att);
+	SYNTHESIZE(int, _mAtt, mAtt);
+	SYNTHESIZE(int, _def, Def);
+	SYNTHESIZE(int, _mDef, mDef);
+	SYNTHESIZE(int, _hp, Hp);
+	SYNTHESIZE(int, _mp, Mp);
+	SYNTHESIZE(PL_WEAPON, _weapon, Weapon);
+	SYNTHESIZE(PL_ARMOR, _armor, Armor);
+	SYNTHESIZE(int, _soul, Soul);
+	SYNTHESIZE(int, _gold, Gold);
+	SYNTHESIZE(D3DXVECTOR3, _pos, Pos);
+
+	int _totalAtt;//기본 + 무기 합산 물리 공격력
+	int _totalmAtt;//기본 + 무기 합산 마법 공격력
+	int _totalDef;//기본 + 방어구 합산 물리 방어력
+	int _totalmDef;//기본 + 방어구 합산 마법 방어력
 
 public:
-	xPlayerStatus();
-	~xPlayerStatus();
-
-	
-
-	int& getHp() { return _hp; }
-	int& getMp() { return _mp; }
+	xPlayerStatus() {};
+	~xPlayerStatus() {};
 };
-
