@@ -6,14 +6,16 @@ HRESULT dxCircleModule::init()
 {
 	_grpRadiusOn = false;
 
-	_preCircle = D3DXVECTOR3(0,0,0);
+	_preCircle = D3DXVECTOR3(0, 0, 0);
+
+	_autoRadiusOn = true;
 
 	return S_OK;
 }
 
 void dxCircleModule::relese()
 {
-	
+
 }
 
 void dxCircleModule::InitUpdate(vector<tagDxAttribute>::iterator iter)
@@ -56,10 +58,31 @@ void dxCircleModule::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 	D3DXVECTOR3	circleRotY = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	D3DXVECTOR3	circleRotZ = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
-	//원 계산
+	//실패
+	//if (_autoRadiusOn)
+	//{
+	//	D3DXVECTOR3 circleDirAixsX = D3DXVECTOR3(0.0f, iter->FinalPos.y, iter->FinalPos.z);
+	//	D3DXVECTOR3 circleDirAixsY = D3DXVECTOR3(iter->FinalPos.x, 0.0f, iter->FinalPos.z);
+	//	D3DXVECTOR3 circleDirAixsZ = D3DXVECTOR3(iter->FinalPos.x, iter->FinalPos.y, 0.0f);
+	//	
+	//	D3DXVECTOR3 distanceAixs = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+
+	//	distanceAixs.x = D3DXVec3Length(&circleDirAixsX);
+	//	distanceAixs.y = D3DXVec3Length(&circleDirAixsY);
+	//	distanceAixs.z = 2.0f; // D3DXVec3Length(&circleDirAixsZ);
+
+	//	//원 계산
+	//	circleRotX = D3DXVECTOR3(0.0f, cosf(iter->circleAngle.x) *distanceAixs.x, sinf(iter->circleAngle.x) * distanceAixs.x);
+	//	circleRotY = D3DXVECTOR3(cosf(iter->circleAngle.y) * distanceAixs.y, 0.0f, sinf(iter->circleAngle.y) * distanceAixs.y);
+	//	circleRotZ = D3DXVECTOR3(cosf(iter->circleAngle.z) * distanceAixs.z, sinf(iter->circleAngle.z) * distanceAixs.z, 0.0f);
+	//}
+	//else
+	//{
+		//원 계산
 	circleRotX = D3DXVECTOR3(0.0f, cosf(iter->circleAngle.x) * iter->radius.x, sinf(iter->circleAngle.x) * iter->radius.x);
 	circleRotY = D3DXVECTOR3(cosf(iter->circleAngle.y) * iter->radius.y, 0.0f, sinf(iter->circleAngle.y) * iter->radius.y);
 	circleRotZ = D3DXVECTOR3(cosf(iter->circleAngle.z) * iter->radius.z, sinf(iter->circleAngle.z) * iter->radius.z, 0.0f);
+	//}
 
 	//전 원 계산 세팅
 	iter->preCircleSpeed = iter->circleSpeed;

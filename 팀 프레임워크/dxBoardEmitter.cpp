@@ -24,6 +24,7 @@ HRESULT dxBoardEmitter::init(string textureFileName, int OneTimePaticleNum, floa
 
 	//텍스쳐 불러오기
 	hr = D3DXCreateTextureFromFile(_device, textureFileName.c_str(), &_texture);
+	//hr = D3DXCreateTextureFromFileEx(_device, textureFileName.c_str(), ,,,,,,,,,,,,,&_texture);
 
 	if (FAILED(hr))	return E_FAIL;
 
@@ -42,7 +43,7 @@ void dxBoardEmitter::relese()
 
 void dxBoardEmitter::update()
 {
-
+	if (autoActiveTimeCheck()) return;
 
 	//초기값
 	int checkNum = 0;
@@ -131,12 +132,14 @@ void dxBoardEmitter::update()
 		_currentDelayTime += _timeDelta;
 	}
 
-
+	//_trans->RotateSelf(0.0f,0.0f,D3DXToRadian(10.0f));
 
 }
 
 void dxBoardEmitter::render()
 {
+	if (autoActiveTimeCheck()) return;
+
 	_device->SetRenderState(D3DRS_LIGHTING, false);		//라이팅을 끈다.
 	_device->SetRenderState(D3DRS_ZWRITEENABLE, false);	//z 버퍼의 쓰기를 막는다.
 
@@ -174,6 +177,8 @@ void dxBoardEmitter::render()
 	matWorld = this->_transform->GetFinalMatrix();
 	}*/
 	//_device->SetTransform(D3DTS_WORLD, &matWorld);
+
+	//_trans->SetDeviceWorld();
 
 	//파티클 Texture 셋팅
 	_device->SetTexture(0, _texture);
@@ -223,16 +228,20 @@ void dxBoardEmitter::ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcI
 	//파티클 위치 값
 	dx::transform ptcTrans;
 
-	ptcTrans.SetWorldPosition(iter->position);
+	//ptcTrans.SetWorldPosition(iter->position);
 	//ptcTrans.RotateSelf(D3DXVECTOR3(0.0f,D3DXToRadian(RandomFloatRange(10.0f,45.0f)),0.0f));
 	//ptcTrans.RotateSelf(iter->rotateAngle);
 
 	//카메라 행렬 가져오기
 	D3DXMATRIXA16 getView;
+	D3DXMATRIXA16 getViewInverse;
 	_device->GetTransform(D3DTS_VIEW, &getView);
-	D3DXMatrixInverse(&getView,NULL,&getView);
-	D3DXVECTOR3 cameraPos = D3DXVECTOR3(getView._41, getView._42, getView._43);
+	D3DXMatrixInverse(&getViewInverse,NULL,&getView);
+	//D3DXVECTOR3 cameraPos = D3DXVECTOR3(getView._41, getView._42, getView._43);
 	
+	getViewInverse._41 = getView._41;
+	getViewInverse._42 = getView._42;
+	getViewInverse._43 = getView._43;
 	//vectorReverse
 
 	//D3DXVECTOR3 cameraDir;
@@ -241,9 +250,12 @@ void dxBoardEmitter::ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcI
 
 	//camera boardCamera;
 	//boardCamera.Set
-
+	ptcTrans.SetWorldMatrix(getViewInverse);
 	//ptcTrans.LookDirection(cameraDir,cameraPos);
-	ptcTrans.LookPosition(cameraPos);
+	//ptcTrans.LookPosition(cameraPos);
+
+	ptcTrans.SetWorldPosition(iter->FinalPos);
+	ptcTrans.RotateSelf(iter->rotateAngle);
 
 	D3DXVECTOR3 x = ptcTrans.GetRight()*iter->horizontal;
 	D3DXVECTOR3 y = ptcTrans.GetUp()*iter->vertical;
@@ -252,9 +264,6 @@ void dxBoardEmitter::ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcI
 	float halfScale = iter->size*0.5;
 
 	D3DXCOLOR inColor = iter->color;
-
-	
-	
 
 
 

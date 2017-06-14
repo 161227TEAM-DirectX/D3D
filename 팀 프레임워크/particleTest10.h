@@ -1,9 +1,9 @@
 #pragma once
-#include "gameNode.h"
-#include "dxParticleSystem.h"
+//#include "gameNode.h"
+//#include "dxParticleSystem.h"
 
-#include "skill00.h"
-#include "skill00_03.h"
+//#include "skill00.h"
+//#include "skill00_03.h"
 
 class particleTest10 :	public gameNode
 {

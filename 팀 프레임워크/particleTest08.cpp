@@ -13,7 +13,7 @@ HRESULT particleTest08::init(void)
 	_testEmitter = new dxBoardEmitter;
 	//_testEmitter->init("PaticleResources/Texture/magicCircle.png",1,1.0f,1);
 	//_testEmitter->init("PaticleResources/Texture/fire00_frame7x7.png", 20, 0.1f, 100);
-	_testEmitter->init("PaticleResources/Texture/fire01_frame5x4.png", 20, 0.10f, 100);
+	_testEmitter->init("PaticleResources/Texture/fire01_frame5x4.png", 1, 0.10f, 1);
 	
 	_testEmitter->InitRandomPositionX(-10.0f, 10.0f);
 	_testEmitter->InitRandomPositionZ(-10.0f, 10.0f);
@@ -25,9 +25,9 @@ HRESULT particleTest08::init(void)
 	_testEmitter->InitRandomAlphaFade(0.1f, 0.1f);
 
 	_testEmitter->InitAnimation(5,4);
-	//_testEmitter->InitConstAniReactivateNum(12);
+	_testEmitter->InitConstAniReactivateNum(5);
 	
-	_testEmitter->InitRandomLifeTime(0.8f,1.2f);
+	_testEmitter->InitRandomLifeTime(2.8f,2.2f);
 	_testEmitter->InitRotateStartAngleY(0.0f, 120.0f);
 	_testEmitter->InitRotateAngleSpeedY(6.0f, 6.0f);
 	

@@ -23,8 +23,8 @@ HRESULT particleTest10::init(void)
 	_testEmitter->InitRandomPositionZ(-10.0f, 10.0f);
 	//_testEmitter->InitRandomVelocityY(23.5f,38.5f);
 	
-	_testEmitter->InitRandomSize(1.0f,3.0f);
-	_testEmitter->InitRandomSizeEnd(12.0f, 22.0f);
+	//_testEmitter->InitRandomSize(1.0f,3.0f);
+	//_testEmitter->InitRandomSizeEnd(12.0f, 22.0f);
 	_testEmitter->InitRandomAlpha(1.0f, 1.0f);
 	_testEmitter->InitRandomAlphaFade(0.1f, 0.1f);
 

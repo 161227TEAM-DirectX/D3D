@@ -48,16 +48,9 @@ public:
 	//벡터 접근
 	vector<dxEmitter*> &GetPaticles() { return _vEmitter; }
 
+	//자동 시간 리셋
+	bool autoTimeReset(bool ResetFunOn = true);
 
-	/*void init()
-	{
-		_transform = new transform;
-		_transform->SetWorldPosition(0,0,0);
-	}
-	void setStartPoint(D3DXVECTOR3 pos)
-	{
-		_transform->SetWorldPosition(pos);
-	}*/
 
 public:
 	dxParticleSystem()

@@ -53,6 +53,7 @@ void dxPointEmitter::relese()
 
 void dxPointEmitter::update()
 {
+	if (autoActiveTimeCheck(_timeDelta)) return;
 	
 	//초기값
 	int checkNum = 0;
@@ -178,97 +179,12 @@ void dxPointEmitter::update()
 	}
 
 
-
-
-
-
-	////뿜어내기
-	//if (_spawnTime <= _spawnCurrentTime)
-	//{
-	//	_spawnCurrentTime = 0.0f;
-
-	//	_vb->Lock(0, 0, (void**)&ptcVtx, 0);
-	//	for (iter = _ptcList.begin(); iter != _ptcList.end(); ++iter)
-	//	{
-	//		if (iter->isAlive == false)
-	//		{
-	//			//재활성화
-	//			iter->size = _constPaticleSize;
-	//			iter->isAlive = true;
-	//			_module->InitUpdate(iter);
-	//			ptcVtx->position = iter->position;
-	//			//ptcVtx->size = RandomFloatRange(1.0f,10.0f);->생각보다 느리다.
-	//			ptcVtx->color = iter->color;
-
-	//			checkNum++;
-	//			if (checkNum >= _onePtcNum) break;
-	//		}
-	//		ptcVtx++;
-	//	}
-	//	//_vb->Unlock();
-	//}
-
-	////활성화 된 거 돌리기
-	//_vb->Lock(0, 0, (void**)&ptcVtx, 0);
-	//for (iter = _ptcList.begin(); iter != _ptcList.end(); ++iter)
-	//{
-	//	////죽음
-	//	if (iter->lifeTime <= iter->age)
-	//	{
-	//		iter->isAlive = false;
-	//		iter->age = 0.0f;
-	//		//ptcVtx->position = iter->position;
-	//	}
-
-	//	//활성화
-	//	if (iter->isAlive)
-	//	{
-	//		//iter->acceleration += iter->acceleration*0.01;
-	//		//ptcVtx->position += (iter->velocity + iter->acceleration)*_timeDelta;
-	//		ptcVtx->position -= iter->circleSpeed;
-	//		_module->ActiveUpdate(iter);
-	//		//ptcVtx->position = D3DXVECTOR3(sinf(angle),0.0f,cosf(angle));
-	//		//ptcVtx->position = iter
-	//		ptcVtx->position += iter->circleSpeed + iter->velocity*_timeDelta + (iter->acceleration*(iter->age*_timeDelta)*(iter->age*_timeDelta) / 2.0f) + iter->posDirectVel*_timeDelta;
-	//		//ptcVtx->position += iter->angleSpeed*_timeDelta+ iter->velocity*_timeDelta + (iter->acceleration*(iter->age*_timeDelta)*(iter->age*_timeDelta)/2.0f);
-	//		ptcVtx->color = iter->color;
-
-	//		//나이 더하기
-	//		iter->age += _timeDelta;
-	//	}
-
-	//	ptcVtx++;
-
-	//	//나가기
-	//	//if (_vbMaxStep*_ptcSize < num) break;
-	//}
-
-	//_vb->Unlock();
-
-	///*if (_spawnTime <= _spawnCurrentTime)
-	//{
-	//	_spawnCurrentTime = 0.0f;
-	//	_vbMaxStep++;
-	//}*/
-	//if (_startDelayTime <= _currentDelayTime)
-	//{
-	//	_spawnCurrentTime += _timeDelta;
-	//}
-	//else
-	//{
-	//	_currentDelayTime += _timeDelta;
-	//}
-	////D3DXMatrixRotationY(&_matWorld,D3DXToRadian(180));
-	////D3DXMatrixScaling(&_matWorld, 2.0f,2.0f,2.0f);
-
-	
-
 }
 
 
 void dxPointEmitter::render()
 {
-
+	if (autoActiveTimeCheck(_timeDelta)) return;
 
 	_device->SetRenderState(D3DRS_ZENABLE, TRUE);
 	_device->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);

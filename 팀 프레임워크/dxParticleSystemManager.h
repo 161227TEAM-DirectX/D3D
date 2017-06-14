@@ -3,6 +3,9 @@
 #include "dxParticleSystem.h"
 #include "dxParticleSystemSet.h"
 #include "PS_Set00.h"
+#include "PS_Set01.h"
+#include "PS_BossSet00.h"
+#include "PS_EffectSet00.h"
 
 class dxParticleSystemManager :public singletonBase<dxParticleSystemManager>
 {
@@ -12,6 +15,9 @@ private:
 
 private:
 	PS_Set00* _set00;
+	PS_Set01* _set01;
+	PS_BossSet00* _bossSet00;
+	PS_EffectSet00* _effectSet00;
 
 public:
 	//파티클 등록

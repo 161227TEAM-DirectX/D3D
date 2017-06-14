@@ -41,6 +41,22 @@ HRESULT dxParticleSystem::init()
 
 				//tempEMT->CopyInit();
 			}
+			else if (_vTempEmitter[i]->GetType() == ET_PLANE)
+			{
+				tempEMT = new dxPlaneEmitter;
+				*(dynamic_cast<dxPlaneEmitter*>(tempEMT)) = *(dynamic_cast<dxPlaneEmitter*>(_vTempEmitter[i]));
+			}
+			else if (_vTempEmitter[i]->GetType() == ET_BOARD)
+			{
+				tempEMT = new dxBoardEmitter;
+				*(dynamic_cast<dxBoardEmitter*>(tempEMT)) = *(dynamic_cast<dxBoardEmitter*>(_vTempEmitter[i]));
+			}
+			else if (_vTempEmitter[i]->GetType() == ET_MESH)
+			{
+				tempEMT = new dxMeshEmitter;
+				*(dynamic_cast<dxMeshEmitter*>(tempEMT)) = *(dynamic_cast<dxMeshEmitter*>(_vTempEmitter[i]));
+			}
+
 			_vEmitter.push_back(tempEMT);
 		}
 	}
@@ -82,27 +98,41 @@ void dxParticleSystem::update()
 		_EmitterCountNum++;
 		if (_EmitterCountNum >= _vEmitter.size()) { _EmitterCountNum = 0; }
 	}
-	
+
 }
 
 void dxParticleSystem::render()
 {
 	//파티클 시스템 활성화 여부 판단
 	if (_isActive == FALSE) return;
-	
+
 	//트렌스폼 업데이트
 	_trans->SetDeviceWorld();
+
 	//이미터 업데이트
-	
+
 	if (_vEmitter.empty() == FALSE)
 	{
 		for (int i = 0; i < _vEmitter.size(); i++)
 		{
 			_vEmitter[i]->render();
 		}
-		
+
 		//_vEmitter[_EmitterCountNum]->render();
 		//_EmitterCountNum++;
 		//if (_EmitterCountNum >= _vEmitter.size()) { _EmitterCountNum = 0; }
 	}
 }
+
+bool dxParticleSystem::autoTimeReset(bool ResetFunOn)
+{
+	if (_limitTime <= _currentTime)
+	{
+		_currentTime = 0.0f;
+		if (ResetFunOn) { this->reset(); this->_isActive = FALSE; }
+		return TRUE;
+	}
+	_currentTime += _timeDelta;
+	return FALSE;
+}
+

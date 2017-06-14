@@ -45,6 +45,10 @@ public:
 		_EmitterType = ET_PLANE;
 
 		_posCenter = D3DXVECTOR3(0,0,0);
+		_activeTimeCheckOn = FALSE;
+		_activeCurrentTime = 0.0f;
+		_activeLimitTime = 0.0f;
+
 
 	};
 	~dxPlaneEmitter() {};

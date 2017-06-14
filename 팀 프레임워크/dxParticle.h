@@ -76,6 +76,12 @@ struct tagDxAttribute
 	float			horizontal;
 	float			vertical;
 
+	D3DXVECTOR3		attractStrartPos;	//끌림 시작점(처음 위치값)
+	D3DXVECTOR3		attractCenter;		//끌림 중심점
+
+	D3DXVECTOR3		attractPos;			//끌림의 위치
+
+	D3DXVECTOR3		dirSphere;			//스피어형 위치
 
 	D3DXVECTOR2		UV0;
 	D3DXVECTOR2		UV1;
@@ -116,6 +122,11 @@ struct tagDxAttribute
 
 		FinalPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
+		attractStrartPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		attractCenter = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		attractPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+
+		dirSphere = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 
 		UV0 = D3DXVECTOR2(0.0f, 0.0f);
 		UV1 = D3DXVECTOR2(1.0f, 0.0f);
@@ -256,6 +267,15 @@ struct tagDxAttributeMaxMin
 
 	int reactivateNum;
 
+	//끌림
+	tagMaxMin attractX;
+	tagMaxMin attractY;
+	tagMaxMin attractZ;
+
+	bool attractOn;
+
+	D3DXVECTOR3 dirSphere;
+
 
 	//초기화
 	tagDxAttributeMaxMin()
@@ -302,6 +322,9 @@ struct tagDxAttributeMaxMin
 		animationOn = false;
 
 		reactivateNum = 1;
+
+		attractOn = false;
+
 	}
 
 };
