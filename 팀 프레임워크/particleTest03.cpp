@@ -230,9 +230,9 @@ HRESULT particleTest03::init(void)
 	//_testEmitter->InitRandomPositionZ(-1.0f, 1.0f);
 	
 	//_testEmitter->InitRandomRadiusX(10.0f, 10.0f);
-	_testEmitter->InitRandomRadiusX(1.0f, 1.0f);
+	_testEmitter->InitCircleRadiusY(1.0f, 1.0f);
 	//_testEmitter->InitRandomRadiusZ(10.0f, 10.0f);
-	_testEmitter->InitRandomRadiusEndX(12.0f, 12.0f);
+	_testEmitter->InitCircleRadiusEndY(12.0f, 12.0f);
 
 	//_testEmitter->InitRandomAngleSpeedX(50.0f,50.0f);
 	_testEmitter->InitCircleAngleSpeedX(360.0f, 360.0f);
@@ -301,7 +301,7 @@ HRESULT particleTest03::init(void)
 	//_testEmitter->InitRandomPositionZ(-1.0f, 1.0f);
 
 	//_testEmitter->InitRandomRadiusX(10.0f, 10.0f);
-	_testEmitter->InitRandomRadiusY(16.0f, 16.0f);
+	_testEmitter->InitCircleRadiusY(16.0f, 16.0f);
 	//_testEmitter->InitRandomRadiusZ(10.0f, 10.0f);
 	//_testEmitter->InitRandomRadiusEndY(1.0f, 1.0f);
 

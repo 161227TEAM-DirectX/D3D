@@ -42,7 +42,7 @@ void dxPlaneEmitter::relese()
 
 void dxPlaneEmitter::update()
 {
-
+	if (autoActiveTimeCheck()) return;
 
 	//초기값
 	int checkNum = 0;
@@ -137,6 +137,8 @@ void dxPlaneEmitter::update()
 
 void dxPlaneEmitter::render()
 {
+	if (autoActiveTimeCheck()) return;
+
 	_device->SetRenderState(D3DRS_LIGHTING, false);		//라이팅을 끈다.
 	_device->SetRenderState(D3DRS_ZWRITEENABLE, false);	//z 버퍼의 쓰기를 막는다.
 

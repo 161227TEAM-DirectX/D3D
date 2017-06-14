@@ -7,12 +7,14 @@
 
 #include "dxParticleSystem.h"
 
-class dxParticleSystemSet : public gameNode
+class dxParticleSystemSet
 {
 protected:
 	dxParticleSystem* _PS;
 	dxPointEmitter* _pointEMT;
 	dxPlaneEmitter* _planeEMT;
+	dxBoardEmitter* _boardEMT;
+	dxMeshEmitter* _meshEMT;
 public:
 	//순수 가상함수
 	virtual HRESULT init();

@@ -1,6 +1,8 @@
 #pragma once
 #include "gameNode.h"
 #include "xPlayerStatus.h"
+#include "skill00_03.h"
+#include "SK_Boss00.h"
 
 class monster;
 class terrain;
@@ -47,6 +49,9 @@ enum PL_STATE
 class xPlayer :	public gameNode
 {
 private:
+	SK_Boss00* _lightSkill;
+	dx::transform* _skillTrans;
+
 	bool _isOnBattle;
 	PL_STATE _state;
 	PL_STATE _prevState;

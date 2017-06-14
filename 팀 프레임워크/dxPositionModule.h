@@ -29,6 +29,19 @@ public:
 
 	//위치 방향성 속도 그래프
 	void addPosDirectVelGraph(float point, float min, float max) { GraphCheck(_grpPosDirectionVel, point, min, max); _grpPosDirectionVelOn = true; };
+
+	//구 위치 방향
+	void InitDirSphere(float dirX, float dirY, float dirZ) { _radPtc.dirSphere = D3DXVECTOR3(dirX, dirY, dirZ); }
+
+public:
+	//끌림 고정
+	void InitConstAttractCenter(float x, float y, float z) {_radPtc.attractX = tagMaxMin(x, x); _radPtc.attractY = tagMaxMin(y, y); _radPtc.attractZ = tagMaxMin(z, z); _radPtc.attractOn = true; };
+
+	//끌림 램덤
+	void InitAttractCenterX(float min, float max) { _radPtc.attractX = tagMaxMin(min, max); _radPtc.attractOn = true; }
+	void InitAttractCenterY(float min, float max) { _radPtc.attractY = tagMaxMin(min, max); _radPtc.attractOn = true; }
+	void InitAttractCenterZ(float min, float max) { _radPtc.attractZ = tagMaxMin(min, max); _radPtc.attractOn = true; }
+
 public:
 	dxPositionModule() {};
 	~dxPositionModule() {};

@@ -6,6 +6,12 @@
 HRESULT xPlayer::init()
 {
 
+	//테스트용 라이트 스킬
+	_lightSkill = new SK_Boss00;
+	_skillTrans = new dx::transform;
+	_lightSkill->init();
+	
+
 	//메시 로딩
 	_state = P_STAND;
 	_prevState = P_STAND;
@@ -255,6 +261,8 @@ HRESULT xPlayer::init()
 void xPlayer::update()
 {
 
+	_lightSkill->update();
+
 	_playerObject->_skinnedAnim->SetPlaySpeed(_playSpeed);
 	
 	if (!KEYMANAGER->isToggleKey(VK_CAPITAL))
@@ -269,6 +277,7 @@ void xPlayer::update()
 
 void xPlayer::render()
 {
+	_lightSkill->render();
 	//렌더링은 씬에 렌더오브젝트를 넘겨 처리한다.
 	if (KEYMANAGER->isToggleKey(VK_F7))
 	{
@@ -557,8 +566,18 @@ void xPlayer::playerStateManager()
 	case P_CASTSPELL:
 		if (animName == "SPCD")
 		{
+
+
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
 			{
+
+
+
+				_skillTrans->SetWorldMatrix(_EquipSocket.find("LHAND")->second->CombinedTransformationMatrix);
+				_lightSkill->setPlayer(_skillTrans);
+				_lightSkill->setPlayerDir(_playerObject->_transform);
+				_lightSkill->Start();
+/*
 				if (_isOnBattle)
 				{
 					_state = P_READYTOATTACK;
@@ -566,7 +585,7 @@ void xPlayer::playerStateManager()
 				else
 				{
 					_state = P_STAND;
-				}
+				}*/
 			}
 		}
 
@@ -748,7 +767,7 @@ void xPlayer::playerAnimationManager()
 		break;
 	case P_CASTSPELL:
 		_playSpeed = 1.0f;
-		_playerObject->_skinnedAnim->Play("SPCD", 0.2f);
+		_playerObject->_skinnedAnim->PlayOneShotAfterHold("SPCD", 0.2f);
 		break;
 	case P_READYOMNI:
 		_playerObject->_skinnedAnim->Play("RDSO", 0.2f);
@@ -811,6 +830,8 @@ void xPlayer::moveControl()
 
 void xPlayer::actionControl()
 {
+
+
 	if (KEYMANAGER->isOnceKeyDown(VK_TAB))
 	{
 		if (_isOnBattle == true)
@@ -828,7 +849,9 @@ void xPlayer::actionControl()
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
 		//데미지, 경직시간, 경직확률, 스턴확률, 스턴시간 
-		playerDamaged(1, 0.5, 100.0, 0.0, 0.0);
+		//playerDamaged(1, 0.5, 100.0, 0.0, 0.0);
+		playerSkillDirect(1.0f);
+
 	}
 
 	if (KEYMANAGER->isOnceKeyDown('2'))
@@ -846,7 +869,8 @@ void xPlayer::actionControl()
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
 	{
-		playerSkillDirect(1.0f);
+		
+		//playerSkillDirect(1.0f);
 	}
 }
 

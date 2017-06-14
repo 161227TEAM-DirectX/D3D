@@ -51,6 +51,17 @@ public:	//======================================================================
 	//위치에 따른 방향성 속도 그래프 세팅
 	void addPosDirectVelGraph(float point, float min, float max) { _posMD->addPosDirectVelGraph(point, min, max); };
 
+	//구
+	void InitDirSphere(float dirX, float dirY, float dirZ) { _posMD->InitDirSphere(dirX, dirY, dirZ); }
+
+public:	//=======================================================================================================================
+	//끌림 고정
+	void InitConstAttractCenter(float x, float y, float z) { _posMD->InitConstAttractCenter( x, y, z); }
+	//끌림 랜덤
+	void InitAttractCenterX(float min, float max) { _posMD->InitAttractCenterX(min, max); }
+	void InitAttractCenterY(float min, float max) { _posMD->InitAttractCenterY(min, max); }
+	void InitAttractCenterZ(float min, float max) { _posMD->InitAttractCenterZ(min, max); }
+
 
 public:	//=======================================================================================================================
 	//속도
@@ -116,9 +127,9 @@ public:	//======================================================================
 
 
 	//반지름
-	void InitRandomRadiusX(float min, float max) { _circleMD->InitRandomRadiusX(min, max); }
-	void InitRandomRadiusY(float min, float max) { _circleMD->InitRandomRadiusY(min, max); }
-	void InitRandomRadiusZ(float min, float max) { _circleMD->InitRandomRadiusZ(min, max); }
+	void InitCircleRadiusX(float min, float max) { _circleMD->InitCircleRadiusX(min, max); }
+	void InitCircleRadiusY(float min, float max) { _circleMD->InitCircleRadiusY(min, max); }
+	void InitCircleRadiusZ(float min, float max) { _circleMD->InitCircleRadiusY(min, max); }
 
 	//각도 스피드
 	void InitCircleAngleSpeedX(float min, float max) { _circleMD->InitCircleAngleSpeedX(min, max); }
@@ -131,9 +142,9 @@ public:	//======================================================================
 	void InitCircleStartAngleZ(float min, float max) { _circleMD->InitCircleStartAngleZ(min, max); }
 
 	//반지름 마지막
-	void InitRandomRadiusEndX(float min, float max) { _circleMD->InitRandomRadiusEndX(min, max); }
-	void InitRandomRadiusEndY(float min, float max) { _circleMD->InitRandomRadiusEndY(min, max); }
-	void InitRandomRadiusEndZ(float min, float max) { _circleMD->InitRandomRadiusEndZ(min, max); }
+	void InitCircleRadiusEndX(float min, float max) { _circleMD->InitCircleRadiusEndX(min, max); }
+	void InitCircleRadiusEndY(float min, float max) { _circleMD->InitCircleRadiusEndY(min, max); }
+	void InitCircleRadiusEndZ(float min, float max) { _circleMD->InitCircleRadiusEndZ(min, max); }
 	
 public:	//=======================================================================================================================
 	//회전시작 각도

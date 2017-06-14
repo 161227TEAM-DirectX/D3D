@@ -27,7 +27,7 @@ protected:
 	EMITTER_TYPE _EmitterType;
 
 	dx::transform* _trans;
-	
+
 	LPDIRECT3DTEXTURE9		_texture;			//텍스쳐
 
 	//D3DXVECTOR3             _origin;		
@@ -54,12 +54,15 @@ protected:
 
 	int		_drawPtcNum;				//그릴 파티클 개수	
 
+	bool _activeTimeCheckOn;
+	float _activeCurrentTime;
+	float _activeLimitTime;
 
 public:		//함수
 
 	//순수 가상함수
 	//virtual HRESULT init(string textureFileName, int particleNumber) = 0;
-	virtual HRESULT init(string textureFileName, int OneTimePaticleNum, float spawnTime, int totalParticlenum) = 0;
+	virtual HRESULT init(string, int OneTimePaticleNum, float spawnTime, int totalParticlenum) = 0;
 	virtual void update() = 0;
 	virtual void render() = 0;
 	//virtual void reset() = 0;
@@ -72,6 +75,8 @@ public:
 	dxModuleKit* Module(void) { return _module; };
 	dx::transform*	Transform() { return _trans; }
 
+
+
 public:
 	//초기 지연작동시간 세팅
 	void InitStartDelayTime(float time) { _startDelayTime = time; _spawnCurrentTime = 0.0f; _startDelayTimeOn = true; }
@@ -79,7 +84,7 @@ public:
 	void InitRandomPosDirectionVelocity(float min, float max) { _module->InitRandomPosDirectionVelocity(min, max); }
 
 public: //=======================================================================================================================
-		//위치 타입 세팅
+	//위치 타입 세팅
 	void SetPositionType(PTC_POSITION_TYPE posType) { _module->SetPositionType(posType); }
 	void InitRandomPosSphereRadius(float min, float max) { _module->InitRandomPosSphereRadius(min, max); }
 
@@ -91,8 +96,20 @@ public: //======================================================================
 	//위치에 따른 방향성 속도 그래프 세팅
 	void addPosDirectVelGraph(float point, float min, float max) { _module->addPosDirectVelGraph(point, min, max); }
 
+	//구 방향
+	void InitDirSphere(float dirX, float dirY, float dirZ) { _module->InitDirSphere(dirX, dirY, dirZ); }
+
+public:	//=======================================================================================================================
+	//끌림 고정
+	void InitConstAttractCenter(float x, float y, float z) { _module->InitConstAttractCenter(x, y, z); }
+	//끌림 랜덤
+	void InitAttractCenterX(float min, float max) { _module->InitAttractCenterX(min, max); }
+	void InitAttractCenterY(float min, float max) { _module->InitAttractCenterY(min, max); }
+	void InitAttractCenterZ(float min, float max) { _module->InitAttractCenterZ(min, max); }
+
+
 public:  //=======================================================================================================================
-		 //속도
+	 //속도
 	void InitRandomVelocityX(float min, float max) { _module->InitRandomVelocityX(min, max); }
 	void InitRandomVelocityY(float min, float max) { _module->InitRandomVelocityY(min, max); }
 	void InitRandomVelocityZ(float min, float max) { _module->InitRandomVelocityZ(min, max); }
@@ -143,9 +160,9 @@ public:	//======================================================================
 
 public:	//=======================================================================================================================
 		//원 회전 반지름 초기화
-	void InitRandomRadiusX(float min, float max) { _module->InitRandomRadiusX(min, max); }
-	void InitRandomRadiusY(float min, float max) { _module->InitRandomRadiusY(min, max); }
-	void InitRandomRadiusZ(float min, float max) { _module->InitRandomRadiusZ(min, max); }
+	void InitCircleRadiusX(float min, float max) { _module->InitCircleRadiusX(min, max); }
+	void InitCircleRadiusY(float min, float max) { _module->InitCircleRadiusY(min, max); }
+	void InitCircleRadiusZ(float min, float max) { _module->InitCircleRadiusZ(min, max); }
 	//원 회전 스피드
 	void InitCircleAngleSpeedX(float min, float max) { _module->InitCircleAngleSpeedX(min, max); }
 	void InitCircleAngleSpeedY(float min, float max) { _module->InitCircleAngleSpeedY(min, max); }
@@ -155,9 +172,9 @@ public:	//======================================================================
 	void InitCircleStartAngleY(float min, float max) { _module->InitCircleStartAngleY(min, max); }
 	void InitCircleStartAngleZ(float min, float max) { _module->InitCircleStartAngleZ(min, max); }
 	//원회전 반지름 마지막
-	void InitRandomRadiusEndX(float min, float max) { _module->InitRandomRadiusEndX(min, max); }
-	void InitRandomRadiusEndY(float min, float max) { _module->InitRandomRadiusEndY(min, max); }
-	void InitRandomRadiusEndZ(float min, float max) { _module->InitRandomRadiusEndZ(min, max); }
+	void InitCircleRadiusEndX(float min, float max) { _module->InitCircleRadiusEndX(min, max); }
+	void InitCircleRadiusEndY(float min, float max) { _module->InitCircleRadiusEndY(min, max); }
+	void InitCircleRadiusEndZ(float min, float max) { _module->InitCircleRadiusEndZ(min, max); }
 
 
 public:	//=======================================================================================================================
@@ -192,13 +209,14 @@ public:
 	//타입함수
 	EMITTER_TYPE GetType(void) { return this->_EmitterType; };
 
-	public:
+public:
 	//리셋
 	void reset()
 	{
 		_ptcList.clear();
 		_ptcList.resize(_totalPtcNum);
 		_currentDelayTime = 0.0f;
+		_activeCurrentTime = 0.0f;
 		//_spawnCurrentTime = _spawnTime;
 		if (_startDelayTimeOn)
 		{
@@ -209,12 +227,20 @@ public:
 			_spawnCurrentTime = _spawnTime;
 		}
 	}
+public:
+	//작동 시간 설정
+	void SetActiveLimitTime(float inTime) { _activeLimitTime = inTime; _activeTimeCheckOn = TRUE; };
+
+	bool autoActiveTimeCheck(void);
+
+	bool autoActiveTimeCheck(float timeDelta);
+	
 
 public:
 	dxEmitter() {};
 	~dxEmitter() {};
 
-	
-	
+
+
 };
 

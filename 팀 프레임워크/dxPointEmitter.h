@@ -13,8 +13,6 @@ private:
 
 	string _textureFileName;
 
-	
-
 	int _vbMaxStep;
 	
 	
@@ -162,6 +160,9 @@ public:
 		//이미터 타입 설정
 		_EmitterType = ET_POINT;
 		//_startDelayTimeOn = false;
+		_activeTimeCheckOn = FALSE;
+		_activeCurrentTime = 0.0f;
+		_activeLimitTime = 0.0f;
 	};
 	~dxPointEmitter() {};
 	

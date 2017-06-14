@@ -32,6 +32,11 @@ public:
 	virtual void Finsh();
 	virtual void Reset();
 	//virtual void test(,transform* ...) {}
+
+	virtual void* castSkill(dxSkill* inSkill)
+	{
+		return NULL;
+	}
 public:
 public:
 	skill00() {};

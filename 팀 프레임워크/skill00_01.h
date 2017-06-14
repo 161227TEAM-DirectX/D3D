@@ -44,7 +44,10 @@ public:
 	virtual void Reset();
 	//virtual void test(,transform* ...) {}
 public:
-	
+	virtual void* castSkill(dxSkill* inSkill)
+	{
+		return NULL;
+	}
 public:
 	skill00_01() {};
 	~skill00_01() {};
