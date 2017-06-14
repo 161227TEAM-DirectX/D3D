@@ -78,7 +78,7 @@ HRESULT kimsTestScene::init(void)
 	//boss->setActive(true);
 	//this->_renderObjects.push_back(boss);
 
-	_sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(90), 0, 0);
+	_sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(70), 0, 0);
 	this->setEnvironment("Resources/TextureCUBE/SuperKanjiCube.dds");
 
 	//_mainCamera->SetWorldPosition(0.0f, 60.0f, 10.0f);
@@ -200,7 +200,7 @@ void kimsTestScene::render(void)
 
 	for (int i = 0; i < this->_cullObjects.size(); i++)
 	{
-		this->_cullObjects[i]->render();
+		//this->_cullObjects[i]->render();
 	}
 	_terrain->render(_mainCamera, _sceneBaseDirectionLight, _directionLightCamera);
 
