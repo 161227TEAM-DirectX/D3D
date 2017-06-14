@@ -55,16 +55,22 @@ HRESULT kimsTestScene::init(void)
 	_player = new xPlayer;
 	_player->setlinkTerrain(*_terrain);
 	_player->init();
-	//임시 몬스터 구현 코드
-	player = new monster;
-	player->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
-	player->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
-	player->setRegenPosition(0.0f, tempY, 0.0f);
-	player->LinkObject(testObject);
-	player->LinkTerrain(*_terrain);
-	player->LinkPlayer(_player->getPlayerObject());
-	player->setActive(true);
-	this->_renderObjects.push_back(player);
+	_player->getPlayerObject()->_transform->SetWorldPosition(D3DXVECTOR3(3, 0, 0));
+	for (int i = 0; i < _player->getRenderObject().size(); i++)
+	{
+		_renderObjects.push_back(_player->getRenderObject()[i]);
+	}
+
+	////임시 몬스터 구현 코드
+	//player = new monster;
+	//player->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
+	//player->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+	//player->setRegenPosition(0.0f, tempY, 0.0f);
+	//player->LinkObject(testObject);
+	//player->LinkTerrain(*_terrain);
+	//player->LinkPlayer(_player->getPlayerObject());
+	//player->setActive(true);
+	//this->_renderObjects.push_back(player);
 	//D3DXMatrixScaling(&matScaling, 0.5f, 0.5f, 0.5f);
 	//mat = matScaling * matRotate;
 
@@ -117,6 +123,10 @@ HRESULT kimsTestScene::init(void)
 	_player->setTargetMonster(*player);
 
 
+
+	_mainCamera->SetWorldPosition(_player->getPlayerObject()->_transform->GetWorldPosition());
+	_mainCamera->AttachTo(_player->getPlayerObject()->_transform);
+
 	return S_OK;
 }
 
@@ -146,17 +156,17 @@ void kimsTestScene::update(void)
 {
 	_sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
 
-	//	lButtonStateChange();
-	//	selectLButton();
-
+	_player->update();
+	
 	for (int i = 0; i < this->_renderObjects.size(); i++)
 	{
 		_renderObjects[i]->update();
+		
 	}
-
 	//쉐도우맵 준비
+	
 	this->readyShadowMap(&this->_renderObjects, this->_terrainShadow);
-	_player->update();
+	
 
 	//player._skTransform->DefaultMyControl(_timeDelta);
 	//enemy->update();
@@ -166,6 +176,7 @@ void kimsTestScene::update(void)
 void kimsTestScene::render(void)
 {
 	//카메라에 컬링된거만....
+
 	this->_cullObjects.clear();
 	for (int i = 0; i < this->_renderObjects.size(); i++)
 	{
@@ -187,24 +198,30 @@ void kimsTestScene::render(void)
 	//	//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅
 	//	
 	//}
-	xMeshStatic::setTechniqueName("ReciveShadow");
+	xMeshStatic::setTechniqueName("Toon");
 	xMeshStatic::setBaseLight(this->_sceneBaseDirectionLight);
 
 	xMeshSkinned::setCamera(_mainCamera);
-	//xMeshSkinned::setTechniqueName("ReciveShadow");
+	xMeshSkinned::setTechniqueName("ReciveShadow");
 	xMeshSkinned::setTechniqueName("Toon");
 	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resources/Testures/Ramp_1.png"));
 	xMeshSkinned::setBaseLight(this->_sceneBaseDirectionLight);
+	
+	_terrain->render(_mainCamera, _sceneBaseDirectionLight, _directionLightCamera);
 
 	_player->render();
 
 	for (int i = 0; i < this->_cullObjects.size(); i++)
 	{
-		//this->_cullObjects[i]->render();
+		this->_cullObjects[i]->render();
+		if (_cullObjects[i] == _player->getPlayerObject())
+		{
+			_player->itemUpdate();
+		}
 	}
-	_terrain->render(_mainCamera, _sceneBaseDirectionLight, _directionLightCamera);
+	
 
-	RM_SKINNED->getResource("Resources/Player/FHUMAN_PLATE/FHUMAN.X")->ShowAnimationName(0, 0);
+
 	//_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 	//포그세팅 0xff806A12
 	//_device->SetRenderState(D3DRS_FOGENABLE, TRUE);					//포그 사용여부

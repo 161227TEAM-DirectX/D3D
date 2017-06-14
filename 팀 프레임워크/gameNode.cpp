@@ -89,7 +89,11 @@ void gameNode::releaseGameNode(void)
 
 void gameNode::updateGameNode(void)
 {
-	_mainCamera->DefaultControl(_timeDelta);
+
+	if (KEYMANAGER->isToggleKey(VK_CAPITAL))
+	{
+		_mainCamera->DefaultControl(_timeDelta);
+	}
 	_mainCamera->updateCamToDevice();
 	_mainCamera->updateFrustum();
 

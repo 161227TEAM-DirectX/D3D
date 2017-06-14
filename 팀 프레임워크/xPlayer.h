@@ -57,6 +57,8 @@ private:
 	int _Att;
 	int _Def;
 
+	float _moveSpeed;
+
 	float _damagedTime;
 	float _stunnedTime;
 	float _castingTime;
@@ -86,6 +88,7 @@ private:
 	monster*			targetMonster;
 
 public:
+
 	HRESULT init();
 	void update();
 	void render();
@@ -97,8 +100,11 @@ public:
 	//플레이어의 렌더함수가 아닌 씬에서 직접 렌더 함수를 관리 해야할 필요성이 있을 수 있음. 쉐도우 맵 등의 이유로. (그림자 연산등의 문제..?)
 	vector<baseObject*>& getRenderObject() { return _renderObjects; }
 
-	//void Attack();
-	void setHeight(float height);
+	//플레이어 무브 컨트롤 애니메이션 및 상태변화 미포함.
+	void moveControl();
+
+
+	void actionControl();
 
 	//외부에 렌더링할 오브젝트의 값을 전달한다.->구조상의 문제가 있음... 합리적이지 못함.
 	baseObject* getPlayerObject() { return _playerObject; }
@@ -123,11 +129,13 @@ public:
 	//플레이어 원형 스킬 처리()
 	void playerSkillOmni(float castingTime);
 
-	//플레이어 점프
-	void playerJump();
-
 	//플레이어 피격 해당 함수 호출하여 피격 및 스턴 처리
 	void playerDamaged(int damage, float damagedTime = 0.0f,float delayRate = 0.0f, float StunRate = 0.0f, float StunedTime = 0.0f);
+
+	void setHeight();
+
+	//궁여지책, 아이템의 행렬을 업데이트해준다.
+	void itemUpdate();
 
 	void setPlaySpeed(float speed) { _playSpeed = speed; }
 

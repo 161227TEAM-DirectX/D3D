@@ -26,7 +26,7 @@ HRESULT mainGame::init(void)
 //이현수 씬 테스트 헤더파일
 //===================================================================================
 	//씬추가
-	SCENEMANAGER->addScene("test", new terrainPickingTest);
+	//SCENEMANAGER->addScene("test", new terrainPickingTest);
 	
 
 //===================================================================================
@@ -39,7 +39,7 @@ HRESULT mainGame::init(void)
 //===================================================================================
 //김태훈 씬 테스트 헤더파일
 //===================================================================================
-	//SCENEMANAGER->addScene("test", new kimsTestScene);
+	SCENEMANAGER->addScene("test", new kimsTestScene);
 
 //===================================================================================
 //김태승 씬 테스트 헤더파일
@@ -94,9 +94,12 @@ void mainGame::render(void)
 		//디버그 모드에서만 실행
 #ifdef _DEBUG 
 		//월드그리드 렌더
-		GIZMOMANAGER->WorldGrid(1, 10);
-		//타임매니져 렌더
-		TIMEMANAGER->render();
+		if (KEYMANAGER->isToggleKey(VK_F8))
+		{
+			GIZMOMANAGER->WorldGrid(1, 10);
+			//타임매니져 렌더
+			TIMEMANAGER->render();
+		}
 #endif
 		//디바이스 렌더 종료
 		_device->EndScene();

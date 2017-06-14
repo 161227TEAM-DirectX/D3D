@@ -153,5 +153,8 @@ void baseObject::baseObjectRender()
 		}
 	}
 	//오브젝트 바운드박스 보여주기
-	_boundBox.renderGizmo(_transform);
+	if (KEYMANAGER->isToggleKey(VK_F8))
+	{
+		_boundBox.renderGizmo(_transform);
+	}
 }

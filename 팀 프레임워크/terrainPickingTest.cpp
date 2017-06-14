@@ -55,6 +55,11 @@ HRESULT terrainPickingTest::init(void)
 	_player = new xPlayer;
 	_player->setlinkTerrain(*_terrain);
 	_player->init();
+	for (int i = 0; i < _player->getRenderObject().size(); i++)
+	{
+		_renderObjects.push_back(_player->getRenderObject()[i]);
+	}
+	
 
 	//임시 몬스터 구현 코드
 	//player = new monster;
@@ -195,7 +200,7 @@ void terrainPickingTest::render(void)
 	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resources/Testures/Ramp_1.png"));
 	xMeshSkinned::setBaseLight(this->_sceneBaseDirectionLight);
 	
-	_player->render();
+	//_player->render();
 
 	for (int i = 0; i < this->_cullObjects.size(); i++)
 	{
