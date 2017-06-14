@@ -1,18 +1,20 @@
 #pragma once
 #include "bossActionAttack.h"
 #include "bossActionCinema.h"
-#include "bossActionMove.h"
-#include "bossActionStanding.h"
-#include "bossActionFly.h"
-
-#include "bossActionLanding.h"
-#include "bossActionFlyDie.h"
 #include "bossActionDie.h"
-
-#include "bossActionSkill.h"
-#include "bossActionSkillFire.h"
+#include "bossActionFly.h"
+#include "bossActionFlyDie.h"
+#include "bossActionLanding.h"
+#include "bossActionMove.h"
 #include "bossActionSkillBattleRoar.h"
+#include "bossActionSkillFire.h"
+#include "bossActionSkillFlyStandingFire.h"
 #include "bossActionSkillTailAtt.h"
+#include "bossActionStanding.h"
+#include "bossActionSkill.h"
+
+
+
 class bossMonster;
 class bossActionControl
 {

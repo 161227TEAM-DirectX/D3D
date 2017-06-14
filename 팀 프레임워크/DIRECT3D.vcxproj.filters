@@ -552,6 +552,9 @@
     <ClCompile Include="kimsTestScene.cpp">
       <Filter>GameFramework3D\xPlayer</Filter>
     </ClCompile>
+    <ClCompile Include="bossActionSkillFlyStandingFire.cpp">
+      <Filter>GameFramework3D\ActionBoss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -916,6 +919,9 @@
     </ClInclude>
     <ClInclude Include="kimsTestScene.h">
       <Filter>GameFramework3D\xPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="bossActionSkillFlyStandingFire.h">
+      <Filter>GameFramework3D\ActionBoss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
