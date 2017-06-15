@@ -282,6 +282,7 @@
     <ClInclude Include="xMesh.h" />
     <ClInclude Include="xMeshSkinned.h" />
     <ClInclude Include="xMeshStatic.h" />
+    <ClInclude Include="xNpc.h" />
     <ClInclude Include="xPlayer.h" />
     <ClInclude Include="xPlayerStatus.h" />
   </ItemGroup>
@@ -427,6 +428,7 @@
     <ClCompile Include="xMesh.cpp" />
     <ClCompile Include="xMeshSkinned.cpp" />
     <ClCompile Include="xMeshStatic.cpp" />
+    <ClCompile Include="xNpc.cpp" />
     <ClCompile Include="xPlayer.cpp" />
     <ClCompile Include="xPlayerStatus.cpp" />
   </ItemGroup>

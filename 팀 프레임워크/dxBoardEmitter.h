@@ -17,6 +17,7 @@ private:
 	dx::transform* _trans;
 
 
+
 	int _onePtcNum;
 
 public:

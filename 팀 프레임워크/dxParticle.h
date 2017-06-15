@@ -40,7 +40,17 @@ struct tagDxParticleEX
 //파티클의 속성들
 struct tagDxAttribute
 {
+	
 	//transform		trans;				//트랜스폼
+
+	
+
+
+
+
+
+
+
 	D3DXVECTOR3		posCenter;			//평면 파티클용 - 중심점
 	D3DXVECTOR3		FinalPos;			//최종 위치
 

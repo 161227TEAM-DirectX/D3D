@@ -18,31 +18,6 @@ SPACE 스턴 (HP -1)
 */
 
 
-enum PL_STATE
-{
-	P_STAND = 0,
-	P_RUN,
-	P_MOVE,
-	P_READYTOATTACK,
-	P_ATTACK,
-	P_ATTACK2,
-	P_ATTACK3,
-	P_ATTACK4,
-	P_ATTACK5,
-	P_READYSPELL,
-	P_CASTSPELL,
-	P_READYOMNI,
-	P_CASTOMNI,
-	P_JUMPUP,
-	P_JUMP,
-	P_JUMPDOWN,
-	P_STUN,
-	P_DEATH,
-	P_MOUNT,
-	P_WALKBACK,
-	P_DAMAGED,
-	P_END
-};
 
 //플레이어는 항상 존재하지만 싱글톤으로는 구현하지 않고,
 //플레이어의 데이터만을 싱글톤으로 구현한다.
@@ -55,10 +30,9 @@ private:
 	bool _isOnBattle;
 	PL_STATE _state;
 	PL_STATE _prevState;
-	PL_WEAPON Weapons;
-	PL_SHIELD Shields;
-	PL_ARMOR Equipments;
-	int _Hp;
+
+	//PL_ARMOR Equipments;
+	//int _Hp;
 	int _Att;
 	int _Def;
 

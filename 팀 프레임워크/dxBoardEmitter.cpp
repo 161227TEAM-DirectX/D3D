@@ -19,7 +19,6 @@ HRESULT dxBoardEmitter::init(string textureFileName, int OneTimePaticleNum, floa
 	//_trans = new transform[_totalPtcNum];
 
 
-
 	HRESULT hr = NULL;
 
 	//텍스쳐 불러오기
@@ -50,6 +49,7 @@ void dxBoardEmitter::update()
 	//tagDxParticle* ptcVtx;
 	//list<tagDxAttribute>::iterator iter;
 	vector<tagDxAttribute>::iterator iter;
+
 
 	//활성화 된 거 돌리기
 	int InitNum = 0;
@@ -185,6 +185,7 @@ void dxBoardEmitter::render()
 
 	//파티클 정점 출력
 	_device->SetFVF(ParticleExFVF);
+
 	_device->DrawIndexedPrimitiveUP(
 		D3DPT_TRIANGLELIST,
 		0,
@@ -195,19 +196,37 @@ void dxBoardEmitter::render()
 		_ptcVertex,
 		sizeof(tagDxParticleEX));
 
-	//for (int i = 0; i < _totalPtcNum; i++)
+
+	//for (int i = 0; i < 100; i++)
 	//{
+	//	/*if (_ptcList[i].isAlive)
+	//	{*/
+	//		_device->DrawIndexedPrimitiveUP(
+	//			D3DPT_TRIANGLELIST,
+	//			i*4,
+	//			4,
+	//			2,
+	//			_ptcIndex,
+	//			D3DFMT_INDEX32,
+	//			_ptcVertex,
+	//			sizeof(tagDxParticleEX));
+	//	//}
+	//}
+	//for (int i = 0; i < _drawPtcNum; i++)
+	//{
+	//	//tagDxParticleEX*	InPtcVertex = _ptcVertex + i*6;		//파티클 버텍스
+	//	//DWORD*				InPtcIndex = _ptcIndex + i*4;			//파티클 인덱스
+
 	//	_device->DrawIndexedPrimitiveUP(
 	//		D3DPT_TRIANGLELIST,
-	//		i,
+	//		i*4,
 	//		4,
 	//		2,
-	//		_ptcIndex,
+	//		&_ptcIndex[i*6],
 	//		D3DFMT_INDEX32,
-	//		_ptcVertex,
+	//		&_ptcVertex[i*4],
 	//		sizeof(tagDxParticleEX));
 	//}
-
 
 	//파티클 그리고 난후 후처리
 	_device->SetRenderState(D3DRS_LIGHTING, true);
@@ -232,6 +251,8 @@ void dxBoardEmitter::ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcI
 	//ptcTrans.RotateSelf(D3DXVECTOR3(0.0f,D3DXToRadian(RandomFloatRange(10.0f,45.0f)),0.0f));
 	//ptcTrans.RotateSelf(iter->rotateAngle);
 
+	//_psTrans->SetDeviceWorld();
+
 	//카메라 행렬 가져오기
 	D3DXMATRIXA16 getView;
 	D3DXMATRIXA16 getViewInverse;
@@ -239,6 +260,11 @@ void dxBoardEmitter::ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcI
 	D3DXMatrixInverse(&getViewInverse,NULL,&getView);
 	//D3DXVECTOR3 cameraPos = D3DXVECTOR3(getView._41, getView._42, getView._43);
 	
+	D3DXMATRIXA16 matInit;
+	D3DXMatrixIsIdentity(&matInit);
+
+	//_device->SetTransform(D3DTS_WORLD, &matInit);
+
 	getViewInverse._41 = getView._41;
 	getViewInverse._42 = getView._42;
 	getViewInverse._43 = getView._43;
@@ -248,13 +274,24 @@ void dxBoardEmitter::ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcI
 
 	//D3DXVec3Normalize(&cameraDir,&cameraPos);
 
+	D3DXMATRIXA16 psTransInverse;
+
+	//D3DXVec2Dot();
+
+	D3DXMatrixInverse(&psTransInverse, NULL, &(_psTrans->GetFinalMatrix()*getView));
+
 	//camera boardCamera;
 	//boardCamera.Set
-	ptcTrans.SetWorldMatrix(getViewInverse);
+	//ptcTrans.SetWorldMatrix(psTransInverse*getViewInverse);
+	//ptcTrans.SetWorldMatrix(_psTrans->GetFinalMatrix()*getViewInverse);
+	//ptcTrans.SetWorldMatrix(_psTrans->GetFinalMatrix()*getView);
+
+	ptcTrans.SetWorldMatrix(psTransInverse);
+
 	//ptcTrans.LookDirection(cameraDir,cameraPos);
 	//ptcTrans.LookPosition(cameraPos);
 
-	ptcTrans.SetWorldPosition(iter->FinalPos);
+	//ptcTrans.SetWorldPosition(iter->FinalPos);
 	ptcTrans.RotateSelf(iter->rotateAngle);
 
 	D3DXVECTOR3 x = ptcTrans.GetRight()*iter->horizontal;
@@ -265,9 +302,27 @@ void dxBoardEmitter::ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcI
 
 	D3DXCOLOR inColor = iter->color;
 
+	//D3DXVECTOR3 angle = D3DXVECTOR3(0, cosf(D3DXToRadian(0)),sinf(D3DXToRadian(90)));
 
+	//D3DXVec3Normalize(&angle,&angle);
+
+	//D3DXVECTOR3 posCenter = D3DXVECTOR3(cosf(D3DXToRadian(90))*iter->FinalPos.x, iter->FinalPos.y, sinf(D3DXToRadian(90))*iter->FinalPos.z);
+
+	//D3DXVECTOR3 vel  = D3DXVECTOR3(1.0f*cosf(D3DXToRadian(50)), 1.0f*sinf(D3DXToRadian(50)),0.0f);
 
 	D3DXVECTOR3 posCenter = iter->posCenter;
+
+	//float distance = D3DXVec3Length(&iter->posCenter);
+
+	//D3DXVECTOR3 forward = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+
+	//float angleF = D3DXVec3Dot(&_psTrans->GetForward(), &iter->posCenter);
+
+	//D3DXVECTOR3 anglePos = D3DXVECTOR3(cosf(D3DXToRadian(angle))*distance,0.0f, sinf(D3DXToRadian(angle)*distance));
+
+	//D3DXVECTOR3 posCenter = D3DXVECTOR3(cosf(D3DXToRadian(angleF))*distance, 0.0f, sinf(D3DXToRadian(angleF)*distance));
+	//D3DXVECTOR3 anglePos = D3DXVECTOR3(cosf(angle)*distance, 0.0f, sinf(angle)*distance);
+
 
 	//int dwPtcNum = drawParticleNum;
 

@@ -94,6 +94,7 @@ void dxParticleSystem::update()
 		{
 			_vEmitter[i]->update();
 		}*/
+		_vEmitter[_EmitterCountNum]->setParticleSystemTrans(_trans);
 		_vEmitter[_EmitterCountNum]->update();
 		_EmitterCountNum++;
 		if (_EmitterCountNum >= _vEmitter.size()) { _EmitterCountNum = 0; }

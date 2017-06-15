@@ -55,7 +55,8 @@ public:
 public:
 	dxParticleSystem()
 	{
-		_trans = new dx::transform; bool isActive = true;
+		_trans = new dx::transform;
+		bool isActive = true;
 		_limitTime = 0.0f;
 		_currentTime = 0.0f;
 		_EmitterCountNum = 0;
