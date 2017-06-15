@@ -149,6 +149,7 @@
     <ClInclude Include="Action.h" />
     <ClInclude Include="ActionAttack.h" />
     <ClInclude Include="ActionDie.h" />
+    <ClInclude Include="ActionManager.h" />
     <ClInclude Include="ActionMove.h" />
     <ClInclude Include="ActionReMove.h" />
     <ClInclude Include="ActionSeq.h" />
@@ -229,6 +230,7 @@
     <ClInclude Include="lightPoint.h" />
     <ClInclude Include="mainGame.h" />
     <ClInclude Include="monster.h" />
+    <ClInclude Include="monsterManager.h" />
     <ClInclude Include="myUtil.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="particle.h" />
@@ -287,6 +289,7 @@
     <ClCompile Include="Action.cpp" />
     <ClCompile Include="ActionAttack.cpp" />
     <ClCompile Include="ActionDie.cpp" />
+    <ClCompile Include="ActionManager.cpp" />
     <ClCompile Include="ActionMove.cpp" />
     <ClCompile Include="ActionReMove.cpp" />
     <ClCompile Include="ActionSeq.cpp" />
@@ -367,6 +370,7 @@
     <ClCompile Include="lightPoint.cpp" />
     <ClCompile Include="mainGame.cpp" />
     <ClCompile Include="monster.cpp" />
+    <ClCompile Include="monsterManager.cpp" />
     <ClCompile Include="myUtil.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="particle.cpp" />

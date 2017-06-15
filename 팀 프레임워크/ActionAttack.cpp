@@ -3,16 +3,12 @@
 
 
 ActionAttack::ActionAttack()
-	:Action(), PassedTime(0.0f)
+	:Action()
 {
 }
 
 
 ActionAttack::~ActionAttack()
-{
-}
-
-void ActionAttack::collision(void)
 {
 }
 
@@ -27,8 +23,11 @@ int ActionAttack::Start()
 
 int ActionAttack::Update()
 {
-	//아직 공격 모션 중이라면 검사를 하지 말아라.
-	if (owner->getSkinnedAnim().getAnimationPlayFactor() < 0.99f) return LHS::ACTIONRESULT::ACTION_PLAY;
+	//모션이 끝나면 대미지를 입힌다.
+	if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
+	{
+		//대미지를 넣는 구문이 필요
+	}
 
 	//stun에 걸렸는지 확인 구문
 	/*
@@ -45,21 +44,6 @@ int ActionAttack::Update()
 		owner->getSkinnedAnim().Stop();
 		return LHS::ACTIONRESULT::ACTION_MOVE;
 	}
-	
-	//오브젝트(적)의 피를 깍기.
-	
-
-	//PassedTime += _timeDelta;
-
-	//if (PassedTime >= actionTime)
-	//{
-	//	
-	//	
-	//	//애니메이션 정지
-	//	owner->skMesh->Stop();
-
-	//	return LHS::ACTIONRESULT::ACTION_FINISH;
-	//}
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }

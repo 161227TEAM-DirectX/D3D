@@ -306,11 +306,11 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 			aM->setFrom(vStart);
 			aM->setTo(vDest);
 			aM->setActionTime(LHS::MOVETIME);
-			aM->setOwner(&player);
+			aM->setOwner(player);
 			aM->setRand(*rand);
 			aM->setDelegate(actionSeq);
-			aM->setObject(&object);
-			aM->setEnemy(&enemy);
+			aM->setObject(object);
+			aM->setEnemy(enemy);
 			actionSeq->AddAction(aM);
 			aM = nullptr;
 
@@ -330,12 +330,12 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 		aM->setFrom(vStart);
 		aM->setTo(vecNode[path[startNodeIndex]]->getPosition());
 		aM->setActionTime(LHS::MOVETIME);
-		aM->setOwner(&player);
+		aM->setOwner(player);
 //		aM->changeAni();
 		aM->setRand(*rand);
 		aM->setDelegate(actionSeq);
-		aM->setObject(&object);
-		aM->setEnemy(&enemy);
+		aM->setObject(object);
+		aM->setEnemy(enemy);
 		actionSeq->AddAction(aM);
 		aM = nullptr;
 
@@ -345,11 +345,11 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 			aM->setFrom(vecNode[path[i]]->getPosition());
 			aM->setTo(vecNode[path[i - 1]]->getPosition());
 			aM->setActionTime(LHS::MOVETIME);
-			aM->setObject(&object);
-			aM->setOwner(&player);
+			aM->setObject(object);
+			aM->setOwner(player);
 //			aM->changeAni();
 			aM->setRand(*rand);
-			aM->setEnemy(&enemy);
+			aM->setEnemy(enemy);
 			aM->setDelegate(actionSeq);
 			actionSeq->AddAction(aM);
 			aM = nullptr;
@@ -359,12 +359,12 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 		aM->setFrom(vecNode[path[destNodeIndex]]->getPosition());
 		aM->setTo(vDest);
 		aM->setActionTime(LHS::MOVETIME);
-		aM->setOwner(&player);
+		aM->setOwner(player);
 //		aM->changeAni();
 		aM->setRand(*rand);
 		aM->setDelegate(actionSeq);
-		aM->setObject(&object);
-		aM->setEnemy(&enemy);
+		aM->setObject(object);
+		aM->setEnemy(enemy);
 		actionSeq->AddAction(aM);
 		aM = nullptr;
 	}
@@ -379,12 +379,12 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 		aM->setFrom(vStart);
 		aM->setTo(vecNode[path[startNodeIndex]]->getPosition());
 		aM->setActionTime(LHS::MOVETIME);
-		aM->setOwner(&player);
+		aM->setOwner(player);
 //		aM->changeAni();
 		aM->setRand(*rand);
 		aM->setDelegate(actionSeq);
-		aM->setObject(&object);
-		aM->setEnemy(&enemy);
+		aM->setObject(object);
+		aM->setEnemy(enemy);
 		actionSeq->AddAction(aM);
 		aM = nullptr;
 
@@ -392,12 +392,12 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 		aM->setFrom(vecNode[path[destNodeIndex]]->getPosition());
 		aM->setTo(vDest);
 		aM->setActionTime(LHS::MOVETIME);
-		aM->setOwner(&player);
+		aM->setOwner(player);
 //		aM->changeAni();
 		aM->setRand(*rand);
 		aM->setDelegate(actionSeq);
-		aM->setObject(&object);
-		aM->setEnemy(&enemy);
+		aM->setObject(object);
+		aM->setEnemy(enemy);
 		actionSeq->AddAction(aM);
 		aM = nullptr;
 	}
@@ -410,12 +410,12 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 		aM->setFrom(vStart);
 		aM->setTo(vecNode[path[path.size()-1]]->getPosition());
 		aM->setActionTime(LHS::MOVETIME);
-		aM->setOwner(&player);
+		aM->setOwner(player);
 //		aM->changeAni();
 		aM->setRand(*rand);
 		aM->setDelegate(actionSeq);
-		aM->setObject(&object);
-		aM->setEnemy(&enemy);
+		aM->setObject(object);
+		aM->setEnemy(enemy);
 		actionSeq->AddAction(aM);
 		aM = nullptr;
 
@@ -425,11 +425,11 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 			aM->setFrom(vecNode[path[i]]->getPosition());
 			aM->setTo(vecNode[path[i - 1]]->getPosition());
 			aM->setActionTime(LHS::MOVETIME);
-			aM->setObject(&object);
-			aM->setOwner(&player);
+			aM->setObject(object);
+			aM->setOwner(player);
 //			aM->changeAni();
 			aM->setRand(*rand);
-			aM->setEnemy(&enemy);
+			aM->setEnemy(enemy);
 			aM->setDelegate(actionSeq);
 			actionSeq->AddAction(aM);
 			aM = nullptr;
@@ -439,12 +439,12 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 		aM->setFrom(vecNode[path[0]]->getPosition());
 		aM->setTo(vDest);
 		aM->setActionTime(LHS::MOVETIME);
-		aM->setOwner(&player);
+		aM->setOwner(player);
 //		aM->changeAni();
 		aM->setRand(*rand);
 		aM->setDelegate(actionSeq);
-		aM->setObject(&object);
-		aM->setEnemy(&enemy);
+		aM->setObject(object);
+		aM->setEnemy(enemy);
 		actionSeq->AddAction(aM);
 		aM = nullptr;
 	}
@@ -553,10 +553,10 @@ ActionSeq * dijkstra::OptimizedAction(baseObject & player, terrain * rand, vecto
 			aM->setFrom(vStart);
 			aM->setTo(vDest);
 			aM->setActionTime(LHS::MOVETIME);
-			aM->setOwner(&player);
+			aM->setOwner(player);
 			aM->setRand(*rand);
 			aM->setDelegate(actionSeq);
-			aM->setObject(&object);
+			aM->setObject(object);
 			actionSeq->AddAction(aM);
 			aM = nullptr;
 
@@ -576,10 +576,10 @@ ActionSeq * dijkstra::OptimizedAction(baseObject & player, terrain * rand, vecto
 		aM->setFrom(vStart);
 		aM->setTo(vecNode[path[startNodeIndex]]->getPosition());
 		aM->setActionTime(LHS::MOVETIME);
-		aM->setOwner(&player);
+		aM->setOwner(player);
 		aM->setRand(*rand);
 		aM->setDelegate(actionSeq);
-		aM->setObject(&object);
+		aM->setObject(object);
 		actionSeq->AddAction(aM);
 		aM = nullptr;
 
@@ -589,8 +589,8 @@ ActionSeq * dijkstra::OptimizedAction(baseObject & player, terrain * rand, vecto
 			aM->setFrom(vecNode[path[i]]->getPosition());
 			aM->setTo(vecNode[path[i - 1]]->getPosition());
 			aM->setActionTime(LHS::MOVETIME);
-			aM->setObject(&object);
-			aM->setOwner(&player);
+			aM->setObject(object);
+			aM->setOwner(player);
 			aM->setRand(*rand);
 			aM->setDelegate(actionSeq);
 			actionSeq->AddAction(aM);
@@ -601,10 +601,10 @@ ActionSeq * dijkstra::OptimizedAction(baseObject & player, terrain * rand, vecto
 		aM->setFrom(vecNode[path[destNodeIndex]]->getPosition());
 		aM->setTo(vDest);
 		aM->setActionTime(LHS::MOVETIME);
-		aM->setOwner(&player);
+		aM->setOwner(player);
 		aM->setRand(*rand);
 		aM->setDelegate(actionSeq);
-		aM->setObject(&object);
+		aM->setObject(object);
 		actionSeq->AddAction(aM);
 		aM = nullptr;
 	}
@@ -619,10 +619,10 @@ ActionSeq * dijkstra::OptimizedAction(baseObject & player, terrain * rand, vecto
 		aM->setFrom(vStart);
 		aM->setTo(vecNode[path[startNodeIndex]]->getPosition());
 		aM->setActionTime(LHS::MOVETIME);
-		aM->setOwner(&player);
+		aM->setOwner(player);
 		aM->setRand(*rand);
 		aM->setDelegate(actionSeq);
-		aM->setObject(&object);
+		aM->setObject(object);
 		actionSeq->AddAction(aM);
 		aM = nullptr;
 
@@ -630,10 +630,10 @@ ActionSeq * dijkstra::OptimizedAction(baseObject & player, terrain * rand, vecto
 		aM->setFrom(vecNode[path[destNodeIndex]]->getPosition());
 		aM->setTo(vDest);
 		aM->setActionTime(LHS::MOVETIME);
-		aM->setOwner(&player);
+		aM->setOwner(player);
 		aM->setRand(*rand);
 		aM->setDelegate(actionSeq);
-		aM->setObject(&object);
+		aM->setObject(object);
 		actionSeq->AddAction(aM);
 		aM = nullptr;
 	}
@@ -646,10 +646,10 @@ ActionSeq * dijkstra::OptimizedAction(baseObject & player, terrain * rand, vecto
 		aM->setFrom(vStart);
 		aM->setTo(vecNode[path[path.size() - 1]]->getPosition());
 		aM->setActionTime(LHS::MOVETIME);
-		aM->setOwner(&player);
+		aM->setOwner(player);
 		aM->setRand(*rand);
 		aM->setDelegate(actionSeq);
-		aM->setObject(&object);
+		aM->setObject(object);
 		actionSeq->AddAction(aM);
 		aM = nullptr;
 
@@ -659,8 +659,8 @@ ActionSeq * dijkstra::OptimizedAction(baseObject & player, terrain * rand, vecto
 			aM->setFrom(vecNode[path[i]]->getPosition());
 			aM->setTo(vecNode[path[i - 1]]->getPosition());
 			aM->setActionTime(LHS::MOVETIME);
-			aM->setObject(&object);
-			aM->setOwner(&player);
+			aM->setObject(object);
+			aM->setOwner(player);
 			aM->setRand(*rand);
 			aM->setDelegate(actionSeq);
 			actionSeq->AddAction(aM);
@@ -671,10 +671,10 @@ ActionSeq * dijkstra::OptimizedAction(baseObject & player, terrain * rand, vecto
 		aM->setFrom(vecNode[path[0]]->getPosition());
 		aM->setTo(vDest);
 		aM->setActionTime(LHS::MOVETIME);
-		aM->setOwner(&player);
+		aM->setOwner(player);
 		aM->setRand(*rand);
 		aM->setDelegate(actionSeq);
-		aM->setObject(&object);
+		aM->setObject(object);
 		actionSeq->AddAction(aM);
 		aM = nullptr;
 	}

@@ -7,7 +7,6 @@
 #include "ActionReMove.h"
 #include "ActionSeq.h"
 #include "ActionStanding.h"
-#include "ActionStun.h"
 #include "terrain.h"
 
 const int MAXHM = 40000;
@@ -16,8 +15,8 @@ const int MAXGS = 10000;
 const int MINGS = 500;
 const int DEFAULTATT = 200;
 const int DEFAULTDEF = 50;
-const float RANGE = 2.5f;
-const float BOSSRANGE = 20.0f;
+const float RANGE = 50.0f;
+const float BOSSRANGE = 90.0f;
 
 class monster : public baseObject
 {

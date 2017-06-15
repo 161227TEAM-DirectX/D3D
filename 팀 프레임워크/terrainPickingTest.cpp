@@ -55,41 +55,42 @@ HRESULT terrainPickingTest::init(void)
 	_player = new xPlayer;
 	_player->setlinkTerrain(*_terrain);
 	_player->init();
-//	_player->getPlayerObject()->_transform->SetWorldPosition(0.0F, 0.0f, -3.0f);
-	_player->getPlayerObject()->_transform->SetWorldPosition(20.0f, 0.0f, -20.0f);
+	_player->getPlayerObject()->_transform->SetWorldPosition(1.0f, 0.0f, -3.0f);
+//	_player->getPlayerObject()->_transform->SetWorldPosition(20.0f, 0.0f, -20.0f);
+	_player->getPlayerObject()->_transform->SetScale(0.1f, 0.1f, 0.1f);
 	for (int i = 0; i < _player->getRenderObject().size(); i++)
 	{
 		_renderObjects.push_back(_player->getRenderObject()[i]);
 	}
 	//임시 몬스터 구현 코드
-	//player = new monster;
-	//player->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/arcanegolem_ok/x/golem2.x", mat));
-	//player->_transform->SetScale(0.1f, 0.1f, 0.1f);
-	//player->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
-	//player->setRegenPosition(0.0f, tempY, 0.0f);
-	//player->LinkObject(testObject);
-	//player->LinkTerrain(*_terrain);
-	//player->LinkPlayer(_player->getPlayerObject());
-	//player->setActive(true);
-	//this->_renderObjects.push_back(player);
+	player = new monster;
+	player->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/arcanegolem_ok/x/golem2.x", mat));
+	player->_transform->SetScale(0.1f, 0.1f, 0.1f);
+	player->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+	player->setRegenPosition(0.0f, tempY, 0.0f);
+	player->LinkObject(testObject);
+	player->LinkTerrain(*_terrain);
+	player->LinkPlayer(_player->getPlayerObject());
+	player->setActive(true);
+	this->_renderObjects.push_back(player);
 	//D3DXMatrixScaling(&matScaling, 0.5f, 0.5f, 0.5f);
 	//mat = matScaling * matRotate;
 
-	boss = new bossMonster;
-	boss->setMesh(RM_SKINNED->getResource("Resources/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
-	boss->_transform->SetScale(0.5f, 0.5f, 0.5f);
-	boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
-	boss->LinkObject(testObject);
-	boss->LinkTerrain(*_terrain);
-	boss->LinkPlayer(_player->getPlayerObject());
-	boss->setActive(true);
-	this->_renderObjects.push_back(boss);
+	//boss = new bossMonster;
+	//boss->setMesh(RM_SKINNED->getResource("Resources/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
+	//boss->_transform->SetScale(0.5f, 0.5f, 0.5f);
+	//boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+	//boss->LinkObject(testObject);
+	//boss->LinkTerrain(*_terrain);
+	//boss->LinkPlayer(_player->getPlayerObject());
+	//boss->setActive(true);
+	//this->_renderObjects.push_back(boss);
 
 	_sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(90), 0, 0);
 	this->setEnvironment("Resources/TextureCUBE/SuperKanjiCube.dds");
 
 	_mainCamera->SetWorldPosition(0.0f, 0.0f, 10.0f);
-	_mainCamera->LookPosition(boss->_transform->GetWorldPosition());
+	_mainCamera->LookPosition(player->_transform->GetWorldPosition());
 
 	////라이트 세팅
 	//lightDirection* light1 = new lightDirection;
@@ -120,7 +121,9 @@ HRESULT terrainPickingTest::init(void)
 	dest = -1;
 
 	_player->setTargetMonster(*player);
-	
+
+	ACMANAGER->Init(*_terrain, testObject, *_player->getPlayerObject(), *player);
+
 	return S_OK;
 }
 
@@ -150,8 +153,8 @@ void terrainPickingTest::update(void)
 {
 	_sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
 
-//	lButtonStateChange();
-//	selectLButton();
+	lButtonStateChange();
+	selectLButton();
 
 	_player->update();
 

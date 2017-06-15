@@ -16,10 +16,9 @@ monster::~monster()
 void monster::baseObjectEnable()
 {
 	D3DXVECTOR3 temp(_boundBox._localCenter);
+	range.setBound(&temp, &D3DXVECTOR3(_transform->GetScale().x * RANGE, _transform->GetScale().y * RANGE, _transform->GetScale().z * RANGE));
+
 	temp.z = _boundBox._localMaxPos.z;
-
-
-	range.setBound(&D3DXVECTOR3(0.0f, 0.0f, 0.0f), &D3DXVECTOR3(RANGE, RANGE, RANGE));
 	
 	hitBox.setBound(&temp, &D3DXVECTOR3(_transform->GetScale().x * 1.6f, _transform->GetScale().y * 2.9f, _transform->GetScale().z * 2.9f));
 
@@ -29,16 +28,22 @@ void monster::baseObjectEnable()
 	soul = myUtil::RandomIntRange(MINGS, MAXGS);
 	att = DEFAULTATT;
 	def = DEFAULTDEF;
-	CurrAction = new ActionStanding;
-	CurrAction->setOwner(this);
-	CurrAction->setObject(linkObject);
+	CurrAction = ACMANAGER->getAction("일반대기");
+	/*CurrAction = new ActionStanding;
+	CurrAction->setOwner(*this);
+	CurrAction->setObject(*linkObject);
 	CurrAction->setRand(*linkTerrain);
-	CurrAction->setEnemy(player);
+	CurrAction->setEnemy(*player);*/
 	result = (LHS::ACTIONRESULT)CurrAction->Start();
 }
 
 void monster::baseObjectDisable()
 {
+//	SAFE_DELETE(CurrAction);
+//	SAFE_DELETE(NextAction);
+	CurrAction = nullptr;
+	NextAction = nullptr;
+	this->_transform->SetWorldPosition(regenPosition);
 }
 
 void monster::baseObjectUpdate()
@@ -64,8 +69,8 @@ void monster::baseObjectNoActiveUpdate()
 void monster::baseObjectRender()
 {
 	if (_skinnedAnim != nullptr) _skinnedAnim->render(_transform);
-	hitBox.renderGizmo(_transform);
-	range.renderGizmo(_transform);
+	hitBox.renderGizmo(_transform, D3DCOLOR_XRGB(255, 0, 0));
+	range.renderGizmo(_transform, D3DCOLOR_XRGB(255, 255, 0));
 
 	_boundBox.renderGizmo(_transform);
 }
@@ -79,11 +84,12 @@ void monster::stateSwitch(void)
 	{
 		//리턴 값이 액션이 종료되었음을 알려올때 -> standing상태로 돌아간다.
 	case LHS::ACTIONRESULT::ACTION_FINISH:
-		NextAction = new ActionStanding;
-		NextAction->setOwner(this);
-		NextAction->setObject(linkObject);
+		NextAction = ACMANAGER->getAction("일반대기");
+		/*NextAction = new ActionStanding;
+		NextAction->setOwner(*this);
+		NextAction->setObject(*linkObject);
 		NextAction->setRand(*linkTerrain);
-		NextAction->setEnemy(player);
+		NextAction->setEnemy(*player);*/
 		break;
 		//액션을 할당, 다양한 문제가 생겼을 경우
 	case LHS::ACTIONRESULT::ACTION_FAIL:
@@ -96,44 +102,42 @@ void monster::stateSwitch(void)
 		return;
 		//액션이 종료되었다거나, 다시 탐색상태로 돌아가야 할때.
 	case LHS::ACTIONRESULT::ACTION_STAND:
-		NextAction = new ActionStanding;
-		NextAction->setOwner(this);
-		NextAction->setObject(linkObject);
+		NextAction = ACMANAGER->getAction("일반대기");
+		/*NextAction = new ActionStanding;
+		NextAction->setOwner(*this);
+		NextAction->setObject(*linkObject);
 		NextAction->setRand(*linkTerrain);
-		NextAction->setEnemy(player);
+		NextAction->setEnemy(*player);*/
 		break;
-		// 이동이 필요한 경우
-	//case LHS::ACTIONRESULT::ACTION_MOVE:
-	//	linkTerrain->getDijkstra().FindPath(_transform->GetWorldPosition(), player->_transform->GetWorldPosition());
-	//	NextAction = linkTerrain->getDijkstra().OptimizedAction(*this, *player, linkTerrain, *linkObject, _transform->GetWorldPosition(), player->_transform->GetWorldPosition());
-	//	break;
-		//원래의 리젠 위치로 돌아가야 하는 경우
-	//case LHS::ACTIONRESULT::ACTION_REMOVE:
-	//	linkTerrain->getDijkstra().FindPath(_transform->GetWorldPosition(), regenPosition);
-	//	NextAction = linkTerrain->getDijkstra().OptimizedAction(*this, linkTerrain, *linkObject, _transform->GetWorldPosition(), regenPosition);
-	//	break;
+	// 이동이 필요한 경우
+	case LHS::ACTIONRESULT::ACTION_MOVE:
+		NextAction = ACMANAGER->getAction("일반시퀸스");
+		/*linkTerrain->getDijkstra().FindPath(_transform->GetWorldPosition(), player->_transform->GetWorldPosition());
+		NextAction = linkTerrain->getDijkstra().OptimizedAction(*this, *player, linkTerrain, *linkObject, _transform->GetWorldPosition(), player->_transform->GetWorldPosition());*/
+		break;
+	//원래의 리젠 위치로 돌아가야 하는 경우
+	case LHS::ACTIONRESULT::ACTION_REMOVE:
+		NextAction = ACMANAGER->getAction("일반재이동시퀸스");
+//		linkTerrain->getDijkstra().FindPath(_transform->GetWorldPosition(), regenPosition);
+//		NextAction = linkTerrain->getDijkstra().OptimizedAction(*this, linkTerrain, *linkObject, _transform->GetWorldPosition(), regenPosition);
+		break;
 		//공격을 해야 하는 경우
 	case LHS::ACTIONRESULT::ACTION_ATT:
 	{
 		ActionAttack* temp = new ActionAttack;
-		temp->setOwner(this);
-		temp->setObject(linkObject);
+		temp->setOwner(*this);
+		temp->setObject(*linkObject);
 		temp->setRand(*linkTerrain);
-		temp->setActionTime(LHS::MOVETIME);
-		temp->setEnemy(player);
-
-		NextAction = temp;
+		temp->setEnemy(*player);
+		NextAction = ACMANAGER->getAction("일반공격");
 	}
 	break;
-	//스턴 공격을 받아 스턴이 되어야 하는 경우
-	case LHS::ACTIONRESULT::ACTION_STUN:
-		NextAction = new ActionStun;
-		break;
 		//죽었을때.
 	case LHS::ACTIONRESULT::ACTION_DIE:
-		NextAction = new ActionDie;
+		NextAction = ACMANAGER->getAction("일반죽음");
 		break;
 	case LHS::ACTIONRESULT::ACTION_NONE:
+		this->setActive(false);
 		break;
 	}
 

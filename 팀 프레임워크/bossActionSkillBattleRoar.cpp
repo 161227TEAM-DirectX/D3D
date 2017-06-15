@@ -28,15 +28,27 @@ int bossActionSkillBattleRoar::Start()
 
 int bossActionSkillBattleRoar::Update()
 {
-	//배틀로어 애니메이션이 끝나면 
+	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
+
+	PHYSICSMANAGER->isBlocking(owner, enemy);
+
+	D3DXVECTOR3 enemyNormal = enemy->_transform->GetWorldPosition() - temp->_transform->GetWorldPosition();
+	D3DXVec3Normalize(&enemyNormal, &enemyNormal);
+	float angle = D3DXVec3Dot(&temp->_transform->GetForward(), &enemyNormal);
+
+	//배틀로어 애니메이션이 끝나면 ->일반공격 또는 꼬리치기
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
 	{
-		return LHS::ACTIONRESULT::ACTION_MOVE;
+		if (angle >= -1.0f && angle < -0.8f)
+		{
+			return LHS::ACTIONRESULT::ACTION_SKILL_TAIL;
+		}
+
+		return LHS::ACTIONRESULT::ACTION_ATT;
 	}
 
 	dotTime -= 0.08f;
 	//공격에 따른 범위가 필요, 공격 범위에 있는 존재는 스턴에 걸림, 스턴에 걸린 상태로 도트대미지 적용필요.
-	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
 	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
 	{
 		switch (attackStyle)

@@ -600,6 +600,8 @@
     <ClCompile Include="bossActionSkillFlyFire.cpp">
       <Filter>GameFramework3D\ActionBoss</Filter>
     </ClCompile>
+    <ClCompile Include="monsterManager.cpp" />
+    <ClCompile Include="ActionManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -1010,6 +1012,8 @@
     <ClInclude Include="bossActionFlyMove.h">
       <Filter>GameFramework3D\ActionBoss</Filter>
     </ClInclude>
+    <ClInclude Include="monsterManager.h" />
+    <ClInclude Include="ActionManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Texture_Gray.fx">

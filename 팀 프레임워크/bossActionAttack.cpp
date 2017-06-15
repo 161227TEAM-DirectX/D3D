@@ -41,10 +41,14 @@ int bossActionAttack::Update()
 {
 	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
 
+	PHYSICSMANAGER->isBlocking(owner, enemy);
+
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.9f)
 	{
 		passedTime = 0.0f;
 		int random = myUtil::RandomIntRange(1, 5);
+
+		//플레이어의 hp를 소모시키자.
 
 		switch (random)
 		{
@@ -74,18 +78,18 @@ int bossActionAttack::Update()
 			//int index = myUtil::RandomIntRange(0, 9);
 			resultValue = myUtil::RandomFloatRange(0.1f, 1.0f);
 
-			if (resultValue >= 0.1f && resultValue <= 0.98f)
+			if (resultValue >= 0.1f && resultValue <= 0.96f)
 			{
 				return LHS::ACTIONRESULT::ACTION_MOVE;
 			}
-			else if (resultValue >= 0.98f && 0.99f)
+			else if (resultValue >= 0.96f && 0.98f)
 			{
 				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
 				{
 					return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
 				}
 			}
-			else if (resultValue >= 0.99f && resultValue <= 1.0f)
+			else if (resultValue >= 0.98f && resultValue <= 1.0f)
 			{
 				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
 				{

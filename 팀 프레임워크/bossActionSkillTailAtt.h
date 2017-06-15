@@ -1,5 +1,6 @@
 #pragma once
 #include "Action.h"
+#include "bossMonster.h"
 class bossActionSkillTailAtt : public Action
 {
 private:

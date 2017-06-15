@@ -34,7 +34,7 @@ using namespace std;
 
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
-
+#pragma comment(linker,"/entry:WinMainCRTStartup /subsystem:console")
 
 
 
@@ -44,6 +44,14 @@ using namespace std;
 #define SINGLETONE(class_name) private:\
 	class_name(void);\
 	~class_name(void);\
+public:\
+	static class_name* GetInstance()\
+	{\
+		static class_name instance;\
+		return &instance;\
+	}
+
+#define SINGLETWO(class_name)\
 public:\
 	static class_name* GetInstance()\
 	{\
@@ -100,9 +108,9 @@ using namespace myUtil;
 #include "lightPoint.h"
 #include "boundBox.h"
 #include "terrain.h"
-
 #include "cObject.h"
 #include "cPicking.h"
+
 
 
 
@@ -125,7 +133,7 @@ using namespace myUtil;
 
 #include "cObjectManager.h"
 #include "cTextureManager.h"
-
+#include "ActionManager.h"
 
 //====================================================================
 //			## ΩÃ±€≈Ê(ªÛº”) ##
@@ -144,7 +152,6 @@ using namespace myUtil;
 #define SPRITEMANAGER spriteManager::getSingleton()
 #define IOBASEMANAGER ioBaseManager::getSingleton()
 #define PSM	dxParticleSystemManager::getSingleton()
-
 
 
 //====================================================================

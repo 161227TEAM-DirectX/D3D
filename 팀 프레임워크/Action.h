@@ -29,17 +29,17 @@ public:
 	//움직일 개체 겟터
 	inline baseObject* getOwner(void) { return owner; }
 	//움직일 개체 셋터
-	inline void setOwner(baseObject* tempOwner) { owner = tempOwner; }
+	inline void setOwner(baseObject& tempOwner) { owner = &tempOwner; }
 
 	//델리게이트?? 설정
 	inline iActionDelegate* getDelegate(void) { return deleGate; }
 	inline void setDelegate(iActionDelegate* tempDele) { deleGate = tempDele; }
 
-	inline void setObject(vector<baseObject*>* temp) { this->object = temp; }
+	inline void setObject(vector<baseObject*>& temp) { this->object = &temp; }
 
 	inline void setRand(terrain& temp) { this->rand = &temp; }
 
-	inline void setEnemy(baseObject* temp) { this->enemy = temp; }
+	inline void setEnemy(baseObject& temp) { this->enemy = &temp; }
 
 	//액션의 시작을 정의하는 함수 - 순수가상함수
 	virtual int Start() = 0;
