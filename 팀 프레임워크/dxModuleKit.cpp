@@ -81,6 +81,12 @@ void dxModuleKit::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 	//최종계산
 	//iter->FinalPos = iter->position;
 	iter->FinalPos = (-iter->preCircleSpeed) + iter->circleSpeed + iter->velocity*_timeDelta + (iter->acceleration*(iter->age*_timeDelta)*(iter->age*_timeDelta) / 2.0f) + iter->posDirectVel*_timeDelta + iter->attractPos*_timeDelta;
+
+	
+
+	//평면용
+	//iter->posCenter += anglePos*_timeDelta;
+
 	//평면용
 	iter->posCenter += iter->FinalPos;
 }

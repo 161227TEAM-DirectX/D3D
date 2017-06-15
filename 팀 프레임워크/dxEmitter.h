@@ -54,9 +54,9 @@ protected:
 
 	int		_drawPtcNum;				//그릴 파티클 개수	
 
-	bool _activeTimeCheckOn;
-	float _activeCurrentTime;
-	float _activeLimitTime;
+	bool	_activeTimeCheckOn;
+	float	_activeCurrentTime;
+	float	_activeLimitTime;
 
 public:		//함수
 
@@ -235,6 +235,9 @@ public:
 
 	bool autoActiveTimeCheck(float timeDelta);
 	
+	dx::transform* _psTrans;
+
+	void setParticleSystemTrans(dx::transform* inTrance) { _psTrans = inTrance; }
 
 public:
 	dxEmitter() {};
