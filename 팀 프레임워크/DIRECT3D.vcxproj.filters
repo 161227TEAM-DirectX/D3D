@@ -190,6 +190,9 @@
     <Filter Include="Z테스트\김태훈\xPlayer">
       <UniqueIdentifier>{7347c473-da58-457e-a5fa-2da6de176e8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Z테스트\김태훈\xNpc">
+      <UniqueIdentifier>{946fe7d3-6a86-4d59-a436-ae730c77313b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -600,6 +603,7 @@
     <ClCompile Include="bossActionSkillFlyFire.cpp">
       <Filter>GameFramework3D\ActionBoss</Filter>
     </ClCompile>
+    <ClCompile Include="xNpc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -1010,6 +1014,7 @@
     <ClInclude Include="bossActionFlyMove.h">
       <Filter>GameFramework3D\ActionBoss</Filter>
     </ClInclude>
+    <ClInclude Include="xNpc.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Texture_Gray.fx">

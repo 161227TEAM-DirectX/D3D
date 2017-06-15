@@ -5,6 +5,7 @@
 #include "monster.h"
 #include "bossMonster.h"
 #include "xPlayer.h"
+#include "xNpc.h"
 
 class kimsTestScene : public gameNode
 {
@@ -21,6 +22,7 @@ private:
 private:
 	//	dijkstra*			tempDijkstra;
 	xPlayer* _player;
+	xNpc* _thrall;//¾²¶ö¾¾.
 
 	monster*			player;
 	bossMonster*		boss;

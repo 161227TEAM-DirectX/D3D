@@ -61,6 +61,8 @@ HRESULT kimsTestScene::init(void)
 		_renderObjects.push_back(_player->getRenderObject()[i]);
 	}
 
+
+
 	////임시 몬스터 구현 코드
 	//player = new monster;
 	//player->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
@@ -123,23 +125,39 @@ HRESULT kimsTestScene::init(void)
 	_player->setTargetMonster(*player);
 
 
-
-	_mainCamera->SetWorldPosition(_player->getPlayerObject()->_transform->GetWorldPosition());
+	D3DXVECTOR3 pos = _player->getPlayerObject()->_transform->GetWorldPosition();
+	pos.y = pos.y + 5;
+	pos.z = pos.z - 5;
+	gameNode::_mainCamera->SetWorldPosition(pos);
+	gameNode::_mainCamera->LookPosition(_player->getPlayerObject()->_transform->GetWorldPosition());
 	_mainCamera->AttachTo(_player->getPlayerObject()->_transform);
+
+
+	_thrall = new xNpc;
+	_thrall->setlinkTerrain(*_terrain);
+	_thrall->init(0, 0, "상인쓰랄");
+	_thrall->setCamera(_mainCamera);
+	_renderObjects.push_back(_thrall->getNpcObject());
 
 	return S_OK;
 }
 
 void kimsTestScene::release(void)
 {
-	_player->release();
-	SAFE_DELETE(_player);
+	//_player->release();
+	
+
+	//_thrall->release();
+	
 
 	//오브젝트 해제
 	for (int i = 0; i < this->_renderObjects.size(); i++)
 	{
 		SAFE_DELETE(this->_renderObjects[i]);
 	}
+	SAFE_DELETE(_player);
+	SAFE_DELETE(_thrall);
+
 	//지형과 지형그림자 해제
 	SAFE_DELETE(this->_terrain);
 	SAFE_DELETE(this->_terrainShadow);
@@ -156,12 +174,12 @@ void kimsTestScene::update(void)
 {
 	_sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
 
+	_thrall->update();
 	_player->update();
 	
 	for (int i = 0; i < this->_renderObjects.size(); i++)
 	{
 		_renderObjects[i]->update();
-		
 	}
 	//쉐도우맵 준비
 	
@@ -210,6 +228,7 @@ void kimsTestScene::render(void)
 	_terrain->render(_mainCamera, _sceneBaseDirectionLight, _directionLightCamera);
 
 	_player->render();
+	_thrall->render();
 
 	for (int i = 0; i < this->_cullObjects.size(); i++)
 	{

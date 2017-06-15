@@ -125,6 +125,7 @@ using namespace myUtil;
 
 #include "cObjectManager.h"
 #include "cTextureManager.h"
+#include "xPlayerStatus.h"
 
 
 //====================================================================
@@ -144,6 +145,7 @@ using namespace myUtil;
 #define SPRITEMANAGER spriteManager::getSingleton()
 #define IOBASEMANAGER ioBaseManager::getSingleton()
 #define PSM	dxParticleSystemManager::getSingleton()
+#define PLAYERMANAGER xPlayerStatus::getSingleton()
 
 
 

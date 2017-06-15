@@ -2,6 +2,33 @@
 #include "gameNode.h"
 #include "singletonBase.h"
 
+
+enum PL_STATE
+{
+	P_STAND = 0,
+	P_RUN,
+	P_MOVE,
+	P_READYTOATTACK,
+	P_ATTACK,
+	P_ATTACK2,
+	P_ATTACK3,
+	P_ATTACK4,
+	P_ATTACK5,
+	P_READYSPELL,
+	P_CASTSPELL,
+	P_READYOMNI,
+	P_CASTOMNI,
+	P_JUMPUP,
+	P_JUMP,
+	P_JUMPDOWN,
+	P_STUN,
+	P_DEATH,
+	P_MOUNT,
+	P_WALKBACK,
+	P_DAMAGED,
+	P_END
+};
+
 enum PL_WEAPON
 {
 	W_NONE = 0,
@@ -45,6 +72,7 @@ private:
 	SYNTHESIZE(int, _mp, Mp);
 	SYNTHESIZE(PL_WEAPON, _weapon, Weapon);
 	SYNTHESIZE(PL_ARMOR, _armor, Armor);
+	SYNTHESIZE(PL_SHIELD, _shield, Shield);	
 	SYNTHESIZE(int, _soul, Soul);
 	SYNTHESIZE(int, _gold, Gold);
 	SYNTHESIZE(D3DXVECTOR3, _pos, Pos);

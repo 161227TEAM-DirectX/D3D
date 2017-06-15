@@ -10,16 +10,16 @@ HRESULT xPlayer::init()
 	_lightSkill = new SK_Boss00;
 	_skillTrans = new dx::transform;
 	_lightSkill->init();
+	//_lightSkill->Reset();
 	
 
 	//메시 로딩
 	_state = P_STAND;
 	_prevState = P_STAND;
-	Equipments = A_ROBE;
-	Weapons = W_BROAD;
-	Shields = SH_KITE;
-
-	_Hp = 10;
+	PLAYERMANAGER->SetArmor(A_LEATHER);
+	PLAYERMANAGER->SetWeapon(W_BROAD);
+	PLAYERMANAGER->SetShield(SH_KITE);
+	PLAYERMANAGER->SetHp(10);
 
 	_damagedTime = 0.0f;
 	_stunnedTime = 0.0f;
@@ -27,11 +27,11 @@ HRESULT xPlayer::init()
 	_playSpeed = 1.0f;
 	_degree = 0.0f;
 	_baseHeight = 0.0f;
-	_jumpPower = 10.0f;
+	_jumpPower = 5.0f;
 	_jumpSpeed = 3.0f;
 	_jumpHeight = 0.0f;
 
-	_moveSpeed = 1.5f;
+	_moveSpeed = 3.0f;
 
 	_isOnBattle = false;
 
@@ -48,7 +48,7 @@ HRESULT xPlayer::init()
 	matCorrection = matRotate*matScale;
 
 
-	switch (Equipments)
+	switch (PLAYERMANAGER->GetArmor())
 	{
 	case A_NONE:
 		pSkinned =
@@ -124,7 +124,7 @@ HRESULT xPlayer::init()
 	//웨폰 오브젝트 초기화 디폴트로 블랙윙을 가져오고 w_none이면 액티브 하지 않는다.
 	_weaponObject = new baseObject;
 
-	switch (Weapons)
+	switch (PLAYERMANAGER->GetWeapon())
 	{
 	case W_NONE:
 		pSkinned2 = RM_XMESH->getResource("Resources/item/Sword/weapon01/weapon01.X", &matCorrection2);
@@ -193,7 +193,7 @@ HRESULT xPlayer::init()
 	pSkinned3 = new xMeshStatic;
 	_shieldObject = new baseObject;
 
-	switch (Shields)
+	switch (PLAYERMANAGER->GetShield())
 	{
 	case SH_NONE:
 		pSkinned3 = RM_XMESH->getResource("Resources/item/Shield/shield01/shield01.X", &matCorrection3);
@@ -260,6 +260,7 @@ HRESULT xPlayer::init()
 
 void xPlayer::update()
 {
+	PLAYERMANAGER->SetPos(_playerObject->_transform->GetWorldPosition());
 
 	_lightSkill->update();
 
@@ -286,7 +287,7 @@ void xPlayer::render()
 
 		FONTMANAGER->fontOut(to_string(_state), 100, 0, 0xffffffff);
 
-		FONTMANAGER->fontOut("HP : " + to_string(_Hp), 300, 0, 0xffffffff);
+		FONTMANAGER->fontOut("HP : " + to_string(PLAYERMANAGER->GetHp()), 300, 0, 0xffffffff);
 
 		FONTMANAGER->fontOut("base : " + to_string(_baseHeight), 300, 25, 0xffffffff);
 
@@ -427,7 +428,7 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 //시간이 지남에 따라 혹은 수치값의 변동에 따라 자동적으로 변화해야 하는 경우를 지정한다.
 void xPlayer::playerStateManager()
 {
-	if (_Hp <= 0) _state = P_DEATH;
+	if (PLAYERMANAGER->GetHp() <= 0) _state = P_DEATH;
 	string animName = _playerObject->_skinnedAnim->getAnimationSet()->GetName();
 	D3DXVECTOR3 pos = _playerObject->_transform->GetWorldPosition();
 	switch (_state)
@@ -631,7 +632,7 @@ void xPlayer::playerStateManager()
 			
 			pos = _playerObject->_transform->GetWorldPosition();
 
-			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
+			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.90)//애니메이션 다 재생했으면
 			{
 				_state = P_JUMP;
 			}
@@ -667,7 +668,7 @@ void xPlayer::playerStateManager()
 	case P_JUMPDOWN:
 		if (animName == "JUMPED")
 		{
-			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.7)//애니메이션 다 재생했으면
+			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.5)//애니메이션 다 재생했으면
 			{
 				if (_isOnBattle)
 				{
@@ -696,7 +697,7 @@ void xPlayer::playerStateManager()
 
 		break;
 	case P_DEATH:
-		if (_Hp > 0) _state = P_STAND;
+		if (PLAYERMANAGER->GetHp() > 0) _state = P_STAND;
 		break;
 	case P_MOUNT:
 
@@ -860,7 +861,7 @@ void xPlayer::actionControl()
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 	{
-		_moveSpeed = _jumpPower;
+		//_moveSpeed = _jumpPower;
 		_state = P_JUMPUP;
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
@@ -936,7 +937,7 @@ void xPlayer::playerSkillOmni(float castingTime)
 //스턴시간 최대 2초가 자연스러움. 그 이상은 좀 부자연스럽.
 void xPlayer::playerDamaged(int damage, float damagedTime, float delayRate, float StunRate, float StunedTime)
 {
-	this->_Hp = this->_Hp - damage;
+	PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - damage);
 
 	//무거운 공격! 경직에 걸렸다.
 	if (delayRate > RandomFloatRange(0, 100.0))
@@ -964,14 +965,14 @@ void xPlayer::setHeight()
 void xPlayer::itemUpdate()
 {
 
-	if (Weapons != W_NONE)
+	if (PLAYERMANAGER->GetWeapon() != W_NONE)
 	{
 		D3DXMATRIX matHand = _EquipSocket.find("RHAND")->second->CombinedTransformationMatrix;
 		_weaponObject->_transform->SetWorldMatrix(matHand);
 		//_weaponObject->update();
 	}
 
-	if (Shields != SH_NONE)
+	if (PLAYERMANAGER->GetShield() != SH_NONE)
 	{
 		D3DXMATRIX matShield = _EquipSocket.find("SHIELD")->second->CombinedTransformationMatrix;
 		_shieldObject->_transform->SetWorldMatrix(matShield);
