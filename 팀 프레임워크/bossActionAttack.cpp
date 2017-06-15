@@ -71,7 +71,7 @@ int bossActionAttack::Update()
 			owner->getSkinnedAnim().Play("Animation_10");
 			break;
 		}
-	//	bool check = ;
+
 		//적이 나의 hit박스 안에 없다면 이동해라.
 		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), enemy->_transform, &enemy->_boundBox))
 		{
@@ -82,7 +82,7 @@ int bossActionAttack::Update()
 			{
 				return LHS::ACTIONRESULT::ACTION_MOVE;
 			}
-			else if (resultValue >= 0.96f && 0.98f)
+			else if (resultValue >= 0.96f && resultValue <= 0.98f)
 			{
 				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
 				{

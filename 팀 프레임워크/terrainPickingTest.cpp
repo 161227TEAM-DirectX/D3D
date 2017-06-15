@@ -36,6 +36,21 @@ HRESULT terrainPickingTest::init(void)
 
 //	tempDijkstra = new dijkstra;
 
+	boss = new bossMonster;
+	_player = new xPlayer;
+	_player->setlinkTerrain(*_terrain);
+	_player->init();
+	_player->getPlayerObject()->_transform->SetWorldPosition(1.0f, 0.0f, -3.0f);
+	//	_player->getPlayerObject()->_transform->SetWorldPosition(20.0f, 0.0f, -20.0f);
+	_player->getPlayerObject()->_transform->SetScale(0.1f, 0.1f, 0.1f);
+	for (int i = 0; i < _player->getRenderObject().size(); i++)
+	{
+		_renderObjects.push_back(_player->getRenderObject()[i]);
+	}
+//	player = new monster;
+
+	ACMANAGER->Init(*_terrain, testObject, *_player->getPlayerObject(), *boss);
+
 	float tempY = _terrain->getHeight(0.0f, 0.0f);
 
 	//임시 플레이어 코드
@@ -52,77 +67,44 @@ HRESULT terrainPickingTest::init(void)
 	//enemy->setActive(true);
 	//this->_renderObjects.push_back(enemy);
 
-	_player = new xPlayer;
-	_player->setlinkTerrain(*_terrain);
-	_player->init();
-	_player->getPlayerObject()->_transform->SetWorldPosition(1.0f, 0.0f, -3.0f);
-//	_player->getPlayerObject()->_transform->SetWorldPosition(20.0f, 0.0f, -20.0f);
-	_player->getPlayerObject()->_transform->SetScale(0.1f, 0.1f, 0.1f);
-	for (int i = 0; i < _player->getRenderObject().size(); i++)
-	{
-		_renderObjects.push_back(_player->getRenderObject()[i]);
-	}
+
+	
 	//임시 몬스터 구현 코드
-	player = new monster;
-	player->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/arcanegolem_ok/x/golem2.x", mat));
-	player->_transform->SetScale(0.1f, 0.1f, 0.1f);
-	player->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
-	player->setRegenPosition(0.0f, tempY, 0.0f);
-	player->LinkObject(testObject);
-	player->LinkTerrain(*_terrain);
-	player->LinkPlayer(_player->getPlayerObject());
-	player->setActive(true);
-	this->_renderObjects.push_back(player);
+	
+//	player->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/arcanegolem_ok/x/golem2.x", mat));
+//	player->_transform->SetScale(0.1f, 0.1f, 0.1f);
+//	player->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+//	player->setRegenPosition(0.0f, tempY, 0.0f);
+//	player->LinkObject(testObject);
+//	player->LinkTerrain(*_terrain);
+//	player->LinkPlayer(_player->getPlayerObject());
+//	player->setActive(true);
+//	this->_renderObjects.push_back(player);
 	//D3DXMatrixScaling(&matScaling, 0.5f, 0.5f, 0.5f);
 	//mat = matScaling * matRotate;
 
-	//boss = new bossMonster;
-	//boss->setMesh(RM_SKINNED->getResource("Resources/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
-	//boss->_transform->SetScale(0.5f, 0.5f, 0.5f);
-	//boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
-	//boss->LinkObject(testObject);
-	//boss->LinkTerrain(*_terrain);
-	//boss->LinkPlayer(_player->getPlayerObject());
-	//boss->setActive(true);
-	//this->_renderObjects.push_back(boss);
+
+	boss->setMesh(RM_SKINNED->getResource("Resources/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
+	boss->_transform->SetScale(0.2f, 0.2f, 0.2f);
+	boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+	boss->LinkObject(testObject);
+	boss->LinkTerrain(*_terrain);
+	boss->LinkPlayer(_player->getPlayerObject());
+	boss->setActive(true);
+	this->_renderObjects.push_back(boss);
 
 	_sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(90), 0, 0);
 	this->setEnvironment("Resources/TextureCUBE/SuperKanjiCube.dds");
 
 	_mainCamera->SetWorldPosition(0.0f, 0.0f, 10.0f);
-	_mainCamera->LookPosition(player->_transform->GetWorldPosition());
-
-	////라이트 세팅
-	//lightDirection* light1 = new lightDirection;
-	//light1->_color = D3DXCOLOR(1, 1, 1, 1);
-	//light1->_intensity = 1.0f;
-
-	//lightPoint* light2 = new lightPoint;
-	//light2->_color = D3DXCOLOR(1, 0, 0, 0);
-	//light2->_minRange = 5.0f;
-	//light2->_maxRange = 10.0f;
-	//light2->_distancePow = 10.0f;
-
-	//lightPoint* light3 = new lightPoint;
-	//light3->_color = D3DXCOLOR(0, 1, 0, 0);
-	//light3->_minRange = 5.0f;
-	//light3->_maxRange = 10.0f;
-	//light3->_distancePow = 10.0f;
-	//light3->_transform->SetWorldPosition(3, 3, 0);
-	//light3->_intensity = 0.5f;
-
-	//_lights.push_back(light1);
-	//_lights.push_back(light2);
-	//_lights.push_back(light3);
+	_mainCamera->LookPosition(boss->_transform->GetWorldPosition());
 
 	lButtonState = SELECTFUNC::SELECT_NONE;
 
 	sour = -1;
 	dest = -1;
 
-	_player->setTargetMonster(*player);
-
-	ACMANAGER->Init(*_terrain, testObject, *_player->getPlayerObject(), *player);
+	_player->setTargetMonster(*boss);
 
 	return S_OK;
 }

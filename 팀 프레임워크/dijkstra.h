@@ -40,7 +40,7 @@ public:
 public:
 	void connectNode(int& sour, int& dest);
 	void FindPath(D3DXVECTOR3 vSt, D3DXVECTOR3 vDst/*, vector<baseObject*>& object*/);
-	ActionSeq* OptimizedAction(baseObject& player, baseObject& enemy, terrain* rand, vector<baseObject*>& object, D3DXVECTOR3 vStart, D3DXVECTOR3 vDest);
-	ActionSeq* OptimizedAction(baseObject& player, terrain* rand, vector<baseObject*>& object, D3DXVECTOR3 vStart, D3DXVECTOR3 vDest);
+	ActionSeq* OptimizedAction(baseObject& player, baseObject& enemy, terrain& rand, vector<baseObject*>& object, D3DXVECTOR3 vStart, D3DXVECTOR3 vDest);
+	ActionSeq* OptimizedAction(baseObject& player, terrain& rand, vector<baseObject*>& object, D3DXVECTOR3 vStart, D3DXVECTOR3 vDest);
 };
 

@@ -30,14 +30,12 @@ int bossActionSkillFire::Update()
 
 	if (!strcmp(owner->getSkinnedAnim().getAnimationSet()->GetName(), "Animation_65"))
 	{
-		if (owner->getSkinnedAnim().getAnimationPlayFactor() < 0.9f)
-		{
-			return LHS::ACTIONRESULT::ACTION_PLAY;
-		}
-		else
+		if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
 		{
 			owner->getSkinnedAnim().Play("Animation_14");
 		}
+
+		return LHS::ACTIONRESULT::ACTION_PLAY;
 	}
 
 	dotTime -= 0.5f;
@@ -52,13 +50,13 @@ int bossActionSkillFire::Update()
 		if (dotTime < 0)
 		{
 			dotTime = 2.0f;
-			//cout << "mForword.x : " << temp->_transform->GetForward().x << "mForword.y : " << temp->_transform->GetForward().y << "mForword.z : " << temp->_transform->GetForward().z << endl;
-			//cout << "enemy.x:" << enemyNormal.x << "enemy.y:" << enemyNormal.y << "enemy.z:" << enemyNormal.z << endl;
+			cout << "mForword.x : " << temp->_transform->GetForward().x << "mForword.y : " << temp->_transform->GetForward().y << "mForword.z : " << temp->_transform->GetForward().z << endl;
+			cout << "enemy.x:" << enemyNormal.x << "enemy.y:" << enemyNormal.y << "enemy.z:" << enemyNormal.z << endl;
 			//
-			//cout << "dotTime: " << dotTime << endl;
+			cout << "dotTime: " << dotTime << endl;
 		}
 	}
-	//cout << "angle : " << angle << endl;
+	cout << "angle : " << angle << endl;
 	//액션 종료 조건이 필요.
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
 	{

@@ -52,7 +52,7 @@ void monster::baseObjectUpdate()
 
 	if (NextAction != nullptr)
 	{
-		delete CurrAction;
+		CurrAction = nullptr;
 		CurrAction = NextAction;
 		result = (LHS::ACTIONRESULT)CurrAction->Start();
 		NextAction = nullptr;

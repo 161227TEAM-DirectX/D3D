@@ -29,6 +29,8 @@ int ActionMove::Update()
 {
 	if (!owner) return (int)LHS::ACTIONRESULT::ACTION_FAIL;
 
+	monster* temp = dynamic_cast<monster*>(owner);
+
 	m_fPassedTime += _timeDelta;
 	//경과시간이 액션시간보다 커지면 멈춰라?
 	if (m_fPassedTime >= actionTime)
@@ -80,7 +82,6 @@ int ActionMove::Update()
 	}
 
 	//플레이어가 내 탐색 범위를 벗어나게 되면 스탠딩 상태로 돌아간다.
-	monster* temp = dynamic_cast<monster*>(owner);
 	if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
 	{
 		if (deleGate) deleGate->OnActionFinish(this, true);

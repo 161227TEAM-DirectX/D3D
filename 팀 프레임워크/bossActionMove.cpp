@@ -51,6 +51,10 @@ int bossActionMove::Update()
 {
 	if (!owner) return (int)LHS::ACTIONRESULT::ACTION_FAIL;
 
+	//한번 생성해 놓아서 index가 초기화가 필요하다.
+	//index = myUtil::RandomFloatRange(0.1f, 1.0f);
+	index = 0.991f;
+
 	PHYSICSMANAGER->isBlocking(owner, enemy);
 	//몬스터의 현재 위치를 저장한다.
 	from = owner->_transform->GetWorldPosition();
@@ -61,7 +65,7 @@ int bossActionMove::Update()
 	//몬스터는 플레이어를 바라보도록 설정한다.
 	owner->_transform->LookPosition(to);
 
-	D3DXVECTOR3 look(0.0f, 0.0f, 0.05f);
+	D3DXVECTOR3 look(0.0f, 0.0f, 0.01f);
 	owner->_transform->MovePositionSelf(look);
 	look = owner->_transform->GetWorldPosition();
 	tempY = rand->getHeight(look.x, look.z);
@@ -69,10 +73,7 @@ int bossActionMove::Update()
 
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
 	{
-		//int index = myUtil::RandomIntRange(0, 9);
-		//resultValue = list[index];
-		index = myUtil::RandomFloatRange(0.1f, 1.0f);
-		//index = 0.991f;
+
 	}
 
 
@@ -83,21 +84,21 @@ int bossActionMove::Update()
 	//float angle = D3DXVec3Dot(&temp->_transform->GetForward(), &tempVec);
 //	float angle = D3DXVec3Length(&(enemy->_transform->GetWorldPosition() - temp->_transform->GetWorldPosition()));
 
-	if (index >= 0.1f && index <= 0.96f)
+	if (index >= 0.1f && index <= 0.98f)
 	{
 		if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), enemy->_transform, &enemy->_boundBox))
 		{
 			return LHS::ACTIONRESULT::ACTION_ATT;
 		}
 	}
-	else if (index >= 0.96f && index <= 0.98f)
+	else if (index >= 0.98f && index <= 0.99f)
 	{
 		if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
 		{
 			return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
 		}
 	}
-	else if(index >= 0.98f && index <= 1.0f)
+	else if(index >= 0.99f && index <= 1.0f)
 	{
 		if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
 		{

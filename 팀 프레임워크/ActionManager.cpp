@@ -53,13 +53,13 @@ Action * ActionManager::getAction(string Name)
 		if (!actionMapIter->first.compare("일반시퀸스"))
 		{
 			land->getDijkstra().FindPath(singleMonster->_transform->GetWorldPosition(), player->_transform->GetWorldPosition());
-			return land->getDijkstra().OptimizedAction(*singleMonster, land, objectVector, singleMonster->_transform->GetWorldPosition(), player->_transform->GetWorldPosition());
+			return land->getDijkstra().OptimizedAction(*singleMonster, *player, *land, objectVector, singleMonster->_transform->GetWorldPosition(), player->_transform->GetWorldPosition());
 		}
 		else if (!actionMapIter->first.compare("일반재이동시퀸스"))
 		{
 			monster* temp = dynamic_cast<monster*>(singleMonster);
 			land->getDijkstra().FindPath(singleMonster->_transform->GetWorldPosition(), temp->getRegenPosition());
-			return land->getDijkstra().OptimizedAction(*singleMonster, land, objectVector, singleMonster->_transform->GetWorldPosition(), temp->getRegenPosition());
+			return land->getDijkstra().OptimizedAction(*singleMonster, *land, objectVector, singleMonster->_transform->GetWorldPosition(), temp->getRegenPosition());
 		}
 		actionMapIter->second->setEnemy(*player);
 		actionMapIter->second->setObject(objectVector);

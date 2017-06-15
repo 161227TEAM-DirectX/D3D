@@ -602,6 +602,7 @@
     </ClCompile>
     <ClCompile Include="monsterManager.cpp" />
     <ClCompile Include="ActionManager.cpp" />
+    <ClCompile Include="xNpc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -1014,6 +1015,7 @@
     </ClInclude>
     <ClInclude Include="monsterManager.h" />
     <ClInclude Include="ActionManager.h" />
+    <ClInclude Include="xNpc.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Texture_Gray.fx">

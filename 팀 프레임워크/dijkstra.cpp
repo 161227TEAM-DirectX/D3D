@@ -79,6 +79,9 @@ void dijkstra::FindPath(D3DXVECTOR3 vSt, D3DXVECTOR3 vDst/*, vector<baseObject*>
 	path.clear();
 	tempPath.clear();
 
+	//오류처리 노드가 없다면 길을 찾지 마라.
+	if (vecNode.size() <= 0) return;
+
 	for (int i = 0; i < vecNode.size(); i++)
 	{
 		//정점 코스트를 무한대로 설정
@@ -205,10 +208,30 @@ void dijkstra::FindPath(D3DXVECTOR3 vSt, D3DXVECTOR3 vDst/*, vector<baseObject*>
 	}
 }
 
-ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terrain* rand, vector<baseObject*>& object, D3DXVECTOR3 vStart, D3DXVECTOR3 vDest)
+ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terrain& rand, vector<baseObject*>& object, D3DXVECTOR3 vStart, D3DXVECTOR3 vDest)
 {
 	bool collision = false;
 	int startNodeIndex = -1;
+
+	if (path.size() <= 0)
+	{
+		ActionSeq* actionSeq = new ActionSeq;
+
+		ActionMove* aM = new ActionMove;
+
+		aM->setFrom(vStart);
+		aM->setTo(vDest);
+		aM->setActionTime(LHS::MOVETIME);
+		aM->setOwner(player);
+		aM->setRand(rand);
+		aM->setDelegate(actionSeq);
+		aM->setObject(object);
+		aM->setEnemy(enemy);
+		actionSeq->AddAction(aM);
+		aM = nullptr;
+
+		return actionSeq;
+	}
 
 	//시작지점에서 모든 노드를 확인하며 장애물이 있는지 파악 후 장애물이 없다면 직행으로 그 노드로 가는 방법
 	//
@@ -307,7 +330,7 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 			aM->setTo(vDest);
 			aM->setActionTime(LHS::MOVETIME);
 			aM->setOwner(player);
-			aM->setRand(*rand);
+			aM->setRand(rand);
 			aM->setDelegate(actionSeq);
 			aM->setObject(object);
 			aM->setEnemy(enemy);
@@ -332,7 +355,7 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 		aM->setActionTime(LHS::MOVETIME);
 		aM->setOwner(player);
 //		aM->changeAni();
-		aM->setRand(*rand);
+		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
 		aM->setEnemy(enemy);
@@ -348,7 +371,7 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 			aM->setObject(object);
 			aM->setOwner(player);
 //			aM->changeAni();
-			aM->setRand(*rand);
+			aM->setRand(rand);
 			aM->setEnemy(enemy);
 			aM->setDelegate(actionSeq);
 			actionSeq->AddAction(aM);
@@ -361,7 +384,7 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 		aM->setActionTime(LHS::MOVETIME);
 		aM->setOwner(player);
 //		aM->changeAni();
-		aM->setRand(*rand);
+		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
 		aM->setEnemy(enemy);
@@ -381,7 +404,7 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 		aM->setActionTime(LHS::MOVETIME);
 		aM->setOwner(player);
 //		aM->changeAni();
-		aM->setRand(*rand);
+		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
 		aM->setEnemy(enemy);
@@ -394,7 +417,7 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 		aM->setActionTime(LHS::MOVETIME);
 		aM->setOwner(player);
 //		aM->changeAni();
-		aM->setRand(*rand);
+		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
 		aM->setEnemy(enemy);
@@ -412,7 +435,7 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 		aM->setActionTime(LHS::MOVETIME);
 		aM->setOwner(player);
 //		aM->changeAni();
-		aM->setRand(*rand);
+		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
 		aM->setEnemy(enemy);
@@ -428,7 +451,7 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 			aM->setObject(object);
 			aM->setOwner(player);
 //			aM->changeAni();
-			aM->setRand(*rand);
+			aM->setRand(rand);
 			aM->setEnemy(enemy);
 			aM->setDelegate(actionSeq);
 			actionSeq->AddAction(aM);
@@ -441,7 +464,7 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 		aM->setActionTime(LHS::MOVETIME);
 		aM->setOwner(player);
 //		aM->changeAni();
-		aM->setRand(*rand);
+		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
 		aM->setEnemy(enemy);
@@ -452,10 +475,29 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 	return actionSeq;
 }
 
-ActionSeq * dijkstra::OptimizedAction(baseObject & player, terrain * rand, vector<baseObject*>& object, D3DXVECTOR3 vStart, D3DXVECTOR3 vDest)
+ActionSeq * dijkstra::OptimizedAction(baseObject & player, terrain & rand, vector<baseObject*>& object, D3DXVECTOR3 vStart, D3DXVECTOR3 vDest)
 {
 	bool collision = false;
 	int startNodeIndex = -1;
+
+	if (path.size() <= 0)
+	{
+		ActionSeq* actionSeq = new ActionSeq;
+
+		ActionReMove* aM = new ActionReMove;
+
+		aM->setFrom(vStart);
+		aM->setTo(vDest);
+		aM->setActionTime(LHS::MOVETIME);
+		aM->setOwner(player);
+		aM->setRand(rand);
+		aM->setDelegate(actionSeq);
+		aM->setObject(object);
+		actionSeq->AddAction(aM);
+		aM = nullptr;
+
+		return actionSeq;
+	}
 
 	//시작지점에서 모든 노드를 확인하며 장애물이 있는지 파악 후 장애물이 없다면 직행으로 그 노드로 가는 방법
 	//
@@ -554,7 +596,7 @@ ActionSeq * dijkstra::OptimizedAction(baseObject & player, terrain * rand, vecto
 			aM->setTo(vDest);
 			aM->setActionTime(LHS::MOVETIME);
 			aM->setOwner(player);
-			aM->setRand(*rand);
+			aM->setRand(rand);
 			aM->setDelegate(actionSeq);
 			aM->setObject(object);
 			actionSeq->AddAction(aM);
@@ -577,7 +619,7 @@ ActionSeq * dijkstra::OptimizedAction(baseObject & player, terrain * rand, vecto
 		aM->setTo(vecNode[path[startNodeIndex]]->getPosition());
 		aM->setActionTime(LHS::MOVETIME);
 		aM->setOwner(player);
-		aM->setRand(*rand);
+		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
 		actionSeq->AddAction(aM);
@@ -591,7 +633,7 @@ ActionSeq * dijkstra::OptimizedAction(baseObject & player, terrain * rand, vecto
 			aM->setActionTime(LHS::MOVETIME);
 			aM->setObject(object);
 			aM->setOwner(player);
-			aM->setRand(*rand);
+			aM->setRand(rand);
 			aM->setDelegate(actionSeq);
 			actionSeq->AddAction(aM);
 			aM = nullptr;
@@ -602,7 +644,7 @@ ActionSeq * dijkstra::OptimizedAction(baseObject & player, terrain * rand, vecto
 		aM->setTo(vDest);
 		aM->setActionTime(LHS::MOVETIME);
 		aM->setOwner(player);
-		aM->setRand(*rand);
+		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
 		actionSeq->AddAction(aM);
@@ -620,7 +662,7 @@ ActionSeq * dijkstra::OptimizedAction(baseObject & player, terrain * rand, vecto
 		aM->setTo(vecNode[path[startNodeIndex]]->getPosition());
 		aM->setActionTime(LHS::MOVETIME);
 		aM->setOwner(player);
-		aM->setRand(*rand);
+		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
 		actionSeq->AddAction(aM);
@@ -631,7 +673,7 @@ ActionSeq * dijkstra::OptimizedAction(baseObject & player, terrain * rand, vecto
 		aM->setTo(vDest);
 		aM->setActionTime(LHS::MOVETIME);
 		aM->setOwner(player);
-		aM->setRand(*rand);
+		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
 		actionSeq->AddAction(aM);
@@ -647,7 +689,7 @@ ActionSeq * dijkstra::OptimizedAction(baseObject & player, terrain * rand, vecto
 		aM->setTo(vecNode[path[path.size() - 1]]->getPosition());
 		aM->setActionTime(LHS::MOVETIME);
 		aM->setOwner(player);
-		aM->setRand(*rand);
+		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
 		actionSeq->AddAction(aM);
@@ -661,7 +703,7 @@ ActionSeq * dijkstra::OptimizedAction(baseObject & player, terrain * rand, vecto
 			aM->setActionTime(LHS::MOVETIME);
 			aM->setObject(object);
 			aM->setOwner(player);
-			aM->setRand(*rand);
+			aM->setRand(rand);
 			aM->setDelegate(actionSeq);
 			actionSeq->AddAction(aM);
 			aM = nullptr;
@@ -672,7 +714,7 @@ ActionSeq * dijkstra::OptimizedAction(baseObject & player, terrain * rand, vecto
 		aM->setTo(vDest);
 		aM->setActionTime(LHS::MOVETIME);
 		aM->setOwner(player);
-		aM->setRand(*rand);
+		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
 		actionSeq->AddAction(aM);

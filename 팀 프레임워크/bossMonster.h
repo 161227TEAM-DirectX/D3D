@@ -16,5 +16,7 @@ public:
 	void baseObjectUpdate() override;			//BaseObject가 Update 때 실행
 	void baseObjectNoActiveUpdate() override;	//BaseObject가 비활성화시 업데이트 실행
 	void baseObjectRender() override;			//BaseObject를 그릴때 실행
+
+	void switchState(void);
 };
 

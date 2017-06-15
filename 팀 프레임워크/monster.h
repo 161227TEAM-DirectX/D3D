@@ -16,7 +16,7 @@ const int MINGS = 500;
 const int DEFAULTATT = 200;
 const int DEFAULTDEF = 50;
 const float RANGE = 50.0f;
-const float BOSSRANGE = 90.0f;
+const float BOSSRANGE = 45.0f;
 
 class monster : public baseObject
 {

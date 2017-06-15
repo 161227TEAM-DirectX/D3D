@@ -31,7 +31,7 @@ HRESULT xPlayer::init()
 	_jumpSpeed = 3.0f;
 	_jumpHeight = 0.0f;
 
-	_moveSpeed = 3.0f;
+	_moveSpeed = 0.5f;
 
 	_isOnBattle = false;
 
