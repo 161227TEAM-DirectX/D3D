@@ -70,7 +70,8 @@ int bossActionMove::Update()
 	{
 		//int index = myUtil::RandomIntRange(0, 9);
 		//resultValue = list[index];
-		index = myUtil::RandomFloatRange(0.1f, 1.0f);
+		//index = myUtil::RandomFloatRange(0.1f, 1.0f);
+		index = 0.981f;
 	}
 
 

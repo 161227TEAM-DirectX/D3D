@@ -19,20 +19,20 @@ int bossActionAttack::Start()
 	owner->getSkinnedAnim().Play("Animation_12");
 
 	//확률을 위한 벡터 및 시드 초기화
-	int seed = 0;
+	//int seed = 0;
 
-	seed = 1;
-	for (int i = 0; i < 5; i++)
-	{
-		list.push_back(seed);
-	}
-	seed = 2;
-	list.push_back(seed);
-	list.push_back(seed);
-	seed = 3;
-	list.push_back(seed);
-	list.push_back(seed);
-	list.push_back(seed);
+	//seed = 1;
+	//for (int i = 0; i < 5; i++)
+	//{
+	//	list.push_back(seed);
+	//}
+	//seed = 2;
+	//list.push_back(seed);
+	//list.push_back(seed);
+	//seed = 3;
+	//list.push_back(seed);
+	//list.push_back(seed);
+	//list.push_back(seed);
 
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
 }
@@ -71,10 +71,29 @@ int bossActionAttack::Update()
 		//적이 나의 hit박스 안에 없다면 이동해라.
 		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), enemy->_transform, &enemy->_boundBox))
 		{
-			int index = myUtil::RandomIntRange(0, 9);
-			resultValue = list[index];
+			//int index = myUtil::RandomIntRange(0, 9);
+			resultValue = myUtil::RandomFloatRange(0.1f, 1.0f);
 
-			switch (resultValue)
+			if (resultValue >= 0.1f && resultValue <= 0.98f)
+			{
+				return LHS::ACTIONRESULT::ACTION_MOVE;
+			}
+			else if (resultValue >= 0.98f && 0.99f)
+			{
+				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
+				{
+					return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
+				}
+			}
+			else if (resultValue >= 0.99f && resultValue <= 1.0f)
+			{
+				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
+				{
+					return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
+				}
+			}
+
+		/*	switch (resultValue)
 			{
 			case 1:
 				return LHS::ACTIONRESULT::ACTION_MOVE;
@@ -91,7 +110,7 @@ int bossActionAttack::Update()
 					return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
 				}
 				break;
-			}
+			}*/
 		}
 	}
 

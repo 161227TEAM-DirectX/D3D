@@ -3,7 +3,7 @@
 
 
 bossActionSkillBattleRoar::bossActionSkillBattleRoar()
-	:Action()
+	:Action(), resultValue(0.0f), dotTime(2.0f), passedTime(0), attackStyle(555)
 {
 }
 
@@ -19,18 +19,45 @@ int bossActionSkillBattleRoar::Start()
 	//보스몬스터의 공격모션 아무거나 시작.
 	owner->getSkinnedAnim().Play("Animation_13");
 
+	//공격방식 변경 -> 0이면 스턴을 위한 방식 / 1이면 range범위에서의 전방위 마법공격 -> 둘다 도트뎀(데미지는 마법공격이 더 강하도록 설정)
+	attackStyle = myUtil::RandomIntRange(0, 1);
+
+
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
 }
 
 int bossActionSkillBattleRoar::Update()
 {
-	if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.99f)
+	//배틀로어 애니메이션이 끝나면 
+	if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
 	{
-		owner->getSkinnedAnim().Stop();
-		return LHS::ACTIONRESULT::ACTION_ATT;
+		return LHS::ACTIONRESULT::ACTION_MOVE;
 	}
 
+	dotTime -= 0.08f;
 	//공격에 따른 범위가 필요, 공격 범위에 있는 존재는 스턴에 걸림, 스턴에 걸린 상태로 도트대미지 적용필요.
+	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
+	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
+	{
+		switch (attackStyle)
+		{
+		case 0:
+			//적의 HP를 감소시키자. 마법공격. -> 데미지는 높지만 스턴을 걸지 않는다.
+			if (dotTime < 0)
+			{
+				dotTime = 2.0f;
+
+			}
+			break;
+		case 1:
+			if (dotTime < 0)
+			{
+				dotTime = 2.0f;
+				//플레이어의 상태를 스턴으로 변경해야 한다. 데미지는 마법공격보다 낮게 책정.
+			}
+			break;
+		}
+	}
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }

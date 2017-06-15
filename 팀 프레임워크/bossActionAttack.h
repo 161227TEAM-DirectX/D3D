@@ -7,7 +7,7 @@ private:
 	float passedTime;
 	float activeTime;
 
-	int resultValue;
+	float resultValue;
 	vector<int> list;
 public:
 	bossActionAttack();
