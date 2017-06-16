@@ -1,11 +1,9 @@
 #pragma once
 #include "monster.h"
-//class bossActionControl;
 class bossMonster : public monster
 {
 private:
 	int Frequency;								//ºóµµÀ²
-//	bossActionControl* control;
 public:
 	bossMonster();
 	~bossMonster();

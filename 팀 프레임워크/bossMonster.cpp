@@ -5,20 +5,18 @@
 
 bossMonster::bossMonster() : monster(), Frequency(0)
 {
-//	control = new bossActionControl(this);
 }
 
 
 bossMonster::~bossMonster()
 {
-//	SAFE_DELETE(control);
 }
 
 void bossMonster::baseObjectEnable()
 {
 	D3DXVECTOR3 temp(_boundBox._localCenter);
 	temp.z = _boundBox._localMaxPos.z;
-	//경계박스 - 보스에게 필요한지는 의문이다..... 필요 하겠지?
+	//경계박스
 	range.setBound(&D3DXVECTOR3(0.0f, 0.0f, 0.0f), &D3DXVECTOR3(_transform->GetScale().x * BOSSRANGE, _transform->GetScale().y * BOSSRANGE, _transform->GetScale().z * BOSSRANGE));
 
 	//충돌박스
@@ -32,9 +30,8 @@ void bossMonster::baseObjectEnable()
 	def = DEFAULTDEF;
 
 	//컨트롤에 의한 초기 액션
-	CurrAction = ACMANAGER->getAction("보스시네마");
+	CurrAction = ACMANAGER->getAction("보스시네마", *this);
 	result = (LHS::ACTIONRESULT)CurrAction->Start();
-//	control->Init(CurrAction, result);
 }
 
 void bossMonster::baseObjectDisable()
@@ -43,7 +40,6 @@ void bossMonster::baseObjectDisable()
 
 void bossMonster::baseObjectUpdate()
 {
-	//control->switchState(result);
 	switchState();
 
 	if (NextAction != nullptr)
@@ -77,10 +73,10 @@ void bossMonster::switchState(void)
 	switch (result)
 	{
 	case LHS::ACTION_ATT:
-		NextAction = ACMANAGER->getAction("보스공격");
+		NextAction = ACMANAGER->getAction("보스공격", *this);
 		break;
 	case LHS::ACTION_DIE:
-		NextAction = ACMANAGER->getAction("보스죽음");
+		NextAction = ACMANAGER->getAction("보스죽음", *this);
 		break;
 	case LHS::ACTION_FAIL:
 		MessageBox(nullptr, "문제가 발생했어요 뿌우~", "ㅋㅋ", MB_OK);
@@ -88,10 +84,10 @@ void bossMonster::switchState(void)
 		break;
 	case LHS::ACTION_FINISH:
 		MessageBox(nullptr, "문제가 발생했어요 뿌우~", "ㅋㅋ", MB_OK);
-		NextAction = ACMANAGER->getAction("보스이동");
+		NextAction = ACMANAGER->getAction("보스이동", *this);
 		break;
 	case LHS::ACTION_MOVE:
-		NextAction = ACMANAGER->getAction("보스이동");
+		NextAction = ACMANAGER->getAction("보스이동", *this);
 		break;
 	case LHS::ACTION_NONE:
 		break;
@@ -100,13 +96,13 @@ void bossMonster::switchState(void)
 	case LHS::ACTION_REMOVE:
 		break;
 	case LHS::ACTION_SKILL_TAIL:
-		NextAction = ACMANAGER->getAction("꼬리공격");
+		NextAction = ACMANAGER->getAction("꼬리공격", *this);
 		break;
 	case LHS::ACTION_SKILL_FIRE:
-		NextAction = ACMANAGER->getAction("보스브레스");
+		NextAction = ACMANAGER->getAction("보스브레스", *this);
 		break;
 	case LHS::ACTION_SKILL_BATTLE_ROAR:
-		NextAction = ACMANAGER->getAction("배틀로어");
+		NextAction = ACMANAGER->getAction("배틀로어", *this);
 		break;
 	}
 }

@@ -7,6 +7,7 @@ private:
 	D3DXVECTOR3 to;
 	D3DXVECTOR3 from;
 	D3DXVECTOR3 range;
+	dx::transform	rotateTemp;
 
 	bool ch;
 	int resultValue;

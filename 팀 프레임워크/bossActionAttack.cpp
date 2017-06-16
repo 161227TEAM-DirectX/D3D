@@ -59,7 +59,6 @@ int bossActionAttack::Update()
 		//적이 나의 hit박스 안에 없다면 이동해라.
 		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), enemy->_transform, &enemy->_boundBox))
 		{
-			//int index = myUtil::RandomIntRange(0, 9);
 			resultValue = myUtil::RandomFloatRange(0.1f, 1.0f);
 
 			if (resultValue >= 0.1f && resultValue <= 0.98f)

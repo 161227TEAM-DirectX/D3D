@@ -4,8 +4,6 @@
 #include "terrain.h"
 #include "monster.h"
 
-//const float RANGE = 20.0f;
-
 class ActionStanding : public Action
 {
 private:

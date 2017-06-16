@@ -21,9 +21,6 @@ const float BOSSRANGE = 45.0f;
 class monster : public baseObject
 {
 private:
-//	terrain*				linkTerrain;			//링크되서 받아오는 지형클래스
-//	vector<baseObject*>*	linkObject;				//참조함수를 통해 받아오는 오브젝트(건물)들의 벡터
-//	baseObject*				player;					//플레이어 정보 참조용
 
 protected:
 	int HP;										//체력
@@ -65,22 +62,10 @@ public:
 	inline void setRegenPosition(const D3DXVECTOR3& temp) { this->regenPosition = temp; }
 	inline void setRegenPosition(const float& x, const float& y, const float& z) { setRegenPosition(D3DXVECTOR3(x, y, z)); }
 
-//	inline void LinkTerrain(terrain& temp) { linkTerrain = &temp; };
-//	inline terrain& getTerrain(void) { return *linkTerrain; }
-
-//	inline void LinkObject(vector<baseObject*>& temp) { linkObject = &temp; }
-//	inline vector<baseObject*>& getObject(void) { return *linkObject; }
-
-//	inline void LinkPlayer(baseObject* player) { this->player = player; }
-//	inline baseObject& getPlayer(void) { return *player; }
-
 	inline boundBox& getRange(void) { return range; }
 	inline boundBox& getHitBox(void) { return hitBox; }
 
 	inline LHS::ACTIONRESULT& getResult(void) { return result; }
-
-//	inline void setNextAction(Action* Next) { this->NextAction = Next; }
-//	inline Action& getNextAction(void) { return *NextAction; }
 
 	//override로 필요하면 재정의 해서 사용하기
  	virtual void baseObjectEnable() override;			//BaseObject가 활성화 될때 실행
