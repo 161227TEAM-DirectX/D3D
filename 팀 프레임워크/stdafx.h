@@ -130,6 +130,7 @@ using namespace myUtil;
 #include "spriteManager.h"
 #include "ioBaseManager.h"
 #include "dxParticleSystemManager.h"
+#include "soundManager.h"
 
 #include "cObjectManager.h"
 #include "cTextureManager.h"
@@ -154,7 +155,7 @@ using namespace myUtil;
 #define IOBASEMANAGER ioBaseManager::getSingleton()
 #define PSM	dxParticleSystemManager::getSingleton()
 #define PLAYERMANAGER xPlayerStatus::getSingleton()
-
+#define SOUNDMANAGER soundManager::getSingleton()
 
 //====================================================================
 //			## ΩÃ±€≈Ê(∏≈≈©∑Œ) ##

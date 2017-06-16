@@ -3,6 +3,18 @@
 
 HRESULT kimsTestScene::init(void)
 {
+
+	//사운드 추가
+	SOUNDMANAGER->addSound("사운드1", "Resources/Sound/브금.mp3", true, true);
+	SOUNDMANAGER->addSound("사운드2", "Resources/Sound/브금1.mp3", true, true);
+
+
+	//사운드 재생
+	SOUNDMANAGER->play("사운드1");
+
+	
+
+
 	_terrain = new terrain;
 	_terrain->init(
 		"Resources/Textures/MyHeight512.bmp",
@@ -172,6 +184,14 @@ void kimsTestScene::release(void)
 
 void kimsTestScene::update(void)
 {
+
+	//사운드 재생
+	if (KEYMANAGER->isOnceKeyDown('G'))
+	{
+		//SOUNDMANAGER->stop("사운드1");
+		SOUNDMANAGER->play("사운드2");
+	}
+
 	_sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
 
 	_thrall->update();

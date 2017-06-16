@@ -26,7 +26,7 @@ HRESULT mainGame::init(void)
 //이현수 씬 테스트 헤더파일
 //===================================================================================
 	//씬추가
-	SCENEMANAGER->addScene("test", new terrainPickingTest);
+	//SCENEMANAGER->addScene("test", new terrainPickingTest);
 	
 
 //===================================================================================
@@ -39,7 +39,7 @@ HRESULT mainGame::init(void)
 //===================================================================================
 //김태훈 씬 테스트 헤더파일
 //===================================================================================
-	//SCENEMANAGER->addScene("test", new kimsTestScene);
+	SCENEMANAGER->addScene("test", new kimsTestScene);
 
 //===================================================================================
 //김태승 씬 테스트 헤더파일
@@ -67,6 +67,7 @@ void mainGame::update(void)
 {
 	//씬매니져 업데이트
 	SCENEMANAGER->update();
+	SOUNDMANAGER->update();
 }
 
 //==================================================================
@@ -128,6 +129,7 @@ void mainGame::initManager(void)
 	PHYSICSMANAGER->init();				//피직스매니져 초기화
 	SPRITEMANAGER->init();				//스프라이트매니져 초기화
 	PSM->ParticleSystemSetInit();		//파티클시스템매니져 초기화
+	SOUNDMANAGER->init();
 }
 
 //==================================================================
@@ -168,6 +170,9 @@ void mainGame::releaseManager(void)
 	//파티클시스템매니져 싱글톤 해제
 	PSM->ParticleSystemSetRelease();
 	PSM->releaseSingleton();
+
+	SOUNDMANAGER->release();
+	SOUNDMANAGER->releaseSingleton();
 
 	//디바이스 해제
 	ReleaseDevice();

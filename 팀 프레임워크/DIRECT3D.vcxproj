@@ -272,6 +272,7 @@
     <ClInclude Include="skinnedAnimation.h" />
     <ClInclude Include="SK_Boss00.h" />
     <ClInclude Include="SK_Effect00.h" />
+    <ClInclude Include="soundManager.h" />
     <ClInclude Include="spriteManager.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="terrain.h" />
@@ -412,6 +413,7 @@
     <ClCompile Include="skinnedAnimation.cpp" />
     <ClCompile Include="SK_Boss00.cpp" />
     <ClCompile Include="SK_Effect00.cpp" />
+    <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="spriteManager.cpp" />
     <ClCompile Include="terrain.cpp" />
     <ClCompile Include="terrainPickingTest.cpp" />

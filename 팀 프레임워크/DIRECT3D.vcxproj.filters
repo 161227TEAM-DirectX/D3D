@@ -190,6 +190,12 @@
     <Filter Include="Z테스트\김태훈\xPlayer">
       <UniqueIdentifier>{7347c473-da58-457e-a5fa-2da6de176e8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Z테스트\김태훈\FMOD">
+      <UniqueIdentifier>{cdd219b6-6f75-4ce1-ac47-b114f362ada4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\김태훈\xNpc">
+      <UniqueIdentifier>{0a6fa222-fb53-41f1-9cba-f68ea572cf1a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -602,7 +608,12 @@
     </ClCompile>
     <ClCompile Include="monsterManager.cpp" />
     <ClCompile Include="ActionManager.cpp" />
-    <ClCompile Include="xNpc.cpp" />
+    <ClCompile Include="xNpc.cpp">
+      <Filter>Z테스트\김태훈\xNpc</Filter>
+    </ClCompile>
+    <ClCompile Include="soundManager.cpp">
+      <Filter>Z테스트\김태훈\FMOD</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -1015,7 +1026,12 @@
     </ClInclude>
     <ClInclude Include="monsterManager.h" />
     <ClInclude Include="ActionManager.h" />
-    <ClInclude Include="xNpc.h" />
+    <ClInclude Include="xNpc.h">
+      <Filter>Z테스트\김태훈\xNpc</Filter>
+    </ClInclude>
+    <ClInclude Include="soundManager.h">
+      <Filter>Z테스트\김태훈\FMOD</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Texture_Gray.fx">
