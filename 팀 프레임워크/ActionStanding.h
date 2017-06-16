@@ -8,7 +8,6 @@ class ActionStanding : public Action
 {
 private:
 	float PassedTime;
-	boundBox temp;
 protected:
 	float actionTime;
 public:

@@ -40,7 +40,7 @@ int ActionMove::Update()
 		owner->_transform->SetWorldPosition(to);
 
 		//플레이어가 내 탐색 범위를 벗어나게 되면 스탠딩 상태로 돌아간다.
-		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
+		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 		{
 			if (deleGate) deleGate->OnActionFinish(this, true);
 
@@ -86,7 +86,7 @@ int ActionMove::Update()
 	}
 
 	//적과 나의 바운드 박스가 충돌했는가?
-	if (PHYSICSMANAGER->isOverlap(owner->_transform, &owner->_boundBox, enemy->_transform, &enemy->_boundBox))
+	if (PHYSICSMANAGER->isOverlap(owner->_transform, &owner->_boundBox, playerObject->_transform, &playerObject->_boundBox))
 	{
 		if (deleGate) deleGate->OnActionFinish(this, true);
 

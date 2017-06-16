@@ -56,7 +56,7 @@ HRESULT terrainPickingTest::init(void)
 	//InitMonster();
 	
 
-	ACMANAGER->Init(*_terrain, testObject, *_player->getPlayerObject()/*, mon*/);
+	ACMANAGER->Init(*_terrain, testObject, *_player/*->getPlayerObject(), mon*/);
 
 	//for (int i = 0; i < mon.size(); i++)
 	//{
@@ -163,8 +163,8 @@ void terrainPickingTest::render(void)
 	//}
 	xMeshStatic::setTechniqueName("ReciveShadow");
 	xMeshStatic::setBaseLight(this->_sceneBaseDirectionLight);
-
 	xMeshSkinned::setCamera(_mainCamera);
+
 	//xMeshSkinned::setTechniqueName("ReciveShadow");
 	xMeshSkinned::setTechniqueName("Toon");
 	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resources/Testures/Ramp_1.png"));

@@ -18,7 +18,7 @@ int bossActionSkillFire::Start()
 
 	//보스몬스터의 공격모션 아무거나 시작.
 	owner->getSkinnedAnim().Play("Animation_65", 1.0f);
-	owner->getSkinnedAnim().SetPlaySpeed(1.0f);
+	owner->getSkinnedAnim().SetPlaySpeed(0.3f);
 
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
 }
@@ -27,20 +27,21 @@ int bossActionSkillFire::Update()
 {
 	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
 
-	PHYSICSMANAGER->isBlocking(owner, enemy);
+	PHYSICSMANAGER->isBlocking(owner, playerObject);
 
 	if (!strcmp(owner->getSkinnedAnim().getAnimationSet()->GetName(), "Animation_65"))
 	{
 		if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
 		{
 			owner->getSkinnedAnim().Play("Animation_14");
+			owner->getSkinnedAnim().SetPlaySpeed(1.0f);
 		}
 
 		return LHS::ACTIONRESULT::ACTION_PLAY;
 	}
 
 	dotTime -= 0.5f;
-	D3DXVECTOR3 enemyNormal = enemy->_transform->GetWorldPosition() - temp->_transform->GetWorldPosition();
+	D3DXVECTOR3 enemyNormal = playerObject->_transform->GetWorldPosition() - temp->_transform->GetWorldPosition();
 	D3DXVec3Normalize(&enemyNormal, &enemyNormal);
 	float angle = D3DXVec3Dot(&temp->_transform->GetForward(), &enemyNormal);
 
@@ -54,6 +55,7 @@ int bossActionSkillFire::Update()
 			if (dotTime < 0)
 			{
 				dotTime = 2.0f;
+				PLAYERMANAGER->SetHp( PLAYERMANAGER->GetHp() - ((float)temp->getAtt() * myUtil::RandomFloatRange(0.05f, 0.09f)));
 				cout << "mForword.x : " << temp->_transform->GetForward().x << "mForword.y : " << temp->_transform->GetForward().y << "mForword.z : " << temp->_transform->GetForward().z << endl;
 				cout << "enemy.x:" << enemyNormal.x << "enemy.y:" << enemyNormal.y << "enemy.z:" << enemyNormal.z << endl;
 				//

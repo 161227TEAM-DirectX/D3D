@@ -10,6 +10,8 @@ bossMonster::bossMonster() : monster(), Frequency(0)
 
 bossMonster::~bossMonster()
 {
+	SAFE_DELETE(CurrAction);
+	SAFE_DELETE(NextAction);
 }
 
 void bossMonster::baseObjectEnable()
@@ -22,12 +24,12 @@ void bossMonster::baseObjectEnable()
 	//충돌박스
 	hitBox.setBound(&temp, &D3DXVECTOR3(_transform->GetScale().x * 2.6f, temp.y*1.9f, _transform->GetScale().z * 2.9f));
 
-	HP = myUtil::RandomIntRange(MINHM, MAXHM);
-	mana = myUtil::RandomIntRange(MINHM, MAXHM);
-	gold = myUtil::RandomIntRange(MINGS, MAXGS);
-	soul = myUtil::RandomIntRange(MINGS, MAXGS);
-	att = DEFAULTATT;
-	def = DEFAULTDEF;
+	HP = 100000;
+	mana = 10000;
+	gold = 10000;
+	soul = 100;
+	att = 1000;
+	def = 550;
 
 	//컨트롤에 의한 초기 액션
 	CurrAction = ACMANAGER->getAction("보스시네마", *this);
@@ -36,6 +38,9 @@ void bossMonster::baseObjectEnable()
 
 void bossMonster::baseObjectDisable()
 {
+	SAFE_DELETE(CurrAction);
+	SAFE_DELETE(NextAction);
+	_transform->SetWorldPosition(0.0f, 0.0f, 0.0f);
 }
 
 void bossMonster::baseObjectUpdate()
@@ -44,7 +49,7 @@ void bossMonster::baseObjectUpdate()
 
 	if (NextAction != nullptr)
 	{
-		CurrAction = nullptr;
+		SAFE_DELETE(CurrAction);
 		CurrAction = NextAction;
 		result = (LHS::ACTIONRESULT)CurrAction->Start();
 		NextAction = nullptr;
@@ -90,6 +95,7 @@ void bossMonster::switchState(void)
 		NextAction = ACMANAGER->getAction("보스이동", *this);
 		break;
 	case LHS::ACTION_NONE:
+		setActive(false);
 		break;
 	case LHS::ACTION_PLAY:
 		return;

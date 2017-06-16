@@ -43,14 +43,14 @@ int bossActionMove::Update()
 	index = myUtil::RandomFloatRange(0.1f, 1.0f);
 	//index = 0.991f;
 
-	PHYSICSMANAGER->isBlocking(owner, enemy);
+	PHYSICSMANAGER->isBlocking(owner, playerObject);
 	//몬스터의 현재 위치를 저장한다.
 	from = owner->_transform->GetWorldPosition();
 	rotateTemp = *owner->_transform;
 	//플레이어의 위치의 y값을 가져와 저장한다.
-	float tempY = rand->getHeight(enemy->_transform->GetWorldPosition().x, enemy->_transform->GetWorldPosition().z);
+	float tempY = rand->getHeight(playerObject->_transform->GetWorldPosition().x, playerObject->_transform->GetWorldPosition().z);
 	//현재 플레이어의 위치를 to에 저장한다.
-	to = D3DXVECTOR3(enemy->_transform->GetWorldPosition().x, tempY, enemy->_transform->GetWorldPosition().z);
+	to = D3DXVECTOR3(playerObject->_transform->GetWorldPosition().x, tempY, playerObject->_transform->GetWorldPosition().z);
 	//몬스터는 플레이어를 바라보도록 설정한다.
 	owner->_transform->LookPosition(to);
 
@@ -68,21 +68,21 @@ int bossActionMove::Update()
 
 	if (index >= 0.1f && index <= 0.98f)
 	{
-		if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), enemy->_transform, &enemy->_boundBox))
+		if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
 		{
 			return LHS::ACTIONRESULT::ACTION_ATT;
 		}
 	}
 	else if (index >= 0.98f && index <= 0.99f)
 	{
-		if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
+		if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 		{
 			return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
 		}
 	}
 	else if(index >= 0.99f && index <= 1.0f)
 	{
-		if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
+		if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 		{
 			return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
 		}

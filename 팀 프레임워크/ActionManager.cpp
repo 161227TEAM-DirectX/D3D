@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "xPlayer.h"
 #include "monster.h"
 #include "ActionManager.h"
 #include "Action.h"
@@ -45,8 +46,8 @@ Action * ActionManager::getAction(string Name, baseObject& who)
 	else if (!actionName[1].compare(Name)) temp = new ActionDie;
 	else if (!actionName[2].compare(Name))
 	{
-		land->getDijkstra().FindPath(who._transform->GetWorldPosition(), player->_transform->GetWorldPosition());
-		return land->getDijkstra().OptimizedAction(who, *player, *land, objectVector, who._transform->GetWorldPosition(), player->_transform->GetWorldPosition());
+		land->getDijkstra().FindPath(who._transform->GetWorldPosition(), player->getPlayerObject()->_transform->GetWorldPosition());
+		return land->getDijkstra().OptimizedAction(who, *player->getPlayerObject(), *land, objectVector, who._transform->GetWorldPosition(), player->getPlayerObject()->_transform->GetWorldPosition());
 	}
 	else if (!actionName[3].compare(Name))
 	{
@@ -64,6 +65,7 @@ Action * ActionManager::getAction(string Name, baseObject& who)
 	else if (!actionName[11].compare(Name)) temp = new bossActionSkillTailAtt;
 
 	temp->setEnemy(*player);
+	temp->setPlayerObject(*player->getPlayerObject());
 	temp->setObject(objectVector);
 	temp->setOwner(who);
 	temp->setRand(*land);

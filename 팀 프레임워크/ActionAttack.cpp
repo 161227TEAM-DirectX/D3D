@@ -39,7 +39,7 @@ int ActionAttack::Update()
 
 	monster* temp = dynamic_cast<monster*>(owner);
 	//적이 나의 hit박스 안에 있는가?
-	if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->_boundBox, enemy->_transform, &enemy->_boundBox))
+	if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->_boundBox, playerObject->_transform, &playerObject->_boundBox))
 	{
 		owner->getSkinnedAnim().Stop();
 		return LHS::ACTIONRESULT::ACTION_MOVE;

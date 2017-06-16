@@ -21,7 +21,6 @@ const float BOSSRANGE = 45.0f;
 class monster : public baseObject
 {
 private:
-
 protected:
 	int HP;										//Ã¼·Â
 	int gold;									//µ·

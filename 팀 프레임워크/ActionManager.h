@@ -3,6 +3,7 @@
 class Action;
 class terrain;
 class baseObject;
+class xPlayer;
 
 #define ACMANAGER ActionManager::GetInstance()
 
@@ -12,13 +13,13 @@ private:
 	vector<string> actionName;
 	terrain* land;
 	vector<baseObject*> objectVector;
-	baseObject* player;
+	xPlayer*	player;
 public:
 	ActionManager();
 	~ActionManager();
 
 	//지형, 오브젝트벡터, 플레이어, 몬스터벡터
-	void Init(terrain& temp, vector<baseObject*>& object, baseObject& player)
+	void Init(terrain& temp, vector<baseObject*>& object, xPlayer& player)
 	{
 		linkTerrain(temp);
 		linkObjectVector(object);
@@ -27,7 +28,7 @@ public:
 
 	void linkTerrain(terrain& temp) { this->land = &temp; }
 	void linkObjectVector(vector<baseObject*>& temp) { objectVector = temp; }
-	void linkPlayer(baseObject& temp) { this->player = &temp; }
+	void linkPlayer(xPlayer& temp) { this->player = &temp; }
 
 	Action* getAction(string, baseObject&);
 	void clearAction(void);
