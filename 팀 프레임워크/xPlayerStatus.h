@@ -68,6 +68,7 @@ private:
 	SYNTHESIZE(int, _mAtt, mAtt);
 	SYNTHESIZE(int, _def, Def);
 	SYNTHESIZE(int, _mDef, mDef);
+	SYNTHESIZE(float, _crit, Crit);
 	SYNTHESIZE(int, _hp, Hp);
 	SYNTHESIZE(int, _mp, Mp);
 	SYNTHESIZE(PL_WEAPON, _weapon, Weapon);

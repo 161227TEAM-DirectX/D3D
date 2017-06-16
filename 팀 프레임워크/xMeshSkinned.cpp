@@ -159,7 +159,7 @@ void xMeshSkinned::render(dx::transform * pTrans)
 	if (pTrans != NULL)
 	{
 		D3DXMATRIXA16 matWorld = pTrans->GetFinalMatrix();
-		matFinal = _matCorrection * matWorld;
+		matFinal = _matCorrection * matWorld; //;
 	}
 	else
 	{

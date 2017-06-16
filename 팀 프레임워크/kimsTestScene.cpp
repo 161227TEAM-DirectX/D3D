@@ -3,18 +3,6 @@
 
 HRESULT kimsTestScene::init(void)
 {
-
-	//사운드 추가
-	SOUNDMANAGER->addSound("사운드1", "Resources/Sound/브금.mp3", true, true);
-	SOUNDMANAGER->addSound("사운드2", "Resources/Sound/브금1.mp3", true, true);
-
-
-	//사운드 재생
-	SOUNDMANAGER->play("사운드1");
-
-	
-
-
 	_terrain = new terrain;
 	_terrain->init(
 		"Resources/Textures/MyHeight512.bmp",
@@ -148,8 +136,16 @@ HRESULT kimsTestScene::init(void)
 	_thrall = new xNpc;
 	_thrall->setlinkTerrain(*_terrain);
 	_thrall->init(0, 0, "상인쓰랄");
-	_thrall->setCamera(_mainCamera);
-	_renderObjects.push_back(_thrall->getNpcObject());
+
+	_sylvanas = new xNpc;
+	_sylvanas->setlinkTerrain(*_terrain);
+	_sylvanas->init(0, 5, "시바나스");
+
+	//_thrall->setCamera(_mainCamera);
+	//_renderObjects.push_back(_sylvanas->getNpcObject());
+	//_renderObjects.push_back(_thrall->getNpcObject());
+
+	SOUNDMANAGER->play("마을1", 0.5f);
 
 	return S_OK;
 }
@@ -168,7 +164,10 @@ void kimsTestScene::release(void)
 		SAFE_DELETE(this->_renderObjects[i]);
 	}
 	SAFE_DELETE(_player);
+
 	SAFE_DELETE(_thrall);
+
+	SAFE_DELETE(_sylvanas);
 
 	//지형과 지형그림자 해제
 	SAFE_DELETE(this->_terrain);
@@ -188,13 +187,19 @@ void kimsTestScene::update(void)
 	//사운드 재생
 	if (KEYMANAGER->isOnceKeyDown('G'))
 	{
-		//SOUNDMANAGER->stop("사운드1");
-		SOUNDMANAGER->play("사운드2");
+		SOUNDMANAGER->play("필드1");
+	}
+	if (KEYMANAGER->isOnceKeyDown('H'))
+	{
+		SOUNDMANAGER->play("마을1");
 	}
 
 	_sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
 
+	_thrall->setCamera(this->_mainCamera);
+	_sylvanas->setCamera(this->_mainCamera);
 	_thrall->update();
+	_sylvanas->update();
 	_player->update();
 	
 	for (int i = 0; i < this->_renderObjects.size(); i++)

@@ -17,6 +17,7 @@ camera::camera() : _isOrtho(FALSE), _renderTexture(NULL), _renderSurface(NULL), 
 camera::~camera()
 {
 	SAFE_RELEASE(_renderTexture);
+	
 	SAFE_RELEASE(_renderSurface);
 }
 

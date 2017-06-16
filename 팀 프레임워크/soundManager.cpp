@@ -18,6 +18,10 @@ HRESULT soundManager::init(void)
 	memset(_channel, 0, sizeof(Channel*) * TOTALSOUNDBUFFER);
 
 
+	SOUNDMANAGER->addSound("마을1", "Resources/Sound/TownBGM1.mp3", true, true);
+	SOUNDMANAGER->addSound("필드1", "Resources/Sound/FieldBGM1.mp3", true, true);
+	SOUNDMANAGER->addSound("보스1", "Resources/Sound/BossBGM1.mp3", true, true);
+
 	return S_OK;
 }
 
@@ -26,7 +30,7 @@ void soundManager::release(void)
 	//사운드 및 채널 삭제
 	if (_channel != NULL || _sound != NULL)
 	{
-		for (int i = 0; i < TOTALSOUNDBUFFER; i++)
+		for (int i = 0; i < _mTotalSounds.size(); i++)
 		{
 			if (_channel != NULL)
 			{
@@ -42,6 +46,7 @@ void soundManager::release(void)
 	//메모리 지우기
 	SAFE_DELETE(_sound);
 	SAFE_DELETE(_channel);
+
 
 	//시스템 닫기
 	if (_system != NULL)
@@ -98,7 +103,6 @@ void soundManager::play(string keyName, float volume)
 
 			//볼륨세팅
 			_channel[count]->setVolume(volume);
-			
 		}
 		else
 		{
@@ -107,7 +111,6 @@ void soundManager::play(string keyName, float volume)
 			BYTE mode = FMOD_CREATESTREAM & F_mode;
 			if (FMOD_CREATESTREAM == mode)
 			{
-				//_system->playSound(FMOD_CHANNEL_FREE, *iter->second, true, &_channel[count]);
 				_channel[count]->stop();
 			}
 		}

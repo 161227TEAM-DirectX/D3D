@@ -30,7 +30,7 @@ public:
 	vector<baseObject*>& getRenderObject() { return _renderObjects; }
 	void setlinkTerrain(terrain& land) { this->linkTerrain = &land; }
 	void setlinkUi() {};
-	void setCamera(camera* cc) { this->_mainCamera = cc; }
+	void setCamera(camera* cc) { *this->_mainCamera = *cc; }
 
 	xNpc() {};
 	~xNpc() {};
