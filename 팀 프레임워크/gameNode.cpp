@@ -115,6 +115,9 @@ void gameNode::updateGameNode(void)
 
 void gameNode::renderGameNode(void)
 {
+
+	_directionLightCamera->SetWorldPosition(1, 1, 1);
+	_directionLightCamera->RenderGimozo();
 	//메인카메라 RTT준비
 	_mainCamera->renderTextureBegin(0x00101010);
 	
@@ -254,7 +257,6 @@ void gameNode::readyShadowMap(vector<baseObject*>* renderObjects, terrain * pTer
 	}
 
 	_directionLightCamera->renderTextureEnd();
-
 
 	//만약 Terrain 도 쉐도우 맵을 셋팅한다면
 	if (pTerrain != NULL)

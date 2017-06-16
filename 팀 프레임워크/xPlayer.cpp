@@ -16,10 +16,11 @@ HRESULT xPlayer::init()
 	//메시 로딩
 	_state = P_STAND;
 	_prevState = P_STAND;
-	PLAYERMANAGER->SetArmor(A_LEATHER);
-	PLAYERMANAGER->SetWeapon(W_BROAD);
-	PLAYERMANAGER->SetShield(SH_KITE);
+	PLAYERMANAGER->SetArmor(A_PLATE);
+	PLAYERMANAGER->SetWeapon(W_KATANA);
+	PLAYERMANAGER->SetShield(SH_CROSS);
 	PLAYERMANAGER->SetHp(10);
+	PLAYERMANAGER->SetCrit(100.0f);
 
 	_damagedTime = 0.0f;
 	_stunnedTime = 0.0f;
@@ -31,7 +32,7 @@ HRESULT xPlayer::init()
 	_jumpSpeed = 3.0f;
 	_jumpHeight = 0.0f;
 
-	_moveSpeed = 0.5f;
+	_moveSpeed = 3.0f;
 
 	_isOnBattle = false;
 
@@ -452,7 +453,7 @@ void xPlayer::playerStateManager()
 
 		if (animName == "AT1H")
 		{
-			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
+			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.6)//애니메이션 다 재생했으면
 			{
 				//if (PHYSICSMANAGER->isOverlap(_playerObject->_transform, &_attackBound, targetMonster->_transform, &targetMonster->_boundBox))
 				//{
@@ -473,7 +474,7 @@ void xPlayer::playerStateManager()
 	case P_ATTACK2:
 		if (animName == "AT2H")
 		{
-			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
+			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.80)//애니메이션 다 재생했으면
 			{
 				//if (PHYSICSMANAGER->isOverlap(_playerObject->_transform, &_attackBound, targetMonster->_transform, &targetMonster->_boundBox))
 				//{
@@ -494,7 +495,7 @@ void xPlayer::playerStateManager()
 	case P_ATTACK3:
 		if (animName == "AT2HL")
 		{
-			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
+			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.7)//애니메이션 다 재생했으면
 			{
 				//if (PHYSICSMANAGER->isOverlap(_playerObject->_transform, &_attackBound, targetMonster->_transform, &targetMonster->_boundBox))
 				//{
@@ -516,35 +517,46 @@ void xPlayer::playerStateManager()
 
 		if (animName == "AT2H2")
 		{
-			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
+			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.2  && _playerObject->_skinnedAnim->getAnimFactor() < 0.45)//애니메이션 다 재생했으면
 			{
 				//if (PHYSICSMANAGER->isOverlap(_playerObject->_transform, &_attackBound, targetMonster->_transform, &targetMonster->_boundBox))
 				//{
 				//	//exit(0);
 				//}
+				_playSpeed = 1.8f;
+
+			}
+			else if (_playerObject->_skinnedAnim->getAnimFactor() > 0.4)//애니메이션 다 재생했으면
+			{
 
 				if (_isOnBattle)
 				{
-					_state = P_READYTOATTACK;
+					_state = P_ATTACK;
+					
+					//_state = P_READYTOATTACK;
 				}
 				else
 				{
-					_state = P_STAND;
+					_state = P_ATTACK;
+					
+					//_state = P_STAND;
 				}
 			}
 		}
 		break;
 	case P_ATTACK5:
-
 		if (animName == "AT2HL2")
 		{
-			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
+			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.5 && _playerObject->_skinnedAnim->getAnimFactor() < 0.8)//애니메이션 다 재생했으면
 			{
 				//if (PHYSICSMANAGER->isOverlap(_playerObject->_transform, &_attackBound, targetMonster->_transform, &targetMonster->_boundBox))
 				//{
 				//	//exit(0);
 				//}
-
+				_playSpeed = 1.0f;
+			}
+			else if (_playerObject->_skinnedAnim->getAnimFactor() > 0.8)
+			{
 				if (_isOnBattle)
 				{
 					_state = P_READYTOATTACK;
@@ -571,14 +583,11 @@ void xPlayer::playerStateManager()
 
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
 			{
-
-
-
 				_skillTrans->SetWorldMatrix(_EquipSocket.find("LHAND")->second->CombinedTransformationMatrix);
 				_lightSkill->setPlayer(_skillTrans);
 				_lightSkill->setPlayerDir(_playerObject->_transform);
 				_lightSkill->Start();
-/*
+				/*
 				if (_isOnBattle)
 				{
 					_state = P_READYTOATTACK;
@@ -589,7 +598,6 @@ void xPlayer::playerStateManager()
 				}*/
 			}
 		}
-
 		break;
 	case P_READYOMNI:
 		if (_castingTime < 0)
@@ -597,7 +605,6 @@ void xPlayer::playerStateManager()
 			_state = P_CASTOMNI;
 		}
 		_castingTime -= _timeDelta;
-
 		break;
 	case P_CASTOMNI:
 		if (animName == "SPCO")
@@ -807,7 +814,6 @@ void xPlayer::playerAnimationManager()
 	}
 }
 
-
 //외부의 입력에 대해 플레이어의 이동을 제어.
 void xPlayer::moveControl()
 {
@@ -882,29 +888,35 @@ void xPlayer::playerAttack()
 	if (!(_state == P_STAND || _state == P_RUN || _state == P_MOVE || _state == P_WALKBACK || _state == P_READYTOATTACK)) { return; }
 
 	float rand = RandomFloatRange(0, 100);
-	if (rand > 80.0f)
+	if (rand < PLAYERMANAGER->GetCrit())
 	{
-		_state = P_ATTACK;//AT1H
+		_state = P_ATTACK4;//AT2H2 //크리티컬 어택!
+		_playSpeed = 0.8f;
+		return;
 	}
-	else if (rand > 60.0f)
+	else//일반공격
 	{
-		_state = P_ATTACK2;//AT2H
-		_playSpeed = 1.5f;
-	}
-	else if (rand > 40.0f)
-	{
-		_state = P_ATTACK3;//AT2HL
-		_playSpeed = 1.5f;
-	}
-	else if (rand > 20.0f)
-	{
-		_state = P_ATTACK4;//AT2H2
-		_playSpeed = 1.5f;
-	}
-	else
-	{
-		_state = P_ATTACK5;//AT2HL2
-		_playSpeed = 1.5f;
+		rand = RandomFloatRange(0, 100);
+		if (rand > 75.0f)
+		{
+			_state = P_ATTACK;//AT1H
+			_playSpeed = 1.2f;
+		}
+		else if (rand > 50.0f)
+		{
+			_state = P_ATTACK2;//AT2H
+			_playSpeed = 1.5f;
+		}
+		else if (rand > 25.0f)
+		{
+			_state = P_ATTACK3;//AT2HL
+			_playSpeed = 2.0f;
+		}
+		else
+		{
+			_state = P_ATTACK5;//AT2HL2
+			_playSpeed = 2.5f;
+		}
 	}
 
 }

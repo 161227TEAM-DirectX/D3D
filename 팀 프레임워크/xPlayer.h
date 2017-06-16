@@ -33,8 +33,8 @@ private:
 
 	//PL_ARMOR Equipments;
 	//int _Hp;
-	int _Att;
-	int _Def;
+	//int _Att;
+	//int _Def;
 
 	float _moveSpeed;
 

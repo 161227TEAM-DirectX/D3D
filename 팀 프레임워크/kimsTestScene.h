@@ -23,6 +23,7 @@ private:
 	//	dijkstra*			tempDijkstra;
 	xPlayer* _player;
 	xNpc* _thrall;//¾²¶ö¾¾.
+	xNpc* _sylvanas;//½Ã¹Ù³ª½º.
 
 	monster*			player;
 	bossMonster*		boss;
