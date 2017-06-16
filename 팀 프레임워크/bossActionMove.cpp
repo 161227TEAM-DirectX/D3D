@@ -17,7 +17,7 @@ int bossActionMove::Start()
 	if (!owner) return (int)LHS::ACTIONRESULT::ACTION_FAIL;
 
 	//baseObject의 transform을 호출하여 world위치를 from으로 변경
-	owner->getSkinnedAnim().Play("Animation_56");
+	owner->getSkinnedAnim().Play("Animation_56", 0.5f);
 
 	//확률을 위한 벡터 및 시드 초기화
 	int seed = 0;
@@ -52,8 +52,8 @@ int bossActionMove::Update()
 	if (!owner) return (int)LHS::ACTIONRESULT::ACTION_FAIL;
 
 	//한번 생성해 놓아서 index가 초기화가 필요하다.
-	//index = myUtil::RandomFloatRange(0.1f, 1.0f);
-	index = 0.991f;
+	index = myUtil::RandomFloatRange(0.1f, 1.0f);
+	//index = 0.991f;
 
 	PHYSICSMANAGER->isBlocking(owner, enemy);
 	//몬스터의 현재 위치를 저장한다.

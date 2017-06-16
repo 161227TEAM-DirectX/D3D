@@ -5,13 +5,13 @@
 
 bossMonster::bossMonster() : monster(), Frequency(0)
 {
-	control = new bossActionControl(this);
+//	control = new bossActionControl(this);
 }
 
 
 bossMonster::~bossMonster()
 {
-	SAFE_DELETE(control);
+//	SAFE_DELETE(control);
 }
 
 void bossMonster::baseObjectEnable()

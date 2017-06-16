@@ -76,8 +76,6 @@ int bossActionSkillTailAtt::Update()
 				switch (Frequency)
 				{
 				case 1:
-					return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
-				case 2:
 					return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
 				default:
 					return LHS::ACTIONRESULT::ACTION_ATT;

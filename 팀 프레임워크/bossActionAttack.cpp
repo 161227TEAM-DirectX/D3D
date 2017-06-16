@@ -18,22 +18,6 @@ int bossActionAttack::Start()
 	//보스몬스터의 공격모션 아무거나 시작.
 	owner->getSkinnedAnim().Play("Animation_12");
 
-	//확률을 위한 벡터 및 시드 초기화
-	//int seed = 0;
-
-	//seed = 1;
-	//for (int i = 0; i < 5; i++)
-	//{
-	//	list.push_back(seed);
-	//}
-	//seed = 2;
-	//list.push_back(seed);
-	//list.push_back(seed);
-	//seed = 3;
-	//list.push_back(seed);
-	//list.push_back(seed);
-	//list.push_back(seed);
-
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
 }
 
@@ -78,65 +62,26 @@ int bossActionAttack::Update()
 			//int index = myUtil::RandomIntRange(0, 9);
 			resultValue = myUtil::RandomFloatRange(0.1f, 1.0f);
 
-			if (resultValue >= 0.1f && resultValue <= 0.96f)
+			if (resultValue >= 0.1f && resultValue <= 0.98f)
 			{
 				return LHS::ACTIONRESULT::ACTION_MOVE;
 			}
-			else if (resultValue >= 0.96f && resultValue <= 0.98f)
+			else if (resultValue >= 0.98f && resultValue <= 0.99f)
 			{
 				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
 				{
 					return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
 				}
 			}
-			else if (resultValue >= 0.98f && resultValue <= 1.0f)
+			else if (resultValue >= 0.99f && resultValue <= 1.0f)
 			{
 				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
 				{
 					return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
 				}
 			}
-
-		/*	switch (resultValue)
-			{
-			case 1:
-				return LHS::ACTIONRESULT::ACTION_MOVE;
-				break;
-			case 2:
-				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
-				{
-					return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
-				}
-				break;
-			case 3:
-				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
-				{
-					return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
-				}
-				break;
-			}*/
 		}
 	}
-
-	
-	
-
-	//
-
-	//오브젝트(적)의 피를 깍기.
-
-
-	//PassedTime += _timeDelta;
-
-	//if (PassedTime >= actionTime)
-	//{
-	//	
-	//	
-	//	//애니메이션 정지
-	//	owner->skMesh->Stop();
-
-	//	return LHS::ACTIONRESULT::ACTION_FINISH;
-	//}
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }

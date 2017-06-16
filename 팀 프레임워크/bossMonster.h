@@ -1,11 +1,11 @@
 #pragma once
 #include "monster.h"
-class bossActionControl;
+//class bossActionControl;
 class bossMonster : public monster
 {
 private:
 	int Frequency;								//ºóµµÀ²
-	bossActionControl* control;
+//	bossActionControl* control;
 public:
 	bossMonster();
 	~bossMonster();

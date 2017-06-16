@@ -2,7 +2,7 @@
 #include "monster.h"
 
 
-monster::monster() : baseObject(), linkTerrain(nullptr), linkObject(nullptr), CurrAction(nullptr), NextAction(nullptr)
+monster::monster() : baseObject(), /*linkTerrain(nullptr), linkObject(nullptr),*/ CurrAction(nullptr), NextAction(nullptr)
 {
 }
 
@@ -124,11 +124,11 @@ void monster::stateSwitch(void)
 		//공격을 해야 하는 경우
 	case LHS::ACTIONRESULT::ACTION_ATT:
 	{
-		ActionAttack* temp = new ActionAttack;
-		temp->setOwner(*this);
-		temp->setObject(*linkObject);
-		temp->setRand(*linkTerrain);
-		temp->setEnemy(*player);
+	//	ActionAttack* temp = new ActionAttack;
+	//	temp->setOwner(*this);
+	//	temp->setObject(*linkObject);
+	//	temp->setRand(*linkTerrain);
+	//	temp->setEnemy(*player);
 		NextAction = ACMANAGER->getAction("일반공격");
 	}
 	break;

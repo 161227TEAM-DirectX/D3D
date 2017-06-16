@@ -36,7 +36,7 @@ HRESULT terrainPickingTest::init(void)
 
 //	tempDijkstra = new dijkstra;
 
-	boss = new bossMonster;
+//	boss = new bossMonster;
 	_player = new xPlayer;
 	_player->setlinkTerrain(*_terrain);
 	_player->init();
@@ -84,14 +84,11 @@ HRESULT terrainPickingTest::init(void)
 	//mat = matScaling * matRotate;
 
 
-	boss->setMesh(RM_SKINNED->getResource("Resources/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
-	boss->_transform->SetScale(0.2f, 0.2f, 0.2f);
-	boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
-	boss->LinkObject(testObject);
-	boss->LinkTerrain(*_terrain);
-	boss->LinkPlayer(_player->getPlayerObject());
-	boss->setActive(true);
-	this->_renderObjects.push_back(boss);
+//	boss->setMesh(RM_SKINNED->getResource("Resources/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
+//	boss->_transform->SetScale(0.2f, 0.2f, 0.2f);
+//	boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+//	boss->setActive(true);
+//	this->_renderObjects.push_back(boss);
 
 	_sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(90), 0, 0);
 	this->setEnvironment("Resources/TextureCUBE/SuperKanjiCube.dds");
