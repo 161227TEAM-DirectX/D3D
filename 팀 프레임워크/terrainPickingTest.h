@@ -1,12 +1,13 @@
 #pragma once
-#include "gameNode.h"
+#include "iGameNode.h"
 #include "terrain.h"
 //#include "dijkstra.h"
 #include "monster.h"
 #include "bossMonster.h"
 #include "xPlayer.h"
+#include "Environment.h"
 
-class terrainPickingTest : public gameNode
+class terrainPickingTest : public iGameNode
 {
 private:
 	enum SELECTFUNC
@@ -19,28 +20,33 @@ private:
 	};
 
 private:
-	xPlayer* _player;
+	xPlayer*			_player;
 	monster*			player;
 	bossMonster*		boss;
 	baseObject*			enemy;
 	terrain*			_terrain;			//지형클래스
 	terrain*			_terrainShadow;		//지형 그림자
-	dx::transform*		_trans;				//트랜스폼
-	lightDirection*		_dirLight;			//디렉션라이트
+//	dx::transform*		_trans;				//트랜스폼
+//	lightDirection*		_dirLight;			//디렉션라이트
 	D3DXVECTOR3			_hitPos;			//히트 포지션
 	SELECTFUNC			lButtonState;
-	vector<light*>		_lights;
+//	vector<light*>		_lights;
 	vector<baseObject*>	mon;
 	
 	vector<baseObject*> testObject;
 
 	vector<baseObject*>		_renderObjects;		//씬에 배치된 랜더 오브젝트 배열
 	vector<baseObject*>		_cullObjects;		//컬링된 오브젝트
-	
 
+	camera*				_mainCamera;
+	camera*				_directionLightCamera;
+	lightDirection*		_sceneBaseDirectionLight;
+	float				_shadowDistance;
 
-	int sour;					//노드 연결시 출발 노드 인덱스값
-	int dest;					//노드 연결시 목적지 노드 인덱스값
+	Environment*		_env;
+
+	int sour;
+	int dest;
 
 public:
 	HRESULT init(void);
@@ -58,6 +64,8 @@ public:
 	void addObject(void);
 
 	void InitMonster(void);
+
+	void readyShadowMap(vector<baseObject*>* renderObjects, terrain* pTerrain = NULL);
 
 	terrainPickingTest() {}
 	~terrainPickingTest() {}

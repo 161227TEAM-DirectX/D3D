@@ -25,8 +25,8 @@
 //===================================================================================
 //김만웅 씬 테스트 헤더파일
 //===================================================================================
-#include "cLoadingBarTest.h"	//로딩바
-#include "cLoadingTest.h"		//로딩
+//#include "cLoadingBarTest.h"	//로딩바
+//#include "cLoadingTest.h"		//로딩
 
 
 //===================================================================================
@@ -40,10 +40,6 @@
 
 class mainGame
 {
-private:
-	void initManager();		//매니져 세팅
-	void releaseManager();	//매니져 해제
-
 public:
 	HRESULT init();
 	void release();
@@ -51,9 +47,9 @@ public:
 	void render();
 
 public:
+	mainGame();
+	~mainGame();
+
 	//메인 프로시져
 	LRESULT CALLBACK MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
-
-	mainGame() {}
-	~mainGame() {}
 };

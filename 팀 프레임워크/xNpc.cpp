@@ -9,7 +9,7 @@ HRESULT xNpc::init(float posX, float posZ, string name)
 	_posZ = posZ;
 	_name = name;
 	_playerTrace = false;
-	xMeshSkinned* pSkinned;
+	xMeshSkinned* pSkinned = nullptr;
 	D3DXMATRIXA16 matCorrection;
 	D3DXMATRIXA16 matScale;
 	D3DXMATRIXA16 matRotate;

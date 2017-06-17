@@ -9,12 +9,15 @@
 HWND _hWnd;				//윈도우 핸들(자신의 프로그램에서 돌고있는 윈도우 번호)
 HINSTANCE _hInstance;	//프로그램 인스턴스 핸들 (OS 가 부여한 프로그램 번호)
 float _timeDelta;	
+//메인게임 클래스
+mainGame* _mg;
 
 CRITICAL_SECTION _cs;	//임계 영역은 구간을 설정하여 그 구간에 진입한 쓰레드가 벗어날 때까지 
 						//해당 구간이 끝날 때까지 다른 쓰레드가 임계 영역에 진입하는 것을 막는다.
-
-//메인게임 클래스
-mainGame _mg;
+eSceneManager	 g_eSceneManager = E_GAMENODE;	//씬매니져 선택 변수
+D3DVIEWPORT9	leftViewPort;
+D3DVIEWPORT9	rightViewPort;
+eSelectMode		g_eSelectMode = eSelectMode::E_GAME;
 
 //====================================================================
 //			## 함수 전방선언 ##
@@ -69,8 +72,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 	//화면에 윈도우 보여주기
 	ShowWindow(_hWnd, nCmdShow);
 
+	_mg = new mainGame;
+
 	//메인게임 클래스 초기화 실패했다면 걍 종료시키기
-	if (FAILED(_mg.init()))
+	if (FAILED(_mg->init()))
 	{
 		return E_FAIL;
 	}
@@ -95,12 +100,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 		//타임매니져 업데이트(FPS 60)
 		TIMEMANAGER->update(60.0f);
 		_timeDelta = TIMEMANAGER->getElapedTime();
-		_mg.update();
-		_mg.render();
+		_mg->update();
+		_mg->render();
 	}
 
 	//메인게임 클래스 해제
-	_mg.release();
+	_mg->release();
 
 	//윈도우 클래스 등록해제 (해줘도 그만 안해줘도 그만..)
 	UnregisterClass(WINNAME, hInstance);
@@ -117,7 +122,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 //====================================================================
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
-	return _mg.MainProc(hWnd, iMessage, wParam, lParam);
+	return _mg->MainProc(hWnd, iMessage, wParam, lParam);
 }
 
 //====================================================================

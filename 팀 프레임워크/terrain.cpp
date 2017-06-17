@@ -2,6 +2,39 @@
 #include "terrain.h"
 #include "quadTree.h"
 
+terrain::terrain()
+	: _cellScale(1.0f)
+	, _heightScale(200)
+	, _smoothLevel(3)
+	, _tileNum(100)
+	, _brushScale(10)
+	, _nHeightSign(1)
+{
+	//지형 셰이더이펙트 로딩
+	_terrainEffect = RM_SHADERFX->getResource(FILEPATH_MANAGER->GetFilepath("FX_지형기본"));
+}
+
+terrain::terrain(string terrainEffect)
+	: _cellScale(1.0f)
+	, _heightScale(200)
+	, _smoothLevel(3)
+	, _tileNum(100)
+	, _brushScale(10)
+	, _nHeightSign(1)
+{
+	//지형 셰이더이펙트 로딩
+	_terrainEffect = RM_SHADERFX->getResource(terrainEffect);
+}
+
+terrain::~terrain()
+{
+	SAFE_RELEASE(_terrainVb);
+	SAFE_RELEASE(_terrainIb);
+	SAFE_RELEASE(_terrainDecl);
+	SAFE_DELETE_ARRAY(_terrainVertices);
+	SAFE_DELETE(_quadTree);
+}
+
 HRESULT terrain::init(char * heightMapName, char * tile_0, char * tile_1, char * tile_2, char * tile_3, char * tileSplat, float cellSize, float heightScale, int smoothLevel, int tileNum)
 {
 	//스케일값 대입
@@ -34,9 +67,8 @@ HRESULT terrain::init(char * heightMapName, char * tile_0, char * tile_1, char *
 	//터레인을 만든다.
 	//스무싱 레벨 (이값이 클수록 지형이 부드러워진다)
 	//타일 Texture 가 몇개로 나누어질건지 갯수
-	if (FAILED(createTerrain(smoothLevel, tileNum))) 
+	if (FAILED(createTerrain(smoothLevel, tileNum)))
 	{
-		release();
 		return E_FAIL;
 	}
 
@@ -52,7 +84,7 @@ HRESULT terrain::init(char * heightMapName, char * tile_0, char * tile_1, char *
 
 	//쿼드트리를 만든다.
 	_quadTree = new quadTree;
-	_quadTree->init(_terrainVertices,_verNumX);
+	_quadTree->init(_terrainVertices, _verNumX);
 
 	//지형 텍스쳐 로딩
 	_texTile_0 = RM_TEXTURE->getResource(tile_0);
@@ -62,19 +94,53 @@ HRESULT terrain::init(char * heightMapName, char * tile_0, char * tile_1, char *
 	_texSlat = RM_TEXTURE->getResource(tileSplat);
 
 	//지형 셰이더이펙트 로딩
-	_terrainEffect = RM_SHADERFX->getResource("Resources/Shaders/TerrainBase.fx");
+	_terrainEffect = RM_SHADERFX->getResource("Resource/Maptool/Shaders/TerrainBase.fx");
 
 	dijk = new dijkstra;
 }
 
-void terrain::release(void)
+void terrain::setting()
 {
-	SAFE_RELEASE(_terrainVb);
-	SAFE_RELEASE(_terrainIb);
-	SAFE_RELEASE(_terrainDecl);
-	SAFE_DELETE_ARRAY(_terrainVertices);
-	SAFE_DELETE(_quadTree);
+	//높이 맵에 대한 이미지 정보를 불러온다. (로딩된 Texture 정보를 얻는다)
+	D3DSURFACE_DESC sd;
+	//GetLevelDesc(밉맵체인 레벨, D3DSURFACE_DESC 구조체 포인터)
+	_heightMap->GetLevelDesc(0, &sd);
+
+	//가로세로 정점 수를 구한다.
+	_verNumX = sd.Width + 1;	//가로 정점갯수는 높이 맵에 가로 해상도 + 1 과 같다. (이유는 쿼드트리쓰려면 정점갯수가 2의N승 + 1 이여야 하기 때문에)
+	_verNumZ = sd.Height + 1;	//세로 정점잿수는 높이 맵에 세로 해상도 + 1 과 같다. (이유는 쿼드트리쓰려면 정점갯수가 2의N승 + 1 이여야 하기 때문에)
+	_totalVerNum = _verNumX * _verNumZ;	//총 정점 갯수
+
+										//가로세로 셀수
+	_cellNumX = _verNumX - 1;
+	_cellNumZ = _verNumZ - 1;
+	_totalCellNum = _cellNumX * _cellNumZ;
+
+	//총 삼각형수는
+	_totalTriangle = _totalCellNum * 2;
+
+	//터레인을 만든다.
+	//스무싱 레벨
+	createTerrain(_smoothLevel, _tileNum);
+
+
+	//터레인 크기
+	_terrainSizeX = _cellNumX * _cellScale;
+	_terrainSizeZ = _cellNumZ * _cellScale;
+
+	//터레인 범위
+	_terrainStartX = _terrainVertices[0].pos.x;
+	_terrainStartZ = _terrainVertices[0].pos.z;
+	_terrainEndX = _terrainVertices[_totalVerNum - 1].pos.x;
+	_terrainEndZ = _terrainVertices[_totalVerNum - 1].pos.z;
+
+	//쿼드트리를 만든다.
+	_quadTree = new quadTree;
+	_quadTree->init(_terrainVertices, _verNumX);
+
+	dijk = new dijkstra;
 }
+
 
 void terrain::render(camera * cam, lightDirection * directionLight)
 {
@@ -92,13 +158,13 @@ void terrain::render(camera * cam, lightDirection * directionLight)
 	_terrainEffect->SetTexture("Terrain3_Tex", _texTile_3);
 	_terrainEffect->SetTexture("TerrainControl_Tex", _texSlat);
 	//셰이더이펙트 광원 세팅
-	D3DXVECTOR3 dirLight = directionLight->_transform->GetForward();
+	D3DXVECTOR3 dirLight = -directionLight->_transform->GetUp();
 	_terrainEffect->SetVector("worldLightDir", &D3DXVECTOR4(dirLight, 1));
 
 	//셰이더 렌더
 	UINT passNum = 0;
 	_terrainEffect->Begin(&passNum, 0);
-	for (UINT i = 0; i < passNum; i++) 
+	for (UINT i = 0; i < passNum; i++)
 	{
 		_terrainEffect->BeginPass(i);
 		_device->SetStreamSource(0, _terrainVb, 0, sizeof(TERRAINVERTEX));
@@ -137,10 +203,10 @@ void terrain::render(camera * cam, lightDirection * directionLight, camera * dir
 	_terrainEffect->SetMatrix("matViewProjection", &cam->getViewProjectionMatrix());
 
 	//Texture 셋팅
-	_terrainEffect->SetTexture("Terrain0_Tex",	_texTile_0);
-	_terrainEffect->SetTexture("Terrain1_Tex",	_texTile_1);
-	_terrainEffect->SetTexture("Terrain2_Tex",	_texTile_2);
-	_terrainEffect->SetTexture("Terrain3_Tex",	_texTile_3);
+	_terrainEffect->SetTexture("Terrain0_Tex", _texTile_0);
+	_terrainEffect->SetTexture("Terrain1_Tex", _texTile_1);
+	_terrainEffect->SetTexture("Terrain2_Tex", _texTile_2);
+	_terrainEffect->SetTexture("Terrain3_Tex", _texTile_3);
 	_terrainEffect->SetTexture("TerrainControl_Tex", _texSlat);
 
 	//광원 셋팅
@@ -154,7 +220,7 @@ void terrain::render(camera * cam, lightDirection * directionLight, camera * dir
 
 	UINT passNum = 0;
 	_terrainEffect->Begin(&passNum, 0);
-	for (UINT i = 0; i < passNum; i++) 
+	for (UINT i = 0; i < passNum; i++)
 	{
 		_terrainEffect->BeginPass(i);
 		_device->SetStreamSource(0, _terrainVb, 0, sizeof(TERRAINVERTEX));
@@ -180,7 +246,7 @@ void terrain::renderShadow(camera * directionLightCam)
 
 	UINT passNum = 0;
 	_terrainEffect->Begin(&passNum, 0);
-	for (UINT i = 0; i < passNum; i++) 
+	for (UINT i = 0; i < passNum; i++)
 	{
 		_terrainEffect->BeginPass(i);
 		_device->SetStreamSource(0, _terrainVb, 0, sizeof(TERRAINVERTEX));
@@ -231,7 +297,7 @@ float terrain::getHeight(float x, float z)
 {
 	//터레인 범위을 넘어가면 0.0 값을 리턴한다
 	if (x < _terrainStartX || x > _terrainEndX ||
-		z > _terrainStartZ || z < _terrainEndZ) 
+		z > _terrainStartZ || z < _terrainEndZ)
 	{
 		return 0.0f;
 	}
@@ -298,12 +364,37 @@ float terrain::getHeight(float x, float z)
 	return height;
 }
 
+pair<int, int> terrain::getIdx(float x, float z)
+{
+	//터레인 범위을 넘어가면 0.0 값을 리턴한다
+	if (x < _terrainStartX || x > _terrainEndX ||
+		z > _terrainStartZ || z < _terrainEndZ)
+	{
+		return  pair<int, int>(0.0f, 0.0f);
+	}
+
+	//Terrain 의 좌상단 0 을 기준으로 월드 Terrain 의 상태적 위치를 찾자
+	float pX = x - _terrainStartX;
+	float pZ = -(z + _terrainEndZ);
+
+	//해당 위치가 어느 셀에 포함되는지 파악
+	float invCell = 1.0f / _cellScale;
+	pX *= invCell;
+	pZ *= invCell;
+
+	//해당 위치의 셀 인덱스
+	int idxX = static_cast<int>(pX);
+	int idxZ = static_cast<int>(pZ);
+
+	return pair<int, int>(idxX, idxZ);
+}
+
 //해당 X, Z 위치의 경사 벡터를 얻는다.
 bool terrain::getSlant(D3DXVECTOR3 * pOut, float gravityPower, float x, float z)
 {
 	//터레인 범위을 넘어가면 0.0 값을 리턴한다
 	if (x < _terrainStartX || x > _terrainEndX ||
-		z > _terrainStartZ || z < _terrainEndZ) 
+		z > _terrainStartZ || z < _terrainEndZ)
 	{
 		return false;
 	}
@@ -382,11 +473,108 @@ bool terrain::getSlant(D3DXVECTOR3 * pOut, float gravityPower, float x, float z)
 	return true;
 }
 
+void terrain::setHeightmap(string heightMapName)
+{
+	_heightMap = RM_TEXTURE->getResource(heightMapName);
+}
+
+void terrain::setTile0(string tile_0)
+{
+	_texTile_0 = RM_TEXTURE->getResource(tile_0);
+}
+
+void terrain::setTile1(string tile_1)
+{
+	_texTile_1= RM_TEXTURE->getResource(tile_1);
+}
+
+void terrain::setTile2(string tile_2)
+{
+	_texTile_2 = RM_TEXTURE->getResource(tile_2);
+}
+
+void terrain::setTile3(string tile_3)
+{
+	_texTile_3 = RM_TEXTURE->getResource(tile_3);
+}
+
+void terrain::setSlat(string tileSplat)
+{
+	_texSlat = RM_TEXTURE->getResource(tileSplat);
+}
+
+void terrain::setCellsize(float cellSize)
+{
+	_cellScale = cellSize;
+}
+
+void terrain::setHeightscale(float heightScale)
+{
+	_heightScale = heightScale;
+}
+
+void terrain::setSmoothlevel(int smoothLevel)
+{
+	_smoothLevel = smoothLevel;
+}
+
+void terrain::setTileNum(int tileNum)
+{
+	_tileNum = tileNum;
+}
+
+void terrain::setBrushmap(string brushMapName)
+{
+	_brushMap = RM_TEXTURE->getResource(brushMapName);
+	
+	D3DSURFACE_DESC sd;
+	_brushMap->GetLevelDesc(0, &sd);
+
+	brush_verNumX = sd.Width + 1;	//가로 정점갯수는 높이 맵에 가로 해상도 + 1 과 같다. (이유는 쿼드트리쓰려면 정점갯수가 2의N승 + 1 이여야 하기 때문에)
+	brush_verNumZ = sd.Height + 1;	//세로 정점잿수는 높이 맵에 세로 해상도 + 1 과 같다. (이유는 쿼드트리쓰려면 정점갯수가 2의N승 + 1 이여야 하기 때문에)
+	brush_totalotalVerNum = brush_verNumX * brush_verNumZ;	//총 정점 갯수
+
+															//가로세로 셀수
+	brush_cellNumX = brush_verNumX - 1;
+	brush_cellNumZ = brush_verNumZ - 1;
+	brush_totalCellNum = brush_cellNumX * brush_cellNumZ;
+
+	//터레인 크기
+	brush_terrainSizeX = brush_cellNumX * _cellScale;
+	brush_terrainSizeZ = brush_cellNumZ * _cellScale;
+
+	D3DLOCKED_RECT lockRect;
+	_brushMap->LockRect(0, &lockRect, 0, 0);
+
+	for (int z = 0; z < brush_verNumZ; z++)
+	{
+		for (int x = 0; x < brush_verNumX; x++)
+		{
+			DWORD* pStart = (DWORD*)lockRect.pBits;	//(DWORD 형으로 형변환된 lock 된 이미지지의 시작 주소
+			DWORD dwColor = *(pStart + (z * (lockRect.Pitch / 4) + x));
+
+			float inv = 1.0f / 255.0f;
+			float r = ((dwColor & 0x00ff0000) >> 16) * inv;
+			float g = ((dwColor & 0x0000ff00) >> 8) * inv;
+			float b = ((dwColor & 0x000000ff)) * inv;
+
+			float factor = (r + g + b) / 3.0f;
+
+			_vecBrush.push_back(factor * 0.1f);
+		}
+	}
+}
+
+void terrain::setBrushScale(float scale)
+{
+	_nHeightSign = scale;
+}
+
 //지형 정점 만들기
 HRESULT terrain::createTerrain(int smooth, int tileNum)
 {
 	// 정점 위치 구한다.
-	
+
 	//타일링 갯수에 따른 간격 (정점당 uv 간격)
 	float tileIntervalX = static_cast<float>(tileNum) / _cellNumX;
 	float tileIntervalY = static_cast<float>(tileNum) / _cellNumZ;
@@ -407,9 +595,9 @@ HRESULT terrain::createTerrain(int smooth, int tileNum)
 	//lockRect->pBits	이미지데이터가 시작되는 포인터 주소
 
 	//정정위치와 정점 UV 를 계산하기
-	for (int z = 0; z < _verNumZ; z++) 
+	for (int z = 0; z < _verNumZ; z++)
 	{
-		for (int x = 0; x < _verNumX; x++) 
+		for (int x = 0; x < _verNumX; x++)
 		{
 			D3DXVECTOR3 pos;
 
@@ -418,18 +606,16 @@ HRESULT terrain::createTerrain(int smooth, int tileNum)
 			pos.z = (-z + (_cellNumZ * 0.5)) * _cellScale;
 
 			//가로마지막 라인이라면 (이전 왼쪽의 정점 Y 위치와 맞춘다)
-			if (x == _verNumX - 1) 
+			if (x == _verNumX - 1)
 			{
 				int idx = z * _verNumX + x - 1;
-				//pos.y = 0;
 				pos.y = _terrainVertices[idx].pos.y;
 			}
 
 			//세로 마지막 라인이라면 (이전 위쪽의 정점 Y 위치와 맞춘다)
-			else if (z == _verNumZ - 1) 
+			else if (z == _verNumZ - 1)
 			{
 				int idx = (z - 1) * _verNumX + x;
-				//pos.y = 0;
 				pos.y = _terrainVertices[idx].pos.y;
 			}
 			else
@@ -448,8 +634,7 @@ HRESULT terrain::createTerrain(int smooth, int tileNum)
 				float factor = (r + g + b) / 3.0f;
 
 				//높이 값
-				pos.y = 0;
-				//pos.y = factor * _heightScale;
+				pos.y = factor * _heightScale;
 			}
 
 			//정점 UV 계산
@@ -471,6 +656,8 @@ HRESULT terrain::createTerrain(int smooth, int tileNum)
 			_terrainVertices[idx].normal = D3DXVECTOR3(0, 0, 0);	//아래에서 정점 노말 구할때 더해지니 일단 0 벡터로 초기화
 			_terrainVertices[idx].baseUV = baseUV;
 			_terrainVertices[idx].tileUV = tileUV;
+
+			_vecPos.push_back(pos);
 		}
 	}
 
@@ -489,7 +676,7 @@ HRESULT terrain::createTerrain(int smooth, int tileNum)
 
 	for (DWORD z = 0; z < _cellNumZ; z++)
 	{
-		for (DWORD x = 0; x < _cellNumX; x++) 
+		for (DWORD x = 0; x < _cellNumX; x++)
 		{
 			// lt-----rt
 			//  |    /|
@@ -528,7 +715,7 @@ HRESULT terrain::createTerrain(int smooth, int tileNum)
 	DWORD* indices = (DWORD*)pIndices;
 
 	//정점위치 및 UV 대입
-	for (int i = 0; i < _totalVerNum; i++) 
+	for (int i = 0; i < _totalVerNum; i++)
 	{
 		poses[i] = _terrainVertices[i].pos;
 		uvs[i] = _terrainVertices[i].baseUV;
@@ -549,7 +736,7 @@ HRESULT terrain::createTerrain(int smooth, int tileNum)
 		_totalVerNum);
 
 	//계산된거 대입
-	for (int i = 0; i < _totalVerNum; i++) 
+	for (int i = 0; i < _totalVerNum; i++)
 	{
 		_terrainVertices[i].normal = normals[i];
 		_terrainVertices[i].binormal = binormals[i];
@@ -590,7 +777,7 @@ HRESULT terrain::createTerrain(int smooth, int tileNum)
 	//정점의 형태를 알려주는 배열
 	D3DVERTEXELEMENT9 vertElement[7];	//배열을 정점정보 갯수 + 1
 
-	//Position 
+										//Position 
 	vertElement[0].Stream = 0;							//Stream 은 0
 	vertElement[0].Offset = 0;							//메모리의 시작 Byte 단위 0
 	vertElement[0].Type = D3DDECLTYPE_FLOAT3;			//자료의 타입
@@ -598,7 +785,7 @@ HRESULT terrain::createTerrain(int smooth, int tileNum)
 	vertElement[0].Usage = D3DDECLUSAGE_POSITION;		//정보 타입
 	vertElement[0].UsageIndex = 0;						//UsageIndex 일단 0
 
-	//Normal
+														//Normal
 	vertElement[1].Stream = 0;							//Stream 은 0
 	vertElement[1].Offset = 12;							//메모리의 시작 Byte 단위 0
 	vertElement[1].Type = D3DDECLTYPE_FLOAT3;			//자료의 타입
@@ -606,7 +793,7 @@ HRESULT terrain::createTerrain(int smooth, int tileNum)
 	vertElement[1].Usage = D3DDECLUSAGE_NORMAL;			//정보 타입
 	vertElement[1].UsageIndex = 0;						//UsageIndex 일단 0
 
-	//BiNormal
+														//BiNormal
 	vertElement[2].Stream = 0;							//Stream 은 0
 	vertElement[2].Offset = 24;							//메모리의 시작 Byte 단위 0
 	vertElement[2].Type = D3DDECLTYPE_FLOAT3;			//자료의 타입
@@ -614,7 +801,7 @@ HRESULT terrain::createTerrain(int smooth, int tileNum)
 	vertElement[2].Usage = D3DDECLUSAGE_BINORMAL;		//정보 타입
 	vertElement[2].UsageIndex = 0;						//UsageIndex 일단 0
 
-	//Tangent
+														//Tangent
 	vertElement[3].Stream = 0;							//Stream 은 0
 	vertElement[3].Offset = 36;							//메모리의 시작 Byte 단위 0
 	vertElement[3].Type = D3DDECLTYPE_FLOAT3;			//자료의 타입
@@ -622,7 +809,7 @@ HRESULT terrain::createTerrain(int smooth, int tileNum)
 	vertElement[3].Usage = D3DDECLUSAGE_TANGENT;		//정보 타입
 	vertElement[3].UsageIndex = 0;						//UsageIndex 일단 0
 
-	//BaseUV
+														//BaseUV
 	vertElement[4].Stream = 0;							//Stream 은 0
 	vertElement[4].Offset = 48;							//메모리의 시작 Byte 단위 0
 	vertElement[4].Type = D3DDECLTYPE_FLOAT2;			//자료의 타입
@@ -631,7 +818,7 @@ HRESULT terrain::createTerrain(int smooth, int tileNum)
 	vertElement[4].UsageIndex = 0;						//UsageIndex 일단 0
 
 
-	//tileUV
+														//tileUV
 	vertElement[5].Stream = 0;							//Stream 은 0
 	vertElement[5].Offset = 56;							//메모리의 시작 Byte 단위 0
 	vertElement[5].Type = D3DDECLTYPE_FLOAT2;			//자료의 타입
@@ -639,7 +826,7 @@ HRESULT terrain::createTerrain(int smooth, int tileNum)
 	vertElement[5].Usage = D3DDECLUSAGE_TEXCOORD;		//정보 타입
 	vertElement[5].UsageIndex = 1;						//UsageIndex 두번째 UV 1 
 
-	//더이상 없으니 종료
+														//더이상 없으니 종료
 	D3DVERTEXELEMENT9 end = D3DDECL_END(); //{0xFF,0,D3DDECLTYPE_UNUSED,0,0,0}
 	vertElement[6] = end;
 
@@ -661,6 +848,471 @@ HRESULT terrain::createTerrain(int smooth, int tileNum)
 	return S_OK;
 }
 
+HRESULT terrain::changeHeightTerrain()
+{
+	// 정점 위치 구한다.
+
+	//타일링 갯수에 따른 간격 (정점당 uv 간격)
+	float tileIntervalX = static_cast<float>(_tileNum) / _cellNumX;
+	float tileIntervalY = static_cast<float>(_tileNum) / _cellNumZ;
+
+	//지형 정점 가지고 있어야 한다.
+	_terrainVertices = new TERRAINVERTEX[_totalVerNum];
+
+	//텍스쳐의 pixel 정보를 얻기 위해 Texture 를 lock 한다.
+	D3DLOCKED_RECT lockRect;
+	_heightMap->LockRect(
+		0,					//lock 을 할 밉맵 레벨 0
+		&lockRect,			//lock 으로 얻어온 D3DLOCKED_RECT 정보 구조체
+		0,					//lock 을 일부 영역만 하고 싶은 경우 사각형RECT 구조체의 포인터를 주는데 전체 할꺼면 NULL
+		0					//lock 플레그 일단 0
+	);
+
+	//lockRect->Pitch	lock 을 한 영역 이미지의 가로 byte 크기 (얻어온 바이트크기는 다음을 성립한다 pitch % 4 == 0 ) < 3byte 컬러시 pitch byte 구하는 공식 ( 가로 픽셀수 * 3 + 3 ) & ~3 = pitch  >
+	//lockRect->pBits	이미지데이터가 시작되는 포인터 주소
+
+	//정정위치와 정점 UV 를 계산하기
+	for (int z = 0; z < _verNumZ; z++)
+	{
+		for (int x = 0; x < _verNumX; x++)
+		{
+			D3DXVECTOR3 pos;
+
+			//버텍스 배열인덱스 계산
+			int idx = z * _verNumX + x;
+
+			pos = _vecPos[idx];
+
+			//정점 UV 계산
+
+			//Terrain Tile Splating UV
+			D3DXVECTOR2 baseUV;
+			baseUV.x = x / static_cast<float>(_verNumX - 1);
+			baseUV.y = z / static_cast<float>(_verNumZ - 1);
+
+			//Terrain Tile UV
+			D3DXVECTOR2 tileUV;
+			tileUV.x = x * tileIntervalX;
+			tileUV.y = z * tileIntervalY;
+
+		
+			_terrainVertices[idx].pos = pos;
+			_terrainVertices[idx].normal = D3DXVECTOR3(0, 0, 0);	//아래에서 정점 노말 구할때 더해지니 일단 0 벡터로 초기화
+			_terrainVertices[idx].baseUV = baseUV;
+			_terrainVertices[idx].tileUV = tileUV;
+
+			_vecPos.push_back(pos);
+		}
+	}
+
+	//텍스쳐의 pixel 정보 Unlock
+	_heightMap->UnlockRect(0);
+
+	//지형 스무싱 
+	this->smoothTerrain(_smoothLevel);
+
+
+	// 정점 인덱스를 구한다
+	LPTERRAINTRI pIndices = new tagTERRAINTRI[_totalTriangle];
+
+	//인덱스 배열 인덱스
+	int idx = 0;
+
+	for (DWORD z = 0; z < _cellNumZ; z++)
+	{
+		for (DWORD x = 0; x < _cellNumX; x++)
+		{
+			// lt-----rt
+			//  |    /|
+			//  |   / |
+			//  |  /  |
+			//  | /   |
+			//  |/    |
+			// lb-----rb
+
+			//해당 셀에 대한 정점 인덱스를 얻자
+			DWORD lt = z * _verNumX + x;
+			DWORD rt = z * _verNumX + x + 1;
+			DWORD lb = ((z + 1)* _verNumX) + x;
+			DWORD rb = ((z + 1)* _verNumX) + x + 1;
+
+			//셀의 삼각형 하나
+			pIndices[idx].dw0 = lt;
+			pIndices[idx].dw1 = rt;
+			pIndices[idx].dw2 = lb;
+			idx++;
+
+			//셀의 삼각형 하나
+			pIndices[idx].dw0 = lb;
+			pIndices[idx].dw1 = rt;
+			pIndices[idx].dw2 = rb;
+			idx++;
+		}
+	}
+
+	// 노말이랑 Binormal 이랑 Tangent 계산하기
+	D3DXVECTOR3* poses = new D3DXVECTOR3[_totalVerNum];		//정점위치
+	D3DXVECTOR3* normals = new D3DXVECTOR3[_totalVerNum];
+	D3DXVECTOR3* tangents = new D3DXVECTOR3[_totalVerNum];
+	D3DXVECTOR3* binormals = new D3DXVECTOR3[_totalVerNum];
+	D3DXVECTOR2* uvs = new D3DXVECTOR2[_totalVerNum];
+	DWORD* indices = (DWORD*)pIndices;
+
+	//정점위치 및 UV 대입
+	for (int i = 0; i < _totalVerNum; i++)
+	{
+		poses[i] = _terrainVertices[i].pos;
+		uvs[i] = _terrainVertices[i].baseUV;
+	}
+
+	//노말계산
+	ComputeNormal(normals, poses, _totalVerNum, indices, _totalTriangle * 3);
+
+	//탄젠트 바이노말 계산
+	ComputeTangentBinormal(
+		tangents,
+		binormals,
+		poses,
+		normals,
+		uvs,
+		indices,
+		_totalTriangle,
+		_totalVerNum);
+
+	//계산된거 대입
+	for (int i = 0; i < _totalVerNum; i++)
+	{
+		_terrainVertices[i].normal = normals[i];
+		_terrainVertices[i].binormal = binormals[i];
+		_terrainVertices[i].tangent = tangents[i];
+	}
+
+	// 버퍼 생성
+	//정점버퍼 만들기
+	_device->CreateVertexBuffer(
+		sizeof(TERRAINVERTEX) * _totalVerNum,
+		D3DUSAGE_WRITEONLY,
+		0,
+		D3DPOOL_MANAGED,
+		&_terrainVb,
+		0);
+
+	//만들어진 정점 버퍼를 Lock 하여 지형 정점 값을 쓴다.
+	void* p = NULL;
+	_terrainVb->Lock(0, 0, &p, 0);
+	memcpy(p, _terrainVertices, sizeof(TERRAINVERTEX) * _totalVerNum);
+	_terrainVb->Unlock();
+
+	//인덱스 버퍼 만들기
+	_device->CreateIndexBuffer(
+		sizeof(TERRAINTRI) * _totalTriangle,
+		D3DUSAGE_WRITEONLY,	//D3DUSAGE_WRITEONLY 예는 락안하고 고정정으로 버퍼내용이 유지될때 최고성능을 발휘, D3DUSAGE_DYNAMIC 락 을 자주하여 버퍼 내용이 바뀌는 경우
+		D3DFMT_INDEX32,
+		D3DPOOL_DEFAULT,	//D3DUSAGE_DYNAMIC 을 쓰려면 무조건 D3DPOOL_DEFAULT
+		&_terrainIb,
+		0);
+
+	//인덱스 버퍼에 값을 쓴다.
+	_terrainIb->Lock(0, 0, &p, 0);
+	memcpy(p, pIndices, sizeof(TERRAINTRI) * _totalTriangle);
+	_terrainIb->Unlock();
+
+	// 정점 선언부를 만든다.
+	//정점의 형태를 알려주는 배열
+	D3DVERTEXELEMENT9 vertElement[7];	//배열을 정점정보 갯수 + 1
+
+										//Position 
+	vertElement[0].Stream = 0;							//Stream 은 0
+	vertElement[0].Offset = 0;							//메모리의 시작 Byte 단위 0
+	vertElement[0].Type = D3DDECLTYPE_FLOAT3;			//자료의 타입
+	vertElement[0].Method = D3DDECLMETHOD_DEFAULT;		//일단 무조건  D3DDECLMETHOD_DEFAULT
+	vertElement[0].Usage = D3DDECLUSAGE_POSITION;		//정보 타입
+	vertElement[0].UsageIndex = 0;						//UsageIndex 일단 0
+
+														//Normal
+	vertElement[1].Stream = 0;							//Stream 은 0
+	vertElement[1].Offset = 12;							//메모리의 시작 Byte 단위 0
+	vertElement[1].Type = D3DDECLTYPE_FLOAT3;			//자료의 타입
+	vertElement[1].Method = D3DDECLMETHOD_DEFAULT;		//일단 무조건  D3DDECLMETHOD_DEFAULT
+	vertElement[1].Usage = D3DDECLUSAGE_NORMAL;			//정보 타입
+	vertElement[1].UsageIndex = 0;						//UsageIndex 일단 0
+
+														//BiNormal
+	vertElement[2].Stream = 0;							//Stream 은 0
+	vertElement[2].Offset = 24;							//메모리의 시작 Byte 단위 0
+	vertElement[2].Type = D3DDECLTYPE_FLOAT3;			//자료의 타입
+	vertElement[2].Method = D3DDECLMETHOD_DEFAULT;		//일단 무조건  D3DDECLMETHOD_DEFAULT
+	vertElement[2].Usage = D3DDECLUSAGE_BINORMAL;		//정보 타입
+	vertElement[2].UsageIndex = 0;						//UsageIndex 일단 0
+
+														//Tangent
+	vertElement[3].Stream = 0;							//Stream 은 0
+	vertElement[3].Offset = 36;							//메모리의 시작 Byte 단위 0
+	vertElement[3].Type = D3DDECLTYPE_FLOAT3;			//자료의 타입
+	vertElement[3].Method = D3DDECLMETHOD_DEFAULT;		//일단 무조건  D3DDECLMETHOD_DEFAULT
+	vertElement[3].Usage = D3DDECLUSAGE_TANGENT;		//정보 타입
+	vertElement[3].UsageIndex = 0;						//UsageIndex 일단 0
+
+														//BaseUV
+	vertElement[4].Stream = 0;							//Stream 은 0
+	vertElement[4].Offset = 48;							//메모리의 시작 Byte 단위 0
+	vertElement[4].Type = D3DDECLTYPE_FLOAT2;			//자료의 타입
+	vertElement[4].Method = D3DDECLMETHOD_DEFAULT;		//일단 무조건  D3DDECLMETHOD_DEFAULT
+	vertElement[4].Usage = D3DDECLUSAGE_TEXCOORD;		//정보 타입
+	vertElement[4].UsageIndex = 0;						//UsageIndex 일단 0
+
+
+														//tileUV
+	vertElement[5].Stream = 0;							//Stream 은 0
+	vertElement[5].Offset = 56;							//메모리의 시작 Byte 단위 0
+	vertElement[5].Type = D3DDECLTYPE_FLOAT2;			//자료의 타입
+	vertElement[5].Method = D3DDECLMETHOD_DEFAULT;		//일단 무조건  D3DDECLMETHOD_DEFAULT
+	vertElement[5].Usage = D3DDECLUSAGE_TEXCOORD;		//정보 타입
+	vertElement[5].UsageIndex = 1;						//UsageIndex 두번째 UV 1 
+
+														//더이상 없으니 종료
+	D3DVERTEXELEMENT9 end = D3DDECL_END(); //{0xFF,0,D3DDECLTYPE_UNUSED,0,0,0}
+	vertElement[6] = end;
+
+
+
+	// LPDIRECT3DVERTEXDECLARATION9 생성
+	_device->CreateVertexDeclaration(
+		vertElement,			//앞에서 만든 D3DVERTEXELEMENT9 배열 포인터
+		&_terrainDecl			//얻어올 LPDIRECT3DVERTEXDECLARATION9 포인터
+	);
+
+	SAFE_DELETE_ARRAY(poses);
+	SAFE_DELETE_ARRAY(normals);
+	SAFE_DELETE_ARRAY(tangents);
+	SAFE_DELETE_ARRAY(binormals);
+	SAFE_DELETE_ARRAY(uvs);
+	SAFE_DELETE_ARRAY(indices);
+
+	return S_OK;
+}
+
+HRESULT terrain::changeHeightTerrain(float cursorX, float cursorZ)
+{
+	//브러쉬맵의 가로세로 절반의 길이
+	int brushIdxX = brush_verNumX / 2;
+	int brushIdxZ = brush_verNumZ / 2;
+
+	//브러쉬맵의 좌상단의 인덱스를 찾자
+	int idxX = getIdx(cursorX, cursorZ).first - brushIdxX;
+	int idxZ = getIdx(cursorX, cursorZ).second - brushIdxZ;
+
+	//브러쉬맵의 우하단의 인덱스를 찾자
+	int idxX2 = getIdx(cursorX, cursorZ).first + brushIdxX;
+	int idxZ2 = getIdx(cursorX, cursorZ).second + brushIdxZ;
+
+	//정정위치와 정점 UV 를 계산하기
+	for (int z = 0; z < _verNumZ; z++)
+	{
+		for (int x = 0; x < _verNumX; x++)
+		{
+			int idx = z * _verNumX + x;
+
+			if (x >= idxX && x <= idxX2 &&
+				z >= idxZ && z <= idxZ2)
+			{
+				//브러쉬맵에 사용될 인덱스번호
+				int idx2 = (z - idxZ) * brush_verNumX + (x - idxX);
+				_vecPos[idx].y +=_vecBrush[idx2] * _brushScale * _nHeightSign;
+			}
+			_terrainVertices[idx].pos = _vecPos[idx];
+		}
+	}
+
+	////지형 스무싱 
+	this->smoothTerrain(_smoothLevel);
+
+
+	// 정점 인덱스를 구한다
+	LPTERRAINTRI pIndices = new tagTERRAINTRI[_totalTriangle];
+
+	//인덱스 배열 인덱스
+	int idx = 0;
+
+	for (DWORD z = 0; z < _cellNumZ; z++)
+	{
+		for (DWORD x = 0; x < _cellNumX; x++)
+		{
+			// lt-----rt
+			//  |    /|
+			//  |   / |
+			//  |  /  |
+			//  | /   |
+			//  |/    |
+			// lb-----rb
+
+			//해당 셀에 대한 정점 인덱스를 얻자
+			DWORD lt = z * _verNumX + x;
+			DWORD rt = z * _verNumX + x + 1;
+			DWORD lb = ((z + 1)* _verNumX) + x;
+			DWORD rb = ((z + 1)* _verNumX) + x + 1;
+
+			//셀의 삼각형 하나
+			pIndices[idx].dw0 = lt;
+			pIndices[idx].dw1 = rt;
+			pIndices[idx].dw2 = lb;
+			idx++;
+
+			//셀의 삼각형 하나
+			pIndices[idx].dw0 = lb;
+			pIndices[idx].dw1 = rt;
+			pIndices[idx].dw2 = rb;
+			idx++;
+		}
+	}
+
+	// 노말이랑 Binormal 이랑 Tangent 계산하기
+	D3DXVECTOR3* poses = new D3DXVECTOR3[_totalVerNum];		//정점위치
+	D3DXVECTOR3* normals = new D3DXVECTOR3[_totalVerNum];
+	D3DXVECTOR3* tangents = new D3DXVECTOR3[_totalVerNum];
+	D3DXVECTOR3* binormals = new D3DXVECTOR3[_totalVerNum];
+	D3DXVECTOR2* uvs = new D3DXVECTOR2[_totalVerNum];
+	DWORD* indices = (DWORD*)pIndices;
+
+	//정점위치 및 UV 대입
+	for (int i = 0; i < _totalVerNum; i++)
+	{
+		poses[i] = _terrainVertices[i].pos;
+		uvs[i] = _terrainVertices[i].baseUV;
+	}
+
+	//노말계산
+	ComputeNormal(normals, poses, _totalVerNum, indices, _totalTriangle * 3);
+
+	//탄젠트 바이노말 계산
+	ComputeTangentBinormal(
+		tangents,
+		binormals,
+		poses,
+		normals,
+		uvs,
+		indices,
+		_totalTriangle,
+		_totalVerNum);
+
+	//계산된거 대입
+	for (int i = 0; i < _totalVerNum; i++)
+	{
+		_terrainVertices[i].normal = normals[i];
+		_terrainVertices[i].binormal = binormals[i];
+		_terrainVertices[i].tangent = tangents[i];
+	}
+
+	// 버퍼 생성
+	//정점버퍼 만들기
+	_device->CreateVertexBuffer(
+		sizeof(TERRAINVERTEX) * _totalVerNum,
+		D3DUSAGE_WRITEONLY,
+		0,
+		D3DPOOL_MANAGED,
+		&_terrainVb,
+		0);
+
+	//만들어진 정점 버퍼를 Lock 하여 지형 정점 값을 쓴다.
+	void* p = NULL;
+	_terrainVb->Lock(0, 0, &p, 0);
+	memcpy(p, _terrainVertices, sizeof(TERRAINVERTEX) * _totalVerNum);
+	_terrainVb->Unlock();
+
+	//인덱스 버퍼 만들기
+	_device->CreateIndexBuffer(
+		sizeof(TERRAINTRI) * _totalTriangle,
+		D3DUSAGE_DYNAMIC,	//D3DUSAGE_WRITEONLY 예는 락안하고 고정정으로 버퍼내용이 유지될때 최고성능을 발휘, D3DUSAGE_DYNAMIC 락 을 자주하여 버퍼 내용이 바뀌는 경우
+		D3DFMT_INDEX32,
+		D3DPOOL_DEFAULT,	//D3DUSAGE_DYNAMIC 을 쓰려면 무조건 D3DPOOL_DEFAULT
+		&_terrainIb,
+		0);
+
+	//인덱스 버퍼에 값을 쓴다.
+	_terrainIb->Lock(0, 0, &p, 0);
+	memcpy(p, pIndices, sizeof(TERRAINTRI) * _totalTriangle);
+	_terrainIb->Unlock();
+
+	// 정점 선언부를 만든다.
+	//정점의 형태를 알려주는 배열
+	D3DVERTEXELEMENT9 vertElement[7];	//배열을 정점정보 갯수 + 1
+
+										//Position 
+	vertElement[0].Stream = 0;							//Stream 은 0
+	vertElement[0].Offset = 0;							//메모리의 시작 Byte 단위 0
+	vertElement[0].Type = D3DDECLTYPE_FLOAT3;			//자료의 타입
+	vertElement[0].Method = D3DDECLMETHOD_DEFAULT;		//일단 무조건  D3DDECLMETHOD_DEFAULT
+	vertElement[0].Usage = D3DDECLUSAGE_POSITION;		//정보 타입
+	vertElement[0].UsageIndex = 0;						//UsageIndex 일단 0
+
+														//Normal
+	vertElement[1].Stream = 0;							//Stream 은 0
+	vertElement[1].Offset = 12;							//메모리의 시작 Byte 단위 0
+	vertElement[1].Type = D3DDECLTYPE_FLOAT3;			//자료의 타입
+	vertElement[1].Method = D3DDECLMETHOD_DEFAULT;		//일단 무조건  D3DDECLMETHOD_DEFAULT
+	vertElement[1].Usage = D3DDECLUSAGE_NORMAL;			//정보 타입
+	vertElement[1].UsageIndex = 0;						//UsageIndex 일단 0
+
+														//BiNormal
+	vertElement[2].Stream = 0;							//Stream 은 0
+	vertElement[2].Offset = 24;							//메모리의 시작 Byte 단위 0
+	vertElement[2].Type = D3DDECLTYPE_FLOAT3;			//자료의 타입
+	vertElement[2].Method = D3DDECLMETHOD_DEFAULT;		//일단 무조건  D3DDECLMETHOD_DEFAULT
+	vertElement[2].Usage = D3DDECLUSAGE_BINORMAL;		//정보 타입
+	vertElement[2].UsageIndex = 0;						//UsageIndex 일단 0
+
+														//Tangent
+	vertElement[3].Stream = 0;							//Stream 은 0
+	vertElement[3].Offset = 36;							//메모리의 시작 Byte 단위 0
+	vertElement[3].Type = D3DDECLTYPE_FLOAT3;			//자료의 타입
+	vertElement[3].Method = D3DDECLMETHOD_DEFAULT;		//일단 무조건  D3DDECLMETHOD_DEFAULT
+	vertElement[3].Usage = D3DDECLUSAGE_TANGENT;		//정보 타입
+	vertElement[3].UsageIndex = 0;						//UsageIndex 일단 0
+
+														//BaseUV
+	vertElement[4].Stream = 0;							//Stream 은 0
+	vertElement[4].Offset = 48;							//메모리의 시작 Byte 단위 0
+	vertElement[4].Type = D3DDECLTYPE_FLOAT2;			//자료의 타입
+	vertElement[4].Method = D3DDECLMETHOD_DEFAULT;		//일단 무조건  D3DDECLMETHOD_DEFAULT
+	vertElement[4].Usage = D3DDECLUSAGE_TEXCOORD;		//정보 타입
+	vertElement[4].UsageIndex = 0;						//UsageIndex 일단 0
+
+
+														//tileUV
+	vertElement[5].Stream = 0;							//Stream 은 0
+	vertElement[5].Offset = 56;							//메모리의 시작 Byte 단위 0
+	vertElement[5].Type = D3DDECLTYPE_FLOAT2;			//자료의 타입
+	vertElement[5].Method = D3DDECLMETHOD_DEFAULT;		//일단 무조건  D3DDECLMETHOD_DEFAULT
+	vertElement[5].Usage = D3DDECLUSAGE_TEXCOORD;		//정보 타입
+	vertElement[5].UsageIndex = 1;						//UsageIndex 두번째 UV 1 
+
+														//더이상 없으니 종료
+	D3DVERTEXELEMENT9 end = D3DDECL_END(); //{0xFF,0,D3DDECLTYPE_UNUSED,0,0,0}
+	vertElement[6] = end;
+
+
+
+	// LPDIRECT3DVERTEXDECLARATION9 생성
+	_device->CreateVertexDeclaration(
+		vertElement,			//앞에서 만든 D3DVERTEXELEMENT9 배열 포인터
+		&_terrainDecl			//얻어올 LPDIRECT3DVERTEXDECLARATION9 포인터
+	);
+
+	SAFE_DELETE_ARRAY(poses);
+	SAFE_DELETE_ARRAY(normals);
+	SAFE_DELETE_ARRAY(tangents);
+	SAFE_DELETE_ARRAY(binormals);
+	SAFE_DELETE_ARRAY(uvs);
+	SAFE_DELETE_ARRAY(indices);
+
+	//쿼드트리를 만든다.
+	_quadTree = new quadTree;
+	_quadTree->init(_terrainVertices, _verNumX);
+
+	return S_OK;
+}
+
+
 //지형 스무싱
 void terrain::smoothTerrain(int passed)
 {
@@ -668,42 +1320,42 @@ void terrain::smoothTerrain(int passed)
 
 	float* smooth = new float[_totalVerNum];
 
-	while (passed > 0) 
+	while (passed > 0)
 	{
 		passed--;
-		for (int z = 0; z < _verNumZ; z++) 
+		for (int z = 0; z < _verNumZ; z++)
 		{
-			for (int x = 0; x < _verNumX; x++) 
+			for (int x = 0; x < _verNumX; x++)
 			{
 				int adjacentSections = 0;		//몇개의 정점과 평균값을 내니?
 				float totalSections = 0.0f;		//주변의 정점 높이 총합은 얼마니?
 
-				//왼쪽체크
-				if ((x - 1) > 0) 
+												//왼쪽체크
+				if ((x - 1) > 0)
 				{
 					totalSections += _terrainVertices[(z * _verNumX) + (x - 1)].pos.y;
 					adjacentSections++;
 					//왼쪽 상단
-					if ((z - 1) > 0) 
+					if ((z - 1) > 0)
 					{
 						totalSections += _terrainVertices[((z - 1) * _verNumX) + (x - 1)].pos.y;
 						adjacentSections++;
 					}
 					//왼쪽 하단
-					if ((z + 1) < _verNumZ) 
+					if ((z + 1) < _verNumZ)
 					{
 						totalSections += _terrainVertices[((z + 1) * _verNumX) + (x - 1)].pos.y;
 						adjacentSections++;
 					}
 				}
 				//오른쪽 체크
-				if ((x + 1) < _verNumX) 
+				if ((x + 1) < _verNumX)
 				{
 					totalSections += _terrainVertices[(z * _verNumX) + (x + 1)].pos.y;
 					adjacentSections++;
 
 					//오른쪽 상단
-					if ((z - 1) > 0) 
+					if ((z - 1) > 0)
 					{
 						totalSections += _terrainVertices[((z - 1) * _verNumX) + (x + 1)].pos.y;
 						adjacentSections++;
@@ -733,7 +1385,7 @@ void terrain::smoothTerrain(int passed)
 		}
 
 		//위에서 계산된 y 스무싱 적용
-		for (int i = 0; i < _totalVerNum; i++) 
+		for (int i = 0; i < _totalVerNum; i++)
 		{
 			_terrainVertices[i].pos.y = smooth[i];
 		}
