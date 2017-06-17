@@ -126,12 +126,17 @@ HRESULT kimsTestScene::init(void)
 
 
 	D3DXVECTOR3 pos = _player->getPlayerObject()->_transform->GetWorldPosition();
-	pos.y = pos.y + 5;
-	pos.z = pos.z - 5;
+	pos.y = pos.y + 2;
+	pos.z = pos.z - 2;
 	gameNode::_mainCamera->SetWorldPosition(pos);
-	gameNode::_mainCamera->LookPosition(_player->getPlayerObject()->_transform->GetWorldPosition());
-	_mainCamera->AttachTo(_player->getPlayerObject()->_transform);
 
+	D3DXVECTOR3 pos2 = _player->getPlayerObject()->_transform->GetWorldPosition();
+	//pos2.y = pos2.y + .0f;
+	pos2.z = pos2.z + 2.0f;
+
+
+	gameNode::_mainCamera->LookPosition(pos2);
+	//_mainCamera->AttachTo(_player->getPlayerObject()->_transform);
 
 	_thrall = new xNpc;
 	_thrall->setlinkTerrain(*_terrain);
@@ -145,7 +150,7 @@ HRESULT kimsTestScene::init(void)
 	//_renderObjects.push_back(_sylvanas->getNpcObject());
 	//_renderObjects.push_back(_thrall->getNpcObject());
 
-	SOUNDMANAGER->play("마을1", 0.5f);
+	SOUNDMANAGER->play("마을1", 0.01f);
 
 	return S_OK;
 }
@@ -187,11 +192,12 @@ void kimsTestScene::update(void)
 	//사운드 재생
 	if (KEYMANAGER->isOnceKeyDown('G'))
 	{
-		SOUNDMANAGER->play("필드1");
+		SOUNDMANAGER->play("필드1", 0.02f);
 	}
 	if (KEYMANAGER->isOnceKeyDown('H'))
 	{
-		SOUNDMANAGER->play("마을1");
+		//SOUNDMANAGER->play("마을1", 0.02f);
+		SOUNDMANAGER->setMusicSpeed("마을1", 2.0f);
 	}
 
 	_sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);

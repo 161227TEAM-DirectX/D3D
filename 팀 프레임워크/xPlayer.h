@@ -27,6 +27,7 @@ private:
 	SK_Boss00* _lightSkill;
 	dx::transform* _skillTrans;
 
+	bool _isJump;
 	bool _isOnBattle;
 	PL_STATE _state;
 	PL_STATE _prevState;
@@ -82,7 +83,16 @@ public:
 	//플레이어 무브 컨트롤 애니메이션 및 상태변화 미포함.
 	void moveControl();
 
+	void rotateControl();
 
+	void attackControl();
+
+	void jumpControl();
+
+	//테스트를 위한 임시적인 기능설정
+	void testControl();
+
+	//플레이어 행동 종합선물세트
 	void actionControl();
 
 	//외부에 렌더링할 오브젝트의 값을 전달한다.->구조상의 문제가 있음... 합리적이지 못함.
