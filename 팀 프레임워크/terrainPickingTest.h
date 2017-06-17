@@ -6,8 +6,6 @@
 #include "bossMonster.h"
 #include "xPlayer.h"
 
-
-
 class terrainPickingTest : public gameNode
 {
 private:
@@ -21,21 +19,18 @@ private:
 	};
 
 private:
-//	dijkstra*			tempDijkstra;
 	xPlayer* _player;
-
 	monster*			player;
 	bossMonster*		boss;
 	baseObject*			enemy;
-	terrain*			_terrain;	//지형클래스
+	terrain*			_terrain;			//지형클래스
 	terrain*			_terrainShadow;		//지형 그림자
-	dx::transform*		_trans;		//트랜스폼
-	lightDirection*		_dirLight;	//디렉션라이트
-	D3DXVECTOR3			_hitPos;	//히트 포지션
+	dx::transform*		_trans;				//트랜스폼
+	lightDirection*		_dirLight;			//디렉션라이트
+	D3DXVECTOR3			_hitPos;			//히트 포지션
 	SELECTFUNC			lButtonState;
 	vector<light*>		_lights;
-	vector<monster*>	mon;
-	
+	vector<baseObject*>	mon;
 	
 	vector<baseObject*> testObject;
 
@@ -62,7 +57,8 @@ public:
 	//피킹된 위치에 오브젝트를 추가합니다.
 	void addObject(void);
 
+	void InitMonster(void);
+
 	terrainPickingTest() {}
 	~terrainPickingTest() {}
 };
-

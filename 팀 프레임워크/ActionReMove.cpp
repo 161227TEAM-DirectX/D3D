@@ -54,11 +54,10 @@ int ActionReMove::Update()
 	p.y = rand->getHeight(p.x, p.z);
 	D3DXVECTOR3 prev = owner->_transform->GetWorldPosition();		//개체의 월드위치값을 저장
 
-																	//D3DXVECTOR3 result = prev - p;							//과거 위치에서 선형보간된 위치를 바라보는 방향벡터
 	owner->_transform->LookPosition(p);						//방향벡터를 transform의 정면벡터에 저장
 	owner->_transform->SetWorldPosition(p);					//개채의 위치를 선형보간된 위치로 변경
 
-																//실시간 플레이어의 이동을 체크하고 경로를 다시 설정.
+	//실시간 플레이어의 이동을 체크하고 경로를 다시 설정.
 
 	//장애물과 충돌하면 멈춘다. - 다시 이동??
 	for (int i = 0; i < object->size(); i++)

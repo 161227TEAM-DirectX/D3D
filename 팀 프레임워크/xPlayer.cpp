@@ -19,8 +19,13 @@ HRESULT xPlayer::init()
 	PLAYERMANAGER->SetArmor(A_PLATE);
 	PLAYERMANAGER->SetWeapon(W_KATANA);
 	PLAYERMANAGER->SetShield(SH_CROSS);
+<<<<<<< HEAD
 	PLAYERMANAGER->SetHp(10);
 	PLAYERMANAGER->SetCrit(20.0f);
+=======
+	PLAYERMANAGER->SetHp(100000000);
+	PLAYERMANAGER->SetCrit(100.0f);
+>>>>>>> 8cc848d3843df337eee74a7e5df3a39eb391f284
 
 	_damagedTime = 0.0f;
 	_stunnedTime = 0.0f;

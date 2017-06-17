@@ -34,9 +34,12 @@ HRESULT terrainPickingTest::init(void)
 	_dirLight = new lightDirection;
 	_hitPos = D3DXVECTOR3(0, 0, 0);
 
-//	tempDijkstra = new dijkstra;
+	D3DXMATRIX mat;
+	D3DXMATRIX matRotate;
+	D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
+	mat = matRotate;
 
-//	boss = new bossMonster;
+	//boss = new bossMonster;
 	_player = new xPlayer;
 	_player->setlinkTerrain(*_terrain);
 	_player->init();
@@ -47,28 +50,22 @@ HRESULT terrainPickingTest::init(void)
 	{
 		_renderObjects.push_back(_player->getRenderObject()[i]);
 	}
-//	player = new monster;
-
-	ACMANAGER->Init(*_terrain, testObject, *_player->getPlayerObject(), *boss);
 
 	float tempY = _terrain->getHeight(0.0f, 0.0f);
 
-	//임시 플레이어 코드
-	D3DXMATRIX mat;
-//	D3DXMATRIX matScaling;
-	D3DXMATRIX matRotate;
-//	D3DXMatrixScaling(&matScaling, 0.1f, 0.1f, 0.1f);
-	D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
-	mat = /*matScaling **/ matRotate;
-
-	//enemy = new baseObject;
-	//enemy->setMesh(RM_XMESH->getResource("Resources/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
-	//enemy->_transform->SetScale(0.1f, 0.1f, 0.1f);
-	//enemy->setActive(true);
-	//this->_renderObjects.push_back(enemy);
-
-
+	InitMonster();
 	
+
+	ACMANAGER->Init(*_terrain, testObject, *_player/*->getPlayerObject(), mon*/);
+
+	for (int i = 0; i < mon.size(); i++)
+	{
+		//monster* temp = dynamic_cast<monster*>(mon[i]);
+		//temp->setActive(true);
+		mon[i]->setActive(true);
+		_renderObjects.push_back(mon[i]);
+	}
+
 	//임시 몬스터 구현 코드
 	
 //	player->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/arcanegolem_ok/x/golem2.x", mat));
@@ -84,17 +81,17 @@ HRESULT terrainPickingTest::init(void)
 	//mat = matScaling * matRotate;
 
 
-//	boss->setMesh(RM_SKINNED->getResource("Resources/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
-//	boss->_transform->SetScale(0.2f, 0.2f, 0.2f);
-//	boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
-//	boss->setActive(true);
-//	this->_renderObjects.push_back(boss);
+	//boss->setMesh(RM_SKINNED->getResource("Resources/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
+	//boss->_transform->SetScale(0.2f, 0.2f, 0.2f);
+	//boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+	//boss->setActive(true);
+	//this->_renderObjects.push_back(boss);
 
 	_sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(90), 0, 0);
 	this->setEnvironment("Resources/TextureCUBE/SuperKanjiCube.dds");
 
-	_mainCamera->SetWorldPosition(0.0f, 0.0f, 10.0f);
-	_mainCamera->LookPosition(boss->_transform->GetWorldPosition());
+	_mainCamera->SetWorldPosition(0.0f, 10.0f, 10.0f);
+	_mainCamera->LookPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 	lButtonState = SELECTFUNC::SELECT_NONE;
 
@@ -108,8 +105,8 @@ HRESULT terrainPickingTest::init(void)
 
 void terrainPickingTest::release(void)
 {
-	_player->release();
-	SAFE_DELETE(_player);
+//	_player->release();
+//	SAFE_DELETE(_player);
 
 	//오브젝트 해제
 	for (int i = 0; i < this->_renderObjects.size(); i++)
@@ -120,12 +117,6 @@ void terrainPickingTest::release(void)
 	SAFE_DELETE(this->_terrain);
 	SAFE_DELETE(this->_terrainShadow);
 	SAFE_DELETE(this->_trans);
-
-	/*_terrain->release();
-	SAFE_DELETE(_terrain);
-	SAFE_DELETE(_trans);
-	SAFE_DELETE(_dirLight);*/
-//	SAFE_DELETE(tempDijkstra);
 }
 
 void terrainPickingTest::update(void)
@@ -144,10 +135,6 @@ void terrainPickingTest::update(void)
 
 	//쉐도우맵 준비
 	this->readyShadowMap(&this->_renderObjects, this->_terrainShadow);
-
-	//player._skTransform->DefaultMyControl(_timeDelta);
-	//enemy->update();
-	//boss->update();
 }
 
 void terrainPickingTest::render(void)
@@ -176,8 +163,8 @@ void terrainPickingTest::render(void)
 	//}
 	xMeshStatic::setTechniqueName("ReciveShadow");
 	xMeshStatic::setBaseLight(this->_sceneBaseDirectionLight);
-
 	xMeshSkinned::setCamera(_mainCamera);
+
 	//xMeshSkinned::setTechniqueName("ReciveShadow");
 	xMeshSkinned::setTechniqueName("Toon");
 	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resources/Testures/Ramp_1.png"));
@@ -192,63 +179,6 @@ void terrainPickingTest::render(void)
 	_terrain->render(_mainCamera, _sceneBaseDirectionLight, _directionLightCamera);
 	
 	RM_SKINNED->getResource("Resources/Player/FHUMAN_PLATE/FHUMAN.X")->ShowAnimationName(0, 0);
-	//_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-	//포그세팅 0xff806A12
-	//_device->SetRenderState(D3DRS_FOGENABLE, TRUE);					//포그 사용여부
-	//_device->SetRenderState(D3DRS_FOGCOLOR, 0xff806A12);			//포그 색상
-	//_device->SetRenderState(D3DRS_FOGSTART, FloatToDWORD(10.0f));	//포그 시작 거리
-	//_device->SetRenderState(D3DRS_FOGEND, FloatToDWORD(100.0f));	//포그 종료 거리
-	//_device->SetRenderState(D3DRS_FOGTABLEMODE, D3DFOG_LINEAR);		//포그선형 모드
-	//_terrain->render(_mainCamera, _dirLight);
-	//_device->SetRenderState(D3DRS_FOGENABLE, false);
-
-	//렌더시킬 조명행렬 초기화 (각각의 라이트 클래스안에 만들어져있음)
-	//D3DXMATRIXA16 matLights[10];
-	//for (int i = 0; i < _lights.size(); i++)
-	//{
-	//	matLights[i] = _lights[i]->getLightMatrix();
-	//}
-
-	//셰이더에 라이트 세팅
-	//xMeshStatic::_staticMeshEffect->SetMatrixArray("matLights", matLights, 10);
-	//xMeshStatic::_staticMeshEffect->SetInt("LightNum", _lights.size());
-	//세이더에 카메라 세팅
-	//xMeshStatic::setCamera(_mainCamera);
-
-	//xMeshSkinned::_sSkinnedMeshEffect->SetMatrixArray("matLights", matLights, 10);
-	//xMeshSkinned::_sSkinnedMeshEffect->SetInt("LightNum", _lights.size());
-	//xMeshSkinned::setCamera(_mainCamera);
-
-	//enemy->render();
-
-	//if (enemy->_mesh != nullptr)
-	//{
-	//	셰이더에 라이트 세팅
-	//	xMeshStatic::_staticMeshEffect->SetMatrixArray("matLights", matLights, 10);
-	//	xMeshStatic::_staticMeshEffect->SetInt("LightNum", _lights.size());
-	//	세이더에 카메라 세팅
-	//	xMeshStatic::setCamera(_mainCamera);
-	//}
-	//
-	//if (enemy->_mesh != nullptr)
-	//{
-	//	xMeshSkinned::_sSkinnedMeshEffect->SetMatrixArray("matLights", matLights, 10);
-	//	xMeshSkinned::_sSkinnedMeshEffect->SetInt("LightNum", _lights.size());
-	//	xMeshSkinned::setCamera(_mainCamera);
-	//}
-	
-
-//	boss->render();
-
-	//if (!testObject.empty())
-	//{
-	//	for (size_t i = 0; i < testObject.size(); i++)
-	//	{
-	//		testObject[i]->render();
-	//	}
-	//}
-
-//	_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 
 	const vector<Node*>& temp = _terrain->getDijkstra().getVecNode();
 	for (size_t i = 0; i < temp.size(); i++)
@@ -274,14 +204,6 @@ void terrainPickingTest::render(void)
 			position++;
 		}
 	}
-	
-
-	////Hit 위치에 구만들기
-	//GIZMOMANAGER->WireSphere(_hitPos, 0.5f, 0xffff0000);
-	//
-	////Trans 위치에 구
-	//GIZMOMANAGER->WireSphere(_trans->GetWorldPosition(), 1.0f, 0xffff00ff);
-	//_trans->RenderGimozo();
 }
 
 void terrainPickingTest::lButtonStateChange(void)
@@ -351,4 +273,198 @@ void terrainPickingTest::selectLButton(void)
 void terrainPickingTest::addObject(void)
 {
 	enemy->_transform->SetWorldPosition(_hitPos);
+}
+
+void terrainPickingTest::InitMonster(void)
+{
+	//임시 플레이어 코드
+	D3DXMATRIX mat;
+	//	D3DXMATRIX matScaling;
+	D3DXMATRIX matRotate;
+	//	D3DXMatrixScaling(&matScaling, 0.1f, 0.1f, 0.1f);
+	D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
+	mat = /*matScaling **/ matRotate;
+	monster* tempObject;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+
+	float tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	float tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	float tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/arcanegolem_ok/x/golem2.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/Beargod_ok/x/beargod.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/boar_ok/x/boar.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/bogbeast_ok/x/bogbeast.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/Brutallus_ok/x/brutallus.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/chimerabeast_ok/x/chimerabeast.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/cockatriceelite_ok/x/cockatriceelite.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/crocodile_ok/x/crocodile.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/direfurbolg_ok/x/direfurbolg.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/doomguard_ok/x/doomguard.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/harpy_ok/x/harpy.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/raptor_ok/x/raptor.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/scorpion_ok/x/scorpion.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
 }

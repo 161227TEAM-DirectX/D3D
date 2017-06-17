@@ -159,7 +159,6 @@
     <ClInclude Include="boneHierachy.h" />
     <ClInclude Include="bossActionAttack.h" />
     <ClInclude Include="bossActionCinema.h" />
-    <ClInclude Include="bossActionControl.h" />
     <ClInclude Include="bossActionDie.h" />
     <ClInclude Include="bossActionFly.h" />
     <ClInclude Include="bossActionFlyDie.h" />
@@ -230,7 +229,6 @@
     <ClInclude Include="lightPoint.h" />
     <ClInclude Include="mainGame.h" />
     <ClInclude Include="monster.h" />
-    <ClInclude Include="monsterManager.h" />
     <ClInclude Include="myUtil.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="particle.h" />
@@ -301,7 +299,6 @@
     <ClCompile Include="boneHierachy.cpp" />
     <ClCompile Include="bossActionAttack.cpp" />
     <ClCompile Include="bossActionCinema.cpp" />
-    <ClCompile Include="bossActionControl.cpp" />
     <ClCompile Include="bossActionDie.cpp" />
     <ClCompile Include="bossActionFly.cpp" />
     <ClCompile Include="bossActionFlyDie.cpp" />
@@ -372,7 +369,6 @@
     <ClCompile Include="lightPoint.cpp" />
     <ClCompile Include="mainGame.cpp" />
     <ClCompile Include="monster.cpp" />
-    <ClCompile Include="monsterManager.cpp" />
     <ClCompile Include="myUtil.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="particle.cpp" />

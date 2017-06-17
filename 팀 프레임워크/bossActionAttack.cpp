@@ -25,7 +25,13 @@ int bossActionAttack::Update()
 {
 	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
 
-	PHYSICSMANAGER->isBlocking(owner, enemy);
+	PHYSICSMANAGER->isBlocking(owner, playerObject);
+
+	//애니메이션 일정 시간 지난뒤에 데미지를 입력.
+	if (owner->getSkinnedAnim().getAnimationPlayFactor() <= 0.45f && owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.40f)
+	{
+		enemy->playerDamaged(temp->getAtt(), 0.6f, 25.0f);
+	}
 
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.9f)
 	{
@@ -33,6 +39,7 @@ int bossActionAttack::Update()
 		int random = myUtil::RandomIntRange(1, 5);
 
 		//플레이어의 hp를 소모시키자.
+		//PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - temp->getAtt());
 
 		switch (random)
 		{
@@ -57,9 +64,8 @@ int bossActionAttack::Update()
 		}
 
 		//적이 나의 hit박스 안에 없다면 이동해라.
-		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), enemy->_transform, &enemy->_boundBox))
+		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
 		{
-			//int index = myUtil::RandomIntRange(0, 9);
 			resultValue = myUtil::RandomFloatRange(0.1f, 1.0f);
 
 			if (resultValue >= 0.1f && resultValue <= 0.98f)
@@ -68,14 +74,14 @@ int bossActionAttack::Update()
 			}
 			else if (resultValue >= 0.98f && resultValue <= 0.99f)
 			{
-				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
+				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 				{
 					return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
 				}
 			}
 			else if (resultValue >= 0.99f && resultValue <= 1.0f)
 			{
-				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
+				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 				{
 					return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
 				}

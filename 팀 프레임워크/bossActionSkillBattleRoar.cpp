@@ -30,9 +30,9 @@ int bossActionSkillBattleRoar::Update()
 {
 	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
 
-	PHYSICSMANAGER->isBlocking(owner, enemy);
+	PHYSICSMANAGER->isBlocking(owner, playerObject);
 
-	D3DXVECTOR3 enemyNormal = enemy->_transform->GetWorldPosition() - temp->_transform->GetWorldPosition();
+	D3DXVECTOR3 enemyNormal = playerObject->_transform->GetWorldPosition() - temp->_transform->GetWorldPosition();
 	D3DXVec3Normalize(&enemyNormal, &enemyNormal);
 	float angle = D3DXVec3Dot(&temp->_transform->GetForward(), &enemyNormal);
 
@@ -49,7 +49,7 @@ int bossActionSkillBattleRoar::Update()
 
 	dotTime -= 0.08f;
 	//공격에 따른 범위가 필요, 공격 범위에 있는 존재는 스턴에 걸림, 스턴에 걸린 상태로 도트대미지 적용필요.
-	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
+	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 	{
 		switch (attackStyle)
 		{
@@ -58,7 +58,8 @@ int bossActionSkillBattleRoar::Update()
 			if (dotTime < 0)
 			{
 				dotTime = 2.0f;
-
+				//PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - ((float)temp->getAtt()*myUtil::RandomFloatRange(1.3f, 1.8f)));
+				enemy->playerDamaged(((float)temp->getAtt()*myUtil::RandomFloatRange(1.3f, 1.8f)), 0.6f, 100.0f, 0.0f, 0.0f);
 			}
 			break;
 		case 1:
@@ -66,6 +67,8 @@ int bossActionSkillBattleRoar::Update()
 			{
 				dotTime = 2.0f;
 				//플레이어의 상태를 스턴으로 변경해야 한다. 데미지는 마법공격보다 낮게 책정.
+				//PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - ((float)temp->getAtt() * myUtil::RandomFloatRange(0.1f, 0.3f)));
+				enemy->playerDamaged(((float)temp->getAtt() * myUtil::RandomFloatRange(0.1f, 0.3f)), 0.0f, 0.0f, 100.0f, 2.0f);
 			}
 			break;
 		}

@@ -208,7 +208,7 @@ void dijkstra::FindPath(D3DXVECTOR3 vSt, D3DXVECTOR3 vDst/*, vector<baseObject*>
 	}
 }
 
-ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terrain& rand, vector<baseObject*>& object, D3DXVECTOR3 vStart, D3DXVECTOR3 vDest)
+ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& playerObject, terrain& rand, vector<baseObject*>& object, D3DXVECTOR3 vStart, D3DXVECTOR3 vDest)
 {
 	bool collision = false;
 	int startNodeIndex = -1;
@@ -226,7 +226,7 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
-		aM->setEnemy(enemy);
+		aM->setPlayerObject(playerObject);
 		actionSeq->AddAction(aM);
 		aM = nullptr;
 
@@ -333,7 +333,7 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 			aM->setRand(rand);
 			aM->setDelegate(actionSeq);
 			aM->setObject(object);
-			aM->setEnemy(enemy);
+			aM->setPlayerObject(playerObject);
 			actionSeq->AddAction(aM);
 			aM = nullptr;
 
@@ -358,7 +358,7 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
-		aM->setEnemy(enemy);
+		aM->setPlayerObject(playerObject);
 		actionSeq->AddAction(aM);
 		aM = nullptr;
 
@@ -372,7 +372,7 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 			aM->setOwner(player);
 //			aM->changeAni();
 			aM->setRand(rand);
-			aM->setEnemy(enemy);
+			aM->setPlayerObject(playerObject);
 			aM->setDelegate(actionSeq);
 			actionSeq->AddAction(aM);
 			aM = nullptr;
@@ -387,7 +387,7 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
-		aM->setEnemy(enemy);
+		aM->setPlayerObject(playerObject);
 		actionSeq->AddAction(aM);
 		aM = nullptr;
 	}
@@ -407,7 +407,7 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
-		aM->setEnemy(enemy);
+		aM->setPlayerObject(playerObject);
 		actionSeq->AddAction(aM);
 		aM = nullptr;
 
@@ -420,7 +420,7 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
-		aM->setEnemy(enemy);
+		aM->setPlayerObject(playerObject);
 		actionSeq->AddAction(aM);
 		aM = nullptr;
 	}
@@ -438,7 +438,7 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
-		aM->setEnemy(enemy);
+		aM->setPlayerObject(playerObject);
 		actionSeq->AddAction(aM);
 		aM = nullptr;
 
@@ -452,7 +452,7 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 			aM->setOwner(player);
 //			aM->changeAni();
 			aM->setRand(rand);
-			aM->setEnemy(enemy);
+			aM->setPlayerObject(playerObject);
 			aM->setDelegate(actionSeq);
 			actionSeq->AddAction(aM);
 			aM = nullptr;
@@ -467,7 +467,7 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& enemy, terr
 		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
-		aM->setEnemy(enemy);
+		aM->setPlayerObject(playerObject);
 		actionSeq->AddAction(aM);
 		aM = nullptr;
 	}

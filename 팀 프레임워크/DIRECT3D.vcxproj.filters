@@ -175,9 +175,6 @@
     <Filter Include="GameFramework3D\ActionBoss">
       <UniqueIdentifier>{56d09b57-16cd-4ec0-bb84-f0323e64432a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework3D\ActionBoss\BossControl">
-      <UniqueIdentifier>{d177c4cf-fc20-4f26-8a21-7e1a0847f89a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameFramework3D\BoundBox">
       <UniqueIdentifier>{d4bef6e2-fcd0-4de1-8ec6-95265d04cbf8}</UniqueIdentifier>
     </Filter>
@@ -534,9 +531,6 @@
     <ClCompile Include="bossActionLanding.cpp">
       <Filter>GameFramework3D\ActionBoss</Filter>
     </ClCompile>
-    <ClCompile Include="bossActionControl.cpp">
-      <Filter>GameFramework3D\ActionBoss\BossControl</Filter>
-    </ClCompile>
     <ClCompile Include="bossActionDie.cpp">
       <Filter>GameFramework3D\ActionBoss</Filter>
     </ClCompile>
@@ -606,7 +600,6 @@
     <ClCompile Include="bossActionSkillFlyFire.cpp">
       <Filter>GameFramework3D\ActionBoss</Filter>
     </ClCompile>
-    <ClCompile Include="monsterManager.cpp" />
     <ClCompile Include="ActionManager.cpp" />
     <ClCompile Include="xNpc.cpp">
       <Filter>Z테스트\김태훈\xNpc</Filter>
@@ -952,9 +945,6 @@
     <ClInclude Include="bossActionLanding.h">
       <Filter>GameFramework3D\ActionBoss</Filter>
     </ClInclude>
-    <ClInclude Include="bossActionControl.h">
-      <Filter>GameFramework3D\ActionBoss\BossControl</Filter>
-    </ClInclude>
     <ClInclude Include="bossActionDie.h">
       <Filter>GameFramework3D\ActionBoss</Filter>
     </ClInclude>
@@ -1024,7 +1014,6 @@
     <ClInclude Include="bossActionFlyMove.h">
       <Filter>GameFramework3D\ActionBoss</Filter>
     </ClInclude>
-    <ClInclude Include="monsterManager.h" />
     <ClInclude Include="ActionManager.h" />
     <ClInclude Include="xNpc.h">
       <Filter>Z테스트\김태훈\xNpc</Filter>

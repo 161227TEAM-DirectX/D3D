@@ -1,6 +1,7 @@
 #pragma once
 #include "Action.h"
 #include "bossMonster.h"
+#include "xPlayer.h"
 class bossActionSkillBattleRoar : public Action
 {
 private:
