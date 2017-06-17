@@ -145,7 +145,7 @@ HRESULT kimsTestScene::init(void)
 	//_renderObjects.push_back(_sylvanas->getNpcObject());
 	//_renderObjects.push_back(_thrall->getNpcObject());
 
-	SOUNDMANAGER->play("마을1", 0.5f);
+	SOUNDMANAGER->play("마을1", 0.01f);
 
 	return S_OK;
 }
@@ -187,11 +187,12 @@ void kimsTestScene::update(void)
 	//사운드 재생
 	if (KEYMANAGER->isOnceKeyDown('G'))
 	{
-		SOUNDMANAGER->play("필드1");
+		SOUNDMANAGER->play("필드1", 0.02f);
 	}
 	if (KEYMANAGER->isOnceKeyDown('H'))
 	{
-		SOUNDMANAGER->play("마을1");
+		//SOUNDMANAGER->play("마을1", 0.02f);
+		SOUNDMANAGER->setMusicSpeed("마을1", 2.0f);
 	}
 
 	_sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);

@@ -21,6 +21,10 @@ HRESULT soundManager::init(void)
 	SOUNDMANAGER->addSound("마을1", "Resources/Sound/TownBGM1.mp3", true, true);
 	SOUNDMANAGER->addSound("필드1", "Resources/Sound/FieldBGM1.mp3", true, true);
 	SOUNDMANAGER->addSound("보스1", "Resources/Sound/BossBGM1.mp3", true, true);
+	SOUNDMANAGER->addSound("공격1", "Resources/Sound/공격1.mp3", false, false);
+	SOUNDMANAGER->addSound("베기1", "Resources/Sound/베기1.mp3", false, false);
+	SOUNDMANAGER->addSound("걸음소리1", "Resources/Sound/걸음소리1.mp3", false, true);
+	SOUNDMANAGER->addSound("걸음소리1one", "Resources/Sound/걸음소리1.mp3", false, false);
 
 	return S_OK;
 }
@@ -93,28 +97,48 @@ void soundManager::addSound(string keyName, string soundName, bool bgm, bool loo
 void soundManager::play(string keyName, float volume)
 {
 	int count = 0;
+	int keyCount = 0;
 	arrSoundIter iter = _mTotalSounds.begin();
 	for (iter; iter != _mTotalSounds.end(); ++iter, count++)
 	{
 		if (keyName == iter->first)
 		{
 			//사운드 플레이
-			_system->playSound(FMOD_CHANNEL_FREE, *iter->second, false, &_channel[count]);
+			_system->playSound(FMOD_CHANNEL_FREE, *iter->second, true, &_channel[count]);
+
 
 			//볼륨세팅
 			_channel[count]->setVolume(volume);
+			_channel[count]->setPaused(false);
+
+			keyCount = count;
 		}
-		else
+
+	}
+	
+	FMOD_MODE F_mode;
+	BYTE mode;
+	_channel[keyCount]->getMode(&F_mode);
+	mode = F_mode & FMOD_CREATESTREAM;
+	count = 0;
+	if (FMOD_CREATESTREAM == mode)
+	{
+		arrSoundIter iter = _mTotalSounds.begin();
+		for (iter; iter != _mTotalSounds.end(); ++iter, count++)
 		{
-			FMOD_MODE F_mode;
-			_channel[count]->getMode(&F_mode);
-			BYTE mode = FMOD_CREATESTREAM & F_mode;
-			if (FMOD_CREATESTREAM == mode)
+			if (!(keyName == iter->first))
 			{
-				_channel[count]->stop();
+				_channel[count]->getMode(&F_mode);
+				mode = F_mode & FMOD_CREATESTREAM;
+				if (FMOD_CREATESTREAM == mode)
+				{
+					_channel[count]->stop();
+				}
 			}
 		}
 	}
+
+
 }
 
 void soundManager::stop(string keyName)
@@ -196,4 +220,27 @@ bool soundManager::isPauseSound(string keyName)
 	}
 
 	return isPause;
+}
+
+
+void soundManager::setMusicSpeed(string keyName, float speed)
+{
+	int count = 0;
+	arrSoundIter iter = _mTotalSounds.begin();
+	for (iter; iter != _mTotalSounds.end(); ++iter, count++)
+	{
+		if (keyName == iter->first)
+		{
+			//사운드 정지
+			float freq;
+			_channel[count]->setPaused(true);
+
+			_channel[count]->getFrequency(&freq);
+			_channel[count]->setFrequency(speed * freq);
+			
+			_channel[count]->setPaused(false);
+
+			break;
+		}
+	}
 }
