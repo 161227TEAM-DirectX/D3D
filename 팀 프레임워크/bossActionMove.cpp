@@ -39,9 +39,7 @@ int bossActionMove::Update()
 {
 	if (!owner) return (int)LHS::ACTIONRESULT::ACTION_FAIL;
 
-	//한번 생성해 놓아서 index가 초기화가 필요하다.
-	index = myUtil::RandomFloatRange(0.1f, 1.0f);
-	//index = 0.991f;
+	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
 
 	PHYSICSMANAGER->isBlocking(owner, playerObject);
 	//몬스터의 현재 위치를 저장한다.
@@ -64,9 +62,21 @@ int bossActionMove::Update()
 
 
 	//현재 구현해야 할 내역이 시작되는 부분이다.
-	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
+	//한번 생성해 놓아서 index가 초기화가 필요하다.
+	index = myUtil::RandomFloatRange(0.1f, 1.0f);
+	//index = 0.991f;
 
-	if (index >= 0.1f && index <= 0.98f)
+	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
+	{
+		return LHS::ACTIONRESULT::ACTION_ATT;
+	}
+	else if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
+	{
+		if (index >= 0.98f && index <= 0.99f) return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
+		else if (index >= 0.99f && index <= 1.0f) return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
+	}
+
+	/*if (index >= 0.1f && index <= 0.98f)
 	{
 		if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
 		{
@@ -86,7 +96,7 @@ int bossActionMove::Update()
 		{
 			return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
 		}
-	}
+	}*/
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }

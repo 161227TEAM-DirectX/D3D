@@ -4,9 +4,6 @@
 class bossActionAttack : public Action
 {
 private:
-	float passedTime;
-	float activeTime;
-
 	float resultValue;
 	vector<int> list;
 public:

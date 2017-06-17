@@ -31,14 +31,19 @@ int bossActionSkillBattleRoar::Update()
 	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
 
 	PHYSICSMANAGER->isBlocking(owner, playerObject);
-
+	//이제부터 나와 적의 각도를 구해보자~ 예~~~
+	//먼저 현재 나의 위치에서 적을 바라보는 벡터를 구한다.
 	D3DXVECTOR3 enemyNormal = playerObject->_transform->GetWorldPosition() - temp->_transform->GetWorldPosition();
+	//정규화를 통해 방향만을 구한다.
 	D3DXVec3Normalize(&enemyNormal, &enemyNormal);
+	//그리고 현재 나의 정면벡터와 적을 바라보는 방향을 내적을 해준다.
+	//그러면 무려 신기하게도 0~1, 0~-1사이값이 나온다.
 	float angle = D3DXVec3Dot(&temp->_transform->GetForward(), &enemyNormal);
 
 	//배틀로어 애니메이션이 끝나면 ->일반공격 또는 꼬리치기
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
 	{
+		//내적을 통해 구한 값을 범위로 표현하였다. 
 		if (angle >= -1.0f && angle < -0.8f)
 		{
 			return LHS::ACTIONRESULT::ACTION_SKILL_TAIL;
