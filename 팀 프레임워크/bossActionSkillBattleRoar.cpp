@@ -58,8 +58,8 @@ int bossActionSkillBattleRoar::Update()
 			if (dotTime < 0)
 			{
 				dotTime = 2.0f;
-				PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - ((float)temp->getAtt()*myUtil::RandomFloatRange(1.3f, 1.8f)));
-				
+				//PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - ((float)temp->getAtt()*myUtil::RandomFloatRange(1.3f, 1.8f)));
+				enemy->playerDamaged(((float)temp->getAtt()*myUtil::RandomFloatRange(1.3f, 1.8f)), 0.6f, 100.0f, 0.0f, 0.0f);
 			}
 			break;
 		case 1:
@@ -67,8 +67,8 @@ int bossActionSkillBattleRoar::Update()
 			{
 				dotTime = 2.0f;
 				//플레이어의 상태를 스턴으로 변경해야 한다. 데미지는 마법공격보다 낮게 책정.
-				PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - ((float)temp->getAtt() * myUtil::RandomFloatRange(0.1f, 0.3f)));
-				
+				//PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - ((float)temp->getAtt() * myUtil::RandomFloatRange(0.1f, 0.3f)));
+				enemy->playerDamaged(((float)temp->getAtt() * myUtil::RandomFloatRange(0.1f, 0.3f)), 0.0f, 0.0f, 100.0f, 2.0f);
 			}
 			break;
 		}

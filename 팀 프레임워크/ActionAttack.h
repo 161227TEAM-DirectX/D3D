@@ -1,6 +1,8 @@
 #pragma once
 #include "Action.h"
 #include "monster.h"
+#include "xPlayer.h"
+
 class ActionAttack : public Action
 {
 public:

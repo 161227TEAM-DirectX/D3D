@@ -39,7 +39,7 @@ HRESULT terrainPickingTest::init(void)
 	D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
 	mat = matRotate;
 
-	boss = new bossMonster;
+	//boss = new bossMonster;
 	_player = new xPlayer;
 	_player->setlinkTerrain(*_terrain);
 	_player->init();
@@ -53,18 +53,18 @@ HRESULT terrainPickingTest::init(void)
 
 	float tempY = _terrain->getHeight(0.0f, 0.0f);
 
-	//InitMonster();
+	InitMonster();
 	
 
 	ACMANAGER->Init(*_terrain, testObject, *_player/*->getPlayerObject(), mon*/);
 
-	//for (int i = 0; i < mon.size(); i++)
-	//{
-	//	//monster* temp = dynamic_cast<monster*>(mon[i]);
-	//	//temp->setActive(true);
-	//	mon[i]->setActive(true);
-	//	_renderObjects.push_back(mon[i]);
-	//}
+	for (int i = 0; i < mon.size(); i++)
+	{
+		//monster* temp = dynamic_cast<monster*>(mon[i]);
+		//temp->setActive(true);
+		mon[i]->setActive(true);
+		_renderObjects.push_back(mon[i]);
+	}
 
 	//임시 몬스터 구현 코드
 	
@@ -81,11 +81,11 @@ HRESULT terrainPickingTest::init(void)
 	//mat = matScaling * matRotate;
 
 
-	boss->setMesh(RM_SKINNED->getResource("Resources/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
-	boss->_transform->SetScale(0.2f, 0.2f, 0.2f);
-	boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
-	boss->setActive(true);
-	this->_renderObjects.push_back(boss);
+	//boss->setMesh(RM_SKINNED->getResource("Resources/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
+	//boss->_transform->SetScale(0.2f, 0.2f, 0.2f);
+	//boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+	//boss->setActive(true);
+	//this->_renderObjects.push_back(boss);
 
 	_sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(90), 0, 0);
 	this->setEnvironment("Resources/TextureCUBE/SuperKanjiCube.dds");

@@ -23,10 +23,13 @@ int ActionAttack::Start()
 
 int ActionAttack::Update()
 {
+	monster* temp = dynamic_cast<monster*>(owner);
+
 	//모션이 끝나면 대미지를 입힌다.
-	if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
+	if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.95f)
 	{
 		//대미지를 넣는 구문이 필요
+		enemy->playerDamaged(temp->getAtt(), 0.5f, 30.0f, 0.5f, 0.5f);
 	}
 
 	//stun에 걸렸는지 확인 구문
@@ -37,7 +40,7 @@ int ActionAttack::Update()
 	}
 	*/
 
-	monster* temp = dynamic_cast<monster*>(owner);
+	
 	//적이 나의 hit박스 안에 있는가?
 	if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->_boundBox, playerObject->_transform, &playerObject->_boundBox))
 	{

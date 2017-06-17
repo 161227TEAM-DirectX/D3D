@@ -11,7 +11,3 @@ Action::Action()
 Action::~Action()
 {
 }
-
-inline void Action::setEnemy(xPlayer & temp)
-{
-}

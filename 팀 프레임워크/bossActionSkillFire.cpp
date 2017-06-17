@@ -55,14 +55,14 @@ int bossActionSkillFire::Update()
 			if (dotTime < 0)
 			{
 				dotTime = 2.0f;
-				PLAYERMANAGER->SetHp( PLAYERMANAGER->GetHp() - ((float)temp->getAtt() * myUtil::RandomFloatRange(0.05f, 0.09f)));
-				cout << "mForword.x : " << temp->_transform->GetForward().x << "mForword.y : " << temp->_transform->GetForward().y << "mForword.z : " << temp->_transform->GetForward().z << endl;
-				cout << "enemy.x:" << enemyNormal.x << "enemy.y:" << enemyNormal.y << "enemy.z:" << enemyNormal.z << endl;
-				//
-				cout << "dotTime: " << dotTime << endl;
+				//PLAYERMANAGER->SetHp( PLAYERMANAGER->GetHp() - ((float)temp->getAtt() * myUtil::RandomFloatRange(0.05f, 0.09f)));
+				enemy->playerDamaged(((float)temp->getAtt() * myUtil::RandomFloatRange(0.05f, 0.09f)), 0.6f, 30.0f);
+				//cout << "mForword.x : " << temp->_transform->GetForward().x << "mForword.y : " << temp->_transform->GetForward().y << "mForword.z : " << temp->_transform->GetForward().z << endl;
+				//cout << "enemy.x:" << enemyNormal.x << "enemy.y:" << enemyNormal.y << "enemy.z:" << enemyNormal.z << endl;
+				//cout << "dotTime: " << dotTime << endl;
 			}
 		}
-		cout << "angle : " << angle << endl;
+		//cout << "angle : " << angle << endl;
 		//액션 종료 조건이 필요.
 		if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
 		{

@@ -33,25 +33,25 @@ int ActionStanding::Update()
 		switch (random)
 		{
 		case 0:
-			owner->getSkinnedAnim().Play("Stand01");
+			owner->getSkinnedAnim().Play("Stand01", 0.5f);
 			break;
 		case 1:
 			if (owner->getSkinnedAnim().getSkinnedMesh()->getAnimMap().find("Stand02") != owner->getSkinnedAnim().getSkinnedMesh()->getAnimMap().end())
-				owner->getSkinnedAnim().Play("Stand02");
+				owner->getSkinnedAnim().Play("Stand02", 0.5f);
 			else
-				owner->getSkinnedAnim().Play("Stand01");
+				owner->getSkinnedAnim().Play("Stand01", 0.5f);
 			break;
 		case 2:
 			if (owner->getSkinnedAnim().getSkinnedMesh()->getAnimMap().find("Stand03") != owner->getSkinnedAnim().getSkinnedMesh()->getAnimMap().end())
-				owner->getSkinnedAnim().Play("Stand03");
+				owner->getSkinnedAnim().Play("Stand03", 0.5f);
 			else
-				owner->getSkinnedAnim().Play("Stand01");
+				owner->getSkinnedAnim().Play("Stand01", 0.5f);
 			break;
 		case 3:
 			if (owner->getSkinnedAnim().getSkinnedMesh()->getAnimMap().find("Stand04") != owner->getSkinnedAnim().getSkinnedMesh()->getAnimMap().end())
-				owner->getSkinnedAnim().Play("Stand04");
+				owner->getSkinnedAnim().Play("Stand04", 0.5f);
 			else
-				owner->getSkinnedAnim().Play("Stand01");
+				owner->getSkinnedAnim().Play("Stand01", 0.5f);
 			break;
 		}
 	}

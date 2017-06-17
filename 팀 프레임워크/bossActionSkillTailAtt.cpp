@@ -51,8 +51,8 @@ int bossActionSkillTailAtt::Update()
 		if (angle >= -1 && angle <= -0.8f)
 		{
 			//케릭터의 체력을 한번에 깍는다.
-			PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - temp->getAtt() * myUtil::RandomFloatRange(0.9f, 1.8f));
-
+			//PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - temp->getAtt() * myUtil::RandomFloatRange(0.9f, 1.8f));
+			enemy->playerDamaged(temp->getAtt() * myUtil::RandomFloatRange(0.9f, 1.8f), 0.0f, 0.0f, 50.0f, 2.0f);
 			//아직 있다는 뜻이므로 한번 더 실행한다.
 			Frequency = myUtil::RandomIntRange(1, 2);
 

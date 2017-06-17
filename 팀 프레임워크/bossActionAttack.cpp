@@ -27,13 +27,19 @@ int bossActionAttack::Update()
 
 	PHYSICSMANAGER->isBlocking(owner, playerObject);
 
+	//애니메이션 일정 시간 지난뒤에 데미지를 입력.
+	if (owner->getSkinnedAnim().getAnimationPlayFactor() <= 0.45f && owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.40f)
+	{
+		enemy->playerDamaged(temp->getAtt(), 0.6f, 25.0f);
+	}
+
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.9f)
 	{
 		passedTime = 0.0f;
 		int random = myUtil::RandomIntRange(1, 5);
 
 		//플레이어의 hp를 소모시키자.
-		PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - temp->getAtt());
+		//PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - temp->getAtt());
 
 		switch (random)
 		{
