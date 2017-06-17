@@ -126,12 +126,17 @@ HRESULT kimsTestScene::init(void)
 
 
 	D3DXVECTOR3 pos = _player->getPlayerObject()->_transform->GetWorldPosition();
-	pos.y = pos.y + 5;
-	pos.z = pos.z - 5;
+	pos.y = pos.y + 2;
+	pos.z = pos.z - 2;
 	gameNode::_mainCamera->SetWorldPosition(pos);
-	gameNode::_mainCamera->LookPosition(_player->getPlayerObject()->_transform->GetWorldPosition());
-	_mainCamera->AttachTo(_player->getPlayerObject()->_transform);
 
+	D3DXVECTOR3 pos2 = _player->getPlayerObject()->_transform->GetWorldPosition();
+	//pos2.y = pos2.y + .0f;
+	pos2.z = pos2.z + 2.0f;
+
+
+	gameNode::_mainCamera->LookPosition(pos2);
+	//_mainCamera->AttachTo(_player->getPlayerObject()->_transform);
 
 	_thrall = new xNpc;
 	_thrall->setlinkTerrain(*_terrain);

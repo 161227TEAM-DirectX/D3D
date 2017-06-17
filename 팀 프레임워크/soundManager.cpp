@@ -235,7 +235,7 @@ void soundManager::setMusicSpeed(string keyName, float speed)
 			float freq;
 			_channel[count]->setPaused(true);
 
-			_channel[count]->getFrequency(&freq);
+ 			_channel[count]->getFrequency(&freq);
 			_channel[count]->setFrequency(speed * freq);
 			
 			_channel[count]->setPaused(false);

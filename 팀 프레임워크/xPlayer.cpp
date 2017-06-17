@@ -5,7 +5,6 @@
 
 HRESULT xPlayer::init()
 {
-
 	//테스트용 라이트 스킬
 	_lightSkill = new SK_Boss00;
 	_skillTrans = new dx::transform;
@@ -19,27 +18,24 @@ HRESULT xPlayer::init()
 	PLAYERMANAGER->SetArmor(A_PLATE);
 	PLAYERMANAGER->SetWeapon(W_KATANA);
 	PLAYERMANAGER->SetShield(SH_CROSS);
-<<<<<<< HEAD
 	PLAYERMANAGER->SetHp(10);
 	PLAYERMANAGER->SetCrit(20.0f);
-=======
-	PLAYERMANAGER->SetHp(100000000);
-	PLAYERMANAGER->SetCrit(100.0f);
->>>>>>> 8cc848d3843df337eee74a7e5df3a39eb391f284
 
 	_damagedTime = 0.0f;
 	_stunnedTime = 0.0f;
 	_castingTime = 0.0f;
 	_playSpeed = 1.0f;
-	_degree = 0.0f;
+	
 	_baseHeight = 0.0f;
 	_jumpPower = 3.0f;
 	_jumpSpeed = 3.0f;
 	_jumpHeight = 0.0f;
+	_degree = 0;
 
 	_moveSpeed = 1.5;
 
 	_isOnBattle = false;
+	_isJump = false;
 
 
 
@@ -305,6 +301,7 @@ void xPlayer::render()
 
 		FONTMANAGER->fontOut("posZ : " + to_string(_playerObject->_transform->GetWorldPosition().z), 600, 50, 0xff0000ff);
 
+		FONTMANAGER->fontOut("Height : " + to_string(_jumpHeight), 600, 75, 0xffffffff);
 
 		RM_SKINNED->getResource("Resources/Player/FHUMAN_PLATE/FHUMAN.X")->ShowAnimationName(0, 0);
 	}
@@ -329,20 +326,32 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 	switch (_state)
 	{
 	case P_STAND:
-		moveControl();
-		actionControl();
-		if (KEYMANAGER->isStayKeyDown('W'))
+		rotateControl();
+
+		if (!_isJump)
 		{
-			_state = P_RUN;
+			//moveControl();
+			jumpControl();
+			attackControl();
+			if (KEYMANAGER->isStayKeyDown('W'))
+			{
+				_state = P_RUN;
+			}
+			if (KEYMANAGER->isStayKeyDown('S'))
+			{
+				_state = P_WALKBACK;
+			}
 		}
-		if (KEYMANAGER->isStayKeyDown('S'))
+		else
 		{
-			_state = P_WALKBACK;
+			_state = P_JUMP;
 		}
 		break;
 	case P_RUN:
+		rotateControl();
 		moveControl();
-		actionControl();
+		attackControl();
+		jumpControl();
 		if (!KEYMANAGER->isStayKeyDown('W'))
 		{
 			if (_isOnBattle)
@@ -359,15 +368,25 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 
 		break;
 	case P_READYTOATTACK:
-		moveControl();
-		actionControl();
-		if (KEYMANAGER->isStayKeyDown('W'))
+		rotateControl();
+
+		if (!_isJump)
 		{
-			_state = P_RUN;
+			moveControl();
+			attackControl();
+			jumpControl();
+			if (KEYMANAGER->isStayKeyDown('W'))
+			{
+				_state = P_RUN;
+			}
+			if (KEYMANAGER->isStayKeyDown('S'))
+			{
+				_state = P_WALKBACK;
+			}
 		}
-		if (KEYMANAGER->isStayKeyDown('S'))
+		else
 		{
-			_state = P_WALKBACK;
+			_state = P_JUMP;
 		}
 		break;
 	case P_ATTACK:
@@ -389,10 +408,15 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 	case P_CASTOMNI:
 		break;
 	case P_JUMPUP:
+		rotateControl();
 		moveControl();
+		attackControl();
 		break;
 	case P_JUMP:
+		
+		rotateControl();
 		moveControl();
+		attackControl();
 		break;
 	case P_JUMPDOWN:
 		break;
@@ -435,20 +459,42 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 void xPlayer::playerStateManager()
 {
 
+	
+
+
 	if (_state != P_RUN && _state != P_WALKBACK)
 		SOUNDMANAGER->stop("걸음소리1");
 
 	if (PLAYERMANAGER->GetHp() <= 0) _state = P_DEATH;
 	string animName = _playerObject->_skinnedAnim->getAnimationSet()->GetName();
 	D3DXVECTOR3 pos = _playerObject->_transform->GetWorldPosition();
+
+
+	//이렇게 하면 높은 곳에서 뛰어 내릴 수 없음.
+	if (_isJump)//점프중인가?
+	{
+		_degree += _jumpSpeed * _timeDelta;
+		_jumpHeight = _baseHeight - pow(_degree - sqrt(_jumpPower), 2.0) + _jumpPower;
+		_playerObject->_transform->SetWorldPosition(pos.x, _jumpHeight, pos.z);
+
+		if (_playerObject->_transform->GetWorldPosition().y < _baseHeight)
+		{
+			_playerObject->_transform->SetWorldPosition(pos.x, _baseHeight, pos.z);
+			_isJump = false;
+		}
+	}
+	else
+	{
+		_degree = 0;
+		_playerObject->_transform->SetWorldPosition(pos.x, _baseHeight, pos.z);
+	}
+
 	switch (_state)
 	{
 	case P_STAND:
-		setHeight();
 		//서있는다고 시간지나도 변할거 없음.
 		break;
 	case P_RUN:
-		setHeight();
 
 		if (!SOUNDMANAGER->isPlaySound("걸음소리1"))
 		{
@@ -463,7 +509,6 @@ void xPlayer::playerStateManager()
 		}
 		break;
 	case P_MOVE:
-		setHeight();
 
 		break;
 	case P_READYTOATTACK:
@@ -478,14 +523,20 @@ void xPlayer::playerStateManager()
 				//{
 				//	//exit(0);
 				//}
-
-				if (_isOnBattle)
+				if (!_isJump)
 				{
-					_state = P_READYTOATTACK;
+					if (_isOnBattle)
+					{
+						_state = P_READYTOATTACK;
+					}
+					else
+					{
+						_state = P_STAND;
+					}
 				}
 				else
 				{
-					_state = P_STAND;
+					_state = P_JUMPDOWN;
 				}
 			}
 		}
@@ -512,13 +563,20 @@ void xPlayer::playerStateManager()
 				//	//exit(0);
 				//}
 
-				if (_isOnBattle)
+				if (!_isJump)
 				{
-					_state = P_READYTOATTACK;
+					if (_isOnBattle)
+					{
+						_state = P_READYTOATTACK;
+					}
+					else
+					{
+						_state = P_STAND;
+					}
 				}
 				else
 				{
-					_state = P_STAND;
+					_state = P_JUMPDOWN;
 				}
 			}
 		}
@@ -533,13 +591,20 @@ void xPlayer::playerStateManager()
 				//	//exit(0);
 				//}
 
-				if (_isOnBattle)
+				if (!_isJump)
 				{
-					_state = P_READYTOATTACK;
+					if (_isOnBattle)
+					{
+						_state = P_READYTOATTACK;
+					}
+					else
+					{
+						_state = P_STAND;
+					}
 				}
 				else
 				{
-					_state = P_STAND;
+					_state = P_JUMPDOWN;
 				}
 			}
 		}
@@ -588,13 +653,20 @@ void xPlayer::playerStateManager()
 			}
 			else if (_playerObject->_skinnedAnim->getAnimFactor() > 0.8)
 			{
-				if (_isOnBattle)
+				if (!_isJump)
 				{
-					_state = P_READYTOATTACK;
+					if (_isOnBattle)
+					{
+						_state = P_READYTOATTACK;
+					}
+					else
+					{
+						_state = P_STAND;
+					}
 				}
 				else
 				{
-					_state = P_STAND;
+					_state = P_JUMPDOWN;
 				}
 			}
 		}
@@ -664,9 +736,10 @@ void xPlayer::playerStateManager()
 			//-a^2 + b = 0;
 			//b = a^2;
 
-			_degree += _jumpSpeed * _timeDelta;
-			_jumpHeight = _baseHeight - pow(_degree - sqrt(_jumpPower), 2.0) + _jumpPower;
-			_playerObject->_transform->SetWorldPosition(pos.x, _jumpHeight, pos.z);
+			//_degree += _jumpSpeed * _timeDelta;
+			
+			//_jumpHeight = _baseHeight - pow(_degree - sqrt(_jumpPower), 2.0) + _jumpPower;
+			//_playerObject->_transform->SetWorldPosition(pos.x, _jumpHeight, pos.z);
 
 			pos = _playerObject->_transform->GetWorldPosition();
 
@@ -674,11 +747,11 @@ void xPlayer::playerStateManager()
 			{
 				_state = P_JUMP;
 			}
-			else if (pos.y < linkTerrain->getHeight(pos.x, pos.z))
+			else if (pos.y <= linkTerrain->getHeight(pos.x, pos.z))
 			{
-				_degree = 0;
+				//_degree = 0;
 				_state = P_JUMPDOWN;
-				_playerObject->_transform->SetWorldPosition(pos.x, linkTerrain->getHeight(pos.x, pos.z), pos.z);
+				//_playerObject->_transform->SetWorldPosition(pos.x, linkTerrain->getHeight(pos.x, pos.z), pos.z);
 			}
 
 		}
@@ -688,18 +761,11 @@ void xPlayer::playerStateManager()
 	case P_JUMP:
 		if (animName == "JUMP")
 		{
-			_degree += _jumpSpeed * _timeDelta;
-			_jumpHeight = _baseHeight - pow(_degree - sqrt(_jumpPower), 2.0) + _jumpPower;
-
-			_playerObject->_transform->SetWorldPosition(pos.x, _jumpHeight, pos.z);
-
-			pos = _playerObject->_transform->GetWorldPosition();
-
-			if (pos.y < linkTerrain->getHeight(pos.x, pos.z))
+			if (pos.y <= linkTerrain->getHeight(pos.x, pos.z))
 			{
-				_degree = 0;
+				//_degree = 0;
 				_state = P_JUMPDOWN;
-				_playerObject->_transform->SetWorldPosition(pos.x, linkTerrain->getHeight(pos.x, pos.z), pos.z);
+				//_playerObject->_transform->SetWorldPosition(pos.x, linkTerrain->getHeight(pos.x, pos.z), pos.z);
 			}
 		}
 		break;
@@ -741,7 +807,7 @@ void xPlayer::playerStateManager()
 
 		break;
 	case P_WALKBACK:
-		setHeight();
+		
 
 		if (!SOUNDMANAGER->isPlaySound("걸음소리1"))
 		{
@@ -848,7 +914,7 @@ void xPlayer::playerAnimationManager()
 		break;
 	case P_JUMPDOWN:
 		SOUNDMANAGER->play("걸음소리1one", 1.0f);
-		_playerObject->_skinnedAnim->Play("JUMPED");
+		_playerObject->_skinnedAnim->Play("JUMPED" , 0.2f);
 		break;
 	case P_STUN:
 		_playerObject->_skinnedAnim->Play("STUN");
@@ -885,6 +951,11 @@ void xPlayer::moveControl()
 	{
 		_playerObject->_transform->MovePositionWorld(-_playerObject->_transform->GetForward()*0.02*_moveSpeed);
 	}
+	
+}
+
+void xPlayer::rotateControl()
+{
 	if (KEYMANAGER->isStayKeyDown('A'))
 	{
 		_playerObject->_transform->RotateSelf(0.0f, -D3DXToRadian(3), 0.0f);
@@ -895,7 +966,27 @@ void xPlayer::moveControl()
 	}
 }
 
-void xPlayer::actionControl()
+void xPlayer::attackControl()
+{
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	{
+		playerAttack();
+	}
+}
+
+void xPlayer::jumpControl()
+{
+	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+	{
+		//_moveSpeed = _jumpPower;
+		//degree = 0;
+
+		_isJump = true;
+		_state = P_JUMPUP;
+	}
+}
+
+void xPlayer::testControl()
 {
 
 
@@ -925,15 +1016,8 @@ void xPlayer::actionControl()
 	{
 		playerDamaged(1, 0.5, 100.0, 100.0, 2.0);
 	}
-	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
-	{
-		//_moveSpeed = _jumpPower;
-		_state = P_JUMPUP;
-	}
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
-	{
-		playerAttack();
-	}
+
+
 	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
 	{
 
@@ -941,11 +1025,24 @@ void xPlayer::actionControl()
 	}
 }
 
+void xPlayer::actionControl()
+{
+	moveControl();
+
+	rotateControl();
+
+	attackControl();
+
+	jumpControl();
+
+	testControl();
+}
+
 //플레이어 공격을 제어
 void xPlayer::playerAttack()
 {
 	//해당상태가 아니면 행동하지 말아라.
-	if (!(_state == P_STAND || _state == P_RUN || _state == P_MOVE || _state == P_WALKBACK || _state == P_READYTOATTACK)) { return; }
+	//if (!(_state == P_STAND || _state == P_RUN || _state == P_MOVE || _state == P_WALKBACK || _state == P_READYTOATTACK)) { return; }
 
 	float rand = RandomFloatRange(0, 100);
 	if (rand < PLAYERMANAGER->GetCrit())
@@ -1031,7 +1128,6 @@ void xPlayer::setHeight()
 {
 	D3DXVECTOR3 pos = _playerObject->_transform->GetWorldPosition();
 	_baseHeight = linkTerrain->getHeight(pos.x, pos.z);
-	_playerObject->_transform->SetWorldPosition(pos.x, _baseHeight, pos.z);
 }
 
 void xPlayer::itemUpdate()
