@@ -55,7 +55,7 @@ HRESULT WaterTerrain::init(float cellSize, int tileNum)
 			//정점의 x, z 위치 계산
 			pos.x = (x - (_cellNumX * 0.5)) * _cellScale;
 			pos.z = (-z + (_cellNumZ * 0.5)) * _cellScale;
-			pos.y = 0;/*cosf(_flowAngle + x*100.0f)*/
+			pos.y = -2;/*cosf(_flowAngle + x*100.0f)*/
 
 					   //버텍스 배열인덱스 계산
 			int idx = z * _verNumX + x;
@@ -180,7 +180,7 @@ void WaterTerrain::update(int number)
 		waterOption.hdrMultiplier = 0.471f; //hdr 곱셈기
 		waterOption.reflectionAmount = 1.0f; //얕은색상 옆에 흰색상 // 반사 양
 		waterOption.reflectionBlur = 0.0f; //반사 흐림
-		waterOption.reflectionColor = D3DXVECTOR4(0.95f, 1.0f, 1.0f, 1.0f); //반사색상
+		waterOption.reflectionColor = D3DXVECTOR4(0.95f, 1.0f, 1.0f, 0.25f); //반사색상
 		waterOption.shallowColor = D3DXVECTOR4(0, 1, 1, 1.0f);    //얕은색상(바로맨위 색상)
 		waterOption.textureScale = D3DXVECTOR2(1, 2); //텍스쳐를 나누너서 하는것
 		waterOption.waterAmount = 0.3f;                  //바닥을 더욱더 파랗게 만드는거 같다

@@ -52,6 +52,13 @@ private:
 	enum eHeightType { E_NONE, E_UP, E_DOWN };
 	eHeightType m_eHeightType;			//높이값을 올릴건지 내릴건지의 정보를 들고있다.
 
+	char* tile1;
+	char* tile2;
+	char* tile3;
+	char* tile4;
+	char* splat;
+	char* raw;
+
 public:
 	leftViewHead();
 	~leftViewHead();

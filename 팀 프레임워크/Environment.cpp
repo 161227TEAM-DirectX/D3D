@@ -62,7 +62,7 @@ void Environment::renderEnvironment(int number)
 
 	if (_environmentCubeMesh == NULL)
 	{
-		D3DXCreateSphere(_device, 100.0f, 20, 20, &_environmentCubeMesh, NULL);
+		D3DXCreateSphere(_device, 256.0f, 20, 20, &_environmentCubeMesh, NULL);
 	}
 
 	D3DXMATRIX matWorld = _mainCamera->GetFinalMatrix();

@@ -2,6 +2,8 @@
 #include "iGameNode.h"
 class loadingScene : public iGameNode
 {
+private:
+	LPDIRECT3DTEXTURE9 temp;
 public:
 	loadingScene();
 	virtual ~loadingScene();

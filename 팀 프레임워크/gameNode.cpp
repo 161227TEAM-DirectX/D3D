@@ -115,7 +115,6 @@ void gameNode::updateGameNode(void)
 
 void gameNode::renderGameNode(void)
 {
-
 	_directionLightCamera->SetWorldPosition(1, 1, 1);
 	_directionLightCamera->RenderGimozo();
 	//메인카메라 RTT준비
