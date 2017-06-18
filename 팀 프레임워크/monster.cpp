@@ -20,7 +20,7 @@ void monster::baseObjectEnable()
 
 	temp.z = _boundBox._localMaxPos.z;
 	
-	hitBox.setBound(&temp, &D3DXVECTOR3(_transform->GetScale().x * 1.6f, temp.y * 2.9f, _transform->GetScale().z * 2.9f));
+	hitBox.setBound(&temp, &D3DXVECTOR3(_transform->GetScale().x * 0.6f, temp.y * 1.0f, _transform->GetScale().z * 0.9f));
 
 	HP = myUtil::RandomIntRange(MINHM, MAXHM);
 	mana = myUtil::RandomIntRange(MINHM, MAXHM);
