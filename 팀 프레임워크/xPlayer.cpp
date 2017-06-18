@@ -6,9 +6,9 @@
 HRESULT xPlayer::init()
 {
 	//테스트용 라이트 스킬
-	_lightSkill = new SK_Boss00;
-	_skillTrans = new dx::transform;
-	_lightSkill->init();
+	//_lightSkill = new SK_Boss00;
+	//_skillTrans = new dx::transform;
+	//_lightSkill->init();
 	//_lightSkill->Reset();
 
 
@@ -262,9 +262,15 @@ HRESULT xPlayer::init()
 
 void xPlayer::update()
 {
+
+	/*for (int i = 0; i < this->_renderObjects.size(); i++)
+	{
+		this->_renderObjects[i]->render();
+	}*/
+
 	PLAYERMANAGER->SetPos(_playerObject->_transform->GetWorldPosition());
 
-	_lightSkill->update();
+	//_lightSkill->update();
 
 	_playerObject->_skinnedAnim->SetPlaySpeed(_playSpeed);
 
@@ -280,7 +286,7 @@ void xPlayer::update()
 
 void xPlayer::render()
 {
-	_lightSkill->render();
+	//_lightSkill->render();
 	//렌더링은 씬에 렌더오브젝트를 넘겨 처리한다.
 	if (KEYMANAGER->isToggleKey(VK_F7))
 	{
@@ -305,6 +311,15 @@ void xPlayer::render()
 
 		RM_SKINNED->getResource("Resources/Player/FHUMAN_PLATE/FHUMAN.X")->ShowAnimationName(0, 0);
 	}
+
+	//for (int i = 0; i < this->_renderObjects.size(); i++)
+	//{
+	//	this->_renderObjects[i]->render();
+	//	if (_renderObjects[i] == getPlayerObject())
+	//	{
+	//		itemUpdate();
+	//	}
+	//}
 }
 
 void xPlayer::release(void)
@@ -686,10 +701,10 @@ void xPlayer::playerStateManager()
 
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
 			{
-				_skillTrans->SetWorldMatrix(_EquipSocket.find("LHAND")->second->CombinedTransformationMatrix);
-				_lightSkill->setPlayer(_skillTrans);
-				_lightSkill->setPlayerDir(_playerObject->_transform);
-				_lightSkill->Start();
+				//_skillTrans->SetWorldMatrix(_EquipSocket.find("LHAND")->second->CombinedTransformationMatrix);
+				//_lightSkill->setPlayer(_skillTrans);
+				//_lightSkill->setPlayerDir(_playerObject->_transform);
+				//_lightSkill->Start();
 				/*
 				if (_isOnBattle)
 				{

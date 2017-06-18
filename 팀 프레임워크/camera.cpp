@@ -62,6 +62,12 @@ void camera::updateBase()
 	DefaultControl(_timeDelta);
 	updateMatrix();
 	updateCamToDevice();
+	updateFrustum();
+}
+
+void camera::renderFrustumGizmo()
+{
+	_frustum.renderGizmo();
 }
 
 //화면의 위치를 가지고 카메라의 투영레이를 얻는 함수

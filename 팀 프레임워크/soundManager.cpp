@@ -18,13 +18,13 @@ HRESULT soundManager::init(void)
 	memset(_channel, 0, sizeof(Channel*) * TOTALSOUNDBUFFER);
 
 
-	SOUNDMANAGER->addSound("마을1", "Resources/Sound/TownBGM1.mp3", true, true);
-	SOUNDMANAGER->addSound("필드1", "Resources/Sound/FieldBGM1.mp3", true, true);
-	SOUNDMANAGER->addSound("보스1", "Resources/Sound/BossBGM1.mp3", true, true);
-	SOUNDMANAGER->addSound("공격1", "Resources/Sound/공격1.mp3", false, false);
-	SOUNDMANAGER->addSound("베기1", "Resources/Sound/베기1.mp3", false, false);
-	SOUNDMANAGER->addSound("걸음소리1", "Resources/Sound/걸음소리1.mp3", false, true);
-	SOUNDMANAGER->addSound("걸음소리1one", "Resources/Sound/걸음소리1.mp3", false, false);
+	SOUNDMANAGER->addSound("마을1", FILEPATH_MANAGER->GetFilepath("마을"), true, true);
+	SOUNDMANAGER->addSound("필드1", FILEPATH_MANAGER->GetFilepath("필드"), true, true);
+	SOUNDMANAGER->addSound("보스1", FILEPATH_MANAGER->GetFilepath("보스"), true, true);
+	SOUNDMANAGER->addSound("공격1", FILEPATH_MANAGER->GetFilepath("공격"), false, false);
+	SOUNDMANAGER->addSound("베기1", FILEPATH_MANAGER->GetFilepath("베기"), false, false);
+	SOUNDMANAGER->addSound("걸음소리1", FILEPATH_MANAGER->GetFilepath("걸음소리"), false, true);
+	SOUNDMANAGER->addSound("걸음소리1one", FILEPATH_MANAGER->GetFilepath("걸음소리"), false, false);
 
 	return S_OK;
 }

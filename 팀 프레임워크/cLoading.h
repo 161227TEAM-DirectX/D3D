@@ -16,5 +16,6 @@ private:
 	void TileRegist();		//타일맵 경로 등록
 	void SplatRegist();		//스플랫 경로 등록
 	void BrushRegist();		//브러쉬 경로 등록
+	void SoundRegist(); 	//사운드 경로 등록
 };
 

@@ -236,6 +236,7 @@
     <ClInclude Include="ioSaveObjectManager.h" />
     <ClInclude Include="iScene.h" />
     <ClInclude Include="keyManager.h" />
+    <ClInclude Include="kimsNewTest.h" />
     <ClInclude Include="kimsTestScene.h" />
     <ClInclude Include="leftViewHead.h" />
     <ClInclude Include="light.h" />
@@ -399,6 +400,7 @@
     <ClCompile Include="ioSaveObjectManager.cpp" />
     <ClCompile Include="iScene.cpp" />
     <ClCompile Include="keyManager.cpp" />
+    <ClCompile Include="kimsNewTest.cpp" />
     <ClCompile Include="kimsTestScene.cpp" />
     <ClCompile Include="leftViewHead.cpp" />
     <ClCompile Include="light.cpp" />

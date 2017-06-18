@@ -746,6 +746,9 @@
       <Filter>팀 포트폴리오\01.맵툴\3.IO매니져</Filter>
     </ClCompile>
     <ClCompile Include="cTerrainTest.cpp" />
+    <ClCompile Include="kimsNewTest.cpp">
+      <Filter>Z테스트\김태훈\xPlayer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainGame.h">
@@ -1227,6 +1230,9 @@
       <Filter>팀 포트폴리오\01.맵툴\3.IO매니져</Filter>
     </ClInclude>
     <ClInclude Include="cTerrainTest.h" />
+    <ClInclude Include="kimsNewTest.h">
+      <Filter>Z테스트\김태훈\xPlayer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Texture_Gray.fx">

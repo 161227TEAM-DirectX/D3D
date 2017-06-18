@@ -3,6 +3,7 @@
 
 HRESULT terrainPickingTest::init(void)
 {
+
 	_mainCamera = new camera;
 	_directionLightCamera = new camera;
 	_sceneBaseDirectionLight = new lightDirection;

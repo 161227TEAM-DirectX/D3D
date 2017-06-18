@@ -19,6 +19,15 @@ void cLoading::Init()
 	CreateDevice();						//디바이스 초기화
 	
 
+	//========================================================================
+	//게임에 사용할 파일경로 등록
+	//========================================================================
+	FxRegist();
+	HeightRegist();
+	TileRegist();
+	SplatRegist();
+	BrushRegist();
+	SoundRegist();
 
 	//========================================================================
 	//매니져 초기화
@@ -35,18 +44,10 @@ void cLoading::Init()
 	PHYSICSMANAGER->init();				//피직스매니져 초기화
 	SPRITEMANAGER->init();				//스프라이트매니져 초기화
 	PSM->ParticleSystemSetInit();		//파티클시스템매니져 초기화
-	SOUNDMANAGER->init();
+	SOUNDMANAGER->init();				//사운드매니저초기화
 
 	
 
-	//========================================================================
-	//게임에 사용할 파일경로 등록
-	//========================================================================
-	FxRegist();
-	HeightRegist();
-	TileRegist();
-	SplatRegist();
-	BrushRegist();
 }
 
 void cLoading::Destroy()
@@ -155,3 +156,12 @@ void cLoading::BrushRegist()
 	FILEPATH_MANAGER->AddFilepath("브러쉬_brush01", "Resource/Maptool/Textures/Brush/brush01.png");
 }
 
+void cLoading::SoundRegist()
+{
+	FILEPATH_MANAGER->AddFilepath("필드", "Sound/FieldBGM1.mp3");
+	FILEPATH_MANAGER->AddFilepath("보스", "Sound/BossBGM1.mp3");
+	FILEPATH_MANAGER->AddFilepath("마을", "Sound/TownBGM1.mp3");
+	FILEPATH_MANAGER->AddFilepath("공격", "Sound/공격1.mp3");
+	FILEPATH_MANAGER->AddFilepath("베기", "Sound/베기1.mp3");
+	FILEPATH_MANAGER->AddFilepath("걸음소리", "Sound/걸음소리1.mp3");
+}

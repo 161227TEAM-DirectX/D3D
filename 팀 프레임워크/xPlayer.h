@@ -1,5 +1,5 @@
 #pragma once
-#include "gameNode.h"
+#include "iGameNode.h"
 #include "xPlayerStatus.h"
 #include "skill00_03.h"
 #include "SK_Boss00.h"
@@ -21,11 +21,11 @@ SPACE 스턴 (HP -1)
 
 //플레이어는 항상 존재하지만 싱글톤으로는 구현하지 않고,
 //플레이어의 데이터만을 싱글톤으로 구현한다.
-class xPlayer :	public gameNode
+class xPlayer :	public iGameNode
 {
 private:
-	SK_Boss00* _lightSkill;
-	dx::transform* _skillTrans;
+	//SK_Boss00* _lightSkill;
+	//dx::transform* _skillTrans;
 
 	bool _isJump;
 	bool _isOnBattle;

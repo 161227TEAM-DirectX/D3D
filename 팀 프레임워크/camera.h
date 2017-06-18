@@ -37,6 +37,8 @@ public:
 	void updateFrustum();
 	//카메라 기본 업데이트
 	void updateBase();
+	//프러스텀 기즈모 그리기.
+	void renderFrustumGizmo();
 
 	//카메라 관련 행렬 얻기
 	D3DXMATRIXA16 getViewMatrix() { return _matView; }
