@@ -127,6 +127,13 @@ struct ST_RHWC_VERTEX
 	enum { FVF = D3DFVF_XYZRHW | D3DFVF_DIFFUSE };
 };
 
+typedef struct SCENE_VERTEX
+{
+	D3DXVECTOR3 pos;
+	D3DXVECTOR2 uv;
+	enum { FVF = D3DFVF_XYZ | D3DFVF_TEX1 };
+}SCENE_VERTEX, *LPSCENE_VETEX;
+
 //====================================================================
 //			## ±∏¡∂√º ##
 //====================================================================
@@ -280,6 +287,7 @@ using namespace myUtil;
 #define IOSAVEMANAGER ioSaveManager::getSingleton()
 #define IOSAVEOBJECTMANAGER ioSaveObjectManager::getSingleton()
 #define IOHEIGHTMANAGER ioHeightManager::getSingleton()
+#define IOMAPMANAGER ioMapManager::getSingleton()
 
 //====================================================================
 //			## ΩÃ±€≈Ê(∏≈≈©∑Œ) ##
@@ -342,21 +350,6 @@ namespace LHS
 		ACTION_SKILL_FIRE,
 		ACTION_SKILL_FLY_FIRE,
 		ACTION_SKILL_BATTLE_ROAR
-		//BOSSAC_FINISH,
-		//BOSSAC_FAIL,
-		//BOSSAC_PLAY,
-		//BOSSAC_STAND,
-		//BOSSAC_ATT,
-		//BOSSAC_SKILL,
-		//BOSSAC_MOVE,
-		//BOSSAC_REMOVE,
-		//BOSSAC_DIE,
-		//BOSSAC_NONE
-	};
-
-	enum BOSSACTIONRESULT
-	{
-
 	};
 
 	const float MOVETIME = 1.5f;

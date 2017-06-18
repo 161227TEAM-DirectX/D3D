@@ -3,42 +3,45 @@
 
 HRESULT terrainPickingTest::init(void)
 {
-	_mainCamera = new camera;
-	_directionLightCamera = new camera;
-	_sceneBaseDirectionLight = new lightDirection;
-
-	_sceneBaseDirectionLight->_color = D3DXCOLOR(1, 1, 1, 1);
-	_sceneBaseDirectionLight->_intensity = 1.0f;
-
-	_shadowDistance = 1.0f;
-
-	//카메라의 투영방식을 바꾼다.
-	_directionLightCamera->_isOrtho = true;
-	_directionLightCamera->_camNear = 0.01f;
-	_directionLightCamera->_camFar = 1.0f;
-	_directionLightCamera->_aspect = 1;
-	_directionLightCamera->_orthoSize = _shadowDistance * 2.5f;	//투영크기는 그림자크기로
-
-	//방향성광원 카메라의 RenderToTexture준비
-	_directionLightCamera->readyShadowTexture(1024);
+	shadowInit();
 
 	_terrain = new terrain;
 	_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath("높이맵_3"));
-	_terrain->setTile0(FILEPATH_MANAGER->GetFilepath("타일맵_1"));
-	_terrain->setTile1(FILEPATH_MANAGER->GetFilepath("타일맵_2"));
-	_terrain->setTile2(FILEPATH_MANAGER->GetFilepath("타일맵_3"));
-	_terrain->setTile3(FILEPATH_MANAGER->GetFilepath("타일맵_4"));
+	_terrain->setTile0(IOMAPMANAGER->loadMapInfo("지형0").tile0);
+	_terrain->setTile1(IOMAPMANAGER->loadMapInfo("지형0").tile1);
+	_terrain->setTile2(IOMAPMANAGER->loadMapInfo("지형0").tile2);
+	_terrain->setTile3(IOMAPMANAGER->loadMapInfo("지형0").tile3);
 	_terrain->setSlat(FILEPATH_MANAGER->GetFilepath("스플랫_1"));
+	_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("지형0").vecPos);
 	_terrain->setting();
+	_terrain->changeHeightTerrain();
 
 	_terrainShadow = new terrain;
 	_terrainShadow->setHeightmap(FILEPATH_MANAGER->GetFilepath("높이맵_3"));
-	_terrainShadow->setTile0(FILEPATH_MANAGER->GetFilepath("타일맵_1"));
-	_terrainShadow->setTile1(FILEPATH_MANAGER->GetFilepath("타일맵_2"));
-	_terrainShadow->setTile2(FILEPATH_MANAGER->GetFilepath("타일맵_3"));
-	_terrainShadow->setTile3(FILEPATH_MANAGER->GetFilepath("타일맵_4"));
+	_terrainShadow->setTile0(IOMAPMANAGER->loadMapInfo("지형0").tile0);
+	_terrainShadow->setTile1(IOMAPMANAGER->loadMapInfo("지형0").tile1);
+	_terrainShadow->setTile2(IOMAPMANAGER->loadMapInfo("지형0").tile2);
+	_terrainShadow->setTile3(IOMAPMANAGER->loadMapInfo("지형0").tile3);
 	_terrainShadow->setSlat(FILEPATH_MANAGER->GetFilepath("스플랫_1"));
+	_terrainShadow->setMapPosition(IOMAPMANAGER->loadMapInfo("지형0").vecPos);
 	_terrainShadow->setting();
+	_terrainShadow->changeHeightTerrain();
+
+	//오브젝트 초기화
+	_mapObject = new mapObject;
+	IOSAVEOBJECTMANAGER->loadFile("오브젝트");
+	for (int i = 0; i < IOSAVEOBJECTMANAGER->getCount(); i++)
+	{
+		object = IOSAVEOBJECTMANAGER->findTag("넘버" + to_string(i + 1));
+		baseObject* temp2 = new baseObject;
+		D3DXMATRIX mapRotate;
+		_mapObject->objectSet(object.objectNumber, temp2, mapRotate, object.objectX, object.objectY, object.objectZ, 0.3f, object.objectRotate);
+		_renderObjects.push_back(temp2);
+		//m_vecObject.push_back(temp2);
+	}
+
+	_waterTerrain = new WaterTerrain;
+	_waterTerrain->init(3.0f, 256);
 
 //	_trans = new dx::transform;
 //	_dirLight = new lightDirection;
@@ -49,13 +52,13 @@ HRESULT terrainPickingTest::init(void)
 	D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
 	mat = matRotate;
 
-	boss = new bossMonster;
+//	boss = new bossMonster;
 	_player = new xPlayer;
 	_player->setlinkTerrain(*_terrain);
 	_player->init();
 	_player->getPlayerObject()->_transform->SetWorldPosition(1.0f, 0.0f, -3.0f);
 //	_player->getPlayerObject()->_transform->SetWorldPosition(20.0f, 0.0f, -20.0f);
-	_player->getPlayerObject()->_transform->SetScale(0.1f, 0.1f, 0.1f);
+	_player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
 	for (int i = 0; i < _player->getRenderObject().size(); i++)
 	{
 		_renderObjects.push_back(_player->getRenderObject()[i]);
@@ -63,27 +66,26 @@ HRESULT terrainPickingTest::init(void)
 
 	float tempY = _terrain->getHeight(0.0f, 0.0f);
 
-	//InitMonster();
+	InitMonster();
 	
 
 	ACMANAGER->Init(*_terrain, testObject, *_player);
 
-//	for (int i = 0; i < mon.size(); i++)
-//	{
-//		//monster* temp = dynamic_cast<monster*>(mon[i]);
-//		//temp->setActive(true);
-//		mon[i]->setActive(true);
-//		_renderObjects.push_back(mon[i]);
-//	}
+	for (int i = 0; i < mon.size(); i++)
+	{
+		//monster* temp = dynamic_cast<monster*>(mon[i]);
+		//temp->setActive(true);
+		mon[i]->setActive(true);
+		_renderObjects.push_back(mon[i]);
+	}
 
 
-	boss->setMesh(RM_SKINNED->getResource("Resources/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
-	boss->_transform->SetScale(0.2f, 0.2f, 0.2f);
-	boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
-	boss->setActive(true);
-	this->_renderObjects.push_back(boss);
+//	boss->setMesh(RM_SKINNED->getResource("Resources/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
+//	boss->_transform->SetScale(1.0f, 1.0f, 1.0f);
+//	boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+//	boss->setActive(true);
+//	this->_renderObjects.push_back(boss);
 
-	_sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(90), 0, 0);
 //	this->setEnvironment("Resources/TextureCUBE/SuperKanjiCube.dds");
 	_env = new Environment;
 	_env->init();
@@ -116,24 +118,13 @@ void terrainPickingTest::release(void)
 	SAFE_DELETE(this->_terrain);
 	SAFE_DELETE(this->_terrainShadow);
 //	SAFE_DELETE(this->_trans);
+
+	_waterTerrain->release();
 }
 
 void terrainPickingTest::update(void)
 {
-	_mainCamera->updateBase();
-	_sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
-
-	//광원 위치
-	D3DXVECTOR3 camPos = _mainCamera->GetWorldPosition();		//메인카메라의 위치
-	//D3DXVECTOR3 camFront = _mainCamera->GetForward();			//메인카메라의 정면
-	D3DXVECTOR3 lightDir = _sceneBaseDirectionLight->_transform->GetForward();	//방향성 광원의 방향
-
-	//D3DXVECTOR3 lightPos = camPos +
-	//	(camFront * (_shadowDistance * 0.5f)) +
-	//	(-lightDir * _shadowDistance);
-
-	_directionLightCamera->SetWorldPosition(camPos.x, camPos.y, camPos.z);
-	_directionLightCamera->LookDirection(lightDir);
+	shadowUpdate();
 
 	lButtonStateChange();
 	selectLButton();
@@ -144,13 +135,13 @@ void terrainPickingTest::update(void)
 	{
 		_renderObjects[i]->update();
 	}
-
-	//쉐도우맵 준비
-	this->readyShadowMap(&this->_renderObjects, this->_terrainShadow);
 }
 
 void terrainPickingTest::render(void)
 {
+	shadowRender();
+	_directionLightCamera->_frustum.renderGizmo();
+
 	//카메라에 컬링된거만....
 	this->_cullObjects.clear();
 	for (int i = 0; i < this->_renderObjects.size(); i++)
@@ -161,25 +152,24 @@ void terrainPickingTest::render(void)
 			this->_cullObjects.push_back(_renderObjects[i]);
 		}
 	}
+	_terrain->render(_mainCamera, _sceneBaseDirectionLight, _directionLightCamera);
 
-	_env->renderEnvironment(1);
+//	_mapObject->objectRenderTool(m_vecObject, _mainCamera, _sceneBaseDirectionLight);
 
+	_waterTerrain->render(1);
+
+	_env->renderEnvironment(2);
+
+	//	//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅
+	//	//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅
 	xMeshStatic::setCamera(_mainCamera);
-	//if (KEYMANAGER->isStayKeyDown('0'))
-	//{
-	//	//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅
-	//	xMeshStatic::setTechniqueName("CreateShadow");
-	//}
-	//else
-	//{
-	//	//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅
-	//	
-	//}
-	xMeshStatic::setTechniqueName("CreateShadow");
+	xMeshStatic::setTechniqueName("ReciveShadow");
+	xMeshStatic::setTechniqueName("Toon");
+	xMeshStatic::_staticMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resources/Testures/Ramp_1.png"));
 	xMeshStatic::setBaseLight(this->_sceneBaseDirectionLight);
 
 	xMeshSkinned::setCamera(_mainCamera);
-	//xMeshSkinned::setTechniqueName("ReciveShadow");
+	xMeshSkinned::setTechniqueName("ReciveShadow");
 	xMeshSkinned::setTechniqueName("Toon");
 	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resources/Testures/Ramp_1.png"));
 	xMeshSkinned::setBaseLight(this->_sceneBaseDirectionLight);
@@ -190,7 +180,6 @@ void terrainPickingTest::render(void)
 	{
 		this->_cullObjects[i]->render();
 	}
-	_terrain->render(_mainCamera, _sceneBaseDirectionLight, _directionLightCamera);
 	
 	RM_SKINNED->getResource("Resources/Player/FHUMAN_PLATE/FHUMAN.X")->ShowAnimationName(0, 0);
 
@@ -202,22 +191,25 @@ void terrainPickingTest::render(void)
 
 	_terrain->getDijkstra().render();
 
-	char tempchar[128];
-	sprintf_s(tempchar, "vecNodeSize : %d, adjSize: %d", temp.size(), _terrain->getDijkstra().getadjNode().size());
-	FONTMANAGER->fontOut(tempchar, 0, 100, 0xffffffff);
+	//_mainCamera->renderTextureEnd();
 
-	if (KEYMANAGER->isToggleKey(VK_F6))
-	{
-		sprintf_s(tempchar, "경로(노드인덱스) : ");
-		FONTMANAGER->fontOut(tempchar, 0, 85, 0xffffffff);
-		int position = 0;
-		for (int i = _terrain->getDijkstra().getPath().size() -1; i >= 0 ; --i)
-		{
-			sprintf_s(tempchar, "%d->", _terrain->getDijkstra().getPath()[i]);
-			FONTMANAGER->fontOut(tempchar, 195 + position * 55, 85, 0xffffffff);
-			position++;
-		}
-	}
+	testRender();
+	//char tempchar[128];
+	//sprintf_s(tempchar, "vecNodeSize : %d, adjSize: %d", temp.size(), _terrain->getDijkstra().getadjNode().size());
+	//FONTMANAGER->fontOut(tempchar, 0, 100, 0xffffffff);
+
+	//if (KEYMANAGER->isToggleKey(VK_F6))
+	//{
+	//	sprintf_s(tempchar, "경로(노드인덱스) : ");
+	//	FONTMANAGER->fontOut(tempchar, 0, 85, 0xffffffff);
+	//	int position = 0;
+	//	for (int i = _terrain->getDijkstra().getPath().size() -1; i >= 0 ; --i)
+	//	{
+	//		sprintf_s(tempchar, "%d->", _terrain->getDijkstra().getPath()[i]);
+	//		FONTMANAGER->fontOut(tempchar, 195 + position * 55, 85, 0xffffffff);
+	//		position++;
+	//	}
+	//}
 }
 
 void terrainPickingTest::lButtonStateChange(void)
@@ -284,6 +276,117 @@ void terrainPickingTest::selectLButton(void)
 	}
 }
 
+
+void terrainPickingTest::shadowInit(void)
+{
+	_mainCamera = new camera;
+
+	_directionLightCamera = new camera;
+
+	_sceneBaseDirectionLight = new lightDirection;
+
+	_sceneBaseDirectionLight->_color = D3DXCOLOR(1, 1, 1, 1);
+	_sceneBaseDirectionLight->_intensity = 1.0f;
+
+	//그림자 거리?
+	_shadowDistance = 100.0f;
+
+	//카메라의 투영방식을 바꾼다.
+	_directionLightCamera->_isOrtho = true;
+	_directionLightCamera->_camNear = 0.1f;
+	_directionLightCamera->_camFar = _shadowDistance * 2.0f;
+	_directionLightCamera->_aspect = 1;
+	_directionLightCamera->_orthoSize = _shadowDistance * 1.5f;	//투영크기는 그림자크기로
+
+																//방향성광원 카메라의 RenderToTexture준비
+	_directionLightCamera->readyShadowTexture(4096);
+
+	_mainCamera->readyRenderToTexture(WINSIZEX, WINSIZEY);
+
+//	_scenePlaneVertex[0].pos = D3DXVECTOR3(-1.0f, 1.0f, 0.0f);
+//	_scenePlaneVertex[1].pos = D3DXVECTOR3(1.0f, 1.0f, 0.0f);
+//	_scenePlaneVertex[2].pos = D3DXVECTOR3(1.0f, -1.0f, 0.0f);
+//	_scenePlaneVertex[3].pos = D3DXVECTOR3(-1.0f, -1.0f, 0.0f);
+//	_scenePlaneVertex[0].uv = D3DXVECTOR2(0.0f, 0.0f);
+//	_scenePlaneVertex[1].uv = D3DXVECTOR2(1.0f, 0.0f);
+//	_scenePlaneVertex[2].uv = D3DXVECTOR2(1.0f, 1.0f);
+//	_scenePlaneVertex[3].uv = D3DXVECTOR2(0.0f, 1.0f);
+//	_scenePlaneIndex[0] = 0;
+//	_scenePlaneIndex[1] = 1;
+//	_scenePlaneIndex[2] = 3;
+//	_scenePlaneIndex[3] = 3;
+//	_scenePlaneIndex[4] = 1;
+//	_scenePlaneIndex[5] = 2;
+
+	//포스트 이펙트 로딩
+//	_postEffect = RM_SHADERFX->getResource("Resources/Shaders/PostEffect.fx");
+	
+	this->_sceneBaseDirectionLight->_transform->SetWorldPosition(0, 20, 0);
+	_sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(90), 0, 0);
+}
+
+void terrainPickingTest::shadowUpdate(void)
+{
+	_mainCamera->updateBase();
+	_sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
+
+	//광원 위치
+	D3DXVECTOR3 camPos = _mainCamera->GetWorldPosition();		//메인카메라의 위치
+	D3DXVECTOR3 camFront = _mainCamera->GetForward();			//메인카메라의 정면
+	D3DXVECTOR3 lightDir = _sceneBaseDirectionLight->_transform->GetForward();	//방향성 광원의 방향
+
+	_waterTerrain->update(1);
+
+	D3DXVECTOR3 lightPos = camPos +
+		(camFront * (_shadowDistance * 0.5f)) +
+		(-lightDir * _shadowDistance);
+
+	_directionLightCamera->SetWorldPosition(lightPos.x, lightPos.y, lightPos.z);
+	_directionLightCamera->LookDirection(lightDir);
+
+	//쉐도우맵 준비
+	this->readyShadowMap(&this->_renderObjects, this->_terrainShadow);
+}
+
+void terrainPickingTest::shadowRender(void)
+{
+	//메인카메라 RTT준비
+	//_mainCamera->renderTextureBegin(0x00101010);
+}
+
+void terrainPickingTest::testRender(void)
+{
+//	//포스트 이펙트 세팅
+//	_postEffect->SetTechnique("Base");
+//	_postEffect->SetTexture("screenTex", _mainCamera->getRenderTexture());
+//	float pixelU = 1.0f / WINSIZEX;
+//	float pixelV = 1.0f / WINSIZEY;
+//	_postEffect->SetFloat("pixelSizeU", pixelU);
+//	_postEffect->SetFloat("pixelSizeV", pixelV);
+//	_postEffect->SetFloat("pixelHalfSizeU", pixelU * 0.5f);
+//	_postEffect->SetFloat("pixelHalfSizeV", pixelV * 0.5f);
+//
+//	//포스트 이펙트 렌더
+//	UINT iPass;
+//	_postEffect->Begin(&iPass, 0);
+//	for (UINT i = 0; i < iPass; i++)
+//	{
+//		_postEffect->BeginPass(i);
+//		_device->SetFVF(SCENE_VERTEX::FVF);
+//		_device->DrawIndexedPrimitiveUP(
+//			D3DPT_TRIANGLELIST,
+//			0,
+//			4,
+//			2,
+//			_scenePlaneIndex,
+//			D3DFMT_INDEX16,
+//			_scenePlaneVertex,
+//			sizeof(SCENE_VERTEX));
+//		_postEffect->EndPass();
+//	}
+//	_postEffect->End();
+}
+
 void terrainPickingTest::addObject(void)
 {
 	enemy->_transform->SetWorldPosition(_hitPos);
@@ -301,7 +404,7 @@ void terrainPickingTest::InitMonster(void)
 	monster* tempObject;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
 
 	float tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	float tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -314,7 +417,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -327,7 +430,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -340,7 +443,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -353,7 +456,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -366,7 +469,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -379,7 +482,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -392,7 +495,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -405,7 +508,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -418,7 +521,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -431,7 +534,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -444,7 +547,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -457,7 +560,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -470,7 +573,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.1f, 0.1f, 0.1f);
+	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -496,7 +599,7 @@ void terrainPickingTest::readyShadowMap(vector<baseObject*>* renderObjects, terr
 	for (int i = 0; i < renderObjects->size(); i++)
 	{
 		//프러스텀 안에 있니?
-		if (this->_directionLightCamera->_frustum.isInFrustum((*renderObjects)[i]))
+		if (this->_mainCamera->_frustum.isInFrustum((*renderObjects)[i]))
 		{
 			shadowCullObject.push_back((*renderObjects)[i]);
 		}
@@ -545,3 +648,4 @@ void terrainPickingTest::readyShadowMap(vector<baseObject*>* renderObjects, terr
 	//쉐도우 행렬
 	xMeshSkinned::_sSkinnedMeshEffect->SetMatrix("matLightViewProjection", &_directionLightCamera->getViewProjectionMatrix());
 }
+

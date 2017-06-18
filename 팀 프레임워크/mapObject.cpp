@@ -14,11 +14,11 @@ mapObject::~mapObject()
 
 HRESULT mapObject::objectinit()
 {
-	//라이트 설정
-	_directionLight = new lightDirection;
-	_directionLight->_transform->RotateWorld(D3DXToRadian(90), 0, 0);
-	_directionLight->_color = D3DXCOLOR(1, 1, 1, 1);
-	_directionLight->_intensity = 2.0f;
+	////라이트 설정
+	//_directionLight = new lightDirection;
+	//_directionLight->_transform->RotateWorld(D3DXToRadian(90), 0, 0);
+	//_directionLight->_color = D3DXCOLOR(1, 1, 1, 1);
+	//_directionLight->_intensity = 2.0f;
 
 	return S_OK;
 }
@@ -259,7 +259,7 @@ void mapObject::objectSet(int objectNumber, baseObject * tempObect, D3DXMATRIX m
 //	}
 //}
 
-void mapObject::objectRenderTool(vector<baseObject*>& object, camera * _mainCamera)
+void mapObject::objectRenderTool(vector<baseObject*>& object, camera * _mainCamera, lightDirection* _directionLight)
 {
 	for (int i = 0; i < object.size(); i++)
 	{

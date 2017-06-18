@@ -6,6 +6,8 @@
 #include "bossMonster.h"
 #include "xPlayer.h"
 #include "Environment.h"
+#include "mapObject.h"
+#include "WaterTerrain.h"
 
 class terrainPickingTest : public iGameNode
 {
@@ -20,6 +22,8 @@ private:
 	};
 
 private:
+	WaterTerrain* _waterTerrain;
+	mapObject*        _mapObject;
 	xPlayer*			_player;
 	monster*			player;
 	bossMonster*		boss;
@@ -48,6 +52,16 @@ private:
 	int sour;
 	int dest;
 
+//	SCENE_VERTEX			_scenePlaneVertex[4];		//¾ÀÆò¸é ¹öÅØ½º
+//	WORD					_scenePlaneIndex[6];		//¾ÀÆò¸é ÀÎµ¦½º
+//	LPD3DXEFFECT			_postEffect;				//Æ÷½ºÆ® ÀÌÆåÆ®
+
+//Áö¿öµµ´ï
+private:
+	vector<baseObject*>	m_vecObject;
+	tagSaveObject object;
+
+
 public:
 	HRESULT init(void);
 	void release(void);
@@ -66,6 +80,11 @@ public:
 	void InitMonster(void);
 
 	void readyShadowMap(vector<baseObject*>* renderObjects, terrain* pTerrain = NULL);
+
+	void shadowInit(void);
+	void shadowUpdate(void);
+	void shadowRender(void);
+	void testRender(void);
 
 	terrainPickingTest() {}
 	~terrainPickingTest() {}
