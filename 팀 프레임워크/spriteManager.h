@@ -23,6 +23,13 @@ public:
 		DWORD color = 0xffffffff,
 		D3DXVECTOR3* center = NULL);
 
+	void renderRectTexture(
+		LPDIRECT3DTEXTURE9 texture,
+		LPRECT rcSour, LPRECT colRc,
+		float RectStartX, float RectStartY, float RectSizeWidth, float RectSizeHeight, float posX, float posY,
+		DWORD color = 0xffffffff,
+		D3DXVECTOR3* center = NULL);
+
 	//스프라이트 크기 및 회전가능
 	void renderTexture(
 		LPDIRECT3DTEXTURE9 texture, 

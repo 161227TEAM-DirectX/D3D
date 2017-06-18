@@ -2,7 +2,7 @@
 #include "bossActionAttack.h"
 
 
-bossActionAttack::bossActionAttack() :Action(), passedTime(0.0f), activeTime(2.0f), resultValue(0)
+bossActionAttack::bossActionAttack() :Action(), resultValue(0)
 {
 }
 
@@ -33,13 +33,41 @@ int bossActionAttack::Update()
 		enemy->playerDamaged(temp->getAtt(), 0.6f, 25.0f);
 	}
 
+	//애니메이션이 끝나갈때쯤이면
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.9f)
 	{
-		passedTime = 0.0f;
-		int random = myUtil::RandomIntRange(1, 5);
+		//적이 나의 hit박스 안에 없다면 다른 패턴으로 간다.
+		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
+		{
+			if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
+			{
+				resultValue = myUtil::RandomFloatRange(0.1f, 1.0f);
 
-		//플레이어의 hp를 소모시키자.
-		//PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - temp->getAtt());
+				//이동
+				if (resultValue >= 0.1f && resultValue <= 0.98f)
+				{
+					return LHS::ACTIONRESULT::ACTION_MOVE;
+				}
+				//배틀로어
+				else if (resultValue >= 0.98f && resultValue <= 0.99f)
+				{
+					return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
+				}
+				//브레스
+				else if (resultValue >= 0.99f && resultValue <= 1.0f)
+				{
+					return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
+				}
+			}
+			//range안에 없다면 이동이다.
+			else
+			{
+				return LHS::ACTIONRESULT::ACTION_MOVE;
+			}
+		}
+
+		//위의 조건들이 모두 틀렸다면 ATTACK을 시작하자.
+		int random = myUtil::RandomIntRange(1, 5);
 
 		switch (random)
 		{
@@ -61,31 +89,6 @@ int bossActionAttack::Update()
 		default:
 			owner->getSkinnedAnim().Play("Animation_10");
 			break;
-		}
-
-		//적이 나의 hit박스 안에 없다면 이동해라.
-		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
-		{
-			resultValue = myUtil::RandomFloatRange(0.1f, 1.0f);
-
-			if (resultValue >= 0.1f && resultValue <= 0.98f)
-			{
-				return LHS::ACTIONRESULT::ACTION_MOVE;
-			}
-			else if (resultValue >= 0.98f && resultValue <= 0.99f)
-			{
-				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
-				{
-					return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
-				}
-			}
-			else if (resultValue >= 0.99f && resultValue <= 1.0f)
-			{
-				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
-				{
-					return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
-				}
-			}
 		}
 	}
 

@@ -35,7 +35,9 @@ public:
 	void updateCamToDevice();
 	//프러스텀 업데이트
 	void updateFrustum();
-	
+	//카메라 기본 업데이트
+	void updateBase();
+
 	//카메라 관련 행렬 얻기
 	D3DXMATRIXA16 getViewMatrix() { return _matView; }
 	D3DXMATRIXA16 getProjectionMatrix() { return _matProjection; }
@@ -50,6 +52,7 @@ public:
 
 	//화면의 위치를 가지고 카메라의 투영레이를 얻는 함수
 	void computeRay(LPRay pOutRay, D3DXVECTOR2* screenPos);
+	void computeRay(LPRay pOutRay, D3DXVECTOR2* screenPos, int number);
 
 	//월드 위치로  화면의 위치를 얻는다
 	bool getWorldPosToScreenPos(D3DXVECTOR2* pScreenPos, const D3DXVECTOR3* pWorldPos);

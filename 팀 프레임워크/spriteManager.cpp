@@ -51,6 +51,41 @@ void spriteManager::renderTexture(LPDIRECT3DTEXTURE9 texture, LPRECT rcSour, flo
 	_sprite->End();
 }
 
+void spriteManager::renderRectTexture(LPDIRECT3DTEXTURE9 texture, LPRECT rcSour, LPRECT colRc, float RectStartX, float RectStartY, float RectSizeWidth, float RectSizeHeight, float posX, float posY, DWORD color, D3DXVECTOR3 * center)
+{
+	//TIP) 
+	//텍스쳐 이미지 크기는 무조건 128.256.512
+	//2진수가 아니면 텍스쳐 이미지가 짤려서 이상하기 뜬다.
+
+	//화면 절대 좌표로 그리기때문에 transform을 초기화 해줘야 한다
+	D3DXMATRIXA16 matFinalRect;
+	D3DXMatrixIdentity(&matFinalRect);
+	_sprite->SetTransform(&matFinalRect);
+
+	//그릴화면 위치
+	D3DXVECTOR3 pos(posX, posY, 0.0f);
+
+	//렉트 사이즈 
+	rcSour->left = RectStartX;
+	rcSour->top = RectStartY;
+	rcSour->right = RectSizeWidth;
+	rcSour->bottom = RectSizeHeight;
+
+	//스프라이트 사용 시작
+	_sprite->Begin(D3DXSPRITE_ALPHABLEND);
+
+	//이곳에서 스프라이트 그리자
+	_sprite->Draw(
+		texture,	//그릴 텍스쳐
+		rcSour,		//그릴 텍스쳐 소스 영역
+		&D3DXVECTOR3(0, 0, 0), //이미지 중심위치
+		&pos,		//그릴 화면 위치좌표
+		color);		//컬러(이미지에 원하는 색을 덧입혀서 화면에 출력된다 // 셀로판지)
+
+					//스프라이트 사용 종료
+	_sprite->End();
+}
+
 //스프라이트 크기 및 회전가능
 void spriteManager::renderTexture(LPDIRECT3DTEXTURE9 texture, LPRECT rcSour, float posX, float posY, float scaleX, float scaleY, float rotate, DWORD color, D3DXVECTOR3 * center)
 {

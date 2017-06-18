@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "cUIObject.h"
 
-
 cUIObject::cUIObject()
 	: m_vPosition(0, 0, 0)
 	, m_stSize(0, 0)
@@ -11,6 +10,7 @@ cUIObject::cUIObject()
 	, m_pSprite(NULL)
 	, m_pUIDelegate(NULL)
 {
+	D3DXCreateSprite(_device, &m_pSprite);
 	D3DXMatrixIdentity(&m_matScale);
 	D3DXMatrixIdentity(&m_matTrans);
 	D3DXMatrixIdentity(&m_matWorld);
@@ -26,6 +26,7 @@ cUIObject::~cUIObject()
 		SAFE_RELEASE(p);
 	}
 	m_vecChild.clear();
+	SAFE_RELEASE(m_pSprite);
 }
 
 void cUIObject::Setup()

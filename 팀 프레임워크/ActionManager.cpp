@@ -41,7 +41,7 @@ ActionManager::~ActionManager()
 
 Action * ActionManager::getAction(string Name, baseObject& who)
 {
-	Action* temp;
+	Action* temp = nullptr;
 	if (!actionName[0].compare(Name)) temp = new ActionAttack;
 	else if (!actionName[1].compare(Name)) temp = new ActionDie;
 	else if (!actionName[2].compare(Name))

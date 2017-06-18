@@ -17,7 +17,7 @@ quadTree::~quadTree()
 	SAFE_DELETE(_childs[3]);
 }
 
-HRESULT quadTree::init(terrain::LPTERRAINVERTEX vertices, DWORD verNumEdge)
+HRESULT quadTree::init(LPTERRAINVERTEX vertices, DWORD verNumEdge)
 {
 	//Terrain 정점 데이터 물린다
 	_terrainVertices = vertices;

@@ -19,6 +19,7 @@
 
 // C++ 런타임 헤더 파일입니다.
 #include <iostream>
+#include <fstream>			//파일입출력 ofstream쓰기위한 헤더
 
 // STL 컨테이너 헤더파일
 #include <string>
@@ -89,7 +90,119 @@ public: virtual void Set##funName(varType var){\
 		}\
 	}
 
+//====================================================================
+//			## FVF ## (정점 하나에 대한 정보를 정의하는 구조체)
+//====================================================================
+typedef struct tagVertex
+{
+	D3DXVECTOR3 pos;		//정점의 위치
+	DWORD		color;		//정점의 컬러
 
+							//현재 정점의 정보를 나타내는 플래그 상수값
+							//D3DFVF_XYZ 정점의 위치정보
+							//D3DFVF_DIFFUSE 정점의 컬러정보
+	tagVertex() {}
+	tagVertex(D3DXVECTOR3 p, D3DCOLOR c) : pos(p), color(c) {}
+	enum { FVF = D3DFVF_XYZ | D3DFVF_DIFFUSE };
+}MYVERTEX, *LPMYVERTEX;
+
+typedef struct tagVertexPN
+{
+	D3DXVECTOR3 pos;		//정점의 위치
+	D3DXVECTOR3 normal;		//정점의 노말 벡터(정점 표면의 바라보는 방향을 얻는다)
+	enum { FVF = D3DFVF_XYZ | D3DFVF_NORMAL };
+}MYVERTEX_PN, *LPMYVERTEX_PN;
+
+typedef struct tagVertexPU
+{
+	D3DXVECTOR3 pos;		//정점의 위치
+	D3DXVECTOR2	uv;			//정점의 UV좌표 (0.0f ~ 1.0f)
+	enum { FVF = D3DFVF_XYZ | D3DFVF_TEX1 };
+}MYVERTEX_PU, *LPMYVERTEX_PU;
+
+struct ST_RHWC_VERTEX
+{
+	D3DXVECTOR4 p;
+	D3DCOLOR	c;
+	enum { FVF = D3DFVF_XYZRHW | D3DFVF_DIFFUSE };
+};
+
+//====================================================================
+//			## 구조체 ##
+//====================================================================
+struct ST_SIZEF
+{
+	float fWidth;
+	float fHeight;
+	ST_SIZEF() : fWidth(0.0f), fHeight(0.0f) {}
+	ST_SIZEF(float _fWidth, float _fHeight) : fWidth(_fWidth), fHeight(_fHeight) {}
+};
+
+//Terrain 정점 구조체
+typedef struct tagTERRAINVERTEX
+{
+	D3DXVECTOR3 pos;			//위치
+	D3DXVECTOR3 normal;			//노말
+	D3DXVECTOR3 binormal;		//바이노말
+	D3DXVECTOR3 tangent;		//탄젠트
+	D3DXVECTOR2 baseUV;			//0~1 UV
+	D3DXVECTOR2 tileUV;			//타일 UV 
+}TERRAINVERTEX, *LPTERRAINVERTEX;
+
+//Terrain 인덱스 구조체 ( 요고 구조체 하나가 삼각형 하나를 담당한다 )
+typedef struct tagTERRAINTRI
+{
+	DWORD dw0;
+	DWORD dw1;
+	DWORD dw2;
+}TERRAINTRI, *LPTERRAINTRI;
+
+
+//====================================================================
+//			## 세이브구조체 ## 
+//====================================================================
+
+struct tagSaveMap
+{
+	string infoName;	//정보이름
+	int number;         //정보 넘버값
+	float mapHeight;
+};
+
+struct tagSaveObject
+{
+	string infoName;	//정보이름
+	int objectNumber;   //오브젝트 넘버값
+	float objectScale;  //오브젝트 스케일
+	float objectRotate; //오브젝트 로테이션
+	float objectX;      //오브젝트 X
+	float objectY;      //오브젝트 Y
+	float objectZ;      //오브젝트 Z
+};
+
+struct tagSaveCinematic
+{
+	string infoName;	//정보이름
+	float X;
+	float Y;
+	float Z;
+	float Height;
+};
+
+
+//====================================================================
+//			## 맵(지형에 관한 여러가지 정보를 들고있는) 구조체 ## 
+//====================================================================
+struct ST_MAP
+{
+	string heightMap;	//높이맵 경로
+	string splat;		//스플랫팅 경로
+	string tile0;		//타일0 경로
+	string tile1;		//타일1 경로
+	string tile2;		//타일2 경로
+	string tile3;		//타일3 경로
+	vector<D3DXVECTOR3> vecPos;	//높이값
+};
 
 
 //====================================================================
@@ -109,9 +222,9 @@ using namespace myUtil;
 #include "boundBox.h"
 #include "terrain.h"
 #include "cObject.h"
+#include "cUIObject.h"
 #include "cPicking.h"
-
-
+#include "cLoading.h"
 
 
 //////////////////////////////////////////////////////////////////////
@@ -131,11 +244,19 @@ using namespace myUtil;
 #include "ioBaseManager.h"
 #include "dxParticleSystemManager.h"
 #include "soundManager.h"
+#include "xPlayerStatus.h"
+#include "ActionManager.h"
+#include "ioBaseManager.h"
+#include "ioSaveManager.h"
+#include "ioSaveObjectManager.h"
+#include "ioHeightManager.h"
+#include "ioMapManager.h"
 
 #include "cObjectManager.h"
 #include "cTextureManager.h"
-#include "xPlayerStatus.h"
-#include "ActionManager.h"
+#include "cSceneManager.h"
+#include "cFilepathManager.h"
+#include "cMapManager.h"
 
 //====================================================================
 //			## 싱글톤(상속) ##
@@ -152,10 +273,13 @@ using namespace myUtil;
 #define RM_SKINNED rmSkinnedMesh::getSingleton()
 #define PHYSICSMANAGER physicsManager::getSingleton()
 #define SPRITEMANAGER spriteManager::getSingleton()
-#define IOBASEMANAGER ioBaseManager::getSingleton()
 #define PSM	dxParticleSystemManager::getSingleton()
 #define PLAYERMANAGER xPlayerStatus::getSingleton()
 #define SOUNDMANAGER soundManager::getSingleton()
+#define IOBASEMANAGER ioBaseManager::getSingleton()
+#define IOSAVEMANAGER ioSaveManager::getSingleton()
+#define IOSAVEOBJECTMANAGER ioSaveObjectManager::getSingleton()
+#define IOHEIGHTMANAGER ioHeightManager::getSingleton()
 
 //====================================================================
 //			## 싱글톤(매크로) ##
@@ -163,6 +287,14 @@ using namespace myUtil;
 // 각각의 매니져 클래스에서 인스턴스를 얻는다.
 
 
+//====================================================================
+//			## 색상 ##
+//====================================================================
+#define BLACK	D3DCOLOR_XRGB(255,255,255)
+#define RED		D3DCOLOR_XRGB(255,0,0)
+#define GREEN	D3DCOLOR_XRGB(0,255,0)
+#define BLUE	D3DCOLOR_XRGB(0,0,255)
+#define WHITE	D3DCOLOR_XRGB(0,0,0)
 
 
 //====================================================================
@@ -176,16 +308,20 @@ using namespace myUtil;
 #define WINSTYLE	WS_OVERLAPPEDWINDOW
 
 
-
-
-
 //====================================================================
-//			## 전역변수 ## 
+//			## enum ##
 //====================================================================
-extern HWND				_hWnd;
-extern HINSTANCE		_hInstance;
-extern float			_timeDelta;
-extern CRITICAL_SECTION _cs;
+enum eSceneManager
+{
+	E_GAMENODE,
+	E_ISCENE
+};
+
+enum eSelectMode
+{
+	E_GAME,
+	E_MAPTOOL
+};
 
 namespace LHS
 {
@@ -220,59 +356,21 @@ namespace LHS
 
 	enum BOSSACTIONRESULT
 	{
-		
+
 	};
 
 	const float MOVETIME = 1.5f;
 }
 
-//====================================================================
-//			## FVF ## (정점 하나에 대한 정보를 정의하는 구조체)
-//====================================================================
-typedef struct tagVertex
-{
-	D3DXVECTOR3 pos;		//정점의 위치
-	DWORD		color;		//정점의 컬러
-
-	//현재 정점의 정보를 나타내는 플래그 상수값
-	//D3DFVF_XYZ 정점의 위치정보
-	//D3DFVF_DIFFUSE 정점의 컬러정보
-	tagVertex() {}
-	tagVertex(D3DXVECTOR3 p, D3DCOLOR c) : pos(p), color(c) {}
-	enum { FVF = D3DFVF_XYZ | D3DFVF_DIFFUSE };
-}MYVERTEX, *LPMYVERTEX;
-
-typedef struct tagVertexPN
-{
-	D3DXVECTOR3 pos;		//정점의 위치
-	D3DXVECTOR3 normal;		//정점의 노말 벡터(정점 표면의 바라보는 방향을 얻는다)
-	enum { FVF = D3DFVF_XYZ | D3DFVF_NORMAL };
-}MYVERTEX_PN, *LPMYVERTEX_PN;
-
-typedef struct tagVertexPU
-{
-	D3DXVECTOR3 pos;		//정점의 위치
-	D3DXVECTOR2	uv;			//정점의 UV좌표 (0.0f ~ 1.0f)
-	enum { FVF = D3DFVF_XYZ | D3DFVF_TEX1 };
-}MYVERTEX_PU, *LPMYVERTEX_PU;
-
-struct ST_RHWC_VERTEX
-{
-	D3DXVECTOR4 p;
-	D3DCOLOR	c;
-	enum { FVF = D3DFVF_XYZRHW | D3DFVF_DIFFUSE };
-};
-
-
-
 
 //====================================================================
-//			## 구조체 ##
+//			## 전역변수 ## 
 //====================================================================
-struct ST_SIZEF
-{
-	float fWidth;
-	float fHeight;
-	ST_SIZEF() : fWidth(0.0f), fHeight(0.0f) {}
-	ST_SIZEF(float _fWidth, float _fHeight) : fWidth(_fWidth), fHeight(_fHeight) {}
-};
+extern HWND				_hWnd;
+extern HINSTANCE		_hInstance;
+extern float			_timeDelta;
+extern CRITICAL_SECTION _cs;
+extern eSceneManager	g_eSceneManager;
+extern D3DVIEWPORT9		leftViewPort;	//왼쪽 뷰포트
+extern D3DVIEWPORT9		rightViewPort;  //오른쪽 뷰포트
+extern eSelectMode		g_eSelectMode;	//게임모드인지 맵툴모드인지

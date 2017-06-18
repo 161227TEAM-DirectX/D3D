@@ -17,7 +17,6 @@ camera::camera() : _isOrtho(FALSE), _renderTexture(NULL), _renderSurface(NULL), 
 camera::~camera()
 {
 	SAFE_RELEASE(_renderTexture);
-	
 	SAFE_RELEASE(_renderSurface);
 }
 
@@ -56,6 +55,13 @@ void camera::updateCamToDevice()
 void camera::updateFrustum()
 {
 	_frustum.updateFrustum(&_matViewProjection);
+}
+
+void camera::updateBase()
+{
+	DefaultControl(_timeDelta);
+	updateMatrix();
+	updateCamToDevice();
 }
 
 //화면의 위치를 가지고 카메라의 투영레이를 얻는 함수
@@ -97,6 +103,94 @@ void camera::computeRay(LPRay pOutRay, D3DXVECTOR2* screenPos)
 	pOutRay->direction = direction;
 	//Ray의 오리진은 카메라의 위치가 된다
 	pOutRay->origin = this->GetWorldPosition();
+}
+
+void camera::computeRay(LPRay pOutRay, D3DXVECTOR2 * screenPos, int number)
+{
+	//스크린의 위치 비율을 얻기
+	if(number == 1)
+	{
+		float factorX = screenPos->x / leftViewPort.Width;
+		float factorY = (1.0f - (screenPos->y / leftViewPort.Height));
+
+
+		//0 ~ 1 => -1 ~ 1
+		factorX = factorX * 2.0f - 1.0f;
+		factorY = factorY * 2.0f - 1.0f;
+
+		//투영행렬을 얻기
+		D3DXMATRIXA16 matProj = this->getProjectionMatrix();
+
+		//[1][][][]
+		//[][1][][]
+		//[][][1][]
+		//[0][0][0][]
+		//화각 스케일량을 나눈다
+		D3DXVECTOR3 direction(
+			factorX / matProj._11,
+			factorY / matProj._22,
+			1.0f);
+
+		//카메라 월드 행렬
+		D3DXMATRIXA16 matCamWorld = this->GetFinalMatrix();
+
+		//레이의 방향을 카메라 월드기준으로 계산한다
+		D3DXVec3TransformNormal(&direction, &direction, &matCamWorld);
+
+		//방향벡터 정규화
+		D3DXVec3Normalize(&direction, &direction);
+
+		//Ray의 방향
+		pOutRay->direction = direction;
+		//Ray의 오리진은 카메라의 위치로
+		pOutRay->origin = this->GetWorldPosition();
+
+		////디바이스를 통해 뷰포트를 얻기
+
+		_device->GetViewport(&leftViewPort);
+	}
+
+	if(number == 2)
+	{
+		D3DVIEWPORT9 viewPort;
+		////디바이스를 통해 뷰포트를 얻기
+		_device->GetViewport(&viewPort);
+
+		float factorX = screenPos->x / WINSIZEX;
+		float factorY = (1.0f - (screenPos->y / WINSIZEY));
+
+
+		//0 ~ 1 => -1 ~ 1
+		factorX = factorX * 2.0f - 1.0f;
+		factorY = factorY * 2.0f - 1.0f;
+
+		//투영행렬을 얻기
+		D3DXMATRIXA16 matProj = this->getProjectionMatrix();
+
+		//[1][][][]
+		//[][1][][]
+		//[][][1][]
+		//[0][0][0][]
+		//화각 스케일량을 나눈다
+		D3DXVECTOR3 direction(
+			factorX / matProj._11,
+			factorY / matProj._22,
+			1.0f);
+
+		//카메라 월드 행렬
+		D3DXMATRIXA16 matCamWorld = this->GetFinalMatrix();
+
+		//레이의 방향을 카메라 월드기준으로 계산한다
+		D3DXVec3TransformNormal(&direction, &direction, &matCamWorld);
+
+		//방향벡터 정규화
+		D3DXVec3Normalize(&direction, &direction);
+
+		//Ray의 방향
+		pOutRay->direction = direction;
+		//Ray의 오리진은 카메라의 위치로
+		pOutRay->origin = this->GetWorldPosition();
+	}
 }
 
 bool camera::getWorldPosToScreenPos(D3DXVECTOR2 * pScreenPos, const D3DXVECTOR3 * pWorldPos)

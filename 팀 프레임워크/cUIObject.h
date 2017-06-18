@@ -13,13 +13,7 @@ class cUIObject : public cObject
 protected:
 	vector<cUIObject*> m_vecChild;
 	cUIObject*		   m_pParent;
-
-public:
-	enum eUIType
-	{
-		E_NONE
-	};
-
+	
 protected:
 	D3DXMATRIXA16			m_matWorld;
 	D3DXMATRIXA16			m_matScale;
@@ -30,7 +24,6 @@ protected:
 	SYNTHESIZE(D3DXVECTOR3, m_vPosition, Position);
 	SYNTHESIZE(D3DXVECTOR3, m_vScale, Scale);
 	SYNTHESIZE(ST_SIZEF, m_stSize, Size);
-	SYNTHESIZE(eUIType, m_eUItype, UItype);
 	SYNTHESIZE(cUIDelegate*, m_pUIDelegate, UIDelegate);
 
 public:
