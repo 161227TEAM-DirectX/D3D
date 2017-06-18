@@ -44,8 +44,8 @@ HRESULT terrainPickingTest::init(void)
 	_player->setlinkTerrain(*_terrain);
 	_player->init();
 	_player->getPlayerObject()->_transform->SetWorldPosition(1.0f, 0.0f, -3.0f);
-	//	_player->getPlayerObject()->_transform->SetWorldPosition(20.0f, 0.0f, -20.0f);
-	_player->getPlayerObject()->_transform->SetScale(0.1f, 0.1f, 0.1f);
+	//_player->getPlayerObject()->_transform->SetWorldPosition(20.0f, 0.0f, -20.0f);
+	//_player->getPlayerObject()->_transform->SetScale(0.1f, 0.1f, 0.1f);
 	for (int i = 0; i < _player->getRenderObject().size(); i++)
 	{
 		_renderObjects.push_back(_player->getRenderObject()[i]);
@@ -175,6 +175,10 @@ void terrainPickingTest::render(void)
 	for (int i = 0; i < this->_cullObjects.size(); i++)
 	{
 		this->_cullObjects[i]->render();
+		if (_cullObjects[i] == _player->getPlayerObject())
+		{
+			_player->itemUpdate();
+		}
 	}
 	_terrain->render(_mainCamera, _sceneBaseDirectionLight, _directionLightCamera);
 	

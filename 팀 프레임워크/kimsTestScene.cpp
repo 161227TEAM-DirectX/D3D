@@ -122,7 +122,7 @@ HRESULT kimsTestScene::init(void)
 
 
 
-	_player->setTargetMonster(*player);
+	//_player->setTargetMonster(*player);
 
 
 	D3DXVECTOR3 pos = _player->getPlayerObject()->_transform->GetWorldPosition();
