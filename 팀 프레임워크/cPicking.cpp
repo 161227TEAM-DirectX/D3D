@@ -11,6 +11,17 @@ cPicking::~cPicking()
 {
 }
 
+void cPicking::Setup()
+{
+
+}
+
+void cPicking::Update()
+{
+	m_mapUse.clear();
+}
+
+
 void cPicking::SetUse(int nClickType)
 {
 	m_mapUse[nClickType] = true;
@@ -18,7 +29,7 @@ void cPicking::SetUse(int nClickType)
 
 bool cPicking::GetUse(int nClickType)
 {
-	if (m_mapUse.find(nClickType) != m_mapUse.end() && m_mapUse[nClickType])
+	if(m_mapUse.find(nClickType) != m_mapUse.end() && m_mapUse[nClickType])
 		return false;
 	else
 		return true;

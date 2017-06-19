@@ -3,6 +3,7 @@
 class Action;
 class baseObject;
 class terrain;
+class xPlayer;
 
 class iActionDelegate
 {
@@ -19,7 +20,8 @@ protected:
 	iActionDelegate*		deleGate;			// 액션 종료시 호출될 함수를 위한 클래스변수
 	terrain*				rand;				// 액션 및 이동 중 높이값을 가져오기 위한 변수
 	vector<baseObject*>*	object;				// 오브젝트 정보, 장애물
-	baseObject*				enemy;				// 플레이어 정보
+	xPlayer*				enemy;				// 플레이어 정보
+	baseObject*				playerObject;		// 플레이어 오브젝트 정보
 
 	float _oldTimeDelta;
 	const float Gap;
@@ -39,7 +41,12 @@ public:
 
 	inline void setRand(terrain& temp) { this->rand = &temp; }
 
-	inline void setEnemy(baseObject& temp) { this->enemy = &temp; }
+	inline void setEnemy(xPlayer& temp) 
+	{ 
+		this->enemy = &temp;
+	}
+
+	inline void setPlayerObject(baseObject& temp) { this->playerObject = &temp; }
 
 	//액션의 시작을 정의하는 함수 - 순수가상함수
 	virtual int Start() = 0;

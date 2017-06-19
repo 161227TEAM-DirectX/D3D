@@ -1,5 +1,5 @@
 #pragma once
-#include "gameNode.h"
+#include "iGameNode.h"
 #include "xPlayerStatus.h"
 #include "skill00_03.h"
 #include "SK_Boss00.h"
@@ -21,20 +21,21 @@ SPACE 스턴 (HP -1)
 
 //플레이어는 항상 존재하지만 싱글톤으로는 구현하지 않고,
 //플레이어의 데이터만을 싱글톤으로 구현한다.
-class xPlayer :	public gameNode
+class xPlayer :	public iGameNode
 {
 private:
-	SK_Boss00* _lightSkill;
-	dx::transform* _skillTrans;
+	//SK_Boss00* _lightSkill;
+	//dx::transform* _skillTrans;
 
+	bool _isJump;
 	bool _isOnBattle;
 	PL_STATE _state;
 	PL_STATE _prevState;
 
 	//PL_ARMOR Equipments;
 	//int _Hp;
-	int _Att;
-	int _Def;
+	//int _Att;
+	//int _Def;
 
 	float _moveSpeed;
 
@@ -82,7 +83,16 @@ public:
 	//플레이어 무브 컨트롤 애니메이션 및 상태변화 미포함.
 	void moveControl();
 
+	void rotateControl();
 
+	void attackControl();
+
+	void jumpControl();
+
+	//테스트를 위한 임시적인 기능설정
+	void testControl();
+
+	//플레이어 행동 종합선물세트
 	void actionControl();
 
 	//외부에 렌더링할 오브젝트의 값을 전달한다.->구조상의 문제가 있음... 합리적이지 못함.

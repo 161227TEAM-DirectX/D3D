@@ -18,6 +18,14 @@ HRESULT soundManager::init(void)
 	memset(_channel, 0, sizeof(Channel*) * TOTALSOUNDBUFFER);
 
 
+	SOUNDMANAGER->addSound("마을1", FILEPATH_MANAGER->GetFilepath("마을"), true, true);
+	SOUNDMANAGER->addSound("필드1", FILEPATH_MANAGER->GetFilepath("필드"), true, true);
+	SOUNDMANAGER->addSound("보스1", FILEPATH_MANAGER->GetFilepath("보스"), true, true);
+	SOUNDMANAGER->addSound("공격1", FILEPATH_MANAGER->GetFilepath("공격"), false, false);
+	SOUNDMANAGER->addSound("베기1", FILEPATH_MANAGER->GetFilepath("베기"), false, false);
+	SOUNDMANAGER->addSound("걸음소리1", FILEPATH_MANAGER->GetFilepath("걸음소리"), false, true);
+	SOUNDMANAGER->addSound("걸음소리1one", FILEPATH_MANAGER->GetFilepath("걸음소리"), false, false);
+
 	return S_OK;
 }
 
@@ -26,7 +34,7 @@ void soundManager::release(void)
 	//사운드 및 채널 삭제
 	if (_channel != NULL || _sound != NULL)
 	{
-		for (int i = 0; i < TOTALSOUNDBUFFER; i++)
+		for (int i = 0; i < _mTotalSounds.size(); i++)
 		{
 			if (_channel != NULL)
 			{
@@ -42,6 +50,7 @@ void soundManager::release(void)
 	//메모리 지우기
 	SAFE_DELETE(_sound);
 	SAFE_DELETE(_channel);
+
 
 	//시스템 닫기
 	if (_system != NULL)
@@ -88,30 +97,48 @@ void soundManager::addSound(string keyName, string soundName, bool bgm, bool loo
 void soundManager::play(string keyName, float volume)
 {
 	int count = 0;
+	int keyCount = 0;
 	arrSoundIter iter = _mTotalSounds.begin();
 	for (iter; iter != _mTotalSounds.end(); ++iter, count++)
 	{
 		if (keyName == iter->first)
 		{
 			//사운드 플레이
-			_system->playSound(FMOD_CHANNEL_FREE, *iter->second, false, &_channel[count]);
+			_system->playSound(FMOD_CHANNEL_FREE, *iter->second, true, &_channel[count]);
+
 
 			//볼륨세팅
 			_channel[count]->setVolume(volume);
-			
+			_channel[count]->setPaused(false);
+
+			keyCount = count;
 		}
-		else
+
+	}
+	
+	FMOD_MODE F_mode;
+	BYTE mode;
+	_channel[keyCount]->getMode(&F_mode);
+	mode = F_mode & FMOD_CREATESTREAM;
+	count = 0;
+	if (FMOD_CREATESTREAM == mode)
+	{
+		arrSoundIter iter = _mTotalSounds.begin();
+		for (iter; iter != _mTotalSounds.end(); ++iter, count++)
 		{
-			FMOD_MODE F_mode;
-			_channel[count]->getMode(&F_mode);
-			BYTE mode = FMOD_CREATESTREAM & F_mode;
-			if (FMOD_CREATESTREAM == mode)
+			if (!(keyName == iter->first))
 			{
-				//_system->playSound(FMOD_CHANNEL_FREE, *iter->second, true, &_channel[count]);
-				_channel[count]->stop();
+				_channel[count]->getMode(&F_mode);
+				mode = F_mode & FMOD_CREATESTREAM;
+				if (FMOD_CREATESTREAM == mode)
+				{
+					_channel[count]->stop();
+				}
 			}
 		}
 	}
+
+
 }
 
 void soundManager::stop(string keyName)
@@ -193,4 +220,27 @@ bool soundManager::isPauseSound(string keyName)
 	}
 
 	return isPause;
+}
+
+
+void soundManager::setMusicSpeed(string keyName, float speed)
+{
+	int count = 0;
+	arrSoundIter iter = _mTotalSounds.begin();
+	for (iter; iter != _mTotalSounds.end(); ++iter, count++)
+	{
+		if (keyName == iter->first)
+		{
+			//사운드 정지
+			float freq;
+			_channel[count]->setPaused(true);
+
+ 			_channel[count]->getFrequency(&freq);
+			_channel[count]->setFrequency(speed * freq);
+			
+			_channel[count]->setPaused(false);
+
+			break;
+		}
+	}
 }

@@ -13,6 +13,7 @@ ActionSeq::~ActionSeq()
 	{
 		SAFE_DELETE(vecAction[i]);
 	}
+	
 	vector<Action*>().swap(vecAction);
 }
 

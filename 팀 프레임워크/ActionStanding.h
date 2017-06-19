@@ -4,13 +4,10 @@
 #include "terrain.h"
 #include "monster.h"
 
-//const float RANGE = 20.0f;
-
 class ActionStanding : public Action
 {
 private:
 	float PassedTime;
-	boundBox temp;
 protected:
 	float actionTime;
 public:

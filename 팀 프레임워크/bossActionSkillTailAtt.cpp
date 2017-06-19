@@ -37,21 +37,22 @@ int bossActionSkillTailAtt::Update()
 {
 	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
 
-	PHYSICSMANAGER->isBlocking(owner, enemy);
+	PHYSICSMANAGER->isBlocking(owner, playerObject);
 
 	//액션이 종료.
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
 	{
 		//owner->getSkinnedAnim().Stop();
 		//return LHS::ACTIONRESULT::ACTION_ATT;
-		D3DXVECTOR3 enemyNormal = enemy->_transform->GetWorldPosition() - temp->_transform->GetWorldPosition();
+		D3DXVECTOR3 enemyNormal = playerObject->_transform->GetWorldPosition() - temp->_transform->GetWorldPosition();
 		D3DXVec3Normalize(&enemyNormal, &enemyNormal);
 		float angle = D3DXVec3Dot(&temp->_transform->GetForward(), &enemyNormal);
 
 		if (angle >= -1 && angle <= -0.8f)
 		{
 			//케릭터의 체력을 한번에 깍는다.
-
+			//PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - temp->getAtt() * myUtil::RandomFloatRange(0.9f, 1.8f));
+			enemy->playerDamaged(temp->getAtt() * myUtil::RandomFloatRange(0.9f, 1.8f), 0.0f, 0.0f, 50.0f, 2.0f);
 			//아직 있다는 뜻이므로 한번 더 실행한다.
 			Frequency = myUtil::RandomIntRange(1, 2);
 
@@ -70,14 +71,12 @@ int bossActionSkillTailAtt::Update()
 		else
 		{
 			//레인지(광범위 박스)안에 있다면
-			if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
+			if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 			{
 				Frequency = myUtil::RandomIntRange(1, 5);
 				switch (Frequency)
 				{
 				case 1:
-					return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
-				case 2:
 					return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
 				default:
 					return LHS::ACTIONRESULT::ACTION_ATT;

@@ -21,6 +21,7 @@ int ActionMove::Start()
 	//baseObject의 transform을 호출하여 world위치를 from으로 변경
 	owner->getSkinnedAnim().Play("Run");
 	owner->_transform->SetWorldPosition(from);
+	rotateMonster = *owner->_transform;
 	m_fPassedTime = 0.0f;
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }
@@ -37,6 +38,15 @@ int ActionMove::Update()
 	{
 		//객체의 위치를 to위치로 변경
 		owner->_transform->SetWorldPosition(to);
+
+		//플레이어가 내 탐색 범위를 벗어나게 되면 스탠딩 상태로 돌아간다.
+		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
+		{
+			if (deleGate) deleGate->OnActionFinish(this, true);
+
+			return LHS::ACTIONRESULT::ACTION_REMOVE;
+		}
+
 		//deleGate변수가 nullptr이 아니라면 함수 호출
 		if (deleGate)deleGate->OnActionFinish(this);
 
@@ -57,7 +67,9 @@ int ActionMove::Update()
 	D3DXVECTOR3 prev = owner->_transform->GetWorldPosition();		//개체의 월드위치값을 저장
 
 	//D3DXVECTOR3 result = prev - p;							//과거 위치에서 선형보간된 위치를 바라보는 방향벡터
+
 	owner->_transform->LookPosition(p);						//방향벡터를 transform의 정면벡터에 저장
+	owner->_transform->RotateSlerp(rotateMonster, *owner->_transform, t*3);
 	owner->_transform->SetWorldPosition(p);					//개채의 위치를 선형보간된 위치로 변경
 
 	//실시간 플레이어의 이동을 체크하고 경로를 다시 설정.
@@ -74,19 +86,11 @@ int ActionMove::Update()
 	}
 
 	//적과 나의 바운드 박스가 충돌했는가?
-	if (PHYSICSMANAGER->isOverlap(owner->_transform, &owner->_boundBox, enemy->_transform, &enemy->_boundBox))
+	if (PHYSICSMANAGER->isOverlap(owner->_transform, &owner->_boundBox, playerObject->_transform, &playerObject->_boundBox))
 	{
 		if (deleGate) deleGate->OnActionFinish(this, true);
 
 		return LHS::ACTIONRESULT::ACTION_ATT;
-	}
-
-	//플레이어가 내 탐색 범위를 벗어나게 되면 스탠딩 상태로 돌아간다.
-	if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
-	{
-		if (deleGate) deleGate->OnActionFinish(this, true);
-
-		return LHS::ACTIONRESULT::ACTION_REMOVE;
 	}
 
 	//적이 나에게 스턴을 걸었는가?

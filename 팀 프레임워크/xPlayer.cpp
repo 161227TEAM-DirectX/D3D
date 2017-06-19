@@ -5,35 +5,37 @@
 
 HRESULT xPlayer::init()
 {
-
 	//테스트용 라이트 스킬
-	_lightSkill = new SK_Boss00;
-	_skillTrans = new dx::transform;
-	_lightSkill->init();
+	//_lightSkill = new SK_Boss00;
+	//_skillTrans = new dx::transform;
+	//_lightSkill->init();
 	//_lightSkill->Reset();
-	
+
 
 	//메시 로딩
 	_state = P_STAND;
 	_prevState = P_STAND;
-	PLAYERMANAGER->SetArmor(A_LEATHER);
-	PLAYERMANAGER->SetWeapon(W_BROAD);
-	PLAYERMANAGER->SetShield(SH_KITE);
-	PLAYERMANAGER->SetHp(10);
+	PLAYERMANAGER->SetArmor(A_PLATE);
+	PLAYERMANAGER->SetWeapon(W_KATANA);
+	PLAYERMANAGER->SetShield(SH_CROSS);
+	PLAYERMANAGER->SetHp(100000000);
+	PLAYERMANAGER->SetCrit(20.0f);
 
 	_damagedTime = 0.0f;
 	_stunnedTime = 0.0f;
 	_castingTime = 0.0f;
 	_playSpeed = 1.0f;
-	_degree = 0.0f;
+	
 	_baseHeight = 0.0f;
-	_jumpPower = 5.0f;
+	_jumpPower = 3.0f;
 	_jumpSpeed = 3.0f;
 	_jumpHeight = 0.0f;
+	_degree = 0;
 
-	_moveSpeed = 0.5f;
+	_moveSpeed = 1.5;
 
 	_isOnBattle = false;
+	_isJump = false;
 
 
 
@@ -260,12 +262,18 @@ HRESULT xPlayer::init()
 
 void xPlayer::update()
 {
+
+	/*for (int i = 0; i < this->_renderObjects.size(); i++)
+	{
+		this->_renderObjects[i]->render();
+	}*/
+
 	PLAYERMANAGER->SetPos(_playerObject->_transform->GetWorldPosition());
 
-	_lightSkill->update();
+	//_lightSkill->update();
 
 	_playerObject->_skinnedAnim->SetPlaySpeed(_playSpeed);
-	
+
 	if (!KEYMANAGER->isToggleKey(VK_CAPITAL))
 	{
 		userPlayerControl();
@@ -278,7 +286,7 @@ void xPlayer::update()
 
 void xPlayer::render()
 {
-	_lightSkill->render();
+	//_lightSkill->render();
 	//렌더링은 씬에 렌더오브젝트를 넘겨 처리한다.
 	if (KEYMANAGER->isToggleKey(VK_F7))
 	{
@@ -298,10 +306,20 @@ void xPlayer::render()
 		FONTMANAGER->fontOut("posY : " + to_string(_playerObject->_transform->GetWorldPosition().y), 600, 25, 0xff00ff00);
 
 		FONTMANAGER->fontOut("posZ : " + to_string(_playerObject->_transform->GetWorldPosition().z), 600, 50, 0xff0000ff);
-	
+
+		FONTMANAGER->fontOut("Height : " + to_string(_jumpHeight), 600, 75, 0xffffffff);
 
 		RM_SKINNED->getResource("Resources/Player/FHUMAN_PLATE/FHUMAN.X")->ShowAnimationName(0, 0);
 	}
+
+	//for (int i = 0; i < this->_renderObjects.size(); i++)
+	//{
+	//	this->_renderObjects[i]->render();
+	//	if (_renderObjects[i] == getPlayerObject())
+	//	{
+	//		itemUpdate();
+	//	}
+	//}
 }
 
 void xPlayer::release(void)
@@ -323,20 +341,32 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 	switch (_state)
 	{
 	case P_STAND:
-		moveControl();
-		actionControl();
-		if (KEYMANAGER->isStayKeyDown('W'))
+		rotateControl();
+
+		if (!_isJump)
 		{
-			_state = P_RUN;
+			//moveControl();
+			jumpControl();
+			attackControl();
+			if (KEYMANAGER->isStayKeyDown('W'))
+			{
+				_state = P_RUN;
+			}
+			if (KEYMANAGER->isStayKeyDown('S'))
+			{
+				_state = P_WALKBACK;
+			}
 		}
-		if (KEYMANAGER->isStayKeyDown('S'))
+		else
 		{
-			_state = P_WALKBACK;
+			_state = P_JUMP;
 		}
 		break;
 	case P_RUN:
+		rotateControl();
 		moveControl();
-		actionControl();
+		attackControl();
+		jumpControl();
 		if (!KEYMANAGER->isStayKeyDown('W'))
 		{
 			if (_isOnBattle)
@@ -353,15 +383,25 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 
 		break;
 	case P_READYTOATTACK:
-		moveControl();
-		actionControl();
-		if (KEYMANAGER->isStayKeyDown('W'))
+		rotateControl();
+
+		if (!_isJump)
 		{
-			_state = P_RUN;
+			moveControl();
+			attackControl();
+			jumpControl();
+			if (KEYMANAGER->isStayKeyDown('W'))
+			{
+				_state = P_RUN;
+			}
+			if (KEYMANAGER->isStayKeyDown('S'))
+			{
+				_state = P_WALKBACK;
+			}
 		}
-		if (KEYMANAGER->isStayKeyDown('S'))
+		else
 		{
-			_state = P_WALKBACK;
+			_state = P_JUMP;
 		}
 		break;
 	case P_ATTACK:
@@ -383,10 +423,15 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 	case P_CASTOMNI:
 		break;
 	case P_JUMPUP:
+		rotateControl();
 		moveControl();
+		attackControl();
 		break;
 	case P_JUMP:
+		
+		rotateControl();
 		moveControl();
+		attackControl();
 		break;
 	case P_JUMPDOWN:
 		break;
@@ -420,7 +465,7 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 	}
 
 
-	
+
 }
 
 //플레이어의 자동적인 상태변화를 관리한다.
@@ -428,65 +473,125 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 //시간이 지남에 따라 혹은 수치값의 변동에 따라 자동적으로 변화해야 하는 경우를 지정한다.
 void xPlayer::playerStateManager()
 {
+
+	
+
+
+	if (_state != P_RUN && _state != P_WALKBACK)
+		SOUNDMANAGER->stop("걸음소리1");
+
 	if (PLAYERMANAGER->GetHp() <= 0) _state = P_DEATH;
 	string animName = _playerObject->_skinnedAnim->getAnimationSet()->GetName();
 	D3DXVECTOR3 pos = _playerObject->_transform->GetWorldPosition();
+
+
+	//이렇게 하면 높은 곳에서 뛰어 내릴 수 없음.
+	if (_isJump)//점프중인가?
+	{
+		_degree += _jumpSpeed * _timeDelta;
+		_jumpHeight = _baseHeight - pow(_degree - sqrt(_jumpPower), 2.0) + _jumpPower;
+		_playerObject->_transform->SetWorldPosition(pos.x, _jumpHeight, pos.z);
+
+		if (_playerObject->_transform->GetWorldPosition().y < _baseHeight)
+		{
+			_playerObject->_transform->SetWorldPosition(pos.x, _baseHeight, pos.z);
+			_isJump = false;
+		}
+	}
+	else
+	{
+		_degree = 0;
+		_playerObject->_transform->SetWorldPosition(pos.x, _baseHeight, pos.z);
+	}
+
 	switch (_state)
 	{
 	case P_STAND:
-		setHeight();
 		//서있는다고 시간지나도 변할거 없음.
 		break;
 	case P_RUN:
-		setHeight();
-		//시간지나도 변할게 없음.
+
+		if (!SOUNDMANAGER->isPlaySound("걸음소리1"))
+		{
+			if (animName == "R")
+			{
+				if (_playerObject->_skinnedAnim->getAnimFactor() > _moveSpeed/25)//애니메이션 다 재생했으면
+				{
+					SOUNDMANAGER->play("걸음소리1", 0.7f);
+					SOUNDMANAGER->setMusicSpeed("걸음소리1", _moveSpeed);
+				}
+			}
+		}
 		break;
 	case P_MOVE:
-		setHeight();
-		//시간지나도 변할게 없음.
+
 		break;
 	case P_READYTOATTACK:
 
 		break;
 	case P_ATTACK:
-
 		if (animName == "AT1H")
 		{
-			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
+			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.6)//애니메이션 다 재생했으면
 			{
 				//if (PHYSICSMANAGER->isOverlap(_playerObject->_transform, &_attackBound, targetMonster->_transform, &targetMonster->_boundBox))
 				//{
 				//	//exit(0);
 				//}
-
-				if (_isOnBattle)
+				if (!_isJump)
 				{
-					_state = P_READYTOATTACK;
+					if (_isOnBattle)
+					{
+						_state = P_READYTOATTACK;
+					}
+					else
+					{
+						_state = P_STAND;
+					}
 				}
 				else
 				{
-					_state = P_STAND;
+					_state = P_JUMPDOWN;
 				}
 			}
 		}
 		break;
 	case P_ATTACK2:
+		if (!SOUNDMANAGER->isPlaySound("공격1"))
+		{
+			if (animName == "AT2H")
+			{
+				if (_playerObject->_skinnedAnim->getAnimFactor() > 0.1 &&  _playerObject->_skinnedAnim->getAnimFactor() < 0.3)//애니메이션 다 재생했으면
+				{
+					SOUNDMANAGER->play("공격1", 0.7f);
+					SOUNDMANAGER->setMusicSpeed("걸음소리1", _moveSpeed);
+				}
+			}
+		}
+
 		if (animName == "AT2H")
 		{
-			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
+			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.80)//애니메이션 다 재생했으면
 			{
 				//if (PHYSICSMANAGER->isOverlap(_playerObject->_transform, &_attackBound, targetMonster->_transform, &targetMonster->_boundBox))
 				//{
 				//	//exit(0);
 				//}
 
-				if (_isOnBattle)
+				if (!_isJump)
 				{
-					_state = P_READYTOATTACK;
+					if (_isOnBattle)
+					{
+						_state = P_READYTOATTACK;
+					}
+					else
+					{
+						_state = P_STAND;
+					}
 				}
 				else
 				{
-					_state = P_STAND;
+					_state = P_JUMPDOWN;
 				}
 			}
 		}
@@ -494,20 +599,27 @@ void xPlayer::playerStateManager()
 	case P_ATTACK3:
 		if (animName == "AT2HL")
 		{
-			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
+			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.7)//애니메이션 다 재생했으면
 			{
 				//if (PHYSICSMANAGER->isOverlap(_playerObject->_transform, &_attackBound, targetMonster->_transform, &targetMonster->_boundBox))
 				//{
 				//	//exit(0);
 				//}
 
-				if (_isOnBattle)
+				if (!_isJump)
 				{
-					_state = P_READYTOATTACK;
+					if (_isOnBattle)
+					{
+						_state = P_READYTOATTACK;
+					}
+					else
+					{
+						_state = P_STAND;
+					}
 				}
 				else
 				{
-					_state = P_STAND;
+					_state = P_JUMPDOWN;
 				}
 			}
 		}
@@ -516,42 +628,60 @@ void xPlayer::playerStateManager()
 
 		if (animName == "AT2H2")
 		{
-			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
+			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.2  && _playerObject->_skinnedAnim->getAnimFactor() < 0.45)//애니메이션 다 재생했으면
 			{
 				//if (PHYSICSMANAGER->isOverlap(_playerObject->_transform, &_attackBound, targetMonster->_transform, &targetMonster->_boundBox))
 				//{
 				//	//exit(0);
 				//}
+				_playSpeed = 1.8f;
+
+			}
+			else if (_playerObject->_skinnedAnim->getAnimFactor() > 0.4)//애니메이션 다 재생했으면
+			{
 
 				if (_isOnBattle)
 				{
-					_state = P_READYTOATTACK;
+					_state = P_ATTACK;
+
+					//_state = P_READYTOATTACK;
 				}
 				else
 				{
-					_state = P_STAND;
+					_state = P_ATTACK;
+
+					//_state = P_STAND;
 				}
 			}
 		}
 		break;
 	case P_ATTACK5:
-
 		if (animName == "AT2HL2")
 		{
-			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
+			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.5 && _playerObject->_skinnedAnim->getAnimFactor() < 0.8)//애니메이션 다 재생했으면
 			{
 				//if (PHYSICSMANAGER->isOverlap(_playerObject->_transform, &_attackBound, targetMonster->_transform, &targetMonster->_boundBox))
 				//{
 				//	//exit(0);
 				//}
-
-				if (_isOnBattle)
+				_playSpeed = 1.0f;
+			}
+			else if (_playerObject->_skinnedAnim->getAnimFactor() > 0.8)
+			{
+				if (!_isJump)
 				{
-					_state = P_READYTOATTACK;
+					if (_isOnBattle)
+					{
+						_state = P_READYTOATTACK;
+					}
+					else
+					{
+						_state = P_STAND;
+					}
 				}
 				else
 				{
-					_state = P_STAND;
+					_state = P_JUMPDOWN;
 				}
 			}
 		}
@@ -571,14 +701,11 @@ void xPlayer::playerStateManager()
 
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
 			{
-
-
-
-				_skillTrans->SetWorldMatrix(_EquipSocket.find("LHAND")->second->CombinedTransformationMatrix);
-				_lightSkill->setPlayer(_skillTrans);
-				_lightSkill->setPlayerDir(_playerObject->_transform);
-				_lightSkill->Start();
-/*
+				//_skillTrans->SetWorldMatrix(_EquipSocket.find("LHAND")->second->CombinedTransformationMatrix);
+				//_lightSkill->setPlayer(_skillTrans);
+				//_lightSkill->setPlayerDir(_playerObject->_transform);
+				//_lightSkill->Start();
+				/*
 				if (_isOnBattle)
 				{
 					_state = P_READYTOATTACK;
@@ -589,7 +716,6 @@ void xPlayer::playerStateManager()
 				}*/
 			}
 		}
-
 		break;
 	case P_READYOMNI:
 		if (_castingTime < 0)
@@ -597,7 +723,6 @@ void xPlayer::playerStateManager()
 			_state = P_CASTOMNI;
 		}
 		_castingTime -= _timeDelta;
-
 		break;
 	case P_CASTOMNI:
 		if (animName == "SPCO")
@@ -619,28 +744,29 @@ void xPlayer::playerStateManager()
 
 		if (animName == "JUMPST")
 		{
-		
+
 			// -(x - a)^2 + b = y 
 			// x == 0 일때 y == 0 이려면 
 			//-x^2 + 2ax -a^2 + b = 0; 
 			//-a^2 + b = 0;
 			//b = a^2;
 
-			_degree += _jumpSpeed * _timeDelta;
-			_jumpHeight = _baseHeight - pow(_degree - sqrt(_jumpPower), 2.0) + _jumpPower;
-			_playerObject->_transform->SetWorldPosition(pos.x, _jumpHeight, pos.z);
+			//_degree += _jumpSpeed * _timeDelta;
 			
+			//_jumpHeight = _baseHeight - pow(_degree - sqrt(_jumpPower), 2.0) + _jumpPower;
+			//_playerObject->_transform->SetWorldPosition(pos.x, _jumpHeight, pos.z);
+
 			pos = _playerObject->_transform->GetWorldPosition();
 
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.90)//애니메이션 다 재생했으면
 			{
 				_state = P_JUMP;
 			}
-			else if(pos.y < linkTerrain->getHeight(pos.x, pos.z))
+			else if (pos.y <= linkTerrain->getHeight(pos.x, pos.z))
 			{
-				_degree = 0;
+				//_degree = 0;
 				_state = P_JUMPDOWN;
-				_playerObject->_transform->SetWorldPosition(pos.x, linkTerrain->getHeight(pos.x, pos.z), pos.z);
+				//_playerObject->_transform->SetWorldPosition(pos.x, linkTerrain->getHeight(pos.x, pos.z), pos.z);
 			}
 
 		}
@@ -650,18 +776,11 @@ void xPlayer::playerStateManager()
 	case P_JUMP:
 		if (animName == "JUMP")
 		{
-			_degree += _jumpSpeed * _timeDelta;
-			_jumpHeight = _baseHeight - pow(_degree - sqrt(_jumpPower), 2.0) + _jumpPower;
-
-			_playerObject->_transform->SetWorldPosition(pos.x, _jumpHeight, pos.z);
-
-			pos = _playerObject->_transform->GetWorldPosition();
-
-			if (pos.y < linkTerrain->getHeight(pos.x, pos.z))
+			if (pos.y <= linkTerrain->getHeight(pos.x, pos.z))
 			{
-				_degree = 0;
+				//_degree = 0;
 				_state = P_JUMPDOWN;
-				_playerObject->_transform->SetWorldPosition(pos.x, linkTerrain->getHeight(pos.x, pos.z), pos.z);
+				//_playerObject->_transform->SetWorldPosition(pos.x, linkTerrain->getHeight(pos.x, pos.z), pos.z);
 			}
 		}
 		break;
@@ -703,7 +822,22 @@ void xPlayer::playerStateManager()
 
 		break;
 	case P_WALKBACK:
-		setHeight();
+		
+
+		if (!SOUNDMANAGER->isPlaySound("걸음소리1"))
+		{
+			if (animName == "WB")
+			{
+				if (_playerObject->_skinnedAnim->getAnimFactor() > 0.0)//애니메이션 다 재생했으면
+				{
+					SOUNDMANAGER->play("걸음소리1", 0.1f);
+					SOUNDMANAGER->setMusicSpeed("걸음소리1", _moveSpeed * 0.5);
+				}
+			}
+		}
+
+		
+
 		break;
 	case P_DAMAGED:
 		if (_damagedTime < 0)
@@ -731,14 +865,17 @@ void xPlayer::playerStateManager()
 //플레이어의 상태에 따른 애니메이션의 처리
 void xPlayer::playerAnimationManager()
 {
+
 	if (_prevState == _state) return;
 	switch (_state)
 	{
 	case P_STAND:
 		_playSpeed = 1.0f;
+
 		_playerObject->_skinnedAnim->Play("S", 0.2f);
 		break;
 	case P_RUN:
+		_playSpeed = _moveSpeed * 0.66f;//더이상 건드리지 마라..
 		_playerObject->_skinnedAnim->Play("R", 0.2f);
 		break;
 	case P_MOVE:
@@ -749,18 +886,25 @@ void xPlayer::playerAnimationManager()
 		_playerObject->_skinnedAnim->Play("RD1H", 0.3f);
 		break;
 	case P_ATTACK:
+		//SOUNDMANAGER->setMusicSpeed("공격1", _moveSpeed);
+		SOUNDMANAGER->play("공격1", 0.7f);
 		_playerObject->_skinnedAnim->Play("AT1H", 0.3f);
 		break;
 	case P_ATTACK2:
+
+		//SOUNDMANAGER->play("공격1", 0.7f);
 		_playerObject->_skinnedAnim->Play("AT2H", 0.3f);
 		break;
 	case P_ATTACK3:
+		SOUNDMANAGER->play("공격1", 0.7f);
 		_playerObject->_skinnedAnim->Play("AT2HL", 0.3f);
 		break;
 	case P_ATTACK4:
+		SOUNDMANAGER->play("공격1", 0.7f);
 		_playerObject->_skinnedAnim->Play("AT2H2", 0.3f);
 		break;
 	case P_ATTACK5:
+		SOUNDMANAGER->play("공격1", 0.7f);
 		_playerObject->_skinnedAnim->Play("AT2HL2", 0.3f);
 		break;
 	case P_READYSPELL:
@@ -777,13 +921,15 @@ void xPlayer::playerAnimationManager()
 		_playerObject->_skinnedAnim->Play("SPCO", 0.2f);
 		break;
 	case P_JUMPUP:
+		SOUNDMANAGER->play("걸음소리1one", 1.0f);
 		_playerObject->_skinnedAnim->Play("JUMPST", 0.2f);
 		break;
 	case P_JUMP:
 		_playerObject->_skinnedAnim->Play("JUMP");
 		break;
 	case P_JUMPDOWN:
-		_playerObject->_skinnedAnim->Play("JUMPED");
+		SOUNDMANAGER->play("걸음소리1one", 1.0f);
+		_playerObject->_skinnedAnim->Play("JUMPED" , 0.2f);
 		break;
 	case P_STUN:
 		_playerObject->_skinnedAnim->Play("STUN");
@@ -795,18 +941,19 @@ void xPlayer::playerAnimationManager()
 		_playerObject->_skinnedAnim->Play("M", 0.2f);
 		break;
 	case P_WALKBACK:
+		_playSpeed = _moveSpeed * 0.5;
 		_playerObject->_skinnedAnim->Play("WB", 0.2f);
 		break;
 	case P_DAMAGED:
 		_playerObject->_skinnedAnim->Play("DM", 0.2f);
 		break;
 	case P_END:
+
 		break;
 	default:
 		break;
 	}
 }
-
 
 //외부의 입력에 대해 플레이어의 이동을 제어.
 void xPlayer::moveControl()
@@ -817,8 +964,13 @@ void xPlayer::moveControl()
 	}
 	if (KEYMANAGER->isStayKeyDown('S'))
 	{
-		_playerObject->_transform->MovePositionWorld(-_playerObject->_transform->GetForward()*0.025*_moveSpeed);
+		_playerObject->_transform->MovePositionWorld(-_playerObject->_transform->GetForward()*0.02*_moveSpeed);
 	}
+	
+}
+
+void xPlayer::rotateControl()
+{
 	if (KEYMANAGER->isStayKeyDown('A'))
 	{
 		_playerObject->_transform->RotateSelf(0.0f, -D3DXToRadian(3), 0.0f);
@@ -829,7 +981,27 @@ void xPlayer::moveControl()
 	}
 }
 
-void xPlayer::actionControl()
+void xPlayer::attackControl()
+{
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	{
+		playerAttack();
+	}
+}
+
+void xPlayer::jumpControl()
+{
+	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+	{
+		//_moveSpeed = _jumpPower;
+		//degree = 0;
+
+		_isJump = true;
+		_state = P_JUMPUP;
+	}
+}
+
+void xPlayer::testControl()
 {
 
 
@@ -859,52 +1031,64 @@ void xPlayer::actionControl()
 	{
 		playerDamaged(1, 0.5, 100.0, 100.0, 2.0);
 	}
-	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
-	{
-		//_moveSpeed = _jumpPower;
-		_state = P_JUMPUP;
-	}
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
-	{
-		playerAttack();
-	}
+
+
 	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
 	{
-		
+
 		//playerSkillDirect(1.0f);
 	}
+}
+
+void xPlayer::actionControl()
+{
+	moveControl();
+
+	rotateControl();
+
+	attackControl();
+
+	jumpControl();
+
+	testControl();
 }
 
 //플레이어 공격을 제어
 void xPlayer::playerAttack()
 {
 	//해당상태가 아니면 행동하지 말아라.
-	if (!(_state == P_STAND || _state == P_RUN || _state == P_MOVE || _state == P_WALKBACK || _state == P_READYTOATTACK)) { return; }
+	//if (!(_state == P_STAND || _state == P_RUN || _state == P_MOVE || _state == P_WALKBACK || _state == P_READYTOATTACK)) { return; }
 
 	float rand = RandomFloatRange(0, 100);
-	if (rand > 80.0f)
+	if (rand < PLAYERMANAGER->GetCrit())
 	{
-		_state = P_ATTACK;//AT1H
-	}
-	else if (rand > 60.0f)
-	{
-		_state = P_ATTACK2;//AT2H
+		_state = P_ATTACK4;//AT2H2 //크리티컬 어택!
 		_playSpeed = 1.5f;
+		return;
 	}
-	else if (rand > 40.0f)
+	else//일반공격
 	{
-		_state = P_ATTACK3;//AT2HL
-		_playSpeed = 1.5f;
-	}
-	else if (rand > 20.0f)
-	{
-		_state = P_ATTACK4;//AT2H2
-		_playSpeed = 1.5f;
-	}
-	else
-	{
-		_state = P_ATTACK5;//AT2HL2
-		_playSpeed = 1.5f;
+		rand = RandomFloatRange(0, 100);
+		if (rand > 75.0f)
+		{
+			_state = P_ATTACK;//AT1H
+			_playSpeed = 1.5f;
+		}
+		else if (rand > 50.0f)
+		{
+			_state = P_ATTACK2;//AT2H
+			_playSpeed = 1.5f;
+		}
+		else if (rand > 25.0f)
+		{
+			_state = P_ATTACK3;//AT2HL
+			_playSpeed = 2.0f;
+		}
+		else
+		{
+			_state = P_ATTACK5;//AT2HL2
+			_playSpeed = 2.5f;
+		}
 	}
 
 }
@@ -959,7 +1143,6 @@ void xPlayer::setHeight()
 {
 	D3DXVECTOR3 pos = _playerObject->_transform->GetWorldPosition();
 	_baseHeight = linkTerrain->getHeight(pos.x, pos.z);
-	_playerObject->_transform->SetWorldPosition(pos.x, _baseHeight, pos.z);
 }
 
 void xPlayer::itemUpdate()

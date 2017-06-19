@@ -5,7 +5,8 @@ class ActionMove : public Action
 {
 private:
 	float m_fPassedTime;				//경과 시간
-
+	dx::transform		rotateMonster;	//임시 로테이트값
+	dx::transform		rotatePlayer;
 protected:
 	D3DXVECTOR3 from;					//시작 위치
 	D3DXVECTOR3 to;						//목표 위치

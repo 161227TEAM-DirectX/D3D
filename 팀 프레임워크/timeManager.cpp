@@ -116,7 +116,7 @@ void timeManager::render(void)
 	TextOut(hdc, 0, 40, str, strlen(str));
 	*/
 
-	if (!KEYMANAGER->isToggleKey(VK_F8))
+	if (KEYMANAGER->isToggleKey(VK_F8))
 	{
 		char str[128];
 		sprintf_s(str, "FPS: %d", _frameRate);

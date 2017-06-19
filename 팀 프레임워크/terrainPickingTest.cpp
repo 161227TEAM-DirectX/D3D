@@ -3,101 +3,96 @@
 
 HRESULT terrainPickingTest::init(void)
 {
+	shadowInit();
+
 	_terrain = new terrain;
-	_terrain->init(
-		"Resources/Textures/MyHeight512.bmp",
-		"Resources/Textures/Sheep_terrain1.jpg",
-		"Resources/Textures/Sheep_terrain2.jpg",
-		"Resources/Textures/Sheep_terrain3.jpg",
-		"Resources/Textures/Sheep_terrain4.jpg",
-		"Resources/Textures/Sheep_Splat.bmp",
-		1.0f,
-		200.0f,
-		3,
-		100);
+	_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath("높이맵_3"));
+	_terrain->setTile0(IOMAPMANAGER->loadMapInfo("지형0").tile0);
+	_terrain->setTile1(IOMAPMANAGER->loadMapInfo("지형0").tile1);
+	_terrain->setTile2(IOMAPMANAGER->loadMapInfo("지형0").tile2);
+	_terrain->setTile3(IOMAPMANAGER->loadMapInfo("지형0").tile3);
+	_terrain->setSlat(FILEPATH_MANAGER->GetFilepath("스플랫_1"));
+	_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("지형0").vecPos);
+	_terrain->setting();
+	_terrain->changeHeightTerrain();
 
 	_terrainShadow = new terrain;
-	_terrainShadow->init(
-		"Resources/Textures/MyHeight512.bmp",
-		"Resources/Textures/Sheep_terrain1.jpg",
-		"Resources/Textures/Sheep_terrain2.jpg",
-		"Resources/Textures/Sheep_terrain3.jpg",
-		"Resources/Textures/Sheep_terrain4.jpg",
-		"Resources/Textures/Sheep_Splat.bmp",
-		4.0f,
-		200.0f,
-		10,
-		100);
-	
+	_terrainShadow->setHeightmap(FILEPATH_MANAGER->GetFilepath("높이맵_3"));
+	_terrainShadow->setTile0(IOMAPMANAGER->loadMapInfo("지형0").tile0);
+	_terrainShadow->setTile1(IOMAPMANAGER->loadMapInfo("지형0").tile1);
+	_terrainShadow->setTile2(IOMAPMANAGER->loadMapInfo("지형0").tile2);
+	_terrainShadow->setTile3(IOMAPMANAGER->loadMapInfo("지형0").tile3);
+	_terrainShadow->setSlat(FILEPATH_MANAGER->GetFilepath("스플랫_1"));
+	_terrainShadow->setMapPosition(IOMAPMANAGER->loadMapInfo("지형0").vecPos);
+	_terrainShadow->setting();
+	_terrainShadow->changeHeightTerrain();
 
-	_trans = new dx::transform;
-	_dirLight = new lightDirection;
+	//오브젝트 초기화
+	_mapObject = new mapObject;
+	IOSAVEOBJECTMANAGER->loadFile("오브젝트");
+	for (int i = 0; i < IOSAVEOBJECTMANAGER->getCount(); i++)
+	{
+		object = IOSAVEOBJECTMANAGER->findTag("넘버" + to_string(i + 1));
+		baseObject* temp2 = new baseObject;
+		D3DXMATRIX mapRotate;
+		_mapObject->objectSet(object.objectNumber, temp2, mapRotate, object.objectX, object.objectY, object.objectZ, 0.3f, object.objectRotate);
+		_renderObjects.push_back(temp2);
+		//m_vecObject.push_back(temp2);
+	}
+
+	_waterTerrain = new WaterTerrain;
+	_waterTerrain->init(3.0f, 256);
+
+//	_trans = new dx::transform;
+//	_dirLight = new lightDirection;
 	_hitPos = D3DXVECTOR3(0, 0, 0);
 
-//	tempDijkstra = new dijkstra;
+	D3DXMATRIX mat;
+	D3DXMATRIX matRotate;
+	D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
+	mat = matRotate;
 
-	boss = new bossMonster;
+//	boss = new bossMonster;
 	_player = new xPlayer;
 	_player->setlinkTerrain(*_terrain);
 	_player->init();
 	_player->getPlayerObject()->_transform->SetWorldPosition(1.0f, 0.0f, -3.0f);
-	//	_player->getPlayerObject()->_transform->SetWorldPosition(20.0f, 0.0f, -20.0f);
-	_player->getPlayerObject()->_transform->SetScale(0.1f, 0.1f, 0.1f);
+//	_player->getPlayerObject()->_transform->SetWorldPosition(20.0f, 0.0f, -20.0f);
+	_player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
 	for (int i = 0; i < _player->getRenderObject().size(); i++)
 	{
 		_renderObjects.push_back(_player->getRenderObject()[i]);
 	}
-//	player = new monster;
-
-	ACMANAGER->Init(*_terrain, testObject, *_player->getPlayerObject(), *boss);
 
 	float tempY = _terrain->getHeight(0.0f, 0.0f);
 
-	//임시 플레이어 코드
-	D3DXMATRIX mat;
-//	D3DXMATRIX matScaling;
-	D3DXMATRIX matRotate;
-//	D3DXMatrixScaling(&matScaling, 0.1f, 0.1f, 0.1f);
-	D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
-	mat = /*matScaling **/ matRotate;
-
-	//enemy = new baseObject;
-	//enemy->setMesh(RM_XMESH->getResource("Resources/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
-	//enemy->_transform->SetScale(0.1f, 0.1f, 0.1f);
-	//enemy->setActive(true);
-	//this->_renderObjects.push_back(enemy);
-
-
+	InitMonster();
 	
-	//임시 몬스터 구현 코드
-	
-//	player->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/arcanegolem_ok/x/golem2.x", mat));
-//	player->_transform->SetScale(0.1f, 0.1f, 0.1f);
-//	player->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
-//	player->setRegenPosition(0.0f, tempY, 0.0f);
-//	player->LinkObject(testObject);
-//	player->LinkTerrain(*_terrain);
-//	player->LinkPlayer(_player->getPlayerObject());
-//	player->setActive(true);
-//	this->_renderObjects.push_back(player);
-	//D3DXMatrixScaling(&matScaling, 0.5f, 0.5f, 0.5f);
-	//mat = matScaling * matRotate;
+
+	ACMANAGER->Init(*_terrain, testObject, *_player);
+
+	for (int i = 0; i < mon.size(); i++)
+	{
+		//monster* temp = dynamic_cast<monster*>(mon[i]);
+		//temp->setActive(true);
+		mon[i]->setActive(true);
+		_renderObjects.push_back(mon[i]);
+	}
 
 
-	boss->setMesh(RM_SKINNED->getResource("Resources/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
-	boss->_transform->SetScale(0.2f, 0.2f, 0.2f);
-	boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
-	boss->LinkObject(testObject);
-	boss->LinkTerrain(*_terrain);
-	boss->LinkPlayer(_player->getPlayerObject());
-	boss->setActive(true);
-	this->_renderObjects.push_back(boss);
+//	boss->setMesh(RM_SKINNED->getResource("Resources/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
+//	boss->_transform->SetScale(1.0f, 1.0f, 1.0f);
+//	boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+//	boss->setActive(true);
+//	this->_renderObjects.push_back(boss);
 
-	_sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(90), 0, 0);
-	this->setEnvironment("Resources/TextureCUBE/SuperKanjiCube.dds");
+//	this->setEnvironment("Resources/TextureCUBE/SuperKanjiCube.dds");
+	_env = new Environment;
+	_env->init();
+	_env->linkCamera(*_mainCamera);
 
-	_mainCamera->SetWorldPosition(0.0f, 0.0f, 10.0f);
-	_mainCamera->LookPosition(boss->_transform->GetWorldPosition());
+	_mainCamera->SetWorldPosition(0.0f, 10.0f, 10.0f);
+	_mainCamera->LookPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 	lButtonState = SELECTFUNC::SELECT_NONE;
 
@@ -122,18 +117,14 @@ void terrainPickingTest::release(void)
 	//지형과 지형그림자 해제
 	SAFE_DELETE(this->_terrain);
 	SAFE_DELETE(this->_terrainShadow);
-	SAFE_DELETE(this->_trans);
+//	SAFE_DELETE(this->_trans);
 
-	/*_terrain->release();
-	SAFE_DELETE(_terrain);
-	SAFE_DELETE(_trans);
-	SAFE_DELETE(_dirLight);*/
-//	SAFE_DELETE(tempDijkstra);
+	_waterTerrain->release();
 }
 
 void terrainPickingTest::update(void)
 {
-	_sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
+	shadowUpdate();
 
 	lButtonStateChange();
 	selectLButton();
@@ -144,17 +135,13 @@ void terrainPickingTest::update(void)
 	{
 		_renderObjects[i]->update();
 	}
-
-	//쉐도우맵 준비
-	this->readyShadowMap(&this->_renderObjects, this->_terrainShadow);
-
-	//player._skTransform->DefaultMyControl(_timeDelta);
-	//enemy->update();
-	//boss->update();
 }
 
 void terrainPickingTest::render(void)
 {
+	shadowRender();
+	_directionLightCamera->_frustum.renderGizmo();
+
 	//카메라에 컬링된거만....
 	this->_cullObjects.clear();
 	for (int i = 0; i < this->_renderObjects.size(); i++)
@@ -165,23 +152,24 @@ void terrainPickingTest::render(void)
 			this->_cullObjects.push_back(_renderObjects[i]);
 		}
 	}
+	_terrain->render(_mainCamera, _sceneBaseDirectionLight, _directionLightCamera);
 
+//	_mapObject->objectRenderTool(m_vecObject, _mainCamera, _sceneBaseDirectionLight);
+
+	_waterTerrain->render(1);
+
+	_env->renderEnvironment(2);
+
+	//	//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅
+	//	//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅
 	xMeshStatic::setCamera(_mainCamera);
-	//if (KEYMANAGER->isStayKeyDown('0'))
-	//{
-	//	//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅
-	//	xMeshStatic::setTechniqueName("CreateShadow");
-	//}
-	//else
-	//{
-	//	//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅
-	//	
-	//}
 	xMeshStatic::setTechniqueName("ReciveShadow");
+	xMeshStatic::setTechniqueName("Toon");
+	xMeshStatic::_staticMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resources/Testures/Ramp_1.png"));
 	xMeshStatic::setBaseLight(this->_sceneBaseDirectionLight);
 
 	xMeshSkinned::setCamera(_mainCamera);
-	//xMeshSkinned::setTechniqueName("ReciveShadow");
+	xMeshSkinned::setTechniqueName("ReciveShadow");
 	xMeshSkinned::setTechniqueName("Toon");
 	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resources/Testures/Ramp_1.png"));
 	xMeshSkinned::setBaseLight(this->_sceneBaseDirectionLight);
@@ -192,66 +180,8 @@ void terrainPickingTest::render(void)
 	{
 		this->_cullObjects[i]->render();
 	}
-	_terrain->render(_mainCamera, _sceneBaseDirectionLight, _directionLightCamera);
 	
 	RM_SKINNED->getResource("Resources/Player/FHUMAN_PLATE/FHUMAN.X")->ShowAnimationName(0, 0);
-	//_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-	//포그세팅 0xff806A12
-	//_device->SetRenderState(D3DRS_FOGENABLE, TRUE);					//포그 사용여부
-	//_device->SetRenderState(D3DRS_FOGCOLOR, 0xff806A12);			//포그 색상
-	//_device->SetRenderState(D3DRS_FOGSTART, FloatToDWORD(10.0f));	//포그 시작 거리
-	//_device->SetRenderState(D3DRS_FOGEND, FloatToDWORD(100.0f));	//포그 종료 거리
-	//_device->SetRenderState(D3DRS_FOGTABLEMODE, D3DFOG_LINEAR);		//포그선형 모드
-	//_terrain->render(_mainCamera, _dirLight);
-	//_device->SetRenderState(D3DRS_FOGENABLE, false);
-
-	//렌더시킬 조명행렬 초기화 (각각의 라이트 클래스안에 만들어져있음)
-	//D3DXMATRIXA16 matLights[10];
-	//for (int i = 0; i < _lights.size(); i++)
-	//{
-	//	matLights[i] = _lights[i]->getLightMatrix();
-	//}
-
-	//셰이더에 라이트 세팅
-	//xMeshStatic::_staticMeshEffect->SetMatrixArray("matLights", matLights, 10);
-	//xMeshStatic::_staticMeshEffect->SetInt("LightNum", _lights.size());
-	//세이더에 카메라 세팅
-	//xMeshStatic::setCamera(_mainCamera);
-
-	//xMeshSkinned::_sSkinnedMeshEffect->SetMatrixArray("matLights", matLights, 10);
-	//xMeshSkinned::_sSkinnedMeshEffect->SetInt("LightNum", _lights.size());
-	//xMeshSkinned::setCamera(_mainCamera);
-
-	//enemy->render();
-
-	//if (enemy->_mesh != nullptr)
-	//{
-	//	셰이더에 라이트 세팅
-	//	xMeshStatic::_staticMeshEffect->SetMatrixArray("matLights", matLights, 10);
-	//	xMeshStatic::_staticMeshEffect->SetInt("LightNum", _lights.size());
-	//	세이더에 카메라 세팅
-	//	xMeshStatic::setCamera(_mainCamera);
-	//}
-	//
-	//if (enemy->_mesh != nullptr)
-	//{
-	//	xMeshSkinned::_sSkinnedMeshEffect->SetMatrixArray("matLights", matLights, 10);
-	//	xMeshSkinned::_sSkinnedMeshEffect->SetInt("LightNum", _lights.size());
-	//	xMeshSkinned::setCamera(_mainCamera);
-	//}
-	
-
-//	boss->render();
-
-	//if (!testObject.empty())
-	//{
-	//	for (size_t i = 0; i < testObject.size(); i++)
-	//	{
-	//		testObject[i]->render();
-	//	}
-	//}
-
-//	_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 
 	const vector<Node*>& temp = _terrain->getDijkstra().getVecNode();
 	for (size_t i = 0; i < temp.size(); i++)
@@ -261,30 +191,25 @@ void terrainPickingTest::render(void)
 
 	_terrain->getDijkstra().render();
 
-	char tempchar[128];
-	sprintf_s(tempchar, "vecNodeSize : %d, adjSize: %d", temp.size(), _terrain->getDijkstra().getadjNode().size());
-	FONTMANAGER->fontOut(tempchar, 0, 100, 0xffffffff);
+	//_mainCamera->renderTextureEnd();
 
-	if (KEYMANAGER->isToggleKey(VK_F6))
-	{
-		sprintf_s(tempchar, "경로(노드인덱스) : ");
-		FONTMANAGER->fontOut(tempchar, 0, 85, 0xffffffff);
-		int position = 0;
-		for (int i = _terrain->getDijkstra().getPath().size() -1; i >= 0 ; --i)
-		{
-			sprintf_s(tempchar, "%d->", _terrain->getDijkstra().getPath()[i]);
-			FONTMANAGER->fontOut(tempchar, 195 + position * 55, 85, 0xffffffff);
-			position++;
-		}
-	}
-	
+	testRender();
+	//char tempchar[128];
+	//sprintf_s(tempchar, "vecNodeSize : %d, adjSize: %d", temp.size(), _terrain->getDijkstra().getadjNode().size());
+	//FONTMANAGER->fontOut(tempchar, 0, 100, 0xffffffff);
 
-	////Hit 위치에 구만들기
-	//GIZMOMANAGER->WireSphere(_hitPos, 0.5f, 0xffff0000);
-	//
-	////Trans 위치에 구
-	//GIZMOMANAGER->WireSphere(_trans->GetWorldPosition(), 1.0f, 0xffff00ff);
-	//_trans->RenderGimozo();
+	//if (KEYMANAGER->isToggleKey(VK_F6))
+	//{
+	//	sprintf_s(tempchar, "경로(노드인덱스) : ");
+	//	FONTMANAGER->fontOut(tempchar, 0, 85, 0xffffffff);
+	//	int position = 0;
+	//	for (int i = _terrain->getDijkstra().getPath().size() -1; i >= 0 ; --i)
+	//	{
+	//		sprintf_s(tempchar, "%d->", _terrain->getDijkstra().getPath()[i]);
+	//		FONTMANAGER->fontOut(tempchar, 195 + position * 55, 85, 0xffffffff);
+	//		position++;
+	//	}
+	//}
 }
 
 void terrainPickingTest::lButtonStateChange(void)
@@ -351,7 +276,376 @@ void terrainPickingTest::selectLButton(void)
 	}
 }
 
+
+void terrainPickingTest::shadowInit(void)
+{
+	_mainCamera = new camera;
+
+	_directionLightCamera = new camera;
+
+	_sceneBaseDirectionLight = new lightDirection;
+
+	_sceneBaseDirectionLight->_color = D3DXCOLOR(1, 1, 1, 1);
+	_sceneBaseDirectionLight->_intensity = 1.0f;
+
+	//그림자 거리?
+	_shadowDistance = 100.0f;
+
+	//카메라의 투영방식을 바꾼다.
+	_directionLightCamera->_isOrtho = true;
+	_directionLightCamera->_camNear = 0.1f;
+	_directionLightCamera->_camFar = _shadowDistance * 2.0f;
+	_directionLightCamera->_aspect = 1;
+	_directionLightCamera->_orthoSize = _shadowDistance * 1.5f;	//투영크기는 그림자크기로
+
+																//방향성광원 카메라의 RenderToTexture준비
+	_directionLightCamera->readyShadowTexture(4096);
+
+	_mainCamera->readyRenderToTexture(WINSIZEX, WINSIZEY);
+
+//	_scenePlaneVertex[0].pos = D3DXVECTOR3(-1.0f, 1.0f, 0.0f);
+//	_scenePlaneVertex[1].pos = D3DXVECTOR3(1.0f, 1.0f, 0.0f);
+//	_scenePlaneVertex[2].pos = D3DXVECTOR3(1.0f, -1.0f, 0.0f);
+//	_scenePlaneVertex[3].pos = D3DXVECTOR3(-1.0f, -1.0f, 0.0f);
+//	_scenePlaneVertex[0].uv = D3DXVECTOR2(0.0f, 0.0f);
+//	_scenePlaneVertex[1].uv = D3DXVECTOR2(1.0f, 0.0f);
+//	_scenePlaneVertex[2].uv = D3DXVECTOR2(1.0f, 1.0f);
+//	_scenePlaneVertex[3].uv = D3DXVECTOR2(0.0f, 1.0f);
+//	_scenePlaneIndex[0] = 0;
+//	_scenePlaneIndex[1] = 1;
+//	_scenePlaneIndex[2] = 3;
+//	_scenePlaneIndex[3] = 3;
+//	_scenePlaneIndex[4] = 1;
+//	_scenePlaneIndex[5] = 2;
+
+	//포스트 이펙트 로딩
+//	_postEffect = RM_SHADERFX->getResource("Resources/Shaders/PostEffect.fx");
+	
+	this->_sceneBaseDirectionLight->_transform->SetWorldPosition(0, 20, 0);
+	_sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(90), 0, 0);
+}
+
+void terrainPickingTest::shadowUpdate(void)
+{
+	_mainCamera->updateBase();
+	_sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
+
+	//광원 위치
+	D3DXVECTOR3 camPos = _mainCamera->GetWorldPosition();		//메인카메라의 위치
+	D3DXVECTOR3 camFront = _mainCamera->GetForward();			//메인카메라의 정면
+	D3DXVECTOR3 lightDir = _sceneBaseDirectionLight->_transform->GetForward();	//방향성 광원의 방향
+
+	_waterTerrain->update(1);
+
+	D3DXVECTOR3 lightPos = camPos +
+		(camFront * (_shadowDistance * 0.5f)) +
+		(-lightDir * _shadowDistance);
+
+	_directionLightCamera->SetWorldPosition(lightPos.x, lightPos.y, lightPos.z);
+	_directionLightCamera->LookDirection(lightDir);
+
+	//쉐도우맵 준비
+	this->readyShadowMap(&this->_renderObjects, this->_terrainShadow);
+}
+
+void terrainPickingTest::shadowRender(void)
+{
+	//메인카메라 RTT준비
+	//_mainCamera->renderTextureBegin(0x00101010);
+}
+
+void terrainPickingTest::testRender(void)
+{
+//	//포스트 이펙트 세팅
+//	_postEffect->SetTechnique("Base");
+//	_postEffect->SetTexture("screenTex", _mainCamera->getRenderTexture());
+//	float pixelU = 1.0f / WINSIZEX;
+//	float pixelV = 1.0f / WINSIZEY;
+//	_postEffect->SetFloat("pixelSizeU", pixelU);
+//	_postEffect->SetFloat("pixelSizeV", pixelV);
+//	_postEffect->SetFloat("pixelHalfSizeU", pixelU * 0.5f);
+//	_postEffect->SetFloat("pixelHalfSizeV", pixelV * 0.5f);
+//
+//	//포스트 이펙트 렌더
+//	UINT iPass;
+//	_postEffect->Begin(&iPass, 0);
+//	for (UINT i = 0; i < iPass; i++)
+//	{
+//		_postEffect->BeginPass(i);
+//		_device->SetFVF(SCENE_VERTEX::FVF);
+//		_device->DrawIndexedPrimitiveUP(
+//			D3DPT_TRIANGLELIST,
+//			0,
+//			4,
+//			2,
+//			_scenePlaneIndex,
+//			D3DFMT_INDEX16,
+//			_scenePlaneVertex,
+//			sizeof(SCENE_VERTEX));
+//		_postEffect->EndPass();
+//	}
+//	_postEffect->End();
+}
+
 void terrainPickingTest::addObject(void)
 {
 	enemy->_transform->SetWorldPosition(_hitPos);
 }
+
+void terrainPickingTest::InitMonster(void)
+{
+	//임시 플레이어 코드
+	D3DXMATRIX mat;
+	//	D3DXMATRIX matScaling;
+	D3DXMATRIX matRotate;
+	//	D3DXMatrixScaling(&matScaling, 0.1f, 0.1f, 0.1f);
+	D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
+	mat = /*matScaling **/ matRotate;
+	monster* tempObject;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+
+	float tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	float tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	float tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/arcanegolem_ok/x/golem2.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/Beargod_ok/x/beargod.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/boar_ok/x/boar.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/bogbeast_ok/x/bogbeast.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/Brutallus_ok/x/brutallus.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/chimerabeast_ok/x/chimerabeast.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/cockatriceelite_ok/x/cockatriceelite.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/crocodile_ok/x/crocodile.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/direfurbolg_ok/x/direfurbolg.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/doomguard_ok/x/doomguard.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/harpy_ok/x/harpy.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/raptor_ok/x/raptor.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/scorpion_ok/x/scorpion.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+
+	tempObject = new monster;
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+
+	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	tempY = _terrain->getHeight(tempX, tempZ);
+
+	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
+	mon.push_back(tempObject);
+	tempObject = nullptr;
+}
+
+void terrainPickingTest::readyShadowMap(vector<baseObject*>* renderObjects, terrain * pTerrain)
+{
+	//방향성광원에 붙은 카메라의 Frustum 업데이트
+	_directionLightCamera->updateMatrix();
+	_directionLightCamera->updateFrustum();
+
+	//다이렉션라이팅 카메라에 들어오는 애들만 그린다...
+	static vector<baseObject*>	shadowCullObject;
+	shadowCullObject.clear();
+
+	for (int i = 0; i < renderObjects->size(); i++)
+	{
+		//프러스텀 안에 있니?
+		if (this->_mainCamera->_frustum.isInFrustum((*renderObjects)[i]))
+		{
+			shadowCullObject.push_back((*renderObjects)[i]);
+		}
+	}
+
+	//쉐도우 맵 그린다.
+	_directionLightCamera->renderTextureBegin(0xffffffff);
+
+	//고정메쉬 세팅
+	xMeshStatic::setCamera(this->_directionLightCamera);
+	xMeshStatic::setTechniqueName("CreateShadow");
+	//스킨드메쉬 세팅
+	xMeshSkinned::setCamera(this->_directionLightCamera);
+	xMeshSkinned::setTechniqueName("CreateShadow");
+
+	for (int i = 0; i < shadowCullObject.size(); i++)
+	{
+		if (shadowCullObject[i]->_ignoreCreateShadow == false)
+		{
+			shadowCullObject[i]->render();
+		}
+	}
+
+	//만약 Terrain 도 쉐도우 맵을 그려야한다면...
+	if (pTerrain != NULL)
+	{
+		pTerrain->renderShadow(_directionLightCamera);
+	}
+
+	_directionLightCamera->renderTextureEnd();
+
+
+	//만약 Terrain 도 쉐도우 맵을 셋팅한다면
+	if (pTerrain != NULL)
+	{
+		pTerrain->_terrainEffect->SetTexture("Shadow_Tex", _directionLightCamera->getRenderTexture());
+		pTerrain->_terrainEffect->SetMatrix("matLightViewProjection", &_directionLightCamera->getViewProjectionMatrix());
+	}
+
+	//쉐도우 텍스쳐
+	xMeshStatic::_staticMeshEffect->SetTexture("Shadow_Tex", _directionLightCamera->getRenderTexture());
+	//쉐도우 행렬
+	xMeshStatic::_staticMeshEffect->SetMatrix("matLightViewProjection", &_directionLightCamera->getViewProjectionMatrix());
+	//쉐도우 텍스쳐
+	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Shadow_Tex", _directionLightCamera->getRenderTexture());
+	//쉐도우 행렬
+	xMeshSkinned::_sSkinnedMeshEffect->SetMatrix("matLightViewProjection", &_directionLightCamera->getViewProjectionMatrix());
+}
+

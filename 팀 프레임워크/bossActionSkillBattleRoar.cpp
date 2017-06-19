@@ -30,15 +30,20 @@ int bossActionSkillBattleRoar::Update()
 {
 	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
 
-	PHYSICSMANAGER->isBlocking(owner, enemy);
-
-	D3DXVECTOR3 enemyNormal = enemy->_transform->GetWorldPosition() - temp->_transform->GetWorldPosition();
+	PHYSICSMANAGER->isBlocking(owner, playerObject);
+	//이제부터 나와 적의 각도를 구해보자~ 예~~~
+	//먼저 현재 나의 위치에서 적을 바라보는 벡터를 구한다.
+	D3DXVECTOR3 enemyNormal = playerObject->_transform->GetWorldPosition() - temp->_transform->GetWorldPosition();
+	//정규화를 통해 방향만을 구한다.
 	D3DXVec3Normalize(&enemyNormal, &enemyNormal);
+	//그리고 현재 나의 정면벡터와 적을 바라보는 방향을 내적을 해준다.
+	//그러면 무려 신기하게도 0~1, 0~-1사이값이 나온다.
 	float angle = D3DXVec3Dot(&temp->_transform->GetForward(), &enemyNormal);
 
 	//배틀로어 애니메이션이 끝나면 ->일반공격 또는 꼬리치기
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
 	{
+		//내적을 통해 구한 값을 범위로 표현하였다. 
 		if (angle >= -1.0f && angle < -0.8f)
 		{
 			return LHS::ACTIONRESULT::ACTION_SKILL_TAIL;
@@ -49,7 +54,7 @@ int bossActionSkillBattleRoar::Update()
 
 	dotTime -= 0.08f;
 	//공격에 따른 범위가 필요, 공격 범위에 있는 존재는 스턴에 걸림, 스턴에 걸린 상태로 도트대미지 적용필요.
-	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
+	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 	{
 		switch (attackStyle)
 		{
@@ -58,7 +63,8 @@ int bossActionSkillBattleRoar::Update()
 			if (dotTime < 0)
 			{
 				dotTime = 2.0f;
-
+				//PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - ((float)temp->getAtt()*myUtil::RandomFloatRange(1.3f, 1.8f)));
+				enemy->playerDamaged(((float)temp->getAtt()*myUtil::RandomFloatRange(1.3f, 1.8f)), 0.6f, 100.0f, 0.0f, 0.0f);
 			}
 			break;
 		case 1:
@@ -66,6 +72,8 @@ int bossActionSkillBattleRoar::Update()
 			{
 				dotTime = 2.0f;
 				//플레이어의 상태를 스턴으로 변경해야 한다. 데미지는 마법공격보다 낮게 책정.
+				//PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - ((float)temp->getAtt() * myUtil::RandomFloatRange(0.1f, 0.3f)));
+				enemy->playerDamaged(((float)temp->getAtt() * myUtil::RandomFloatRange(0.1f, 0.3f)), 0.0f, 0.0f, 100.0f, 2.0f);
 			}
 			break;
 		}

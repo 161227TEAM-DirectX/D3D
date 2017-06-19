@@ -19,6 +19,7 @@
 
 // C++ 런타임 헤더 파일입니다.
 #include <iostream>
+#include <fstream>			//파일입출력 ofstream쓰기위한 헤더
 
 // STL 컨테이너 헤더파일
 #include <string>
@@ -26,6 +27,7 @@
 #include <map>
 #include <set>
 #include <queue>
+#include <algorithm>
 using namespace std;
 
 // DIRECT3D 헤더 및 라이브러리 추가
@@ -34,7 +36,25 @@ using namespace std;
 
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
-#pragma comment(linker,"/entry:WinMainCRTStartup /subsystem:console")
+//#pragma comment(linker,"/entry:WinMainCRTStartup /subsystem:console")
+
+
+
+
+
+//====================================================================
+//			## 매크로상수 ##
+//====================================================================
+#define WINNAME (LPTSTR)(TEXT("161227TEAM"))
+#define WINSTARTX	150
+#define WINSTARTY	30
+#define WINSIZEX	1600
+#define WINSIZEY	900
+#define WINSTYLE	WS_OVERLAPPEDWINDOW
+
+#define STR_LEN 256
+
+
 
 
 
@@ -92,139 +112,28 @@ public: virtual void Set##funName(varType var){\
 
 
 
-//====================================================================
-//			## 내가 만든 헤더파일을 이곳에 추가한다 ##
-//====================================================================
-//////////////////////////////////////////////////////////////////////
-/*네임스페이스 myUtil*/
-#include "myUtil.h"
-using namespace myUtil;
-
-//////////////////////////////////////////////////////////////////////
-/*일반 클래스*/
-#include "transform.h"
-#include "camera.h"
-#include "lightDirection.h"
-#include "lightPoint.h"
-#include "boundBox.h"
-#include "terrain.h"
-#include "cObject.h"
-#include "cPicking.h"
-
-
-
-
-//////////////////////////////////////////////////////////////////////
-/*싱글톤 매니져 클래스*/
-#include "keyManager.h"
-#include "timeManager.h"
-#include "sceneManager.h"
-#include "fontManager.h"
-#include "gizmoManager.h"
-#include "cameraManager.h"
-#include "rmTexture.h"
-#include "rmShaderFX.h"
-#include "rmStaticMesh.h"
-#include "rmSkinnedMesh.h"
-#include "physicsManager.h"
-#include "spriteManager.h"
-#include "ioBaseManager.h"
-#include "dxParticleSystemManager.h"
-#include "soundManager.h"
-
-#include "cObjectManager.h"
-#include "cTextureManager.h"
-#include "xPlayerStatus.h"
-#include "ActionManager.h"
 
 //====================================================================
-//			## 싱글톤(상속) ##
+//			## enum ##
 //====================================================================
-#define _device	device
-#define KEYMANAGER keyManager::getSingleton()
-#define TIMEMANAGER timeManager::getSingleton()
-#define SCENEMANAGER sceneManager::getSingleton()
-#define FONTMANAGER fontManager::getSingleton()
-#define GIZMOMANAGER gizmoManager::getSingleton()
-#define RM_TEXTURE rmTexture::getSingleton()
-#define RM_SHADERFX rmShaderFX::getSingleton()
-#define RM_XMESH rmStaticMesh::getSingleton()
-#define RM_SKINNED rmSkinnedMesh::getSingleton()
-#define PHYSICSMANAGER physicsManager::getSingleton()
-#define SPRITEMANAGER spriteManager::getSingleton()
-#define IOBASEMANAGER ioBaseManager::getSingleton()
-#define PSM	dxParticleSystemManager::getSingleton()
-#define PLAYERMANAGER xPlayerStatus::getSingleton()
-#define SOUNDMANAGER soundManager::getSingleton()
-
-//====================================================================
-//			## 싱글톤(매크로) ##
-//====================================================================
-// 각각의 매니져 클래스에서 인스턴스를 얻는다.
-
-
-
-
-//====================================================================
-//			## 디파인문 - 메크로 ## (윈도우창 초기화)
-//====================================================================
-#define WINNAME (LPTSTR)(TEXT("161227TEAM"))
-#define WINSTARTX	150
-#define WINSTARTY	30
-#define WINSIZEX	1600
-#define WINSIZEY	900
-#define WINSTYLE	WS_OVERLAPPEDWINDOW
-
-
-
-
-
-//====================================================================
-//			## 전역변수 ## 
-//====================================================================
-extern HWND				_hWnd;
-extern HINSTANCE		_hInstance;
-extern float			_timeDelta;
-extern CRITICAL_SECTION _cs;
-
-namespace LHS
+//맵툴은 뷰포트가 2개이므로 반드시 모드설정을 맵툴로 바꿔야 한다.
+enum eSelectMode
 {
-	enum ACTIONRESULT
-	{
-		ACTION_FINISH = 0,
-		ACTION_FAIL,
-		ACTION_PLAY,
-		ACTION_STAND,
-		ACTION_ATT,
-		ACTION_MOVE,
-		ACTION_FLY,
-		ACTION_REMOVE,
-		ACTION_STUN,
-		ACTION_DIE,
-		ACTION_NONE,
-		ACTION_SKILL_TAIL,
-		ACTION_SKILL_FIRE,
-		ACTION_SKILL_FLY_FIRE,
-		ACTION_SKILL_BATTLE_ROAR
-		//BOSSAC_FINISH,
-		//BOSSAC_FAIL,
-		//BOSSAC_PLAY,
-		//BOSSAC_STAND,
-		//BOSSAC_ATT,
-		//BOSSAC_SKILL,
-		//BOSSAC_MOVE,
-		//BOSSAC_REMOVE,
-		//BOSSAC_DIE,
-		//BOSSAC_NONE
-	};
+	E_GAME,
+	E_MAPTOOL
+};
 
-	enum BOSSACTIONRESULT
-	{
-		
-	};
+//레이어 값이 클수록 렌더링 우선순위가 앞선다.
+enum eImgLayer
+{
+	E_NONE,
+	E_NONE2,
+	E_NONE3
+};
 
-	const float MOVETIME = 1.5f;
-}
+
+
+
 
 //====================================================================
 //			## FVF ## (정점 하나에 대한 정보를 정의하는 구조체)
@@ -234,9 +143,9 @@ typedef struct tagVertex
 	D3DXVECTOR3 pos;		//정점의 위치
 	DWORD		color;		//정점의 컬러
 
-	//현재 정점의 정보를 나타내는 플래그 상수값
-	//D3DFVF_XYZ 정점의 위치정보
-	//D3DFVF_DIFFUSE 정점의 컬러정보
+							//현재 정점의 정보를 나타내는 플래그 상수값
+							//D3DFVF_XYZ 정점의 위치정보
+							//D3DFVF_DIFFUSE 정점의 컬러정보
 	tagVertex() {}
 	tagVertex(D3DXVECTOR3 p, D3DCOLOR c) : pos(p), color(c) {}
 	enum { FVF = D3DFVF_XYZ | D3DFVF_DIFFUSE };
@@ -263,6 +172,15 @@ struct ST_RHWC_VERTEX
 	enum { FVF = D3DFVF_XYZRHW | D3DFVF_DIFFUSE };
 };
 
+typedef struct SCENE_VERTEX
+{
+	D3DXVECTOR3 pos;
+	D3DXVECTOR2 uv;
+	enum { FVF = D3DFVF_XYZ | D3DFVF_TEX1 };
+}SCENE_VERTEX, *LPSCENE_VETEX;
+
+
+
 
 
 
@@ -276,3 +194,244 @@ struct ST_SIZEF
 	ST_SIZEF() : fWidth(0.0f), fHeight(0.0f) {}
 	ST_SIZEF(float _fWidth, float _fHeight) : fWidth(_fWidth), fHeight(_fHeight) {}
 };
+
+
+
+
+
+
+//====================================================================
+//			## 지형 구조체 ##
+//====================================================================
+
+//Terrain 정점 구조체
+typedef struct tagTERRAINVERTEX
+{
+	D3DXVECTOR3 pos;			//위치
+	D3DXVECTOR3 normal;			//노말
+	D3DXVECTOR3 binormal;		//바이노말
+	D3DXVECTOR3 tangent;		//탄젠트
+	D3DXVECTOR2 baseUV;			//0~1 UV
+	D3DXVECTOR2 tileUV;			//타일 UV 
+}TERRAINVERTEX, *LPTERRAINVERTEX;
+
+//Terrain 인덱스 구조체 ( 요고 구조체 하나가 삼각형 하나를 담당한다 )
+typedef struct tagTERRAINTRI
+{
+	DWORD dw0;
+	DWORD dw1;
+	DWORD dw2;
+}TERRAINTRI, *LPTERRAINTRI;
+
+struct ST_MAP
+{
+	string heightMap;	//높이맵 경로
+	string splat;		//스플랫팅 경로
+	string tile0;		//타일0 경로
+	string tile1;		//타일1 경로
+	string tile2;		//타일2 경로
+	string tile3;		//타일3 경로
+	vector<D3DXVECTOR3> vecPos;	//높이값
+};
+
+
+
+
+
+
+//====================================================================
+//			## 세이브구조체 ## 
+//====================================================================
+
+struct tagSaveMap
+{
+	string infoName;	//정보이름
+	int number;         //정보 넘버값
+	float mapHeight;
+};
+
+struct tagSaveObject
+{
+	string infoName;	//정보이름
+	int objectNumber;   //오브젝트 넘버값
+	float objectScale;  //오브젝트 스케일
+	float objectRotate; //오브젝트 로테이션
+	float objectX;      //오브젝트 X
+	float objectY;      //오브젝트 Y
+	float objectZ;      //오브젝트 Z
+};
+
+struct tagSaveCinematic
+{
+	string infoName;	//정보이름
+	float X;
+	float Y;
+	float Z;
+	float Height;
+};
+
+
+
+
+
+//====================================================================
+//			## 내가 만든 헤더파일을 이곳에 추가한다 ##
+//====================================================================
+//////////////////////////////////////////////////////////////////////
+/*네임스페이스 myUtil*/
+#include "myUtil.h"
+using namespace myUtil;
+
+//////////////////////////////////////////////////////////////////////
+/*일반 클래스*/
+#include "transform.h"
+#include "camera.h"
+#include "lightDirection.h"
+#include "lightPoint.h"
+#include "boundBox.h"
+#include "terrain.h"
+#include "cObject.h"
+#include "cUIObject.h"
+#include "cPicking.h"
+#include "cLoading.h"
+//#include "xPlayer.h"
+#include "cDxImg.h"
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////
+/*싱글톤 매니져 클래스*/
+#include "keyManager.h"
+#include "timeManager.h"
+#include "sceneManager.h"
+#include "fontManager.h"
+#include "gizmoManager.h"
+#include "cameraManager.h"
+#include "rmTexture.h"
+#include "rmShaderFX.h"
+#include "rmStaticMesh.h"
+#include "rmSkinnedMesh.h"
+#include "physicsManager.h"
+#include "spriteManager.h"
+#include "ioBaseManager.h"
+#include "dxParticleSystemManager.h"
+#include "soundManager.h"
+#include "xPlayerStatus.h"
+#include "ActionManager.h"
+#include "ioBaseManager.h"
+#include "ioSaveManager.h"
+#include "ioSaveObjectManager.h"
+#include "ioHeightManager.h"
+#include "ioMapManager.h"
+
+#include "cObjectManager.h"
+#include "cTextureManager.h"
+#include "cFilepathManager.h"
+#include "cMapManager.h"
+#include "cDxImgManager.h"
+
+
+
+
+
+//====================================================================
+//			## 싱글톤(상속) ##
+//====================================================================
+#define _device	device
+#define KEYMANAGER keyManager::getSingleton()
+#define TIMEMANAGER timeManager::getSingleton()
+#define SCENEMANAGER sceneManager::getSingleton()
+#define FONTMANAGER fontManager::getSingleton()
+#define GIZMOMANAGER gizmoManager::getSingleton()
+#define RM_TEXTURE rmTexture::getSingleton()
+#define RM_SHADERFX rmShaderFX::getSingleton()
+#define RM_XMESH rmStaticMesh::getSingleton()
+#define RM_SKINNED rmSkinnedMesh::getSingleton()
+#define PHYSICSMANAGER physicsManager::getSingleton()
+#define SPRITEMANAGER spriteManager::getSingleton()
+#define PSM	dxParticleSystemManager::getSingleton()
+#define PLAYERMANAGER xPlayerStatus::getSingleton()
+#define SOUNDMANAGER soundManager::getSingleton()
+#define IOBASEMANAGER ioBaseManager::getSingleton()
+#define IOSAVEMANAGER ioSaveManager::getSingleton()
+#define IOSAVEOBJECTMANAGER ioSaveObjectManager::getSingleton()
+#define IOHEIGHTMANAGER ioHeightManager::getSingleton()
+#define IOMAPMANAGER ioMapManager::getSingleton()
+
+
+
+
+
+
+//====================================================================
+//			## 싱글톤(매크로) ##
+//====================================================================
+// 각각의 매니져 클래스에서 인스턴스를 얻는다.
+
+
+
+
+
+//====================================================================
+//			## 색상 ##
+//====================================================================
+#define BLACK	D3DCOLOR_XRGB(0,0,0)
+#define RED		D3DCOLOR_XRGB(255,0,0)
+#define GREEN	D3DCOLOR_XRGB(0,255,0)
+#define BLUE	D3DCOLOR_XRGB(0,0,255)
+#define WHITE	D3DCOLOR_XRGB(255,255,255)
+
+#define CRIMSON D3DCOLOR_XRGB(255,187,0)
+#define ORANGE	D3DCOLOR_XRGB(255,187,0)
+#define YELLOW	D3DCOLOR_XRGB(255,228,0)
+#define BROWN	D3DCOLOR_XRGB(117,20,0)
+#define GRASS	D3DCOLOR_XRGB(171,242,0)
+#define SKY		D3DCOLOR_XRGB(0,216,255)
+#define VIOLET	D3DCOLOR_XRGB(95,0,255)
+#define PURPLE	D3DCOLOR_XRGB(255,0,221)
+#define MAGENTA D3DCOLOR_XRGB(255,0,255)
+
+
+
+
+
+namespace LHS
+{
+	enum ACTIONRESULT
+	{
+		ACTION_FINISH = 0,
+		ACTION_FAIL,
+		ACTION_PLAY,
+		ACTION_STAND,
+		ACTION_ATT,
+		ACTION_MOVE,
+		ACTION_FLY,
+		ACTION_REMOVE,
+		ACTION_STUN,
+		ACTION_DIE,
+		ACTION_NONE,
+		ACTION_SKILL_TAIL,
+		ACTION_SKILL_FIRE,
+		ACTION_SKILL_FLY_FIRE,
+		ACTION_SKILL_BATTLE_ROAR
+	};
+
+	const float MOVETIME = 1.5f;
+}
+
+
+
+
+//====================================================================
+//			## 전역변수 ## 
+//====================================================================
+extern HWND				_hWnd;
+extern HINSTANCE		_hInstance;
+extern float			_timeDelta;
+extern CRITICAL_SECTION _cs;
+extern D3DVIEWPORT9		leftViewPort;	//왼쪽 뷰포트
+extern D3DVIEWPORT9		rightViewPort;  //오른쪽 뷰포트
+extern eSelectMode		g_eSelectMode;	//게임모드인지 맵툴모드인지

@@ -54,6 +54,8 @@ public:
 	//일시정지 중이냐?
 	bool isPauseSound(string keyName);
 
+	void setMusicSpeed(string keyName, float Speed);
+
 	soundManager() : _system(NULL), _sound(NULL), _channel(NULL) {}
 	~soundManager() {}
 };

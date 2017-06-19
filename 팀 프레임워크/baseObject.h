@@ -11,7 +11,8 @@ public:
 
 protected:
 	bool				_isActive;				//활성화 여부
-	
+	int					_objectNumber;
+	float				_objectRatation;
 
 protected:
 	//override로 필요하면 재정의 해서 사용하기
@@ -36,6 +37,17 @@ public:
 
 	//세팅된 메쉬에 따라 바운드박스를 재계산 한다.
 	void computeBoundBox();
+
+	//바운딩박스이 밑바닥Y값을 넘기기위해 get만듬
+	boundBox getBoundBox(void) { return _boundBox; }
+
+	//오브젝트 로테이트 , 넘버
+	int getObjectNumber(void) { return _objectNumber; }
+	float getObjectRotation(void) { return _objectRatation; }
+
+	void SetObjectNumber(int ObjectNumber) { _objectNumber = ObjectNumber; }
+	void SetObjectRotation(float ObjectRotation) { _objectRatation = ObjectRotation; }
+
 
 	baseObject();
 	virtual ~baseObject();

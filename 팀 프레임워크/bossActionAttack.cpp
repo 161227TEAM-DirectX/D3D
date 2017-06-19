@@ -2,7 +2,7 @@
 #include "bossActionAttack.h"
 
 
-bossActionAttack::bossActionAttack() :Action(), passedTime(0.0f), activeTime(2.0f), resultValue(0)
+bossActionAttack::bossActionAttack() :Action(), resultValue(0)
 {
 }
 
@@ -18,22 +18,6 @@ int bossActionAttack::Start()
 	//보스몬스터의 공격모션 아무거나 시작.
 	owner->getSkinnedAnim().Play("Animation_12");
 
-	//확률을 위한 벡터 및 시드 초기화
-	//int seed = 0;
-
-	//seed = 1;
-	//for (int i = 0; i < 5; i++)
-	//{
-	//	list.push_back(seed);
-	//}
-	//seed = 2;
-	//list.push_back(seed);
-	//list.push_back(seed);
-	//seed = 3;
-	//list.push_back(seed);
-	//list.push_back(seed);
-	//list.push_back(seed);
-
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
 }
 
@@ -41,14 +25,49 @@ int bossActionAttack::Update()
 {
 	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
 
-	PHYSICSMANAGER->isBlocking(owner, enemy);
+	PHYSICSMANAGER->isBlocking(owner, playerObject);
 
+	//애니메이션 일정 시간 지난뒤에 데미지를 입력.
+	if (owner->getSkinnedAnim().getAnimationPlayFactor() <= 0.45f && owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.40f)
+	{
+		enemy->playerDamaged(temp->getAtt(), 0.6f, 25.0f);
+	}
+
+	//애니메이션이 끝나갈때쯤이면
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.9f)
 	{
-		passedTime = 0.0f;
-		int random = myUtil::RandomIntRange(1, 5);
+		//적이 나의 hit박스 안에 없다면 다른 패턴으로 간다.
+		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
+		{
+			if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
+			{
+				resultValue = myUtil::RandomFloatRange(0.1f, 1.0f);
 
-		//플레이어의 hp를 소모시키자.
+				//이동
+				if (resultValue >= 0.1f && resultValue <= 0.98f)
+				{
+					return LHS::ACTIONRESULT::ACTION_MOVE;
+				}
+				//배틀로어
+				else if (resultValue >= 0.98f && resultValue <= 0.99f)
+				{
+					return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
+				}
+				//브레스
+				else if (resultValue >= 0.99f && resultValue <= 1.0f)
+				{
+					return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
+				}
+			}
+			//range안에 없다면 이동이다.
+			else
+			{
+				return LHS::ACTIONRESULT::ACTION_MOVE;
+			}
+		}
+
+		//위의 조건들이 모두 틀렸다면 ATTACK을 시작하자.
+		int random = myUtil::RandomIntRange(1, 5);
 
 		switch (random)
 		{
@@ -71,72 +90,7 @@ int bossActionAttack::Update()
 			owner->getSkinnedAnim().Play("Animation_10");
 			break;
 		}
-
-		//적이 나의 hit박스 안에 없다면 이동해라.
-		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), enemy->_transform, &enemy->_boundBox))
-		{
-			//int index = myUtil::RandomIntRange(0, 9);
-			resultValue = myUtil::RandomFloatRange(0.1f, 1.0f);
-
-			if (resultValue >= 0.1f && resultValue <= 0.96f)
-			{
-				return LHS::ACTIONRESULT::ACTION_MOVE;
-			}
-			else if (resultValue >= 0.96f && resultValue <= 0.98f)
-			{
-				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
-				{
-					return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
-				}
-			}
-			else if (resultValue >= 0.98f && resultValue <= 1.0f)
-			{
-				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
-				{
-					return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
-				}
-			}
-
-		/*	switch (resultValue)
-			{
-			case 1:
-				return LHS::ACTIONRESULT::ACTION_MOVE;
-				break;
-			case 2:
-				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
-				{
-					return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
-				}
-				break;
-			case 3:
-				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), enemy->_transform, &enemy->_boundBox))
-				{
-					return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
-				}
-				break;
-			}*/
-		}
 	}
-
-	
-	
-
-	//
-
-	//오브젝트(적)의 피를 깍기.
-
-
-	//PassedTime += _timeDelta;
-
-	//if (PassedTime >= actionTime)
-	//{
-	//	
-	//	
-	//	//애니메이션 정지
-	//	owner->skMesh->Stop();
-
-	//	return LHS::ACTIONRESULT::ACTION_FINISH;
-	//}
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }

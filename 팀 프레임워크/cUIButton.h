@@ -1,5 +1,4 @@
 #pragma once
-#include "cUIObject.h"
 
 class cUIButton;
 
@@ -25,13 +24,12 @@ protected:
 
 public:
 	cUIButton();
-	cUIButton(string sNor, string sOvr, string sSel, 
-			  D3DXVECTOR3 vecPos, 
-			  iUIButtonDelegate* del);
 	virtual ~cUIButton();
 
 	virtual void Update() override;
 	virtual void Render(LPD3DXSPRITE pSprite) override;
 	virtual void SetButtonImage(string sNor, string sOvr, string sSel);
+public:
+	void OnClick(cUIButton* pUIButton);
 };
 
