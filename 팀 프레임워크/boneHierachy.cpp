@@ -166,7 +166,7 @@ HRESULT BONE_HIERARCHY::CreateMeshContainer(THIS_
 			//만약 Texture 가 없다면...
 			if (pNorTex == NULL) 
 			{
-				pNorTex = RM_TEXTURE->getResource("Resources/Meshes/normalDefault.png");
+				pNorTex = RM_TEXTURE->getResource("Resource/Meshes/normalDefault.png");
 			}
 
 			//
@@ -178,7 +178,7 @@ HRESULT BONE_HIERARCHY::CreateMeshContainer(THIS_
 			//만약 Texture 가 없다면...
 			if (pEmiTex == NULL) 
 			{
-				pEmiTex = RM_TEXTURE->getResource("Resources/Meshes/emissionDefault.png");
+				pEmiTex = RM_TEXTURE->getResource("Resource/Meshes/emissionDefault.png");
 			}
 
 
@@ -191,7 +191,7 @@ HRESULT BONE_HIERARCHY::CreateMeshContainer(THIS_
 			//만약 Texture 가 없다면...
 			if (pSpcTex == NULL) 
 			{
-				pSpcTex = RM_TEXTURE->getResource("Resources/Meshes/specularDefault.png");
+				pSpcTex = RM_TEXTURE->getResource("Resource/Meshes/specularDefault.png");
 			}
 			//Texture 푸쉬
 			boneMesh->NormalTexs.push_back(pNorTex);

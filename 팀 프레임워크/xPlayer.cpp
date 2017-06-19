@@ -54,22 +54,22 @@ HRESULT xPlayer::init()
 	{
 	case A_NONE:
 		pSkinned =
-			RM_SKINNED->getResource("Resources/Player/FHUMAN_NONE/FHUMAN.X", &matCorrection);
+			RM_SKINNED->getResource("Resource/Player/FHUMAN_NONE/FHUMAN.X", &matCorrection);
 		break;
 
 	case A_ROBE:
 		pSkinned =
-			RM_SKINNED->getResource("Resources/Player/FHUMAN_ROBE/FHUMAN.X", &matCorrection);
+			RM_SKINNED->getResource("Resource/Player/FHUMAN_ROBE/FHUMAN.X", &matCorrection);
 		break;
 
 	case A_LEATHER:
 		pSkinned =
-			RM_SKINNED->getResource("Resources/Player/FHUMAN_LEATHER/FHUMAN.X", &matCorrection);
+			RM_SKINNED->getResource("Resource/Player/FHUMAN_LEATHER/FHUMAN.X", &matCorrection);
 		break;
 
 	case A_PLATE:
 		pSkinned =
-			RM_SKINNED->getResource("Resources/Player/FHUMAN_PLATE/FHUMAN.X", &matCorrection);
+			RM_SKINNED->getResource("Resource/Player/FHUMAN_PLATE/FHUMAN.X", &matCorrection);
 		break;
 
 	default:
@@ -129,7 +129,7 @@ HRESULT xPlayer::init()
 	switch (PLAYERMANAGER->GetWeapon())
 	{
 	case W_NONE:
-		pSkinned2 = RM_XMESH->getResource("Resources/item/Sword/weapon01/weapon01.X", &matCorrection2);
+		pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon01/weapon01.X", &matCorrection2);
 		_weaponObject->setActive(false);
 		_renderObjects.push_back(_weaponObject);
 		break;
@@ -137,7 +137,7 @@ HRESULT xPlayer::init()
 		D3DXMatrixRotationY(&matRotate2, D3DXToRadian(270));
 		D3DXMatrixScaling(&matScale2, 0.5, 0.5, 0.5);
 		matCorrection2 = matRotate2*matScale2;
-		pSkinned2 = RM_XMESH->getResource("Resources/item/Sword/weapon01/weapon01.X", &matCorrection2);
+		pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon01/weapon01.X", &matCorrection2);
 		_weaponObject->setActive(true);
 		_renderObjects.push_back(_weaponObject);
 		break;
@@ -146,7 +146,7 @@ HRESULT xPlayer::init()
 		D3DXMatrixScaling(&matScale2, 0.25, 0.25, 0.25);
 		matCorrection2 = matRotate2*matScale2;
 
-		pSkinned2 = RM_XMESH->getResource("Resources/item/Sword/weapon02/weapon02.X", &matCorrection2);
+		pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon02/weapon02.X", &matCorrection2);
 		_weaponObject->setActive(true);
 		_renderObjects.push_back(_weaponObject);
 		break;
@@ -155,7 +155,7 @@ HRESULT xPlayer::init()
 		D3DXMatrixScaling(&matScale2, 0.5, 0.5, 0.5);
 		matCorrection2 = matRotate2*matScale2;
 
-		pSkinned2 = RM_XMESH->getResource("Resources/item/Sword/weapon03/weapon03.X", &matCorrection2);
+		pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon03/weapon03.X", &matCorrection2);
 		_weaponObject->setActive(true);
 		_renderObjects.push_back(_weaponObject);
 		break;
@@ -164,7 +164,7 @@ HRESULT xPlayer::init()
 		D3DXMatrixScaling(&matScale2, 0.5, 0.5, 0.5);
 		matCorrection2 = matRotate2*matScale2;
 
-		pSkinned2 = RM_XMESH->getResource("Resources/item/Sword/weapon04/weapon04.X", &matCorrection2);
+		pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon04/weapon04.X", &matCorrection2);
 		_weaponObject->setActive(true);
 		_renderObjects.push_back(_weaponObject);
 		break;
@@ -173,7 +173,7 @@ HRESULT xPlayer::init()
 		D3DXMatrixScaling(&matScale2, 0.33, 0.33, 0.33);
 		matCorrection2 = matRotate2*matScale2;
 
-		pSkinned2 = RM_XMESH->getResource("Resources/item/Sword/weapon05/weapon05.X", &matCorrection2);
+		pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon05/weapon05.X", &matCorrection2);
 		_weaponObject->setActive(true);
 		_renderObjects.push_back(_weaponObject);
 		break;
@@ -198,7 +198,7 @@ HRESULT xPlayer::init()
 	switch (PLAYERMANAGER->GetShield())
 	{
 	case SH_NONE:
-		pSkinned3 = RM_XMESH->getResource("Resources/item/Shield/shield01/shield01.X", &matCorrection3);
+		pSkinned3 = RM_XMESH->getResource("Resource/item/Shield/shield01/shield01.X", &matCorrection3);
 		_shieldObject->setActive(false);
 		_renderObjects.push_back(_shieldObject);
 		break;
@@ -207,7 +207,7 @@ HRESULT xPlayer::init()
 		D3DXMatrixScaling(&matScale3, 0.25f, 0.25f, 0.25f);
 		matCorrection3 = matRotate3 * matScale3;
 
-		pSkinned3 = RM_XMESH->getResource("Resources/item/Shield/shield01/shield01.X", &matCorrection3);
+		pSkinned3 = RM_XMESH->getResource("Resource/item/Shield/shield01/shield01.X", &matCorrection3);
 		_shieldObject->setActive(true);
 		_renderObjects.push_back(_shieldObject);
 		break;
@@ -216,7 +216,7 @@ HRESULT xPlayer::init()
 		D3DXMatrixScaling(&matScale3, 0.2f, 0.2f, 0.2f);
 		matCorrection3 = matRotate3 * matScale3;
 
-		pSkinned3 = RM_XMESH->getResource("Resources/item/Shield/shield02/shield02.X", &matCorrection3);
+		pSkinned3 = RM_XMESH->getResource("Resource/item/Shield/shield02/shield02.X", &matCorrection3);
 		_shieldObject->setActive(true);
 		_renderObjects.push_back(_shieldObject);
 		break;
@@ -225,7 +225,7 @@ HRESULT xPlayer::init()
 		D3DXMatrixScaling(&matScale3, 0.5f, 0.5f, 0.5f);
 		matCorrection3 = matRotate3 * matScale3;
 
-		pSkinned3 = RM_XMESH->getResource("Resources/item/Shield/shield03/shield03.X", &matCorrection3);
+		pSkinned3 = RM_XMESH->getResource("Resource/item/Shield/shield03/shield03.X", &matCorrection3);
 		_shieldObject->setActive(true);
 		_renderObjects.push_back(_shieldObject);
 		break;
@@ -234,7 +234,7 @@ HRESULT xPlayer::init()
 		D3DXMatrixScaling(&matScale3, 0.25f, 0.25f, 0.25f);
 		matCorrection3 = matRotate3 * matScale3;
 
-		pSkinned3 = RM_XMESH->getResource("Resources/item/Shield/shield04/shield04.X", &matCorrection3);
+		pSkinned3 = RM_XMESH->getResource("Resource/item/Shield/shield04/shield04.X", &matCorrection3);
 		_shieldObject->setActive(true);
 		_renderObjects.push_back(_shieldObject);
 		break;
@@ -243,7 +243,7 @@ HRESULT xPlayer::init()
 		D3DXMatrixScaling(&matScale3, 0.25f, 0.25f, 0.25f);
 		matCorrection3 = matRotate3 * matScale3;
 
-		pSkinned3 = RM_XMESH->getResource("Resources/item/Shield/shield05/shield05.X", &matCorrection3);
+		pSkinned3 = RM_XMESH->getResource("Resource/item/Shield/shield05/shield05.X", &matCorrection3);
 		_shieldObject->setActive(true);
 		_renderObjects.push_back(_shieldObject);
 		break;
@@ -309,7 +309,7 @@ void xPlayer::render()
 
 		FONTMANAGER->fontOut("Height : " + to_string(_jumpHeight), 600, 75, 0xffffffff);
 
-		RM_SKINNED->getResource("Resources/Player/FHUMAN_PLATE/FHUMAN.X")->ShowAnimationName(0, 0);
+		RM_SKINNED->getResource("Resource/Player/FHUMAN_PLATE/FHUMAN.X")->ShowAnimationName(0, 0);
 	}
 
 	//for (int i = 0; i < this->_renderObjects.size(); i++)

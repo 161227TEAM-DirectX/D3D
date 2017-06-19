@@ -75,18 +75,21 @@ HRESULT terrainPickingTest::init(void)
 	{
 		//monster* temp = dynamic_cast<monster*>(mon[i]);
 		//temp->setActive(true);
-		mon[i]->setActive(true);
-		_renderObjects.push_back(mon[i]);
+		//mon[i]->setActive(true);
+		//_renderObjects.push_back(mon[i]);
 	}
 
 
-//	boss->setMesh(RM_SKINNED->getResource("Resources/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
+//	boss->setMesh(RM_SKINNED->getResource("Resource/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
 //	boss->_transform->SetScale(1.0f, 1.0f, 1.0f);
 //	boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
 //	boss->setActive(true);
 //	this->_renderObjects.push_back(boss);
 
-//	this->setEnvironment("Resources/TextureCUBE/SuperKanjiCube.dds");
+//	this->setEnvironment("Resource/TextureCUBE/SuperKanjiCube.dds");
+
+
+
 	_env = new Environment;
 	_env->init();
 	_env->linkCamera(*_mainCamera);
@@ -160,18 +163,17 @@ void terrainPickingTest::render(void)
 
 	_env->renderEnvironment(2);
 
-	//	//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅
-	//	//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅
+	//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅
 	xMeshStatic::setCamera(_mainCamera);
-	xMeshStatic::setTechniqueName("ReciveShadow");
+	//xMeshStatic::setTechniqueName("ReciveShadow");
 	xMeshStatic::setTechniqueName("Toon");
-	xMeshStatic::_staticMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resources/Testures/Ramp_1.png"));
+	xMeshStatic::_staticMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resource/Testures/Ramp_1.png"));
 	xMeshStatic::setBaseLight(this->_sceneBaseDirectionLight);
 
 	xMeshSkinned::setCamera(_mainCamera);
-	xMeshSkinned::setTechniqueName("ReciveShadow");
+	//xMeshSkinned::setTechniqueName("ReciveShadow");
 	xMeshSkinned::setTechniqueName("Toon");
-	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resources/Testures/Ramp_1.png"));
+	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resource/Testures/Ramp_1.png"));
 	xMeshSkinned::setBaseLight(this->_sceneBaseDirectionLight);
 	
 	_player->render();
@@ -181,7 +183,7 @@ void terrainPickingTest::render(void)
 		this->_cullObjects[i]->render();
 	}
 	
-	RM_SKINNED->getResource("Resources/Player/FHUMAN_PLATE/FHUMAN.X")->ShowAnimationName(0, 0);
+	RM_SKINNED->getResource("Resource/Player/FHUMAN_PLATE/FHUMAN.X")->ShowAnimationName(0, 0);
 
 	const vector<Node*>& temp = _terrain->getDijkstra().getVecNode();
 	for (size_t i = 0; i < temp.size(); i++)
@@ -319,7 +321,7 @@ void terrainPickingTest::shadowInit(void)
 //	_scenePlaneIndex[5] = 2;
 
 	//포스트 이펙트 로딩
-//	_postEffect = RM_SHADERFX->getResource("Resources/Shaders/PostEffect.fx");
+//	_postEffect = RM_SHADERFX->getResource("Resource/Shaders/PostEffect.fx");
 	
 	this->_sceneBaseDirectionLight->_transform->SetWorldPosition(0, 20, 0);
 	_sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(90), 0, 0);
@@ -330,10 +332,26 @@ void terrainPickingTest::shadowUpdate(void)
 	_mainCamera->updateBase();
 	_sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
 
+	//D3DXVECTOR3 pPos = _player->getPlayerObject()->_transform->GetWorldPosition();
+
+	//D3DXVECTOR3 lightPos = pPos;
+
+	//lightPos.y += _mainCamera->GetWorldPosition().y;
+
+	//D3DXVECTOR3 dPos = pPos - lightPos;
+
+
+	//_shadowDistance = 2 * D3DXVec3Length(&dPos);
+	//_directionLightCamera->_camFar = _shadowDistance * 1.0f;
+	//_directionLightCamera->_orthoSize = _shadowDistance * 1.0f;	//투영크기는 그림자크기로
+
+	//_sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
+
 	//광원 위치
 	D3DXVECTOR3 camPos = _mainCamera->GetWorldPosition();		//메인카메라의 위치
 	D3DXVECTOR3 camFront = _mainCamera->GetForward();			//메인카메라의 정면
 	D3DXVECTOR3 lightDir = _sceneBaseDirectionLight->_transform->GetForward();	//방향성 광원의 방향
+
 
 	_waterTerrain->update(1);
 
@@ -412,7 +430,7 @@ void terrainPickingTest::InitMonster(void)
 
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/arcanegolem_ok/x/golem2.x", mat));
+	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/arcanegolem_ok/x/golem2.x", mat));
 	mon.push_back(tempObject);
 	tempObject = nullptr;
 
@@ -425,7 +443,7 @@ void terrainPickingTest::InitMonster(void)
 
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/Beargod_ok/x/beargod.x", mat));
+	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/Beargod_ok/x/beargod.x", mat));
 	mon.push_back(tempObject);
 	tempObject = nullptr;
 
@@ -438,7 +456,7 @@ void terrainPickingTest::InitMonster(void)
 
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/boar_ok/x/boar.x", mat));
+	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/boar_ok/x/boar.x", mat));
 	mon.push_back(tempObject);
 	tempObject = nullptr;
 
@@ -451,7 +469,7 @@ void terrainPickingTest::InitMonster(void)
 
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/bogbeast_ok/x/bogbeast.x", mat));
+	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/bogbeast_ok/x/bogbeast.x", mat));
 	mon.push_back(tempObject);
 	tempObject = nullptr;
 
@@ -464,7 +482,7 @@ void terrainPickingTest::InitMonster(void)
 
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/Brutallus_ok/x/brutallus.x", mat));
+	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/Brutallus_ok/x/brutallus.x", mat));
 	mon.push_back(tempObject);
 	tempObject = nullptr;
 
@@ -477,7 +495,7 @@ void terrainPickingTest::InitMonster(void)
 
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/chimerabeast_ok/x/chimerabeast.x", mat));
+	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/chimerabeast_ok/x/chimerabeast.x", mat));
 	mon.push_back(tempObject);
 	tempObject = nullptr;
 
@@ -490,7 +508,7 @@ void terrainPickingTest::InitMonster(void)
 
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/cockatriceelite_ok/x/cockatriceelite.x", mat));
+	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/cockatriceelite_ok/x/cockatriceelite.x", mat));
 	mon.push_back(tempObject);
 	tempObject = nullptr;
 
@@ -503,7 +521,7 @@ void terrainPickingTest::InitMonster(void)
 
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/crocodile_ok/x/crocodile.x", mat));
+	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/crocodile_ok/x/crocodile.x", mat));
 	mon.push_back(tempObject);
 	tempObject = nullptr;
 
@@ -516,7 +534,7 @@ void terrainPickingTest::InitMonster(void)
 
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/direfurbolg_ok/x/direfurbolg.x", mat));
+	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/direfurbolg_ok/x/direfurbolg.x", mat));
 	mon.push_back(tempObject);
 	tempObject = nullptr;
 
@@ -529,7 +547,7 @@ void terrainPickingTest::InitMonster(void)
 
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/doomguard_ok/x/doomguard.x", mat));
+	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/doomguard_ok/x/doomguard.x", mat));
 	mon.push_back(tempObject);
 	tempObject = nullptr;
 
@@ -542,7 +560,7 @@ void terrainPickingTest::InitMonster(void)
 
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/harpy_ok/x/harpy.x", mat));
+	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/harpy_ok/x/harpy.x", mat));
 	mon.push_back(tempObject);
 	tempObject = nullptr;
 
@@ -555,7 +573,7 @@ void terrainPickingTest::InitMonster(void)
 
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/raptor_ok/x/raptor.x", mat));
+	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/raptor_ok/x/raptor.x", mat));
 	mon.push_back(tempObject);
 	tempObject = nullptr;
 
@@ -568,7 +586,7 @@ void terrainPickingTest::InitMonster(void)
 
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/scorpion_ok/x/scorpion.x", mat));
+	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/scorpion_ok/x/scorpion.x", mat));
 	mon.push_back(tempObject);
 	tempObject = nullptr;
 
@@ -581,7 +599,7 @@ void terrainPickingTest::InitMonster(void)
 
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
+	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
 	mon.push_back(tempObject);
 	tempObject = nullptr;
 }
@@ -611,6 +629,7 @@ void terrainPickingTest::readyShadowMap(vector<baseObject*>* renderObjects, terr
 	//고정메쉬 세팅
 	xMeshStatic::setCamera(this->_directionLightCamera);
 	xMeshStatic::setTechniqueName("CreateShadow");
+	
 	//스킨드메쉬 세팅
 	xMeshSkinned::setCamera(this->_directionLightCamera);
 	xMeshSkinned::setTechniqueName("CreateShadow");
@@ -626,26 +645,26 @@ void terrainPickingTest::readyShadowMap(vector<baseObject*>* renderObjects, terr
 	//만약 Terrain 도 쉐도우 맵을 그려야한다면...
 	if (pTerrain != NULL)
 	{
-		pTerrain->renderShadow(_directionLightCamera);
+		pTerrain->renderShadow(_mainCamera);
 	}
 
 	_directionLightCamera->renderTextureEnd();
 
 
 	//만약 Terrain 도 쉐도우 맵을 셋팅한다면
-	if (pTerrain != NULL)
-	{
-		pTerrain->_terrainEffect->SetTexture("Shadow_Tex", _directionLightCamera->getRenderTexture());
-		pTerrain->_terrainEffect->SetMatrix("matLightViewProjection", &_directionLightCamera->getViewProjectionMatrix());
-	}
+	//if (pTerrain != NULL)
+	//{
+	//	//pTerrain->_terrainEffect->SetTexture("Shadow_Tex", _directionLightCamera->getRenderTexture());
+	//	//pTerrain->_terrainEffect->SetMatrix("matLightViewProjection", &_directionLightCamera->getViewProjectionMatrix());
+	//}
 
 	//쉐도우 텍스쳐
-	xMeshStatic::_staticMeshEffect->SetTexture("Shadow_Tex", _directionLightCamera->getRenderTexture());
+	//xMeshStatic::_staticMeshEffect->SetTexture("Shadow_Tex", _directionLightCamera->getRenderTexture());
 	//쉐도우 행렬
-	xMeshStatic::_staticMeshEffect->SetMatrix("matLightViewProjection", &_directionLightCamera->getViewProjectionMatrix());
+	//xMeshStatic::_staticMeshEffect->SetMatrix("matLightViewProjection", &_directionLightCamera->getViewProjectionMatrix());
 	//쉐도우 텍스쳐
-	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Shadow_Tex", _directionLightCamera->getRenderTexture());
+	//xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Shadow_Tex", _directionLightCamera->getRenderTexture());
 	//쉐도우 행렬
-	xMeshSkinned::_sSkinnedMeshEffect->SetMatrix("matLightViewProjection", &_directionLightCamera->getViewProjectionMatrix());
+	//xMeshSkinned::_sSkinnedMeshEffect->SetMatrix("matLightViewProjection", &_directionLightCamera->getViewProjectionMatrix());
 }
 

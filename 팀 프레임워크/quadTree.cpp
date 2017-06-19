@@ -22,6 +22,8 @@ HRESULT quadTree::init(LPTERRAINVERTEX vertices, DWORD verNumEdge)
 	//Terrain 정점 데이터 물린다
 	_terrainVertices = vertices;
 
+	//verNumEdge는 2n+1.
+
 	//각 코너 인덱스 계산한다.
 	_corners[CORNER_LT] = 0;
 	_corners[CORNER_RT] = verNumEdge - 1;

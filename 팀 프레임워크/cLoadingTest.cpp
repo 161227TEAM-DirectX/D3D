@@ -14,9 +14,9 @@ cLoadingTest::~cLoadingTest()
 
 HRESULT cLoadingTest::init()
 {
-	m_pUILoading = new cUILoading("Resources/UI/StartScreen/테스트.jpg",
-								  "Resources/UI/Loading/loadingBarBack.bmp",
-								  "Resources/UI/Loading/loadingBarFront.bmp",
+	m_pUILoading = new cUILoading("Resource/UI/StartScreen/테스트.jpg",
+								  "Resource/UI/Loading/loadingBarBack.bmp",
+								  "Resource/UI/Loading/loadingBarFront.bmp",
 								  D3DXVECTOR3(WINSIZEX / 2, WINSIZEY / 2, 0));
 	return S_OK;
 }

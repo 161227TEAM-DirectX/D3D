@@ -12,23 +12,23 @@ xMeshStatic::xMeshStatic()
 	//셰이더와 디폴트텍스쳐 초기화
 	if (_staticMeshEffect == NULL)
 	{
-		_staticMeshEffect = RM_SHADERFX->getResource("Resources/Shaders/StaticMesh.fx");
+		_staticMeshEffect = RM_SHADERFX->getResource("Resource/Shaders/StaticMesh.fx");
 	}
 	if (_defDiffuseTex == NULL)
 	{
-		_defDiffuseTex = RM_TEXTURE->getResource("Resources/Meshes/diffuseDefault.png");
+		_defDiffuseTex = RM_TEXTURE->getResource("Resource/Meshes/diffuseDefault.png");
 	}
 	if (_defNormalTex == NULL)
 	{
-		_defNormalTex = RM_TEXTURE->getResource("Resources/Meshes/normalDefault.png");
+		_defNormalTex = RM_TEXTURE->getResource("Resource/Meshes/normalDefault.png");
 	}
 	if (_defSpecularTex == NULL)
 	{
-		_defSpecularTex = RM_TEXTURE->getResource("Resources/Meshes/specularDefault.png");
+		_defSpecularTex = RM_TEXTURE->getResource("Resource/Meshes/specularDefault.png");
 	}
 	if (_defEmissionTex == NULL)
 	{
-		_defEmissionTex = RM_TEXTURE->getResource("Resources/Meshes/emissionDefault.png");
+		_defEmissionTex = RM_TEXTURE->getResource("Resource/Meshes/emissionDefault.png");
 	}
 }
 xMeshStatic::~xMeshStatic()

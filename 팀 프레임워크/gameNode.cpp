@@ -4,7 +4,7 @@
 gameNode::gameNode() : _environmentTexture(NULL), _environmemtSphereMesh(NULL)
 {
 	//환경구 이펙트 초기화
-	_environmentEffect = RM_SHADERFX->getResource("Resources/Shaders/EnvironmentCube.fx");
+	_environmentEffect = RM_SHADERFX->getResource("Resource/Shaders/EnvironmentCube.fx");
 	
 	//메인카메라 초기화
 	_mainCamera = new camera;
@@ -76,7 +76,7 @@ HRESULT gameNode::initGameNode(void)
 	_scenePlaneIndex[5] = 2;
 
 	//포스트 이펙트 로딩
-	_postEffect = RM_SHADERFX->getResource("Resources/Shaders/PostEffect.fx");
+	_postEffect = RM_SHADERFX->getResource("Resource/Shaders/PostEffect.fx");
 
 	return S_OK;
 }
@@ -236,10 +236,10 @@ void gameNode::readyShadowMap(vector<baseObject*>* renderObjects, terrain * pTer
 
 	//고정메쉬 세팅
 	xMeshStatic::setCamera(this->_directionLightCamera);
-	xMeshStatic::setTechniqueName("CreateShadow");
+	//xMeshStatic::setTechniqueName("CreateShadow");
 	//스킨드메쉬 세팅
 	xMeshSkinned::setCamera(this->_directionLightCamera);
-	xMeshSkinned::setTechniqueName("CreateShadow");
+	//xMeshSkinned::setTechniqueName("CreateShadow");
 
 	for (int i = 0; i < shadowCullObject.size(); i++) 
 	{

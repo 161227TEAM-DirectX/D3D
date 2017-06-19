@@ -78,7 +78,7 @@ HRESULT kimsNewTest::init()
 	float tempY = _terrain->getHeight(0.0f, 0.0f);
 
 	_sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(89), 0, 0);
-	//	this->setEnvironment("Resources/TextureCUBE/SuperKanjiCube.dds");
+	//	this->setEnvironment("Resource/TextureCUBE/SuperKanjiCube.dds");
 	_env = new Environment;
 	_env->init();
 	_env->linkCamera(*_mainCamera);
@@ -173,7 +173,7 @@ void kimsNewTest::render()
 	xMeshSkinned::setCamera(_mainCamera);
 	//xMeshSkinned::setTechniqueName("CreateShadow");
 	xMeshSkinned::setTechniqueName("Toon");
-	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resources/Testures/Ramp_1.png"));
+	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resource/Testures/Ramp_1.png"));
 	xMeshSkinned::setBaseLight(this->_sceneBaseDirectionLight);
 
 	_player->render();

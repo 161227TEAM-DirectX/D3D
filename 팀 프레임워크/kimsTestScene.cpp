@@ -5,12 +5,12 @@ HRESULT kimsTestScene::init(void)
 {
 	_terrain = new terrain;
 	_terrain->init(
-		"Resources/Textures/MyHeight512.bmp",
-		"Resources/Textures/Sheep_terrain1.jpg",
-		"Resources/Textures/Sheep_terrain2.jpg",
-		"Resources/Textures/Sheep_terrain3.jpg",
-		"Resources/Textures/Sheep_terrain4.jpg",
-		"Resources/Textures/Sheep_Splat.bmp",
+		"Resource/Textures/MyHeight512.bmp",
+		"Resource/Textures/Sheep_terrain1.jpg",
+		"Resource/Textures/Sheep_terrain2.jpg",
+		"Resource/Textures/Sheep_terrain3.jpg",
+		"Resource/Textures/Sheep_terrain4.jpg",
+		"Resource/Textures/Sheep_Splat.bmp",
 		1.0f,
 		200.0f,
 		3,
@@ -18,12 +18,12 @@ HRESULT kimsTestScene::init(void)
 
 	_terrainShadow = new terrain;
 	_terrainShadow->init(
-		"Resources/Textures/MyHeight512.bmp",
-		"Resources/Textures/Sheep_terrain1.jpg",
-		"Resources/Textures/Sheep_terrain2.jpg",
-		"Resources/Textures/Sheep_terrain3.jpg",
-		"Resources/Textures/Sheep_terrain4.jpg",
-		"Resources/Textures/Sheep_Splat.bmp",
+		"Resource/Textures/MyHeight512.bmp",
+		"Resource/Textures/Sheep_terrain1.jpg",
+		"Resource/Textures/Sheep_terrain2.jpg",
+		"Resource/Textures/Sheep_terrain3.jpg",
+		"Resource/Textures/Sheep_terrain4.jpg",
+		"Resource/Textures/Sheep_Splat.bmp",
 		4.0f,
 		200.0f,
 		10,
@@ -47,7 +47,7 @@ HRESULT kimsTestScene::init(void)
 	mat = /*matScaling **/ matRotate;
 
 	//enemy = new baseObject;
-	//enemy->setMesh(RM_XMESH->getResource("Resources/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
+	//enemy->setMesh(RM_XMESH->getResource("Resource/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
 	//enemy->_transform->SetScale(0.1f, 0.1f, 0.1f);
 	//enemy->setActive(true);
 	//this->_renderObjects.push_back(enemy);
@@ -65,7 +65,7 @@ HRESULT kimsTestScene::init(void)
 
 	////임시 몬스터 구현 코드
 	//player = new monster;
-	//player->setMesh(RM_SKINNED->getResource("Resources/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
+	//player->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
 	//player->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
 	//player->setRegenPosition(0.0f, tempY, 0.0f);
 	//player->LinkObject(testObject);
@@ -77,7 +77,7 @@ HRESULT kimsTestScene::init(void)
 	//mat = matScaling * matRotate;
 
 	//boss = new bossMonster;
-	//boss->setMesh(RM_SKINNED->getResource("Resources/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
+	//boss->setMesh(RM_SKINNED->getResource("Resource/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
 	//boss->_transform->SetScale(0.5f, 0.5f, 0.5f);
 	//boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
 	//boss->LinkObject(testObject);
@@ -87,7 +87,7 @@ HRESULT kimsTestScene::init(void)
 	//this->_renderObjects.push_back(boss);
 
 	_sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(70), 0, 0);
-	this->setEnvironment("Resources/TextureCUBE/SuperKanjiCube.dds");
+	this->setEnvironment("Resource/TextureCUBE/SuperKanjiCube.dds");
 
 	//_mainCamera->SetWorldPosition(0.0f, 60.0f, 10.0f);
 	//_mainCamera->LookPosition(boss->_transform->GetWorldPosition());
@@ -253,7 +253,7 @@ void kimsTestScene::render(void)
 	xMeshSkinned::setCamera(_mainCamera);
 	xMeshSkinned::setTechniqueName("ReciveShadow");
 	xMeshSkinned::setTechniqueName("Toon");
-	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resources/Testures/Ramp_1.png"));
+	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resource/Testures/Ramp_1.png"));
 	xMeshSkinned::setBaseLight(this->_sceneBaseDirectionLight);
 	
 	_terrain->render(_mainCamera, _sceneBaseDirectionLight, _directionLightCamera);
