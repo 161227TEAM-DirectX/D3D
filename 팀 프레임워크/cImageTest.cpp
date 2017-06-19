@@ -93,7 +93,9 @@ void cImageTest::render()
 		//m_vecImg[i]->render();
 	}
 
-	DXIMG_MANAGER->render();
+	RectMakeCenter(WINSIZEX/2,WINSIZEY/2,300,300,true);
+
+	//DXIMG_MANAGER->render();
 
 	//DXIMG_MANAGER->GetDxImg("¸®ÀÚ¸ù")->render();
 	//DXIMG_MANAGER->GetDxImg("°ÅºÏ¿Õ")->render();
