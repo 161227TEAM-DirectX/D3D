@@ -28,6 +28,8 @@ void cLoading::Init()
 	SplatRegist();
 	BrushRegist();
 	SoundRegist();
+	ImageRegist();
+
 
 	//========================================================================
 	//매니져 초기화
@@ -164,4 +166,11 @@ void cLoading::SoundRegist()
 	FILEPATH_MANAGER->AddFilepath("공격", "Sound/공격1.mp3");
 	FILEPATH_MANAGER->AddFilepath("베기", "Sound/베기1.mp3");
 	FILEPATH_MANAGER->AddFilepath("걸음소리", "Sound/걸음소리1.mp3");
+}
+
+void cLoading::ImageRegist()
+{
+	FILEPATH_MANAGER->AddFilepath("이미지_리자몽", "Resource/이미지/리자몽.png");
+	FILEPATH_MANAGER->AddFilepath("이미지_거북왕", "Resource/이미지/거북왕.png");
+	FILEPATH_MANAGER->AddFilepath("이미지_이상해꽃", "Resource/이미지/이상해꽃.png");
 }

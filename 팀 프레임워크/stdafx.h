@@ -27,6 +27,7 @@
 #include <map>
 #include <set>
 #include <queue>
+#include <algorithm>
 using namespace std;
 
 // DIRECT3D 헤더 및 라이브러리 추가
@@ -36,6 +37,24 @@ using namespace std;
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
 //#pragma comment(linker,"/entry:WinMainCRTStartup /subsystem:console")
+
+
+
+
+
+//====================================================================
+//			## 매크로상수 ##
+//====================================================================
+#define WINNAME (LPTSTR)(TEXT("161227TEAM"))
+#define WINSTARTX	150
+#define WINSTARTY	30
+#define WINSIZEX	1600
+#define WINSIZEY	900
+#define WINSTYLE	WS_OVERLAPPEDWINDOW
+
+#define STR_LEN 256
+
+
 
 
 
@@ -90,6 +109,32 @@ public: virtual void Set##funName(varType var){\
 		}\
 	}
 
+
+
+
+
+//====================================================================
+//			## enum ##
+//====================================================================
+//맵툴은 뷰포트가 2개이므로 반드시 모드설정을 맵툴로 바꿔야 한다.
+enum eSelectMode
+{
+	E_GAME,
+	E_MAPTOOL
+};
+
+//레이어 값이 클수록 렌더링 우선순위가 앞선다.
+enum eImgLayer
+{
+	E_NONE,
+	E_NONE2,
+	E_NONE3
+};
+
+
+
+
+
 //====================================================================
 //			## FVF ## (정점 하나에 대한 정보를 정의하는 구조체)
 //====================================================================
@@ -134,6 +179,11 @@ typedef struct SCENE_VERTEX
 	enum { FVF = D3DFVF_XYZ | D3DFVF_TEX1 };
 }SCENE_VERTEX, *LPSCENE_VETEX;
 
+
+
+
+
+
 //====================================================================
 //			## 구조체 ##
 //====================================================================
@@ -144,6 +194,15 @@ struct ST_SIZEF
 	ST_SIZEF() : fWidth(0.0f), fHeight(0.0f) {}
 	ST_SIZEF(float _fWidth, float _fHeight) : fWidth(_fWidth), fHeight(_fHeight) {}
 };
+
+
+
+
+
+
+//====================================================================
+//			## 지형 구조체 ##
+//====================================================================
 
 //Terrain 정점 구조체
 typedef struct tagTERRAINVERTEX
@@ -163,6 +222,21 @@ typedef struct tagTERRAINTRI
 	DWORD dw1;
 	DWORD dw2;
 }TERRAINTRI, *LPTERRAINTRI;
+
+struct ST_MAP
+{
+	string heightMap;	//높이맵 경로
+	string splat;		//스플랫팅 경로
+	string tile0;		//타일0 경로
+	string tile1;		//타일1 경로
+	string tile2;		//타일2 경로
+	string tile3;		//타일3 경로
+	vector<D3DXVECTOR3> vecPos;	//높이값
+};
+
+
+
+
 
 
 //====================================================================
@@ -197,19 +271,7 @@ struct tagSaveCinematic
 };
 
 
-//====================================================================
-//			## 맵(지형에 관한 여러가지 정보를 들고있는) 구조체 ## 
-//====================================================================
-struct ST_MAP
-{
-	string heightMap;	//높이맵 경로
-	string splat;		//스플랫팅 경로
-	string tile0;		//타일0 경로
-	string tile1;		//타일1 경로
-	string tile2;		//타일2 경로
-	string tile3;		//타일3 경로
-	vector<D3DXVECTOR3> vecPos;	//높이값
-};
+
 
 
 //====================================================================
@@ -233,6 +295,11 @@ using namespace myUtil;
 #include "cPicking.h"
 #include "cLoading.h"
 //#include "xPlayer.h"
+#include "cDxImg.h"
+
+
+
+
 
 
 //////////////////////////////////////////////////////////////////////
@@ -262,9 +329,13 @@ using namespace myUtil;
 
 #include "cObjectManager.h"
 #include "cTextureManager.h"
-#include "cSceneManager.h"
 #include "cFilepathManager.h"
 #include "cMapManager.h"
+#include "cDxImgManager.h"
+
+
+
+
 
 //====================================================================
 //			## 싱글톤(상속) ##
@@ -290,47 +361,42 @@ using namespace myUtil;
 #define IOHEIGHTMANAGER ioHeightManager::getSingleton()
 #define IOMAPMANAGER ioMapManager::getSingleton()
 
+
+
+
+
+
 //====================================================================
 //			## 싱글톤(매크로) ##
 //====================================================================
 // 각각의 매니져 클래스에서 인스턴스를 얻는다.
 
 
+
+
+
 //====================================================================
 //			## 색상 ##
 //====================================================================
-#define BLACK	D3DCOLOR_XRGB(255,255,255)
+#define BLACK	D3DCOLOR_XRGB(0,0,0)
 #define RED		D3DCOLOR_XRGB(255,0,0)
 #define GREEN	D3DCOLOR_XRGB(0,255,0)
 #define BLUE	D3DCOLOR_XRGB(0,0,255)
-#define WHITE	D3DCOLOR_XRGB(0,0,0)
+#define WHITE	D3DCOLOR_XRGB(255,255,255)
+
+#define CRIMSON D3DCOLOR_XRGB(255,187,0)
+#define ORANGE	D3DCOLOR_XRGB(255,187,0)
+#define YELLOW	D3DCOLOR_XRGB(255,228,0)
+#define BROWN	D3DCOLOR_XRGB(117,20,0)
+#define GRASS	D3DCOLOR_XRGB(171,242,0)
+#define SKY		D3DCOLOR_XRGB(0,216,255)
+#define VIOLET	D3DCOLOR_XRGB(95,0,255)
+#define PURPLE	D3DCOLOR_XRGB(255,0,221)
+#define MAGENTA D3DCOLOR_XRGB(255,0,255)
 
 
-//====================================================================
-//			## 디파인문 - 메크로 ## (윈도우창 초기화)
-//====================================================================
-#define WINNAME (LPTSTR)(TEXT("161227TEAM"))
-#define WINSTARTX	150
-#define WINSTARTY	30
-#define WINSIZEX	1600
-#define WINSIZEY	900
-#define WINSTYLE	WS_OVERLAPPEDWINDOW
 
 
-//====================================================================
-//			## enum ##
-//====================================================================
-enum eSceneManager
-{
-	E_GAMENODE,
-	E_ISCENE
-};
-
-enum eSelectMode
-{
-	E_GAME,
-	E_MAPTOOL
-};
 
 namespace LHS
 {
@@ -357,6 +423,8 @@ namespace LHS
 }
 
 
+
+
 //====================================================================
 //			## 전역변수 ## 
 //====================================================================
@@ -364,7 +432,6 @@ extern HWND				_hWnd;
 extern HINSTANCE		_hInstance;
 extern float			_timeDelta;
 extern CRITICAL_SECTION _cs;
-extern eSceneManager	g_eSceneManager;
 extern D3DVIEWPORT9		leftViewPort;	//왼쪽 뷰포트
 extern D3DVIEWPORT9		rightViewPort;  //오른쪽 뷰포트
 extern eSelectMode		g_eSelectMode;	//게임모드인지 맵툴모드인지

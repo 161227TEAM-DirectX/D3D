@@ -5,13 +5,13 @@
 #include "loadingScene.h"
 #include "mapToolScene.h"
 #include "cTerrainTest.h"
-
+#include "cImageTest.h"
 
 mainGame::mainGame()
 {
 	g_pLoading->Init();
 
-	SCENEMANAGER->addScene("start", new startScene, false);
+	//SCENEMANAGER->addScene("start", new startScene, false);
 	//SCENEMANAGER->addScene("loading", new loadingScene, false);
 	//SCENEMANAGER->addScene("maptool", new mapToolScene, true);
 //	g_eSelectMode = E_MAPTOOL;
@@ -43,12 +43,15 @@ HRESULT mainGame::init(void)
 	//SCENEMANAGER->addScene("test", new particleTest09);
 	//SCENEMANAGER->addScene("test", new particleTest10);
 
+
+
 //===================================================================================
 //ÀÌÇö¼ö ¾À Å×½ºÆ® Çì´õÆÄÀÏ
 //===================================================================================
 	//¾ÀÃß°¡
-//	SCENEMANAGER->addScene("test", new terrainPickingTest, false);
+	//SCENEMANAGER->addScene("test", new terrainPickingTest, false);
 	
+
 
 //===================================================================================
 //±è¸¸¿õ ¾À Å×½ºÆ® Çì´õÆÄÀÏ
@@ -56,11 +59,16 @@ HRESULT mainGame::init(void)
 	////¾ÀÃß°¡
 	//SCENEMANAGER->addScene("test", new cLoadingBarTest);
 	//SCENEMANAGER->addScene("test", new cLoadingTest);
+	SCENEMANAGER->addScene("test", new cImageTest,false);
+
+
 
 //===================================================================================
 //±èÅÂÈÆ ¾À Å×½ºÆ® Çì´õÆÄÀÏ
 //===================================================================================
 //	SCENEMANAGER->addScene("test", new kimsNewTest, false);
+
+
 
 //===================================================================================
 //±èÅÂ½Â ¾À Å×½ºÆ® Çì´õÆÄÀÏ
@@ -68,7 +76,7 @@ HRESULT mainGame::init(void)
 
 
 	//¾ÀÃÊ±âÈ­
-	SCENEMANAGER->changeScene("start");
+	SCENEMANAGER->changeScene("test");
 	return S_OK;
 }
 

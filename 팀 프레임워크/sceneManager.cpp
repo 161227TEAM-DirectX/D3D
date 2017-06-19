@@ -68,9 +68,6 @@ iGameNode * sceneManager::addScene(string sceneName, iGameNode * scene, bool isS
 	//씬이 있으니 맵에 담자
 	_mSceneList.insert(make_pair(sceneName, scene));
 
-	//씬매니져 종류 변경
-	g_eSceneManager = eSceneManager::E_GAMENODE;
-
 	if (isSceneChange)
 		changeScene(sceneName);
 	else

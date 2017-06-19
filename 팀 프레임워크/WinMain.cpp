@@ -14,7 +14,6 @@ mainGame* _mg;
 
 CRITICAL_SECTION _cs;	//임계 영역은 구간을 설정하여 그 구간에 진입한 쓰레드가 벗어날 때까지 
 						//해당 구간이 끝날 때까지 다른 쓰레드가 임계 영역에 진입하는 것을 막는다.
-eSceneManager	 g_eSceneManager = E_GAMENODE;	//씬매니져 선택 변수
 D3DVIEWPORT9	leftViewPort;
 D3DVIEWPORT9	rightViewPort;
 eSelectMode		g_eSelectMode = eSelectMode::E_GAME;
