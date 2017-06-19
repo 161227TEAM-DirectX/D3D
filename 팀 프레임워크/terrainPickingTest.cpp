@@ -404,7 +404,7 @@ void terrainPickingTest::InitMonster(void)
 	monster* tempObject;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	float tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	float tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -417,7 +417,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -430,7 +430,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -443,7 +443,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -456,7 +456,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -469,7 +469,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -482,7 +482,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -495,7 +495,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -508,7 +508,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -521,7 +521,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -534,7 +534,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -547,7 +547,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -560,7 +560,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -573,7 +573,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject = nullptr;
 
 	tempObject = new monster;
-	tempObject->_transform->SetScale(0.5f, 0.5f, 0.5f);
+	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);

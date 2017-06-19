@@ -11,7 +11,7 @@ mainGame::mainGame()
 {
 	g_pLoading->Init();
 
-	//SCENEMANAGER->addScene("start", new startScene, false);
+	SCENEMANAGER->addScene("start", new startScene, false);
 	//SCENEMANAGER->addScene("loading", new loadingScene, false);
 	//SCENEMANAGER->addScene("maptool", new mapToolScene, true);
 //	g_eSelectMode = E_MAPTOOL;
@@ -47,7 +47,7 @@ HRESULT mainGame::init(void)
 //이현수 씬 테스트 헤더파일
 //===================================================================================
 	//씬추가
-	SCENEMANAGER->addScene("test", new terrainPickingTest, false);
+//	SCENEMANAGER->addScene("test", new terrainPickingTest, false);
 	
 
 //===================================================================================
@@ -68,7 +68,7 @@ HRESULT mainGame::init(void)
 
 
 	//씬초기화
-	SCENEMANAGER->changeScene("test");
+	SCENEMANAGER->changeScene("start");
 	return S_OK;
 }
 
