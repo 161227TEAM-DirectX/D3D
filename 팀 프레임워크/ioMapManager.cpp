@@ -64,10 +64,7 @@ ST_MAP ioMapManager::loadMapInfo(string filePath)
 
 	ifstream inFile(str);
 
-	if (inFile.fail())
-	{
-		exit(0);
-	}
+	assert(!inFile.fail() && "경로에 리소스가 있는지 확인하십시오.");
 
 	inFile.getline(str, 128);	//높이맵
 	temp.heightMap = str;
