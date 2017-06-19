@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "bossMonster.h"
-#include "bossActionControl.h"
 
 
 bossMonster::bossMonster() : monster(), Frequency(0)
@@ -109,6 +108,9 @@ void bossMonster::switchState(void)
 		break;
 	case LHS::ACTION_SKILL_BATTLE_ROAR:
 		NextAction = ACMANAGER->getAction("배틀로어", *this);
+		break;
+	case LHS::ACTIONRESULT::ACTION_FLY:
+		NextAction = ACMANAGER->getAction("날기", *this);
 		break;
 	}
 }

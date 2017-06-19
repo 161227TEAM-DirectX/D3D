@@ -2,7 +2,15 @@
 #include "monster.h"
 
 
-monster::monster() : baseObject(), CurrAction(nullptr), NextAction(nullptr)
+monster::monster() 
+	: baseObject(), CurrAction(nullptr), NextAction(nullptr)
+	, Name("이름을입력하세요")
+{
+}
+
+monster::monster(string Name)
+	: baseObject(), CurrAction(nullptr), NextAction(nullptr)
+	, Name(Name)
 {
 }
 
@@ -20,7 +28,7 @@ void monster::baseObjectEnable()
 
 	temp.z = _boundBox._localMaxPos.z;
 	
-	hitBox.setBound(&temp, &D3DXVECTOR3(_transform->GetScale().x * 0.6f, temp.y * 1.0f, _transform->GetScale().z * 0.9f));
+	hitBox.setBound(&temp, &D3DXVECTOR3(_transform->GetScale().x * 0.6f, temp.y * 1.0f, _transform->GetScale().z * 0.3f));
 
 	HP = myUtil::RandomIntRange(MINHM, MAXHM);
 	mana = myUtil::RandomIntRange(MINHM, MAXHM);
@@ -64,6 +72,17 @@ void monster::baseObjectNoActiveUpdate()
 void monster::baseObjectRender()
 {
 	if (_skinnedAnim != nullptr) _skinnedAnim->render(_transform);
+	ID3DXFont* font;
+	ID3DXSprite* sprite;
+
+	D3DXCreateFont(_device, 5, 5, FW_BOLD, 1, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "굴림체", &font);
+	D3DXCreateSprite(_device, &sprite);
+
+	if (sprite) sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+	RECT rt = { 100, 100, 0, 0 };
+	font->DrawTextA(sprite, Name.c_str(), -1, &rt, DT_NOCLIP, D3DCOLOR_XRGB(0, 0, 0));
+	sprite->End();
+	
 	hitBox.renderGizmo(_transform, D3DCOLOR_XRGB(255, 0, 0));
 	range.renderGizmo(_transform, D3DCOLOR_XRGB(255, 255, 0));
 

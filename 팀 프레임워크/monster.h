@@ -1,5 +1,4 @@
 #pragma once
-#include "baseObject.h"
 #include "Action.h"
 #include "ActionAttack.h"
 #include "ActionDie.h"
@@ -7,7 +6,6 @@
 #include "ActionReMove.h"
 #include "ActionSeq.h"
 #include "ActionStanding.h"
-#include "terrain.h"
 
 const int MAXHM = 40000;
 const int MINHM = 10000;
@@ -15,8 +13,8 @@ const int MAXGS = 10000;
 const int MINGS = 500;
 const int DEFAULTATT = 200;
 const int DEFAULTDEF = 50;
-const float RANGE = 10.0f;
-const float BOSSRANGE = 5.0f;
+const float RANGE = 5.0f;
+const float BOSSRANGE = 2.5f;
 
 class monster : public baseObject
 {
@@ -32,11 +30,13 @@ protected:
 	boundBox range;								//탐색범위
 	boundBox hitBox;							//공격용탐색박스
 	LHS::ACTIONRESULT result;					//액션을 위한 입력값
+	string Name;								//몬스터 이름
 protected:
 	Action*					CurrAction;				//현재 활성화된 행동 클래스
 	Action*					NextAction;				//다음 활성화될 행동 클래스
 public:
 	monster();
+	monster(string Name);
 	virtual ~monster();
 
 	inline int& getHP(void) { return HP; }

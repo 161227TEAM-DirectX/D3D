@@ -75,8 +75,8 @@ HRESULT terrainPickingTest::init(void)
 	{
 		//monster* temp = dynamic_cast<monster*>(mon[i]);
 		//temp->setActive(true);
-		//mon[i]->setActive(true);
-		//_renderObjects.push_back(mon[i]);
+		mon[i]->setActive(true);
+		_renderObjects.push_back(mon[i]);
 	}
 
 
