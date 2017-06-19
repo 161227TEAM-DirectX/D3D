@@ -5,7 +5,7 @@
 #include "loadingScene.h"
 #include "mapToolScene.h"
 #include "cTerrainTest.h"
-
+#include "cImageTest.h"
 
 mainGame::mainGame()
 {
@@ -43,12 +43,15 @@ HRESULT mainGame::init(void)
 	//SCENEMANAGER->addScene("test", new particleTest09);
 	//SCENEMANAGER->addScene("test", new particleTest10);
 
+
+
 //===================================================================================
 //이현수 씬 테스트 헤더파일
 //===================================================================================
 	//씬추가
-	SCENEMANAGER->addScene("test", new terrainPickingTest, false);
+	//SCENEMANAGER->addScene("test", new terrainPickingTest, false);
 	
+
 
 //===================================================================================
 //김만웅 씬 테스트 헤더파일
@@ -56,11 +59,16 @@ HRESULT mainGame::init(void)
 	////씬추가
 	//SCENEMANAGER->addScene("test", new cLoadingBarTest);
 	//SCENEMANAGER->addScene("test", new cLoadingTest);
+	SCENEMANAGER->addScene("test", new cImageTest,false);
+
+
 
 //===================================================================================
 //김태훈 씬 테스트 헤더파일
 //===================================================================================
 //	SCENEMANAGER->addScene("test", new kimsNewTest, false);
+
+
 
 //===================================================================================
 //김태승 씬 테스트 헤더파일

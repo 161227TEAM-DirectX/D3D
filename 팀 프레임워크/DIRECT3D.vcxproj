@@ -178,8 +178,11 @@
     <ClInclude Include="boundSphere.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="cameraManager.h" />
+    <ClInclude Include="cDxImg.h" />
+    <ClInclude Include="cDxImgManager.h" />
     <ClInclude Include="cFilepathManager.h" />
     <ClInclude Include="characterController.h" />
+    <ClInclude Include="cImageTest.h" />
     <ClInclude Include="cLoading.h" />
     <ClInclude Include="cLoadingBarTest.h" />
     <ClInclude Include="cLoadingTest.h" />
@@ -187,7 +190,6 @@
     <ClInclude Include="cObject.h" />
     <ClInclude Include="cObjectManager.h" />
     <ClInclude Include="cPicking.h" />
-    <ClInclude Include="cSceneManager.h" />
     <ClInclude Include="cTerrainTest.h" />
     <ClInclude Include="cTextureManager.h" />
     <ClInclude Include="cube.h" />
@@ -234,7 +236,6 @@
     <ClInclude Include="ioMapManager.h" />
     <ClInclude Include="ioSaveManager.h" />
     <ClInclude Include="ioSaveObjectManager.h" />
-    <ClInclude Include="iScene.h" />
     <ClInclude Include="keyManager.h" />
     <ClInclude Include="kimsNewTest.h" />
     <ClInclude Include="kimsTestScene.h" />
@@ -342,8 +343,11 @@
     <ClCompile Include="boundSphere.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="cameraManager.cpp" />
+    <ClCompile Include="cDxImg.cpp" />
+    <ClCompile Include="cDxImgManager.cpp" />
     <ClCompile Include="cFilepathManager.cpp" />
     <ClCompile Include="characterController.cpp" />
+    <ClCompile Include="cImageTest.cpp" />
     <ClCompile Include="cLoading.cpp" />
     <ClCompile Include="cLoadingBarTest.cpp" />
     <ClCompile Include="cLoadingTest.cpp" />
@@ -351,7 +355,6 @@
     <ClCompile Include="cObject.cpp" />
     <ClCompile Include="cObjectManager.cpp" />
     <ClCompile Include="cPicking.cpp" />
-    <ClCompile Include="cSceneManager.cpp" />
     <ClCompile Include="cTerrainTest.cpp" />
     <ClCompile Include="cTextureManager.cpp" />
     <ClCompile Include="cube.cpp" />
@@ -398,7 +401,6 @@
     <ClCompile Include="ioMapManager.cpp" />
     <ClCompile Include="ioSaveManager.cpp" />
     <ClCompile Include="ioSaveObjectManager.cpp" />
-    <ClCompile Include="iScene.cpp" />
     <ClCompile Include="keyManager.cpp" />
     <ClCompile Include="kimsNewTest.cpp" />
     <ClCompile Include="kimsTestScene.cpp" />
