@@ -314,6 +314,7 @@ void rightView::buttonTopUdate()
 				_objectClass->setnumberObject(0);
 				numberNodeInstal = 0;
 				numberNodelink = 0;
+				numberMonster = 0;
 				_heightContorol[i].uiNumber = UISTAGE::UIOFF;
 				_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
 				_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
@@ -338,6 +339,7 @@ void rightView::buttonTopUdate()
 				_objectClass->setnumberObject(0);
 				numberNodeInstal = 0;
 				numberNodelink = 0;
+				numberMonster = 0;
 				_heightContorol[i].uiNumber = UISTAGE::UIOFF;
 				_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
 				_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
@@ -362,6 +364,7 @@ void rightView::buttonTopUdate()
 				_objectClass->setnumberObject(0);
 				numberNodeInstal = 0;
 				numberNodelink = 0;
+				numberMonster = 0;
 				_heightContorol[i].uiNumber = UISTAGE::UIOFF;
 				_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
 				_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
@@ -1284,6 +1287,7 @@ void rightView::buttonENvUdate()
 				//false시켜버리기
 				numberNodeInstal = 0;
 				numberNodelink = 0;
+				numberMonster = 0;
 				_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
 				_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
 			}
@@ -1309,6 +1313,7 @@ void rightView::buttonENvUdate()
 				//false시켜버리기
 				numberNodeInstal = 0;
 				numberNodelink = 0;
+				numberMonster = 0;
 				_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
 				_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
 			}

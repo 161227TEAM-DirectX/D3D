@@ -9,6 +9,8 @@
 //
 #include "rightView.h"		//상호참조 클래스
 
+#include "monster.h"
+
 leftViewHead::leftViewHead()
 	: m_eHeightType(eHeightType::E_NONE), sour(-1), dest(-1)
 {
@@ -505,10 +507,40 @@ void leftViewHead::monsterMaptul()
 		}
 			break;
 
-		case 2:
-			
-			break;
 		}
+	}
+
+	switch (_rightView->GetGSnumberMonster)
+	{
+	case 1:
+		if(KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect()
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	case 4:
+		break;
+	case 5:
+		break;
+	case 6:
+		break;
+	case 7:
+		break;
+	case 8:
+		break;
+	case 9:
+		break;
+	case 10:
+		break;
+	case 11:
+		break;
+	case 12:
+		break;
+	case 13:
+		break;
+	case 14:
+		break;
 	}
 }
 
@@ -594,4 +626,23 @@ void leftViewHead::render()
 
 	FONTMANAGER->fontOut(to_string(_rightView->getnumberObject()), 100, 100, D3DCOLOR_XRGB(255,255,255));
 
+}
+
+void leftViewHead::monsterSelect(string str)
+{
+	D3DXMATRIX matRotate;
+	D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
+
+	monster* temp = new monster;
+	temp->_transform->SetScale(1.0f, 1.0f, 1.0f);
+
+	D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
+	_mainCamera.computeRay(&ray, &_screenPos, 1);
+
+	_terrain->isIntersectRay(&_hitPos, &ray);
+
+	temp->_transform->SetWorldPosition(_hitPos);
+	temp->setRegenPosition(_hitPos);
+	temp->setMesh(RM_SKINNED->getResource(str, &matRotate));
+	_monster.push_back(temp);
 }
