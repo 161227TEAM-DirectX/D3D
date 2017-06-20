@@ -200,6 +200,7 @@
     <ClInclude Include="cUILoadingBar.h" />
     <ClInclude Include="cUIObject.h" />
     <ClInclude Include="cUIStart.h" />
+    <ClInclude Include="cXmeshManager.h" />
     <ClInclude Include="dijkstra.h" />
     <ClInclude Include="dxAccelerationModule.h" />
     <ClInclude Include="dxBeamEmitter.h" />
@@ -366,6 +367,7 @@
     <ClCompile Include="cUILoadingBar.cpp" />
     <ClCompile Include="cUIObject.cpp" />
     <ClCompile Include="cUIStart.cpp" />
+    <ClCompile Include="cXmeshManager.cpp" />
     <ClCompile Include="dijkstra.cpp" />
     <ClCompile Include="dxAccelerationModule.cpp" />
     <ClCompile Include="dxBeamEmitter.cpp" />

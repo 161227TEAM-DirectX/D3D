@@ -763,6 +763,9 @@
     <ClCompile Include="cDxImgAniManager.cpp">
       <Filter>GameManager%28매크로%29\DxImg</Filter>
     </ClCompile>
+    <ClCompile Include="cXmeshManager.cpp">
+      <Filter>GameManager%28매크로%29\Xmesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainGame.h">
@@ -1254,6 +1257,9 @@
     </ClInclude>
     <ClInclude Include="cDxImgAniManager.h">
       <Filter>GameManager%28매크로%29\DxImg</Filter>
+    </ClInclude>
+    <ClInclude Include="cXmeshManager.h">
+      <Filter>GameManager%28매크로%29\Xmesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

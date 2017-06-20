@@ -348,7 +348,7 @@ using namespace myUtil;
 #include "cMapManager.h"
 #include "cDxImgManager.h"
 #include "cDxImgAniManager.h"
-
+#include "cXmeshManager.h"
 
 
 
