@@ -299,18 +299,21 @@ void rightView::buttonTopUdate()
 	//오브젝트 상단 충돌
 	if (PtInRect(&_TOPbutton[0].rc2, GetMousePos()))
 	{
-		numberHeight = 0; //높이조절 초기화
-		numberObject = 0;
-
-		for (int i = 0; i < 2; i++)
-		{
-			_heightContorol[i].uiNumber = UISTAGE::UIOFF;
-			_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
-			_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
-		}
-
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			for (int i = 0; i < 2; i++)
+			{
+				//false시켜버리기
+				numberHeight = 0; //높이조절 초기화
+				_objectClass->setnumberObject(0);
+				numberNodeInstal = 0;
+				numberNodelink = 0;
+				_heightContorol[i].uiNumber = UISTAGE::UIOFF;
+				_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
+				_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
+				_NumberRawButton[i].uiNumber = UISTAGE::UIOFF;
+			}
+			////////////////////////////////////////////////////
 			_TOPbutton[0].uiNumber = UISTAGE::UION;
 			_TOPbutton[1].uiNumber = UISTAGE::UIOFF;
 			_TOPbutton[2].uiNumber = UISTAGE::UIOFF;
@@ -320,18 +323,21 @@ void rightView::buttonTopUdate()
 	//지형 상단 충돌
 	if (PtInRect(&_TOPbutton[1].rc2, GetMousePos()))
 	{
-		numberHeight = 0; //높이조절 초기화
-		numberObject = 0;
-
-		for (int i = 0; i < 2; i++)
-		{
-			_heightContorol[i].uiNumber = UISTAGE::UIOFF;
-			_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
-			_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
-		}
-
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			for (int i = 0; i < 2; i++)
+			{
+				//false시켜버리기
+				numberHeight = 0; //높이조절 초기화
+				_objectClass->setnumberObject(0);
+				numberNodeInstal = 0;
+				numberNodelink = 0;
+				_heightContorol[i].uiNumber = UISTAGE::UIOFF;
+				_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
+				_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
+				_NumberRawButton[i].uiNumber = UISTAGE::UIOFF;
+			}
+			/////////////////////////////////////////////////////
 			_TOPbutton[1].uiNumber = UISTAGE::UION;
 			_TOPbutton[0].uiNumber = UISTAGE::UIOFF;
 			_TOPbutton[2].uiNumber = UISTAGE::UIOFF;
@@ -341,18 +347,21 @@ void rightView::buttonTopUdate()
 	//환경 상단 충돌
 	if (PtInRect(&_TOPbutton[2].rc2, GetMousePos()))
 	{
-		numberHeight = 0; //높이조절 초기화
-		numberObject = 0;
-
-		for (int i = 0; i < 2; i++)
-		{
-			_heightContorol[i].uiNumber = UISTAGE::UIOFF;
-			_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
-			_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
-		}
-
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			for (int i = 0; i < 2; i++)
+			{
+				//false시켜버리기
+				numberHeight = 0; //높이조절 초기화
+				_objectClass->setnumberObject(0);
+				numberNodeInstal = 0;
+				numberNodelink = 0;
+				_heightContorol[i].uiNumber = UISTAGE::UIOFF;
+				_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
+				_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
+				_NumberRawButton[i].uiNumber = UISTAGE::UIOFF;
+			}
+			///////////////////////////////////////////////////////
 			_TOPbutton[2].uiNumber = UISTAGE::UION;
 			_TOPbutton[0].uiNumber = UISTAGE::UIOFF;
 			_TOPbutton[1].uiNumber = UISTAGE::UIOFF;
@@ -1116,7 +1125,7 @@ void rightView::buttonENVMiddle()
 			_UInodeHeight[0].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/노드.png");
 			SPRITEMANAGER->renderRectTexture(_UInodeHeight[0].tex, &_UInodeHeight[0].rc1, &_UInodeHeight[0].rc2, 0, 0, 90, 34, rightViewPort.X + (DWORD)100, rightViewPort.Y + (DWORD)250);
 
-			_UInodeHeight[0].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/높이조절.png");
+			_UInodeHeight[0].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/노드.png");
 			SPRITEMANAGER->renderRectTexture(_UInodeHeight[0].tex, &_UInodeHeight[0].rc1, &_UInodeHeight[0].rc2, 0, 34, 90, 68, rightViewPort.X + (DWORD)100, rightViewPort.Y + (DWORD)350);
 			
 			//충돌체크
@@ -1151,7 +1160,7 @@ void rightView::buttonENVMiddle()
 			_UInodeHeight[0].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/노드.png");
 			SPRITEMANAGER->renderRectTexture(_UInodeHeight[0].tex, &_UInodeHeight[0].rc1, &_UInodeHeight[0].rc2, 0, 0, 90, 34, rightViewPort.X + (DWORD)100, rightViewPort.Y + (DWORD)250);
 
-			_UInodeHeight[1].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/높이조절.png");
+			_UInodeHeight[1].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/노드.png");
 			SPRITEMANAGER->renderRectTexture(_UInodeHeight[1].tex, &_UInodeHeight[1].rc1, &_UInodeHeight[1].rc2, 0, 34, 90, 68, rightViewPort.X + (DWORD)100, rightViewPort.Y + (DWORD)350);
 			
 			//충돌체크

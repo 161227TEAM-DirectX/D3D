@@ -463,11 +463,16 @@ void leftViewHead::monsterMaptul()
 		switch (_rightView->GetGSnumberNodeInstal())
 		{
 		case 1:
+		{
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+			{
+				D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
+				_mainCamera.computeRay(&ray, &_screenPos, 1);
 
-			break;
-
-		case 2:
-			
+				_terrain->isIntersectRay(&_hitPos, &ray);
+				_terrain->getDijkstra().addNode(_hitPos);
+			}
+		}
 			break;
 		}
 
@@ -475,7 +480,9 @@ void leftViewHead::monsterMaptul()
 		switch (_rightView->GetGSnumberNodelink())
 		{
 		case 1:
+		{
 
+		}
 			break;
 
 		case 2:
@@ -556,6 +563,15 @@ void leftViewHead::render()
 		_environment->renderEnvironment(_rightView->getNumberEnv());
 	}
 
-	FONTMANAGER->fontOut(to_string(co), 100, 100, D3DCOLOR_XRGB(255, 255, 255));
+	const vector<Node*>& temp = _terrain->getDijkstra().getVecNode();
+	for (int i = 0; i < temp.size(); i++)
+	{
+		temp[i]->Render();
+	}
+
+	//다익스트라 노드 그리기
+	_terrain->getDijkstra().render();
+
+	FONTMANAGER->fontOut(to_string(_rightView->getnumberObject()), 100, 100, D3DCOLOR_XRGB(255,255,255));
 
 }
