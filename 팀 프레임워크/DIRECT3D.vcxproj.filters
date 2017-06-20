@@ -268,6 +268,9 @@
     <Filter Include="GameFramework3D\DxImg">
       <UniqueIdentifier>{d8cec934-c656-4c0b-92a6-a9a991486b4f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameManager%28매크로%29\Xmesh">
+      <UniqueIdentifier>{59985cfa-f447-4c4a-a224-174d89c86347}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainGame.cpp">

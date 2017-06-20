@@ -13,14 +13,11 @@ objectClass::~objectClass()
 
 HRESULT objectClass::init(void)
 {
-	//라이트 설정
-	lightDirection* directionLight = new lightDirection; 
-	directionLight->_transform->LookDirection(D3DXVECTOR3(0.0f, 1.0f, 0.0f));
-	directionLight->_color = D3DXCOLOR(1, 1, 1, 1);
-	directionLight->_intensity = 2.0f;
-
-	//빛벡터에 directionLight담기
-	_light.push_back(directionLight);
+	//기본 광원 생성
+	_sceneBaseDirectionLight = new lightDirection;
+	//기본 값
+	_sceneBaseDirectionLight->_color = D3DXCOLOR(1, 1, 1, 1);
+	_sceneBaseDirectionLight->_intensity = 1.0f;
 
 	//넘버 초기화
 	numberObject = 0;
@@ -37,7 +34,7 @@ HRESULT objectClass::init(void)
 		_object[i]->setActive(true);
 	}
 
-	_object[0]->setMesh(RM_XMESH->getResource("Resource/Maptool/Meshes/stormTown1/1.build/1/1.X", scale));
+	_object[0]->setMesh(RM_XMESH->getResource(FILEPATH_MANAGER->GetFilepath("Xmesh_ob000"), scale));
 	_object[1]->setMesh(RM_XMESH->getResource("Resource/Maptool/Meshes/stormTown1/1.build/2/2.X", scale));
 	_object[2]->setMesh(RM_XMESH->getResource("Resource/Maptool/Meshes/stormTown1/1.build/3/3.X", scale));
 	_object[3]->setMesh(RM_XMESH->getResource("Resource/Maptool/Meshes/stormTown1/1.build/4/4.X", scale));
@@ -270,17 +267,8 @@ void objectClass::update(void)
 void objectClass::render(camera * camera)
 {
 	//렌더시킬 조명행렬 초기화 (각각의 라이트 클래스안에 만들어져있음)
-	D3DXMATRIXA16 matLights[10];
-	for (int i = 0; i < _light.size(); i++)
-	{
-		matLights[i] = _light[i]->getLightMatrix();
-	}
-
-	//셰이더에 라이트 세팅
-	xMeshStatic::_staticMeshEffect->SetMatrixArray("matLights", matLights, 10);
-	xMeshStatic::_staticMeshEffect->SetInt("LightNum", _light.size());
-
-	//세이더에 카메라 세팅
+	xMeshStatic::_staticMeshEffect->SetMatrixArray("matLights", &_sceneBaseDirectionLight->getLightMatrix(), 1);
+	xMeshStatic::_staticMeshEffect->SetInt("LightNum", 1);
 	xMeshStatic::setCamera(camera);
 }
 

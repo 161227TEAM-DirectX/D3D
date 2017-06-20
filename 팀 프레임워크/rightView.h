@@ -31,6 +31,7 @@ struct UI
 class rightView : public iGameNode
 {
 private:
+	
 	//작은 그리드
 	rightSmallGrid* _rightSmallGrid;
 	//오브젝트

@@ -16,7 +16,7 @@ class objectClass : public iGameNode
 {
 private:
 	vector<baseObject*> _object;
-	vector<light*> _light;
+	lightDirection*			_sceneBaseDirectionLight;	//씬에 배치된 기본라이팅
 
 private:
 	OBJECTUI _build[NUMBER];

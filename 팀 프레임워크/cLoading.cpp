@@ -30,7 +30,7 @@ void cLoading::Init()
 	SoundRegist();
 	ImageRegist();
 	AniRegist();
-
+	XMeshRegist();
 
 	//========================================================================
 	//¸Å´ÏÁ® ÃÊ±âÈ­
@@ -230,4 +230,9 @@ void cLoading::AniRegist()
 	FILEPATH_MANAGER->AddFilepath("ÄÆ½Å13-3", "Resource/ÀÌ¹ÌÁö/ÄÆ½Å3/output-13.png");
 	FILEPATH_MANAGER->AddFilepath("ÄÆ½Å14-3", "Resource/ÀÌ¹ÌÁö/ÄÆ½Å3/output-14.png");
 	FILEPATH_MANAGER->AddFilepath("ÄÆ½Å15-3", "Resource/ÀÌ¹ÌÁö/ÄÆ½Å3/output-15.png");
+}
+
+void cLoading::XMeshRegist()
+{
+	FILEPATH_MANAGER->AddFilepath("Xmesh_ob000", "Resource/Maptool/Meshes/stormTown1/1.build/1/1.X");
 }

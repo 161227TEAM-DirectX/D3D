@@ -32,6 +32,7 @@ HRESULT leftViewHead::init()
 	//환경맵
 	_environment = new Environment;
 	_environment->init();
+	_environment->linkCamera(_mainCamera);
 
 	//오브젝트
 	_mapObject = new mapObject;
