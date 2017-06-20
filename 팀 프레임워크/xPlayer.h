@@ -51,6 +51,8 @@ private:
 
 	float _playSpeed;
 
+	
+
 
 private:
 	baseObject* _playerObject;
@@ -61,11 +63,15 @@ private:
 	boundBox _attackBound;
 
 	vector<baseObject*> _renderObjects;
+	vector<monster*>* _monsterPool;
+
 
 	map<string, BONE*> _EquipSocket;
 
 	terrain*			linkTerrain;
 	monster*			targetMonster;
+
+
 
 public:
 
@@ -131,6 +137,10 @@ public:
 	void setlinkTerrain(terrain& rand) { this->linkTerrain = &rand; }
 
 	void setTargetMonster(monster& monster) { this->targetMonster = &monster; }
+
+	void setMonsterRegion(vector<monster*>* monsters) { this->_monsterPool = monsters; }
+
+	void normalAttackDamageProcessing();
 
 	xPlayer() {};
 	~xPlayer() {};

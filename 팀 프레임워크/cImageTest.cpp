@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "cImageTest.h"
-//
-#include "cUIImageView.h"
 
 cImageTest::cImageTest()
 {
@@ -10,104 +8,122 @@ cImageTest::cImageTest()
 
 cImageTest::~cImageTest()
 {
-	SAFE_DELETE(pImage);
 }
 
 HRESULT cImageTest::init()
 {
-	//pImage = new cUIImageView;
-	//pImage->SetTexture(FILEPATH_MANAGER->GetFilepath("ÀÌ¹ÌÁö_¸®ÀÚ¸ù"));
-	//pImage->SetPosition(D3DXVECTOR3(0, 0, 0));
-	
-	
-	cDxImg* temp;
+	aniInit();
 
-	temp = new cDxImg(FILEPATH_MANAGER->GetFilepath("ÀÌ¹ÌÁö_°ÅºÏ¿Õ"));
-	temp->SetCenterDraw(true);
-	temp->SetPosition(D3DXVECTOR3(WINSIZEX / 2, WINSIZEY / 2 + 200, 0));
-	temp->SetImgLayer(eImgLayer::E_NONE3);
-	m_vecImg.push_back(temp);
-	DXIMG_MANAGER->AddDxImg("°ÅºÏ¿Õ", temp);
+	tt = new cDxImg(FILEPATH_MANAGER->GetFilepath("cat"), 8, 1);
+	tt->SetPosition(D3DXVECTOR3(WINSIZEX / 2, WINSIZEY / 2, 0));
+	tt->SetDrawBoundingBox(true);
+	m_vecImg.push_back(tt);
 
-	temp = new cDxImg(FILEPATH_MANAGER->GetFilepath("ÀÌ¹ÌÁö_ÀÌ»óÇØ²É"));
-	temp->SetCenterDraw(true);
-	temp->SetPosition(D3DXVECTOR3(WINSIZEX / 2, WINSIZEY / 2 + 400, 0));
-	temp->SetImgLayer(eImgLayer::E_NONE2);
-	m_vecImg.push_back(temp);
-	DXIMG_MANAGER->AddDxImg("ÀÌ»óÇØ²É", temp);
+	tt = new cDxImg(FILEPATH_MANAGER->GetFilepath("cat"), 8, 1, 10);
+	tt->SetPosition(D3DXVECTOR3(300, WINSIZEY / 2, 0));
+	m_vecImg.push_back(tt);
 
-	temp = new cDxImg(FILEPATH_MANAGER->GetFilepath("ÀÌ¹ÌÁö_¸®ÀÚ¸ù"));
-	temp->SetCenterDraw(true);
-	temp->SetPosition(D3DXVECTOR3(WINSIZEX/2, WINSIZEY/2, 0));
-	temp->SetImgLayer(eImgLayer::E_NONE);
-	m_vecImg.push_back(temp);
-	DXIMG_MANAGER->AddDxImg("¸®ÀÚ¸ù", temp);
-
-
-
-
-
-
-	sort(m_vecImg.begin(), m_vecImg.end(), [](const cDxImg* a, const cDxImg* b)
-	{
-		return a->GetImgLayer() > b->GetImgLayer();
-	});
+	tt = new cDxImg(FILEPATH_MANAGER->GetFilepath("cat"), 8, 1, 3);
+	tt->SetPosition(D3DXVECTOR3(1300, WINSIZEY / 2, 0));
+	m_vecImg.push_back(tt);
 
 	return S_OK;
 }
 
 void cImageTest::release()
 {
-	m_vecImg.clear();
+	SAFE_DELETE(tt);
 
-	//pImage->Release();
+	for (int i=0; i<m_vecImg.size(); i++)
+	{
+		SAFE_DELETE(m_vecImg[i]);
+		SAFE_DELETE(m_vecAniDxImg[i]);
+	}
+	m_vecImg.clear();
+	m_vecAniDxImg.clear();
 }
 
 void cImageTest::update()
 {
 	_camera.updateBase();
-	//pImage->Update();
-
-	/*if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
-	{
-		if (PtInRect(&_rt, GetMousePos()))
-		{
-			exit(0);
-		}
-	}*/
-
 }
 
 void cImageTest::render()
 {
-	//pImage->Render(m_pSprite);
-
-	char str[STR_LEN];
-	sprintf(str, "%d %d", GetMousePos().x, GetMousePos().y);
-
-	FONTMANAGER->fontOut(str, 100, 500, BLACK);
-
-
-	for (int i=0; i < m_vecImg.size(); i++)
+	for each(auto v in m_vecImg)
 	{
-		//m_vecImg[i]->render();
+		v->renderFrame();
 	}
 
-	RectMakeCenter(WINSIZEX/2,WINSIZEY/2,300,300,true);
+	//DXIMGANI_MANAGER->render("ÄÆ¾À")
+	//DXIMGANI_MANAGER->render("ÄÆ¾À2")
+	//DXIMGANI_MANAGER->render("ÄÆ¾À3")
+}
 
-	//DXIMG_MANAGER->render();
+void cImageTest::aniInit()
+{
+	vector<cDxImg*> tp;
 
-	//DXIMG_MANAGER->GetDxImg("¸®ÀÚ¸ù")->render();
-	//DXIMG_MANAGER->GetDxImg("°ÅºÏ¿Õ")->render();
-	//DXIMG_MANAGER->GetDxImg("ÀÌ»óÇØ²É")->render();
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å00")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å01")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å02")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å03")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å04")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å05")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å06")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å07")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å08")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å09")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å10")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å11")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å12")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å13")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å14")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å15")));
 
-	//m_pImg->SetDrawBoundingBox(true);
-	//m_pImg->SetBoundingColor(GREEN);
-	//m_pImg->render(WINSIZEX/2,WINSIZEY/2,45);
-	//m_pImg->renderCenter(WINSIZEX / 2, WINSIZEY / 2);
+	DXIMGANI_MANAGER->AddDxImgAni("ÄÆ¾À", tp, ST_DXIMGANI(), D3DXVECTOR2(WINSIZEX / 2, WINSIZEY / 2 + 200));
 
-	//IMAGE_MANAGER->RectMakeCenter(100, 0, 100, 300, true, SKY);
 
-	//RectMake(100, 100, 100, 100);
-	//RectMakeCenter(WINSIZEX / 2, WINSIZEY / 2, 100, 100);
+	tp.clear();
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å00-2")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å01-2")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å02-2")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å03-2")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å04-2")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å05-2")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å06-2")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å07-2")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å08-2")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å09-2")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å10-2")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å11-2")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å12-2")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å13-2")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å14-2")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å15-2")));
+
+	DXIMGANI_MANAGER->AddDxImgAni("ÄÆ¾À2", tp, ST_DXIMGANI(3), D3DXVECTOR2(450, 300));
+
+
+
+	tp.clear();
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å00-3")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å01-3")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å02-3")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å03-3")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å04-3")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å05-3")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å06-3")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å07-3")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å08-3")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å09-3")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å10-3")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å11-3")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å12-3")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å13-3")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å14-3")));
+	tp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÄÆ½Å15-3")));
+
+	DXIMGANI_MANAGER->AddDxImgAni("ÄÆ¾À3", tp, ST_DXIMGANI(5), D3DXVECTOR2(1200, 250));
+
 }

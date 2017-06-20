@@ -18,5 +18,6 @@ private:
 	void BrushRegist();		//브러쉬 경로 등록
 	void SoundRegist(); 	//사운드 경로 등록
 	void ImageRegist();		//이미지 경로 등록
+	void AniRegist();		//애니메이션(이미지) 경로 등록
 };
 

@@ -18,6 +18,7 @@ HRESULT xPlayer::init()
 	PLAYERMANAGER->SetArmor(A_PLATE);
 	PLAYERMANAGER->SetWeapon(W_KATANA);
 	PLAYERMANAGER->SetShield(SH_CROSS);
+	PLAYERMANAGER->Setatt(1000000);
 	PLAYERMANAGER->SetHp(100000000);
 	PLAYERMANAGER->SetCrit(20.0f);
 
@@ -534,6 +535,7 @@ void xPlayer::playerStateManager()
 		{
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.6)//애니메이션 다 재생했으면
 			{
+				normalAttackDamageProcessing();
 				//if (PHYSICSMANAGER->isOverlap(_playerObject->_transform, &_attackBound, targetMonster->_transform, &targetMonster->_boundBox))
 				//{
 				//	//exit(0);
@@ -577,7 +579,7 @@ void xPlayer::playerStateManager()
 				//{
 				//	//exit(0);
 				//}
-
+				normalAttackDamageProcessing();
 				if (!_isJump)
 				{
 					if (_isOnBattle)
@@ -605,7 +607,7 @@ void xPlayer::playerStateManager()
 				//{
 				//	//exit(0);
 				//}
-
+				normalAttackDamageProcessing();
 				if (!_isJump)
 				{
 					if (_isOnBattle)
@@ -639,7 +641,7 @@ void xPlayer::playerStateManager()
 			}
 			else if (_playerObject->_skinnedAnim->getAnimFactor() > 0.4)//애니메이션 다 재생했으면
 			{
-
+				normalAttackDamageProcessing();
 				if (_isOnBattle)
 				{
 					_state = P_ATTACK;
@@ -668,6 +670,7 @@ void xPlayer::playerStateManager()
 			}
 			else if (_playerObject->_skinnedAnim->getAnimFactor() > 0.8)
 			{
+				normalAttackDamageProcessing();
 				if (!_isJump)
 				{
 					if (_isOnBattle)
@@ -983,7 +986,7 @@ void xPlayer::rotateControl()
 
 void xPlayer::attackControl()
 {
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	if (KEYMANAGER->isOnceKeyDown('V'))
 	{
 		playerAttack();
 	}
@@ -1093,6 +1096,8 @@ void xPlayer::playerAttack()
 
 }
 
+
+
 void xPlayer::playerSkillDirect(float castingTime)
 {
 	//해당상태가 아니면 행동하지 말아라.
@@ -1160,5 +1165,23 @@ void xPlayer::itemUpdate()
 		D3DXMATRIX matShield = _EquipSocket.find("SHIELD")->second->CombinedTransformationMatrix;
 		_shieldObject->_transform->SetWorldMatrix(matShield);
 		//_shieldObject->update();
+	}
+}
+
+void xPlayer::normalAttackDamageProcessing()
+{
+	vector<monster*>::iterator iter;
+
+	for (iter = _monsterPool->begin(); iter != _monsterPool->end(); ++iter)
+	{
+		if (PHYSICSMANAGER->isOverlap(this->_playerObject, *iter))
+		{
+			(*iter)->setHP((*iter)->getHP() - PLAYERMANAGER->Getatt());
+			if ((*iter)->getHP() < 0)
+			{
+				exit(0);
+			}
+			//FONTMANAGER->fontOut("때렸어!", WINSIZEX / 2, WINSIZEY / 2, 0xffffffff);
+		}
 	}
 }

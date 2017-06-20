@@ -195,6 +195,21 @@ struct ST_SIZEF
 	ST_SIZEF(float _fWidth, float _fHeight) : fWidth(_fWidth), fHeight(_fHeight) {}
 };
 
+struct ST_DXIMGANI
+{
+	int nAniIndex;	//애니메이션 인덱스(번호)
+	int nAniCount;	//애니메이션 카운트(시간)
+	int nAniTime;	//애니메이션 타임(간격)
+
+	ST_DXIMGANI()
+		: nAniIndex(0)
+		, nAniCount(0)
+		, nAniTime(3) {}
+	ST_DXIMGANI(int aniTime)
+		: nAniIndex(0)
+		, nAniCount(0)
+		, nAniTime(aniTime) {}
+};
 
 
 
@@ -332,7 +347,7 @@ using namespace myUtil;
 #include "cFilepathManager.h"
 #include "cMapManager.h"
 #include "cDxImgManager.h"
-
+#include "cDxImgAniManager.h"
 
 
 
