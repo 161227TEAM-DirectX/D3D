@@ -16,6 +16,8 @@ skinnedAnimation::~skinnedAnimation()
 
 HRESULT skinnedAnimation::init(xMeshSkinned * pSkinnedMesh)
 {
+	_AnimSpeed = 1.0f;
+
 	if (pSkinnedMesh == NULL) return E_FAIL;
 
 	_pSkinnedMesh = pSkinnedMesh;
@@ -59,6 +61,7 @@ void skinnedAnimation::update()
 {
 	//0 번 Track 정보를 얻는다
 	_pAnimController->GetTrackDesc(0, &_Track_Desc_0);
+	
 
 	// _pNowPlayAnimationSet->GetPeriod() Animation 의 총시간을 얻는다.
 	//현재 Animation 진행 Factor 를 갱신
@@ -106,8 +109,6 @@ void skinnedAnimation::update()
 
 	if (_bPlay)
 	{
-		//애니메이션을 진행시킴
-		//_pAnimController->AdvanceTime( _timeDelta, NULL );
 		_fAnimDelta = _timeDelta;
 	}
 	else
@@ -137,14 +138,16 @@ void skinnedAnimation::update()
 			_pAnimController->SetTrackWeight(1, w1);
 		}
 	}
-}
-
-void skinnedAnimation::render(dx::transform * _transform)
-{
 	//현재 자신의 Animation 정보로 세팅
 	_pAnimController->AdvanceTime(_fAnimDelta, NULL);
+	
 	_fAnimDelta = 0.0f;		//애니메이션을 진행시켰기 때문에 delta 량은 0 으로....
 
+	updateBone();
+}
+
+void skinnedAnimation::updateBone()
+{
 	//각 본에 행렬 대입
 	MAP_BONETRANSFORM::iterator iterBone;
 	for (iterBone = _mapBoneTransform.begin(); iterBone != _mapBoneTransform.end(); ++iterBone)
@@ -155,6 +158,10 @@ void skinnedAnimation::render(dx::transform * _transform)
 	{
 		iterBone->first->pApplyTransform = iterBone->second;
 	}
+}
+
+void skinnedAnimation::render(dx::transform * _transform)
+{
 	_pSkinnedMesh->render(_transform);
 }
 
@@ -263,6 +270,7 @@ void skinnedAnimation::PlayOneShotAfterHold(string animName, float crossFadeTime
 
 void skinnedAnimation::SetPlaySpeed(float speed)
 {
+	_AnimSpeed = speed;
 	_pAnimController->SetTrackSpeed(0, speed);
 }
 

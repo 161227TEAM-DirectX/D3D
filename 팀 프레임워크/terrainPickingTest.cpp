@@ -426,7 +426,7 @@ void terrainPickingTest::InitMonster(void)
 	mat = /*matScaling **/ matRotate;
 	monster* tempObject;
 
-	tempObject = new monster;
+	tempObject = new monster(_mainCamera);
 	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	float tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -439,7 +439,7 @@ void terrainPickingTest::InitMonster(void)
 	mon.push_back(tempObject);
 	tempObject = nullptr;
 
-	tempObject = new monster;
+	tempObject = new monster(_mainCamera);
 	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -452,7 +452,7 @@ void terrainPickingTest::InitMonster(void)
 	//mon.push_back(tempObject);
 	tempObject = nullptr;
 
-	tempObject = new monster;
+	tempObject = new monster(_mainCamera);
 	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);

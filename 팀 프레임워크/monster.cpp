@@ -4,13 +4,19 @@
 
 monster::monster() 
 	: baseObject(), CurrAction(nullptr), NextAction(nullptr)
-	, Name("이름을입력하세요")
+	, _mainCamera(nullptr)
 {
 }
 
 monster::monster(string Name)
 	: baseObject(), CurrAction(nullptr), NextAction(nullptr)
-	, Name(Name)
+	, Name(Name), _mainCamera(nullptr)
+{
+}
+
+monster::monster(camera* _mainCamera, string Name)
+	: baseObject(), CurrAction(nullptr), NextAction(nullptr)
+	, Name(Name), _mainCamera(_mainCamera)
 {
 }
 
@@ -72,7 +78,13 @@ void monster::baseObjectNoActiveUpdate()
 void monster::baseObjectRender()
 {
 	if (_skinnedAnim != nullptr) _skinnedAnim->render(_transform);
-	
+
+	D3DXVECTOR3 temp = { _transform->GetWorldPosition().x, _boundBox._localMaxPos.y, _transform->GetWorldPosition().z };
+
+	if(_mainCamera!=nullptr) SPRITEMANAGER->RenderFont(_mainCamera, Name, temp);
+
+	SPRITEMANAGER->RenderFont(_mainCamera, Name, temp);
+
 	hitBox.renderGizmo(_transform, D3DCOLOR_XRGB(255, 0, 0));
 	range.renderGizmo(_transform, D3DCOLOR_XRGB(255, 255, 0));
 

@@ -1,8 +1,9 @@
 #pragma once
 #include "iGameNode.h"
 #include "xPlayerStatus.h"
-#include "skill00_03.h"
-#include "SK_Boss00.h"
+
+//#include "skill00_03.h"
+//#include "SK_Boss00.h"
 
 class monster;
 class terrain;
@@ -17,7 +18,23 @@ V 피격 (HP -1)
 SPACE 스턴 (HP -1)
 */
 
+typedef struct tagLightVertex
+{
+	D3DXVECTOR3 pos;			//정점의 위치
 
+	D3DXVECTOR2	uv;				//정점의 UV좌표 (0.0f ~ 1.0f)
+								//D3DCOLOR uv;
+	enum { FVF = D3DFVF_XYZ | D3DFVF_TEX1 };
+	//현재 정점의 정보를 나타내는 플래그 상수값
+}MYLIGHTVERTEX, *LPMYLIGHTVERTEX;
+
+struct tagIndex
+{
+	DWORD x;
+	DWORD y;
+	DWORD z;
+	DWORD w;
+};
 
 //플레이어는 항상 존재하지만 싱글톤으로는 구현하지 않고,
 //플레이어의 데이터만을 싱글톤으로 구현한다.
@@ -51,7 +68,12 @@ private:
 
 	float _playSpeed;
 
-	
+	DWORD vertexNum = 6;
+	DWORD rects = vertexNum / 2;
+	DWORD primitives = rects * 2;
+
+	D3DXVECTOR3 posHand;
+	D3DXVECTOR3 posEdge;
 
 
 private:
@@ -71,7 +93,17 @@ private:
 	terrain*			linkTerrain;
 	monster*			targetMonster;
 
+	
 
+
+
+	LPDIRECT3DVERTEXBUFFER9 _myVertexbuffer;	//정점 버퍼
+	LPDIRECT3DINDEXBUFFER9 _myIndexBuffer;		//인덱스 버퍼
+									//로딩될 텍스쳐(png, jpg, bmp, tga, dds) => 텍스쳐포맷(dds : 다이렉트 전용 텍스쳐 포맷)
+	LPDIRECT3DTEXTURE9 _texture;	//로딩될 텍스쳐
+
+	dx::transform* handTrans;
+	DWORD* idx;
 
 public:
 
@@ -141,6 +173,14 @@ public:
 	void setMonsterRegion(vector<monster*>* monsters) { this->_monsterPool = monsters; }
 
 	void normalAttackDamageProcessing();
+
+	void setBladeLight();
+
+	void updateBladeLight();
+
+	void drawBladeLight();
+
+	
 
 	xPlayer() {};
 	~xPlayer() {};

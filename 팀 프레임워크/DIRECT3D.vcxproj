@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -34,7 +34,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -47,7 +47,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -194,12 +194,14 @@
     <ClInclude Include="cTerrainTest.h" />
     <ClInclude Include="cTextureManager.h" />
     <ClInclude Include="cube.h" />
+    <ClInclude Include="cubeLight.h" />
     <ClInclude Include="cUIButton.h" />
     <ClInclude Include="cUIImageView.h" />
     <ClInclude Include="cUILoading.h" />
     <ClInclude Include="cUILoadingBar.h" />
     <ClInclude Include="cUIObject.h" />
     <ClInclude Include="cUIStart.h" />
+    <ClInclude Include="cXmeshManager.h" />
     <ClInclude Include="dijkstra.h" />
     <ClInclude Include="dxAccelerationModule.h" />
     <ClInclude Include="dxBeamEmitter.h" />
@@ -360,12 +362,14 @@
     <ClCompile Include="cTerrainTest.cpp" />
     <ClCompile Include="cTextureManager.cpp" />
     <ClCompile Include="cube.cpp" />
+    <ClCompile Include="cubeLight.cpp" />
     <ClCompile Include="cUIButton.cpp" />
     <ClCompile Include="cUIImageView.cpp" />
     <ClCompile Include="cUILoading.cpp" />
     <ClCompile Include="cUILoadingBar.cpp" />
     <ClCompile Include="cUIObject.cpp" />
     <ClCompile Include="cUIStart.cpp" />
+    <ClCompile Include="cXmeshManager.cpp" />
     <ClCompile Include="dijkstra.cpp" />
     <ClCompile Include="dxAccelerationModule.cpp" />
     <ClCompile Include="dxBeamEmitter.cpp" />

@@ -63,6 +63,11 @@ void fontManager::addFont(string strKey, string fontName, int fontSize)
 	_mapFont.insert(make_pair(strKey, newFont));
 }
 
+void fontManager::fontOut(LPD3DXSPRITE sprite, string str)
+{
+	_font->DrawText(sprite, str.c_str(), -1, nullptr, DT_SINGLELINE | DT_NOCLIP, D3DCOLOR_XRGB(100, 100, 100));
+}
+
 //디폴트폰트로 출력
 void fontManager::fontOut(string str, int x, int y, DWORD color)
 {

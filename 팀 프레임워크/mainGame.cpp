@@ -13,9 +13,9 @@ mainGame::mainGame()
 
 	//SCENEMANAGER->addScene("start", new startScene, false);
 	//SCENEMANAGER->addScene("loading", new loadingScene, false);
+	SCENEMANAGER->addScene("maptool", new mapToolScene, true);
+	g_eSelectMode = E_MAPTOOL;
 	//SCENEMANAGER->addScene("maptool", new mapToolScene, true);
-//	g_eSelectMode = E_MAPTOOL;
-//	SCENEMANAGER->addScene("test", new cTerrainTest, true);
 }
 
 mainGame::~mainGame()
@@ -59,14 +59,15 @@ HRESULT mainGame::init(void)
 	////¾ÀÃß°¡
 	//SCENEMANAGER->addScene("test", new cLoadingBarTest);
 	//SCENEMANAGER->addScene("test", new cLoadingTest);
-	SCENEMANAGER->addScene("test", new cImageTest,false);
+	//SCENEMANAGER->addScene("test", new cImageTest,false);
 
 
 
 //===================================================================================
 //±èÅÂÈÆ ¾À Å×½ºÆ® Çì´õÆÄÀÏ
 //===================================================================================
-//	SCENEMANAGER->addScene("test", new kimsNewTest, false);
+	SCENEMANAGER->addScene("test", new kimsNewTest, false);
+	//SCENEMANAGER->addScene("test", new cubeLight, false);
 
 
 
@@ -76,7 +77,7 @@ HRESULT mainGame::init(void)
 
 
 	//¾ÀÃÊ±âÈ­
-	SCENEMANAGER->changeScene("test");
+	//SCENEMANAGER->changeScene("test");
 	return S_OK;
 }
 

@@ -16,7 +16,7 @@ class objectClass : public iGameNode
 {
 private:
 	vector<baseObject*> _object;
-	vector<light*> _light;
+	lightDirection*			_sceneBaseDirectionLight;	//씬에 배치된 기본라이팅
 
 private:
 	OBJECTUI _build[NUMBER];
@@ -60,6 +60,8 @@ public:
 
 
 	int getnumberObject(void) { return numberObject; }
+	void setnumberObject(int _numberObject) { numberObject = _numberObject; }
+
 	vector<baseObject*> getObject(void) { return _object; }
 	OBJECTUI* getOBJECTUL(void) { return _build; }
 
