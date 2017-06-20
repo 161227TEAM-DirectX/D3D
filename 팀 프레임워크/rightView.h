@@ -3,6 +3,7 @@
 
 #define DEFENV 6   //물하단메뉴 오브젝트수      
 #define DEFTER 6   //지형하단메뉴 오브젝트수  
+#define DEFMONSTER 14
 
 class objectClass;
 class rightSmallGrid;
@@ -74,6 +75,7 @@ public:
 	//환경하단 메뉴
 	UI _ENVwaterButton[DEFENV];
 	UI _ENVskyButton[DEFENV];
+	UI _ENVmonsterButton[DEFMONSTER];
 
 	//지형하단 메뉴
 	UI _NumberTile1Button[DEFTER];
@@ -101,6 +103,7 @@ private:
 
 	//이렇게 만들면 get, set함수가 만들어진다.
 	//초기화는 멤버 이니셜 라이징에서 해준다
+	SYNTHESIZE(int, numberMonster, GSnumberMonster);
 	SYNTHESIZE(int, numberNodeInstal, GSnumberNodeInstal);
 	SYNTHESIZE(int, numberNodelink, GSnumberNodelink);
 	SYNTHESIZE(bool,boolTile1, GSboolTile1);

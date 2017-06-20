@@ -6,7 +6,7 @@
 
 rightView::rightView()
 	:boolTile1(false), boolTile2(false), boolTile3(false), boolTile4(false), boolRaw(false), numberTile1(0), numberTile2(0), numberTile3(0), numberTile4(0), numberRaw(0)
-	, numberSplate(0),boolSplate(false), numberNodeInstal(0), numberNodelink(0)
+	, numberSplate(0), boolSplate(false), numberNodeInstal(0), numberNodelink(0), numberMonster(0)
 {
 }
 
@@ -78,6 +78,12 @@ HRESULT rightView::init(void)
 	{
 		_ENVwaterButton[i].uiNumber = UISTAGE::UIOFF;
 		_ENVskyButton[i].uiNumber = UISTAGE::UIOFF;
+	}
+
+	//몬스터 메뉴 하단
+	for (int i = 0; i < DEFMONSTER; i++)
+	{
+		_ENVmonsterButton[i].uiNumber = UISTAGE::UIOFF;
 	}
 
 	//지형하단 메뉴
@@ -1194,6 +1200,71 @@ void rightView::buttonENVMiddle()
 
 		if (_ENVbutton.uiNumber == ENVSTAGE::MONSTER)
 		{
+			//충돌체크
+			_ENVmonsterButton[0].rc2 = { (LONG)(rightViewPort.X + 70),(LONG)(rightViewPort.Y + 200),(LONG)(rightViewPort.X + 199),(LONG)(rightViewPort.Y + 234) };
+			_ENVmonsterButton[1].rc2 = { (LONG)(rightViewPort.X + 70),(LONG)(rightViewPort.Y + 240),(LONG)(rightViewPort.X + 199),(LONG)(rightViewPort.Y + 274) };
+			_ENVmonsterButton[2].rc2 = { (LONG)(rightViewPort.X + 70),(LONG)(rightViewPort.Y + 280),(LONG)(rightViewPort.X + 199),(LONG)(rightViewPort.Y + 314) };
+			_ENVmonsterButton[3].rc2 = { (LONG)(rightViewPort.X + 70),(LONG)(rightViewPort.Y + 320),(LONG)(rightViewPort.X + 199),(LONG)(rightViewPort.Y + 354) };
+			_ENVmonsterButton[4].rc2 = { (LONG)(rightViewPort.X + 70),(LONG)(rightViewPort.Y + 360),(LONG)(rightViewPort.X + 199),(LONG)(rightViewPort.Y + 394) };
+			_ENVmonsterButton[5].rc2 = { (LONG)(rightViewPort.X + 70),(LONG)(rightViewPort.Y + 400),(LONG)(rightViewPort.X + 199),(LONG)(rightViewPort.Y + 434) };
+			_ENVmonsterButton[6].rc2 = { (LONG)(rightViewPort.X + 70),(LONG)(rightViewPort.Y + 440),(LONG)(rightViewPort.X + 199),(LONG)(rightViewPort.Y + 474) };
+
+			for(int i=0; i<DEFMONSTER; i++) _ENVmonsterButton[i].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/몬스터버튼.png");;
+
+			//왼쪽 버튼
+			if (_ENVmonsterButton[0].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[0].tex, &_ENVmonsterButton[0].rc1, &_ENVmonsterButton[0].rc2, 0, 34, 258, 68, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)200);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[0].tex, &_ENVmonsterButton[0].rc1, &_ENVmonsterButton[0].rc2, 0, 0, 129, 34, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)200);
+
+			if (_ENVmonsterButton[1].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[1].tex, &_ENVmonsterButton[1].rc1, &_ENVmonsterButton[1].rc2, 0, 102, 258, 136, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)240);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[1].tex, &_ENVmonsterButton[1].rc1, &_ENVmonsterButton[1].rc2, 0, 68, 129, 102, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)240);
+
+			if (_ENVmonsterButton[2].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[2].tex, &_ENVmonsterButton[2].rc1, &_ENVmonsterButton[2].rc2, 0, 170, 258, 204, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)280);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[2].tex, &_ENVmonsterButton[2].rc1, &_ENVmonsterButton[2].rc2, 0, 136, 129, 170, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)280);
+
+			if (_ENVmonsterButton[3].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[3].tex, &_ENVmonsterButton[3].rc1, &_ENVmonsterButton[3].rc2, 0, 238, 258, 272, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)320);
+
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[3].tex, &_ENVmonsterButton[3].rc1, &_ENVmonsterButton[3].rc2, 0, 204, 129, 238, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)320);
+
+			if (_ENVmonsterButton[4].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[4].tex, &_ENVmonsterButton[4].rc1, &_ENVmonsterButton[4].rc2, 0, 306, 258, 340, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)360);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[4].tex, &_ENVmonsterButton[4].rc1, &_ENVmonsterButton[4].rc2, 0, 272, 129, 306, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)360);
+
+			if (_ENVmonsterButton[5].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[5].tex, &_ENVmonsterButton[5].rc1, &_ENVmonsterButton[5].rc2, 0, 374, 258, 408, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)400);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[5].tex, &_ENVmonsterButton[5].rc1, &_ENVmonsterButton[5].rc2, 0, 340, 129, 374, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)400);
+
+			if (_ENVmonsterButton[6].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[6].tex, &_ENVmonsterButton[6].rc1, &_ENVmonsterButton[6].rc2, 0, 442, 258, 476, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)440);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[6].tex, &_ENVmonsterButton[6].rc1, &_ENVmonsterButton[6].rc2, 0, 408, 129, 442, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)440);
+
+			//충돌체크
+			_ENVmonsterButton[7].rc2 = { (LONG)(rightViewPort.X + 215),(LONG)(rightViewPort.Y + 200),(LONG)(rightViewPort.X + 344),(LONG)(rightViewPort.Y + 234) };
+			_ENVmonsterButton[8].rc2 = { (LONG)(rightViewPort.X + 215),(LONG)(rightViewPort.Y + 240),(LONG)(rightViewPort.X + 344),(LONG)(rightViewPort.Y + 274) };
+			_ENVmonsterButton[9].rc2 = { (LONG)(rightViewPort.X + 215),(LONG)(rightViewPort.Y + 280),(LONG)(rightViewPort.X + 344),(LONG)(rightViewPort.Y + 314) };
+			_ENVmonsterButton[10].rc2 = { (LONG)(rightViewPort.X + 215),(LONG)(rightViewPort.Y + 320),(LONG)(rightViewPort.X + 344),(LONG)(rightViewPort.Y + 354) };
+			_ENVmonsterButton[11].rc2 = { (LONG)(rightViewPort.X + 215),(LONG)(rightViewPort.Y + 360),(LONG)(rightViewPort.X + 344),(LONG)(rightViewPort.Y + 394) };
+			_ENVmonsterButton[12].rc2 = { (LONG)(rightViewPort.X + 215),(LONG)(rightViewPort.Y + 400),(LONG)(rightViewPort.X + 344),(LONG)(rightViewPort.Y + 434) };
+			_ENVmonsterButton[13].rc2 = { (LONG)(rightViewPort.X + 215),(LONG)(rightViewPort.Y + 440),(LONG)(rightViewPort.X + 344),(LONG)(rightViewPort.Y + 474) };
+
+			//오른쪽버튼
+			if (_ENVmonsterButton[7].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[7].tex, &_ENVmonsterButton[7].rc1, &_ENVmonsterButton[7].rc2, 0, 510, 258, 544, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)200);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[7].tex, &_ENVmonsterButton[7].rc1, &_ENVmonsterButton[7].rc2, 0, 476, 129, 510, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)200);
+
+			if (_ENVmonsterButton[8].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[8].tex, &_ENVmonsterButton[8].rc1, &_ENVmonsterButton[8].rc2, 0, 578, 258, 612, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)240);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[8].tex, &_ENVmonsterButton[8].rc1, &_ENVmonsterButton[8].rc2, 0, 544, 129, 578, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)240);
+
+			if (_ENVmonsterButton[9].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[9].tex, &_ENVmonsterButton[9].rc1, &_ENVmonsterButton[9].rc2, 0, 646, 258, 680, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)280);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[9].tex, &_ENVmonsterButton[9].rc1, &_ENVmonsterButton[9].rc2, 0, 612, 129, 646, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)280);
+
+			if (_ENVmonsterButton[10].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[10].tex, &_ENVmonsterButton[10].rc1, &_ENVmonsterButton[10].rc2, 0, 714, 258, 748, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)320);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[10].tex, &_ENVmonsterButton[10].rc1, &_ENVmonsterButton[10].rc2, 0, 680, 129, 714, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)320);
+
+			if (_ENVmonsterButton[11].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[11].tex, &_ENVmonsterButton[11].rc1, &_ENVmonsterButton[11].rc2, 0, 782, 258, 816, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)360);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[11].tex, &_ENVmonsterButton[11].rc1, &_ENVmonsterButton[11].rc2, 0, 748, 129, 782, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)360);
+
+			if (_ENVmonsterButton[12].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[12].tex, &_ENVmonsterButton[12].rc1, &_ENVmonsterButton[12].rc2, 0, 850, 258, 884, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)400);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[12].tex, &_ENVmonsterButton[12].rc1, &_ENVmonsterButton[12].rc2, 0, 816, 129, 850, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)400);
+
+			if (_ENVmonsterButton[13].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[13].tex, &_ENVmonsterButton[13].rc1, &_ENVmonsterButton[13].rc2, 0, 918, 258, 952, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)440);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[13].tex, &_ENVmonsterButton[13].rc1, &_ENVmonsterButton[13].rc2, 0, 884, 129, 918, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)440);
+
 
 		}
 	}
@@ -1334,7 +1405,23 @@ void rightView::buttonENvUdate()
 
 		if (_ENVbutton.uiNumber == ENVSTAGE::MONSTER)
 		{
+			for (int i = 0; i < DEFMONSTER; i++)
+			{
+				if (PtInRect(&_ENVmonsterButton[i].rc2, GetMousePos()))
+				{
+					_ENVmonsterButton[i].uiNumber = UISTAGE::UION;
+					//누르면 번호 넘겨주는거 해야됨
 
+					if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+					{
+						numberMonster = i + 1;
+					}
+				}
+				else
+				{
+					_ENVmonsterButton[i].uiNumber = UISTAGE::UIOFF;
+				}
+			}
 		}
 		
 	}
