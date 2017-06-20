@@ -265,7 +265,7 @@
     <Filter Include="GameManager%28매크로%29\DxImg">
       <UniqueIdentifier>{a98025b6-ee24-40fc-ae6a-88af08506cbb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework3D\cDxImg">
+    <Filter Include="GameFramework3D\DxImg">
       <UniqueIdentifier>{d8cec934-c656-4c0b-92a6-a9a991486b4f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -752,9 +752,12 @@
       <Filter>Z테스트\김만웅\03.이미지테스트</Filter>
     </ClCompile>
     <ClCompile Include="cDxImg.cpp">
-      <Filter>GameFramework3D\cDxImg</Filter>
+      <Filter>GameFramework3D\DxImg</Filter>
     </ClCompile>
     <ClCompile Include="cDxImgManager.cpp">
+      <Filter>GameManager%28매크로%29\DxImg</Filter>
+    </ClCompile>
+    <ClCompile Include="cDxImgAniManager.cpp">
       <Filter>GameManager%28매크로%29\DxImg</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1241,9 +1244,12 @@
       <Filter>Z테스트\김만웅\03.이미지테스트</Filter>
     </ClInclude>
     <ClInclude Include="cDxImg.h">
-      <Filter>GameFramework3D\cDxImg</Filter>
+      <Filter>GameFramework3D\DxImg</Filter>
     </ClInclude>
     <ClInclude Include="cDxImgManager.h">
+      <Filter>GameManager%28매크로%29\DxImg</Filter>
+    </ClInclude>
+    <ClInclude Include="cDxImgAniManager.h">
       <Filter>GameManager%28매크로%29\DxImg</Filter>
     </ClInclude>
   </ItemGroup>

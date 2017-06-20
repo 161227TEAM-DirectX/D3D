@@ -1,20 +1,15 @@
 #pragma once
 #include "iGameNode.h"
-//
-#include "cUIObject.h"
 
-class cUIImageView;
-
-class cImageTest 
-	: public iGameNode
-	, public cUIObject
+class cImageTest : public iGameNode
 {
 private:
-	cUIImageView* pImage;
 	camera		  _camera;
-	RECT		  _rt;
 	
 	vector<cDxImg*> m_vecImg;
+	vector<cDxImg*> m_vecAniDxImg;
+
+	cDxImg* tt;
 
 public:
 	cImageTest();
@@ -24,5 +19,7 @@ public:
 	virtual void release();
 	virtual void update();
 	virtual void render();
+
+	void aniInit();
 };
 
