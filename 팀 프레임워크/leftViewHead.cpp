@@ -96,6 +96,7 @@ void leftViewHead::update()
 	this->Load();				//데이터 로드
 	this->terrainUpdate();
 	this->PickUdate();
+	this->monsterMaptul();
 
 	_environment->update();
 }
@@ -451,6 +452,36 @@ void leftViewHead::terrainTextureUpate()
 	{
 		_rightView->SetGSboolRaw(false);
 		_terrain->setting();
+	}
+}
+
+void leftViewHead::monsterMaptul()
+{
+	if (_ptMousePos.x < leftViewPort.X + leftViewPort.Width && _ptMousePos.x >= 0)
+	{
+		//노드지정
+		switch (_rightView->GetGSnumberNodeInstal())
+		{
+		case 1:
+
+			break;
+
+		case 2:
+			
+			break;
+		}
+
+		//노드 연결
+		switch (_rightView->GetGSnumberNodelink())
+		{
+		case 1:
+
+			break;
+
+		case 2:
+			
+			break;
+		}
 	}
 }
 

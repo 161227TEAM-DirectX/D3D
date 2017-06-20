@@ -6,7 +6,7 @@
 
 rightView::rightView()
 	:boolTile1(false), boolTile2(false), boolTile3(false), boolTile4(false), boolRaw(false), numberTile1(0), numberTile2(0), numberTile3(0), numberTile4(0), numberRaw(0)
-	, numberSplate(0),boolSplate(false)
+	, numberSplate(0),boolSplate(false), numberNodeInstal(0), numberNodelink(0)
 {
 }
 
@@ -26,18 +26,24 @@ HRESULT rightView::init(void)
 	//변화가 없는 UI
 	_UIBACK.uiNumber = UISTAGE::UIOFF;
 	_UIkind.uiNumber = UISTAGE::UIOFF;
-	_UIsize[0].uiNumber = UISTAGE::UIOFF;
-	_UIsize[1].uiNumber = UISTAGE::UIOFF;
-	_UIcontrol[0].uiNumber = UISTAGE::UIOFF;
-	_UIcontrol[1].uiNumber = UISTAGE::UIOFF;
-	_UIsizeHeight[0].uiNumber = UISTAGE::UIOFF;
-	_UIsizeHeight[1].uiNumber = UISTAGE::UIOFF;
+
+	for (int i = 0; i < 2; i++)
+	{
+		_UIsize[i].uiNumber = UISTAGE::UIOFF;
+		_UIcontrol[i].uiNumber = UISTAGE::UIOFF;
+		_UIsizeHeight[i].uiNumber = UISTAGE::UIOFF;
+	}
+	
 	_OBJGO.uiNumber = UISTAGE::UIOFF;
 	_OBJback.uiNumber = UISTAGE::UIOFF;
 
 	//ui컨트롤 버튼 메뉴
-	_heightContorol[0].uiNumber = UISTAGE::UIOFF;
-	_heightContorol[1].uiNumber = UISTAGE::UIOFF;
+	for (int i = 0; i < 2; i++)
+	{
+		_heightContorol[i].uiNumber = UISTAGE::UIOFF;
+		_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
+		_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
+	}
 
 	//상단 메뉴
 	_TOPbutton[0].uiNumber = UISTAGE::UION;
@@ -294,6 +300,14 @@ void rightView::buttonTopUdate()
 	if (PtInRect(&_TOPbutton[0].rc2, GetMousePos()))
 	{
 		numberHeight = 0; //높이조절 초기화
+		numberObject = 0;
+
+		for (int i = 0; i < 2; i++)
+		{
+			_heightContorol[i].uiNumber = UISTAGE::UIOFF;
+			_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
+			_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
+		}
 
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
@@ -307,6 +321,14 @@ void rightView::buttonTopUdate()
 	if (PtInRect(&_TOPbutton[1].rc2, GetMousePos()))
 	{
 		numberHeight = 0; //높이조절 초기화
+		numberObject = 0;
+
+		for (int i = 0; i < 2; i++)
+		{
+			_heightContorol[i].uiNumber = UISTAGE::UIOFF;
+			_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
+			_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
+		}
 
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
@@ -320,6 +342,14 @@ void rightView::buttonTopUdate()
 	if (PtInRect(&_TOPbutton[2].rc2, GetMousePos()))
 	{
 		numberHeight = 0; //높이조절 초기화
+		numberObject = 0;
+
+		for (int i = 0; i < 2; i++)
+		{
+			_heightContorol[i].uiNumber = UISTAGE::UIOFF;
+			_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
+			_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
+		}
 
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
@@ -993,6 +1023,24 @@ void rightView::buttonENVMiddle()
 			_ENVbutton.tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/환경종류.png");
 			SPRITEMANAGER->renderRectTexture(_ENVbutton.tex, &_ENVbutton.rc1, &_ENVbutton.rc2, 0, 43, 244, 86, rightViewPort.X + (DWORD)73, rightViewPort.Y + (DWORD)95);
 		}
+
+		if (_ENVbutton.uiNumber == ENVSTAGE::NODEINSTAL)
+		{
+			_ENVbutton.tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/환경종류.png");
+			SPRITEMANAGER->renderRectTexture(_ENVbutton.tex, &_ENVbutton.rc1, &_ENVbutton.rc2, 0, 86, 244, 129, rightViewPort.X + (DWORD)73, rightViewPort.Y + (DWORD)95);
+		}
+
+		if (_ENVbutton.uiNumber == ENVSTAGE::NODELINK)
+		{
+			_ENVbutton.tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/환경종류.png");
+			SPRITEMANAGER->renderRectTexture(_ENVbutton.tex, &_ENVbutton.rc1, &_ENVbutton.rc2, 0, 129, 244, 172, rightViewPort.X + (DWORD)73, rightViewPort.Y + (DWORD)95);
+		}
+
+		if (_ENVbutton.uiNumber == ENVSTAGE::MONSTER)
+		{
+			_ENVbutton.tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/환경종류.png");
+			SPRITEMANAGER->renderRectTexture(_ENVbutton.tex, &_ENVbutton.rc1, &_ENVbutton.rc2, 0, 172, 244, 215, rightViewPort.X + (DWORD)73, rightViewPort.Y + (DWORD)95);
+		}
 	}
 
 	//물중단 클릭 하단
@@ -1062,6 +1110,83 @@ void rightView::buttonENVMiddle()
 			if (_ENVskyButton[5].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVskyButton[5].tex, &_ENVskyButton[5].rc1, &_ENVskyButton[5].rc2, 0, 374, 258, 408, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)400);
 			else SPRITEMANAGER->renderRectTexture(_ENVskyButton[5].tex, &_ENVskyButton[5].rc1, &_ENVskyButton[5].rc2, 0, 340, 258, 374, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)400);
 		}
+
+		if (_ENVbutton.uiNumber == ENVSTAGE::NODEINSTAL)
+		{
+			_UInodeHeight[0].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/노드.png");
+			SPRITEMANAGER->renderRectTexture(_UInodeHeight[0].tex, &_UInodeHeight[0].rc1, &_UInodeHeight[0].rc2, 0, 0, 90, 34, rightViewPort.X + (DWORD)100, rightViewPort.Y + (DWORD)250);
+
+			_UInodeHeight[0].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/높이조절.png");
+			SPRITEMANAGER->renderRectTexture(_UInodeHeight[0].tex, &_UInodeHeight[0].rc1, &_UInodeHeight[0].rc2, 0, 34, 90, 68, rightViewPort.X + (DWORD)100, rightViewPort.Y + (DWORD)350);
+			
+			//충돌체크
+			_nodeInstalContorol[0].rc2 = { (LONG)(rightViewPort.X + 220),(LONG)(rightViewPort.Y + 250),(LONG)(rightViewPort.X + 268),(LONG)(rightViewPort.Y + 283) };
+			if (_nodeInstalContorol[0].uiNumber == UISTAGE::UIOFF)
+			{
+				_nodeInstalContorol[0].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/높이값.png");
+				SPRITEMANAGER->renderRectTexture(_nodeInstalContorol[0].tex, &_nodeInstalContorol[0].rc1, &_nodeInstalContorol[0].rc2, 0, 0, 48, 33, rightViewPort.X + (DWORD)220, rightViewPort.Y + (DWORD)250);
+			}
+			else
+			{
+				_nodeInstalContorol[0].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/높이값.png");
+				SPRITEMANAGER->renderRectTexture(_nodeInstalContorol[0].tex, &_nodeInstalContorol[0].rc1, &_nodeInstalContorol[0].rc2, 0, 33, 48, 66, rightViewPort.X + (DWORD)220, rightViewPort.Y + (DWORD)250);
+			}
+
+			//충돌체크
+			_nodeInstalContorol[1].rc2 = { (LONG)(rightViewPort.X + 220),(LONG)(rightViewPort.Y + 350),(LONG)(rightViewPort.X + 268),(LONG)(rightViewPort.Y + 383) };
+			if (_nodeInstalContorol[1].uiNumber == UISTAGE::UIOFF)
+			{
+				_nodeInstalContorol[1].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/높이값.png");
+				SPRITEMANAGER->renderRectTexture(_nodeInstalContorol[1].tex, &_nodeInstalContorol[1].rc1, &_nodeInstalContorol[1].rc2, 0, 0, 48, 33, rightViewPort.X + (DWORD)220, rightViewPort.Y + (DWORD)350);
+			}
+			else
+			{
+				_nodeInstalContorol[1].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/높이값.png");
+				SPRITEMANAGER->renderRectTexture(_nodeInstalContorol[1].tex, &_nodeInstalContorol[1].rc1, &_nodeInstalContorol[1].rc2, 0, 33, 48, 66, rightViewPort.X + (DWORD)220, rightViewPort.Y + (DWORD)350);
+			}
+		}
+
+		if (_ENVbutton.uiNumber == ENVSTAGE::NODELINK)
+		{
+			_UInodeHeight[0].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/노드.png");
+			SPRITEMANAGER->renderRectTexture(_UInodeHeight[0].tex, &_UInodeHeight[0].rc1, &_UInodeHeight[0].rc2, 0, 0, 90, 34, rightViewPort.X + (DWORD)100, rightViewPort.Y + (DWORD)250);
+
+			_UInodeHeight[1].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/높이조절.png");
+			SPRITEMANAGER->renderRectTexture(_UInodeHeight[1].tex, &_UInodeHeight[1].rc1, &_UInodeHeight[1].rc2, 0, 34, 90, 68, rightViewPort.X + (DWORD)100, rightViewPort.Y + (DWORD)350);
+			
+			//충돌체크
+			_nodeLinkContorol[0].rc2 = { (LONG)(rightViewPort.X + 220),(LONG)(rightViewPort.Y + 250),(LONG)(rightViewPort.X + 268),(LONG)(rightViewPort.Y + 283) };
+			if (_nodeLinkContorol[0].uiNumber == UISTAGE::UIOFF)
+			{
+				_nodeLinkContorol[0].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/높이값.png");
+				SPRITEMANAGER->renderRectTexture(_nodeLinkContorol[0].tex, &_nodeLinkContorol[0].rc1, &_nodeLinkContorol[0].rc2, 0, 0, 48, 33, rightViewPort.X + (DWORD)220, rightViewPort.Y + (DWORD)250);
+			}
+			else
+			{
+				_nodeLinkContorol[0].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/높이값.png");
+				SPRITEMANAGER->renderRectTexture(_nodeLinkContorol[0].tex, &_nodeLinkContorol[0].rc1, &_nodeLinkContorol[0].rc2, 0, 33, 48, 66, rightViewPort.X + (DWORD)220, rightViewPort.Y + (DWORD)250);
+			}
+
+			//충돌체크
+			_nodeLinkContorol[1].rc2 = { (LONG)(rightViewPort.X + 220),(LONG)(rightViewPort.Y + 350),(LONG)(rightViewPort.X + 268),(LONG)(rightViewPort.Y + 383) };
+			if (_nodeLinkContorol[1].uiNumber == UISTAGE::UIOFF)
+			{
+				_nodeLinkContorol[1].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/높이값.png");
+				SPRITEMANAGER->renderRectTexture(_nodeLinkContorol[1].tex, &_nodeLinkContorol[1].rc1, &_nodeLinkContorol[1].rc2, 0, 0, 48, 33, rightViewPort.X + (DWORD)220, rightViewPort.Y + (DWORD)350);
+			}
+			else
+			{
+				_nodeLinkContorol[1].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/높이값.png");
+				SPRITEMANAGER->renderRectTexture(_nodeLinkContorol[1].tex, &_nodeLinkContorol[1].rc1, &_nodeLinkContorol[1].rc2, 0, 33, 48, 66, rightViewPort.X + (DWORD)220, rightViewPort.Y + (DWORD)350);
+			}
+
+			
+		}
+
+		if (_ENVbutton.uiNumber == ENVSTAGE::MONSTER)
+		{
+
+		}
 	}
 }
 
@@ -1091,9 +1216,9 @@ void rightView::buttonENvUdate()
 		{
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
-				if (_ENVbutton.uiNumber >= 2)
+				if (_ENVbutton.uiNumber >= 5)
 				{
-					_ENVbutton.uiNumber = ENVSTAGE::SKYMIDDLE;
+					_ENVbutton.uiNumber = ENVSTAGE::MONSTER;
 				}
 				else
 				{
@@ -1102,7 +1227,6 @@ void rightView::buttonENvUdate()
 			}
 		}
 	}
-
 
 	if (_TOPbutton[2].uiNumber == UISTAGE::UION)
 	{
@@ -1127,7 +1251,6 @@ void rightView::buttonENvUdate()
 				}
 			}
 		}
-
 		//스카의하단 클릭 충돌
 		if (_ENVbutton.uiNumber == ENVSTAGE::SKYMIDDLE)
 		{
@@ -1149,6 +1272,62 @@ void rightView::buttonENvUdate()
 				}
 			}
 		}
+
+		if (_ENVbutton.uiNumber == ENVSTAGE::NODEINSTAL)
+		{
+			if (PtInRect(&_nodeInstalContorol[0].rc2, GetMousePos()))
+			{
+				if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+				{
+					_nodeInstalContorol[0].uiNumber = UISTAGE::UION;
+					_nodeInstalContorol[1].uiNumber = UISTAGE::UIOFF;
+
+					numberNodeInstal = 1;
+				}
+			}
+
+			if (PtInRect(&_nodeInstalContorol[1].rc2, GetMousePos()))
+			{
+				if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+				{
+					_nodeInstalContorol[1].uiNumber = UISTAGE::UION;
+					_nodeInstalContorol[0].uiNumber = UISTAGE::UIOFF;
+
+					numberNodeInstal = 2;
+				}
+			}
+		}
+
+		if (_ENVbutton.uiNumber == ENVSTAGE::NODELINK)
+		{
+			if (PtInRect(&_nodeLinkContorol[0].rc2, GetMousePos()))
+			{
+				if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+				{
+					_nodeLinkContorol[0].uiNumber = UISTAGE::UION;
+					_nodeLinkContorol[1].uiNumber = UISTAGE::UIOFF;
+
+					numberNodelink = 1;
+				}
+			}
+
+			if (PtInRect(&_nodeLinkContorol[1].rc2, GetMousePos()))
+			{
+				if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+				{
+					_nodeLinkContorol[1].uiNumber = UISTAGE::UION;
+					_nodeLinkContorol[0].uiNumber = UISTAGE::UIOFF;
+
+					numberNodelink = 2;
+				}
+			}
+		}
+
+		if (_ENVbutton.uiNumber == ENVSTAGE::MONSTER)
+		{
+
+		}
+		
 	}
 }
 
