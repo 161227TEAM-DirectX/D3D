@@ -6,7 +6,7 @@
 
 rightView::rightView()
 	:boolTile1(false), boolTile2(false), boolTile3(false), boolTile4(false), boolRaw(false), numberTile1(0), numberTile2(0), numberTile3(0), numberTile4(0), numberRaw(0)
-	, numberSplate(0),boolSplate(false)
+	, numberSplate(0), boolSplate(false), numberNodeInstal(0), numberNodelink(0), numberMonster(0)
 {
 }
 
@@ -26,18 +26,24 @@ HRESULT rightView::init(void)
 	//변화가 없는 UI
 	_UIBACK.uiNumber = UISTAGE::UIOFF;
 	_UIkind.uiNumber = UISTAGE::UIOFF;
-	_UIsize[0].uiNumber = UISTAGE::UIOFF;
-	_UIsize[1].uiNumber = UISTAGE::UIOFF;
-	_UIcontrol[0].uiNumber = UISTAGE::UIOFF;
-	_UIcontrol[1].uiNumber = UISTAGE::UIOFF;
-	_UIsizeHeight[0].uiNumber = UISTAGE::UIOFF;
-	_UIsizeHeight[1].uiNumber = UISTAGE::UIOFF;
+
+	for (int i = 0; i < 2; i++)
+	{
+		_UIsize[i].uiNumber = UISTAGE::UIOFF;
+		_UIcontrol[i].uiNumber = UISTAGE::UIOFF;
+		_UIsizeHeight[i].uiNumber = UISTAGE::UIOFF;
+	}
+	
 	_OBJGO.uiNumber = UISTAGE::UIOFF;
 	_OBJback.uiNumber = UISTAGE::UIOFF;
 
 	//ui컨트롤 버튼 메뉴
-	_heightContorol[0].uiNumber = UISTAGE::UIOFF;
-	_heightContorol[1].uiNumber = UISTAGE::UIOFF;
+	for (int i = 0; i < 2; i++)
+	{
+		_heightContorol[i].uiNumber = UISTAGE::UIOFF;
+		_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
+		_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
+	}
 
 	//상단 메뉴
 	_TOPbutton[0].uiNumber = UISTAGE::UION;
@@ -72,6 +78,12 @@ HRESULT rightView::init(void)
 	{
 		_ENVwaterButton[i].uiNumber = UISTAGE::UIOFF;
 		_ENVskyButton[i].uiNumber = UISTAGE::UIOFF;
+	}
+
+	//몬스터 메뉴 하단
+	for (int i = 0; i < DEFMONSTER; i++)
+	{
+		_ENVmonsterButton[i].uiNumber = UISTAGE::UIOFF;
 	}
 
 	//지형하단 메뉴
@@ -293,10 +305,22 @@ void rightView::buttonTopUdate()
 	//오브젝트 상단 충돌
 	if (PtInRect(&_TOPbutton[0].rc2, GetMousePos()))
 	{
-		numberHeight = 0; //높이조절 초기화
-
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			for (int i = 0; i < 2; i++)
+			{
+				//false시켜버리기
+				numberHeight = 0; //높이조절 초기화
+				_objectClass->setnumberObject(0);
+				numberNodeInstal = 0;
+				numberNodelink = 0;
+				numberMonster = 0;
+				_heightContorol[i].uiNumber = UISTAGE::UIOFF;
+				_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
+				_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
+				_NumberRawButton[i].uiNumber = UISTAGE::UIOFF;
+			}
+			////////////////////////////////////////////////////
 			_TOPbutton[0].uiNumber = UISTAGE::UION;
 			_TOPbutton[1].uiNumber = UISTAGE::UIOFF;
 			_TOPbutton[2].uiNumber = UISTAGE::UIOFF;
@@ -306,10 +330,22 @@ void rightView::buttonTopUdate()
 	//지형 상단 충돌
 	if (PtInRect(&_TOPbutton[1].rc2, GetMousePos()))
 	{
-		numberHeight = 0; //높이조절 초기화
-
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			for (int i = 0; i < 2; i++)
+			{
+				//false시켜버리기
+				numberHeight = 0; //높이조절 초기화
+				_objectClass->setnumberObject(0);
+				numberNodeInstal = 0;
+				numberNodelink = 0;
+				numberMonster = 0;
+				_heightContorol[i].uiNumber = UISTAGE::UIOFF;
+				_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
+				_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
+				_NumberRawButton[i].uiNumber = UISTAGE::UIOFF;
+			}
+			/////////////////////////////////////////////////////
 			_TOPbutton[1].uiNumber = UISTAGE::UION;
 			_TOPbutton[0].uiNumber = UISTAGE::UIOFF;
 			_TOPbutton[2].uiNumber = UISTAGE::UIOFF;
@@ -319,10 +355,22 @@ void rightView::buttonTopUdate()
 	//환경 상단 충돌
 	if (PtInRect(&_TOPbutton[2].rc2, GetMousePos()))
 	{
-		numberHeight = 0; //높이조절 초기화
-
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			for (int i = 0; i < 2; i++)
+			{
+				//false시켜버리기
+				numberHeight = 0; //높이조절 초기화
+				_objectClass->setnumberObject(0);
+				numberNodeInstal = 0;
+				numberNodelink = 0;
+				numberMonster = 0;
+				_heightContorol[i].uiNumber = UISTAGE::UIOFF;
+				_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
+				_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
+				_NumberRawButton[i].uiNumber = UISTAGE::UIOFF;
+			}
+			///////////////////////////////////////////////////////
 			_TOPbutton[2].uiNumber = UISTAGE::UION;
 			_TOPbutton[0].uiNumber = UISTAGE::UIOFF;
 			_TOPbutton[1].uiNumber = UISTAGE::UIOFF;
@@ -993,6 +1041,24 @@ void rightView::buttonENVMiddle()
 			_ENVbutton.tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/환경종류.png");
 			SPRITEMANAGER->renderRectTexture(_ENVbutton.tex, &_ENVbutton.rc1, &_ENVbutton.rc2, 0, 43, 244, 86, rightViewPort.X + (DWORD)73, rightViewPort.Y + (DWORD)95);
 		}
+
+		if (_ENVbutton.uiNumber == ENVSTAGE::NODEINSTAL)
+		{
+			_ENVbutton.tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/환경종류.png");
+			SPRITEMANAGER->renderRectTexture(_ENVbutton.tex, &_ENVbutton.rc1, &_ENVbutton.rc2, 0, 86, 244, 129, rightViewPort.X + (DWORD)73, rightViewPort.Y + (DWORD)95);
+		}
+
+		if (_ENVbutton.uiNumber == ENVSTAGE::NODELINK)
+		{
+			_ENVbutton.tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/환경종류.png");
+			SPRITEMANAGER->renderRectTexture(_ENVbutton.tex, &_ENVbutton.rc1, &_ENVbutton.rc2, 0, 129, 244, 172, rightViewPort.X + (DWORD)73, rightViewPort.Y + (DWORD)95);
+		}
+
+		if (_ENVbutton.uiNumber == ENVSTAGE::MONSTER)
+		{
+			_ENVbutton.tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/환경종류.png");
+			SPRITEMANAGER->renderRectTexture(_ENVbutton.tex, &_ENVbutton.rc1, &_ENVbutton.rc2, 0, 172, 244, 215, rightViewPort.X + (DWORD)73, rightViewPort.Y + (DWORD)95);
+		}
 	}
 
 	//물중단 클릭 하단
@@ -1062,6 +1128,148 @@ void rightView::buttonENVMiddle()
 			if (_ENVskyButton[5].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVskyButton[5].tex, &_ENVskyButton[5].rc1, &_ENVskyButton[5].rc2, 0, 374, 258, 408, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)400);
 			else SPRITEMANAGER->renderRectTexture(_ENVskyButton[5].tex, &_ENVskyButton[5].rc1, &_ENVskyButton[5].rc2, 0, 340, 258, 374, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)400);
 		}
+
+		if (_ENVbutton.uiNumber == ENVSTAGE::NODEINSTAL)
+		{
+			_UInodeHeight[0].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/노드.png");
+			SPRITEMANAGER->renderRectTexture(_UInodeHeight[0].tex, &_UInodeHeight[0].rc1, &_UInodeHeight[0].rc2, 0, 0, 90, 34, rightViewPort.X + (DWORD)100, rightViewPort.Y + (DWORD)250);
+
+			_UInodeHeight[0].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/노드.png");
+			SPRITEMANAGER->renderRectTexture(_UInodeHeight[0].tex, &_UInodeHeight[0].rc1, &_UInodeHeight[0].rc2, 0, 34, 90, 68, rightViewPort.X + (DWORD)100, rightViewPort.Y + (DWORD)350);
+			
+			//충돌체크
+			_nodeInstalContorol[0].rc2 = { (LONG)(rightViewPort.X + 220),(LONG)(rightViewPort.Y + 250),(LONG)(rightViewPort.X + 268),(LONG)(rightViewPort.Y + 283) };
+			if (_nodeInstalContorol[0].uiNumber == UISTAGE::UIOFF)
+			{
+				_nodeInstalContorol[0].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/높이값.png");
+				SPRITEMANAGER->renderRectTexture(_nodeInstalContorol[0].tex, &_nodeInstalContorol[0].rc1, &_nodeInstalContorol[0].rc2, 0, 0, 48, 33, rightViewPort.X + (DWORD)220, rightViewPort.Y + (DWORD)250);
+			}
+			else
+			{
+				_nodeInstalContorol[0].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/높이값.png");
+				SPRITEMANAGER->renderRectTexture(_nodeInstalContorol[0].tex, &_nodeInstalContorol[0].rc1, &_nodeInstalContorol[0].rc2, 0, 33, 48, 66, rightViewPort.X + (DWORD)220, rightViewPort.Y + (DWORD)250);
+			}
+
+			//충돌체크
+			_nodeInstalContorol[1].rc2 = { (LONG)(rightViewPort.X + 220),(LONG)(rightViewPort.Y + 350),(LONG)(rightViewPort.X + 268),(LONG)(rightViewPort.Y + 383) };
+			if (_nodeInstalContorol[1].uiNumber == UISTAGE::UIOFF)
+			{
+				_nodeInstalContorol[1].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/높이값.png");
+				SPRITEMANAGER->renderRectTexture(_nodeInstalContorol[1].tex, &_nodeInstalContorol[1].rc1, &_nodeInstalContorol[1].rc2, 0, 0, 48, 33, rightViewPort.X + (DWORD)220, rightViewPort.Y + (DWORD)350);
+			}
+			else
+			{
+				_nodeInstalContorol[1].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/높이값.png");
+				SPRITEMANAGER->renderRectTexture(_nodeInstalContorol[1].tex, &_nodeInstalContorol[1].rc1, &_nodeInstalContorol[1].rc2, 0, 33, 48, 66, rightViewPort.X + (DWORD)220, rightViewPort.Y + (DWORD)350);
+			}
+		}
+
+		if (_ENVbutton.uiNumber == ENVSTAGE::NODELINK)
+		{
+			_UInodeHeight[0].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/노드.png");
+			SPRITEMANAGER->renderRectTexture(_UInodeHeight[0].tex, &_UInodeHeight[0].rc1, &_UInodeHeight[0].rc2, 0, 0, 90, 34, rightViewPort.X + (DWORD)100, rightViewPort.Y + (DWORD)250);
+
+			_UInodeHeight[1].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/노드.png");
+			SPRITEMANAGER->renderRectTexture(_UInodeHeight[1].tex, &_UInodeHeight[1].rc1, &_UInodeHeight[1].rc2, 0, 34, 90, 68, rightViewPort.X + (DWORD)100, rightViewPort.Y + (DWORD)350);
+			
+			//충돌체크
+			_nodeLinkContorol[0].rc2 = { (LONG)(rightViewPort.X + 220),(LONG)(rightViewPort.Y + 250),(LONG)(rightViewPort.X + 268),(LONG)(rightViewPort.Y + 283) };
+			if (_nodeLinkContorol[0].uiNumber == UISTAGE::UIOFF)
+			{
+				_nodeLinkContorol[0].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/높이값.png");
+				SPRITEMANAGER->renderRectTexture(_nodeLinkContorol[0].tex, &_nodeLinkContorol[0].rc1, &_nodeLinkContorol[0].rc2, 0, 0, 48, 33, rightViewPort.X + (DWORD)220, rightViewPort.Y + (DWORD)250);
+			}
+			else
+			{
+				_nodeLinkContorol[0].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/높이값.png");
+				SPRITEMANAGER->renderRectTexture(_nodeLinkContorol[0].tex, &_nodeLinkContorol[0].rc1, &_nodeLinkContorol[0].rc2, 0, 33, 48, 66, rightViewPort.X + (DWORD)220, rightViewPort.Y + (DWORD)250);
+			}
+
+			//충돌체크
+			_nodeLinkContorol[1].rc2 = { (LONG)(rightViewPort.X + 220),(LONG)(rightViewPort.Y + 350),(LONG)(rightViewPort.X + 268),(LONG)(rightViewPort.Y + 383) };
+			if (_nodeLinkContorol[1].uiNumber == UISTAGE::UIOFF)
+			{
+				_nodeLinkContorol[1].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/높이값.png");
+				SPRITEMANAGER->renderRectTexture(_nodeLinkContorol[1].tex, &_nodeLinkContorol[1].rc1, &_nodeLinkContorol[1].rc2, 0, 0, 48, 33, rightViewPort.X + (DWORD)220, rightViewPort.Y + (DWORD)350);
+			}
+			else
+			{
+				_nodeLinkContorol[1].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/높이값.png");
+				SPRITEMANAGER->renderRectTexture(_nodeLinkContorol[1].tex, &_nodeLinkContorol[1].rc1, &_nodeLinkContorol[1].rc2, 0, 33, 48, 66, rightViewPort.X + (DWORD)220, rightViewPort.Y + (DWORD)350);
+			}
+
+			
+		}
+
+		if (_ENVbutton.uiNumber == ENVSTAGE::MONSTER)
+		{
+			//충돌체크
+			_ENVmonsterButton[0].rc2 = { (LONG)(rightViewPort.X + 70),(LONG)(rightViewPort.Y + 200),(LONG)(rightViewPort.X + 199),(LONG)(rightViewPort.Y + 234) };
+			_ENVmonsterButton[1].rc2 = { (LONG)(rightViewPort.X + 70),(LONG)(rightViewPort.Y + 240),(LONG)(rightViewPort.X + 199),(LONG)(rightViewPort.Y + 274) };
+			_ENVmonsterButton[2].rc2 = { (LONG)(rightViewPort.X + 70),(LONG)(rightViewPort.Y + 280),(LONG)(rightViewPort.X + 199),(LONG)(rightViewPort.Y + 314) };
+			_ENVmonsterButton[3].rc2 = { (LONG)(rightViewPort.X + 70),(LONG)(rightViewPort.Y + 320),(LONG)(rightViewPort.X + 199),(LONG)(rightViewPort.Y + 354) };
+			_ENVmonsterButton[4].rc2 = { (LONG)(rightViewPort.X + 70),(LONG)(rightViewPort.Y + 360),(LONG)(rightViewPort.X + 199),(LONG)(rightViewPort.Y + 394) };
+			_ENVmonsterButton[5].rc2 = { (LONG)(rightViewPort.X + 70),(LONG)(rightViewPort.Y + 400),(LONG)(rightViewPort.X + 199),(LONG)(rightViewPort.Y + 434) };
+			_ENVmonsterButton[6].rc2 = { (LONG)(rightViewPort.X + 70),(LONG)(rightViewPort.Y + 440),(LONG)(rightViewPort.X + 199),(LONG)(rightViewPort.Y + 474) };
+
+			for(int i=0; i<DEFMONSTER; i++) _ENVmonsterButton[i].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/몬스터버튼.png");;
+
+			//왼쪽 버튼
+			if (_ENVmonsterButton[0].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[0].tex, &_ENVmonsterButton[0].rc1, &_ENVmonsterButton[0].rc2, 0, 34, 258, 68, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)200);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[0].tex, &_ENVmonsterButton[0].rc1, &_ENVmonsterButton[0].rc2, 0, 0, 129, 34, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)200);
+
+			if (_ENVmonsterButton[1].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[1].tex, &_ENVmonsterButton[1].rc1, &_ENVmonsterButton[1].rc2, 0, 102, 258, 136, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)240);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[1].tex, &_ENVmonsterButton[1].rc1, &_ENVmonsterButton[1].rc2, 0, 68, 129, 102, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)240);
+
+			if (_ENVmonsterButton[2].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[2].tex, &_ENVmonsterButton[2].rc1, &_ENVmonsterButton[2].rc2, 0, 170, 258, 204, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)280);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[2].tex, &_ENVmonsterButton[2].rc1, &_ENVmonsterButton[2].rc2, 0, 136, 129, 170, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)280);
+
+			if (_ENVmonsterButton[3].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[3].tex, &_ENVmonsterButton[3].rc1, &_ENVmonsterButton[3].rc2, 0, 238, 258, 272, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)320);
+
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[3].tex, &_ENVmonsterButton[3].rc1, &_ENVmonsterButton[3].rc2, 0, 204, 129, 238, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)320);
+
+			if (_ENVmonsterButton[4].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[4].tex, &_ENVmonsterButton[4].rc1, &_ENVmonsterButton[4].rc2, 0, 306, 258, 340, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)360);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[4].tex, &_ENVmonsterButton[4].rc1, &_ENVmonsterButton[4].rc2, 0, 272, 129, 306, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)360);
+
+			if (_ENVmonsterButton[5].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[5].tex, &_ENVmonsterButton[5].rc1, &_ENVmonsterButton[5].rc2, 0, 374, 258, 408, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)400);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[5].tex, &_ENVmonsterButton[5].rc1, &_ENVmonsterButton[5].rc2, 0, 340, 129, 374, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)400);
+
+			if (_ENVmonsterButton[6].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[6].tex, &_ENVmonsterButton[6].rc1, &_ENVmonsterButton[6].rc2, 0, 442, 258, 476, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)440);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[6].tex, &_ENVmonsterButton[6].rc1, &_ENVmonsterButton[6].rc2, 0, 408, 129, 442, rightViewPort.X + (DWORD)70, rightViewPort.Y + (DWORD)440);
+
+			//충돌체크
+			_ENVmonsterButton[7].rc2 = { (LONG)(rightViewPort.X + 215),(LONG)(rightViewPort.Y + 200),(LONG)(rightViewPort.X + 344),(LONG)(rightViewPort.Y + 234) };
+			_ENVmonsterButton[8].rc2 = { (LONG)(rightViewPort.X + 215),(LONG)(rightViewPort.Y + 240),(LONG)(rightViewPort.X + 344),(LONG)(rightViewPort.Y + 274) };
+			_ENVmonsterButton[9].rc2 = { (LONG)(rightViewPort.X + 215),(LONG)(rightViewPort.Y + 280),(LONG)(rightViewPort.X + 344),(LONG)(rightViewPort.Y + 314) };
+			_ENVmonsterButton[10].rc2 = { (LONG)(rightViewPort.X + 215),(LONG)(rightViewPort.Y + 320),(LONG)(rightViewPort.X + 344),(LONG)(rightViewPort.Y + 354) };
+			_ENVmonsterButton[11].rc2 = { (LONG)(rightViewPort.X + 215),(LONG)(rightViewPort.Y + 360),(LONG)(rightViewPort.X + 344),(LONG)(rightViewPort.Y + 394) };
+			_ENVmonsterButton[12].rc2 = { (LONG)(rightViewPort.X + 215),(LONG)(rightViewPort.Y + 400),(LONG)(rightViewPort.X + 344),(LONG)(rightViewPort.Y + 434) };
+			_ENVmonsterButton[13].rc2 = { (LONG)(rightViewPort.X + 215),(LONG)(rightViewPort.Y + 440),(LONG)(rightViewPort.X + 344),(LONG)(rightViewPort.Y + 474) };
+
+			//오른쪽버튼
+			if (_ENVmonsterButton[7].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[7].tex, &_ENVmonsterButton[7].rc1, &_ENVmonsterButton[7].rc2, 0, 510, 258, 544, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)200);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[7].tex, &_ENVmonsterButton[7].rc1, &_ENVmonsterButton[7].rc2, 0, 476, 129, 510, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)200);
+
+			if (_ENVmonsterButton[8].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[8].tex, &_ENVmonsterButton[8].rc1, &_ENVmonsterButton[8].rc2, 0, 578, 258, 612, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)240);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[8].tex, &_ENVmonsterButton[8].rc1, &_ENVmonsterButton[8].rc2, 0, 544, 129, 578, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)240);
+
+			if (_ENVmonsterButton[9].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[9].tex, &_ENVmonsterButton[9].rc1, &_ENVmonsterButton[9].rc2, 0, 646, 258, 680, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)280);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[9].tex, &_ENVmonsterButton[9].rc1, &_ENVmonsterButton[9].rc2, 0, 612, 129, 646, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)280);
+
+			if (_ENVmonsterButton[10].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[10].tex, &_ENVmonsterButton[10].rc1, &_ENVmonsterButton[10].rc2, 0, 714, 258, 748, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)320);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[10].tex, &_ENVmonsterButton[10].rc1, &_ENVmonsterButton[10].rc2, 0, 680, 129, 714, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)320);
+
+			if (_ENVmonsterButton[11].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[11].tex, &_ENVmonsterButton[11].rc1, &_ENVmonsterButton[11].rc2, 0, 782, 258, 816, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)360);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[11].tex, &_ENVmonsterButton[11].rc1, &_ENVmonsterButton[11].rc2, 0, 748, 129, 782, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)360);
+
+			if (_ENVmonsterButton[12].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[12].tex, &_ENVmonsterButton[12].rc1, &_ENVmonsterButton[12].rc2, 0, 850, 258, 884, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)400);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[12].tex, &_ENVmonsterButton[12].rc1, &_ENVmonsterButton[12].rc2, 0, 816, 129, 850, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)400);
+
+			if (_ENVmonsterButton[13].uiNumber == UISTAGE::UION) SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[13].tex, &_ENVmonsterButton[13].rc1, &_ENVmonsterButton[13].rc2, 0, 918, 258, 952, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)440);
+			else SPRITEMANAGER->renderRectTexture(_ENVmonsterButton[13].tex, &_ENVmonsterButton[13].rc1, &_ENVmonsterButton[13].rc2, 0, 884, 129, 918, rightViewPort.X + (DWORD)215, rightViewPort.Y + (DWORD)440);
+
+
+		}
 	}
 }
 
@@ -1073,6 +1281,17 @@ void rightView::buttonENvUdate()
 		//왼쪽키
 		if (PtInRect(&_ENVbutton.rc2, GetMousePos()))
 		{
+
+			for (int i = 0; i < 2; i++)
+			{
+				//false시켜버리기
+				numberNodeInstal = 0;
+				numberNodelink = 0;
+				numberMonster = 0;
+				_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
+				_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
+			}
+
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
 				if (_ENVbutton.uiNumber <= 1)
@@ -1089,11 +1308,21 @@ void rightView::buttonENvUdate()
 		//오른쪽키
 		if (PtInRect(&_ENVbutton.rc3, GetMousePos()))
 		{
+			for (int i = 0; i < 2; i++)
+			{
+				//false시켜버리기
+				numberNodeInstal = 0;
+				numberNodelink = 0;
+				numberMonster = 0;
+				_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
+				_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
+			}
+
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
-				if (_ENVbutton.uiNumber >= 2)
+				if (_ENVbutton.uiNumber >= 5)
 				{
-					_ENVbutton.uiNumber = ENVSTAGE::SKYMIDDLE;
+					_ENVbutton.uiNumber = ENVSTAGE::MONSTER;
 				}
 				else
 				{
@@ -1102,7 +1331,6 @@ void rightView::buttonENvUdate()
 			}
 		}
 	}
-
 
 	if (_TOPbutton[2].uiNumber == UISTAGE::UION)
 	{
@@ -1127,7 +1355,6 @@ void rightView::buttonENvUdate()
 				}
 			}
 		}
-
 		//스카의하단 클릭 충돌
 		if (_ENVbutton.uiNumber == ENVSTAGE::SKYMIDDLE)
 		{
@@ -1149,6 +1376,78 @@ void rightView::buttonENvUdate()
 				}
 			}
 		}
+
+		if (_ENVbutton.uiNumber == ENVSTAGE::NODEINSTAL)
+		{
+			if (PtInRect(&_nodeInstalContorol[0].rc2, GetMousePos()))
+			{
+				if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+				{
+					_nodeInstalContorol[0].uiNumber = UISTAGE::UION;
+					_nodeInstalContorol[1].uiNumber = UISTAGE::UIOFF;
+
+					numberNodeInstal = 1;
+				}
+			}
+
+			if (PtInRect(&_nodeInstalContorol[1].rc2, GetMousePos()))
+			{
+				if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+				{
+					_nodeInstalContorol[1].uiNumber = UISTAGE::UION;
+					_nodeInstalContorol[0].uiNumber = UISTAGE::UIOFF;
+
+					numberNodeInstal = 2;
+				}
+			}
+		}
+
+		if (_ENVbutton.uiNumber == ENVSTAGE::NODELINK)
+		{
+			if (PtInRect(&_nodeLinkContorol[0].rc2, GetMousePos()))
+			{
+				if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+				{
+					_nodeLinkContorol[0].uiNumber = UISTAGE::UION;
+					_nodeLinkContorol[1].uiNumber = UISTAGE::UIOFF;
+
+					numberNodelink = 1;
+				}
+			}
+
+			if (PtInRect(&_nodeLinkContorol[1].rc2, GetMousePos()))
+			{
+				if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+				{
+					_nodeLinkContorol[1].uiNumber = UISTAGE::UION;
+					_nodeLinkContorol[0].uiNumber = UISTAGE::UIOFF;
+
+					numberNodelink = 2;
+				}
+			}
+		}
+
+		if (_ENVbutton.uiNumber == ENVSTAGE::MONSTER)
+		{
+			for (int i = 0; i < DEFMONSTER; i++)
+			{
+				if (PtInRect(&_ENVmonsterButton[i].rc2, GetMousePos()))
+				{
+					_ENVmonsterButton[i].uiNumber = UISTAGE::UION;
+					//누르면 번호 넘겨주는거 해야됨
+
+					if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+					{
+						numberMonster = i + 1;
+					}
+				}
+				else
+				{
+					_ENVmonsterButton[i].uiNumber = UISTAGE::UIOFF;
+				}
+			}
+		}
+		
 	}
 }
 
@@ -1485,6 +1784,15 @@ void rightView::buttonTerUdate()
 		if (PtInRect(&_TERRIANbutton.rc3, GetMousePos()))
 		{
 			numberHeight = 0; //높이조절 초기화
+
+			for (int i = 0; i < 2; i++)
+			{
+				//false시켜버리기
+				numberNodeInstal = 0;
+				numberNodelink = 0;
+				_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
+				_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
+			}
 
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{

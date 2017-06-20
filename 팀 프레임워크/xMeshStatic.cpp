@@ -149,7 +149,7 @@ HRESULT xMeshStatic::init(string filePath, D3DXMATRIXA16 * matCorrection)
 	}
 
 	//얻어온 재질 정보를 다 사용하여 재질과 Texture 를 로딩 했기때문에 
-	//더이상 pMaterial 재질 버퍼는 필요 없어 꼭 메모리 해재를 해주어야 한다.
+	//더이상 pMaterial 재질 버퍼는 필요 없어 꼭 메모리 해제를 해주어야 한다.
 	SAFE_RELEASE(pMaterial);
 
 	//메쉬 최적화 (인접 버퍼를 이용하여 메쉬를 최적화 한다)

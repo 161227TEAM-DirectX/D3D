@@ -9,8 +9,10 @@
 //
 #include "rightView.h"		//상호참조 클래스
 
+#include "monster.h"
+
 leftViewHead::leftViewHead()
-	: m_eHeightType(eHeightType::E_NONE)
+	: m_eHeightType(eHeightType::E_NONE), sour(-1), dest(-1)
 {
 	//기본 광원 생성
 	_sceneBaseDirectionLight = new lightDirection;
@@ -32,6 +34,7 @@ HRESULT leftViewHead::init()
 	//환경맵
 	_environment = new Environment;
 	_environment->init();
+	_environment->linkCamera(_mainCamera);
 
 	//오브젝트
 	_mapObject = new mapObject;
@@ -95,6 +98,7 @@ void leftViewHead::update()
 	this->Load();				//데이터 로드
 	this->terrainUpdate();
 	this->PickUdate();
+	this->monsterMaptul();
 
 	_environment->update();
 }
@@ -453,6 +457,93 @@ void leftViewHead::terrainTextureUpate()
 	}
 }
 
+void leftViewHead::monsterMaptul()
+{
+	if (_ptMousePos.x < leftViewPort.X + leftViewPort.Width && _ptMousePos.x >= 0)
+	{
+		//노드지정
+		switch (_rightView->GetGSnumberNodeInstal())
+		{
+		case 1:
+		{
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+			{
+				D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
+				_mainCamera.computeRay(&ray, &_screenPos, 1);
+
+				_terrain->isIntersectRay(&_hitPos, &ray);
+				_terrain->getDijkstra().addNode(_hitPos);
+			}
+		}
+			break;
+		}
+
+		//노드 연결
+		switch (_rightView->GetGSnumberNodelink())
+		{
+		case 1:
+		{
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+			{
+				const vector<Node*>& temp = _terrain->getDijkstra().getVecNode();
+
+				D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
+				_mainCamera.computeRay(&ray, &_screenPos, 1);
+
+				_terrain->isIntersectRay(&_hitPos, &ray);
+				for (int i = 0; i < temp.size(); i++)
+				{
+					if (PHYSICSMANAGER->isRayHitSphere(&ray, &temp[i]->getPosition(), temp[i]->getRadius(), nullptr, nullptr))
+					{
+						if (sour == -1) sour = i;
+						else if (dest == -1)
+						{
+							dest = i;
+							_terrain->getDijkstra().connectNode(sour, dest);
+						}
+					}
+				}
+			}
+		}
+			break;
+
+		}
+	}
+
+	switch (_rightView->GetGSnumberMonster)
+	{
+	case 1:
+		if(KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect()
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	case 4:
+		break;
+	case 5:
+		break;
+	case 6:
+		break;
+	case 7:
+		break;
+	case 8:
+		break;
+	case 9:
+		break;
+	case 10:
+		break;
+	case 11:
+		break;
+	case 12:
+		break;
+	case 13:
+		break;
+	case 14:
+		break;
+	}
+}
+
 void leftViewHead::Load()
 {
 	if (KEYMANAGER->isOnceKeyDown('M'))
@@ -524,6 +615,34 @@ void leftViewHead::render()
 		_environment->renderEnvironment(_rightView->getNumberEnv());
 	}
 
-	FONTMANAGER->fontOut(to_string(co), 100, 100, D3DCOLOR_XRGB(255, 255, 255));
+	const vector<Node*>& temp = _terrain->getDijkstra().getVecNode();
+	for (int i = 0; i < temp.size(); i++)
+	{
+		temp[i]->Render();
+	}
 
+	//다익스트라 노드 그리기
+	_terrain->getDijkstra().render();
+
+	FONTMANAGER->fontOut(to_string(_rightView->getnumberObject()), 100, 100, D3DCOLOR_XRGB(255,255,255));
+
+}
+
+void leftViewHead::monsterSelect(string str)
+{
+	D3DXMATRIX matRotate;
+	D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
+
+	monster* temp = new monster;
+	temp->_transform->SetScale(1.0f, 1.0f, 1.0f);
+
+	D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
+	_mainCamera.computeRay(&ray, &_screenPos, 1);
+
+	_terrain->isIntersectRay(&_hitPos, &ray);
+
+	temp->_transform->SetWorldPosition(_hitPos);
+	temp->setRegenPosition(_hitPos);
+	temp->setMesh(RM_SKINNED->getResource(str, &matRotate));
+	_monster.push_back(temp);
 }
