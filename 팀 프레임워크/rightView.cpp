@@ -1207,6 +1207,16 @@ void rightView::buttonENvUdate()
 		//왼쪽키
 		if (PtInRect(&_ENVbutton.rc2, GetMousePos()))
 		{
+
+			for (int i = 0; i < 2; i++)
+			{
+				//false시켜버리기
+				numberNodeInstal = 0;
+				numberNodelink = 0;
+				_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
+				_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
+			}
+
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
 				if (_ENVbutton.uiNumber <= 1)
@@ -1223,6 +1233,15 @@ void rightView::buttonENvUdate()
 		//오른쪽키
 		if (PtInRect(&_ENVbutton.rc3, GetMousePos()))
 		{
+			for (int i = 0; i < 2; i++)
+			{
+				//false시켜버리기
+				numberNodeInstal = 0;
+				numberNodelink = 0;
+				_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
+				_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
+			}
+
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
 				if (_ENVbutton.uiNumber >= 5)
@@ -1673,6 +1692,15 @@ void rightView::buttonTerUdate()
 		if (PtInRect(&_TERRIANbutton.rc3, GetMousePos()))
 		{
 			numberHeight = 0; //높이조절 초기화
+
+			for (int i = 0; i < 2; i++)
+			{
+				//false시켜버리기
+				numberNodeInstal = 0;
+				numberNodelink = 0;
+				_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
+				_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
+			}
 
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{

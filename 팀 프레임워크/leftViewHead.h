@@ -59,6 +59,9 @@ private:
 	char* splat;
 	char* raw;
 
+	int sour;
+	int dest;
+
 public:
 	leftViewHead();
 	~leftViewHead();

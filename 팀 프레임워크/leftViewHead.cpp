@@ -10,7 +10,7 @@
 #include "rightView.h"		//상호참조 클래스
 
 leftViewHead::leftViewHead()
-	: m_eHeightType(eHeightType::E_NONE)
+	: m_eHeightType(eHeightType::E_NONE), sour(-1), dest(-1)
 {
 	//기본 광원 생성
 	_sceneBaseDirectionLight = new lightDirection;
@@ -481,7 +481,27 @@ void leftViewHead::monsterMaptul()
 		{
 		case 1:
 		{
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+			{
+				const vector<Node*>& temp = _terrain->getDijkstra().getVecNode();
 
+				D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
+				_mainCamera.computeRay(&ray, &_screenPos, 1);
+
+				_terrain->isIntersectRay(&_hitPos, &ray);
+				for (int i = 0; i < temp.size(); i++)
+				{
+					if (PHYSICSMANAGER->isRayHitSphere(&ray, &temp[i]->getPosition(), temp[i]->getRadius(), nullptr, nullptr))
+					{
+						if (sour == -1) sour = i;
+						else if (dest == -1)
+						{
+							dest = i;
+							_terrain->getDijkstra().connectNode(sour, dest);
+						}
+					}
+				}
+			}
 		}
 			break;
 

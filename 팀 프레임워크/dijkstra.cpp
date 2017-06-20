@@ -34,7 +34,7 @@ void dijkstra::render(void)
 	{
 		for (int j = 0; j < adj[i].size(); j++)
 		{
-			GIZMOMANAGER->Line(vecNode[i]->getPosition(), vecNode[adj[i][j].first]->getPosition(), 0x005544ff);
+			GIZMOMANAGER->Line(vecNode[i]->getPosition(), vecNode[adj[i][j].first]->getPosition(), D3DCOLOR_XRGB(255,0,255));
 		}
 	}
 
