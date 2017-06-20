@@ -31,12 +31,14 @@ protected:
 	boundBox hitBox;							//공격용탐색박스
 	LHS::ACTIONRESULT result;					//액션을 위한 입력값
 	string Name;								//몬스터 이름
+	camera*	_mainCamera;
 protected:
 	Action*					CurrAction;				//현재 활성화된 행동 클래스
 	Action*					NextAction;				//다음 활성화될 행동 클래스
 public:
 	monster();
 	monster(string Name);
+	monster(camera* _mainCamera, string Name = "이름을입력해주세요");
 	virtual ~monster();
 
 	inline int& getHP(void) { return HP; }
@@ -65,6 +67,8 @@ public:
 	inline boundBox& getHitBox(void) { return hitBox; }
 
 	inline LHS::ACTIONRESULT& getResult(void) { return result; }
+
+	inline string getName(void) { return Name; }
 
 	//override로 필요하면 재정의 해서 사용하기
  	virtual void baseObjectEnable() override;			//BaseObject가 활성화 될때 실행

@@ -19,10 +19,27 @@ void spriteManager::beginSpriteRender()
 {
 	_sprite->Begin(D3DXSPRITE_ALPHABLEND);
 }
+void spriteManager::beginSpriteBillRender()
+{
+	_sprite->Begin(D3DXSPRITE_BILLBOARD);
+}
 //스프라이트 렌더 종료시 호출
 void spriteManager::endSpriteRender()
 {
 	_sprite->End();
+}
+
+void spriteManager::RenderFont(camera* mainCamera, string str)
+{
+	D3DXMATRIX matTrans;
+	D3DXVECTOR3 test(1, 1, 1);
+	_sprite->SetWorldViewLH(nullptr, &mainCamera->getViewMatrix());
+	beginSpriteBillRender();
+//	D3DXMatrixTranslation(&matTrans, 4.0f, 4.0f, 4.0f);
+	//_sprite->SetTransform(&matTrans);
+	FONTMANAGER->fontOut(_sprite, str);
+	//_sprite->Draw(RM_TEXTURE->getResource("Resource/이미지/리자몽.png"), nullptr, nullptr, &test, D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0xff));
+	endSpriteRender();
 }
 
 //일반렌더(텍스쳐, 그릴영역렉트, 위치좌표 x, y, 섞이는 색상, 이미지중심점)

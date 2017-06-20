@@ -22,6 +22,7 @@ public:
 	void addFont(string strKey, string fontName, int fontSize);
 
 	//디폴트폰트로 출력
+	void fontOut(LPD3DXSPRITE sprite, string str);
 	void fontOut(string str, int x, int y, DWORD color);
 	void fontOutShadow(string str, int x, int y, DWORD color, DWORD shadowColor = 0xff000000);
 	void fontOutLine(string str, int x, int y, DWORD color, DWORD outLineColor = 0xff000000);
