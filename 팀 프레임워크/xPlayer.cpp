@@ -10,7 +10,7 @@ HRESULT xPlayer::init()
 	//_skillTrans = new dx::transform;
 	//_lightSkill->init();
 	//_lightSkill->Reset();
-
+	
 
 	//메시 로딩
 	_state = P_STAND;
@@ -258,12 +258,14 @@ HRESULT xPlayer::init()
 
 
 	_playerObject->_skinnedAnim->Play("S", 0.3F);
+
+	setBladeLight();
+
 	return S_OK;
 }
 
 void xPlayer::update()
 {
-
 	/*for (int i = 0; i < this->_renderObjects.size(); i++)
 	{
 		this->_renderObjects[i]->render();
@@ -287,6 +289,9 @@ void xPlayer::update()
 
 void xPlayer::render()
 {
+
+	
+	drawBladeLight();
 	//_lightSkill->render();
 	//렌더링은 씬에 렌더오브젝트를 넘겨 처리한다.
 	if (KEYMANAGER->isToggleKey(VK_F7))
@@ -321,6 +326,8 @@ void xPlayer::render()
 	//		itemUpdate();
 	//	}
 	//}
+
+
 }
 
 void xPlayer::release(void)
@@ -329,6 +336,10 @@ void xPlayer::release(void)
 	{
 		SAFE_DELETE(this->_renderObjects[i]);
 	}
+
+	SAFE_RELEASE(_myVertexbuffer);
+	SAFE_RELEASE(_myIndexBuffer);
+	SAFE_RELEASE(_texture);
 }
 
 void xPlayer::LoadData()
@@ -1172,16 +1183,251 @@ void xPlayer::normalAttackDamageProcessing()
 {
 	vector<monster*>::iterator iter;
 
-	for (iter = _monsterPool->begin(); iter != _monsterPool->end(); ++iter)
+	if (_monsterPool != NULL)
 	{
-		if (PHYSICSMANAGER->isOverlap(this->_playerObject, *iter))
+		for (iter = _monsterPool->begin(); iter != _monsterPool->end(); ++iter)
 		{
-			(*iter)->setHP((*iter)->getHP() - PLAYERMANAGER->Getatt());
-			if ((*iter)->getHP() < 0)
+			if (PHYSICSMANAGER->isOverlap(this->_playerObject, *iter))
 			{
-				exit(0);
+				(*iter)->setHP((*iter)->getHP() - PLAYERMANAGER->Getatt());
+				if ((*iter)->getHP() < 0)
+				{
+					exit(0);
+				}
+				//FONTMANAGER->fontOut("때렸어!", WINSIZEX / 2, WINSIZEY / 2, 0xffffffff);
 			}
-			//FONTMANAGER->fontOut("때렸어!", WINSIZEX / 2, WINSIZEY / 2, 0xffffffff);
 		}
 	}
+}
+
+void xPlayer::setBladeLight()
+{
+
+	vertexNum = 80;
+
+	primitives = vertexNum - 2;
+	handTrans = new dx::transform;
+
+
+	idx = new DWORD[vertexNum];
+
+	//정점 버퍼 생성
+	_device->CreateVertexBuffer(
+		sizeof(MYLIGHTVERTEX) * vertexNum,
+		D3DUSAGE_WRITEONLY,
+		MYLIGHTVERTEX::FVF,
+		D3DPOOL_DEFAULT,
+		&_myVertexbuffer,
+		NULL);
+
+
+	//인덱스 버퍼 생성
+	_device->CreateIndexBuffer(
+		sizeof(DWORD) * vertexNum,
+		D3DUSAGE_WRITEONLY,
+		D3DFMT_INDEX32,
+		D3DPOOL_DEFAULT,
+		&_myIndexBuffer,
+		NULL);
+	// 1---2 //변경됬음. 2 <-> 3
+	// |  /|	
+	// | / |								
+	// 0---3
+	//UV를 동일하게 적용한다고 가정하였을때.
+
+	LPMYLIGHTVERTEX pVertices;
+	_myVertexbuffer->Lock(0, 0, (void**)&pVertices, 0);
+
+	float maxX = 5;
+	float minX = -5;
+
+	for (int i = 1; i < vertexNum; i += 2)
+	{
+		float x = 0;
+		x = ((i - 1) * ((maxX - minX) / (vertexNum - 2)) + minX);
+		//1-> 0 
+		//3-> 2 * 10/4 +5 =...10
+
+		pVertices[i].pos = D3DXVECTOR3(x + 11, 5, 0);//posHand + 
+
+		float u = 0;
+
+		if (i == 1)
+		{
+			u = 0;
+		}
+		else
+		{
+			u = ((float)(i - 1) / (float)(vertexNum - 2));
+		}
+		pVertices[i].uv = D3DXVECTOR2(u, 0);
+	}
+
+	for (int i = 0; i < vertexNum; i += 2)
+	{
+		float x = 0;
+		x = (i * ((maxX - minX) / (vertexNum - 2)) + minX);
+
+		pVertices[i].pos = D3DXVECTOR3(x, -5, 0);//posHand + 
+
+		float u = 0;
+		if (i == 0)
+		{
+			u = 0;
+		}
+		else
+		{
+			u = ((float)i / (float)(vertexNum - 2));
+
+		}
+		pVertices[i].uv = D3DXVECTOR2(u, 1);
+	}
+
+	_myVertexbuffer->Unlock();
+
+
+
+
+	//tagIndex* idx = new tagIndex[rects];
+
+
+
+	for (int i = 0; i < vertexNum; i++)
+	{
+		idx[i] = i;
+	}
+
+	void* pIndices = NULL;
+	_myIndexBuffer->Lock(0, 0, &pIndices, 0);
+	memcpy(pIndices, idx, sizeof(DWORD) * vertexNum);
+	_myIndexBuffer->Unlock();
+
+
+	//텍스쳐 로딩
+	D3DXCreateTextureFromFile(
+		_device,
+		"테스트.jpg",
+		&_texture);
+}
+
+void xPlayer::updateBladeLight()
+{
+	handTrans->SetWorldMatrix(getPlayerObject()->_skinnedAnim->getSkinnedMesh()->GetFineBONE("humanfemale_Bone121_CSR")->CombinedTransformationMatrix);
+
+	//시작 두 점.
+	posHand = handTrans->GetWorldPosition();
+	posEdge = handTrans->GetWorldPosition() + handTrans->GetForward();
+
+
+
+	// 1---3---5   7 UV좌표계는 윈도우 좌표계와 똑같다 
+	// |  /|   |	왼쪽상단이 0,0 우측상단 1,0 왼쪽하단 0,1 우측하단 1,1
+	// | / |   |								
+	// 0---2---4   6
+	// 0, 0.33 0.66 1
+
+
+
+}
+
+void xPlayer::drawBladeLight()
+{
+
+
+	////라이트기능은 잠시 꺼두자
+	////====================================================================
+	////			## 텍스쳐 Wrap 모드 ##
+	////====================================================================
+	//
+
+
+	_device->SetRenderState(D3DRS_LIGHTING, FALSE);
+	_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+
+	////반복적으로 나온다 1 넘어가는 UV 좌표는 1을 빼서 다시 0부터 시작
+	_device->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);
+	_device->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);
+
+	//그리기 전에 로딩된 텍스쳐를 세팅하기
+	_device->SetTexture(0, _texture);
+
+	//정점 그리기
+	_device->SetStreamSource(0, _myVertexbuffer, 0, sizeof(MYLIGHTVERTEX));
+	_device->SetFVF(MYLIGHTVERTEX::FVF);
+	_device->SetIndices(_myIndexBuffer);
+	
+	_device->DrawIndexedPrimitive(D3DPT_TRIANGLESTRIP, 0, 0, vertexNum, 0, primitives);
+	//텍스쳐 세팅해제
+
+	_device->SetTexture(0, NULL);
+
+
+
+
+
+	//typedef struct tagBladeLightVertex
+	//{
+	//	D3DXVECTOR3 pos;			//정점 위치
+	//	DWORD color;				//정점 컬러
+	////	D3DXVECTOR2 uv;				//정점 UV
+	//	enum { FVF = D3DFVF_XYZ | D3DFVF_DIFFUSE };//| D3DFVF_TEX1 
+	//}BLADE_VERTEX, *LPBLADE_VERTEX;
+
+	///*검의 위치...
+	//검의 상대위치 = COMBINEDMATRIX... RHAND * INVERSE(INVERSE(PLAYERTRNAS->MATWORLD));
+	//검의 상대위치의 B.TRANSFORM
+	//검끝의 상대위치 = B.TRANSFORM.POS - (B.TRANSFORM.FORWARD * 검의 길이);
+	//이 친구들이 P0.*/
+
+	////애니메이션에 의해 변화된 현재 위치.
+	////D3DXVec3CatmullRom(...)
+
+	////애니메이션 펙터 임시저장
+	//skinnedAnimation playerAnim = this->getPlayerObject()->getSkinnedAnim();//얕은복사
+	//skinnedAnimation playerAnim2 = playerAnim;//깊은복사 (객체 새로 생성은 개뿔..)
+
+	//float tempAnimFactor = playerAnim.getTrackDesc0().Position;
+
+	//float nowPeriod = playerAnim.getNowPlayAnimSet()->GetPeriod();
+
+	////가중치 만큼 가라.
+
+	////우선 그린다. 정점.
+	//D3DXTRACK_DESC DESC_ORIGIN = playerAnim.getTrackDesc0();
+	//D3DXTRACK_DESC DESC3 = playerAnim.getTrackDesc0();
+	//D3DXTRACK_DESC DESC2 = playerAnim.getTrackDesc0();
+	//D3DXTRACK_DESC DESC1 = playerAnim.getTrackDesc0();
+	//D3DXTRACK_DESC DESC0 = playerAnim.getTrackDesc0();
+
+
+	//dx::transform* boneTrans = new dx::transform;
+	//boneTrans->SetWorldMatrix(playerAnim.getSkinnedMesh()->GetFineBONE("humanfemale_Bone121_CSR")->CombinedTransformationMatrix);
+
+	////pv3용
+	////DESC3.Position = nowPeriod * 1.0;
+	////playerAnim.setTrackDesc0(DESC3);
+	//playerAnim.setTrackDesc0(DESC_ORIGIN);
+
+	//playerAnim.updateBone();
+	//playerAnim.getSkinnedMesh()->GetFineBONE("humanfemale_Bone121_CSR")->CombinedTransformationMatrix;
+
+	//if (boneTrans->GetFinalMatrix() != playerAnim.getSkinnedMesh()->GetFineBONE("humanfemale_Bone121_CSR")->CombinedTransformationMatrix)
+	//{
+	//	int a = 0;
+	//}
+	//
+	////pv2용
+	//DESC2.Position = nowPeriod * 0.66;
+
+	////pv1용
+	//DESC1.Position = nowPeriod * 0.33;
+
+	////pv0용
+	//DESC0.Position = nowPeriod * 0.0;
+
+
+	//
+	//playerAnim.setTrackDesc0(DESC_ORIGIN);
+
+
 }

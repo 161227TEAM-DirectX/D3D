@@ -59,14 +59,15 @@ HRESULT mainGame::init(void)
 	////¾ÀÃß°¡
 	//SCENEMANAGER->addScene("test", new cLoadingBarTest);
 	//SCENEMANAGER->addScene("test", new cLoadingTest);
-	SCENEMANAGER->addScene("test", new cImageTest,false);
+	//SCENEMANAGER->addScene("test", new cImageTest,false);
 
 
 
 //===================================================================================
 //±èÅÂÈÆ ¾À Å×½ºÆ® Çì´õÆÄÀÏ
 //===================================================================================
-//	SCENEMANAGER->addScene("test", new kimsNewTest, false);
+	SCENEMANAGER->addScene("test", new kimsNewTest, false);
+	//SCENEMANAGER->addScene("test", new cubeLight, false);
 
 
 

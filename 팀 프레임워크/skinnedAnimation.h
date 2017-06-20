@@ -29,11 +29,13 @@ private:
 	float						_fOutCrossFadeTime;			//OneShot Animation 끝나고 되돌아갈때 CrossFade 타임
 	double						_AnimationPlayFactor;		//Animation 진행 Factor ( 0 이면 처음 1 일수록 마지막 )
 	float						_fAnimDelta;
+	float						_AnimSpeed;
 
 public:
 	HRESULT	init(xMeshSkinned* pSkinnedMesh);
 	void release();
 	void update();
+	void updateBone();
 	void render(dx::transform* _transform);
 	void renderBoneName(camera* pCam, dx::transform* _transform);
 
@@ -45,6 +47,13 @@ public:
 	void Stop() { _bPlay = false; }
 	void SetPlaySpeed(float speed);
 
+	//void setAnimTrack() { _pAnimController->GetTrackDesc(0, &_Track_Desc_0); }
+
+	D3DXTRACK_DESC getTrackDesc0() { return _Track_Desc_0; }
+	void setTrackDesc0(D3DXTRACK_DESC DESC0) { _pAnimController->SetTrackDesc(0, &DESC0); }
+
+	LPD3DXANIMATIONSET getNowPlayAnimSet() { return _pNowPlayAnimationSet; }
+
 	void AddBoneTransform(std::string boneName, dx::transform* _transform);
 	void AddApplyTransform(std::string boneName, dx::transform* _transform);
 	void RemoveBoneTransform(std::string boneName);
@@ -52,6 +61,7 @@ public:
 
 	double& getAnimationPlayFactor(void) { return _AnimationPlayFactor; }
 	LPD3DXANIMATIONSET& getAnimationSet(void) { return _pNowPlayAnimationSet; }
+
 
 	xMeshSkinned* getSkinnedMesh() { return _pSkinnedMesh; }
 	//LPD3DXANIMATIONSET getNowPlayanim() { return _pNowPlayAnimationSet; }

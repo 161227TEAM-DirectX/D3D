@@ -194,6 +194,7 @@
     <ClInclude Include="cTerrainTest.h" />
     <ClInclude Include="cTextureManager.h" />
     <ClInclude Include="cube.h" />
+    <ClInclude Include="cubeLight.h" />
     <ClInclude Include="cUIButton.h" />
     <ClInclude Include="cUIImageView.h" />
     <ClInclude Include="cUILoading.h" />
@@ -360,6 +361,7 @@
     <ClCompile Include="cTerrainTest.cpp" />
     <ClCompile Include="cTextureManager.cpp" />
     <ClCompile Include="cube.cpp" />
+    <ClCompile Include="cubeLight.cpp" />
     <ClCompile Include="cUIButton.cpp" />
     <ClCompile Include="cUIImageView.cpp" />
     <ClCompile Include="cUILoading.cpp" />

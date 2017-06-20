@@ -760,6 +760,7 @@
     <ClCompile Include="cDxImgAniManager.cpp">
       <Filter>GameManager%28매크로%29\DxImg</Filter>
     </ClCompile>
+    <ClCompile Include="cubeLight.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainGame.h">
@@ -1252,6 +1253,7 @@
     <ClInclude Include="cDxImgAniManager.h">
       <Filter>GameManager%28매크로%29\DxImg</Filter>
     </ClInclude>
+    <ClInclude Include="cubeLight.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Texture_Gray.fx">
