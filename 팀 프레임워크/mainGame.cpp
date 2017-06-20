@@ -49,7 +49,7 @@ HRESULT mainGame::init(void)
 //이현수 씬 테스트 헤더파일
 //===================================================================================
 	//씬추가
-	SCENEMANAGER->addScene("test", new terrainPickingTest, false);
+	//SCENEMANAGER->addScene("test", new terrainPickingTest, false);
 	
 
 
@@ -59,7 +59,7 @@ HRESULT mainGame::init(void)
 	////씬추가
 	//SCENEMANAGER->addScene("test", new cLoadingBarTest);
 	//SCENEMANAGER->addScene("test", new cLoadingTest);
-	//SCENEMANAGER->addScene("test", new cImageTest,false);
+	SCENEMANAGER->addScene("test", new cImageTest,false);
 
 
 

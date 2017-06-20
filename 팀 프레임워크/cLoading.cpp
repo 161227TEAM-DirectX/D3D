@@ -29,6 +29,7 @@ void cLoading::Init()
 	BrushRegist();
 	SoundRegist();
 	ImageRegist();
+	AniRegist();
 
 
 	//========================================================================
@@ -173,4 +174,60 @@ void cLoading::ImageRegist()
 	FILEPATH_MANAGER->AddFilepath("이미지_리자몽", "Resource/이미지/리자몽.png");
 	FILEPATH_MANAGER->AddFilepath("이미지_거북왕", "Resource/이미지/거북왕.png");
 	FILEPATH_MANAGER->AddFilepath("이미지_이상해꽃", "Resource/이미지/이상해꽃.png");
+}
+
+void cLoading::AniRegist()
+{
+	FILEPATH_MANAGER->AddFilepath("cat", "Resource/이미지/cat.png");
+
+	FILEPATH_MANAGER->AddFilepath("컷신00", "Resource/이미지/컷신/output-0.png");
+	FILEPATH_MANAGER->AddFilepath("컷신01", "Resource/이미지/컷신/output-1.png");
+	FILEPATH_MANAGER->AddFilepath("컷신02", "Resource/이미지/컷신/output-2.png");
+	FILEPATH_MANAGER->AddFilepath("컷신03", "Resource/이미지/컷신/output-3.png");
+	FILEPATH_MANAGER->AddFilepath("컷신04", "Resource/이미지/컷신/output-4.png");
+	FILEPATH_MANAGER->AddFilepath("컷신05", "Resource/이미지/컷신/output-5.png");
+	FILEPATH_MANAGER->AddFilepath("컷신06", "Resource/이미지/컷신/output-6.png");
+	FILEPATH_MANAGER->AddFilepath("컷신07", "Resource/이미지/컷신/output-7.png");
+	FILEPATH_MANAGER->AddFilepath("컷신08", "Resource/이미지/컷신/output-8.png");
+	FILEPATH_MANAGER->AddFilepath("컷신09", "Resource/이미지/컷신/output-9.png");
+	FILEPATH_MANAGER->AddFilepath("컷신10", "Resource/이미지/컷신/output-10.png");
+	FILEPATH_MANAGER->AddFilepath("컷신11", "Resource/이미지/컷신/output-11.png");
+	FILEPATH_MANAGER->AddFilepath("컷신12", "Resource/이미지/컷신/output-12.png");
+	FILEPATH_MANAGER->AddFilepath("컷신13", "Resource/이미지/컷신/output-13.png");
+	FILEPATH_MANAGER->AddFilepath("컷신14", "Resource/이미지/컷신/output-14.png");
+	FILEPATH_MANAGER->AddFilepath("컷신15", "Resource/이미지/컷신/output-15.png");
+
+	FILEPATH_MANAGER->AddFilepath("컷신00-2", "Resource/이미지/컷신2/output-0.png");
+	FILEPATH_MANAGER->AddFilepath("컷신01-2", "Resource/이미지/컷신2/output-1.png");
+	FILEPATH_MANAGER->AddFilepath("컷신02-2", "Resource/이미지/컷신2/output-2.png");
+	FILEPATH_MANAGER->AddFilepath("컷신03-2", "Resource/이미지/컷신2/output-3.png");
+	FILEPATH_MANAGER->AddFilepath("컷신04-2", "Resource/이미지/컷신2/output-4.png");
+	FILEPATH_MANAGER->AddFilepath("컷신05-2", "Resource/이미지/컷신2/output-5.png");
+	FILEPATH_MANAGER->AddFilepath("컷신06-2", "Resource/이미지/컷신2/output-6.png");
+	FILEPATH_MANAGER->AddFilepath("컷신07-2", "Resource/이미지/컷신2/output-7.png");
+	FILEPATH_MANAGER->AddFilepath("컷신08-2", "Resource/이미지/컷신2/output-8.png");
+	FILEPATH_MANAGER->AddFilepath("컷신09-2", "Resource/이미지/컷신2/output-9.png");
+	FILEPATH_MANAGER->AddFilepath("컷신10-2", "Resource/이미지/컷신2/output-10.png");
+	FILEPATH_MANAGER->AddFilepath("컷신11-2", "Resource/이미지/컷신2/output-11.png");
+	FILEPATH_MANAGER->AddFilepath("컷신12-2", "Resource/이미지/컷신2/output-12.png");
+	FILEPATH_MANAGER->AddFilepath("컷신13-2", "Resource/이미지/컷신2/output-13.png");
+	FILEPATH_MANAGER->AddFilepath("컷신14-2", "Resource/이미지/컷신2/output-14.png");
+	FILEPATH_MANAGER->AddFilepath("컷신15-2", "Resource/이미지/컷신2/output-15.png");
+
+	FILEPATH_MANAGER->AddFilepath("컷신00-3", "Resource/이미지/컷신3/output-0.png");
+	FILEPATH_MANAGER->AddFilepath("컷신01-3", "Resource/이미지/컷신3/output-1.png");
+	FILEPATH_MANAGER->AddFilepath("컷신02-3", "Resource/이미지/컷신3/output-2.png");
+	FILEPATH_MANAGER->AddFilepath("컷신03-3", "Resource/이미지/컷신3/output-3.png");
+	FILEPATH_MANAGER->AddFilepath("컷신04-3", "Resource/이미지/컷신3/output-4.png");
+	FILEPATH_MANAGER->AddFilepath("컷신05-3", "Resource/이미지/컷신3/output-5.png");
+	FILEPATH_MANAGER->AddFilepath("컷신06-3", "Resource/이미지/컷신3/output-6.png");
+	FILEPATH_MANAGER->AddFilepath("컷신07-3", "Resource/이미지/컷신3/output-7.png");
+	FILEPATH_MANAGER->AddFilepath("컷신08-3", "Resource/이미지/컷신3/output-8.png");
+	FILEPATH_MANAGER->AddFilepath("컷신09-3", "Resource/이미지/컷신3/output-9.png");
+	FILEPATH_MANAGER->AddFilepath("컷신10-3", "Resource/이미지/컷신3/output-10.png");
+	FILEPATH_MANAGER->AddFilepath("컷신11-3", "Resource/이미지/컷신3/output-11.png");
+	FILEPATH_MANAGER->AddFilepath("컷신12-3", "Resource/이미지/컷신3/output-12.png");
+	FILEPATH_MANAGER->AddFilepath("컷신13-3", "Resource/이미지/컷신3/output-13.png");
+	FILEPATH_MANAGER->AddFilepath("컷신14-3", "Resource/이미지/컷신3/output-14.png");
+	FILEPATH_MANAGER->AddFilepath("컷신15-3", "Resource/이미지/컷신3/output-15.png");
 }

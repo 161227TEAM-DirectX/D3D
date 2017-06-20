@@ -14,6 +14,16 @@ class cDxImg
 	SYNTHESIZE(eImgLayer, m_eImgLayer, ImgLayer);				//레이어
 	SYNTHESIZE(bool, m_isCenterDraw, CenterDraw);				//중점에서 그리는지
 
+	//프레임
+	SYNTHESIZE(int, m_currentFrameX, CurrentFrameX);			//현재 프레임 x
+	SYNTHESIZE(int, m_currentFrameY, CurrentFrameY);			//현재 프레임 y
+	SYNTHESIZE(int, m_maxFrameX, MaxFrameX);					//최대 프레임 x개수
+	SYNTHESIZE(int, m_maxFrameY, MaxFrameY);					//최대 프레임 y개수
+	SYNTHESIZE(int, m_frameWidth, FrameWidth);					//1프레임 가로크기
+	SYNTHESIZE(int, m_frameHeight, FrameHeight);				//1프레임 세로크기
+	SYNTHESIZE(ST_DXIMGANI, m_stImgAni, ImgAni);				//프레임 컨트롤 구조체
+
+
 private:
 	D3DXMATRIXA16			m_matWorld;
 	D3DXMATRIXA16			m_matScale;
@@ -23,10 +33,11 @@ private:
 public:
 	cDxImg();
 	cDxImg(string sImgKey);
+	cDxImg(string sImgKey, int maxFrameX, int maxFrameY, int frameTime = 5);
 	~cDxImg();
 
 	void render();
 	void render(float cx, float cy, float angle = 0.0f);
-	void renderCenter(float cx=0.0f, float cy=0.0f, float angle = 0.0f);
+	void renderFrame();
 };
 

@@ -179,6 +179,7 @@
     <ClInclude Include="camera.h" />
     <ClInclude Include="cameraManager.h" />
     <ClInclude Include="cDxImg.h" />
+    <ClInclude Include="cDxImgAniManager.h" />
     <ClInclude Include="cDxImgManager.h" />
     <ClInclude Include="cFilepathManager.h" />
     <ClInclude Include="characterController.h" />
@@ -344,6 +345,7 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="cDxImg.cpp" />
+    <ClCompile Include="cDxImgAniManager.cpp" />
     <ClCompile Include="cDxImgManager.cpp" />
     <ClCompile Include="cFilepathManager.cpp" />
     <ClCompile Include="characterController.cpp" />
