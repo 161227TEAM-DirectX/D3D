@@ -71,6 +71,7 @@ public:
 	void PickUdate();
 	void terrainUpdate();
 	void terrainTextureUpate();
+	void monsterMaptul();
 	void Load();
 
 	void render();

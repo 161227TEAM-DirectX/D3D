@@ -14,7 +14,7 @@ enum OBSTAGE { STORMTOWN1 =1, STROMTOWN2, RUINSTAGE, PIRAMID };
 //오브젝트 하단메뉴
 enum OBSTAGEDOWN { ONEOFF = 1, TWOOFF, THREEOFF };
 //환경 중단메뉴
-enum ENVSTAGE { WATERMIDDLE = 1, SKYMIDDLE };
+enum ENVSTAGE { WATERMIDDLE = 1, SKYMIDDLE ,NODEINSTAL,NODELINK,MONSTER };
 //지형 중단메뉴
 enum TERSTAGE { TILEMAP1 =1, TILEMAP2,TILEMAP3,TILEMAP4,SPLAT,TERRAWMAP,TERHEIGHT };
 //UI컨트롤 메뉴
@@ -48,6 +48,7 @@ public:
 	UI _UIsize[2];
 	UI _UIcontrol[2];
 	UI _UIsizeHeight[2];
+	UI _UInodeHeight[2];
 
 	//상단메뉴
 	UI _TOPbutton[3];
@@ -59,6 +60,8 @@ public:
 
 	//조절 메뉴
 	UI _heightContorol[2];
+	UI _nodeInstalContorol[2];
+	UI _nodeLinkContorol[2];
 
 	//오브하단 메뉴
 	UI _OBJstorm1Button[5];
@@ -89,15 +92,17 @@ private:
 	POINT mouse;
 
 private:
-	float scaleNumber;      //스케일 조정 넘버
+	float scaleNumber;       //스케일 조정 넘버
 	int numberEnv;           //환경맵  넘버
-	int numberwater;        //물 넘버
+	int numberwater;         //물 넘버
 	int numberHeight;        //높이 넘버
-	int numberObject; //오브젝트 넘버
+	int numberObject;        //오브젝트 넘버
 	float plusMinus;
 
 	//이렇게 만들면 get, set함수가 만들어진다.
 	//초기화는 멤버 이니셜 라이징에서 해준다
+	SYNTHESIZE(int, numberNodeInstal, GSnumberNodeInstal);
+	SYNTHESIZE(int, numberNodelink, GSnumberNodelink);
 	SYNTHESIZE(bool,boolTile1, GSboolTile1);
 	SYNTHESIZE(bool, boolTile2, GSboolTile2);
 	SYNTHESIZE(bool, boolTile3, GSboolTile3);

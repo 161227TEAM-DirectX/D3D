@@ -60,6 +60,8 @@ public:
 
 
 	int getnumberObject(void) { return numberObject; }
+	void setnumberObject(int _numberObject) { numberObject = _numberObject; }
+
 	vector<baseObject*> getObject(void) { return _object; }
 	OBJECTUI* getOBJECTUL(void) { return _build; }
 
