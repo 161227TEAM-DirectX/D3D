@@ -16,7 +16,7 @@ public:
 	//스프라이트 렌더 종료시 호출
 	void endSpriteRender();
 
-	void RenderFont(camera* mainCamera, string str);
+	void RenderFont(camera* mainCamera, string str, D3DXVECTOR3& pos);
 
 	//일반렌더(텍스쳐, 그릴영역렉트, 위치좌표 x, y, 섞이는 색상, 이미지중심점)
 	void renderTexture(

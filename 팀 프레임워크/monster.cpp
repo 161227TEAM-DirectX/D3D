@@ -79,7 +79,11 @@ void monster::baseObjectRender()
 {
 	if (_skinnedAnim != nullptr) _skinnedAnim->render(_transform);
 
-	if(_mainCamera!=nullptr) SPRITEMANAGER->RenderFont(_mainCamera, Name);
+	D3DXVECTOR3 temp = { _transform->GetWorldPosition().x, _boundBox._localMaxPos.y, _transform->GetWorldPosition().z };
+
+	if(_mainCamera!=nullptr) SPRITEMANAGER->RenderFont(_mainCamera, Name, temp);
+
+	SPRITEMANAGER->RenderFont(_mainCamera, Name, temp);
 
 	hitBox.renderGizmo(_transform, D3DCOLOR_XRGB(255, 0, 0));
 	range.renderGizmo(_transform, D3DCOLOR_XRGB(255, 255, 0));

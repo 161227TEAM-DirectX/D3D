@@ -65,7 +65,7 @@ void fontManager::addFont(string strKey, string fontName, int fontSize)
 
 void fontManager::fontOut(LPD3DXSPRITE sprite, string str)
 {
-	_font->DrawText(sprite, str.c_str(), -1, nullptr, 0, D3DCOLOR_XRGB(255, 255, 255));
+	_font->DrawText(sprite, str.c_str(), -1, nullptr, DT_SINGLELINE | DT_NOCLIP, D3DCOLOR_XRGB(100, 100, 100));
 }
 
 //디폴트폰트로 출력

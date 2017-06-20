@@ -100,6 +100,12 @@ void leftViewHead::update()
 	this->PickUdate();
 	this->monsterMaptul();
 
+	//몬스터 업데이트 부분
+	for (int i = 0; i < _monster.size(); i++)
+	{
+		_monster[i]->update();
+	}
+
 	_environment->update();
 }
 
@@ -510,36 +516,49 @@ void leftViewHead::monsterMaptul()
 		}
 	}
 
-	switch (_rightView->GetGSnumberMonster)
+	switch (_rightView->GetGSnumberMonster())
 	{
 	case 1:
-		if(KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect()
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/arcanegolem_ok/x/golem2.x");
 		break;
 	case 2:
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/Beargod_ok/x/beargod.x");
 		break;
 	case 3:
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/boar_ok/x/boar.x");
 		break;
 	case 4:
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/bogbeast_ok/x/bogbeast.x");
 		break;
 	case 5:
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/Brutallus_ok/x/brutallus.x");
 		break;
 	case 6:
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/chimerabeast_ok/x/chimerabeast.x");
 		break;
 	case 7:
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/cockatriceelite_ok/x/cockatriceelite.x");
 		break;
 	case 8:
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/crocodile_ok/x/crocodile.x");
 		break;
 	case 9:
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/direfurbolg_ok/x/direfurbolg.x");
 		break;
 	case 10:
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/doomguard_ok/x/doomguard.x");
 		break;
 	case 11:
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/harpy_ok/x/harpy.x");
 		break;
 	case 12:
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/raptor_ok/x/raptor.x");
 		break;
 	case 13:
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/scorpion_ok/x/scorpion.x");
 		break;
 	case 14:
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/thunderlizard_ok/x/thunderlizard.x");
 		break;
 	}
 }
@@ -605,6 +624,17 @@ void leftViewHead::render()
 	//오브젝트 렌더
 	if (!m_vecObject.empty()) _mapObject->objectRenderTool(m_vecObject, &_mainCamera, _sceneBaseDirectionLight);
 
+	xMeshSkinned::setCamera(&_mainCamera);
+	xMeshSkinned::setTechniqueName("Toon");
+	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resource/Testures/Ramp_1.png"));
+	xMeshSkinned::setBaseLight(this->_sceneBaseDirectionLight);
+
+	//몬스터 렌더
+	for (int i = 0; i < _monster.size(); i++)
+	{
+		_monster[i]->render();
+	}
+
 	if (_rightView->getnumberwater() != 0)
 	{
 		_waterTerrain->render(_rightView->getnumberwater());
@@ -633,7 +663,7 @@ void leftViewHead::monsterSelect(string str)
 	D3DXMATRIX matRotate;
 	D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
 
-	monster* temp = new monster;
+	monster* temp = new monster(&_mainCamera);
 	temp->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
@@ -644,5 +674,7 @@ void leftViewHead::monsterSelect(string str)
 	temp->_transform->SetWorldPosition(_hitPos);
 	temp->setRegenPosition(_hitPos);
 	temp->setMesh(RM_SKINNED->getResource(str, &matRotate));
+	temp->setActive(true);
 	_monster.push_back(temp);
+	_rightView->SetGSnumberMonster(0);
 }
