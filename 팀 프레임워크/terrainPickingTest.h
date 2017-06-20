@@ -35,7 +35,7 @@ private:
 	D3DXVECTOR3			_hitPos;			//히트 포지션
 	SELECTFUNC			lButtonState;
 //	vector<light*>		_lights;
-	vector<baseObject*>	mon;
+	vector<monster*>	mon;
 	
 	vector<baseObject*> testObject;
 

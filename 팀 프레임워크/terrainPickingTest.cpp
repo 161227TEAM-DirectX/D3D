@@ -103,6 +103,7 @@ HRESULT terrainPickingTest::init(void)
 	dest = -1;
 
 	_player->setTargetMonster(*boss);
+	_player->setMonsterRegion(&mon);
 
 	return S_OK;
 }
@@ -176,12 +177,16 @@ void terrainPickingTest::render(void)
 	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resource/Testures/Ramp_1.png"));
 	xMeshSkinned::setBaseLight(this->_sceneBaseDirectionLight);
 	
-	_player->render();
-
 	for (int i = 0; i < this->_cullObjects.size(); i++)
 	{
 		this->_cullObjects[i]->render();
+		if (_cullObjects[i] == _player->getPlayerObject())
+		{
+			_player->itemUpdate();
+		}
 	}
+
+	_player->render();
 	
 	RM_SKINNED->getResource("Resource/Player/FHUMAN_PLATE/FHUMAN.X")->ShowAnimationName(0, 0);
 
@@ -444,7 +449,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
 	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/Beargod_ok/x/beargod.x", mat));
-	mon.push_back(tempObject);
+	//mon.push_back(tempObject);
 	tempObject = nullptr;
 
 	tempObject = new monster;
@@ -457,7 +462,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
 	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/boar_ok/x/boar.x", mat));
-	mon.push_back(tempObject);
+	//mon.push_back(tempObject);
 	tempObject = nullptr;
 
 	tempObject = new monster;
@@ -470,7 +475,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
 	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/bogbeast_ok/x/bogbeast.x", mat));
-	mon.push_back(tempObject);
+	//mon.push_back(tempObject);
 	tempObject = nullptr;
 
 	tempObject = new monster;
@@ -483,7 +488,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
 	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/Brutallus_ok/x/brutallus.x", mat));
-	mon.push_back(tempObject);
+	//mon.push_back(tempObject);
 	tempObject = nullptr;
 
 	tempObject = new monster;
@@ -496,7 +501,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
 	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/chimerabeast_ok/x/chimerabeast.x", mat));
-	mon.push_back(tempObject);
+	//mon.push_back(tempObject);
 	tempObject = nullptr;
 
 	tempObject = new monster;
@@ -509,7 +514,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
 	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/cockatriceelite_ok/x/cockatriceelite.x", mat));
-	mon.push_back(tempObject);
+	//mon.push_back(tempObject);
 	tempObject = nullptr;
 
 	tempObject = new monster;
@@ -522,7 +527,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
 	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/crocodile_ok/x/crocodile.x", mat));
-	mon.push_back(tempObject);
+	//mon.push_back(tempObject);
 	tempObject = nullptr;
 
 	tempObject = new monster;
@@ -535,7 +540,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
 	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/direfurbolg_ok/x/direfurbolg.x", mat));
-	mon.push_back(tempObject);
+	//mon.push_back(tempObject);
 	tempObject = nullptr;
 
 	tempObject = new monster;
@@ -548,7 +553,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
 	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/doomguard_ok/x/doomguard.x", mat));
-	mon.push_back(tempObject);
+	//mon.push_back(tempObject);
 	tempObject = nullptr;
 
 	tempObject = new monster;
@@ -561,7 +566,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
 	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/harpy_ok/x/harpy.x", mat));
-	mon.push_back(tempObject);
+	//mon.push_back(tempObject);
 	tempObject = nullptr;
 
 	tempObject = new monster;
@@ -574,7 +579,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
 	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/raptor_ok/x/raptor.x", mat));
-	mon.push_back(tempObject);
+	//mon.push_back(tempObject);
 	tempObject = nullptr;
 
 	tempObject = new monster;
@@ -587,7 +592,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
 	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/scorpion_ok/x/scorpion.x", mat));
-	mon.push_back(tempObject);
+	//mon.push_back(tempObject);
 	tempObject = nullptr;
 
 	tempObject = new monster;
@@ -600,7 +605,7 @@ void terrainPickingTest::InitMonster(void)
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
 	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
-	mon.push_back(tempObject);
+	//mon.push_back(tempObject);
 	tempObject = nullptr;
 }
 

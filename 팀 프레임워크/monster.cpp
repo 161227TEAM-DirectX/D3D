@@ -72,16 +72,6 @@ void monster::baseObjectNoActiveUpdate()
 void monster::baseObjectRender()
 {
 	if (_skinnedAnim != nullptr) _skinnedAnim->render(_transform);
-	ID3DXFont* font;
-	ID3DXSprite* sprite;
-
-	D3DXCreateFont(_device, 5, 5, FW_BOLD, 1, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "±¼¸²Ã¼", &font);
-	D3DXCreateSprite(_device, &sprite);
-
-	if (sprite) sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-	RECT rt = { 100, 100, 0, 0 };
-	font->DrawTextA(sprite, Name.c_str(), -1, &rt, DT_NOCLIP, D3DCOLOR_XRGB(0, 0, 0));
-	sprite->End();
 	
 	hitBox.renderGizmo(_transform, D3DCOLOR_XRGB(255, 0, 0));
 	range.renderGizmo(_transform, D3DCOLOR_XRGB(255, 255, 0));
