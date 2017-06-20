@@ -16,6 +16,7 @@
 #include "bossActionSkillBattleRoar.h"
 #include "bossActionSkillFire.h"
 #include "bossActionSkillTailAtt.h"
+#include "bossActionFly.h"
 
 ActionManager::ActionManager()
 {
@@ -31,6 +32,7 @@ ActionManager::ActionManager()
 	actionName.push_back("배틀로어");
 	actionName.push_back("보스브레스");
 	actionName.push_back("꼬리공격");
+	actionName.push_back("날기");
 }
 
 
@@ -63,6 +65,7 @@ Action * ActionManager::getAction(string Name, baseObject& who)
 	else if (!actionName[9].compare(Name)) temp = new bossActionSkillBattleRoar;
 	else if (!actionName[10].compare(Name)) temp = new bossActionSkillFire;
 	else if (!actionName[11].compare(Name)) temp = new bossActionSkillTailAtt;
+	else if (!actionName[12].compare(Name)) temp = new bossActionFly;
 
 	temp->setEnemy(*player);
 	temp->setPlayerObject(*player->getPlayerObject());

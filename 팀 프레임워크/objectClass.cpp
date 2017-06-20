@@ -95,12 +95,12 @@ HRESULT objectClass::init(void)
 	_object[54]->setMesh(RM_XMESH->getResource("Resource/Maptool/Meshes/stormTown1/5.townSmallFence/5/5.X", scale));
 	_object[55]->setMesh(RM_XMESH->getResource("Resource/Maptool/Meshes/stormTown1/5.townSmallFence/6/6.X", scale));
 
-	_object[56]->setMesh(RM_XMESH->getResource("Resources/Maptool/Meshes/stormTown2/6.boxObject/1/1.X", scale));
-	_object[57]->setMesh(RM_XMESH->getResource("Resources/Maptool/Meshes/stormTown2/6.boxObject/2/2.X", scale));
-	_object[58]->setMesh(RM_XMESH->getResource("Resources/Maptool/Meshes/stormTown2/6.boxObject/3/3.X", scale));
-	_object[59]->setMesh(RM_XMESH->getResource("Resources/Maptool/Meshes/stormTown2/6.boxObject/4/4.X", scale));
-	_object[60]->setMesh(RM_XMESH->getResource("Resources/Maptool/Meshes/stormTown2/6.boxObject/5/5.X", scale));
-	_object[61]->setMesh(RM_XMESH->getResource("Resources/Maptool/Meshes/stormTown2/6.boxObject/6/6.X", scale));
+	_object[56]->setMesh(RM_XMESH->getResource("Resource/Maptool/Meshes/stormTown2/6.boxObject/1/1.X", scale));
+	_object[57]->setMesh(RM_XMESH->getResource("Resource/Maptool/Meshes/stormTown2/6.boxObject/2/2.X", scale));
+	_object[58]->setMesh(RM_XMESH->getResource("Resource/Maptool/Meshes/stormTown2/6.boxObject/3/3.X", scale));
+	_object[59]->setMesh(RM_XMESH->getResource("Resource/Maptool/Meshes/stormTown2/6.boxObject/4/4.X", scale));
+	_object[60]->setMesh(RM_XMESH->getResource("Resource/Maptool/Meshes/stormTown2/6.boxObject/5/5.X", scale));
+	_object[61]->setMesh(RM_XMESH->getResource("Resource/Maptool/Meshes/stormTown2/6.boxObject/6/6.X", scale));
 
 	_object[62]->setMesh(RM_XMESH->getResource("Resource/Maptool/Meshes/stormTown2/7.planterBox/1/1.X", scale));
 	_object[63]->setMesh(RM_XMESH->getResource("Resource/Maptool/Meshes/stormTown2/7.planterBox/2/2.X", scale));

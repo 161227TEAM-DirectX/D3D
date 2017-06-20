@@ -81,5 +81,19 @@ namespace myUtil
 
 	//플룻의 비트값을 손실하지 않은체 DWORD 형으로 변환
 	DWORD FloatToDWORD(float f);
+
+	//렉트를 그린다.(좌표가 렉트 좌상단)
+	void RectMake(
+		float cx, float cy,							//그릴 좌표
+		float nWidth, float nHeight,				//가로,세로
+		bool isFill=false,							//렉트 내부를 채울건지
+		D3DCOLOR dwColor = D3DCOLOR_XRGB(0, 0, 0));	//렉트 색깔
+
+	//좌표가 렉트의 중점이 되도록 그린다.
+	void RectMakeCenter(
+		float cCenterX, float cCenterY,				//그릴 중점 좌표
+		float nWidth, float nHeight, 				//가로,세로
+		bool isFill=false, 							//렉트 내부를 채울건지
+		D3DCOLOR dwColor = D3DCOLOR_XRGB(0, 0, 0));	//렉트 색깔
 }
 

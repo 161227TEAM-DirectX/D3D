@@ -15,7 +15,7 @@ void particleTest11::Setup()
 	//_testEmitter->init("PaticleResources/Texture/magicCircle.png",1,1.0f,1);
 	//_testEmitter->init("PaticleResources/Texture/fire00_frame7x7.png", 20, 0.1f, 100);
 	_testEmitter->init("PaticleResources/Mesh/stone.x", 30, 5.0f, 60);
-	//_testEmitter->init("Resources/Meshes/GunShip/GunShip.x", 5, 1.0f, 10);
+	//_testEmitter->init("Resource/Meshes/GunShip/GunShip.x", 5, 1.0f, 10);
 
 	//_testEmitter->InitRandomPositionX(-10.0f, 10.0f);
 	//_testEmitter->InitRandomPositionZ(-10.0f, 10.0f);

@@ -13,7 +13,7 @@ xMeshSkinned::xMeshSkinned()
 	//Skinned Effect 로딩
 	if (_sSkinnedMeshEffect == NULL)
 	{
-		_sSkinnedMeshEffect = RM_SHADERFX->getResource("Resources/Shaders/SkinnedMesh.fx");
+		_sSkinnedMeshEffect = RM_SHADERFX->getResource("Resource/Shaders/SkinnedMesh.fx");
 	}
 }
 
@@ -159,14 +159,14 @@ void xMeshSkinned::render(dx::transform * pTrans)
 	if (pTrans != NULL)
 	{
 		D3DXMATRIXA16 matWorld = pTrans->GetFinalMatrix();
-		matFinal = _matCorrection * matWorld; //;
+		matFinal = _matCorrection * matWorld; 
 	}
 	else
 	{
 		matFinal = _matCorrection;
 	}
 
-	_pSkinnedEffect->SetTechnique("SkinnedMesh");
+	//_pSkinnedEffect->SetTechnique("SkinnedMesh");
 
 	//SkinnedEffect WorldMatrix 적용
 	_pSkinnedEffect->SetMatrix("matWorld", &matFinal);
@@ -568,7 +568,7 @@ void xMeshSkinned::setCamera(camera * camera)
 	//Skinned Effect 로딩
 	if (_sSkinnedMeshEffect == NULL)
 	{
-		_sSkinnedMeshEffect = RM_SHADERFX->getResource("Resources/Shaders/SkinnedMesh.fx");
+		_sSkinnedMeshEffect = RM_SHADERFX->getResource("Resource/Shaders/SkinnedMesh.fx");
 	}
 	D3DXMATRIXA16 matViewProj = camera->getViewProjectionMatrix();
 	_sSkinnedMeshEffect->SetMatrix("matViewProjection", &matViewProj);

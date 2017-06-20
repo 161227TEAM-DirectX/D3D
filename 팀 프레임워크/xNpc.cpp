@@ -13,7 +13,7 @@ HRESULT xNpc::init(float posX, float posZ, string name)
 	D3DXMATRIXA16 matCorrection;
 	D3DXMATRIXA16 matScale;
 	D3DXMATRIXA16 matRotate;
-	//pSkinned = RM_SKINNED->getResource("Resources/npc/thrall/thrall.X", &matCorrection);
+	//pSkinned = RM_SKINNED->getResource("Resource/npc/thrall/thrall.X", &matCorrection);
 
 
 
@@ -25,7 +25,7 @@ HRESULT xNpc::init(float posX, float posZ, string name)
 		D3DXMatrixScaling(&matScale, 1, 1, 1);
 		D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
 		matCorrection = matRotate*matScale;
-		pSkinned = RM_SKINNED->getResource("Resources/npc/thrall/thrall.X", &matCorrection);
+		pSkinned = RM_SKINNED->getResource("Resource/npc/thrall/thrall.X", &matCorrection);
 		D3DXVECTOR3 pos = _NpcObject->_transform->GetWorldPosition();
 		_NpcObject->_transform->SetScale(0.25f, 0.25f, 0.25f);
 		_NpcObject->_boundBox.setBound(&D3DXVECTOR3(pos.x, pos.y + 2.0f, pos.z), &D3DXVECTOR3(1.3, 1.5, 1.3));
@@ -35,7 +35,7 @@ HRESULT xNpc::init(float posX, float posZ, string name)
 		D3DXMatrixScaling(&matScale, 1, 1, 1);
 		D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
 		matCorrection = matRotate*matScale;
-		pSkinned = RM_SKINNED->getResource("Resources/npc/sylvanas/sylvanas.X", &matCorrection);
+		pSkinned = RM_SKINNED->getResource("Resource/npc/sylvanas/sylvanas.X", &matCorrection);
 		D3DXVECTOR3 pos = _NpcObject->_transform->GetWorldPosition();
 		_NpcObject->_transform->SetScale(0.33f, 0.33f, 0.33f);
 		_NpcObject->_boundBox.setBound(&D3DXVECTOR3(pos.x, pos.y + 2.0f, pos.z), &D3DXVECTOR3(1.3, 1.5, 1.3));
@@ -93,7 +93,7 @@ void xNpc::render()
 	if (KEYMANAGER->isToggleKey(VK_F6))
 	{
 		FONTMANAGER->fontOut(_name + ".pos : " + to_string(_posX) + "," + to_string(_posX), 300, 0, 0xfffffffff);
-		RM_SKINNED->getResource("Resources/npc/thrall/thrall.X")->ShowAnimationName(0, 0);
+		RM_SKINNED->getResource("Resource/npc/thrall/thrall.X")->ShowAnimationName(0, 0);
 	}
 }
 

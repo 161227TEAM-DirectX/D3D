@@ -26,10 +26,7 @@ vector<D3DXVECTOR3> ioHeightManager::loadHeight(string filePath)
 
 	ifstream inFile(ioString);
 
-	if (inFile.fail())
-	{
-		exit(0);
-	}
+	assert(!inFile.fail() && "경로에 리소스가 있는지 확인하십시오.");
 
 	while (!inFile.eof())
 	{
