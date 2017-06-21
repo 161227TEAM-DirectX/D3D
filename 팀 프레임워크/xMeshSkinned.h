@@ -69,6 +69,8 @@ public:
 		return _vecAnimSet[index];
 	}
 
+	LPD3DXANIMATIONSET getNowPlayAnim() { return _pNowPlayAnimationSet;}
+
 	//본이름으로 본찾는다.
 	BONE* GetFineBONE(std::string boneName);
 

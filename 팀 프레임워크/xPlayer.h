@@ -1,6 +1,7 @@
 #pragma once
 #include "iGameNode.h"
 #include "xPlayerStatus.h"
+#include <list>
 
 //#include "skill00_03.h"
 //#include "SK_Boss00.h"
@@ -44,6 +45,8 @@ private:
 	//SK_Boss00* _lightSkill;
 	//dx::transform* _skillTrans;
 
+	
+
 	bool _isJump;
 	bool _isOnBattle;
 	PL_STATE _state;
@@ -68,19 +71,30 @@ private:
 
 	float _playSpeed;
 
-	DWORD vertexNum = 6;
-	DWORD rects = vertexNum / 2;
-	DWORD primitives = rects * 2;
+	float nowPeriod;
+
+	DWORD vertexNum ;
+	DWORD primitives;
+	DWORD maxNum;
 
 	D3DXVECTOR3 posHand;
 	D3DXVECTOR3 posEdge;
 
-	D3DXVECTOR3 PVs1[4];
-	D3DXVECTOR3 PVs2[4];
+	//D3DXVECTOR3 PVs1[4];
+	//D3DXVECTOR3 PVs2[4];
 
-	LPMYLIGHTVERTEX pVertices;
+	deque<MYLIGHTVERTEX> _vertexDeque;
+
+	MYLIGHTVERTEX* pVertices;
+
+	deque<D3DXVECTOR3> _vecPosHand;
+	deque<D3DXVECTOR3> _vecPosEdge;
+
+
 
 	bool _isBladePosInit;
+
+	int sampleMax;
 
 private:
 	baseObject* _playerObject;
@@ -89,6 +103,9 @@ private:
 
 	dx::transform _attackTrans;
 	boundBox _attackBound;
+
+	dx::transform* _handTrans;
+	dx::transform* _edgeTrans;
 
 	vector<baseObject*> _renderObjects;
 	vector<monster*>* _monsterPool;
@@ -99,8 +116,25 @@ private:
 	terrain*			linkTerrain;
 	monster*			targetMonster;
 
-	
 
+	//정점의 위치를 저장하는 큐
+	D3DXVECTOR3 _edgePos[21];
+	D3DXVECTOR3 _handPos[21];
+
+	D3DXVECTOR3 _HStart;
+	D3DXVECTOR3 _HEnd;
+
+	D3DXVECTOR3 _EStart;
+	D3DXVECTOR3 _Eend;
+
+	
+	//skinnedAnimation* CloneSkinned;
+
+	dx::transform* myTrans;
+
+	D3DXTRACK_DESC ORIG_DESC;
+
+	D3DXTRACK_DESC O_DESC;
 
 
 	LPDIRECT3DVERTEXBUFFER9 _myVertexbuffer;	//정점 버퍼
@@ -108,7 +142,6 @@ private:
 									//로딩될 텍스쳐(png, jpg, bmp, tga, dds) => 텍스쳐포맷(dds : 다이렉트 전용 텍스쳐 포맷)
 	LPDIRECT3DTEXTURE9 _texture;	//로딩될 텍스쳐
 
-	dx::transform* handTrans;
 	DWORD* idx;
 
 public:

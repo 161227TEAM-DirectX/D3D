@@ -4,7 +4,7 @@
 
 HRESULT kimsNewTest::init()
 {
-	SOUNDMANAGER->play("마을1");
+	//SOUNDMANAGER->play("마을1");
 	_mainCamera = new camera;
 
 	_directionLightCamera = new camera;

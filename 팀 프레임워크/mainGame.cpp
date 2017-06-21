@@ -9,7 +9,7 @@
 
 mainGame::mainGame()
 {
-	g_pLoading->Init();
+	REGIST_SGT->Init();
 
 	//SCENEMANAGER->addScene("start", new startScene, false);
 	//SCENEMANAGER->addScene("loading", new loadingScene, false);
@@ -20,7 +20,7 @@ mainGame::mainGame()
 
 mainGame::~mainGame()
 {
-	g_pLoading->Destroy();
+	REGIST_SGT->Destroy();
 }
 
 
