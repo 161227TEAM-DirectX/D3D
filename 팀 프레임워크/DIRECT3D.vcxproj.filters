@@ -178,83 +178,14 @@
     <Filter Include="GameManager%28상속%29\Time">
       <UniqueIdentifier>{6f184a5e-f3af-4f2b-8ae8-978c498b2bc4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameUI">
-      <UniqueIdentifier>{b789bd82-fa71-4ce3-a6cb-c1372efd626a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUI\05.Start%28미완성%29">
-      <UniqueIdentifier>{c04a776f-ce53-4880-845f-249090c8508d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Main">
       <UniqueIdentifier>{03a573a8-7190-406d-a729-1dd0b1c29548}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUI\00.Object">
-      <UniqueIdentifier>{f5750b29-a518-4f91-9253-6d912bba683a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUI\01.ImageView">
-      <UniqueIdentifier>{b461c23d-9cd0-4f50-8f2f-397a80e6c9cd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUI\02.Button">
-      <UniqueIdentifier>{1011b1a7-5d35-46bf-bf6b-b8348c00344b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUI\03.LoadingBar">
-      <UniqueIdentifier>{3f64c98b-e558-4a7d-b6da-fcfcf7f971f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUI\04.Loading%28멀티쓰레드%29">
-      <UniqueIdentifier>{2dd94494-d1d2-48a2-9e0c-00bce90e4a06}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameFramework3D\Environment">
       <UniqueIdentifier>{98315c07-d6fe-4447-88e0-383127a34387}</UniqueIdentifier>
     </Filter>
     <Filter Include="팀 포트폴리오">
       <UniqueIdentifier>{217de447-9077-4a6b-be06-d0d41ba8859c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="팀 포트폴리오\00.Scene">
-      <UniqueIdentifier>{c12dd585-052f-4b6b-b520-0eadf3a6694c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="팀 포트폴리오\00.Scene\00.Start">
-      <UniqueIdentifier>{96956a81-4418-43f2-a6f9-a2a4bef1c5f5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="팀 포트폴리오\00.Scene\01.Loading">
-      <UniqueIdentifier>{1ccdeef8-205c-4e5b-80bc-84e6aed0958b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="팀 포트폴리오\00.Scene\02.Maptool">
-      <UniqueIdentifier>{18c3d375-1257-4174-897d-bda9bdaf6349}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="팀 포트폴리오\01.맵툴">
-      <UniqueIdentifier>{9fdf0078-6728-46c2-b25b-8f1d8f4a89d5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="팀 포트폴리오\01.맵툴\1.라이트뷰">
-      <UniqueIdentifier>{7b94afa0-441e-4c64-b01c-9f0f415af4d8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="팀 포트폴리오\01.맵툴\1.라이트뷰\1.스몰그리드">
-      <UniqueIdentifier>{93b03419-dcde-4d9d-a2d1-652854ae0fbb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="팀 포트폴리오\01.맵툴\1.라이트뷰\2.라이트맵툴">
-      <UniqueIdentifier>{66146b7f-05af-49e2-b479-a366d2d50436}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="팀 포트폴리오\01.맵툴\1.라이트뷰\3.오브젝트">
-      <UniqueIdentifier>{c24a449d-55ab-4cf7-b25c-7c949d78d6c9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="팀 포트폴리오\01.맵툴\2.레프트뷰">
-      <UniqueIdentifier>{8dd3b09c-c851-4e69-bfcf-e9273ee529b4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="팀 포트폴리오\01.맵툴\2.레프트뷰\1.전체적인왼쪽뷰">
-      <UniqueIdentifier>{ed09eb86-5474-4027-85ec-0357f723a916}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="팀 포트폴리오\01.맵툴\2.레프트뷰\2.맵,맵텍스쳐">
-      <UniqueIdentifier>{82fb30fe-8a66-4ab5-a4dc-ea98e64ba446}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="팀 포트폴리오\01.맵툴\2.레프트뷰\3.맵오브젝트">
-      <UniqueIdentifier>{468abc24-4f83-410e-80e1-acab07a55552}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="팀 포트폴리오\01.맵툴\2.레프트뷰\5.물">
-      <UniqueIdentifier>{26f8683d-2d8f-49b1-bb80-8b4e2e064089}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="팀 포트폴리오\01.맵툴\3.IO매니져">
-      <UniqueIdentifier>{d2ffd7d8-876c-4435-b7ab-e4df48398753}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Loading">
-      <UniqueIdentifier>{8bf2e84c-32dc-475e-b887-6ba650b555ea}</UniqueIdentifier>
     </Filter>
     <Filter Include="Z테스트\김만웅\02.지형테스트">
       <UniqueIdentifier>{21e16082-da14-46cf-9315-f831f3533c4a}</UniqueIdentifier>
@@ -267,6 +198,78 @@
     </Filter>
     <Filter Include="GameFramework3D\DxImg">
       <UniqueIdentifier>{d8cec934-c656-4c0b-92a6-a9a991486b4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RegistBase">
+      <UniqueIdentifier>{8bf2e84c-32dc-475e-b887-6ba650b555ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\김만웅\04.GameUI">
+      <UniqueIdentifier>{b789bd82-fa71-4ce3-a6cb-c1372efd626a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\김만웅\04.GameUI\05.Start%28미완성%29">
+      <UniqueIdentifier>{c04a776f-ce53-4880-845f-249090c8508d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\김만웅\04.GameUI\00.Object">
+      <UniqueIdentifier>{f5750b29-a518-4f91-9253-6d912bba683a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\김만웅\04.GameUI\01.ImageView">
+      <UniqueIdentifier>{b461c23d-9cd0-4f50-8f2f-397a80e6c9cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\김만웅\04.GameUI\02.Button">
+      <UniqueIdentifier>{1011b1a7-5d35-46bf-bf6b-b8348c00344b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\김만웅\04.GameUI\03.LoadingBar">
+      <UniqueIdentifier>{3f64c98b-e558-4a7d-b6da-fcfcf7f971f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\김만웅\04.GameUI\04.Loading%28멀티쓰레드%29">
+      <UniqueIdentifier>{2dd94494-d1d2-48a2-9e0c-00bce90e4a06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameManager%28매크로%29\Xmesh">
+      <UniqueIdentifier>{75b0090b-10ef-4ae9-8a08-98b25e469cd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\02.맵툴">
+      <UniqueIdentifier>{9fdf0078-6728-46c2-b25b-8f1d8f4a89d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\02.맵툴\1.라이트뷰">
+      <UniqueIdentifier>{7b94afa0-441e-4c64-b01c-9f0f415af4d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\02.맵툴\1.라이트뷰\1.스몰그리드">
+      <UniqueIdentifier>{93b03419-dcde-4d9d-a2d1-652854ae0fbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\02.맵툴\1.라이트뷰\2.라이트맵툴">
+      <UniqueIdentifier>{66146b7f-05af-49e2-b479-a366d2d50436}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\02.맵툴\1.라이트뷰\3.오브젝트">
+      <UniqueIdentifier>{c24a449d-55ab-4cf7-b25c-7c949d78d6c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\02.맵툴\2.레프트뷰">
+      <UniqueIdentifier>{8dd3b09c-c851-4e69-bfcf-e9273ee529b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\02.맵툴\2.레프트뷰\1.전체적인왼쪽뷰">
+      <UniqueIdentifier>{ed09eb86-5474-4027-85ec-0357f723a916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\02.맵툴\2.레프트뷰\2.맵,맵텍스쳐">
+      <UniqueIdentifier>{82fb30fe-8a66-4ab5-a4dc-ea98e64ba446}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\02.맵툴\2.레프트뷰\3.맵오브젝트">
+      <UniqueIdentifier>{468abc24-4f83-410e-80e1-acab07a55552}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\02.맵툴\2.레프트뷰\5.물">
+      <UniqueIdentifier>{26f8683d-2d8f-49b1-bb80-8b4e2e064089}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\02.맵툴\3.IO매니져">
+      <UniqueIdentifier>{d2ffd7d8-876c-4435-b7ab-e4df48398753}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\00.Scene">
+      <UniqueIdentifier>{c12dd585-052f-4b6b-b520-0eadf3a6694c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\00.Scene\02.Maptool">
+      <UniqueIdentifier>{18c3d375-1257-4174-897d-bda9bdaf6349}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\00.Scene\01.Start">
+      <UniqueIdentifier>{96956a81-4418-43f2-a6f9-a2a4bef1c5f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\00.Scene\00.Loading">
+      <UniqueIdentifier>{1ccdeef8-205c-4e5b-80bc-84e6aed0958b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -400,22 +403,22 @@
       <Filter>GameFramework3D\Object</Filter>
     </ClCompile>
     <ClCompile Include="cUIObject.cpp">
-      <Filter>GameUI\00.Object</Filter>
+      <Filter>Z테스트\김만웅\04.GameUI\00.Object</Filter>
     </ClCompile>
     <ClCompile Include="cUIImageView.cpp">
-      <Filter>GameUI\01.ImageView</Filter>
+      <Filter>Z테스트\김만웅\04.GameUI\01.ImageView</Filter>
     </ClCompile>
     <ClCompile Include="cTextureManager.cpp">
       <Filter>GameManager%28매크로%29\Texture</Filter>
     </ClCompile>
     <ClCompile Include="cUIButton.cpp">
-      <Filter>GameUI\02.Button</Filter>
+      <Filter>Z테스트\김만웅\04.GameUI\02.Button</Filter>
     </ClCompile>
     <ClCompile Include="cPicking.cpp">
       <Filter>GameFramework3D\Picking</Filter>
     </ClCompile>
     <ClCompile Include="cUILoadingBar.cpp">
-      <Filter>GameUI\03.LoadingBar</Filter>
+      <Filter>Z테스트\김만웅\04.GameUI\03.LoadingBar</Filter>
     </ClCompile>
     <ClCompile Include="cLoadingBarTest.cpp">
       <Filter>Z테스트\김만웅\00.로딩바</Filter>
@@ -457,7 +460,7 @@
       <Filter>GameFramework3D\Monster</Filter>
     </ClCompile>
     <ClCompile Include="cUILoading.cpp">
-      <Filter>GameUI\04.Loading%28멀티쓰레드%29</Filter>
+      <Filter>Z테스트\김만웅\04.GameUI\04.Loading%28멀티쓰레드%29</Filter>
     </ClCompile>
     <ClCompile Include="cLoadingTest.cpp">
       <Filter>Z테스트\김만웅\01.로딩%28멀티쓰레드%29</Filter>
@@ -686,7 +689,7 @@
       <Filter>GameManager%28매크로%29\Map</Filter>
     </ClCompile>
     <ClCompile Include="cUIStart.cpp">
-      <Filter>GameUI\05.Start%28미완성%29</Filter>
+      <Filter>Z테스트\김만웅\04.GameUI\05.Start%28미완성%29</Filter>
     </ClCompile>
     <ClCompile Include="WinMain.cpp">
       <Filter>Main</Filter>
@@ -694,53 +697,50 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="cLoading.cpp">
-      <Filter>Loading</Filter>
-    </ClCompile>
     <ClCompile Include="startScene.cpp">
-      <Filter>팀 포트폴리오\00.Scene\00.Start</Filter>
+      <Filter>팀 포트폴리오\00.Scene\01.Start</Filter>
     </ClCompile>
     <ClCompile Include="loadingScene.cpp">
-      <Filter>팀 포트폴리오\00.Scene\01.Loading</Filter>
+      <Filter>팀 포트폴리오\00.Scene\00.Loading</Filter>
     </ClCompile>
     <ClCompile Include="mapToolScene.cpp">
       <Filter>팀 포트폴리오\00.Scene\02.Maptool</Filter>
     </ClCompile>
     <ClCompile Include="ioHeightManager.cpp">
-      <Filter>팀 포트폴리오\01.맵툴\3.IO매니져</Filter>
+      <Filter>팀 포트폴리오\02.맵툴\3.IO매니져</Filter>
     </ClCompile>
     <ClCompile Include="ioSaveManager.cpp">
-      <Filter>팀 포트폴리오\01.맵툴\3.IO매니져</Filter>
+      <Filter>팀 포트폴리오\02.맵툴\3.IO매니져</Filter>
     </ClCompile>
     <ClCompile Include="ioSaveObjectManager.cpp">
-      <Filter>팀 포트폴리오\01.맵툴\3.IO매니져</Filter>
+      <Filter>팀 포트폴리오\02.맵툴\3.IO매니져</Filter>
     </ClCompile>
     <ClCompile Include="rightSmallGrid.cpp">
-      <Filter>팀 포트폴리오\01.맵툴\1.라이트뷰\1.스몰그리드</Filter>
+      <Filter>팀 포트폴리오\02.맵툴\1.라이트뷰\1.스몰그리드</Filter>
     </ClCompile>
     <ClCompile Include="rightView.cpp">
-      <Filter>팀 포트폴리오\01.맵툴\1.라이트뷰\2.라이트맵툴</Filter>
+      <Filter>팀 포트폴리오\02.맵툴\1.라이트뷰\2.라이트맵툴</Filter>
     </ClCompile>
     <ClCompile Include="objectClass.cpp">
-      <Filter>팀 포트폴리오\01.맵툴\1.라이트뷰\3.오브젝트</Filter>
+      <Filter>팀 포트폴리오\02.맵툴\1.라이트뷰\3.오브젝트</Filter>
     </ClCompile>
     <ClCompile Include="leftViewHead.cpp">
-      <Filter>팀 포트폴리오\01.맵툴\2.레프트뷰\1.전체적인왼쪽뷰</Filter>
+      <Filter>팀 포트폴리오\02.맵툴\2.레프트뷰\1.전체적인왼쪽뷰</Filter>
     </ClCompile>
     <ClCompile Include="terrainSc.cpp">
-      <Filter>팀 포트폴리오\01.맵툴\2.레프트뷰\2.맵,맵텍스쳐</Filter>
+      <Filter>팀 포트폴리오\02.맵툴\2.레프트뷰\2.맵,맵텍스쳐</Filter>
     </ClCompile>
     <ClCompile Include="mapObject.cpp">
-      <Filter>팀 포트폴리오\01.맵툴\2.레프트뷰\3.맵오브젝트</Filter>
+      <Filter>팀 포트폴리오\02.맵툴\2.레프트뷰\3.맵오브젝트</Filter>
     </ClCompile>
     <ClCompile Include="WaterTerrain.cpp">
-      <Filter>팀 포트폴리오\01.맵툴\2.레프트뷰\5.물</Filter>
+      <Filter>팀 포트폴리오\02.맵툴\2.레프트뷰\5.물</Filter>
     </ClCompile>
     <ClCompile Include="Environment.cpp">
       <Filter>GameFramework3D\Environment</Filter>
     </ClCompile>
     <ClCompile Include="ioMapManager.cpp">
-      <Filter>팀 포트폴리오\01.맵툴\3.IO매니져</Filter>
+      <Filter>팀 포트폴리오\02.맵툴\3.IO매니져</Filter>
     </ClCompile>
     <ClCompile Include="kimsNewTest.cpp">
       <Filter>Z테스트\김태훈\xPlayer</Filter>
@@ -761,8 +761,17 @@
       <Filter>GameManager%28매크로%29\DxImg</Filter>
     </ClCompile>
     <ClCompile Include="cubeLight.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="cXmeshManager.cpp" />
     <ClCompile Include="Text.cpp" />
+=======
+    <ClCompile Include="cXmeshManager.cpp">
+      <Filter>GameManager%28매크로%29\Xmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="cRegistBase.cpp">
+      <Filter>RegistBase</Filter>
+    </ClCompile>
+>>>>>>> 3108576f2f7f02f138733f01673b468492a15cdf
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainGame.h">
@@ -898,22 +907,22 @@
       <Filter>GameFramework3D\Object</Filter>
     </ClInclude>
     <ClInclude Include="cUIObject.h">
-      <Filter>GameUI\00.Object</Filter>
+      <Filter>Z테스트\김만웅\04.GameUI\00.Object</Filter>
     </ClInclude>
     <ClInclude Include="cUIImageView.h">
-      <Filter>GameUI\01.ImageView</Filter>
+      <Filter>Z테스트\김만웅\04.GameUI\01.ImageView</Filter>
     </ClInclude>
     <ClInclude Include="cTextureManager.h">
       <Filter>GameManager%28매크로%29\Texture</Filter>
     </ClInclude>
     <ClInclude Include="cUIButton.h">
-      <Filter>GameUI\02.Button</Filter>
+      <Filter>Z테스트\김만웅\04.GameUI\02.Button</Filter>
     </ClInclude>
     <ClInclude Include="cPicking.h">
       <Filter>GameFramework3D\Picking</Filter>
     </ClInclude>
     <ClInclude Include="cUILoadingBar.h">
-      <Filter>GameUI\03.LoadingBar</Filter>
+      <Filter>Z테스트\김만웅\04.GameUI\03.LoadingBar</Filter>
     </ClInclude>
     <ClInclude Include="cLoadingBarTest.h">
       <Filter>Z테스트\김만웅\00.로딩바</Filter>
@@ -955,7 +964,7 @@
       <Filter>GameFramework3D\Monster</Filter>
     </ClInclude>
     <ClInclude Include="cUILoading.h">
-      <Filter>GameUI\04.Loading%28멀티쓰레드%29</Filter>
+      <Filter>Z테스트\김만웅\04.GameUI\04.Loading%28멀티쓰레드%29</Filter>
     </ClInclude>
     <ClInclude Include="cLoadingTest.h">
       <Filter>Z테스트\김만웅\01.로딩%28멀티쓰레드%29</Filter>
@@ -1184,58 +1193,55 @@
       <Filter>GameManager%28매크로%29\Map</Filter>
     </ClInclude>
     <ClInclude Include="cUIStart.h">
-      <Filter>GameUI\05.Start%28미완성%29</Filter>
+      <Filter>Z테스트\김만웅\04.GameUI\05.Start%28미완성%29</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Main</Filter>
     </ClInclude>
-    <ClInclude Include="cLoading.h">
-      <Filter>Loading</Filter>
-    </ClInclude>
     <ClInclude Include="startScene.h">
-      <Filter>팀 포트폴리오\00.Scene\00.Start</Filter>
+      <Filter>팀 포트폴리오\00.Scene\01.Start</Filter>
     </ClInclude>
     <ClInclude Include="loadingScene.h">
-      <Filter>팀 포트폴리오\00.Scene\01.Loading</Filter>
+      <Filter>팀 포트폴리오\00.Scene\00.Loading</Filter>
     </ClInclude>
     <ClInclude Include="mapToolScene.h">
       <Filter>팀 포트폴리오\00.Scene\02.Maptool</Filter>
     </ClInclude>
     <ClInclude Include="ioHeightManager.h">
-      <Filter>팀 포트폴리오\01.맵툴\3.IO매니져</Filter>
+      <Filter>팀 포트폴리오\02.맵툴\3.IO매니져</Filter>
     </ClInclude>
     <ClInclude Include="ioSaveManager.h">
-      <Filter>팀 포트폴리오\01.맵툴\3.IO매니져</Filter>
+      <Filter>팀 포트폴리오\02.맵툴\3.IO매니져</Filter>
     </ClInclude>
     <ClInclude Include="ioSaveObjectManager.h">
-      <Filter>팀 포트폴리오\01.맵툴\3.IO매니져</Filter>
+      <Filter>팀 포트폴리오\02.맵툴\3.IO매니져</Filter>
     </ClInclude>
     <ClInclude Include="rightSmallGrid.h">
-      <Filter>팀 포트폴리오\01.맵툴\1.라이트뷰\1.스몰그리드</Filter>
+      <Filter>팀 포트폴리오\02.맵툴\1.라이트뷰\1.스몰그리드</Filter>
     </ClInclude>
     <ClInclude Include="rightView.h">
-      <Filter>팀 포트폴리오\01.맵툴\1.라이트뷰\2.라이트맵툴</Filter>
+      <Filter>팀 포트폴리오\02.맵툴\1.라이트뷰\2.라이트맵툴</Filter>
     </ClInclude>
     <ClInclude Include="objectClass.h">
-      <Filter>팀 포트폴리오\01.맵툴\1.라이트뷰\3.오브젝트</Filter>
+      <Filter>팀 포트폴리오\02.맵툴\1.라이트뷰\3.오브젝트</Filter>
     </ClInclude>
     <ClInclude Include="leftViewHead.h">
-      <Filter>팀 포트폴리오\01.맵툴\2.레프트뷰\1.전체적인왼쪽뷰</Filter>
+      <Filter>팀 포트폴리오\02.맵툴\2.레프트뷰\1.전체적인왼쪽뷰</Filter>
     </ClInclude>
     <ClInclude Include="terrainSc.h">
-      <Filter>팀 포트폴리오\01.맵툴\2.레프트뷰\2.맵,맵텍스쳐</Filter>
+      <Filter>팀 포트폴리오\02.맵툴\2.레프트뷰\2.맵,맵텍스쳐</Filter>
     </ClInclude>
     <ClInclude Include="mapObject.h">
-      <Filter>팀 포트폴리오\01.맵툴\2.레프트뷰\3.맵오브젝트</Filter>
+      <Filter>팀 포트폴리오\02.맵툴\2.레프트뷰\3.맵오브젝트</Filter>
     </ClInclude>
     <ClInclude Include="WaterTerrain.h">
-      <Filter>팀 포트폴리오\01.맵툴\2.레프트뷰\5.물</Filter>
+      <Filter>팀 포트폴리오\02.맵툴\2.레프트뷰\5.물</Filter>
     </ClInclude>
     <ClInclude Include="Environment.h">
       <Filter>GameFramework3D\Environment</Filter>
     </ClInclude>
     <ClInclude Include="ioMapManager.h">
-      <Filter>팀 포트폴리오\01.맵툴\3.IO매니져</Filter>
+      <Filter>팀 포트폴리오\02.맵툴\3.IO매니져</Filter>
     </ClInclude>
     <ClInclude Include="kimsNewTest.h">
       <Filter>Z테스트\김태훈\xPlayer</Filter>
@@ -1256,8 +1262,17 @@
       <Filter>GameManager%28매크로%29\DxImg</Filter>
     </ClInclude>
     <ClInclude Include="cubeLight.h" />
+<<<<<<< HEAD
     <ClInclude Include="cXmeshManager.h" />
     <ClInclude Include="Text.h" />
+=======
+    <ClInclude Include="cXmeshManager.h">
+      <Filter>GameManager%28매크로%29\Xmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="cRegistBase.h">
+      <Filter>RegistBase</Filter>
+    </ClInclude>
+>>>>>>> 3108576f2f7f02f138733f01673b468492a15cdf
   </ItemGroup>
   <ItemGroup>
     <None Include="Texture_Gray.fx">
