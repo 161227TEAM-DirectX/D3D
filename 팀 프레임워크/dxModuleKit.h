@@ -22,9 +22,14 @@ private:
 	dxSizeModule*			_sizeMD;	//사이즈
 	dxLifeTimeModule*		_lifeMD;	//생명시간
 	dxCircleModule*			_circleMD;	//원회전
-
 	dxRotationModule*		_rotateMD;	//회전
 	dxUVModule*				_uvMD;
+
+private:
+	bool _realTimeTrackingOn;
+
+public:
+	virtual void setRealTimeTrackingOn(void) { _realTimeTrackingOn = true; };
 
 public:
 	virtual HRESULT init();
@@ -166,7 +171,8 @@ public:	//======================================================================
 	void InitAnimation(int inFrameMaxX, int inFrameMaxY, int inTotalFrame) { _uvMD->InitAnimation(inFrameMaxX, inFrameMaxY, inTotalFrame); }
 	//애니메이션 재생수
 	void InitConstAniReactivateNum(int inReactiveateNum) { _uvMD->InitConstAniReactivateNum(inReactiveateNum); }
-
+	//애니매이션 시작지점과 끝지점 지정가능
+	void InitAniPlaySection(int inStartFrameNum, int inEndFrameNum) { _uvMD->InitAniPlaySection(inStartFrameNum, inEndFrameNum); }
 
 public:
 	dxModuleKit() {};

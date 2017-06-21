@@ -42,9 +42,13 @@ void dxPlaneEmitter::relese()
 
 void dxPlaneEmitter::update()
 {
-	if (autoActiveTimeCheck()) return;
+	//시간
+	float DeltaTime = _timeDelta*_emitterNum;
 
+	//작동시간 체크
+	if (autoActiveTimeCheck(DeltaTime)) return;
 	//초기값
+
 	int checkNum = 0;
 	//tagDxParticle* ptcVtx;
 	//list<tagDxAttribute>::iterator iter;
@@ -66,15 +70,21 @@ void dxPlaneEmitter::update()
 			//ptcVtx->position = iter->position;
 		}
 
-
-		if (_spawnTime <= _spawnCurrentTime)
+		if (_spawnTime <= _spawnCurrentTime && _startDelayTimeOn == FALSE)
 		{
 			if (iter->isAlive == false && checkNum < _onePtcNum)
 			{
 				//재활성화
 				//iter->size = _constPaticleSize;
 				iter->isAlive = true;
+				iter->emitterNum = _emitterNum;
+				if (_psTrans != NULL)
+				{
+					iter->psTransPos = _psTrans->GetWorldPosition();
+					iter->matPsRot = _psTrans->GetWorldRotateMatrix();
+				}
 				_module->InitUpdate(iter);
+				
 
 				//this->InitCreatePlane(&_ptcVertex[InitNum * 4], &_ptcIndex[InitNum * 6], iter, InitNum);
 
@@ -92,26 +102,13 @@ void dxPlaneEmitter::update()
 		if (iter->isAlive)
 		{
 
-			//this->CreatePlane(&_ptcVertex[ActiveNum*4],&_ptcIndex[ActiveNum*6],iter);
-
-			//iter->acceleration += iter->acceleration*0.01;
-			//ptcVtx->position += (iter->velocity + iter->acceleration)*_timeDelta;
-			//_ptcVtx[ActiveNum].position -= iter->circleSpeed;
 			_module->ActiveUpdate(iter);
-			//ptcVtx->position = D3DXVECTOR3(sinf(angle),0.0f,cosf(angle));
-			//ptcVtx->position = iter
-			//_ptcVtx[ActiveNum].position += iter->circleSpeed + iter->velocity*_timeDelta + (iter->acceleration*(iter->age*_timeDelta)*(iter->age*_timeDelta) / 2.0f) + iter->posDirectVel*_timeDelta;
-			//ptcVtx->position += iter->angleSpeed*_timeDelta+ iter->velocity*_timeDelta + (iter->acceleration*(iter->age*_timeDelta)*(iter->age*_timeDelta)/2.0f);
-			//_ptcVtx[ActiveNum].size = iter->size;
-			//_ptcVtx[ActiveNum].color = iter->color;
 			this->ActiveUpdatePlane(&_ptcVertex[_drawPtcNum * 4], &_ptcIndex[_drawPtcNum * 6], iter, _drawPtcNum);
 			//나이 더하기
-			iter->age += _timeDelta;
-			//_drawVtx[_drawPtcNum] = _ptcVtx[ActiveNum];
+			iter->age += DeltaTime;
 			_drawPtcNum++;
 		}
 		ActiveNum++;
-		//_ptcVtx++;
 	}
 
 	//시간 초기화
@@ -124,11 +121,12 @@ void dxPlaneEmitter::update()
 
 	if (_startDelayTime <= _currentDelayTime)
 	{
-		_spawnCurrentTime += _timeDelta;
+		_spawnCurrentTime += DeltaTime;
+		_startDelayTimeOn = false;
 	}
 	else
 	{
-		_currentDelayTime += _timeDelta;
+		_currentDelayTime += DeltaTime;
 	}
 
 
@@ -137,7 +135,7 @@ void dxPlaneEmitter::update()
 
 void dxPlaneEmitter::render()
 {
-	if (autoActiveTimeCheck()) return;
+	if (_activeRenderOn == FALSE) return;
 
 	_device->SetRenderState(D3DRS_LIGHTING, false);		//라이팅을 끈다.
 	_device->SetRenderState(D3DRS_ZWRITEENABLE, false);	//z 버퍼의 쓰기를 막는다.

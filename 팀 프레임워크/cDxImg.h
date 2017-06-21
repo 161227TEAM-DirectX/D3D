@@ -39,5 +39,7 @@ public:
 	void render();
 	void render(float cx, float cy, float angle = 0.0f);
 	void renderFrame();
+
+	RECT getRect();
 };
 

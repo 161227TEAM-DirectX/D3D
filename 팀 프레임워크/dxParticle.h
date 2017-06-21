@@ -43,16 +43,13 @@ struct tagDxAttribute
 	
 	//transform		trans;				//트랜스폼
 
-	
-
-
-
-
-
-
 
 	D3DXVECTOR3		posCenter;			//평면 파티클용 - 중심점
-	D3DXVECTOR3		FinalPos;			//최종 위치
+	D3DXVECTOR3		InitPos;			//최기 위치용
+	D3DXVECTOR3		FinalPos;			//최종 위치용
+	D3DXVECTOR3		TrackingPos;		//실시간 추적 위치용
+	D3DXVECTOR3		vectorDir;			//계산용 방향크기
+	D3DXVECTOR3		FinalDir;			//최종 방향크기
 
 	D3DXVECTOR3		position;			// 월드내 파티클 위치
 	D3DXVECTOR3		posDirectVel;		// 위치 방향성 속도
@@ -98,7 +95,13 @@ struct tagDxAttribute
 	D3DXVECTOR2		UV2;
 	D3DXVECTOR2		UV3;
 	
+	D3DXVECTOR3		allRotAngle;
+	D3DXVECTOR3		allRotAngleSpeed;
 
+	D3DXMATRIXA16	matPsRot;
+	D3DXVECTOR3		psTransPos;
+
+	int				emitterNum;			//외부 이미터 개수(시간 차이 맞춤용)
 
 	//초기화
 	tagDxAttribute()
@@ -130,7 +133,11 @@ struct tagDxAttribute
 		horizontal = 1.0f;
 		vertical = 1.0f;
 
+		InitPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 		FinalPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		FinalDir = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		TrackingPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		posCenter = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
 		attractStrartPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 		attractCenter = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
@@ -143,6 +150,18 @@ struct tagDxAttribute
 		UV2 = D3DXVECTOR2(0.0f, 1.0f);
 		UV3 = D3DXVECTOR2(1.0f, 1.0f);
 
+		allRotAngle = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		allRotAngleSpeed = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+
+		vectorDir = D3DXVECTOR3(0.0f,0.0f,0.0f);
+		
+		D3DXMatrixIdentity(&matPsRot);
+
+		psTransPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+
+		emitterNum = 1;//자기자신의 개수
+
+		
 	}
 };
 
@@ -273,9 +292,17 @@ struct tagDxAttributeMaxMin
 	int frameMaxNumY;
 	int	totalFrameNum;
 
+	int useFrameMaxNumY;
+
 	bool animationOn;
 
 	int reactivateNum;
+
+	//프레임 재생 시작 및 종료 조절
+	int startFrameNum;
+	int endFrameNum;
+
+	bool aniSectionOn;
 
 	//끌림
 	tagMaxMin attractX;
@@ -329,12 +356,20 @@ struct tagDxAttributeMaxMin
 		frameMaxNumY = 0;
 		totalFrameNum = 0;
 
+		useFrameMaxNumY = 0;
+
 		animationOn = false;
 
 		reactivateNum = 1;
 
 		attractOn = false;
 
+		startFrameNum = 0;
+		endFrameNum = 0;
+
+
+
+		aniSectionOn = false;
 	}
 
 };

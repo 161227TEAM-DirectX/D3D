@@ -8,9 +8,20 @@ class dxSkill : public dxSkillContainer
 {
 protected:
 	//트렌스폼
-	dx::transform* _playerTrans;
-	dx::transform* _playerTransDir;
+	dx::transform* _playerTrans;	//임시용 지울예정
+	dx::transform* _playerTransDir;//임시용 지울예정
 
+	//스킬 위치 및 방향 트랜스폼
+	dx::transform* _skillPosTrans;
+	dx::transform* _skillDirTrans;
+
+	//한 타겟 바향 및 트랜스폼
+	dx::transform* _oneTagerTrans;
+	dx::transform* _AllTagerTrans;
+
+	int _targetMaxNum;
+
+	bool _OneActionSettingOn;
 
 public:
 	//업데이트 동작
@@ -20,6 +31,20 @@ public:
 	virtual void Reset() = 0;
 
 public:
+	//스킬
+	virtual void setSkillPosTrans(dx::transform* inPosTrans) { _skillPosTrans = inPosTrans; };
+	virtual void setSkillDirTrans(dx::transform* inDirTrans) { _skillDirTrans = inDirTrans; };
+
+	//타겟
+	virtual void setOneTargetTrans(dx::transform* inTarger) { _oneTagerTrans = inTarger; };
+
+	void SetManyTargetTrans(dx::transform*& allTarget, int targetMaxNum)
+	{
+		_AllTagerTrans = allTarget;
+		_targetMaxNum = targetMaxNum;
+
+	};
+
 	virtual void setPlayer(dx::transform* inPlayerTrans) { _playerTrans = inPlayerTrans; };
 	virtual void setPlayerDir(dx::transform* inPlayerTrans) { _playerTransDir = inPlayerTrans; };
 	virtual void setTarget(dx::transform* inTargetTrans) { _targetTrans = inTargetTrans; };

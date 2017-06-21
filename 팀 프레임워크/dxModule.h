@@ -177,6 +177,17 @@ public:
 		return OneColorF;
 	}
 
+	//두가지 중 하나
+	int RandomTwoNum(int min, int max)
+	{
+		int result;
+		while (true)
+		{
+			result = RandomIntRange(min, max);
+			if (result == min || result == max) { break; }
+		}
+		return result;
+	}
 
 protected:
 	void GraphCheck(vector<tagDxGraph*>& inGraph, float point, float min,float max)
