@@ -207,7 +207,11 @@ void dxMeshEmitter::relese()
 
 void dxMeshEmitter::update()
 {
-	if (autoActiveTimeCheck()) return;
+	//시간
+	float DeltaTime = _timeDelta*_emitterNum;
+
+	//작동시간 체크
+	if (autoActiveTimeCheck(DeltaTime)) return;
 
 	//초기값
 	int checkNum = 0;
@@ -228,17 +232,23 @@ void dxMeshEmitter::update()
 		{
 			iter->isAlive = false;
 			iter->age = 0.0f;
-			//ptcVtx->position = iter->position;
 		}
 
 
-		if (_spawnTime <= _spawnCurrentTime)
+		if (_spawnTime <= _spawnCurrentTime && _startDelayTimeOn == FALSE)
 		{
 			if (iter->isAlive == false && checkNum < _onePtcNum)
 			{
 				//재활성화
 				//iter->size = _constPaticleSize;
 				iter->isAlive = true;
+				iter->emitterNum = _emitterNum;
+				if (_psTrans != NULL)
+				{
+					iter->psTransPos = _psTrans->GetWorldPosition();
+					iter->matPsRot = _psTrans->GetWorldRotateMatrix();
+				}
+
 				_module->InitUpdate(iter);
 
 				//this->InitCreatePlane(&_ptcVertex[InitNum * 4], &_ptcIndex[InitNum * 6], iter, InitNum);
@@ -276,13 +286,12 @@ void dxMeshEmitter::update()
 			//this->ActiveUpdatePlane(&_ptcVertex[_drawPtcNum * 4], &_ptcIndex[_drawPtcNum * 6], iter, _drawPtcNum);
 			//나이 더하기
 			//D3DXVECTOR3 getPos = _trans[ActiveNum].GetWorldPosition();
-			//D3DXVECTOR3 finalPos = iter->FinalPos;
 			
 			_trans[ActiveNum].SetScale(iter->size, iter->size, iter->size);
 			_trans[ActiveNum].SetRotateLocal(iter->rotateAngle.x, iter->rotateAngle.y, iter->rotateAngle.z);
-			_trans[ActiveNum].SetWorldPosition(_trans[ActiveNum].GetWorldPosition()+(iter->FinalPos));
+			_trans[ActiveNum].SetWorldPosition(_trans[ActiveNum].GetWorldPosition()+(iter->FinalDir));
 			
-			iter->age += _timeDelta;
+			iter->age += DeltaTime;
 			//_drawVtx[_drawPtcNum] = _ptcVtx[ActiveNum];
 			_drawPtcNum++;
 		}
@@ -300,11 +309,12 @@ void dxMeshEmitter::update()
 
 	if (_startDelayTime <= _currentDelayTime)
 	{
-		_spawnCurrentTime += _timeDelta;
+		_spawnCurrentTime += DeltaTime;
+		_startDelayTimeOn = false;
 	}
 	else
 	{
-		_currentDelayTime += _timeDelta;
+		_currentDelayTime += DeltaTime;
 	}
 
 	
@@ -314,7 +324,7 @@ void dxMeshEmitter::update()
 
 void dxMeshEmitter::render()
 {
-	if (autoActiveTimeCheck()) return;
+	if (_activeRenderOn == FALSE) return;
 	
 
 	//D3DXMATRIXA16 getView;

@@ -19,7 +19,7 @@ HRESULT particleTest05::init(void)
 	//_set00 = new particleSet00;
 	//_set00->init();
 	
-
+	_mainCamera = new camera;
 
 	//PSM->initPS(_testPS, "ลอมü");
 	//D3DXMatrixIdentity()
@@ -43,6 +43,10 @@ void particleTest05::release(void)
 
 void particleTest05::update(void)
 {
+
+	_mainCamera->DefaultControl(_timeDelta);
+	_mainCamera->updateCamToDevice();_mainCamera->updateCamToDevice();
+
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 	{
 		_testSkill02->Start();

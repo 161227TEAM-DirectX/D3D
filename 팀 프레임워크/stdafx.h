@@ -285,6 +285,25 @@ struct tagSaveCinematic
 	float Height;
 };
 
+struct tagSaveMonster
+{
+	string infoName;
+	int monsterNumber;
+	float monsterX;
+	float monsterY;
+	float monsterZ;
+	float scale;
+};
+
+struct tagSaveNode
+{
+	string infoName;
+	int Inumber;
+	float nodeX;
+	float nodeY;
+	float nodeZ;
+	vector<pair<int, float>> nodeFS;
+};
 
 
 
@@ -311,7 +330,7 @@ using namespace myUtil;
 #include "cRegistBase.h"
 //#include "xPlayer.h"
 #include "cDxImg.h"
-
+#include "cDxImgButton.h"
 
 
 
@@ -339,6 +358,8 @@ using namespace myUtil;
 #include "ioBaseManager.h"
 #include "ioSaveManager.h"
 #include "ioSaveObjectManager.h"
+#include "ioSaveMonsterManger.h"
+#include "ioSaveNodeManager.h"
 #include "ioHeightManager.h"
 #include "ioMapManager.h"
 
@@ -374,6 +395,8 @@ using namespace myUtil;
 #define IOSAVEMANAGER ioSaveManager::getSingleton()
 #define IOSAVEOBJECTMANAGER ioSaveObjectManager::getSingleton()
 #define IOHEIGHTMANAGER ioHeightManager::getSingleton()
+#define IOSAVEMONSTERMANAGER ioSaveMonsterManger::getSingleton()
+#define IOSAVENODEMANAGER ioSaveNodeManager::getSingleton()
 #define IOMAPMANAGER ioMapManager::getSingleton()
 
 

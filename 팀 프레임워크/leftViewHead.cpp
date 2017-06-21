@@ -30,7 +30,7 @@ leftViewHead::~leftViewHead()
 
 HRESULT leftViewHead::init()
 {
-	co = 0;
+
 	//환경맵
 	_environment = new Environment;
 	_environment->init();
@@ -66,8 +66,11 @@ HRESULT leftViewHead::init()
 	//충돌지역, 카메라
 	_hitPos = D3DXVECTOR3(0, 0, 0);
 	_mainCamera.SetWorldPosition(0.0f, 0.0f, 0.0f);
+	_SaveButton.FT = false;
 
 	mapRotation = D3DXToRadian(180);
+
+	loadMonster();
 
 	return S_OK;
 }
@@ -95,7 +98,7 @@ void leftViewHead::update()
 	_ptMousePos = GetMousePos();
 
 	//업데이트 부분
-	this->Load();				//데이터 로드
+	this->save();				//데이터 로드
 	this->terrainUpdate();
 	this->PickUdate();
 	this->monsterMaptul();
@@ -118,7 +121,6 @@ void leftViewHead::PickUdate()
 		{
 			if(KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
-				co++;
 				float scale;
 				baseObject* temp = new baseObject;
 				D3DXMATRIX mapRotate;
@@ -167,7 +169,6 @@ void leftViewHead::PickUdate()
 			{
 				if(PHYSICSMANAGER->isRayHitStaticMeshObject(&ray, m_vecObject[i], &_hitPos, NULL))
 				{
-					co--;
 					//오브젝트 삭제
 					m_vecObject.erase(m_vecObject.begin() + i);
 					//오브젝트 세이브 삭제
@@ -511,99 +512,156 @@ void leftViewHead::monsterMaptul()
 				}
 			}
 		}
-			break;
+		break;
 
 		}
+
+		switch (_rightView->GetGSnumberMonster())
+		{
+		case 1:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("골렘",1);
+			break;
+		case 2:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("개",2);
+			break;
+		case 3:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("멧돼지",3);
+			break;
+		case 4:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("나무짐승",4);
+			break;
+		case 5:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("브루탈루스",5);
+			break;
+		case 6:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("히드라",6);
+			break;
+		case 7:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("새",7);
+			break;
+		case 8:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("악어",8);
+			break;													  
+		case 9:														  
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("곰",9);
+			break;													  
+		case 10:													  
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("둠가드",10);
+			break;													  
+		case 11:													  
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("하피",11);
+			break;													  
+		case 12:													  
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("랩터",12);
+			break;													  
+		case 13:													  
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("전갈",13);
+			break;													  
+		case 14:													  
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("도마뱀",14);
+			break;
+		}
+
+
 	}
 
-	switch (_rightView->GetGSnumberMonster())
-	{
-	case 1:
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/arcanegolem_ok/x/golem2.x");
-		break;
-	case 2:
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/Beargod_ok/x/beargod.x");
-		break;
-	case 3:
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/boar_ok/x/boar.x");
-		break;
-	case 4:
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/bogbeast_ok/x/bogbeast.x");
-		break;
-	case 5:
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/Brutallus_ok/x/brutallus.x");
-		break;
-	case 6:
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/chimerabeast_ok/x/chimerabeast.x");
-		break;
-	case 7:
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/cockatriceelite_ok/x/cockatriceelite.x");
-		break;
-	case 8:
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/crocodile_ok/x/crocodile.x");
-		break;
-	case 9:
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/direfurbolg_ok/x/direfurbolg.x");
-		break;
-	case 10:
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/doomguard_ok/x/doomguard.x");
-		break;
-	case 11:
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/harpy_ok/x/harpy.x");
-		break;
-	case 12:
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/raptor_ok/x/raptor.x");
-		break;
-	case 13:
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/scorpion_ok/x/scorpion.x");
-		break;
-	case 14:
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("Resource/Meshes/monster/thunderlizard_ok/x/thunderlizard.x");
-		break;
-	}
+
 }
 
-void leftViewHead::Load()
+void leftViewHead::save()
 {
-	if (KEYMANAGER->isOnceKeyDown('M'))
+	if (PtInRect(&_SaveButton.rc2, GetMousePos()))
 	{
-		//맵에 관한 save
-		//벡터로 담을 temp설정
-		vector<tagSaveMap> InfoTemp;
-		tagSaveMap temp;
-
-		temp.infoName = "환경맵";
-		temp.number = _rightView->getNumberEnv();
-		temp.mapHeight = 0;
-		InfoTemp.push_back(temp);
-
-		temp.infoName = "물결맵";
-		temp.number = _rightView->getnumberwater();
-		temp.mapHeight = 0;
-		InfoTemp.push_back(temp);
-
-		IOSAVEMANAGER->saveFile("세이브맵", InfoTemp);
-
-		//지우고 나서 문제가 생겨서 이름을 다시 1번부터 저자시켜준다
-		for (int i = 0; i < InfoObjectTemp.size(); i++)
+		_SaveButton.FT = true;
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
-			InfoObjectTemp[i].infoName = "넘버" + to_string(i + 1);
+			//맵에 관한 save
+			//벡터로 담을 temp설정
+			//vector<tagSaveMap> InfoTemp;
+			//tagSaveMap temp;
+
+			//temp.infoName = "환경맵";
+			//temp.number = _rightView->getNumberEnv();
+			//temp.mapHeight = 0;
+			//InfoTemp.push_back(temp);
+
+			//temp.infoName = "물결맵";
+			//temp.number = _rightView->getnumberwater();
+			//temp.mapHeight = 0;
+			//InfoTemp.push_back(temp);
+
+			//IOSAVEMANAGER->saveFile("세이브맵", InfoTemp);
+
+			////지우고 나서 문제가 생겨서 이름을 다시 1번부터 저자시켜준다
+			//for (int i = 0; i < InfoObjectTemp.size(); i++)
+			//{
+			//	InfoObjectTemp[i].infoName = "넘버" + to_string(i + 1);
+			//}
+
+			//IOSAVEOBJECTMANAGER->saveFile("오브젝트", InfoObjectTemp);
+
+			//ST_MAP temp0;
+
+			//temp0.heightMap = FILEPATH_MANAGER->GetFilepath(raw);
+			//temp0.splat = FILEPATH_MANAGER->GetFilepath(splat);
+			//temp0.tile0 = FILEPATH_MANAGER->GetFilepath(tile1);
+			//temp0.tile1 = FILEPATH_MANAGER->GetFilepath(tile2);
+			//temp0.tile2 = FILEPATH_MANAGER->GetFilepath(tile3);
+			//temp0.tile3 = FILEPATH_MANAGER->GetFilepath(tile4);
+
+			//temp0.vecPos = _terrain->getMapPosition();
+
+			//IOMAPMANAGER->saveFile("지형0", temp0);
+
+			//몬스터 위치 ,값 저장/////////////////////////////////
+			vector<tagSaveMonster> monsterTemp;
+			tagSaveMonster Mtemp;
+
+			if (_monster.size() != 0)
+			{
+				for (int i = 0; i < _monster.size(); i++)
+				{
+					Mtemp.infoName = "몬스터넘버" + to_string(i + 1);
+					Mtemp.monsterNumber = _monster[i]->getObjectNumber();
+					Mtemp.monsterX = _monster[i]->_transform->GetWorldPosition().x;
+					Mtemp.monsterY = _monster[i]->_transform->GetWorldPosition().y;
+					Mtemp.monsterZ = _monster[i]->_transform->GetWorldPosition().z;
+					Mtemp.scale = 1.0f;
+
+					monsterTemp.push_back(Mtemp);
+				}
+
+				IOSAVEMONSTERMANAGER->saveFile("몬스터", monsterTemp);
+			}
+
+			//노드지정 ,위치,값 저장////////////////////////////
+			vector<tagSaveNode> nodeTemp;
+			tagSaveNode nTemp;
+
+			for (int i = 0; i < _terrain->getDijkstra().getVecNode().size(); i++)
+			{
+				nTemp.infoName = "노드" + to_string(i + 1);
+				nTemp.Inumber = i; // 벡터의 인덱스값 저장
+				nTemp.nodeX = _terrain->getDijkstra().getVecNode()[i]->getPosition().x;//위치값 저장
+				nTemp.nodeY = _terrain->getDijkstra().getVecNode()[i]->getPosition().y;//위치값 저장
+				nTemp.nodeZ = _terrain->getDijkstra().getVecNode()[i]->getPosition().z;//위치값 저장
+
+				for (int j = 0; j < _terrain->getDijkstra().getadjNode()[i].size(); j++)
+				{
+					nTemp.nodeFS.push_back(make_pair(_terrain->getDijkstra().getadjNode()[i][j].first, _terrain->getDijkstra().getadjNode()[i][j].second)); 	//first는 벡터에서 몇번 노드인지를 알려준다.	
+																																								//second는 현재 노드에서 j노드까지의 거리값을 가진다.
+				}
+
+				nodeTemp.push_back(nTemp);
+			}
+
+			IOSAVENODEMANAGER->saveFile("노드", nodeTemp);
 		}
 
-		IOSAVEOBJECTMANAGER->saveFile("오브젝트", InfoObjectTemp);
-
-		ST_MAP temp0;
-
-		temp0.heightMap = FILEPATH_MANAGER->GetFilepath(raw);
-		temp0.splat = FILEPATH_MANAGER->GetFilepath(splat);
-		temp0.tile0 = FILEPATH_MANAGER->GetFilepath(tile1);
-		temp0.tile1 = FILEPATH_MANAGER->GetFilepath(tile2);
-		temp0.tile2 = FILEPATH_MANAGER->GetFilepath(tile3);
-		temp0.tile3 = FILEPATH_MANAGER->GetFilepath(tile4);
-
-		temp0.vecPos = _terrain->getMapPosition();
-
-		IOMAPMANAGER->saveFile("지형0", temp0);
+	}
+	else
+	{
+		_SaveButton.FT = false;
 	}
 }
 
@@ -617,6 +675,21 @@ void leftViewHead::render()
 	sprintf_s(str, "%.0f", D3DXToDegree(mapRotation));
 	FONTMANAGER->fontOut(str, leftViewPort.X + 1085, leftViewPort.Y + 22, D3DCOLOR_XRGB(255, 255, 255));
 
+	//save버튼
+	switch (_SaveButton.FT)
+	{
+	case true:
+		_SaveButton.rc2 = { 1050,860,_SaveButton.rc2.left + 95,_SaveButton.rc2.top + 37 };
+		_SaveButton.tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/SAVE.png");
+		SPRITEMANAGER->renderRectTexture(_SaveButton.tex, &_SaveButton.rc1, &_SaveButton.rc2, 0, 0, 256, 37, leftViewPort.X + 1050, leftViewPort.Y + 860);
+		break;
+
+	case false:
+		_SaveButton.rc2 = {1050,860,_SaveButton.rc2.left + 95,_SaveButton.rc2.top + 37 };
+		_SaveButton.tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/SAVE.png");
+		SPRITEMANAGER->renderRectTexture(_SaveButton.tex, &_SaveButton.rc1, &_SaveButton.rc2, 0, 37, 256,74, leftViewPort.X + 1050, leftViewPort.Y + 860);
+		break;
+	}
 
 	//지형 렌더
 	_terrain->render(&_mainCamera, _sceneBaseDirectionLight);
@@ -658,10 +731,10 @@ void leftViewHead::render()
 
 }
 
-void leftViewHead::monsterSelect(string str)
+void leftViewHead::monsterSelect(string str ,int monsterNumber)
 {
-	D3DXMATRIX matRotate;
-	D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
+	//D3DXMATRIX matRotate;
+	//D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
 
 	monster* temp = new monster(&_mainCamera);
 	temp->_transform->SetScale(1.0f, 1.0f, 1.0f);
@@ -673,8 +746,94 @@ void leftViewHead::monsterSelect(string str)
 
 	temp->_transform->SetWorldPosition(_hitPos);
 	temp->setRegenPosition(_hitPos);
-	temp->setMesh(RM_SKINNED->getResource(str, &matRotate));
+	temp->setMesh(XMESH_MANAGER->GetXmeshSkinned(str));
 	temp->setActive(true);
+	temp->SetObjectNumber(monsterNumber);
 	_monster.push_back(temp);
-	_rightView->SetGSnumberMonster(0);
+}
+
+void leftViewHead::loadMonsterAndNode(void)
+{
+
+}
+
+void leftViewHead::loadMonster(void)
+{
+	IOSAVEMONSTERMANAGER->loadFile("몬스터");
+	vector<tagSaveMonster> temp;
+	tagSaveMonster tagMTemp;
+
+	for (int i = 0; i < IOSAVEMONSTERMANAGER->getCount(); i++)
+	{
+		tagMTemp = IOSAVEMONSTERMANAGER->findTag("몬스터넘버" + to_string(i + 1));
+
+		temp.push_back(tagMTemp);
+	}
+	
+	for (int i = 0; i < temp.size(); i++)
+	{
+		D3DXMATRIX matRotate;
+		D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
+
+		monster* tempMonster = new monster(&_mainCamera);
+		tempMonster->_transform->SetScale(temp[i].scale, temp[i].scale, temp[i].scale);
+		tempMonster->_transform->SetWorldPosition(temp[i].monsterX, temp[i].monsterY, temp[i].monsterZ);
+		tempMonster->setRegenPosition(temp[i].monsterX, temp[i].monsterY, temp[i].monsterZ);
+		tempMonster->setMesh(findMonster(temp[i].monsterNumber));
+		tempMonster->setActive(true);
+		tempMonster->SetObjectNumber(temp[i].monsterNumber);
+		_monster.push_back(tempMonster);
+	}
+}
+
+xMesh * leftViewHead::findMonster(int & index)
+{
+	switch (index)
+	{
+	case 1:
+		return XMESH_MANAGER->GetXmeshSkinned("골렘");
+	case 2:
+		return XMESH_MANAGER->GetXmeshSkinned("개");
+		break;
+	case 3:
+		return XMESH_MANAGER->GetXmeshSkinned("멧돼지");
+		break;
+	case 4:
+		return XMESH_MANAGER->GetXmeshSkinned("나무짐승");
+		break;
+	case 5:
+		return XMESH_MANAGER->GetXmeshSkinned("브루탈루스");
+		break;
+	case 6:
+		return XMESH_MANAGER->GetXmeshSkinned("히드라");
+		break;
+	case 7:
+		return XMESH_MANAGER->GetXmeshSkinned("새");
+		break;
+	case 8:
+		return XMESH_MANAGER->GetXmeshSkinned("악어");
+		break;
+	case 9:
+		return XMESH_MANAGER->GetXmeshSkinned("곰");
+		break;
+	case 10:
+		return XMESH_MANAGER->GetXmeshSkinned("둠가드");
+		break;
+	case 11:
+		return XMESH_MANAGER->GetXmeshSkinned("하피");
+		break;
+	case 12:
+		return XMESH_MANAGER->GetXmeshSkinned("랩터");
+		break;
+	case 13:
+		return XMESH_MANAGER->GetXmeshSkinned("전갈");
+		break;
+	case 14:
+		return XMESH_MANAGER->GetXmeshSkinned("도마뱀");
+		break;
+	}
+}
+
+void leftViewHead::loadNode(void)
+{
 }

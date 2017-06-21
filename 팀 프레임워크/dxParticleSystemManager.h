@@ -4,8 +4,10 @@
 #include "dxParticleSystemSet.h"
 #include "PS_Set00.h"
 #include "PS_Set01.h"
-#include "PS_BossSet00.h"
-#include "PS_EffectSet00.h"
+#include "psBossSet00.h"
+#include "psEffectSet00.h"
+
+#include "psPlayerSet00.h"
 
 class dxParticleSystemManager :public singletonBase<dxParticleSystemManager>
 {
@@ -16,17 +18,22 @@ private:
 private:
 	PS_Set00* _set00;
 	PS_Set01* _set01;
-	PS_BossSet00* _bossSet00;
-	PS_EffectSet00* _effectSet00;
+	psBossSet00* _bossSet00;
+	psEffectSet00* _effectSet00;
+	psPlayerSet00* _playerSet00;
+
 
 public:
 	//파티클 등록
-	void addPS(string psName, dxParticleSystem* inPS)
+	void addPS(string psName, dxParticleSystem* inPS, bool realTimeTrackingOn = true)
 	{
 		//있는지 확인
 		if (checkName(psName)) return;
 		//_mapPS.insert(pair<string, dxParticleSystem*>(psName,inPS));
+		inPS->setRealTimeTrackingOn(realTimeTrackingOn);
 		_mapPS.insert(pair<string, dxParticleSystem*>(psName, inPS));
+		
+
 	}
 
 	//파티클 찾기

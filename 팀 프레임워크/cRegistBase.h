@@ -20,5 +20,6 @@ private:
 	void UIRegist();			//UI 경로 등록
 	void AniRegist();			//애니메이션 경로 등록
 	void XMeshStaticRegist();	//X메쉬스태틱 경로 등록
+	void XMeshSkinnedRegist();	//X메쉬스키드 경로 등록
 };
 

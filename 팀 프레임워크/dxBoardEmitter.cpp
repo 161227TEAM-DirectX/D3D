@@ -23,12 +23,20 @@ HRESULT dxBoardEmitter::init(string textureFileName, int OneTimePaticleNum, floa
 
 	//텍스쳐 불러오기
 	hr = D3DXCreateTextureFromFile(_device, textureFileName.c_str(), &_texture);
-	//hr = D3DXCreateTextureFromFileEx(_device, textureFileName.c_str(), ,,,,,,,,,,,,,&_texture);
 
 	if (FAILED(hr))	return E_FAIL;
 
 	//파티클 사이즈 정함.
 	_ptcList.resize(_totalPtcNum);
+
+
+	_posCenter = new D3DXVECTOR3[_totalPtcNum];
+		
+	for (int i = 0; i < _totalPtcNum; i++)
+	{
+		_posCenter[i] = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	}
+	_activeCurrentTime = 0.0f;
 
 	return S_OK;
 }
@@ -42,7 +50,11 @@ void dxBoardEmitter::relese()
 
 void dxBoardEmitter::update()
 {
-	if (autoActiveTimeCheck()) return;
+	//시간
+	float DeltaTime = _timeDelta*_emitterNum;
+
+	//작동시간 체크
+	if (autoActiveTimeCheck(DeltaTime)) return;
 
 	//초기값
 	int checkNum = 0;
@@ -67,23 +79,39 @@ void dxBoardEmitter::update()
 			//ptcVtx->position = iter->position;
 		}
 
-
-		if (_spawnTime <= _spawnCurrentTime)
+		if (_spawnTime <= _spawnCurrentTime && _startDelayTimeOn == FALSE)
 		{
 			if (iter->isAlive == false && checkNum < _onePtcNum)
 			{
+
 				//재활성화
 				//iter->size = _constPaticleSize;
 				iter->isAlive = true;
-				_module->InitUpdate(iter);
+				iter->emitterNum = _emitterNum;
+				if (_psTrans != NULL)
+				{
+					iter->psTransPos = _psTrans->GetWorldPosition();
+					iter->matPsRot = _psTrans->GetWorldRotateMatrix();
+				}
 
+				_module->InitUpdate(iter);
+				
 				//this->InitCreatePlane(&_ptcVertex[InitNum * 4], &_ptcIndex[InitNum * 6], iter, InitNum);
 
 				checkNum++;
 				//if (checkNum >= _onePtcNum) break;
+
+				//iter->allRotAngle.y = D3DXToDegree(angle.y);
 			}
 			//_ptcVtx++;
 
+			//iter->allRotAngle.x = D3DXToDegree(_psTrans->GetWorldRotateMatrix()._11);
+			//iter->allRotAngle.y = D3DXToDegree(_psTrans->GetWorldRotateMatrix()._22);
+			//iter->allRotAngle.z = D3DXToDegree(_psTrans->GetWorldRotateMatrix()._33);
+			//D3DXVeDot(_psTrans->GetWorldRotateMatrix()._41, &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
+
+			//iter->allRotAngle.y += 5.0f;
+			
 		}
 		InitNum++;
 
@@ -93,26 +121,16 @@ void dxBoardEmitter::update()
 		if (iter->isAlive)
 		{
 
-			//this->CreatePlane(&_ptcVertex[ActiveNum*4],&_ptcIndex[ActiveNum*6],iter);
-
-			//iter->acceleration += iter->acceleration*0.01;
-			//ptcVtx->position += (iter->velocity + iter->acceleration)*_timeDelta;
-			//_ptcVtx[ActiveNum].position -= iter->circleSpeed;
 			_module->ActiveUpdate(iter);
-			//ptcVtx->position = D3DXVECTOR3(sinf(angle),0.0f,cosf(angle));
-			//ptcVtx->position = iter
-			//_ptcVtx[ActiveNum].position += iter->circleSpeed + iter->velocity*_timeDelta + (iter->acceleration*(iter->age*_timeDelta)*(iter->age*_timeDelta) / 2.0f) + iter->posDirectVel*_timeDelta;
-			//ptcVtx->position += iter->angleSpeed*_timeDelta+ iter->velocity*_timeDelta + (iter->acceleration*(iter->age*_timeDelta)*(iter->age*_timeDelta)/2.0f);
-			//_ptcVtx[ActiveNum].size = iter->size;
-			//_ptcVtx[ActiveNum].color = iter->color;
+
 			this->ActiveUpdatePlane(&_ptcVertex[_drawPtcNum * 4], &_ptcIndex[_drawPtcNum * 6], iter, _drawPtcNum);
 			//나이 더하기
-			iter->age += _timeDelta;
-			//_drawVtx[_drawPtcNum] = _ptcVtx[ActiveNum];
+			iter->age += DeltaTime;
 			_drawPtcNum++;
 		}
 		ActiveNum++;
-		//_ptcVtx++;
+
+		
 	}
 
 	//시간 초기화
@@ -125,20 +143,20 @@ void dxBoardEmitter::update()
 
 	if (_startDelayTime <= _currentDelayTime)
 	{
-		_spawnCurrentTime += _timeDelta;
+		_spawnCurrentTime += DeltaTime;
+		_startDelayTimeOn = false;
 	}
 	else
 	{
-		_currentDelayTime += _timeDelta;
+		_currentDelayTime += DeltaTime;
 	}
 
-	//_trans->RotateSelf(0.0f,0.0f,D3DXToRadian(10.0f));
 
 }
 
 void dxBoardEmitter::render()
 {
-	if (autoActiveTimeCheck()) return;
+	if (_activeRenderOn == FALSE) return;
 
 	_device->SetRenderState(D3DRS_LIGHTING, false);		//라이팅을 끈다.
 	_device->SetRenderState(D3DRS_ZWRITEENABLE, false);	//z 버퍼의 쓰기를 막는다.
@@ -158,15 +176,7 @@ void dxBoardEmitter::render()
 	_device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_DIFFUSE);
 	_device->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_TEXTURE);
 
-
-	//카메라 행렬 가져오기
-	/*D3DXMATRIXA16 getView;
-	_device->GetTransform(D3DTS_VIEW, &getView);
-	D3DXVECTOR3 cameraPos = D3DXVECTOR3(getView._41, getView._42, getView._43);*/
-
 	 //Trans.LookPosition(cameraPos);
-
-	D3DXMATRIXA16 matWorld;
 
 	/*if (_bLocal == false)
 	{
@@ -197,21 +207,6 @@ void dxBoardEmitter::render()
 		sizeof(tagDxParticleEX));
 
 
-	//for (int i = 0; i < 100; i++)
-	//{
-	//	/*if (_ptcList[i].isAlive)
-	//	{*/
-	//		_device->DrawIndexedPrimitiveUP(
-	//			D3DPT_TRIANGLELIST,
-	//			i*4,
-	//			4,
-	//			2,
-	//			_ptcIndex,
-	//			D3DFMT_INDEX32,
-	//			_ptcVertex,
-	//			sizeof(tagDxParticleEX));
-	//	//}
-	//}
 	//for (int i = 0; i < _drawPtcNum; i++)
 	//{
 	//	//tagDxParticleEX*	InPtcVertex = _ptcVertex + i*6;		//파티클 버텍스
@@ -276,23 +271,20 @@ void dxBoardEmitter::ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcI
 
 	D3DXMATRIXA16 psTransInverse;
 
-	//D3DXVec2Dot();
+	//D3DXMatrixInverse(&psTransInverse, NULL, &(_psTrans->GetFinalMatrix()*getView));
 
-	D3DXMatrixInverse(&psTransInverse, NULL, &(_psTrans->GetFinalMatrix()*getView));
-
-	//camera boardCamera;
-	//boardCamera.Set
-	//ptcTrans.SetWorldMatrix(psTransInverse*getViewInverse);
+	
+	ptcTrans.SetWorldMatrix(getViewInverse);
 	//ptcTrans.SetWorldMatrix(_psTrans->GetFinalMatrix()*getViewInverse);
 	//ptcTrans.SetWorldMatrix(_psTrans->GetFinalMatrix()*getView);
 
-	ptcTrans.SetWorldMatrix(psTransInverse);
+	//ptcTrans.SetWorldMatrix(psTransInverse);
 
 	//ptcTrans.LookDirection(cameraDir,cameraPos);
 	//ptcTrans.LookPosition(cameraPos);
 
-	//ptcTrans.SetWorldPosition(iter->FinalPos);
-	ptcTrans.RotateSelf(iter->rotateAngle);
+
+	//ptcTrans.RotateSelf(iter->rotateAngle);
 
 	D3DXVECTOR3 x = ptcTrans.GetRight()*iter->horizontal;
 	D3DXVECTOR3 y = ptcTrans.GetUp()*iter->vertical;
@@ -302,16 +294,64 @@ void dxBoardEmitter::ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcI
 
 	D3DXCOLOR inColor = iter->color;
 
-	//D3DXVECTOR3 angle = D3DXVECTOR3(0, cosf(D3DXToRadian(0)),sinf(D3DXToRadian(90)));
 
-	//D3DXVec3Normalize(&angle,&angle);
+	D3DXMATRIXA16 matPos;
+	D3DXMATRIXA16 matRot;
+	D3DXMATRIXA16 matRotY;
+	D3DXMATRIXA16 matFin;
 
-	//D3DXVECTOR3 posCenter = D3DXVECTOR3(cosf(D3DXToRadian(90))*iter->FinalPos.x, iter->FinalPos.y, sinf(D3DXToRadian(90))*iter->FinalPos.z);
+	//
 
-	//D3DXVECTOR3 vel  = D3DXVECTOR3(1.0f*cosf(D3DXToRadian(50)), 1.0f*sinf(D3DXToRadian(50)),0.0f);
+	D3DXMatrixIdentity(&matPos);
+	D3DXMatrixIdentity(&matRot);
+	D3DXMatrixIdentity(&matRotY);
+
+
+	//D3DXMatrixTranslation(&matPos, iter->vectorDir.x, iter->vectorDir.y, iter->vectorDir.z);
+	//D3DXMatrixTranslation(&matPos, iter->velocity.x*_timeDelta, iter->velocity.y*_timeDelta, iter->velocity.z*_timeDelta);
+	//D3DXMatrixTranslation(&matPos, iter->velocity.x, iter->velocity.y, iter->velocity.z);
+	//D3DXMatrixTranslation(&matPos,0.0, 0.0f, 1.0f);
+
+	//D3DXVECTOR3 inPos = D3DXVECTOR3(0.0f,0.0f,1.0f);
+
+	//D3DXMatrixRotation
+
+	//사원수 준비
+	//D3DXQUATERNION quatRot;
+	//D3DXQuaternionRotationYawPitchRoll(&quatRot, D3DXToRadian(0), D3DXToRadian(90), D3DXToRadian(90));
+
+
+	//사원수에 의한 행렬준비
+	//D3DXMATRIXA16 matRotate;
+	//D3DXMatrixRotationQuaternion(&matRot, &quatRot);		//사원수에 의한 회전값으로 회전행렬이 만들어진다.
+	//D3DXMatrixAffineTransformation(&matFin,1.0f,NULL,&quatRot,&inPos);
+	//D3DXMatrixInverse(&matRot,NULL,&matRot);
+
+	//D3DXMatrixRotationY(&matRotY,D3DXToRadian(90));
+
+	//matFin = matPos*matRotY;
+
+	/*matPos._41 = 0.0f;
+	matPos._42 = 0.0f;
+	matPos._43 = 1.0f;*/
+
+	//matFin = matWorld*matRot;
+
+	//matFin = matRotY;
+
+//	iter->posCenter += dir; // *_timeDelta;
+	//_posCenter[drawParticleNum] += dir;
+	//D3DXVECTOR3 posCenter = _posCenter[drawParticleNum];
+	//iter->posCenter = iter->posCenter;
+
+
+	//D3DXVECTOR3 posCenter = iter->posCenter;
+
+	//D3DXVECTOR3 posCenter = _posCenter[drawParticleNum];
 
 	D3DXVECTOR3 posCenter = iter->posCenter;
 
+	//_device->SetTransform(D3DTS_WORLD, &matWorld);
 	//float distance = D3DXVec3Length(&iter->posCenter);
 
 	//D3DXVECTOR3 forward = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
@@ -324,27 +364,16 @@ void dxBoardEmitter::ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcI
 	//D3DXVECTOR3 anglePos = D3DXVECTOR3(cosf(angle)*distance, 0.0f, sinf(angle)*distance);
 
 
-	//int dwPtcNum = drawParticleNum;
-
 	D3DXVECTOR2 uv0 = iter->UV0;
 	D3DXVECTOR2 uv1 = iter->UV1;
 	D3DXVECTOR2 uv2 = iter->UV2;
-	D3DXVECTOR2 uv3 = iter->UV3;
-
-	//D3DXVECTOR3 center = _transform.GetWorldPosition();
-
-	//iter->circleSpeed + iter->velocity*_timeDelta + (iter->acceleration*(iter->age*_timeDelta)*(iter->age*_timeDelta) / 2.0f) + iter->posDirectVel*_timeDelta;
+	D3DXVECTOR2 uv3 = iter->UV3;	
 
 	//정점 정보 대입
 	(ptcVertex + 0)->position = posCenter + (-x * halfScale) + (y * halfScale);
 	(ptcVertex + 1)->position = posCenter + (x * halfScale) + (y * halfScale);
 	(ptcVertex + 2)->position = posCenter + (-x * halfScale) + (-y * halfScale);
 	(ptcVertex + 3)->position = posCenter + (x * halfScale) + (-y * halfScale);
-
-	/*(ptcVertex + 0)->uv = D3DXVECTOR2(0.0f, 0.0f);
-	(ptcVertex + 1)->uv = D3DXVECTOR2(1.0f, 0.0f);
-	(ptcVertex + 2)->uv = D3DXVECTOR2(0.0f, 1.0f);
-	(ptcVertex + 3)->uv = D3DXVECTOR2(1.0f, 1.0f);*/
 
 	(ptcVertex + 0)->uv = uv0;
 	(ptcVertex + 1)->uv = uv1;

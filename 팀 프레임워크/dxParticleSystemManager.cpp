@@ -7,9 +7,11 @@ void dxParticleSystemManager::ParticleSystemSetInit()
 	_set00->init();
 	_set01 = new PS_Set01;
 	_set01->init();
-	_bossSet00 = new PS_BossSet00;
+	_playerSet00 = new psPlayerSet00;
+	_playerSet00->init();
+	_bossSet00 = new psBossSet00;
 	_bossSet00->init();
-	_effectSet00 = new PS_EffectSet00;
+	_effectSet00 = new psEffectSet00;
 	_effectSet00->init();
 
 }

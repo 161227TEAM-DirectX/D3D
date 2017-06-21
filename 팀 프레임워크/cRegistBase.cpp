@@ -32,6 +32,7 @@ void cRegistBase::Init()
 	UIRegist();							//UI 경로 등록
 	AniRegist();						//애니메이션(이미지) 경로 등록
 	XMeshStaticRegist();				//X메쉬스태틱 경로 등록
+	XMeshSkinnedRegist();				//X메쉬스키드 경로 등록
 
 
 
@@ -457,4 +458,23 @@ void cRegistBase::XMeshStaticRegist()
 	FILEPATH_MANAGER->AddFilepath("Xmesh_ob186", "Resource/Maptool/Meshes/piramid/4.piramidRock/4/4.X");
 	FILEPATH_MANAGER->AddFilepath("Xmesh_ob187", "Resource/Maptool/Meshes/piramid/4.piramidRock/5/5.X");
 
+}
+
+void cRegistBase::XMeshSkinnedRegist()
+{
+	FILEPATH_MANAGER->AddFilepath("몬스터_골렘", "Resource/Meshes/monster/arcanegolem_ok/x/golem2.x");
+	FILEPATH_MANAGER->AddFilepath("몬스터_개", "Resource/Meshes/monster/Beargod_ok/x/beargod.x");
+	FILEPATH_MANAGER->AddFilepath("몬스터_멧돼지", "Resource/Meshes/monster/boar_ok/x/boar.x");
+	FILEPATH_MANAGER->AddFilepath("몬스터_나무짐승", "Resource/Meshes/monster/bogbeast_ok/x/bogbeast.x");
+	FILEPATH_MANAGER->AddFilepath("몬스터_브루탈루스", "Resource/Meshes/monster/Brutallus_ok/x/brutallus.x");
+	FILEPATH_MANAGER->AddFilepath("몬스터_히드라", "Resource/Meshes/monster/chimerabeast_ok/x/chimerabeast.x");
+	FILEPATH_MANAGER->AddFilepath("몬스터_새", "Resource/Meshes/monster/cockatriceelite_ok/x/cockatriceelite.x");
+	FILEPATH_MANAGER->AddFilepath("몬스터_악어", "Resource/Meshes/monster/crocodile_ok/x/crocodile.x");
+	FILEPATH_MANAGER->AddFilepath("몬스터_곰", "Resource/Meshes/monster/direfurbolg_ok/x/direfurbolg.x");
+	FILEPATH_MANAGER->AddFilepath("몬스터_둠가드", "Resource/Meshes/monster/doomguard_ok/x/doomguard.x");
+	FILEPATH_MANAGER->AddFilepath("몬스터_하피", "Resource/Meshes/monster/harpy_ok/x/harpy.x");
+	FILEPATH_MANAGER->AddFilepath("몬스터_랩터", "Resource/Meshes/monster/raptor_ok/x/raptor.x");
+	FILEPATH_MANAGER->AddFilepath("몬스터_전갈", "Resource/Meshes/monster/scorpion_ok/x/scorpion.x");
+	FILEPATH_MANAGER->AddFilepath("몬스터_도마뱀", "Resource/Meshes/monster/thunderlizard_ok/x/thunderlizard.x");
+	FILEPATH_MANAGER->AddFilepath("몬스터_데스윙", "Resource/Meshes/BossMonster/deathwing_ok/x");
 }

@@ -66,6 +66,8 @@ public:
 
 	inline string getName(void) { return Name; }
 
+	inline Text& getText(void) { return *test; }
+
 	//override로 필요하면 재정의 해서 사용하기
  	virtual void baseObjectEnable() override;			//BaseObject가 활성화 될때 실행
 	virtual void baseObjectDisable() override;			//BaseObject가 비활성화 될때 실행

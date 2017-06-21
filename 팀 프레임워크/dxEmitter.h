@@ -26,19 +26,19 @@ protected:
 	//파티클 타입
 	EMITTER_TYPE _EmitterType;
 
+	//파티클 시스템용 트랜스폼
+	dx::transform* _psTrans;
+
 	dx::transform* _trans;
 
 	LPDIRECT3DTEXTURE9		_texture;			//텍스쳐
 
-	//D3DXVECTOR3             _origin;		
-
-	//BoundingBox			 _boundingBox;	//경계상자는 파티클이 이동할 수 있는 부피를 제한하는 데 이용된다.
-
-	//float   _size;			//시스템 내 모든 파티클의 크기
-	//LPDIRECT3DVERTEXBUFFER9 _vb;				//버텍스버퍼
-	//WORD _vbSize;			// 버텍스버퍼가 한번에 보관할 수 있는 파티클의 수.
-							// 이 값은 파티클 시스템이 가질 수 있는 파티클의 수와는 독립적이다.
 	float _constPaticleSize;
+
+	//이미터 개수(시간 맞춤용)
+	int _emitterNum;
+
+	bool _realtimeTrackingPosOn;
 
 protected:
 	//파티클 개수 및 시간 관련
@@ -54,9 +54,12 @@ protected:
 
 	int		_drawPtcNum;				//그릴 파티클 개수	
 
+	//시간이 맞지 않다???
 	bool	_activeTimeCheckOn;
 	float	_activeCurrentTime;
 	float	_activeLimitTime;
+	bool	_activeRenderControlOn;
+	bool	_activeRenderOn;
 
 public:		//함수
 
@@ -79,13 +82,13 @@ public:
 
 public:
 	//초기 지연작동시간 세팅
-	void InitStartDelayTime(float time) { _startDelayTime = time; _spawnCurrentTime = 0.0f; _startDelayTimeOn = true; }
+	void InitStartDelayTime(float time) { _startDelayTime = time; _startDelayTimeOn = true; }
 	//위치에 따른 방향성 속도
 	void InitRandomPosDirectionVelocity(float min, float max) { _module->InitRandomPosDirectionVelocity(min, max); }
 
 public: //=======================================================================================================================
 	//위치 타입 세팅
-	void SetPositionType(PTC_POSITION_TYPE posType) { _module->SetPositionType(posType); }
+	void SetPositionType(PTC_POSITION_TYPE posType ) { _module->SetPositionType(posType); }
 	void InitRandomPosSphereRadius(float min, float max) { _module->InitRandomPosSphereRadius(min, max); }
 
 	//위치
@@ -199,6 +202,9 @@ public:	//======================================================================
 	//애니메이션 재생수
 	void InitConstAniReactivateNum(int inReactiveateNum) { _module->InitConstAniReactivateNum(inReactiveateNum); }
 
+	//애니매이션 시작지점과 끝지점 지정가능
+	void InitAniPlaySection(int inStartFrameNum, int inEndFrameNum) { _module->InitAniPlaySection(inStartFrameNum, inEndFrameNum); }
+
 	//void InitRandomSpawnTime(float min, float max) { init(_textureFileName, _onePtcNum, RandomFloatRange(min, max)); }
 	//void InitRandomDirectionVelocity(float min, float max) { _module->InitRandomDirectionVelocity(min, max); }
 
@@ -213,33 +219,72 @@ public:
 	//리셋
 	void reset()
 	{
+		_activeRenderOn = true;
+		_activeRenderControlOn = true;
+		_realtimeTrackingPosOn = false;
+
 		_ptcList.clear();
 		_ptcList.resize(_totalPtcNum);
 		_currentDelayTime = 0.0f;
 		_activeCurrentTime = 0.0f;
+		_spawnCurrentTime = _spawnTime;
+
 		//_spawnCurrentTime = _spawnTime;
-		if (_startDelayTimeOn)
+		if (_startDelayTime != 0.0f)
 		{
-			_spawnCurrentTime = 0.0f;
+			_startDelayTimeOn = true;
 		}
 		else
 		{
-			_spawnCurrentTime = _spawnTime;
+			_startDelayTimeOn = false;
 		}
 	}
 public:
 	//작동 시간 설정
-	void SetActiveLimitTime(float inTime) { _activeLimitTime = inTime; _activeTimeCheckOn = TRUE; };
+	void SetActiveLimitTime(float inTime, bool renderControlOn = true)
+	{
+
+		_activeLimitTime = inTime; 
+		_activeRenderControlOn = renderControlOn;
+		_activeCurrentTime = 0.0f; 
+		_activeTimeCheckOn = TRUE; 
+	};
 
 	bool autoActiveTimeCheck(void);
 
 	bool autoActiveTimeCheck(float timeDelta);
-	
-	dx::transform* _psTrans;
 
 	void setParticleSystemTrans(dx::transform* inTrance) { _psTrans = inTrance; }
 
+	void setEmitterNum(int num) { _emitterNum = num; };
+
+	void setRealtimeTrackingPosOn() { _realtimeTrackingPosOn = true; }
+
 public:
+	void EmitterInit(void)
+	{
+		//모듈 초기화
+		_module = new dxModuleKit;
+		_trans = new dx::transform;
+		_module->init();
+
+		//시작시간 초기화
+		_activeTimeCheckOn = FALSE;
+		_activeCurrentTime = 0.0f;
+		_activeLimitTime = 0.0f;
+		_startDelayTime = 0.0f;
+		_activeRenderOn = true;
+
+		//이미터 개수
+		_emitterNum = 1;
+
+		_activeRenderControlOn = true;
+		_realtimeTrackingPosOn = false;
+
+		_psTrans = NULL;
+		
+
+	}
 	dxEmitter() {};
 	~dxEmitter() {};
 
