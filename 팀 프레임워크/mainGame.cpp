@@ -9,18 +9,17 @@
 
 mainGame::mainGame()
 {
-	g_pLoading->Init();
+	REGIST_SGT->Init();
 
-	//SCENEMANAGER->addScene("start", new startScene, false);
-	//SCENEMANAGER->addScene("loading", new loadingScene, false);
-	SCENEMANAGER->addScene("maptool", new mapToolScene, true);
-	g_eSelectMode = E_MAPTOOL;
-	//SCENEMANAGER->addScene("maptool", new mapToolScene, true);
+	SCENEMANAGER->addScene("start", new startScene, false);
+	SCENEMANAGER->addScene("loading", new loadingScene, true);
+	//SCENEMANAGER->addScene("maptool", new mapToolScene, false);
+	//g_eSelectMode = E_MAPTOOL;
 }
 
 mainGame::~mainGame()
 {
-	g_pLoading->Destroy();
+	REGIST_SGT->Destroy();
 }
 
 
@@ -66,7 +65,7 @@ HRESULT mainGame::init(void)
 //===================================================================================
 //±èÅÂÈÆ ¾À Å×½ºÆ® Çì´õÆÄÀÏ
 //===================================================================================
-	SCENEMANAGER->addScene("test", new kimsNewTest, false);
+	//SCENEMANAGER->addScene("test", new kimsNewTest, false);
 	//SCENEMANAGER->addScene("test", new cubeLight, false);
 
 

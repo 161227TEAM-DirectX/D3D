@@ -308,7 +308,7 @@ using namespace myUtil;
 #include "cObject.h"
 #include "cUIObject.h"
 #include "cPicking.h"
-#include "cLoading.h"
+#include "cRegistBase.h"
 //#include "xPlayer.h"
 #include "cDxImg.h"
 
