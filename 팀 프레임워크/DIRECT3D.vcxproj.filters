@@ -761,17 +761,14 @@
       <Filter>GameManager%28매크로%29\DxImg</Filter>
     </ClCompile>
     <ClCompile Include="cubeLight.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="cXmeshManager.cpp" />
     <ClCompile Include="Text.cpp" />
-=======
     <ClCompile Include="cXmeshManager.cpp">
       <Filter>GameManager%28매크로%29\Xmesh</Filter>
     </ClCompile>
     <ClCompile Include="cRegistBase.cpp">
       <Filter>RegistBase</Filter>
     </ClCompile>
->>>>>>> 3108576f2f7f02f138733f01673b468492a15cdf
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainGame.h">
@@ -1262,17 +1259,14 @@
       <Filter>GameManager%28매크로%29\DxImg</Filter>
     </ClInclude>
     <ClInclude Include="cubeLight.h" />
-<<<<<<< HEAD
     <ClInclude Include="cXmeshManager.h" />
     <ClInclude Include="Text.h" />
-=======
     <ClInclude Include="cXmeshManager.h">
       <Filter>GameManager%28매크로%29\Xmesh</Filter>
     </ClInclude>
     <ClInclude Include="cRegistBase.h">
       <Filter>RegistBase</Filter>
     </ClInclude>
->>>>>>> 3108576f2f7f02f138733f01673b468492a15cdf
   </ItemGroup>
   <ItemGroup>
     <None Include="Texture_Gray.fx">
