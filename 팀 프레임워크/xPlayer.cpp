@@ -11,12 +11,21 @@ HRESULT xPlayer::init()
 	//_lightSkill->init();
 	//_lightSkill->Reset();
 	
+	//D3DXVECTOR3 pos4[4] = { D3DXVECTOR3(3,3,3),D3DXVECTOR3(0,0,0),D3DXVECTOR3(1,1,1),D3DXVECTOR3(3,3,3) };
+
+	//D3DXVECTOR3 pos1 = {0,0,0};
+
+	//D3DXVec3CatmullRom(&pos1, &pos4[0], &pos4[1], &pos4[2], &pos4[3], 0.5f);
+
+
+
+
 
 	//메시 로딩
 	_state = P_STAND;
 	_prevState = P_STAND;
 	PLAYERMANAGER->SetArmor(A_PLATE);
-	PLAYERMANAGER->SetWeapon(W_KATANA);
+	PLAYERMANAGER->SetWeapon(W_BROAD);
 	PLAYERMANAGER->SetShield(SH_CROSS);
 	PLAYERMANAGER->Setatt(1000000);
 	PLAYERMANAGER->SetHp(100000000);
@@ -37,7 +46,7 @@ HRESULT xPlayer::init()
 
 	_isOnBattle = false;
 	_isJump = false;
-
+	_isBladePosInit = false;
 
 
 	//데이터를 로딩해 이전의 스테이터스와 장비상태를 초기화한다.
@@ -260,12 +269,14 @@ HRESULT xPlayer::init()
 	_playerObject->_skinnedAnim->Play("S", 0.3F);
 
 	setBladeLight();
+	BladePosInit();
 
 	return S_OK;
 }
 
 void xPlayer::update()
 {
+	updateBladeLight();
 	/*for (int i = 0; i < this->_renderObjects.size(); i++)
 	{
 		this->_renderObjects[i]->render();
@@ -546,7 +557,7 @@ void xPlayer::playerStateManager()
 		{
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.6)//애니메이션 다 재생했으면
 			{
-				normalAttackDamageProcessing();
+				//normalAttackDamageProcessing();
 				//if (PHYSICSMANAGER->isOverlap(_playerObject->_transform, &_attackBound, targetMonster->_transform, &targetMonster->_boundBox))
 				//{
 				//	//exit(0);
@@ -590,7 +601,7 @@ void xPlayer::playerStateManager()
 				//{
 				//	//exit(0);
 				//}
-				normalAttackDamageProcessing();
+				//normalAttackDamageProcessing();
 				if (!_isJump)
 				{
 					if (_isOnBattle)
@@ -618,7 +629,7 @@ void xPlayer::playerStateManager()
 				//{
 				//	//exit(0);
 				//}
-				normalAttackDamageProcessing();
+				//normalAttackDamageProcessing();
 				if (!_isJump)
 				{
 					if (_isOnBattle)
@@ -652,7 +663,7 @@ void xPlayer::playerStateManager()
 			}
 			else if (_playerObject->_skinnedAnim->getAnimFactor() > 0.4)//애니메이션 다 재생했으면
 			{
-				normalAttackDamageProcessing();
+				//normalAttackDamageProcessing();
 				if (_isOnBattle)
 				{
 					_state = P_ATTACK;
@@ -681,7 +692,7 @@ void xPlayer::playerStateManager()
 			}
 			else if (_playerObject->_skinnedAnim->getAnimFactor() > 0.8)
 			{
-				normalAttackDamageProcessing();
+				//normalAttackDamageProcessing();
 				if (!_isJump)
 				{
 					if (_isOnBattle)
@@ -1073,11 +1084,15 @@ void xPlayer::playerAttack()
 	//해당상태가 아니면 행동하지 말아라.
 	//if (!(_state == P_STAND || _state == P_RUN || _state == P_MOVE || _state == P_WALKBACK || _state == P_READYTOATTACK)) { return; }
 
+	//검광 위치 초기화.
+	BladePosInit();
+
 	float rand = RandomFloatRange(0, 100);
 	if (rand < PLAYERMANAGER->GetCrit())
 	{
 		_state = P_ATTACK4;//AT2H2 //크리티컬 어택!
 		_playSpeed = 1.5f;
+
 		return;
 	}
 	else//일반공격
@@ -1087,6 +1102,7 @@ void xPlayer::playerAttack()
 		{
 			_state = P_ATTACK;//AT1H
 			_playSpeed = 1.5f;
+			
 		}
 		else if (rand > 50.0f)
 		{
@@ -1235,7 +1251,7 @@ void xPlayer::setBladeLight()
 	// 0---3
 	//UV를 동일하게 적용한다고 가정하였을때.
 
-	LPMYLIGHTVERTEX pVertices;
+	//LPMYLIGHTVERTEX pVertices;
 	_myVertexbuffer->Lock(0, 0, (void**)&pVertices, 0);
 
 	float maxX = 5;
@@ -1303,22 +1319,100 @@ void xPlayer::setBladeLight()
 	_myIndexBuffer->Unlock();
 
 
+
+
+	
+
+
 	//텍스쳐 로딩
 	D3DXCreateTextureFromFile(
 		_device,
 		"테스트.jpg",
 		&_texture);
+
+
+	//typedef struct tagBladeLightVertex
+	//{
+	//	D3DXVECTOR3 pos;			//정점 위치
+	//	DWORD color;				//정점 컬러
+	////	D3DXVECTOR2 uv;				//정점 UV
+	//	enum { FVF = D3DFVF_XYZ | D3DFVF_DIFFUSE };//| D3DFVF_TEX1 
+	//}BLADE_VERTEX, *LPBLADE_VERTEX;
+
+	///*검의 위치...
+	//검의 상대위치 = COMBINEDMATRIX... RHAND * INVERSE(INVERSE(PLAYERTRNAS->MATWORLD));
+	//검의 상대위치의 B.TRANSFORM
+	//검끝의 상대위치 = B.TRANSFORM.POS - (B.TRANSFORM.FORWARD * 검의 길이);
+	//이 친구들이 P0.*/
+
+	////애니메이션에 의해 변화된 현재 위치.
+	////D3DXVec3CatmullRom(...)
+
+	////애니메이션 펙터 임시저장
+	//skinnedAnimation playerAnim = this->getPlayerObject()->getSkinnedAnim();//얕은복사
+	//skinnedAnimation playerAnim2 = playerAnim;//깊은복사 (객체 새로 생성은 개뿔..)
+
+	//float tempAnimFactor = playerAnim.getTrackDesc0().Position;
+
+	
+
+	////가중치 만큼 가라.
+
+	//우선 그린다. 정점.
+
+
+
+
+	//dx::transform* boneTrans = new dx::transform;
+	//boneTrans->SetWorldMatrix(CloneSkinned->getSkinnedMesh()->GetFineBONE("humanfemale_Bone121_CSR")->CombinedTransformationMatrix);
+
+	//pv3용
+	//DESC3.Position = nowPeriod * 1.0;
+	//playerAnim.setTrackDesc0(DESC3);
+	/*CloneSkinned->setTrackDesc0(DESC_ORIGIN);
+
+	playerAnim.updateBone();
+	playerAnim.getSkinnedMesh()->GetFineBONE("humanfemale_Bone121_CSR")->CombinedTransformationMatrix;
+
+	if (boneTrans->GetFinalMatrix() != playerAnim.getSkinnedMesh()->GetFineBONE("humanfemale_Bone121_CSR")->CombinedTransformationMatrix)
+	{
+	int a = 0;
+	}*/
+
+	//pv2용
+	
+
+
+
+	
+
+
+
+
+
 }
 
 void xPlayer::updateBladeLight()
 {
-	handTrans->SetWorldMatrix(getPlayerObject()->_skinnedAnim->getSkinnedMesh()->GetFineBONE("humanfemale_Bone121_CSR")->CombinedTransformationMatrix);
-
 	//시작 두 점.
-	posHand = handTrans->GetWorldPosition();
-	posEdge = handTrans->GetWorldPosition() + handTrans->GetForward();
+	dx::transform* myTrans = new dx::transform;
+
+	skinnedAnimation* CloneSkinned = new skinnedAnimation;
+
+	CloneSkinned->init(getPlayerObject()->_skinnedAnim->getSkinnedMesh());
+
+	//D3DXTRACK_DESC O_DESC = CloneSkinned->getTrackDesc0();
+
+	//float nowPeriod = CloneSkinned->getNowPlayAnimSet()->GetPeriod();
 
 
+	myTrans->SetWorldMatrix(CloneSkinned->getSkinnedMesh()->GetFineBONE("humanfemale_Bone121_CSR")->CombinedTransformationMatrix);
+
+	posHand = myTrans->GetWorldPosition();
+	posEdge = myTrans->GetWorldPosition() + myTrans->GetRight();
+
+	//4개의 곡선을 설정할 공식이 필요하다.
+	//
 
 	// 1---3---5   7 UV좌표계는 윈도우 좌표계와 똑같다 
 	// |  /|   |	왼쪽상단이 0,0 우측상단 1,0 왼쪽하단 0,1 우측하단 1,1
@@ -1327,6 +1421,63 @@ void xPlayer::updateBladeLight()
 	// 0, 0.33 0.66 1
 
 
+	
+
+	float maxX = 5;
+	float minX = -5;
+
+	for (int i = 1; i < vertexNum; i += 2)
+	{
+		float x = 0;
+		x = ((i - 1) * ((maxX - minX) / (vertexNum - 2)) + minX);
+		//1-> 0 
+		//3-> 2 * 10/4 +5 =...10
+
+		//D3DXVec3CatmullRom(&pVertices[i].pos, &PVs2[0], &PVs2[1], &PVs2[2], &PVs2[3], (float)i/vertexNum);
+
+
+
+		
+		pVertices[i].pos = posEdge + D3DXVECTOR3(x, 5, 0);
+
+		
+
+		float u = 0;
+
+		if (i == 1)
+		{
+			u = 0;
+		}
+		else
+		{
+			u = ((float)(i - 1) / (float)(vertexNum - 2));
+		}
+
+		pVertices[i].uv = D3DXVECTOR2(u, 0);
+	}
+
+	for (int i = 0; i < vertexNum; i += 2)
+	{
+		float x = 0;
+		x = (i * ((maxX - minX) / (vertexNum - 2)) + minX);
+
+		//D3DXVec3CatmullRom(&pVertices[i].pos, &PVs1[0], &PVs1[1], &PVs1[2], &PVs1[3], (float)i / vertexNum);
+		//PVs1[0]
+		pVertices[i].pos = posHand + D3DXVECTOR3(x, -5, 0);
+
+		float u = 0;
+
+		if (i == 0)
+		{
+			u = 0;
+		}
+		else
+		{
+			u = ((float)i / (float)(vertexNum - 2));
+		}
+
+		pVertices[i].uv = D3DXVECTOR2(u, 1);
+	}
 
 }
 
@@ -1365,69 +1516,87 @@ void xPlayer::drawBladeLight()
 
 
 
-	//typedef struct tagBladeLightVertex
-	//{
-	//	D3DXVECTOR3 pos;			//정점 위치
-	//	DWORD color;				//정점 컬러
-	////	D3DXVECTOR2 uv;				//정점 UV
-	//	enum { FVF = D3DFVF_XYZ | D3DFVF_DIFFUSE };//| D3DFVF_TEX1 
-	//}BLADE_VERTEX, *LPBLADE_VERTEX;
-
-	///*검의 위치...
-	//검의 상대위치 = COMBINEDMATRIX... RHAND * INVERSE(INVERSE(PLAYERTRNAS->MATWORLD));
-	//검의 상대위치의 B.TRANSFORM
-	//검끝의 상대위치 = B.TRANSFORM.POS - (B.TRANSFORM.FORWARD * 검의 길이);
-	//이 친구들이 P0.*/
-
-	////애니메이션에 의해 변화된 현재 위치.
-	////D3DXVec3CatmullRom(...)
-
-	////애니메이션 펙터 임시저장
-	//skinnedAnimation playerAnim = this->getPlayerObject()->getSkinnedAnim();//얕은복사
-	//skinnedAnimation playerAnim2 = playerAnim;//깊은복사 (객체 새로 생성은 개뿔..)
-
-	//float tempAnimFactor = playerAnim.getTrackDesc0().Position;
-
-	//float nowPeriod = playerAnim.getNowPlayAnimSet()->GetPeriod();
-
-	////가중치 만큼 가라.
-
-	////우선 그린다. 정점.
-	//D3DXTRACK_DESC DESC_ORIGIN = playerAnim.getTrackDesc0();
-	//D3DXTRACK_DESC DESC3 = playerAnim.getTrackDesc0();
-	//D3DXTRACK_DESC DESC2 = playerAnim.getTrackDesc0();
-	//D3DXTRACK_DESC DESC1 = playerAnim.getTrackDesc0();
-	//D3DXTRACK_DESC DESC0 = playerAnim.getTrackDesc0();
+	
 
 
-	//dx::transform* boneTrans = new dx::transform;
-	//boneTrans->SetWorldMatrix(playerAnim.getSkinnedMesh()->GetFineBONE("humanfemale_Bone121_CSR")->CombinedTransformationMatrix);
+}
 
-	////pv3용
-	////DESC3.Position = nowPeriod * 1.0;
-	////playerAnim.setTrackDesc0(DESC3);
-	//playerAnim.setTrackDesc0(DESC_ORIGIN);
+void xPlayer::BladePosInit()
+{
 
-	//playerAnim.updateBone();
-	//playerAnim.getSkinnedMesh()->GetFineBONE("humanfemale_Bone121_CSR")->CombinedTransformationMatrix;
+	//클론 애니메이션 PV저장
 
-	//if (boneTrans->GetFinalMatrix() != playerAnim.getSkinnedMesh()->GetFineBONE("humanfemale_Bone121_CSR")->CombinedTransformationMatrix)
-	//{
-	//	int a = 0;
-	//}
-	//
-	////pv2용
-	//DESC2.Position = nowPeriod * 0.66;
+	//handTrans->SetWorldMatrix(getPlayerObject()->_skinnedAnim->getSkinnedMesh()->GetFineBONE("humanfemale_Bone121_CSR")->CombinedTransformationMatrix);
 
-	////pv1용
+	dx::transform* myTrans = new dx::transform;
+
+	skinnedAnimation* CloneSkinned = new skinnedAnimation;
+
+	CloneSkinned->init(getPlayerObject()->_skinnedAnim->getSkinnedMesh());
+
+	D3DXTRACK_DESC O_DESC = CloneSkinned->getTrackDesc0();
+
+	float nowPeriod = CloneSkinned->getNowPlayAnimSet()->GetPeriod();
+
+
+	myTrans->SetWorldMatrix(CloneSkinned->getSkinnedMesh()->GetFineBONE("humanfemale_Bone121_CSR")->CombinedTransformationMatrix);
+
+	posHand = myTrans->GetWorldPosition();
+	posEdge = myTrans->GetWorldPosition() + myTrans->GetRight();
+
+	CloneSkinned->update();
+	CloneSkinned->render(getPlayerObject()->_transform);
+
+	PVs1[0] = posHand;
+	PVs2[0] = posEdge;//칼끝
+
+	O_DESC.Position = nowPeriod * 0.33;
+	CloneSkinned->setTrackDesc0(O_DESC);
+	CloneSkinned->update();
+	CloneSkinned->render(getPlayerObject()->_transform);
+
+	myTrans->SetWorldMatrix(CloneSkinned->getSkinnedMesh()->GetFineBONE("humanfemale_Bone121_CSR")->CombinedTransformationMatrix);
+
+	posHand = myTrans->GetWorldPosition();
+	posEdge = myTrans->GetWorldPosition() + myTrans->GetRight();
+
+	PVs1[1] = posHand;
+	PVs2[1] = posEdge;//칼끝
+
+
+	O_DESC.Position = nowPeriod * 0.66;
+	CloneSkinned->setTrackDesc0(O_DESC);
+	CloneSkinned->update();
+	CloneSkinned->render(getPlayerObject()->_transform);
+
+	myTrans->SetWorldMatrix(CloneSkinned->getSkinnedMesh()->GetFineBONE("humanfemale_Bone121_CSR")->CombinedTransformationMatrix);
+
+	posHand = myTrans->GetWorldPosition();
+	posEdge = myTrans->GetWorldPosition() + myTrans->GetRight();
+
+	PVs1[2] = posHand;
+	PVs2[2] = posEdge;//칼끝
+
+
+	O_DESC.Position = nowPeriod * 1.0;
+	CloneSkinned->setTrackDesc0(O_DESC);
+	CloneSkinned->update();
+	CloneSkinned->render(getPlayerObject()->_transform);
+
+	myTrans->SetWorldMatrix(CloneSkinned->getSkinnedMesh()->GetFineBONE("humanfemale_Bone121_CSR")->CombinedTransformationMatrix);
+
+	posHand = myTrans->GetWorldPosition();
+	posEdge = myTrans->GetWorldPosition() + myTrans->GetRight();
+
+	PVs1[3] = posHand;
+	PVs2[3] = posEdge;//칼끝
+
+	//pv1용
 	//DESC1.Position = nowPeriod * 0.33;
 
-	////pv0용
+	//pv0용
 	//DESC0.Position = nowPeriod * 0.0;
 
-
-	//
-	//playerAnim.setTrackDesc0(DESC_ORIGIN);
 
 
 }

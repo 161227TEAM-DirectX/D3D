@@ -75,6 +75,12 @@ private:
 	D3DXVECTOR3 posHand;
 	D3DXVECTOR3 posEdge;
 
+	D3DXVECTOR3 PVs1[4];
+	D3DXVECTOR3 PVs2[4];
+
+	LPMYLIGHTVERTEX pVertices;
+
+	bool _isBladePosInit;
 
 private:
 	baseObject* _playerObject;
@@ -180,7 +186,7 @@ public:
 
 	void drawBladeLight();
 
-	
+	void BladePosInit();
 
 	xPlayer() {};
 	~xPlayer() {};

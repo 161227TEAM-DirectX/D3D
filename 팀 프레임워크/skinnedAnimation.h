@@ -62,6 +62,8 @@ public:
 	double& getAnimationPlayFactor(void) { return _AnimationPlayFactor; }
 	LPD3DXANIMATIONSET& getAnimationSet(void) { return _pNowPlayAnimationSet; }
 
+	LPD3DXANIMATIONCONTROLLER getAnimContorller(void) { return _pAnimController; }
+
 
 	xMeshSkinned* getSkinnedMesh() { return _pSkinnedMesh; }
 	//LPD3DXANIMATIONSET getNowPlayanim() { return _pNowPlayAnimationSet; }
