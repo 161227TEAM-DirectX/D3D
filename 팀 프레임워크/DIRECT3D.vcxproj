@@ -180,6 +180,7 @@
     <ClInclude Include="cameraManager.h" />
     <ClInclude Include="cDxImg.h" />
     <ClInclude Include="cDxImgAniManager.h" />
+    <ClInclude Include="cDxImgButton.h" />
     <ClInclude Include="cDxImgManager.h" />
     <ClInclude Include="cFilepathManager.h" />
     <ClInclude Include="characterController.h" />
@@ -196,6 +197,7 @@
     <ClInclude Include="cube.h" />
     <ClInclude Include="cubeLight.h" />
     <ClInclude Include="cUIButton.h" />
+    <ClInclude Include="cButtonTest.h" />
     <ClInclude Include="cUIImageView.h" />
     <ClInclude Include="cUILoading.h" />
     <ClInclude Include="cUILoadingBar.h" />
@@ -355,6 +357,7 @@
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="cDxImg.cpp" />
     <ClCompile Include="cDxImgAniManager.cpp" />
+    <ClCompile Include="cDxImgButton.cpp" />
     <ClCompile Include="cDxImgManager.cpp" />
     <ClCompile Include="cFilepathManager.cpp" />
     <ClCompile Include="characterController.cpp" />
@@ -371,6 +374,7 @@
     <ClCompile Include="cube.cpp" />
     <ClCompile Include="cubeLight.cpp" />
     <ClCompile Include="cUIButton.cpp" />
+    <ClCompile Include="cButtonTest.cpp" />
     <ClCompile Include="cUIImageView.cpp" />
     <ClCompile Include="cUILoading.cpp" />
     <ClCompile Include="cUILoadingBar.cpp" />

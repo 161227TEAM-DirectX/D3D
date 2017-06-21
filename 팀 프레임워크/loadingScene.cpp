@@ -48,9 +48,9 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 	//XMeshStaticLoading();
 	UILoading();
 
-	g_eSelectMode = E_MAPTOOL;
-	SCENEMANAGER->changeScene("maptool");
-
+	//g_eSelectMode = E_MAPTOOL;
+	//SCENEMANAGER->changeScene("maptool");
+	SCENEMANAGER->changeScene("test");
 	return S_OK;
 }
 
