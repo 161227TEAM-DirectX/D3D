@@ -9,8 +9,8 @@ private:
 	map<string, dxParticleTexture*>::iterator _iter;
 
 public:
-	void InitLoadImg(void);
-
+	//이미지 등록 초기화
+	void LoadImgInit(void);
 public:
 	//경로인지 이름인지 판단
 	LPDIRECT3DTEXTURE9* LoadImgPathAndName(string inDecName, bool grayScaleOn = FALSE)
@@ -93,5 +93,6 @@ public:
 public:
 	dxParticleTextureManager() {};
 	~dxParticleTextureManager() {};
+	
 };
 

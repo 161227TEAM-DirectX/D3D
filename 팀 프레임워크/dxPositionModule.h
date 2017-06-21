@@ -3,8 +3,8 @@
 class dxPositionModule :public dxModule
 {
 private:
-	vector<tagDxGraph*> _grpPosDirectionVel;
-	bool _grpPosDirectionVelOn;
+	vector<tagDxGraph*> _grpPosExprosionVel;
+	bool _grpPosExprosionVelOn;
 public:
 	virtual HRESULT init();
 	virtual void relese();
@@ -24,14 +24,21 @@ public:
 	void InitRandomPositionY(float min, float max) { _radPtc.positionY = tagMaxMin(min, max); _radPtc.radPosOn = true; }
 	void InitRandomPositionZ(float min, float max) { _radPtc.positionZ = tagMaxMin(min, max); _radPtc.radPosOn = true; }
 
-	//위치 방향성 속도
-	void InitRandomPosDirectionVelocity(float min, float max) { _radPtc.posDirectionVel = tagMaxMin(min, max); _radPtc.radPosDirectionVelOn = true; };
+	//위치 폭발
+	void InitRandomPosExplosionVel(float min, float max) { _radPtc.posExprosionVel = tagMaxMin(min, max); _radPtc.radPosExprosionVelOn = true; };
 
-	//위치 방향성 속도 그래프
-	void addPosDirectVelGraph(float point, float min, float max) { GraphCheck(_grpPosDirectionVel, point, min, max); _grpPosDirectionVelOn = true; };
+	//위치 폭발 그래프
+	void addPosExplosionVelGraph(float point, float min, float max) { GraphCheck(_grpPosExprosionVel, point, min, max); _grpPosExprosionVelOn = true; };
 
 	//구 위치 방향
 	void InitDirSphere(float dirX, float dirY, float dirZ) { _radPtc.dirSphere = D3DXVECTOR3(dirX, dirY, dirZ); }
+
+public:
+	//위치 중심 회전
+	void InitRandomPosRotAngleSpeedX(float min, float max) { _radPtc.posRotAngleSpeedX = tagMaxMin(min, max); _radPtc.posRotateOn = true; }
+	void InitRandomPosRotAngleSpeedY(float min, float max) { _radPtc.posRotAngleSpeedY = tagMaxMin(min, max); _radPtc.posRotateOn = true; }
+	void InitRandomPosRotAngleSpeedZ(float min, float max) { _radPtc.posRotAngleSpeedZ = tagMaxMin(min, max); _radPtc.posRotateOn = true; }
+
 
 public:
 	//끌림 고정

@@ -12,6 +12,7 @@ private:
 	void ShoutingSet00(string psName);
 
 	void GrandMagic00(string psName);
+	void GrandMagic01(string psName);
 
 public:
 	psBossSet00() {};

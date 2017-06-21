@@ -71,7 +71,7 @@ HRESULT leftViewHead::init()
 	mapRotation = D3DXToRadian(180);
 
 	loadMonster();
-	loadNode();
+
 	return S_OK;
 }
 
@@ -640,13 +640,11 @@ void leftViewHead::save()
 
 			for (int i = 0; i < _terrain->getDijkstra().getVecNode().size(); i++)
 			{
-				nTemp.nodeFS.clear();
 				nTemp.infoName = "노드" + to_string(i + 1);
-				nTemp.Inumber = i;														// 벡터의 인덱스값 저장
-				nTemp.nodeX = _terrain->getDijkstra().getVecNode()[i]->getPosition().x;	//위치값 저장
-				nTemp.nodeY = _terrain->getDijkstra().getVecNode()[i]->getPosition().y;	//위치값 저장
-				nTemp.nodeZ = _terrain->getDijkstra().getVecNode()[i]->getPosition().z;	//위치값 저장
-				nTemp.nodeFSSize = _terrain->getDijkstra().getadjNode()[i].size();			//벡터 사이즈값 저장
+				nTemp.Inumber = i; // 벡터의 인덱스값 저장
+				nTemp.nodeX = _terrain->getDijkstra().getVecNode()[i]->getPosition().x;//위치값 저장
+				nTemp.nodeY = _terrain->getDijkstra().getVecNode()[i]->getPosition().y;//위치값 저장
+				nTemp.nodeZ = _terrain->getDijkstra().getVecNode()[i]->getPosition().z;//위치값 저장
 
 				for (int j = 0; j < _terrain->getDijkstra().getadjNode()[i].size(); j++)
 				{
@@ -838,29 +836,4 @@ xMesh * leftViewHead::findMonster(int & index)
 
 void leftViewHead::loadNode(void)
 {
-	IOSAVENODEMANAGER->loadFile("노드");
-	vector<tagSaveNode> temp;
-	tagSaveNode tempNode;
-
-	for (int i = 0; i < IOSAVENODEMANAGER->getCount(); i++)
-	{
-		tempNode = IOSAVENODEMANAGER->findTag("노드" + to_string(i + 1));
-
-		temp.push_back(tempNode);
-	}
-
-	for (int i = 0; i < temp.size(); i++)
-	{
-		_terrain->getDijkstra().addNode(D3DXVECTOR3(temp[i].nodeX, temp[i].nodeY, temp[i].nodeZ));
-	}
-
-	for (int i = 0; i < temp.size(); i++)
-	{
-		for (int j = 0; j < temp[i].nodeFSSize; j++)
-		{
-			int tempSour = i;
-			int tempDest = temp[i].nodeFS[j].first;
-			_terrain->getDijkstra().connectNode(tempSour, tempDest);
-		}
-	}
 }
