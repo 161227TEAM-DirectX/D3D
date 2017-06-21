@@ -14,10 +14,8 @@ mainGame::mainGame()
 
 	//SCENEMANAGER->addScene("start", new startScene, false);
 	SCENEMANAGER->addScene("loading", new loadingScene, true);
-	//SCENEMANAGER->addScene("maptool", new mapToolScene, false);
+	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
 	//SCENEMANAGER->addScene("particleTest13", new particleTest13, true);
-	//g_eSelectMode = E_MAPTOOL;
-	//SCENEMANAGER->addScene("maptool", new mapToolScene, true);
 	SCENEMANAGER->addScene("test", new cButtonTest, false);
 }
 

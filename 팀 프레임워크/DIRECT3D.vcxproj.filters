@@ -295,6 +295,9 @@
     <Filter Include="팀 포트폴리오\02.UI">
       <UniqueIdentifier>{8f7c82db-a632-41a5-ad51-a70d48ff8500}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameFramework3D\Action\ActionManager">
+      <UniqueIdentifier>{267e7fce-3324-41e3-b28c-af5878d543e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainGame.cpp">
@@ -675,7 +678,6 @@
     <ClCompile Include="bossActionSkillFlyFire.cpp">
       <Filter>GameFramework3D\ActionBoss</Filter>
     </ClCompile>
-    <ClCompile Include="ActionManager.cpp" />
     <ClCompile Include="xNpc.cpp">
       <Filter>Z테스트\김태훈\xNpc</Filter>
     </ClCompile>
@@ -818,6 +820,15 @@
     </ClCompile>
     <ClCompile Include="cButtonTest.cpp">
       <Filter>Z테스트\김만웅\05.UI 재설계</Filter>
+    </ClCompile>
+    <ClCompile Include="ioSaveNodeManager.cpp">
+      <Filter>팀 포트폴리오\01.맵툴\3.IO매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="ioSaveMonsterManger.cpp">
+      <Filter>팀 포트폴리오\01.맵툴\3.IO매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionManager.cpp">
+      <Filter>GameFramework3D\Action\ActionManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1202,7 +1213,6 @@
     <ClInclude Include="bossActionFlyMove.h">
       <Filter>GameFramework3D\ActionBoss</Filter>
     </ClInclude>
-    <ClInclude Include="ActionManager.h" />
     <ClInclude Include="xNpc.h">
       <Filter>Z테스트\김태훈\xNpc</Filter>
     </ClInclude>
@@ -1342,6 +1352,15 @@
     </ClInclude>
     <ClInclude Include="cButtonTest.h">
       <Filter>Z테스트\김만웅\05.UI 재설계</Filter>
+    </ClInclude>
+    <ClInclude Include="ioSaveNodeManager.h">
+      <Filter>팀 포트폴리오\01.맵툴\3.IO매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="ioSaveMonsterManger.h">
+      <Filter>팀 포트폴리오\01.맵툴\3.IO매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionManager.h">
+      <Filter>GameFramework3D\Action\ActionManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,24 +1,3 @@
-https://drive.google.com/open?id=0BzBsJiLsaAW9M283V3M0b0pMdVk
-
-김태훈 프레임워크 리소스 링크
-http://naver.me/GFmDEdAv
-
-
-새로운 리소스 링크(NPC, SOUND 추가)
-https://drive.google.com/open?id=0BxWNXxn6Wa7sY1VVNEpaZkVnUEU
-
-
-다운받아 압축파일을 풀어 프로젝트  내부에 넣자
-
-https://drive.google.com/open?id=0BxWNXxn6Wa7sQjFPRTJaVlJpajA
-리소스 16일자
-
-https://drive.google.com/open?id=0BxWNXxn6Wa7sUHBiMWZDbk5tTXc
-음원 17일자.
-
-https://drive.google.com/open?id=0BzBsJiLsaAW9QlJfeU9KVUQwU28
-음원 17일자까지 저장된 위치 -> 2017 06 17
-
 17.06.19
 https://drive.google.com/drive/folders/0B4_g278pl7PYOGdyQnRQSXl5ZFU
 이미지 매니져 테스트를 위해서 이미지3장 추가했습니다!
@@ -42,3 +21,7 @@ http://naver.me/5Hnqza9P
 
 < 파티클 리소스 파일 >
 http://naver.me/5W7m3Bkz
+
+오전 1:18 2017-06-22 - 이현수
+https://drive.google.com/open?id=0BzBsJiLsaAW9QlJfeU9KVUQwU28
+전체 리소스 - UI변경점 저장
