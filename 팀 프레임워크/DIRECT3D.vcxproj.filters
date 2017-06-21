@@ -762,6 +762,7 @@
     </ClCompile>
     <ClCompile Include="cubeLight.cpp" />
     <ClCompile Include="cXmeshManager.cpp" />
+    <ClCompile Include="Text.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainGame.h">
@@ -1256,6 +1257,7 @@
     </ClInclude>
     <ClInclude Include="cubeLight.h" />
     <ClInclude Include="cXmeshManager.h" />
+    <ClInclude Include="Text.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Texture_Gray.fx">

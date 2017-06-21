@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "bossActionSkillTailAtt.h"
-
+#include "xPlayer.h"
 
 bossActionSkillTailAtt::bossActionSkillTailAtt()
 	:Action(), Frequency(0)

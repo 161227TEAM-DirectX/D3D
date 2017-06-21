@@ -66,7 +66,7 @@ HRESULT mainGame::init(void)
 //===================================================================================
 //±èÅÂÈÆ ¾À Å×½ºÆ® Çì´õÆÄÀÏ
 //===================================================================================
-	SCENEMANAGER->addScene("test", new kimsNewTest, false);
+	//SCENEMANAGER->addScene("test", new kimsNewTest, false);
 	//SCENEMANAGER->addScene("test", new cubeLight, false);
 
 
