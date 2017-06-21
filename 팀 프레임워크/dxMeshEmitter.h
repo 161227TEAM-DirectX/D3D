@@ -53,18 +53,10 @@ private:
 public:
 	dxMeshEmitter()
 	{
-		//모듈 초기화
-		_module = new dxModuleKit;
-		_trans = new dx::transform;
-		_module->init();
+		//이미터 초기화
+		this->EmitterInit();
 		//이미터 타입 설정
-		_EmitterType = ET_MESH;
-
-		_posCenter = D3DXVECTOR3(0, 0, 0);
-
-		_activeTimeCheckOn = FALSE;
-		_activeCurrentTime = 0.0f;
-		_activeLimitTime = 0.0f;
+		_EmitterType = ET_MESH;		
 
 	};
 	~dxMeshEmitter() {};

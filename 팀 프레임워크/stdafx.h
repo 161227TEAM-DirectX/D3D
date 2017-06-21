@@ -330,7 +330,7 @@ using namespace myUtil;
 #include "cRegistBase.h"
 //#include "xPlayer.h"
 #include "cDxImg.h"
-
+#include "cDxImgButton.h"
 
 
 

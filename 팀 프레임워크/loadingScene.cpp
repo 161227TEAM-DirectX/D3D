@@ -61,6 +61,7 @@ void loadingScene::UILoading()
 
 void loadingScene::XMeshStaticLoading()
 {
+
 	D3DXMATRIX scale;
 	D3DXMatrixScaling(&scale, 0.5f, 0.5f, 0.5f);
 

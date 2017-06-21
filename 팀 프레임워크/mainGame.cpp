@@ -6,6 +6,7 @@
 #include "mapToolScene.h"
 #include "cTerrainTest.h"
 #include "cImageTest.h"
+#include "cButtonTest.h"
 
 mainGame::mainGame()
 {
@@ -13,8 +14,11 @@ mainGame::mainGame()
 
 	//SCENEMANAGER->addScene("start", new startScene, false);
 	SCENEMANAGER->addScene("loading", new loadingScene, true);
-	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
+	//SCENEMANAGER->addScene("maptool", new mapToolScene, false);
+	//SCENEMANAGER->addScene("particleTest13", new particleTest13, true);
+	//g_eSelectMode = E_MAPTOOL;
 	//SCENEMANAGER->addScene("maptool", new mapToolScene, true);
+	SCENEMANAGER->addScene("test", new cButtonTest, false);
 }
 
 mainGame::~mainGame()
@@ -125,8 +129,11 @@ void mainGame::render(void)
 
 			//디버그 모드에서만 실행
 #ifdef _DEBUG 
-			//월드그리드 렌더
-			GIZMOMANAGER->WorldGrid(1, 10);
+			if (KEYMANAGER->isToggleKey(VK_F9))
+			{
+				//월드그리드 렌더
+				GIZMOMANAGER->WorldGrid(1, 10);
+			}
 			//타임매니져 렌더
 			TIMEMANAGER->render();
 #endif	

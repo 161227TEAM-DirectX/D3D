@@ -363,3 +363,25 @@ void cDxImg::renderFrame()
 		m_pSprite->End();
 	}
 }
+
+RECT cDxImg::getRect()
+{
+	RECT temp;
+
+	if(!m_isCenterDraw)
+	{
+		temp.left = m_vPosition.x;
+		temp.top = m_vPosition.y;
+		temp.right = m_vPosition.x + m_stSize.fWidth;
+		temp.bottom = m_vPosition.y + m_stSize.fHeight;
+	}
+	else
+	{
+		temp.left = m_vPosition.x - m_stSize.fWidth / 2;
+		temp.top = m_vPosition.y - m_stSize.fHeight / 2;
+		temp.right = m_vPosition.x + m_stSize.fWidth;
+		temp.bottom = m_vPosition.y + m_stSize.fHeight;
+	}
+
+	return temp;
+}

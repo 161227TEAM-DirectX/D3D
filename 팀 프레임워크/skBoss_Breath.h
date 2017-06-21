@@ -1,6 +1,6 @@
 #pragma once
 #include "dxSkill.h"
-class SK_Boss00 :	public dxSkill
+class skBoss_Breath :	public dxSkill
 {
 public:
 	virtual HRESULT init();
@@ -13,7 +13,7 @@ public:
 
 
 public:
-	SK_Boss00() {};
-	~SK_Boss00() {};
+	skBoss_Breath() {};
+	~skBoss_Breath() {};
 };
 
