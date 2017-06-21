@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "bossActionSkillFire.h"
+#include "xPlayer.h"
 
 
 bossActionSkillFire::bossActionSkillFire()

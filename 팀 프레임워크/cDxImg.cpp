@@ -5,7 +5,7 @@ cDxImg::cDxImg()
 {
 }
 
-cDxImg::cDxImg(string sImgKey)
+cDxImg::cDxImg(string sImgKey, bool _isCenter)
 	: m_pTexture(NULL)					//텍스쳐
 	, m_isDrawBoundingBox(false)		//바운딩박스 그리는지
 	, m_dwBoundingColor(BLACK)			//바운딩박스 색깔
@@ -14,7 +14,7 @@ cDxImg::cDxImg(string sImgKey)
 	, m_stSize(0.0f, 0.0f)				//가로세로
 	, m_pSprite(NULL)					//스프라이트
 	, m_eImgLayer(eImgLayer::E_NONE)	//레이어
-	, m_isCenterDraw(true)				//중점에서 그리는지
+	, m_isCenterDraw(_isCenter)			//중점에서 그리는지
 	, m_currentFrameX(0)				//현재 프레임 x
 	, m_currentFrameY(0)				//현재 프레임 y
 	, m_maxFrameX(1)					//최대 프레임 x개수
@@ -37,7 +37,7 @@ cDxImg::cDxImg(string sImgKey)
 	m_stSize.fHeight = m_stImageInfo.Height;
 }
 
-cDxImg::cDxImg(string sImgKey, int maxFrameX, int maxFrameY, int frameTime)
+cDxImg::cDxImg(string sImgKey, int maxFrameX, int maxFrameY, int frameTime, bool _isCenter)
 	: m_pTexture(NULL)					//텍스쳐
 	, m_isDrawBoundingBox(false)		//바운딩박스 그리는지
 	, m_dwBoundingColor(BLACK)			//바운딩박스 색깔
@@ -46,7 +46,7 @@ cDxImg::cDxImg(string sImgKey, int maxFrameX, int maxFrameY, int frameTime)
 	, m_stSize(0.0f, 0.0f)				//가로세로
 	, m_pSprite(NULL)					//스프라이트
 	, m_eImgLayer(eImgLayer::E_NONE)	//레이어
-	, m_isCenterDraw(true)				//중점에서 그리는지
+	, m_isCenterDraw(_isCenter)			//중점에서 그리는지
 	, m_currentFrameX(0)				//현재 프레임 x
 	, m_currentFrameY(0)				//현재 프레임 y
 	, m_maxFrameX(1)					//최대 프레임 x개수

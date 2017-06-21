@@ -32,8 +32,8 @@ private:
 
 public:
 	cDxImg();
-	cDxImg(string sImgKey);
-	cDxImg(string sImgKey, int maxFrameX, int maxFrameY, int frameTime = 5);
+	cDxImg(string sImgKey, bool _isCenter=false);
+	cDxImg(string sImgKey, int maxFrameX, int maxFrameY, int frameTime = 5, bool _isCenter=true);
 	~cDxImg();
 
 	void render();

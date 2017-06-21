@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "bossActionAttack.h"
+#include "xPlayer.h"
 
 
 bossActionAttack::bossActionAttack() :Action(), resultValue(0)

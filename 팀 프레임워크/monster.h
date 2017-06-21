@@ -1,11 +1,6 @@
 #pragma once
 #include "Action.h"
-#include "ActionAttack.h"
-#include "ActionDie.h"
-#include "ActionMove.h"
-#include "ActionReMove.h"
-#include "ActionSeq.h"
-#include "ActionStanding.h"
+#include "Text.h"
 
 const int MAXHM = 40000;
 const int MINHM = 10000;
@@ -32,12 +27,13 @@ protected:
 	LHS::ACTIONRESULT result;					//액션을 위한 입력값
 	string Name;								//몬스터 이름
 	camera*	_mainCamera;
+	Text*	test;
 protected:
 	Action*					CurrAction;				//현재 활성화된 행동 클래스
 	Action*					NextAction;				//다음 활성화될 행동 클래스
 public:
-	monster();
-	monster(string Name);
+//	monster();
+	monster(string Name = "이름을입력해주세요");
 	monster(camera* _mainCamera, string Name = "이름을입력해주세요");
 	virtual ~monster();
 

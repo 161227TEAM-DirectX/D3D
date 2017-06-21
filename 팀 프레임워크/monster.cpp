@@ -2,22 +2,27 @@
 #include "monster.h"
 
 
-monster::monster() 
-	: baseObject(), CurrAction(nullptr), NextAction(nullptr)
-	, _mainCamera(nullptr)
-{
-}
+//monster::monster() 
+//	: baseObject(), CurrAction(nullptr), NextAction(nullptr)
+//	, _mainCamera(nullptr)
+//{
+//	
+//}
 
 monster::monster(string Name)
 	: baseObject(), CurrAction(nullptr), NextAction(nullptr)
 	, Name(Name), _mainCamera(nullptr)
 {
+	test = new Text;
+	test->init(Name);
 }
 
 monster::monster(camera* _mainCamera, string Name)
 	: baseObject(), CurrAction(nullptr), NextAction(nullptr)
 	, Name(Name), _mainCamera(_mainCamera)
 {
+	test = new Text;
+	test->init(Name);
 }
 
 
@@ -58,6 +63,7 @@ void monster::baseObjectDisable()
 void monster::baseObjectUpdate()
 {
 	stateSwitch();
+	test->update();
 
 	if (NextAction != nullptr)
 	{
@@ -80,6 +86,7 @@ void monster::baseObjectRender()
 	if (_skinnedAnim != nullptr) _skinnedAnim->render(_transform);
 
 	D3DXVECTOR3 temp = { _transform->GetWorldPosition().x, _boundBox._localMaxPos.y, _transform->GetWorldPosition().z };
+	test->render();
 
 	if(_mainCamera!=nullptr) SPRITEMANAGER->RenderFont(_mainCamera, Name, temp);
 

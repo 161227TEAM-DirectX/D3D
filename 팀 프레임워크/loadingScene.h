@@ -3,6 +3,8 @@
 class loadingScene : public iGameNode
 {
 private:
+	int i = 0;
+
 public:
 	loadingScene();
 	virtual ~loadingScene();
@@ -11,6 +13,11 @@ public:
 	virtual void release();
 	virtual void update();
 	virtual void render();
-	virtual void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam){}
+
+public:
+	static HRESULT ThreadInit(LPVOID lpVod);
+
+	static void UILoading();
+	static void XMeshStaticLoading();
 };
 
