@@ -769,6 +769,12 @@
     <ClCompile Include="cRegistBase.cpp">
       <Filter>RegistBase</Filter>
     </ClCompile>
+    <ClCompile Include="ioSaveMonsterManger.cpp">
+      <Filter>팀 포트폴리오\02.맵툴\3.IO매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="ioSaveNodeManager.cpp">
+      <Filter>팀 포트폴리오\02.맵툴\3.IO매니져</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainGame.h">
@@ -1266,6 +1272,12 @@
     </ClInclude>
     <ClInclude Include="cRegistBase.h">
       <Filter>RegistBase</Filter>
+    </ClInclude>
+    <ClInclude Include="ioSaveMonsterManger.h">
+      <Filter>팀 포트폴리오\02.맵툴\3.IO매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="ioSaveNodeManager.h">
+      <Filter>팀 포트폴리오\02.맵툴\3.IO매니져</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

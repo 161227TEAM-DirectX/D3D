@@ -238,6 +238,8 @@
     <ClInclude Include="ioHeightManager.h" />
     <ClInclude Include="ioMapManager.h" />
     <ClInclude Include="ioSaveManager.h" />
+    <ClInclude Include="ioSaveMonsterManger.h" />
+    <ClInclude Include="ioSaveNodeManager.h" />
     <ClInclude Include="ioSaveObjectManager.h" />
     <ClInclude Include="keyManager.h" />
     <ClInclude Include="kimsNewTest.h" />
@@ -407,6 +409,8 @@
     <ClCompile Include="ioHeightManager.cpp" />
     <ClCompile Include="ioMapManager.cpp" />
     <ClCompile Include="ioSaveManager.cpp" />
+    <ClCompile Include="ioSaveMonsterManger.cpp" />
+    <ClCompile Include="ioSaveNodeManager.cpp" />
     <ClCompile Include="ioSaveObjectManager.cpp" />
     <ClCompile Include="keyManager.cpp" />
     <ClCompile Include="kimsNewTest.cpp" />

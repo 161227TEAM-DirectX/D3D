@@ -19,8 +19,7 @@ HRESULT loadingScene::init()
 
 	DWORD dwThID[2];
 	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInit, this, NULL, &dwThID[1]));
-
-
+	
 	return S_OK;
 }
 
@@ -46,9 +45,11 @@ void loadingScene::render()
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
 	XMeshStaticLoading();
+	XMeshSkinnedLoading();
 	UILoading();
 
-	SCENEMANAGER->changeScene("start");
+	g_eSelectMode = E_MAPTOOL;
+	SCENEMANAGER->changeScene("maptool");
 
 	return S_OK;
 }
@@ -268,5 +269,26 @@ void loadingScene::XMeshStaticLoading()
 	XMESH_MANAGER->AddXmeshStatic("ob185", RM_XMESH->getResource(FILEPATH_MANAGER->GetFilepath("Xmesh_ob185"), scale));
 	XMESH_MANAGER->AddXmeshStatic("ob186", RM_XMESH->getResource(FILEPATH_MANAGER->GetFilepath("Xmesh_ob186"), scale));
 	XMESH_MANAGER->AddXmeshStatic("ob187", RM_XMESH->getResource(FILEPATH_MANAGER->GetFilepath("Xmesh_ob187"), scale));
+}
 
+void loadingScene::XMeshSkinnedLoading()
+{
+	D3DXMATRIX matRotate;
+	D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
+
+	XMESH_MANAGER->AddXmeshSkinned("∞Ò∑Ω", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("∏ÛΩ∫≈Õ_∞Ò∑Ω"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("∞≥", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("∏ÛΩ∫≈Õ_∞≥"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("∏‰µ≈¡ˆ", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("∏ÛΩ∫≈Õ_∏‰µ≈¡ˆ"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("≥™π´¡¸Ω¬", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("∏ÛΩ∫≈Õ_≥™π´¡¸Ω¬"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("∫Í∑Á≈ª∑ÁΩ∫", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("∏ÛΩ∫≈Õ_∫Í∑Á≈ª∑ÁΩ∫"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("»˜µÂ∂Û", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("∏ÛΩ∫≈Õ_»˜µÂ∂Û"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("ªı", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("∏ÛΩ∫≈Õ_ªı"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("æ«æÓ", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("∏ÛΩ∫≈Õ_æ«æÓ"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("∞ı", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("∏ÛΩ∫≈Õ_∞ı"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("µ“∞°µÂ", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("∏ÛΩ∫≈Õ_µ“∞°µÂ"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("«œ««", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("∏ÛΩ∫≈Õ_«œ««"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("∑¶≈Õ", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("∏ÛΩ∫≈Õ_∑¶≈Õ"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("¿¸∞•", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("∏ÛΩ∫≈Õ_¿¸∞•"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("µµ∏∂πÏ", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("∏ÛΩ∫≈Õ_µµ∏∂πÏ"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("µ•Ω∫¿Æ", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("∏ÛΩ∫≈Õ_µ•Ω∫¿Æ"), matRotate));
 }

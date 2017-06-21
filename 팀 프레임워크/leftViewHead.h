@@ -12,6 +12,7 @@ struct LEFTVIEWUI
 {
 	LPDIRECT3DTEXTURE9 tex;
 	RECT rc1, rc2, rc3;
+	bool FT;
 };
 
 class leftViewHead : public iGameNode
@@ -43,13 +44,13 @@ private:
 
 	//맵바탕
 	LEFTVIEWUI _leftView;
+	LEFTVIEWUI _SaveButton;
 
 	//오브젝트에 관한 save
 	vector<tagSaveObject> InfoObjectTemp;
 	tagSaveObject ObjecTemp;
 
 private:
-	int co;
 	enum eHeightType { E_NONE, E_UP, E_DOWN };
 	eHeightType m_eHeightType;			//높이값을 올릴건지 내릴건지의 정보를 들고있다.
 
@@ -76,11 +77,15 @@ public:
 	void terrainUpdate();
 	void terrainTextureUpate();
 	void monsterMaptul();
-	void Load();
+	void save();
 
 	void render();
 	void setLink(rightView* rightView) { _rightView = rightView; }
 
-	void monsterSelect(string str);
+	void monsterSelect(string str, int monsterNumber);
+	void loadMonsterAndNode(void);
+	void loadMonster(void);
+	xMesh* findMonster(int&);
+	void loadNode(void);
 };
 
