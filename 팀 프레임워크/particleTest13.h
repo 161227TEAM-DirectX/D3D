@@ -1,17 +1,25 @@
 #pragma once
 //#include "gameNode.h"
 //#include "dxParticleSystem.h"
-#include "gameNode.h"
+#include "iGameNode.h"
 
 #include "dxSkillManager.h"
 #include "dxSkill.h"
-#include "SK_Boss00.h"
+#include "skBoss_Breath.h"
+
+#include "skPlayer_MagicShoot.h"
+
 #include "SK_Effect00.h"
 
+#include "skPlayer_Heal.h"
+
+#include "skBoss_Shouting.h"
+
+#include "skBoss_GrandMagic.h"
 //class dxMeshEmitter;
 //class camera;
 
-class particleTest13 : public gameNode
+class particleTest13 : public iGameNode
 {
 private:
 	dx::transform* _player;
@@ -22,7 +30,7 @@ private:
 
 	dxEmitter* _testEmitter;
 
-	SK_Effect00* testSkill00;
+	skBoss_GrandMagic* testSkill00;
 
 	camera* _mainCamera;
 
@@ -37,11 +45,10 @@ public:
 	void update(void);
 	void render(void);*/
 
-	virtual void Setup();
-	virtual void Update();
-	virtual void Render();
-
-	virtual void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {};
+	virtual HRESULT init();
+	virtual void release();
+	virtual void update();
+	virtual void render();
 
 
 

@@ -96,11 +96,14 @@ void dxCircleModule::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 	if (_radPtc.radiusEndZ_On) { iter->radius.z = Lerp(iter->radiusInit.z, iter->radiusEnd.z, (iter->age / iter->lifeTime)); }
 
 	//각도 적용
-	if (_radPtc.circleX_On) iter->circleAngle.x += D3DXToRadian(iter->circelAngleSpeed.x)*_timeDelta;
-	if (_radPtc.circleY_On) iter->circleAngle.y += D3DXToRadian(iter->circelAngleSpeed.y)*_timeDelta;
-	if (_radPtc.circleZ_On) iter->circleAngle.z += D3DXToRadian(iter->circelAngleSpeed.z)*_timeDelta;
+	if (_radPtc.circleX_On) iter->circleAngle.x += D3DXToRadian(iter->circelAngleSpeed.x) *_timeDelta*iter->emitterNum;
+	if (_radPtc.circleY_On) iter->circleAngle.y += D3DXToRadian(iter->circelAngleSpeed.y) *_timeDelta*iter->emitterNum;
+	if (_radPtc.circleZ_On) iter->circleAngle.z += D3DXToRadian(iter->circelAngleSpeed.z) *_timeDelta*iter->emitterNum;
 
-
+	//if (_radPtc.circleX_On || _radPtc.circleY_On || _radPtc.circleZ_On)
+	//{
+	//	//iter->circleAngle = iter->circleAngle*_timeDelta;
+	//}
 
 	//한바퀴 돌고 리셋
 	OneCircleReset(iter->circleAngle.x);

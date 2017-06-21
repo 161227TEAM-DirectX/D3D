@@ -25,6 +25,8 @@ private:
 	//카운터용
 	int _EmitterCountNum;
 
+	bool _RealTimeTrackingOn;
+
 public:
 	HRESULT init();
 	void addEmitter(dxEmitter* emitter);
@@ -51,6 +53,7 @@ public:
 	//자동 시간 리셋
 	bool autoTimeReset(bool ResetFunOn = true);
 
+	void setRealTimeTrackingOn(bool realTimeTrackingOn) { _RealTimeTrackingOn = realTimeTrackingOn; };
 
 public:
 	dxParticleSystem()
@@ -60,6 +63,8 @@ public:
 		_limitTime = 0.0f;
 		_currentTime = 0.0f;
 		_EmitterCountNum = 0;
+
+		_RealTimeTrackingOn = true;
 	}
 	~dxParticleSystem() {}
 };

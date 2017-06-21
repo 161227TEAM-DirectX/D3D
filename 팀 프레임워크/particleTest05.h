@@ -17,6 +17,8 @@ private:
 	
 	skill00_02* _testSkill02;
 
+	camera* _mainCamera;
+
 public:
 	HRESULT init(void);
 	void release(void);

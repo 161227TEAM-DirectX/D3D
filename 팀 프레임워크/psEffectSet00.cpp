@@ -1,24 +1,76 @@
 #include "stdafx.h"
-#include "PS_EffectSet00.h"
+#include "psEffectSet00.h"
 
-#define XX($d) ;
-
-HRESULT PS_EffectSet00::init()
+HRESULT psEffectSet00::init()
 {
 	//파티클 이름이 잘 보이게 일부러 이름 넣는 인자값을 준다.
-	this->set00_00("먼지");
-	this->set00_01("피격");
-	//this->set00_02("");
+	this->EffectSet00("스턴");
+	this->EffectSet01("먼지");
+	this->EffectSet02("피격");
 
 	return S_OK;
 }
 
-void PS_EffectSet00::release()
+void psEffectSet00::release()
 {
 	dxParticleSystemSet::release();
 }
 
-void PS_EffectSet00::set00_00(string psName)
+
+void psEffectSet00::EffectSet00(string psName)
+{
+	dxParticleSystemSet::init();
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("PaticleResources/Texture/star.png", 1, 1.0f, 1);
+
+	_boardEMT->InitRandomSize(0.4f, 0.4f);
+
+	_boardEMT->InitRandomPositionY(1.0f, 1.0f);
+	_boardEMT->InitCircleRadiusY(1.0f, 1.0f);
+	_boardEMT->InitCircleAngleSpeedY(360.0f, 360.0f);
+	_boardEMT->InitRandomLifeTime(1.0f, 1.0f);
+
+	_PS->addEmitter(_boardEMT);
+
+	//
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("PaticleResources/Texture/star.png", 1, 1.0f, 1);
+
+	_boardEMT->InitRandomSize(0.4f, 0.4f);
+
+	_boardEMT->InitRandomPositionY(1.0f, 1.0f);
+
+	_boardEMT->InitCircleStartAngleY(120.0f,120.0f);
+	_boardEMT->InitCircleRadiusY(1.0f, 1.0f);
+	_boardEMT->InitCircleAngleSpeedY(360.0f, 360.0f);
+	_boardEMT->InitRandomLifeTime(1.0f, 1.0f);
+
+	_PS->addEmitter(_boardEMT);
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("PaticleResources/Texture/star.png", 1, 1.0f, 1);
+
+	_boardEMT->InitRandomSize(0.4f, 0.4f);
+
+	_boardEMT->InitRandomPositionY(1.0f, 1.0f);
+
+	_boardEMT->InitCircleStartAngleY(240.0f, 240.0f);
+	_boardEMT->InitCircleRadiusY(1.0f, 1.0f);
+	_boardEMT->InitCircleAngleSpeedY(360.0f, 360.0f);
+	_boardEMT->InitRandomLifeTime(1.0f, 1.0f);
+
+	_PS->addEmitter(_boardEMT);
+
+
+	PSM->addPS(psName, _PS);
+
+}
+
+void psEffectSet00::EffectSet01(string psName)
 {
 	dxParticleSystemSet::init();
 
@@ -57,7 +109,7 @@ void PS_EffectSet00::set00_00(string psName)
 	_pointEMT->InitRandomColorFadeB(0.0f, 0.0f);*/
 
 	_boardEMT->InitRandomAlpha(0.1f, 0.1f);
-	_boardEMT->addAlphaGraph(0.3f,1.0f,1.0f);
+	_boardEMT->addAlphaGraph(0.3f, 1.0f, 1.0f);
 	_boardEMT->addAlphaGraph(0.8f, 1.0f, 1.0f);
 	_boardEMT->addAlphaGraph(1.0f, 0.2f, 0.2f);
 	//_pointEMT->InitRandomAlphaFade(0.2f, 0.2f);
@@ -94,7 +146,7 @@ void PS_EffectSet00::set00_00(string psName)
 	PSM->addPS(psName, _PS);
 }
 
-void PS_EffectSet00::set00_01(string psName)
+void psEffectSet00::EffectSet02(string psName)
 {
 	dxParticleSystemSet::init();
 
@@ -139,7 +191,7 @@ void PS_EffectSet00::set00_01(string psName)
 	//_pointEMT->InitRandomAlphaFade(0.2f, 0.2f);
 	//_boardEMT->InitAnimation(4, 4);
 	//_boardEMT->InitConstAniReactivateNum(2);
-	_boardEMT->InitRandomColorR(0.8f,1.0f);
+	_boardEMT->InitRandomColorR(0.8f, 1.0f);
 	//_boardEMT->InitRandomColorG(0.2f,0.2f);
 	//_boardEMT->InitRandomColorB(0.0f,0.0f);
 	//_planeEMT->InitRandomColorFadeR(1.0f,1.0f);

@@ -80,6 +80,9 @@ void dxParticleSystem::reset()
 		}
 	}
 	_trans->Reset();
+	_isActive = true;
+	_currentTime = 0.0f;
+	_EmitterCountNum = 0;
 }
 
 void dxParticleSystem::update()
@@ -94,7 +97,10 @@ void dxParticleSystem::update()
 		{
 			_vEmitter[i]->update();
 		}*/
-		_vEmitter[_EmitterCountNum]->setParticleSystemTrans(_trans);
+		//트랜스폼 세팅
+		if (_RealTimeTrackingOn == FALSE) { _vEmitter[_EmitterCountNum]->setParticleSystemTrans(_trans); }
+		_vEmitter[_EmitterCountNum]->setEmitterNum(_vEmitter.size());
+		//업데이트
 		_vEmitter[_EmitterCountNum]->update();
 		_EmitterCountNum++;
 		if (_EmitterCountNum >= _vEmitter.size()) { _EmitterCountNum = 0; }
@@ -108,7 +114,7 @@ void dxParticleSystem::render()
 	if (_isActive == FALSE) return;
 
 	//트렌스폼 업데이트
-	_trans->SetDeviceWorld();
+	if(_RealTimeTrackingOn) _trans->SetDeviceWorld();
 
 	//이미터 업데이트
 
@@ -118,10 +124,6 @@ void dxParticleSystem::render()
 		{
 			_vEmitter[i]->render();
 		}
-
-		//_vEmitter[_EmitterCountNum]->render();
-		//_EmitterCountNum++;
-		//if (_EmitterCountNum >= _vEmitter.size()) { _EmitterCountNum = 0; }
 	}
 }
 

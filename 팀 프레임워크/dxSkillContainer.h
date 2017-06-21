@@ -94,7 +94,11 @@ public:
 
 public:
 	//동작 시작
-	void Start() { _skillStartOn = true; }
+	void Start()
+	{
+		if (_skillStartOn == FALSE) { _skillPrepareOn = true; };
+		_skillStartOn = true; 
+	}
 	//업데이트 동작
 	virtual bool Prepare() = 0;
 	virtual bool Action() = 0;
@@ -114,19 +118,21 @@ public:
 
 
 public:
+	//일반
 	void setPreparePS(string psName) { PSM->initPS(_preparePS, psName); }
 	void setActionPS(string psName)  { PSM->initPS(_actionPS, psName); }
 	void setFinishPS(string psName)  { PSM->initPS(_finishPS, psName); }
 
+public:
+	//벡터용
 	void setArrayPreparePS(string psName, int arrayNum) { PSM->initArrayPS(_vPrepaerPS, arrayNum, psName); }
 	void setArrayActionPS(string psName, int arrayNum) { PSM->initArrayPS(_vActionPS, arrayNum, psName); }
 	void setArrayFinishPS(string psName, int arrayNum) { PSM->initArrayPS(_vFinishPS, arrayNum, psName); }
 
-	virtual void ThisSK(void) { };
+	
 
 public:
-	//포인터 벡터용
-
+	//포인터형 벡터용
 	void setMaxNumPreparePS(int MaxNum) { _pvPrepaerPS = new vector<dxParticleSystem*>[MaxNum]; _pvPrepaerMaxNum = MaxNum; }
 	void setMaxNumActionPS(int MaxNum) { _pvActionPS = new vector<dxParticleSystem*>[MaxNum]; _pvActionMaxNum= MaxNum; }
 	void setMaxNumFinishPS(int MaxNum) { _pvFinishPS = new vector<dxParticleSystem*>[MaxNum]; _pvFinishMaxNum = MaxNum; }
@@ -135,7 +141,9 @@ public:
 	void setPvActionPS(int skillNum, string psName, int arrayNum) { PSM->initArrayPS(_pvActionPS[skillNum], arrayNum, psName); }
 	void setPvFinishPS(int skillNum, string psName, int arrayNum) { PSM->initArrayPS(_pvFinishPS[skillNum], arrayNum, psName); }
 
-public:
+protected:
+	bool AutoResetTime(float inTime);
+	
 
 protected:
 	//베지어 곡선용
@@ -189,6 +197,7 @@ protected:
 	{
 		//동작들 초기화
 		_skillStartOn = false;
+		_skillFinshOn = false;
 		_skillActionOn = false;
 		_skillFinshOn = false;
 		_skillResetOn = false;

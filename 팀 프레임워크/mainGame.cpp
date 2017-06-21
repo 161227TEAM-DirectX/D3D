@@ -9,18 +9,19 @@
 
 mainGame::mainGame()
 {
-	g_pLoading->Init();
+	REGIST_SGT->Init();
 
-	//SCENEMANAGER->addScene("start", new startScene, false);
-	//SCENEMANAGER->addScene("loading", new loadingScene, false);
-	//SCENEMANAGER->addScene("maptool", new mapToolScene, true);
+	SCENEMANAGER->addScene("start", new startScene, false);
+	SCENEMANAGER->addScene("loading", new loadingScene, false);
+	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
+	SCENEMANAGER->addScene("particleTest13", new particleTest13, true);
 	//g_eSelectMode = E_MAPTOOL;
 	//SCENEMANAGER->addScene("maptool", new mapToolScene, true);
 }
 
 mainGame::~mainGame()
 {
-	g_pLoading->Destroy();
+	REGIST_SGT->Destroy();
 }
 
 
@@ -66,7 +67,7 @@ HRESULT mainGame::init(void)
 //===================================================================================
 //김태훈 씬 테스트 헤더파일
 //===================================================================================
-	SCENEMANAGER->addScene("test", new kimsNewTest, false);
+	//SCENEMANAGER->addScene("test", new kimsNewTest, false);
 	//SCENEMANAGER->addScene("test", new cubeLight, false);
 
 
@@ -77,7 +78,7 @@ HRESULT mainGame::init(void)
 
 
 	//씬초기화
-	SCENEMANAGER->changeScene("test");
+	//SCENEMANAGER->changeScene("test");
 	return S_OK;
 }
 
@@ -126,8 +127,11 @@ void mainGame::render(void)
 
 			//디버그 모드에서만 실행
 #ifdef _DEBUG 
-			//월드그리드 렌더
-			GIZMOMANAGER->WorldGrid(1, 10);
+			if (KEYMANAGER->isToggleKey(VK_F9))
+			{
+				//월드그리드 렌더
+				GIZMOMANAGER->WorldGrid(1, 10);
+			}
 			//타임매니져 렌더
 			TIMEMANAGER->render();
 #endif	

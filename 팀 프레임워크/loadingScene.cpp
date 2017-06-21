@@ -45,10 +45,11 @@ void loadingScene::render()
 
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
-	XMeshStaticLoading();
+	//XMeshStaticLoading();
 	UILoading();
 
-	SCENEMANAGER->changeScene("start");
+	g_eSelectMode = E_MAPTOOL;
+	SCENEMANAGER->changeScene("maptool");
 
 	return S_OK;
 }
@@ -60,6 +61,7 @@ void loadingScene::UILoading()
 
 void loadingScene::XMeshStaticLoading()
 {
+
 	D3DXMATRIX scale;
 	D3DXMatrixScaling(&scale, 0.5f, 0.5f, 0.5f);
 

@@ -22,23 +22,26 @@ void dxPositionModule::InitUpdate(vector<tagDxAttribute>::iterator iter)
 		iter->position.y = RandomFloatRange(_radPtc.positionY.Min, _radPtc.positionY.Max);
 		iter->position.z = RandomFloatRange(_radPtc.positionZ.Min, _radPtc.positionZ.Max);
 
-		iter->dirSphere.x = RandomFloatRange( -_radPtc.dirSphere.x, _radPtc.dirSphere.x);
-		iter->dirSphere.y = RandomFloatRange( -_radPtc.dirSphere.y, _radPtc.dirSphere.y);
-		iter->dirSphere.z = RandomFloatRange( -_radPtc.dirSphere.z, _radPtc.dirSphere.z);
+	}
 
-		if (PositionType == PTC_SPHERE)
-		{
-			D3DXVec3Normalize(&iter->dirSphere, &iter->dirSphere);
+	if (PositionType == PTC_SPHERE)
+	{
 
-			//랜덤거리
-			float radDistance = RandomFloatRange(_radPtc.posSphereRadius.Min, _radPtc.posSphereRadius.Max);
+		iter->dirSphere.x = RandomFloatRange(-_radPtc.dirSphere.x, _radPtc.dirSphere.x);
+		iter->dirSphere.y = RandomFloatRange(-_radPtc.dirSphere.y, _radPtc.dirSphere.y);
+		iter->dirSphere.z = RandomFloatRange(-_radPtc.dirSphere.z, _radPtc.dirSphere.z);
 
-			//추가위치
-			iter->position = iter->position + iter->dirSphere * radDistance;
 
-		}
+		D3DXVec3Normalize(&iter->dirSphere, &iter->dirSphere);
+
+		//랜덤거리
+		float radDistance = RandomFloatRange(_radPtc.posSphereRadius.Min, _radPtc.posSphereRadius.Max);
+
+		//추가위치
+		iter->position = iter->position + iter->dirSphere * radDistance;
 
 	}
+
 
 	//위치 방향성 속도
 	if (_radPtc.radPosDirectionVelOn)
@@ -62,7 +65,11 @@ void dxPositionModule::InitUpdate(vector<tagDxAttribute>::iterator iter)
 		iter->attractCenter.y = RandomFloatRange(_radPtc.attractY.Min, _radPtc.attractY.Max);
 		iter->attractCenter.z = RandomFloatRange(_radPtc.attractZ.Min, _radPtc.attractZ.Max);
 
-		iter->attractStrartPos = iter->position; 
+		//iter->attractStrartPos = iter->psTransPos+iter->position; 
+		iter->attractStrartPos = iter->position;
+
+		iter->attractPos = (iter->attractCenter - iter->attractStrartPos);// /iter->lifeTime;
+		//iter->attractPos = VecLerp(iter->attractCenter, iter->attractStrartPos, _timeDelta*iter->emitterNum);
 	}
 
 }
@@ -78,10 +85,10 @@ void dxPositionModule::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 	}
 
 	//끌림
-	if (_radPtc.attractOn)
-	{
+	//if (_radPtc.attractOn)
+	//{
 		//iter->attractPos = VecLerp(iter->attractStrartPos, iter->attractCenter, (iter->age / iter->lifeTime));
-		iter->attractPos = (iter->attractCenter - iter->attractStrartPos)/iter->lifeTime;
-	}
+
+	//}
 
 }

@@ -59,7 +59,7 @@ void skill00_02::release()
 
 bool skill00_02::Prepare()
 {
-	_skillStartOn = false;
+	_skillPrepareOn = false;
 	_skillActionOn = true;
 	return FALSE;
 }
@@ -136,9 +136,6 @@ bool skill00_02::Action()
 		_activeNum+=2;
 		_currentTime = _timeDelta;
 	}
-
-
-
 
 
 	else if (_activeNum < _vActionPS.size())
