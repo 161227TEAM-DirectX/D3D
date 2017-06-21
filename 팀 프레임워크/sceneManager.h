@@ -21,7 +21,7 @@ public:
 	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 	//æ¿√ﬂ∞°
-	iGameNode* addScene(string sceneName, iGameNode* scene, bool isSceneChange);
+	iGameNode* addScene(string sceneName, iGameNode* scene, bool isSceneChange = false);
 
 	//æ¿∫Ø∞Ê
 	HRESULT changeScene(string sceneName);

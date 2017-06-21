@@ -674,6 +674,7 @@ void leftViewHead::monsterSelect(string str)
 	temp->_transform->SetWorldPosition(_hitPos);
 	temp->setRegenPosition(_hitPos);
 	temp->setMesh(RM_SKINNED->getResource(str, &matRotate));
+	temp->getText().setPos(temp->_transform->GetWorldPosition());
 	temp->setActive(true);
 	_monster.push_back(temp);
 	_rightView->SetGSnumberMonster(0);
