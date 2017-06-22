@@ -14,11 +14,11 @@ HRESULT xPlayer::init()
 	//_lightSkill->init();
 	//_lightSkill->Reset();
 
-	D3DXVECTOR3 pos4[4] = { D3DXVECTOR3(-1,-1,-2),D3DXVECTOR3(1,1,1),D3DXVECTOR3(2,2,2),D3DXVECTOR3(3,3,3) };
+	//D3DXVECTOR3 pos4[4] = { D3DXVECTOR3(-1,-1,-2),D3DXVECTOR3(1,1,1),D3DXVECTOR3(2,2,2),D3DXVECTOR3(3,3,3) };
 
-	D3DXVECTOR3 pos1 = { 0,0,0 };
+	//D3DXVECTOR3 pos1 = { 0,0,0 };
 
-	D3DXVec3CatmullRom(&pos1, &pos4[0], &pos4[1], &pos4[2], &pos4[3], -1.0f);
+	//D3DXVec3CatmullRom(&pos1, &pos4[0], &pos4[1], &pos4[2], &pos4[3], -1.0f);
 
 	//-1.0~2.0
 
@@ -274,10 +274,13 @@ HRESULT xPlayer::init()
 	_playerObject->_skinnedAnim->Play("S", 0.3F);
 
 	setBladeLight();
-
+	
 	_playerObject->_skinnedAnim->AddBoneTransform("humanfemale_Bone121_CSR", _handTrans);
 	_edgeTrans->SetWorldPosition(_handTrans->GetWorldPosition() + _handTrans->GetRight() * 0.7);
 	_handTrans->AddChild(_edgeTrans);
+
+	BladePosInit();
+
 
 	return S_OK;
 }
@@ -304,6 +307,8 @@ void xPlayer::update()
 	playerAnimationManager();
 
 	_prevState = _state;
+
+	updateBladeLight();
 }
 
 void xPlayer::render()
@@ -311,7 +316,7 @@ void xPlayer::render()
 	_handTrans->RenderGimozo();
 	_edgeTrans->RenderGimozo();
 
-	drawBladeLight();
+	
 	//_lightSkill->render();
 	//렌더링은 씬에 렌더오브젝트를 넘겨 처리한다.
 	if (KEYMANAGER->isToggleKey(VK_F7))
@@ -347,7 +352,7 @@ void xPlayer::render()
 	//	}
 	//}
 
-
+	drawBladeLight();
 }
 
 void xPlayer::release(void)
@@ -562,7 +567,7 @@ void xPlayer::playerStateManager()
 
 		break;
 	case P_ATTACK:
-		updateBladeLight();
+		
 		if (animName == "AT1H")
 		{
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.6)//애니메이션 다 재생했으면
@@ -591,7 +596,7 @@ void xPlayer::playerStateManager()
 		}
 		break;
 	case P_ATTACK2:
-		updateBladeLight();
+		
 		if (!SOUNDMANAGER->isPlaySound("공격1"))
 		{
 			if (animName == "AT2H")
@@ -632,7 +637,7 @@ void xPlayer::playerStateManager()
 		}
 		break;
 	case P_ATTACK3:
-		updateBladeLight();
+		
 		if (animName == "AT2HL")
 		{
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.7)//애니메이션 다 재생했으면
@@ -661,7 +666,7 @@ void xPlayer::playerStateManager()
 		}
 		break;
 	case P_ATTACK4:
-		updateBladeLight();
+		
 		if (animName == "AT2H2")
 		{
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.2  && _playerObject->_skinnedAnim->getAnimFactor() < 0.45)//애니메이션 다 재생했으면
@@ -692,7 +697,7 @@ void xPlayer::playerStateManager()
 		}
 		break;
 	case P_ATTACK5:
-		updateBladeLight();
+		
 		if (animName == "AT2HL2")
 		{
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.5 && _playerObject->_skinnedAnim->getAnimFactor() < 0.8)//애니메이션 다 재생했으면
@@ -1322,14 +1327,13 @@ void xPlayer::setBladeLight()
 		tempVertex2.uv = D3DXVECTOR2(z, 0);
 
 		_vertexDeque.push_back(tempVertex2);
-
 	}
 
 
 	//_myVertexbuffer->Lock(0, 0, (void**)&pVertices, 0);
 
 
-	pVertices = new MYLIGHTVERTEX[_vertexDeque.size()];
+	pVertices = new MYLIGHTVERTEX[60];
 
 	for (int i = 0; i < _vertexDeque.size(); i++)
 	{
@@ -1356,7 +1360,7 @@ void xPlayer::setBladeLight()
 //텍스쳐 로딩
 	D3DXCreateTextureFromFile(
 		_device,
-		"테스트.jpg",
+		"검광4.png",
 		&_texture);
 
 
@@ -1402,20 +1406,32 @@ void xPlayer::BladePosInit()
 	//벡터 정보 초기화
 	_vecPosEdge.clear();
 	_vecPosHand.clear();
+
+
+
 }
 
 void xPlayer::updateBladeLight()
 {
+	D3DXVECTOR3 nowEdgePos = _edgeTrans->GetWorldPosition();
+	D3DXVECTOR3 nowHandPos = _handTrans->GetWorldPosition();
+
 	_vertexDeque.clear();//덱은 비어있다.
+
 	//현재 위치를 받는다!
 	//이 정보가 계속 누적 되리!
-	_vecPosEdge.push_back(_edgeTrans->GetWorldPosition());//위치정보는 얘네가 들고있다! 덱은 계속 비워준다.
-	_vecPosHand.push_back(_handTrans->GetWorldPosition());
+	_vecPosEdge.push_front(nowEdgePos);//위치정보는 얘네가 들고있다! 덱은 계속 비워준다.
+	_vecPosHand.push_front(nowHandPos);
+
+	if (_vecPosEdge.size() > vertexNum / 2 - 2)
+	{
+		_vecPosEdge.pop_back();
+		_vecPosHand.pop_back();
+	}
+
 
 	for (int i = 0; i < _vecPosEdge.size(); i++)
 	{
-		MYLIGHTVERTEX tempVertex1;
-
 		//0,2,4
 		float u = 0;
 
@@ -1427,8 +1443,8 @@ void xPlayer::updateBladeLight()
 		{
 			u = ((float)(i * 2) / (float)(vertexNum - 2));
 		}
-		//MYLIGHTVERTEX tempVertex;
 
+		MYLIGHTVERTEX tempVertex1;
 		tempVertex1.pos = _vecPosHand[i]; //D3DXVECTOR3(x, 5, 0);//posHand +
 		tempVertex1.uv = D3DXVECTOR2(u, 1);
 		
@@ -1451,79 +1467,55 @@ void xPlayer::updateBladeLight()
 		_vertexDeque.push_back(tempVertex1);
 		_vertexDeque.push_back(tempVertex2);
 
-		////앞에거 넣기!
-		//tempVertex1.pos = _vecPosEdge[1];
-
-
-		//tempVertex1.uv = D3DXVECTOR2(0, 0);//칼끝!
-
-
-		//_vertexDeque.push_back(tempVertex1);
-
-		//MYLIGHTVERTEX tempVertex2;
-
-		////앞에거 넣기!
-		//tempVertex2.pos = _vecPosHand[0];
-		//tempVertex2.uv = D3DXVECTOR2(0, 1);//손!
-
-		//_vertexDeque.push_back(tempVertex2);
-
+		int DequeSizeOver = _vertexDeque.size() - vertexNum;
+		MYLIGHTVERTEX tempUV[2];
+		for (int v = 0; v < DequeSizeOver; v++)
+		{
+			_vertexDeque.pop_front();
+			_vertexDeque.pop_front();
+		}
 	}
-	//memset(&pVertices, 0, sizeof(MYLIGHTVERTEX)*vertexNum);
 
-	//pVertices = new MYLIGHTVERTEX[_vertexDeque.size()];
+	//i = 0; 부터 
+	//i += 2;
+	//i + 2 = i;복제
+	//i + 1 + 2 = i + 1;
+
 
 	for (int i = 0; i < _vertexDeque.size(); i++)
 	{
 		pVertices[i] = _vertexDeque[i];//정점정보 복사!
 	}
 
-	primitives = _vertexDeque.size() - 2;
-
-	maxNum = _vertexDeque.size();
-
 	for (int i = 0; i < _vertexDeque.size(); i++)
 	{
 		idx[i] = i;
-		if (pVertices[i].uv.y == 0 && i / 2 == 0)
-		{
-			int a = 0;
-		}
 	}
 
-	
 
 	//==========================================================
+	
+	//primitives = _ - 2;
 
-	_vecPosEdge.push_back(_edgeTrans->GetWorldPosition());
-	_vecPosHand.push_back(_handTrans->GetWorldPosition());
-	if (_vecPosEdge.size() > vertexNum / 2)
-	{
-		_vecPosEdge.pop_front();
-		_vecPosHand.pop_front();
-	}
-
-	primitives = _vecPosEdge.size() + _vecPosHand.size() - 2;
-
-	for (int i = 0; i < _vecPosHand.size(); i++)
-	{
-		pVertices[i * 2 + 1].pos = _vecPosEdge[i];
-		pVertices[i * 2].pos = _vecPosHand[i];
+	//for (int i = 0; i < _vecPosHand.size(); i++)
+	//{
+	//	//pVertices[i * 2 + 1].pos = _vecPosEdge[i];
+	//	//pVertices[i * 2].pos = _vecPosHand[i];
 
 
 
-		float u = 0;
-		if (i == 0)
-		{
-			u = 0;
-		}
-		else
-		{
-			u = ((float)i / (float)(vertexNum - 2));
-		}
+	//	float u = 0;
+	//	if (i == 0)
+	//	{
+	//		u = 0;
+	//	}
+	//	else
+	//	{
+	//		u = ((float)i / (float)(vertexNum - 2));
+	//	}
 
-		pVertices[i * 2 + 1].uv = D3DXVECTOR2(u, 1);
-	}
+	//	pVertices[i * 2 + 1].uv = D3DXVECTOR2(u, 1);
+	//}
 
 
 
@@ -1547,13 +1539,51 @@ void xPlayer::drawBladeLight()
 		pVertices[i].uv;
 	}
 
+	_device->SetRenderState(D3DRS_LIGHTING, false);		//라이팅을 끈다.
+	//_device->SetRenderState(D3DRS_ZWRITEENABLE, false);	//z 버퍼의 쓰기를 막는다.
 
-	_device->SetRenderState(D3DRS_LIGHTING, FALSE);
 	_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-	////반복적으로 나온다 1 넘어가는 UV 좌표는 1을 빼서 다시 0부터 시작
-	_device->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);
-	_device->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);
+	//알파 블렌딩 셋팅
+	_device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+	//_device->SetRenderState( D3DRS_SRCBLEND, D3DBLEND_SRCALPHA );
+	_device->SetRenderState( D3DRS_DESTBLEND, D3DBLEND_ONE);
+
+	_device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	_device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
+	//Texture 의 값과 Diffuse 여기서는 정점컬러의 알파값 을 섞어 최종 출력을 한다.
+	_device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+	_device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_DIFFUSE);
+	_device->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_TEXTURE);
+
+
+
+	////_device->SetRenderState(D3DRS_LIGHTING, true);
+	//
+	////_device->SetRenderState(D3DRS_ZWRITEENABLE, false);
+
+	////알파 블렌딩 셋팅
+	//_device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+	////_device->SetRenderState( D3DRS_SRCBLEND, D3DBLEND_SRCALPHA );
+	////_device->SetRenderState( D3DRS_DESTBLEND, D3DBLEND_ONE);
+
+	//_device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	//_device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
+
+	//_device->SetRenderState(D3DRS_LIGHTING, FALSE);
+	//_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+
+
+	////Texture 의 값과 Diffuse 여기서는 정점컬러의 알파값 을 섞어 최종 출력을 한다.
+	//_device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+	//_device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_DIFFUSE);
+	//_device->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_TEXTURE);
+
+	//////반복적으로 나온다 1 넘어가는 UV 좌표는 1을 빼서 다시 0부터 시작
+	////_device->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DPTADDRESSCAPS_WRAP);
+	////_device->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DPTADDRESSCAPS_WRAP);
 
 	//그리기 전에 로딩된 텍스쳐를 세팅하기
 	_device->SetTexture(0, _texture);
@@ -1563,11 +1593,16 @@ void xPlayer::drawBladeLight()
 	_device->SetFVF(MYLIGHTVERTEX::FVF);
 	//_device->SetIndices(_myIndexBuffer);
 
-	_device->DrawIndexedPrimitiveUP(D3DPT_TRIANGLESTRIP, 0, maxNum, primitives, idx, D3DFMT_INDEX32, pVertices, sizeof(MYLIGHTVERTEX));
+	_device->DrawIndexedPrimitiveUP(D3DPT_TRIANGLESTRIP, 0, vertexNum, primitives, idx, D3DFMT_INDEX32, pVertices, sizeof(MYLIGHTVERTEX));
 	//텍스쳐 세팅해제
 
 	_device->SetTexture(0, NULL);
 
 	_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+
+
+	_device->SetRenderState(D3DRS_LIGHTING, true);
+	_device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
+	_device->SetRenderState(D3DRS_ZWRITEENABLE, true);
 
 }
