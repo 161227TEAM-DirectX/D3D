@@ -112,7 +112,10 @@ void Text::update(void)
 void Text::render(void)
 {
 	D3DXMATRIX matS, matWorld;
+	D3DXMATRIX oldMat;
 	//D3DXMatrixScaling(&matS, 0.1f, 0.1f, 0.1f);
+
+	_device->GetTransform(D3DTS_WORLD, &oldMat);
 
 	matWorld = matBillBoard;
 
@@ -120,4 +123,5 @@ void Text::render(void)
 	_device->SetRenderState(D3DRS_LIGHTING, false);
 	this->str->DrawSubset(0);
 	_device->SetRenderState(D3DRS_LIGHTING, true);
+	_device->SetTransform(D3DTS_WORLD, &oldMat);
 }
