@@ -45,6 +45,8 @@ public:
 	D3DXMATRIXA16 getProjectionMatrix() { return _matProjection; }
 	D3DXMATRIXA16 getViewProjectionMatrix() { return _matViewProjection; }
 
+	// 카메라 위치 벡터 얻기
+	D3DXVECTOR3	getCameraPos();
 	//화각 얻기
 	float getFOV() { return _fov; }
 	//화각 세팅

@@ -21,7 +21,7 @@ void bossMonster::baseObjectEnable()
 	range.setBound(&D3DXVECTOR3(0.0f, 0.0f, 0.0f), &D3DXVECTOR3(_transform->GetScale().x * BOSSRANGE, _transform->GetScale().y * BOSSRANGE, _transform->GetScale().z * BOSSRANGE));
 
 	//충돌박스
-	hitBox.setBound(&temp, &D3DXVECTOR3(_transform->GetScale().x * 0.6f, temp.y*1.0f, _transform->GetScale().z * 0.9f));
+	hitBox.setBound(&temp, &D3DXVECTOR3(_transform->GetScale().x * 0.6f, temp.y*1.0f, _transform->GetScale().z * 0.5f));
 
 	HP = 100000;
 	mana = 10000;
@@ -74,6 +74,8 @@ void bossMonster::baseObjectRender()
 
 void bossMonster::switchState(void)
 {
+	if (HP <= 0) result = LHS::ACTIONRESULT::ACTION_DIE;
+
 	switch (result)
 	{
 	case LHS::ACTION_ATT:

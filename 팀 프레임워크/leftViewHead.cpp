@@ -738,7 +738,7 @@ void leftViewHead::monsterSelect(string str ,int monsterNumber)
 	//D3DXMATRIX matRotate;
 	//D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
 
-	monster* temp = new monster(&_mainCamera);
+	monster* temp = new monster(findMonsterName(monsterNumber));
 	temp->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
@@ -777,7 +777,7 @@ void leftViewHead::loadMonster(void)
 		D3DXMATRIX matRotate;
 		D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
 
-		monster* tempMonster = new monster(&_mainCamera);
+		monster* tempMonster = new monster(findMonsterName(temp[i].monsterNumber));
 		tempMonster->_transform->SetScale(temp[i].scale, temp[i].scale, temp[i].scale);
 		tempMonster->_transform->SetWorldPosition(temp[i].monsterX, temp[i].monsterY, temp[i].monsterZ);
 		tempMonster->setRegenPosition(temp[i].monsterX, temp[i].monsterY, temp[i].monsterZ);
@@ -833,6 +833,56 @@ xMesh * leftViewHead::findMonster(int & index)
 	case 14:
 		return XMESH_MANAGER->GetXmeshSkinned("µµ¸¶¹ì");
 		break;
+	}
+}
+
+string leftViewHead::findMonsterName(int & index)
+{
+	string temp = "";
+	switch (index)
+	{
+	case 1:
+		temp = "¾ÆÅ©·¹°ñ·½";
+		return temp;
+	case 2:
+		temp = "ÀÌÇöÃÑ";
+		return temp;
+	case 3:
+		temp = "¸äµÅÁö";
+		return temp;
+	case 4:
+		temp = "³ª¹«Áü½Â";
+		return temp;
+	case 5:
+		temp = "ºê·çÅ»·ç½º";
+		return temp;
+	case 6:
+		temp = "È÷µå¶ó";
+		return temp;
+	case 7:
+		temp = "ÄÚÄÚ»õ";
+		return temp;
+	case 8:
+		temp = "Å©·ÎÄ¿´ÙÀÏ";
+		return temp;
+	case 9:
+		temp = "Ç®º¸±×";
+		return temp;
+	case 10:
+		temp = "µÒ°¡µå";
+		return temp;
+	case 11:
+		temp = "ÇÏÇÇ";
+		return temp;
+	case 12:
+		temp = "·¦ÅÍ";
+		return temp;
+	case 13:
+		temp = "Àü°¥";
+		return temp;
+	case 14:
+		temp = "Àü±âµµ¸¶¹ì";
+		return temp;
 	}
 }
 

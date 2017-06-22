@@ -18,6 +18,7 @@ int bossActionAttack::Start()
 
 	//보스몬스터의 공격모션 아무거나 시작.
 	owner->getSkinnedAnim().Play("Animation_12");
+	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
 }
@@ -74,21 +75,27 @@ int bossActionAttack::Update()
 		{
 		case 1:
 			owner->getSkinnedAnim().Play("Animation_12");
+			owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 			break;
 		case 2:
 			owner->getSkinnedAnim().Play("Animation_10");
+			owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 			break;
 		case 3:
 			owner->getSkinnedAnim().Play("Animation_9");
+			owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 			break;
 		case 4:
 			owner->getSkinnedAnim().Play("Animation_11");
+			owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 			break;
 		case 5:
 			owner->getSkinnedAnim().Play("Animation_21");
+			owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 			break;
 		default:
 			owner->getSkinnedAnim().Play("Animation_10");
+			owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 			break;
 		}
 	}

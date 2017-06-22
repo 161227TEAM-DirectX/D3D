@@ -134,11 +134,9 @@ void kimsNewTest::update()
 	this->_cullObjects.clear();
 	for (int i = 0; i < this->_renderObjects.size(); i++)
 	{
-
 		//프러스텀 안에 있니?
 		if (_mainCamera->_frustum.isInFrustum(_renderObjects[i]))
 		{
-
 			this->_cullObjects.push_back(_renderObjects[i]);
 		}
 	}
@@ -176,7 +174,7 @@ void kimsNewTest::render()
 	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resource/Testures/Ramp_1.png"));
 	xMeshSkinned::setBaseLight(this->_sceneBaseDirectionLight);
 
-	_player->render();
+	
 
 	for (int i = 0; i < this->_cullObjects.size(); i++)
 	{
@@ -187,7 +185,7 @@ void kimsNewTest::render()
 		}
 	}
 	_terrain->render(_mainCamera, _sceneBaseDirectionLight, _directionLightCamera);
-	
+	_player->render();
 	
 	this->readyShadowMap(&this->_cullObjects, this->_terrainShadow);
 

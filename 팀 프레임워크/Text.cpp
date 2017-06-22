@@ -23,7 +23,7 @@ void Text::init(string str)
 	ZeroMemory(&lf, sizeof(LOGFONT));
 
 	lf.lfHeight = 2;						//글꼴의 높이값(절대값이라 음수 가능)
-	lf.lfWidth = 1;						//글골의 세로값
+	lf.lfWidth = 1;							//글골의 세로값
 	lf.lfEscapement = 0;					//문자열의 기울기
 	lf.lfOrientation = 0;					//글자의 각도를 0.1단위로 명시
 	lf.lfWeight = 1000;						//글꼴의 굵기
@@ -36,7 +36,7 @@ void Text::init(string str)
 	lf.lfQuality = 0;
 	lf.lfPitchAndFamily = 0;
 
-	strcpy_s(lf.lfFaceName, "굴림체");	//폰트 스타일.
+	strcpy_s(lf.lfFaceName, "HY견고딕");	//폰트 스타일.
 
 	HFONT hFont = CreateFontIndirect(&lf);
 	HFONT hFontOld = (HFONT)SelectObject(hdc, hFont);
@@ -112,7 +112,10 @@ void Text::update(void)
 void Text::render(void)
 {
 	D3DXMATRIX matS, matWorld;
+	D3DXMATRIX oldMat;
 	//D3DXMatrixScaling(&matS, 0.1f, 0.1f, 0.1f);
+
+	_device->GetTransform(D3DTS_WORLD, &oldMat);
 
 	matWorld = matBillBoard;
 
@@ -120,4 +123,5 @@ void Text::render(void)
 	_device->SetRenderState(D3DRS_LIGHTING, false);
 	this->str->DrawSubset(0);
 	_device->SetRenderState(D3DRS_LIGHTING, true);
+	_device->SetTransform(D3DTS_WORLD, &oldMat);
 }

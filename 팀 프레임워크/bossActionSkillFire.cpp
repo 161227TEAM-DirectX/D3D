@@ -35,7 +35,7 @@ int bossActionSkillFire::Update()
 		if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
 		{
 			owner->getSkinnedAnim().Play("Animation_14");
-			owner->getSkinnedAnim().SetPlaySpeed(1.0f);
+			owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 		}
 
 		return LHS::ACTIONRESULT::ACTION_PLAY;

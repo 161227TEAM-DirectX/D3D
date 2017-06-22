@@ -316,7 +316,6 @@ struct tagSaveNode
 
 
 
-
 //====================================================================
 //			## 내가 만든 헤더파일을 이곳에 추가한다 ##
 //====================================================================
@@ -372,6 +371,8 @@ using namespace myUtil;
 #include "ioSaveNodeManager.h"
 #include "ioHeightManager.h"
 #include "ioMapManager.h"
+#include "CinematicManger.h"
+#include "ioSaveCinemaManger.h"
 
 #include "cObjectManager.h"
 #include "cTextureManager.h"
@@ -409,7 +410,8 @@ using namespace myUtil;
 #define IOSAVEMONSTERMANAGER ioSaveMonsterManger::getSingleton()
 #define IOSAVENODEMANAGER ioSaveNodeManager::getSingleton()
 #define IOMAPMANAGER ioMapManager::getSingleton()
-
+#define CINEMATICMANAGER  CinematicManger::getSingleton()
+#define IOCINEMATICMANAGER ioSaveCinemaManger::getSingleton()
 
 
 

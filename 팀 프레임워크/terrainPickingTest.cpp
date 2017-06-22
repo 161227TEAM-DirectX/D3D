@@ -305,7 +305,7 @@ void terrainPickingTest::shadowInit(void)
 	_directionLightCamera->_aspect = 1;
 	_directionLightCamera->_orthoSize = _shadowDistance * 1.5f;	//투영크기는 그림자크기로
 
-																//방향성광원 카메라의 RenderToTexture준비
+	//방향성광원 카메라의 RenderToTexture준비
 	_directionLightCamera->readyShadowTexture(4096);
 
 	_mainCamera->readyRenderToTexture(WINSIZEX, WINSIZEY);
@@ -426,7 +426,7 @@ void terrainPickingTest::InitMonster(void)
 	mat = /*matScaling **/ matRotate;
 	monster* tempObject;
 
-	tempObject = new monster(_mainCamera);
+	tempObject = new monster;
 	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	float tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -439,7 +439,7 @@ void terrainPickingTest::InitMonster(void)
 	mon.push_back(tempObject);
 	tempObject = nullptr;
 
-	tempObject = new monster(_mainCamera);
+	tempObject = new monster;
 	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -452,7 +452,7 @@ void terrainPickingTest::InitMonster(void)
 	//mon.push_back(tempObject);
 	tempObject = nullptr;
 
-	tempObject = new monster(_mainCamera);
+	tempObject = new monster;
 	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);

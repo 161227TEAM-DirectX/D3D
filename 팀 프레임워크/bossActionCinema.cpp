@@ -17,6 +17,7 @@ int bossActionCinema::Start()
 	if (!owner) return LHS::ACTIONRESULT::ACTION_FINISH;
 
 	owner->getSkinnedAnim().Play("Animation_62");
+	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }
@@ -39,6 +40,7 @@ int bossActionCinema::Update()
 			if (!strcmp("Animation_61", temp.c_str()))
 			{
 				owner->getSkinnedAnim().Play("Animation_13", 1.0f);
+				owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 			}
 
 			if(!strcmp("Animation_62", temp.c_str())) owner->getSkinnedAnim().Play("Animation_61", 1.0f);

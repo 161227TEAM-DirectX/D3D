@@ -11,18 +11,9 @@
 
 monster::monster(string Name)
 	: baseObject(), CurrAction(nullptr), NextAction(nullptr)
-	, Name(Name), _mainCamera(nullptr)
 {
-	test = new Text;
-	test->init(Name);
-}
-
-monster::monster(camera* _mainCamera, string Name)
-	: baseObject(), CurrAction(nullptr), NextAction(nullptr)
-	, Name(Name), _mainCamera(_mainCamera)
-{
-	test = new Text;
-	test->init(Name);
+	name = new Text;
+	name->init(Name);
 }
 
 
@@ -30,6 +21,7 @@ monster::~monster()
 {
 	SAFE_DELETE(CurrAction);
 	SAFE_DELETE(NextAction);
+	SAFE_DELETE(name);
 }
 
 void monster::baseObjectEnable()
@@ -41,7 +33,7 @@ void monster::baseObjectEnable()
 	
 	hitBox.setBound(&temp, &D3DXVECTOR3(_transform->GetScale().x * 0.6f, temp.y * 1.0f, _transform->GetScale().z * 0.3f));
 
-	test->setPos(D3DXVECTOR3(_transform->GetWorldPosition().x, _boundBox._localMaxPos.y, _transform->GetWorldPosition().z));
+	name->setPos(D3DXVECTOR3(_transform->GetWorldPosition().x, _boundBox._localMaxPos.y, _transform->GetWorldPosition().z));
 
 	HP = myUtil::RandomIntRange(MINHM, MAXHM);
 	mana = myUtil::RandomIntRange(MINHM, MAXHM);
@@ -65,7 +57,7 @@ void monster::baseObjectDisable()
 void monster::baseObjectUpdate()
 {
 	stateSwitch();
-	test->update();
+	name->update();
 
 	if (NextAction != nullptr)
 	{
@@ -88,7 +80,7 @@ void monster::baseObjectRender()
 	if (_skinnedAnim != nullptr) _skinnedAnim->render(_transform);
 
 	D3DXVECTOR3 temp = { _transform->GetWorldPosition().x, _boundBox._localMaxPos.y, _transform->GetWorldPosition().z };
-	test->render();
+	name->render();
 
 	hitBox.renderGizmo(_transform, D3DCOLOR_XRGB(255, 0, 0));
 	range.renderGizmo(_transform, D3DCOLOR_XRGB(255, 255, 0));
@@ -99,6 +91,7 @@ void monster::baseObjectRender()
 void monster::stateSwitch(void)
 {
 	//몬스터의 HP가 떨어지면 죽음 상태로 변경
+	if (HP < 0) result = LHS::ACTIONRESULT::ACTION_DIE;
 	// 각 액션이 update 함수를 실행 후에 상태값을 넘겨온다.
 	// 그 상태값에 따라 몬스터가 해야 할 행동을 취하면 된다.
 	switch (result)
