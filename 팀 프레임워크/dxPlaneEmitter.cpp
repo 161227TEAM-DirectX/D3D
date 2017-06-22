@@ -41,46 +41,42 @@ void dxPlaneEmitter::relese()
 
 void dxPlaneEmitter::preUpdate()
 {
-	//if(_preUpdateOn == FALSE) reture;
+	if(_preUpdateOn == FALSE) return;
 
 	//미리 조금씩 계산하자
 	_preInitPtcMaxNum = 0;
 	_preInitPtcCurrentNum = 0;
 	_oneFramePtcCurrentNum = 0;
 
-	float accrueTime;
 	//float limitTime;
 	vector<tagDxAttribute>::iterator iter;
 
-	int oneFramePtcNum = ((int)(_spawnTime / _timeDelta)) - 1;	//1프레임을 빼는 이유는 일반 업데이트와 겹치지 않기 위함임(안전용)
-	float limitTime = oneFramePtcNum*_timeDelta;
-	float oneFrameTime;
+	_oneFramePtcNum = ((int)(_spawnTime / _timeDelta)) - 1;	//1프레임을 빼는 이유는 일반 업데이트와 겹치지 않기 위함임(안전용)
+	_limitTime = _oneFramePtcNum*_timeDelta;
 
 
-
-
-	if (oneFramePtcNum <= 0)
+	if (_oneFramePtcNum <= 0)
 	{
-		oneFramePtcNum = _onePtcNum;
+		_oneFramePtcNum = _onePtcNum;
 
 	}
 	else
 	{
 		//시간 누적
-		accrueTime += _timeDelta;
+		_accrueTime += _timeDelta;
 
-		if (limitTime <= accrueTime)
+		if (_limitTime <= _accrueTime)
 		{
-			oneFramePtcNum = _onePtcNum - _preInitPtcCurrentNum;
+			_oneFramePtcNum = _onePtcNum - _preInitPtcCurrentNum;
 			//누적시간 초기화
-			accrueTime = 0.0f;
+			_accrueTime = 0.0f;
 		}
 		else
 		{
 			//마지막 나머지 계산
-			if ((_onePtcNum - _preInitPtcCurrentNum) < oneFramePtcNum)
+			if ((_onePtcNum - _preInitPtcCurrentNum) < _oneFramePtcNum)
 			{
-				oneFramePtcNum = _onePtcNum - _preInitPtcCurrentNum;
+				_oneFramePtcNum = _onePtcNum - _preInitPtcCurrentNum;
 			}
 		}
 	}
@@ -104,13 +100,13 @@ void dxPlaneEmitter::preUpdate()
 			//초기화한 총 개수
 			_preInitPtcCurrentNum++;
  
-			if (oneFramePtcNum > _oneFramePtcCurrentNum) break;
+			if (_oneFramePtcNum > _oneFramePtcCurrentNum) break;
 
 		}
 	}
 
 	//파티클 초기화 완료조건
-	if (_onePtcNum <= _preInitPtcCurrentNum) { }
+	if (_onePtcNum <= _preInitPtcCurrentNum) { _preUpdateOn = FALSE; }
 
 }
 

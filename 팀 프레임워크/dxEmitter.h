@@ -82,7 +82,7 @@ protected:
 	float _accrueTime;
 	float _limitTime;
 
-	float OneFrameTime;
+	bool _preUpdateOn;
 
 public:		//함수
 
@@ -330,6 +330,19 @@ public:
 		
 		_allRotate = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 		_allRotateSpeed = D3DXVECTOR3(0.0f,0.0f,0.0f);
+
+		//미리 업데이트 초기화
+		_preInitPtcMaxNum = 0;
+		_preInitPtcCurrentNum = 0;
+		_oneFramePtcCurrentNum = 0;
+		_oneFramePtcNum = 0;
+
+		 _accrueTime = 0.0f;
+		 _limitTime = 0.0f;
+
+
+		_preUpdateOn = true;
+
 	}
 	dxEmitter() {};
 	~dxEmitter() {};

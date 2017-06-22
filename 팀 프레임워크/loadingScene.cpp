@@ -48,8 +48,8 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 	XMeshSkinnedLoading();
 	UILoading();
 
-	g_eSelectMode = E_MAPTOOL;
-	SCENEMANAGER->changeScene("maptool");
+	//g_eSelectMode = E_MAPTOOL;
+	SCENEMANAGER->changeScene("particleTest13");
 
 	return S_OK;
 }
