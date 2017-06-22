@@ -148,7 +148,6 @@ void dxModuleKit::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 	iter->FinalDir = D3DXVECTOR3(matFin._41, matFin._42, matFin._43);
 
 
-
 	//Æò¸é¿ë
 	iter->posCenter += iter->FinalDir;
 

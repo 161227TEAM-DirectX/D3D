@@ -35,3 +35,19 @@ bool dxEmitter::autoActiveTimeCheck(float timeDelta)
 
 	return FALSE;
 }
+
+bool dxEmitter::autoStartTimeCheck(float timeDelta)
+{
+	if (_startTimeCheckOn == FALSE) return FALSE;
+
+	if (_startLimitTime <= _startCurrentTime)
+	{
+		//_activeCurrentTime = 0.0f;
+		_startRenderOn = TRUE;
+		//_startTimeCheckOn = FALSE;
+		return FALSE;
+	}
+	_startCurrentTime += timeDelta;
+
+	return TRUE;
+}

@@ -38,28 +38,40 @@ protected:
 	//이미터 개수(시간 맞춤용)
 	int _emitterNum;
 
-	bool _realtimeTrackingPosOn;
+	//bool _realtimeTrackingPosOn;
+
+protected:
+	//전체 회전용
+	D3DXVECTOR3 _allRotate;
+
+	D3DXVECTOR3 _allRotateSpeed;
 
 protected:
 	//파티클 개수 및 시간 관련
 	int		_onePtcNum;					//스폰할 때마다 한번에 뿜어내는 파티클 개수
 	DWORD	_totalPtcNum;				//총 파티클 개수
 
-	bool	_startDelayTimeOn;			//처음 시작 딜레이 사용여부
-	float	_startDelayTime;			//처음 시작 딜레이 한계시간 설정
-	float	_currentDelayTime;			//처음 시작 딜레이 현재시간
-
 	float	_spawnTime;					//스폰
 	float	_spawnCurrentTime;			//스폰타임
 
 	int		_drawPtcNum;				//그릴 파티클 개수	
 
-	//시간이 맞지 않다???
+	//활성시간 정도
 	bool	_activeTimeCheckOn;
 	float	_activeCurrentTime;
 	float	_activeLimitTime;
+
 	bool	_activeRenderControlOn;
 	bool	_activeRenderOn;
+
+	//시작시간 정도
+	bool	_startTimeCheckOn;
+	float	_startLimitTime;			//처음 시작 한계 시간
+	float	_startCurrentTime;			//처음 시작 현재시간
+
+	bool	_startRenderOn;
+
+	
 
 public:		//함수
 
@@ -78,29 +90,42 @@ public:
 	dxModuleKit* Module(void) { return _module; };
 	dx::transform*	Transform() { return _trans; }
 
+public: //=======================================================================================================================
+	//회전 시작지점
+	void InitAllStartRotate(float startX, float startY, float startZ) { _allRotate = D3DXVECTOR3(startX, startY, startZ); };
 
-
-public:
-	//초기 지연작동시간 세팅
-	void InitStartDelayTime(float time) { _startDelayTime = time; _startDelayTimeOn = true; }
-	//위치에 따른 방향성 속도
-	void InitRandomPosDirectionVelocity(float min, float max) { _module->InitRandomPosDirectionVelocity(min, max); }
+	//회전 스피드
+	void InitAllRotateSpeed(float speedX, float speedY, float speedZ) { _allRotateSpeed = D3DXVECTOR3(speedX,speedY,speedZ); };
+	
 
 public: //=======================================================================================================================
 	//위치 타입 세팅
-	void SetPositionType(PTC_POSITION_TYPE posType ) { _module->SetPositionType(posType); }
+	void SetPositionType(PTC_POSITION_TYPE posType = PTC_SPHERE) { _module->SetPositionType(posType); }
 	void InitRandomPosSphereRadius(float min, float max) { _module->InitRandomPosSphereRadius(min, max); }
+
+	//구 방향
+	void InitDirSphere(float dirX, float dirY, float dirZ) { _module->InitDirSphere(dirX, dirY, dirZ); }
 
 	//위치
 	void InitRandomPositionX(float min, float max) { _module->InitRandomPositionX(min, max); }
 	void InitRandomPositionY(float min, float max) { _module->InitRandomPositionY(min, max); }
 	void InitRandomPositionZ(float min, float max) { _module->InitRandomPositionZ(min, max); }
 
-	//위치에 따른 방향성 속도 그래프 세팅
-	void addPosDirectVelGraph(float point, float min, float max) { _module->addPosDirectVelGraph(point, min, max); }
 
-	//구 방향
-	void InitDirSphere(float dirX, float dirY, float dirZ) { _module->InitDirSphere(dirX, dirY, dirZ); }
+public: //=======================================================================================================================
+	//위치에서 폭파
+	void InitRandomPosExplosionVel(float min, float max) { _module->InitRandomPosExplosionVel(min, max); }
+
+	//위치에서 폭파 그래프
+	void addPosExplosionVelGraph(float point, float min, float max) { _module->addPosExplosionVelGraph(point, min, max); }
+
+
+public:	//=======================================================================================================================
+	//위치 중심 회전
+	void InitRandomPosRotAngleSpeedX(float min, float max) { _module->InitRandomPosRotAngleSpeedX(min, max); }
+	void InitRandomPosRotAngleSpeedY(float min, float max) { _module->InitRandomPosRotAngleSpeedY(min, max); }
+	void InitRandomPosRotAngleSpeedZ(float min, float max) { _module->InitRandomPosRotAngleSpeedZ(min, max); }
+
 
 public:	//=======================================================================================================================
 	//끌림 고정
@@ -221,44 +246,46 @@ public:
 	{
 		_activeRenderOn = true;
 		_activeRenderControlOn = true;
-		_realtimeTrackingPosOn = false;
+		//_realtimeTrackingPosOn = false;
 
 		_ptcList.clear();
 		_ptcList.resize(_totalPtcNum);
-		_currentDelayTime = 0.0f;
 		_activeCurrentTime = 0.0f;
 		_spawnCurrentTime = _spawnTime;
-
-		//_spawnCurrentTime = _spawnTime;
-		if (_startDelayTime != 0.0f)
-		{
-			_startDelayTimeOn = true;
-		}
-		else
-		{
-			_startDelayTimeOn = false;
-		}
+		_startCurrentTime = 0.0f;
+		_activeCurrentTime = 0.0f;
+		
+		
 	}
 public:
 	//작동 시간 설정
-	void SetActiveLimitTime(float inTime, bool renderControlOn = true)
+	void SetActiveLimitTime(float inTime, bool inRenderControlOn = true)
 	{
-
 		_activeLimitTime = inTime; 
-		_activeRenderControlOn = renderControlOn;
+		_activeRenderControlOn = inRenderControlOn;
 		_activeCurrentTime = 0.0f; 
 		_activeTimeCheckOn = TRUE; 
 	};
+
+	void SetStartLimitTime(float inTime)
+	{
+		_startLimitTime = inTime;
+		_startCurrentTime = 0.0f;
+		_startTimeCheckOn = TRUE;
+		_startRenderOn = FALSE;
+	}
 
 	bool autoActiveTimeCheck(void);
 
 	bool autoActiveTimeCheck(float timeDelta);
 
+	bool autoStartTimeCheck(float timeDelta);
+
 	void setParticleSystemTrans(dx::transform* inTrance) { _psTrans = inTrance; }
 
 	void setEmitterNum(int num) { _emitterNum = num; };
 
-	void setRealtimeTrackingPosOn() { _realtimeTrackingPosOn = true; }
+	//void setRealtimeTrackingPosOn() { _realtimeTrackingPosOn = true; }
 
 public:
 	void EmitterInit(void)
@@ -268,22 +295,29 @@ public:
 		_trans = new dx::transform;
 		_module->init();
 
-		//시작시간 초기화
+		//작동시간 초기화
 		_activeTimeCheckOn = FALSE;
 		_activeCurrentTime = 0.0f;
 		_activeLimitTime = 0.0f;
-		_startDelayTime = 0.0f;
+		
 		_activeRenderOn = true;
+		_activeRenderControlOn = true;
+
+		//시작시간 초기화
+		_startTimeCheckOn = FALSE;
+		_startLimitTime = 0.0f;
+		_startCurrentTime = 0.0f;
+
+		_startRenderOn = true;
 
 		//이미터 개수
 		_emitterNum = 1;
 
-		_activeRenderControlOn = true;
-		_realtimeTrackingPosOn = false;
 
 		_psTrans = NULL;
 		
-
+		_allRotate = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		_allRotateSpeed = D3DXVECTOR3(0.0f,0.0f,0.0f);
 	}
 	dxEmitter() {};
 	~dxEmitter() {};

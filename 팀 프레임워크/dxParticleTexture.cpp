@@ -1,11 +1,10 @@
 #include "stdafx.h"
 #include "dxParticleTexture.h"
 
-LPDIRECT3DTEXTURE9 * dxParticleTexture::LoadImg(string inPath, bool grayScaleOn)
+LPDIRECT3DTEXTURE9* dxParticleTexture::LoadImg(string inPath, bool grayScaleOn)
 {
 
 	HRESULT hr = NULL;
-	//hr = D3DXCreateTextureFromFile(_device, inPath.c_str(), &_texture);
 
 	hr = D3DXCreateTextureFromFileEx
 	(
@@ -13,13 +12,13 @@ LPDIRECT3DTEXTURE9 * dxParticleTexture::LoadImg(string inPath, bool grayScaleOn)
 		inPath.c_str(), 		//파일경로
 		D3DX_DEFAULT, 			//가로 크기(자동)
 		D3DX_DEFAULT, 			//세로 크기(자동)
-		D3DX_DEFAULT, 			//밉맵 설정(자동)
+		D3DX_DEFAULT, 			//밉맵 설정(자동)->일부러 많이 사용했다.(메모리는 많이 차지하지만 파티클의 프레임 드랍을 많이 줄여줄 거라 예상)
 		NULL,
 		//D3DFMT_FROM_FILE,		//파일에서 포맷(자동)
 		D3DFMT_A8B8G8R8,		//파일 포맷 세팅
 		D3DPOOL_MANAGED, 		//메모리풀
-		D3DX_FILTER_NONE, 		//필터
-		D3DX_FILTER_NONE, 		//밉맵필터
+		D3DX_DEFAULT, 			//필터(D3DX_FILTER_NONE을 쓰지 말자 이상하게 나온다.)
+		D3DX_DEFAULT, 			//밉맵필터
 		NULL,
 		&_texInfo, 				//텍스쳐 정보
 		NULL,
@@ -28,12 +27,8 @@ LPDIRECT3DTEXTURE9 * dxParticleTexture::LoadImg(string inPath, bool grayScaleOn)
 
 	if (FAILED(hr))	return NULL;
 
-	//경로 저장
-	_path = inPath;
-
-	if (grayScaleOn = TRUE)
+	if (grayScaleOn == TRUE)
 	{
-
 		D3DSURFACE_DESC dsc;
 		D3DLOCKED_RECT	drc;
 		DWORD*	pColorSrc = NULL;
@@ -75,7 +70,14 @@ LPDIRECT3DTEXTURE9 * dxParticleTexture::LoadImg(string inPath, bool grayScaleOn)
 			}
 		}
 	}
+	/*else
+	{
+		hr = D3DXCreateTextureFromFile(_device, inPath.c_str(), &_texture);
+		if (FAILED(hr))	return NULL;
+	}*/
 
+	//경로 저장
+	_path = inPath;
 
 	return &_texture;
 }

@@ -151,10 +151,10 @@ HRESULT particleTest03::init(void)
 	_testEmitter->InitRandomPositionZ(-1.0f, 1.0f);
 	_testEmitter->SetPositionType(PTC_SPHERE);
 	_testEmitter->InitRandomPosSphereRadius(3.0f,3.0f);
-	_testEmitter->InitRandomPosDirectionVelocity(0.0f,0.0f);
-	_testEmitter->addPosDirectVelGraph(0.2f,0.0f,0.0f);
-	_testEmitter->addPosDirectVelGraph(0.6f, 10.0f, 10.0f);
-	_testEmitter->addPosDirectVelGraph(1.0f, -10.0f, -10.0f);
+	_testEmitter->InitRandomPosExplosionVel(0.0f,0.0f);
+	_testEmitter->addPosExplosionVelGraph(0.2f,0.0f,0.0f);
+	_testEmitter->addPosExplosionVelGraph(0.6f, 10.0f, 10.0f);
+	_testEmitter->addPosExplosionVelGraph(1.0f, -10.0f, -10.0f);
 	//_testEmitter->InitStartDelayTime(5.0f);
 	//_testEmitter->InitRandomVelocityX(-3.0f, 3.0f);
 	//_testEmitter->InitRandomVelocityY(5.0f, 8.0f);

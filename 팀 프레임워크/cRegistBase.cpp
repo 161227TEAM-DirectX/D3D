@@ -50,7 +50,8 @@ void cRegistBase::Init()
 	RM_SKINNED->init();					//RM스킨드X메쉬 초기화
 	PHYSICSMANAGER->init();				//피직스매니져 초기화
 	SPRITEMANAGER->init();				//스프라이트매니져 초기화
-	PSM->ParticleSystemSetInit();		//파티클시스템매니져 초기화
+	PSM->ParticleSystemSetInit();		//파티클시스템_매니져 초기화
+	PTM->LoadImgInit();					//파티클텍스쳐_매니져 초기화
 	SOUNDMANAGER->init();				//사운드매니저초기화
 
 	
@@ -92,6 +93,9 @@ void cRegistBase::Destroy()
 	//파티클시스템매니져 싱글톤 해제
 	PSM->ParticleSystemSetRelease();
 	PSM->releaseSingleton();
+	//파티클시스템매니져 싱글톤 해제
+	//PTM->ParticleSystemSetRelease();
+	PTM->releaseSingleton();
 
 	SOUNDMANAGER->release();
 	SOUNDMANAGER->releaseSingleton();

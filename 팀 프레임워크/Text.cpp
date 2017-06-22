@@ -36,7 +36,7 @@ void Text::init(string str)
 	lf.lfQuality = 0;
 	lf.lfPitchAndFamily = 0;
 
-	strcpy_s(lf.lfFaceName, "굴림체");	//폰트 스타일.
+	strcpy(lf.lfFaceName, "굴림체");	//폰트 스타일.
 
 	HFONT hFont = CreateFontIndirect(&lf);
 	HFONT hFontOld = (HFONT)SelectObject(hdc, hFont);
@@ -53,13 +53,7 @@ void Text::init(string str)
 		LPD3DXBUFFER *ppAdjacency,				[out] 인접 천성보를 포함한 버퍼의 포인터.
 		LPGLYPHMETRICSFLOAT pGlyphMetrics		[out] 그리후메트릭크데이타를 포함한 LPGLYPHMETRICSFLOAT 구조체의 배열의 포인터
 	);*/
-	wchar_t temp[_MAX_PATH] = { 0, };
-	char temp2[_MAX_PATH] = { 0, };
-	strcpy(temp2, str.c_str());
-
-	MultiByteToWideChar(CP_ACP, 0, temp2, -1, temp, strlen(str.c_str()) + 1);
-
-	D3DXCreateTextW(_device, hdc, temp, 0.001f, 0.001f, &this->str, nullptr, nullptr);
+	D3DXCreateTextA(_device, hdc, str.c_str(), 0.001f, 0.001f, &this->str, nullptr, nullptr);
 	//
 	////메쉬를 복사한다. str에
 	//pMesh->CloneMeshFVF(pMesh->GetOptions(), MYVERTEX::FVF, _device, &this->str);

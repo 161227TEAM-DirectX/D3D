@@ -45,19 +45,26 @@ public:	//======================================================================
 	void SetPositionType(PTC_POSITION_TYPE posType) { _posMD->SetPositionType(posType); }
 	void InitRandomPosSphereRadius(float min, float max) { _posMD->InitRandomPosSphereRadius(min, max); }
 
+	//구 방향 세팅
+	void InitDirSphere(float dirX, float dirY, float dirZ) { _posMD->InitDirSphere(dirX, dirY, dirZ); }
+
 	//위치
 	void InitRandomPositionX(float min, float max) { _posMD->InitRandomPositionX(min, max);}
 	void InitRandomPositionY(float min, float max) { _posMD->InitRandomPositionY(min, max);}
 	void InitRandomPositionZ(float min, float max) { _posMD->InitRandomPositionZ(min, max);}
 
-	//위치에 따른 방향성 속도
-	void InitRandomPosDirectionVelocity(float min, float max) { _posMD->InitRandomPosDirectionVelocity(min, max); }
+public:	//=======================================================================================================================
+	//위치에서 폭파
+	void InitRandomPosExplosionVel(float min, float max) { _posMD->InitRandomPosExplosionVel(min, max); }
 
-	//위치에 따른 방향성 속도 그래프 세팅
-	void addPosDirectVelGraph(float point, float min, float max) { _posMD->addPosDirectVelGraph(point, min, max); };
+	//위치폭파 그래프 세팅
+	void addPosExplosionVelGraph(float point, float min, float max) { _posMD->addPosExplosionVelGraph(point, min, max); };
 
-	//구
-	void InitDirSphere(float dirX, float dirY, float dirZ) { _posMD->InitDirSphere(dirX, dirY, dirZ); }
+public:	//=======================================================================================================================
+	//위치 중심 회전
+	void InitRandomPosRotAngleSpeedX(float min, float max) { _posMD->InitRandomPosRotAngleSpeedX(min, max); }
+	void InitRandomPosRotAngleSpeedY(float min, float max) { _posMD->InitRandomPosRotAngleSpeedY(min, max); }
+	void InitRandomPosRotAngleSpeedZ(float min, float max) { _posMD->InitRandomPosRotAngleSpeedZ(min, max); }
 
 public:	//=======================================================================================================================
 	//끌림 고정

@@ -55,6 +55,10 @@ struct tagDxAttribute
 	D3DXVECTOR3		posDirectVel;		// 위치 방향성 속도
 	D3DXVECTOR3		posDirection;		// 방향성
 	float			posDirectSpeed;		// 방향성 속도
+	
+	D3DXVECTOR3		posRotateAngle;		//위치로부터의 회전값
+	D3DXVECTOR3		posRotAngleSpeed;	//위치로부터의 회전속도
+	
 	D3DXVECTOR3		velocity;			// 파티클의 속도(초당 이동 단위)
 	D3DXVECTOR3		acceleration;		// 파티클의 가속(초당 이동 단위)
 	float			lifeTime;			// 파티클이 소멸할 때까지 유지되는 시간.
@@ -161,6 +165,8 @@ struct tagDxAttribute
 
 		emitterNum = 1;//자기자신의 개수
 
+		posRotateAngle = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		posRotAngleSpeed = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 		
 	}
 };
@@ -199,8 +205,8 @@ struct tagDxAttributeMaxMin
 	//tagMaxMin directonVel;
 	//bool radDirectionVelOn;
 
-	tagMaxMin posDirectionVel;
-	bool radPosDirectionVelOn;
+	tagMaxMin posExprosionVel;
+	bool radPosExprosionVelOn;
 
 	//가속
 	tagMaxMin	 accelerationX;
@@ -313,6 +319,12 @@ struct tagDxAttributeMaxMin
 
 	D3DXVECTOR3 dirSphere;
 
+	//위치에서 회전
+	tagMaxMin posRotAngleSpeedX;
+	tagMaxMin posRotAngleSpeedY;
+	tagMaxMin posRotAngleSpeedZ;
+
+	bool posRotateOn;
 
 	//초기화
 	tagDxAttributeMaxMin()
@@ -339,7 +351,7 @@ struct tagDxAttributeMaxMin
 		radiusEndY_On = false;
 		radiusEndZ_On = false;
 
-		radPosDirectionVelOn = false;
+		radPosExprosionVelOn = false;
 
 		rotateInitX_On = false;
 		rotateInitY_On = false;
@@ -367,9 +379,9 @@ struct tagDxAttributeMaxMin
 		startFrameNum = 0;
 		endFrameNum = 0;
 
-
-
 		aniSectionOn = false;
+
+		posRotateOn = false;
 	}
 
 };

@@ -4,15 +4,10 @@
 
 HRESULT dxMeshEmitter::init(string xFileName, int OneTimePaticleNum, float spawnTime, int totalPaticleNum)
 {
-	_startDelayTimeOn = false;
 	_onePtcNum = OneTimePaticleNum;
 	_totalPtcNum = totalPaticleNum;
 	_spawnTime = spawnTime;
 	_spawnCurrentTime = _spawnTime;
-
-	_startDelayTime = 0.0f;
-	_currentDelayTime = 0.0f;
-
 
 	//_ptcVertex = new tagDxParticleEX[_totalPtcNum * 4];
 	//_ptcIndex = new DWORD[_totalPtcNum * 6];
@@ -210,6 +205,9 @@ void dxMeshEmitter::update()
 	//시간
 	float DeltaTime = _timeDelta*_emitterNum;
 
+	//시작 시간 체크
+	if (autoStartTimeCheck(DeltaTime)) return;
+
 	//작동시간 체크
 	if (autoActiveTimeCheck(DeltaTime)) return;
 
@@ -235,7 +233,7 @@ void dxMeshEmitter::update()
 		}
 
 
-		if (_spawnTime <= _spawnCurrentTime && _startDelayTimeOn == FALSE)
+		if (_spawnTime <= _spawnCurrentTime)
 		{
 			if (iter->isAlive == false && checkNum < _onePtcNum)
 			{
@@ -270,23 +268,9 @@ void dxMeshEmitter::update()
 		//활성화
 		if (iter->isAlive)
 		{
-
-			//this->CreatePlane(&_ptcVertex[ActiveNum*4],&_ptcIndex[ActiveNum*6],iter);
-
-			//iter->acceleration += iter->acceleration*0.01;
-			//ptcVtx->position += (iter->velocity + iter->acceleration)*_timeDelta;
-			//_ptcVtx[ActiveNum].position -= iter->circleSpeed;
 			_module->ActiveUpdate(iter);
-			//ptcVtx->position = D3DXVECTOR3(sinf(angle),0.0f,cosf(angle));
-			//ptcVtx->position = iter
-			//_ptcVtx[ActiveNum].position += iter->circleSpeed + iter->velocity*_timeDelta + (iter->acceleration*(iter->age*_timeDelta)*(iter->age*_timeDelta) / 2.0f) + iter->posDirectVel*_timeDelta;
-			//ptcVtx->position += iter->angleSpeed*_timeDelta+ iter->velocity*_timeDelta + (iter->acceleration*(iter->age*_timeDelta)*(iter->age*_timeDelta)/2.0f);
-			//_ptcVtx[ActiveNum].size = iter->size;
-			//_ptcVtx[ActiveNum].color = iter->color;
-			//this->ActiveUpdatePlane(&_ptcVertex[_drawPtcNum * 4], &_ptcIndex[_drawPtcNum * 6], iter, _drawPtcNum);
-			//나이 더하기
-			//D3DXVECTOR3 getPos = _trans[ActiveNum].GetWorldPosition();
-			
+		
+			//트랜스폼 업데이트
 			_trans[ActiveNum].SetScale(iter->size, iter->size, iter->size);
 			_trans[ActiveNum].SetRotateLocal(iter->rotateAngle.x, iter->rotateAngle.y, iter->rotateAngle.z);
 			_trans[ActiveNum].SetWorldPosition(_trans[ActiveNum].GetWorldPosition()+(iter->FinalDir));
@@ -305,25 +289,16 @@ void dxMeshEmitter::update()
 		_spawnCurrentTime = 0.0f;
 	}
 
-
-
-	if (_startDelayTime <= _currentDelayTime)
-	{
-		_spawnCurrentTime += DeltaTime;
-		_startDelayTimeOn = false;
-	}
-	else
-	{
-		_currentDelayTime += DeltaTime;
-	}
+	//스폰 시간 업
+	_spawnCurrentTime += DeltaTime;
 
 	
-	//_meshCamera.DefaultControl(_timeDelta);
-	//_meshCamera.updateCamToDevice();
 }
 
 void dxMeshEmitter::render()
 {
+	//시작시간 과 동작시간에 따른 렌더
+	if (_startRenderOn == FALSE) return;
 	if (_activeRenderOn == FALSE) return;
 	
 

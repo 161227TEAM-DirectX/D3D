@@ -3,14 +3,10 @@
 
 HRESULT dxPlaneEmitter::init(string textureFileName, int OneTimePaticleNum, float spawnTime, int totalPaticleNum)
 {
-	_startDelayTimeOn = false;
 	_onePtcNum = OneTimePaticleNum;
 	_totalPtcNum = totalPaticleNum;
 	_spawnTime = spawnTime;
 	_spawnCurrentTime = _spawnTime;
-
-	_startDelayTime = 0.0f;
-	_currentDelayTime = 0.0f;
 
 
 	_ptcVertex = new tagDxParticleEX[_totalPtcNum * 4];
@@ -20,12 +16,15 @@ HRESULT dxPlaneEmitter::init(string textureFileName, int OneTimePaticleNum, floa
 
 
 	
-	HRESULT hr = NULL;
-
+	//HRESULT hr = NULL;
+	
 	//텍스쳐 불러오기
-	hr = D3DXCreateTextureFromFile(_device, textureFileName.c_str(), &_texture);
+	_texture = *PTM->LoadImgPathAndName(textureFileName);
+	if (_texture == NULL)	return E_FAIL;
 
-	if (FAILED(hr))	return E_FAIL;
+	/*hr = D3DXCreateTextureFromFile(_device, textureFileName.c_str(), &_texture);
+
+	if (FAILED(hr))	return E_FAIL;*/
 
 	//파티클 사이즈 정함.
 	_ptcList.resize(_totalPtcNum);
@@ -40,17 +39,57 @@ void dxPlaneEmitter::relese()
 	SAFE_DELETE_ARRAY(_trans);
 }
 
+void dxPlaneEmitter::preUpdate()
+{
+	//미리 조금씩 계산하자
+	int preInitPtcMaxNum = 0;
+	vector<tagDxAttribute>::iterator iter;
+
+	int OneFramePtcNum = ((int)(_spawnTime / _timeDelta)) - 1;	//1프레임을 빼는 이유는 일반 업데이트와 겹치지 않기 위함임(안전용)
+
+	if (OneFramePtcNum <= 0)
+	{
+		return;
+	}
+	else
+	{
+		preInitPtcMaxNum = _onePtcNum / OneFramePtcNum;
+		_onePtcNum % OneFramePtcNum;
+	}
+	
+
+	for (iter = _ptcList.begin(); iter != _ptcList.end(); ++iter)
+	{
+		if (iter->isAlive == false)
+		{
+			//재활성화
+			iter->emitterNum = _emitterNum;
+			if (_psTrans != NULL)
+			{
+				iter->psTransPos = _psTrans->GetWorldPosition();
+				iter->matPsRot = _psTrans->GetWorldRotateMatrix();
+			}
+			_module->InitUpdate(iter);
+
+			preInitPtcMaxNum++;
+		}
+	}
+}
+
 void dxPlaneEmitter::update()
 {
 	//시간
 	float DeltaTime = _timeDelta*_emitterNum;
 
+	//시작 시간 체크
+	if (autoStartTimeCheck(DeltaTime)) return;
+
 	//작동시간 체크
 	if (autoActiveTimeCheck(DeltaTime)) return;
-	//초기값
 
+	//초기값
 	int checkNum = 0;
-	//tagDxParticle* ptcVtx;
+
 	//list<tagDxAttribute>::iterator iter;
 	vector<tagDxAttribute>::iterator iter;
 
@@ -67,16 +106,15 @@ void dxPlaneEmitter::update()
 		{
 			iter->isAlive = false;
 			iter->age = 0.0f;
-			//ptcVtx->position = iter->position;
 		}
 
-		if (_spawnTime <= _spawnCurrentTime && _startDelayTimeOn == FALSE)
+		if (_spawnTime <= _spawnCurrentTime)
 		{
 			if (iter->isAlive == false && checkNum < _onePtcNum)
 			{
 				//재활성화
-				//iter->size = _constPaticleSize;
 				iter->isAlive = true;
+
 				iter->emitterNum = _emitterNum;
 				if (_psTrans != NULL)
 				{
@@ -84,14 +122,10 @@ void dxPlaneEmitter::update()
 					iter->matPsRot = _psTrans->GetWorldRotateMatrix();
 				}
 				_module->InitUpdate(iter);
-				
-
-				//this->InitCreatePlane(&_ptcVertex[InitNum * 4], &_ptcIndex[InitNum * 6], iter, InitNum);
 
 				checkNum++;
-				//if (checkNum >= _onePtcNum) break;
+				
 			}
-			//_ptcVtx++;
 
 		}
 		InitNum++;
@@ -116,25 +150,20 @@ void dxPlaneEmitter::update()
 	{
 		_spawnCurrentTime = 0.0f;
 	}
+	
+	//스폰 시간 업
+	_spawnCurrentTime += DeltaTime;
 
-
-
-	if (_startDelayTime <= _currentDelayTime)
-	{
-		_spawnCurrentTime += DeltaTime;
-		_startDelayTimeOn = false;
-	}
-	else
-	{
-		_currentDelayTime += DeltaTime;
-	}
-
+	
+	
 
 
 }
 
 void dxPlaneEmitter::render()
 {
+	//시작시간 과 동작시간에 따른 렌더
+	if (_startRenderOn == FALSE) return;
 	if (_activeRenderOn == FALSE) return;
 
 	_device->SetRenderState(D3DRS_LIGHTING, false);		//라이팅을 끈다.
@@ -155,17 +184,6 @@ void dxPlaneEmitter::render()
 	_device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_DIFFUSE);
 	_device->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_TEXTURE);
 
-	D3DXMATRIXA16 matWorld;
-
-	/*if (_bLocal == false)
-	{
-		D3DXMatrixIdentity(&matWorld);
-	}
-	else
-	{
-		matWorld = this->_transform->GetFinalMatrix();
-	}*/
-	//_device->SetTransform(D3DTS_WORLD, &matWorld);
 
 	//파티클 Texture 셋팅
 	_device->SetTexture(0, _texture);
@@ -205,75 +223,6 @@ void dxPlaneEmitter::render()
 
 	_device->SetTexture(0, NULL);
 }
-
-
-
-
-void dxPlaneEmitter::InitCreatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcIndex, vector<tagDxAttribute>::iterator iter, DWORD drawParticleNum)
-{
-	//파티클 위치 값
-	dx::transform ptcTrans;
-
-	ptcTrans.SetWorldPosition(iter->position);
-	ptcTrans.RotateSelf(iter->rotateAngle);
-
-	//ptcTrans.RotateSelf(D3DXVECTOR3(0.0f, D3DXToRadian(RandomFloatRange(10.0f, 45.0f)), 0.0f));
-
-	D3DXVECTOR3 x = ptcTrans.GetRight()*iter->horizontal;
-	D3DXVECTOR3 z = ptcTrans.GetForward()*iter->vertical;
-
-	float halfScale = iter->size*0.5;
-
-	D3DXCOLOR inColor = iter->color;
-
-	D3DXVECTOR3 posCenter = iter->position;
-
-	D3DXVECTOR2 uv0 = iter->UV0;
-	D3DXVECTOR2 uv1 = iter->UV1;
-	D3DXVECTOR2 uv2 = iter->UV2;
-	D3DXVECTOR2 uv3 = iter->UV3;
-
-
-	
-
-	//int dwPtcNum = drawParticleNum;
-
-	//D3DXVECTOR3 center = _transform.GetWorldPosition();
-
-	//+= iter->circleSpeed + iter->velocity*_timeDelta + (iter->acceleration*(iter->age*_timeDelta)*(iter->age*_timeDelta) / 2.0f) + iter->posDirectVel*_timeDelta;
-
-	//정점 정보 대입
-	(ptcVertex + 0)->position = posCenter + (-x * halfScale) + (z * halfScale);
-	(ptcVertex + 1)->position = posCenter + (x * halfScale) + (z * halfScale);
-	(ptcVertex + 2)->position = posCenter + (-x * halfScale) + (-z * halfScale);
-	(ptcVertex + 3)->position = posCenter + (x * halfScale) + (-z * halfScale);
-
-	(ptcVertex + 0)->uv = uv0;
-	(ptcVertex + 1)->uv = uv1;
-	(ptcVertex + 2)->uv = uv2;
-	(ptcVertex + 3)->uv = uv3;
-
-	(ptcVertex + 0)->color = inColor;
-	(ptcVertex + 1)->color = inColor;
-	(ptcVertex + 2)->color = inColor;
-	(ptcVertex + 3)->color = inColor;
-
-	//0----1
-	//|   /|
-	//|  / |
-	//| /  |
-	//|/   |
-	//2----3
-
-	//인덱스 정보 대입 ( 인덱스 넣을때 지금까지 그려지는 Quad 수만큼 점프해한 값을 넣어야 한다 )
-	*(ptcIndex + 0) = (drawParticleNum * 4) + 0;
-	*(ptcIndex + 1) = (drawParticleNum * 4) + 1;
-	*(ptcIndex + 2) = (drawParticleNum * 4) + 2;
-	*(ptcIndex + 3) = (drawParticleNum * 4) + 2;
-	*(ptcIndex + 4) = (drawParticleNum * 4) + 1;
-	*(ptcIndex + 5) = (drawParticleNum * 4) + 3;
-}
-
 
 
 

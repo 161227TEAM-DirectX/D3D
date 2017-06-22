@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "dxParticleTextureManager.h"
 
-void dxParticleTextureManager::InitLoadImg(void)
+void dxParticleTextureManager::LoadImgInit(void)
 {
 	//this->LoadImg("Å×½ºÆ®",);
 }

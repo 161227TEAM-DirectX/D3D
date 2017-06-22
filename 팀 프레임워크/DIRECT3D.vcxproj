@@ -206,7 +206,6 @@
     <ClInclude Include="cXmeshManager.h" />
     <ClInclude Include="dijkstra.h" />
     <ClInclude Include="dxAccelerationModule.h" />
-    <ClInclude Include="dxBeamEmitter.h" />
     <ClInclude Include="dxBoardEmitter.h" />
     <ClInclude Include="dxCircleModule.h" />
     <ClInclude Include="dxColorModule.h" />
@@ -385,7 +384,6 @@
     <ClCompile Include="cXmeshManager.cpp" />
     <ClCompile Include="dijkstra.cpp" />
     <ClCompile Include="dxAccelerationModule.cpp" />
-    <ClCompile Include="dxBeamEmitter.cpp" />
     <ClCompile Include="dxBoardEmitter.cpp" />
     <ClCompile Include="dxCircleModule.cpp" />
     <ClCompile Include="dxColorModule.cpp" />

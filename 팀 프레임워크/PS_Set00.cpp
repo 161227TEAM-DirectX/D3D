@@ -26,7 +26,6 @@ void PS_Set00::set00_00(string psName)
 	_pointEMT = new dxPointEmitter;
 	_pointEMT->init("PaticleResources/Texture/explosion.png", 1, 1.0f, 1);
 	//_pointEMT->InitConstSize(2.4f);
-	_pointEMT->setRealtimeTrackingPosOn();
 
 	_pointEMT->InitRandomSize(2.2f, 2.2f);
 	_pointEMT->addSizeGraph(0.5f, 2.8f, 2.8f);

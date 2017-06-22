@@ -314,7 +314,7 @@ void psPlayerSet00::MagicShootSet03(string psName)
 	_boardEMT->InitRandomSize(1.0f, 1.0f);
 	_boardEMT->addSizeGraph(0.5f, 1.2f, 1.2f);
 	_boardEMT->addSizeGraph(1.0f, 1.0f, 1.0f);
-	_boardEMT->InitStartDelayTime(0.2f);
+	_boardEMT->SetStartLimitTime(0.2f);
 	_boardEMT->InitRandomAlpha(0.6f, 0.6f);
 	_boardEMT->addAlphaGraph(0.5f, 0.4f, 0.4f);
 	_boardEMT->addAlphaGraph(1.0f, 0.6f, 0.6f);
@@ -409,7 +409,7 @@ void psPlayerSet00::HealSet00(string psName)
 	_boardEMT->InitRandomPositionY(3.0f,3.0f);
 	//_planeEMT->InitRandomSizeEnd(3.0f, 3.0f);
 	_boardEMT->InitAnimation(5, 6);
-	_boardEMT->InitStartDelayTime(0.4f);
+	_boardEMT->SetStartLimitTime(0.4f);
 	//_planeEMT->InitRotateAngleSpeedY(6.0f,6.0f);
 
 	_boardEMT->InitRandomLifeTime(1.5f, 1.5f);

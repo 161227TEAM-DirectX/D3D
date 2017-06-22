@@ -3,15 +3,10 @@
 
 HRESULT dxBoardEmitter::init(string textureFileName, int OneTimePaticleNum, float spawnTime, int totalPaticleNum)
 {
-	_startDelayTimeOn = false;
 	_onePtcNum = OneTimePaticleNum;
 	_totalPtcNum = totalPaticleNum;
 	_spawnTime = spawnTime;
 	_spawnCurrentTime = _spawnTime;
-
-	_startDelayTime = 0.0f;
-	_currentDelayTime = 0.0f;
-
 
 	_ptcVertex = new tagDxParticleEX[_totalPtcNum * 4];
 	_ptcIndex = new DWORD[_totalPtcNum * 6];
@@ -19,12 +14,14 @@ HRESULT dxBoardEmitter::init(string textureFileName, int OneTimePaticleNum, floa
 	//_trans = new transform[_totalPtcNum];
 
 
-	HRESULT hr = NULL;
+	//HRESULT hr = NULL;
 
 	//텍스쳐 불러오기
-	hr = D3DXCreateTextureFromFile(_device, textureFileName.c_str(), &_texture);
+	_texture = *PTM->LoadImgPathAndName(textureFileName);
+	if (_texture == NULL)	return E_FAIL;
+	//hr = D3DXCreateTextureFromFile(_device, textureFileName.c_str(), &_texture);
 
-	if (FAILED(hr))	return E_FAIL;
+	//if (FAILED(hr))	return E_FAIL;
 
 	//파티클 사이즈 정함.
 	_ptcList.resize(_totalPtcNum);
@@ -53,6 +50,9 @@ void dxBoardEmitter::update()
 	//시간
 	float DeltaTime = _timeDelta*_emitterNum;
 
+	//시작 시간 체크
+	if (autoStartTimeCheck(DeltaTime)) return;
+
 	//작동시간 체크
 	if (autoActiveTimeCheck(DeltaTime)) return;
 
@@ -79,7 +79,7 @@ void dxBoardEmitter::update()
 			//ptcVtx->position = iter->position;
 		}
 
-		if (_spawnTime <= _spawnCurrentTime && _startDelayTimeOn == FALSE)
+		if (_spawnTime <= _spawnCurrentTime)
 		{
 			if (iter->isAlive == false && checkNum < _onePtcNum)
 			{
@@ -98,6 +98,10 @@ void dxBoardEmitter::update()
 				
 				//this->InitCreatePlane(&_ptcVertex[InitNum * 4], &_ptcIndex[InitNum * 6], iter, InitNum);
 
+				//초기 회전용 - 자동 회전을 위하여
+				//_allRotate += _allRotateSpeed*DeltaTime;
+				//iter->allRotAngle = _allRotate;
+				
 				checkNum++;
 				//if (checkNum >= _onePtcNum) break;
 
@@ -109,8 +113,7 @@ void dxBoardEmitter::update()
 			//iter->allRotAngle.y = D3DXToDegree(_psTrans->GetWorldRotateMatrix()._22);
 			//iter->allRotAngle.z = D3DXToDegree(_psTrans->GetWorldRotateMatrix()._33);
 			//D3DXVeDot(_psTrans->GetWorldRotateMatrix()._41, &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
-
-			//iter->allRotAngle.y += 5.0f;
+			//iter->allRotAngle.y += 20.0f;
 			
 		}
 		InitNum++;
@@ -121,15 +124,22 @@ void dxBoardEmitter::update()
 		if (iter->isAlive)
 		{
 
+			iter->allRotAngle.y += 10.0f;
 			_module->ActiveUpdate(iter);
 
 			this->ActiveUpdatePlane(&_ptcVertex[_drawPtcNum * 4], &_ptcIndex[_drawPtcNum * 6], iter, _drawPtcNum);
 			//나이 더하기
 			iter->age += DeltaTime;
 			_drawPtcNum++;
+
+
+			
+
 		}
 		ActiveNum++;
 
+
+		
 		
 	}
 
@@ -139,23 +149,16 @@ void dxBoardEmitter::update()
 		_spawnCurrentTime = 0.0f;
 	}
 
-
-
-	if (_startDelayTime <= _currentDelayTime)
-	{
-		_spawnCurrentTime += DeltaTime;
-		_startDelayTimeOn = false;
-	}
-	else
-	{
-		_currentDelayTime += DeltaTime;
-	}
+	//스폰 시간 업
+	_spawnCurrentTime += DeltaTime;
 
 
 }
 
 void dxBoardEmitter::render()
 {
+	//시작시간 과 동작시간에 따른 렌더
+	if (_startRenderOn == FALSE) return;
 	if (_activeRenderOn == FALSE) return;
 
 	_device->SetRenderState(D3DRS_LIGHTING, false);		//라이팅을 끈다.
@@ -264,6 +267,12 @@ void dxBoardEmitter::ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcI
 	getViewInverse._42 = getView._42;
 	getViewInverse._43 = getView._43;
 	//vectorReverse
+
+	//Y축 빌보드
+	/*getView._11 = getViewInverse._11;
+	getView._13 = getViewInverse._13;
+	getView._31 = getViewInverse._31;
+	getView._33 = getViewInverse._33;*/
 
 	//D3DXVECTOR3 cameraDir;
 

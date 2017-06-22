@@ -4,20 +4,17 @@
 
 HRESULT dxPointEmitter::init(string textureFileName,int OneTimePaticleNum, float spawnTime, int totalPaticleNum)
 {
-	_startDelayTimeOn = false;
+
 	_spawnTime = spawnTime;
 	_spawnCurrentTime = _spawnTime;
-	//_constPaticleSize = 1.0f;
-	_currentDelayTime = 0.0f;
-	_startDelayTime = 0.0f;
 
-	int plusPtc = 1;
-	if		(_spawnTime < 0.06f) { plusPtc = (int)(1000 * spawnTime);}
-	else if (_spawnTime <= 0.5f) {plusPtc = (int)(100 * spawnTime);}
+	//int plusPtc = 1;
+	//if		(_spawnTime < 0.06f) { plusPtc = (int)(1000 * spawnTime);}
+	//else if (_spawnTime <= 0.5f) {plusPtc = (int)(100 * spawnTime);}
 
 	//파티클 개수 또는 _vb 개수
 	_totalPtcNum = totalPaticleNum;
-	if (totalPaticleNum == 0) { _totalPtcNum = OneTimePaticleNum * 50 * plusPtc; }	// + (OneTimePaticleNum * ->lifeTime);	//총 파티클 개수(임의로 수를 곱해줌)
+	//if (totalPaticleNum == 0) { _totalPtcNum = OneTimePaticleNum * 50 * plusPtc; }	// + (OneTimePaticleNum * ->lifeTime);	//총 파티클 개수(임의로 수를 곱해줌)
 	_onePtcNum = OneTimePaticleNum;				//한번에 나오는 파티클 개수
 
 	HRESULT hr = NULL;
@@ -28,12 +25,17 @@ HRESULT dxPointEmitter::init(string textureFileName,int OneTimePaticleNum, float
 		&_vb,
 		0);*/
 
-	if (FAILED(hr))	return E_FAIL;
-
+	//if (FAILED(hr))	return E_FAIL;
 
 
 	//텍스쳐 불러오기
-	hr = D3DXCreateTextureFromFile(_device, textureFileName.c_str(), &_texture);
+	_texture = *PTM->LoadImgPathAndName(textureFileName);
+	if(_texture == NULL)	return E_FAIL;
+
+	//hr = D3DXCreateTextureFromFile(_device, textureFileName.c_str(), &_texture);
+	
+	//if (FAILED(hr))	return E_FAIL;
+	
 	//hr = D3DXCreateTextureFromFile(_device, textureFileName.c_str(), &_testTex);
 	//hr = D3DXCreateTextureFromFile(_device, textureFileName.c_str(), &_testTex2);
 
@@ -139,12 +141,9 @@ HRESULT dxPointEmitter::init(string textureFileName,int OneTimePaticleNum, float
 
 	//_testTex
 
-
-
-	
-	_device->SetTexture(0, NULL);
+	//_device->SetTexture(0, NULL);
 	 
-	if (FAILED(hr))	return E_FAIL;
+	
 
 	//파티클 사이즈 정함.
 	_ptcList.resize(_totalPtcNum);
@@ -166,6 +165,9 @@ void dxPointEmitter::update()
 {
 	//시간
 	float DeltaTime = _timeDelta*_emitterNum;
+
+	//시작 시간 체크
+	if (autoStartTimeCheck(DeltaTime)) return;
 
 	//작동시간 체크
 	if (autoActiveTimeCheck(DeltaTime)) return;
@@ -227,7 +229,7 @@ void dxPointEmitter::update()
 		
 
 		//초기화부분
-		if (_spawnTime <= _spawnCurrentTime && _startDelayTimeOn == FALSE)
+		if (_spawnTime <= _spawnCurrentTime)
 		{
 			if (iter->isAlive == false && checkNum < _onePtcNum)
 			{
@@ -297,21 +299,17 @@ void dxPointEmitter::update()
 
 	
 
+
 	//시간 초기화
 	if (_spawnTime <= _spawnCurrentTime)
 	{
 		_spawnCurrentTime = 0.0f;
-		_startDelayTimeOn = false;
 	}
 
-	if (_startDelayTime <= _currentDelayTime)
-	{
-		_spawnCurrentTime += DeltaTime;
-	}
-	else
-	{
-		_currentDelayTime += DeltaTime;
-	}
+	//스폰 시간 업
+	_spawnCurrentTime += DeltaTime;
+
+
 
 
 }
@@ -319,6 +317,8 @@ void dxPointEmitter::update()
 
 void dxPointEmitter::render()
 {
+	//시작시간 과 동작시간에 따른 렌더
+	if (_startRenderOn == FALSE) return;
 	if (_activeRenderOn == FALSE) return;
 
 	_device->SetRenderState(D3DRS_ZENABLE, TRUE);

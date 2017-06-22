@@ -302,7 +302,6 @@ struct tagSaveNode
 	float nodeX;
 	float nodeY;
 	float nodeZ;
-	int nodeFSSize;
 	vector<pair<int, float>> nodeFS;
 };
 
@@ -353,6 +352,7 @@ using namespace myUtil;
 #include "spriteManager.h"
 #include "ioBaseManager.h"
 #include "dxParticleSystemManager.h"
+#include "dxParticleTextureManager.h"
 #include "soundManager.h"
 #include "xPlayerStatus.h"
 #include "ActionManager.h"
@@ -390,6 +390,7 @@ using namespace myUtil;
 #define PHYSICSMANAGER physicsManager::getSingleton()
 #define SPRITEMANAGER spriteManager::getSingleton()
 #define PSM	dxParticleSystemManager::getSingleton()
+#define PTM	dxParticleTextureManager::getSingleton()
 #define PLAYERMANAGER xPlayerStatus::getSingleton()
 #define SOUNDMANAGER soundManager::getSingleton()
 #define IOBASEMANAGER ioBaseManager::getSingleton()
