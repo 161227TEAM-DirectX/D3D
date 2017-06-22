@@ -49,7 +49,7 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 	UILoading();
 
 	//g_eSelectMode = E_MAPTOOL;
-	SCENEMANAGER->changeScene("particleTest13");
+	SCENEMANAGER->changeScene("maptool");
 
 	return S_OK;
 }
