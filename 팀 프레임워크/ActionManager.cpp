@@ -49,13 +49,13 @@ Action * ActionManager::getAction(string Name, baseObject& who)
 	else if (!actionName[2].compare(Name))
 	{
 		land->getDijkstra().FindPath(who._transform->GetWorldPosition(), player->getPlayerObject()->_transform->GetWorldPosition());
-		return land->getDijkstra().OptimizedAction(who, *player->getPlayerObject(), *land, objectVector, who._transform->GetWorldPosition(), player->getPlayerObject()->_transform->GetWorldPosition());
+		return land->getDijkstra().OptimizedAction(who, *player->getPlayerObject(), *land, *objectVector, who._transform->GetWorldPosition(), player->getPlayerObject()->_transform->GetWorldPosition());
 	}
 	else if (!actionName[3].compare(Name))
 	{
 		monster* temp = dynamic_cast<monster*>(&who);
 		land->getDijkstra().FindPath(who._transform->GetWorldPosition(), temp->getRegenPosition());
-		return land->getDijkstra().OptimizedAction(who, *land, objectVector, who._transform->GetWorldPosition(), temp->getRegenPosition());
+		return land->getDijkstra().OptimizedAction(who, *land, *objectVector, who._transform->GetWorldPosition(), temp->getRegenPosition());
 	}
 	else if (!actionName[4].compare(Name)) temp = new ActionStanding;
 	else if (!actionName[5].compare(Name)) temp = new bossActionAttack;
@@ -67,9 +67,13 @@ Action * ActionManager::getAction(string Name, baseObject& who)
 	else if (!actionName[11].compare(Name)) temp = new bossActionSkillTailAtt;
 	else if (!actionName[12].compare(Name)) temp = new bossActionFly;
 
-	if(player != nullptr ) temp->setEnemy(*player);
-	if (player != nullptr) temp->setPlayerObject(*player->getPlayerObject());
-	temp->setObject(objectVector);
+	temp->setEnemy(*player);
+	temp->setPlayerObject(*player->getPlayerObject());
+	if(objectVector != nullptr) temp->setObject(*objectVector);
+	else
+	{
+		objectVector = &tempObjectVector;
+	}
 	temp->setOwner(who);
 	temp->setRand(*land);
 	return temp;

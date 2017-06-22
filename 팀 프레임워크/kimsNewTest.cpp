@@ -134,11 +134,9 @@ void kimsNewTest::update()
 	this->_cullObjects.clear();
 	for (int i = 0; i < this->_renderObjects.size(); i++)
 	{
-
 		//프러스텀 안에 있니?
 		if (_mainCamera->_frustum.isInFrustum(_renderObjects[i]))
 		{
-
 			this->_cullObjects.push_back(_renderObjects[i]);
 		}
 	}

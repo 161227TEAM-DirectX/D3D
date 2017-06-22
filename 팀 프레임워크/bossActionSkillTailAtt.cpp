@@ -23,10 +23,12 @@ int bossActionSkillTailAtt::Start()
 	case 1:
 		//보스몬스터의 공격모션 아무거나 시작.
 		owner->getSkinnedAnim().Play("Animation_18");
+		owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 		break;
 	case 2:
 		//보스몬스터의 공격모션 아무거나 시작.
 		owner->getSkinnedAnim().Play("Animation_68");
+		owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 		break;
 	}
 
@@ -61,10 +63,12 @@ int bossActionSkillTailAtt::Update()
 			case 1:
 				//보스몬스터의 공격모션 아무거나 시작.
 				owner->getSkinnedAnim().Play("Animation_18");
+				owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 				break;
 			case 2:
 				//보스몬스터의 공격모션 아무거나 시작.
 				owner->getSkinnedAnim().Play("Animation_68");
+				owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 				break;
 			}
 		}

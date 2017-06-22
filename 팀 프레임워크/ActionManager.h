@@ -12,7 +12,8 @@ class ActionManager
 private:
 	vector<string> actionName;
 	terrain* land;
-	vector<baseObject*> objectVector;
+	vector<baseObject*>* objectVector;
+	vector<baseObject*> tempObjectVector;
 	xPlayer*	player;
 public:
 	ActionManager();
@@ -26,8 +27,14 @@ public:
 		linkPlayer(player);
 	}
 
+	void Init(terrain& temp, xPlayer& player)
+	{
+		linkTerrain(temp);
+		linkPlayer(player);
+	}
+
 	void linkTerrain(terrain& temp) { this->land = &temp; }
-	void linkObjectVector(vector<baseObject*>& temp) { objectVector = temp; }
+	void linkObjectVector(vector<baseObject*>& temp) { objectVector = &temp; }
 	void linkPlayer(xPlayer& temp) { this->player = &temp; }
 
 	Action* getAction(string, baseObject&);

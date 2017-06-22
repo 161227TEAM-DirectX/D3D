@@ -18,6 +18,7 @@ int bossActionMove::Start()
 
 	//baseObject의 transform을 호출하여 world위치를 from으로 변경
 	owner->getSkinnedAnim().Play("Animation_56", 0.5f);
+	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 	
 	//확률을 위한 벡터 및 시드 초기화
 	int seed = 0;
@@ -54,7 +55,7 @@ int bossActionMove::Update()
 
 	owner->_transform->RotateSlerp(rotateTemp, *owner->_transform, _timeDelta);
 
-	D3DXVECTOR3 look(0.0f, 0.0f, 0.01f);
+	D3DXVECTOR3 look(0.0f, 0.0f, 0.1f);
 	owner->_transform->MovePositionSelf(look);
 	look = owner->_transform->GetWorldPosition();
 	tempY = rand->getHeight(look.x, look.z);

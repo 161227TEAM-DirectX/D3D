@@ -2,11 +2,14 @@
 #include "stageThree.h"
 #include "bossMonster.h"
 #include "xPlayer.h"
-
+#include "terrain.h"
+#include "mapObject.h"
 
 stageThree::stageThree()
 	:_shadowDistance(0.0f)
 {
+	boss = new bossMonster;
+	player = new xPlayer;
 	_mainCamera = new camera;
 	_directionLightCamera = new camera;
 	sceneBaseDirectionLight = new lightDirection;
@@ -28,13 +31,57 @@ HRESULT stageThree::init()
 {
 	this->shadowInit();
 
-	bossMonster* boss = new bossMonster;
+	//지형 초기화
+	_terrain = new terrain;
+	_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath("높이맵_3"));
+	_terrain->setTile0(IOMAPMANAGER->loadMapInfo("지형0").tile0);
+	_terrain->setTile1(IOMAPMANAGER->loadMapInfo("지형0").tile1);
+	_terrain->setTile2(IOMAPMANAGER->loadMapInfo("지형0").tile2);
+	_terrain->setTile3(IOMAPMANAGER->loadMapInfo("지형0").tile3);
+	_terrain->setSlat(FILEPATH_MANAGER->GetFilepath("스플랫_1"));
+	_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("지형0").vecPos);
+	_terrain->setting();
+	_terrain->changeHeightTerrain();
+
+	//그림자 지형 초기화
+	_terrainShadow = new terrain;
+	_terrainShadow->setHeightmap(FILEPATH_MANAGER->GetFilepath("높이맵_3"));
+	_terrainShadow->setTile0(IOMAPMANAGER->loadMapInfo("지형0").tile0);
+	_terrainShadow->setTile1(IOMAPMANAGER->loadMapInfo("지형0").tile1);
+	_terrainShadow->setTile2(IOMAPMANAGER->loadMapInfo("지형0").tile2);
+	_terrainShadow->setTile3(IOMAPMANAGER->loadMapInfo("지형0").tile3);
+	_terrainShadow->setSlat(FILEPATH_MANAGER->GetFilepath("스플랫_1"));
+	_terrainShadow->setMapPosition(IOMAPMANAGER->loadMapInfo("지형0").vecPos);
+	_terrainShadow->setting();
+	_terrainShadow->changeHeightTerrain();
+
+	float tempY = _terrain->getHeight(5.0f, 5.0f); 
+
+	//플레이어 초기화
+	player->setlinkTerrain(*_terrain);
+	player->init();
+	player->getPlayerObject()->_transform->SetWorldPosition(5.0f, tempY, 5.0f);
+	player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
+
+	for (int i = 0; i < player->getRenderObject().size(); i++)
+	{
+		_renderObject.push_back(player->getRenderObject()[i]);
+	}
+
+	//액션 매니저 초기화
+	ACMANAGER->Init(*_terrain, *player);
+
+	tempY = _terrain->getHeight(0.0f, 0.0f);
+	//보스몬스터 초기화
 	boss->setMesh(XMESH_MANAGER->GetXmeshSkinned("데스윙"));
-	boss->_transform->SetScale(5.0f, 5.0f, 5.0f);
-	boss->_transform->SetWorldPosition(0.0f, 0.0f, 0.0f);
+	boss->_transform->SetScale(2.0f, 2.0f, 2.0f);
+	boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
 	boss->setActive(true);
 	_renderObject.push_back(boss);
 
+	CINEMATICMANAGER->cinematicInit(true);
+	
+	start = false;
 
 	return S_OK;
 }
@@ -45,7 +92,9 @@ void stageThree::release()
 
 void stageThree::update()
 {
-	// shadowUpdate();
+	shadowUpdate();
+
+	player->update();
 
 	//오브젝트 업데이트
 	for (int i = 0; i < _renderObject.size(); i++) _renderObject[i]->update();
@@ -66,6 +115,8 @@ void stageThree::render()
 		}
 	}
 
+	_terrain->render(_mainCamera, sceneBaseDirectionLight, _directionLightCamera);
+
 	//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅
 	xMeshStatic::setCamera(_mainCamera);
 	//xMeshStatic::setTechniqueName("ReciveShadow");
@@ -79,10 +130,24 @@ void stageThree::render()
 	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resource/Testures/Ramp_1.png"));
 	xMeshSkinned::setBaseLight(this->sceneBaseDirectionLight);
 
+	player->render();
+
 	for (int i = 0; i < this->_cullObject.size(); i++)
 	{
 		this->_cullObject[i]->render();
+		if (_cullObject[i] == player->getPlayerObject())
+		{
+			player->itemUpdate();
+		}
 	}
+
+	const vector<Node*>& temp = _terrain->getDijkstra().getVecNode();
+	for (size_t i = 0; i < temp.size(); i++)
+	{
+		temp[i]->Render();
+	}
+
+	_terrain->getDijkstra().render();
 }
 
 void stageThree::shadowInit(void)
@@ -107,12 +172,29 @@ void stageThree::shadowInit(void)
 	_mainCamera->readyRenderToTexture(WINSIZEX, WINSIZEY);
 
 	sceneBaseDirectionLight->_transform->SetWorldPosition(0, 20, 0);
-	sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(90), 0, 0);
+	sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(89), 0, 0);
 }
 
 void stageThree::shadowUpdate(void)
 {
-	_mainCamera->updateBase();
+	if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
+	{
+		start = true;
+	}
+	if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
+	{
+		start = false;
+	}
+
+	if (start == true)
+	{
+		CINEMATICMANAGER->cinematicLoad(&boss->_transform->GetWorldPosition(), _mainCamera, boss->_transform);
+	}
+	else
+	{
+		_mainCamera->updateBase();
+	}
+
 	sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
 
 	//광원 위치
@@ -128,7 +210,7 @@ void stageThree::shadowUpdate(void)
 	_directionLightCamera->LookDirection(lightDir);
 
 	//쉐도우맵 준비
-//	this->readyShadowMap(&this->_renderObject, /*지형정보*/)
+	this->readyShadowMap(&this->_renderObject, this->_terrainShadow);
 }
 
 void stageThree::shadowRender(void)
