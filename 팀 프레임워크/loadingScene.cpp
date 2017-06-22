@@ -48,8 +48,8 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 	XMeshSkinnedLoading();
 	UILoading();
 
-	//g_eSelectMode = E_MAPTOOL;
-	SCENEMANAGER->changeScene("gameSceneThree");
+	g_eSelectMode = E_MAPTOOL;
+	SCENEMANAGER->changeScene("maptool");
 
 	return S_OK;
 }

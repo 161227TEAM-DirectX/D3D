@@ -67,8 +67,8 @@ Action * ActionManager::getAction(string Name, baseObject& who)
 	else if (!actionName[11].compare(Name)) temp = new bossActionSkillTailAtt;
 	else if (!actionName[12].compare(Name)) temp = new bossActionFly;
 
-	temp->setEnemy(*player);
-	temp->setPlayerObject(*player->getPlayerObject());
+	if(player != nullptr) temp->setEnemy(*player);
+	if (player != nullptr) temp->setPlayerObject(*player->getPlayerObject());
 	if(objectVector != nullptr) temp->setObject(*objectVector);
 	else
 	{

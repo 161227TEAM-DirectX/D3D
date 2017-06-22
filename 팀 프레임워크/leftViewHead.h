@@ -45,6 +45,7 @@ private:
 	//맵바탕
 	LEFTVIEWUI _leftView;
 	LEFTVIEWUI _SaveButton;
+	LEFTVIEWUI _LoadButton;
 
 	//오브젝트에 관한 save
 	vector<tagSaveObject> InfoObjectTemp;
@@ -63,7 +64,10 @@ private:
 
 	int sour;
 	int dest;
-
+	int cocoNumber;
+//LOAD부분
+private:
+	tagSaveObject object;
 public:
 	leftViewHead();
 	~leftViewHead();
