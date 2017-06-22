@@ -23,10 +23,10 @@ void Text::init(string str)
 	ZeroMemory(&lf, sizeof(LOGFONT));
 
 	lf.lfHeight = 2;						//글꼴의 높이값(절대값이라 음수 가능)
-	lf.lfWidth = 1;							//글골의 세로값
+	lf.lfWidth = 1;						//글골의 세로값
 	lf.lfEscapement = 0;					//문자열의 기울기
 	lf.lfOrientation = 0;					//글자의 각도를 0.1단위로 명시
-	lf.lfWeight = 500;						//글꼴의 굵기
+	lf.lfWeight = 1000;						//글꼴의 굵기
 	lf.lfItalic = false;					//이테릭체
 	lf.lfUnderline = false;					//밑줄
 	lf.lfStrikeOut = false;					//문자 가운데 줄
@@ -41,7 +41,6 @@ void Text::init(string str)
 	HFONT hFont = CreateFontIndirect(&lf);
 	HFONT hFontOld = (HFONT)SelectObject(hdc, hFont);
 
-	//LPD3DXMESH pMesh = nullptr;
 	//장치 문맥에 관련지을 수 있는 폰트를 사용해, 지정한 텍스트를 포함한 메쉬를 생성 한다.
 	/*HRESULT D3DXCreateText(
 		LPDIRECT3DDEVICE9 pDevice,				[in] 메쉬를 생성 한 장치의 포인터.
@@ -59,28 +58,27 @@ void Text::init(string str)
 
 	MultiByteToWideChar(CP_ACP, 0, temp2, -1, temp, strlen(str.c_str()) + 1);
 
-	D3DXCreateTextW(_device, hdc, temp, 0.001f, 0.001f, &this->str, nullptr, nullptr);
-	//
-	////메쉬를 복사한다. str에
-	//pMesh->CloneMeshFVF(pMesh->GetOptions(), MYVERTEX::FVF, _device, &this->str);
-	//
-	//LPMYVERTEX pV1;
-	//LPMYVERTEX pV2;
-	//
-	//pMesh->LockVertexBuffer(0, (LPVOID*)&pV1);
-	//this->str->LockVertexBuffer(0, (LPVOID*)&pV2);
-	//
-	//for (int i = 0; i < pMesh->GetNumVertices(); ++i)
-	//{
-	//	pV2[i].pos = pV1[i].pos;
-	//	pV2[i].color = D3DCOLOR_XRGB(0, 255, 0);
-	//}
-	//
-	//pMesh->UnlockVertexBuffer();
-	//this->str->UnlockVertexBuffer();
-	//
-	//SAFE_RELEASE(pMesh);
-	//SAFE_DELETE(pMesh);
+	LPD3DXMESH pMesh = nullptr;
+
+	D3DXCreateTextW(_device, hdc, temp, 0.001f, 0.001f, &pMesh, nullptr, nullptr);
+	
+//	D3DXMESH_MANAGED
+	//메쉬를 복사한다. str에
+	pMesh->CloneMeshFVF(pMesh->GetOptions(), VERTEX_PND::FVF, _device, &this->str);
+	
+	LPVERTEX_PND pV2;
+	
+	this->str->LockVertexBuffer(0, (LPVOID*)&pV2);
+	
+	for (int i = 0; i < pMesh->GetNumVertices(); ++i)
+	{
+		pV2[i].color = D3DCOLOR_XRGB(0, 255, 0);
+	}
+	
+	this->str->UnlockVertexBuffer();
+	
+	SAFE_RELEASE(pMesh);
+	SAFE_DELETE(pMesh);
 
 	SelectObject(hdc, hFontOld);
 	DeleteObject(hFont);
@@ -89,35 +87,36 @@ void Text::init(string str)
 
 void Text::update(void)
 {
-	//D3DXVECTOR3 vPos = this->pos;
-	//vPos.y += 2.5f;
+	D3DXVECTOR3 vPos = this->pos;
+	D3DXMATRIX matScaling;
 	//빌보딩(행렬 필요)
-	//D3DXMatrixTranslation(&matBillBoard, vPos.x, vPos.y, vPos.z);
-	//
-	//D3DXMATRIX matView, matInvView;
-	//
-	//_device->GetTransform(D3DTS_VIEW, &matView);
-	//
-	//D3DXMatrixInverse(&matInvView, 0, &matView);
-	//
-	//matBillBoard._11 = matInvView._11; matBillBoard._21 = //matInvView._21; matBillBoard._31 = matInvView._31;
-	//matBillBoard._12 = matInvView._12; matBillBoard._22 = //matInvView._22; matBillBoard._32 = matInvView._32;
-	//matBillBoard._13 = matInvView._13; matBillBoard._23 = //matInvView._23; matBillBoard._33 = matInvView._33;
-	//
-	//D3DXMATRIX matT;
-	//float x = -0.4f * strLength / 2;
-	//D3DXMatrixTranslation(&matT, x, 0, 0);
-	//matBillBoard = /*matT * */matBillBoard;
+	D3DXMatrixTranslation(&matBillBoard, vPos.x, vPos.y, vPos.z);
+	D3DXMatrixScaling(&matScaling, 0.1f, 0.1f, 0.1f);
+	
+	D3DXMATRIX matView, matInvView;
+	
+	_device->GetTransform(D3DTS_VIEW, &matView);
+	
+	D3DXMatrixInverse(&matInvView, 0, &matView);
+	
+	matBillBoard._11 = matInvView._11; matBillBoard._21 = matInvView._21; matBillBoard._31 = matInvView._31;
+	matBillBoard._12 = matInvView._12; matBillBoard._22 = matInvView._22; matBillBoard._32 = matInvView._32;
+	matBillBoard._13 = matInvView._13; matBillBoard._23 = matInvView._23; matBillBoard._33 = matInvView._33;
+	
+	D3DXMATRIX matT;
+	float x = (strLength / 2) * -0.05f;
+	D3DXMatrixTranslation(&matT, x, 0, 0);
+	matBillBoard = matScaling * matT * matBillBoard;
 }
 
 void Text::render(void)
 {
-	//D3DXMATRIX matS, matWorld;
-	//D3DXMatrixScaling(&matS, 0.4f, 0.4f, 0.4f);
+	D3DXMATRIX matS, matWorld;
+	//D3DXMatrixScaling(&matS, 0.1f, 0.1f, 0.1f);
 
-//	matWorld = matS * matBillBoard;
+	matWorld = matBillBoard;
 
-	//_device->SetTransform(D3DTS_WORLD, &matWorld);
+	_device->SetTransform(D3DTS_WORLD, &matWorld);
 	_device->SetRenderState(D3DRS_LIGHTING, false);
 	this->str->DrawSubset(0);
 	_device->SetRenderState(D3DRS_LIGHTING, true);

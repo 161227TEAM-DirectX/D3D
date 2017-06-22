@@ -41,6 +41,8 @@ void monster::baseObjectEnable()
 	
 	hitBox.setBound(&temp, &D3DXVECTOR3(_transform->GetScale().x * 0.6f, temp.y * 1.0f, _transform->GetScale().z * 0.3f));
 
+	test->setPos(D3DXVECTOR3(_transform->GetWorldPosition().x, _boundBox._localMaxPos.y, _transform->GetWorldPosition().z));
+
 	HP = myUtil::RandomIntRange(MINHM, MAXHM);
 	mana = myUtil::RandomIntRange(MINHM, MAXHM);
 	gold = myUtil::RandomIntRange(MINGS, MAXGS);
@@ -87,10 +89,6 @@ void monster::baseObjectRender()
 
 	D3DXVECTOR3 temp = { _transform->GetWorldPosition().x, _boundBox._localMaxPos.y, _transform->GetWorldPosition().z };
 	test->render();
-
-	if(_mainCamera!=nullptr) SPRITEMANAGER->RenderFont(_mainCamera, Name, temp);
-
-	SPRITEMANAGER->RenderFont(_mainCamera, Name, temp);
 
 	hitBox.renderGizmo(_transform, D3DCOLOR_XRGB(255, 0, 0));
 	range.renderGizmo(_transform, D3DCOLOR_XRGB(255, 255, 0));

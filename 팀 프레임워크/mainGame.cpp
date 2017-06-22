@@ -12,12 +12,11 @@ mainGame::mainGame()
 {
 	REGIST_SGT->Init();
 
-	//SCENEMANAGER->addScene("start", new startScene, false);
-	SCENEMANAGER->addScene("loading", new loadingScene, false);
-	//SCENEMANAGER->addScene("maptool", new mapToolScene, false);
-	SCENEMANAGER->addScene("particleTest13", new particleTest13, true);
-	//g_eSelectMode = E_MAPTOOL;
-	//SCENEMANAGER->addScene("maptool", new mapToolScene, true);
+	SCENEMANAGER->addScene("loading", new loadingScene, true);
+
+	SCENEMANAGER->addScene("start", new startScene, false);
+	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
+	SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
 	SCENEMANAGER->addScene("test", new cButtonTest, false);
 }
 

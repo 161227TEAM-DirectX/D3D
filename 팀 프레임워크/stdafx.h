@@ -179,6 +179,14 @@ typedef struct SCENE_VERTEX
 	enum { FVF = D3DFVF_XYZ | D3DFVF_TEX1 };
 }SCENE_VERTEX, *LPSCENE_VETEX;
 
+typedef struct tagVertexPND
+{
+	D3DXVECTOR3 pos;
+	D3DXVECTOR3 normal;
+	D3DCOLOR	color;
+	enum{FVF = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE };
+}VERTEX_PND, *LPVERTEX_PND;
+
 
 
 
