@@ -305,7 +305,7 @@ void terrainPickingTest::shadowInit(void)
 	_directionLightCamera->_aspect = 1;
 	_directionLightCamera->_orthoSize = _shadowDistance * 1.5f;	//투영크기는 그림자크기로
 
-																//방향성광원 카메라의 RenderToTexture준비
+	//방향성광원 카메라의 RenderToTexture준비
 	_directionLightCamera->readyShadowTexture(4096);
 
 	_mainCamera->readyRenderToTexture(WINSIZEX, WINSIZEY);

@@ -185,6 +185,7 @@
     <ClInclude Include="cFilepathManager.h" />
     <ClInclude Include="characterController.h" />
     <ClInclude Include="cImageTest.h" />
+    <ClInclude Include="CinematicManger.h" />
     <ClInclude Include="cRegistBase.h" />
     <ClInclude Include="cLoadingBarTest.h" />
     <ClInclude Include="cLoadingTest.h" />
@@ -240,6 +241,7 @@
     <ClInclude Include="ioBaseManager.h" />
     <ClInclude Include="ioHeightManager.h" />
     <ClInclude Include="ioMapManager.h" />
+    <ClInclude Include="ioSaveCinemaManger.h" />
     <ClInclude Include="ioSaveManager.h" />
     <ClInclude Include="ioSaveMonsterManger.h" />
     <ClInclude Include="ioSaveNodeManager.h" />
@@ -306,6 +308,9 @@
     <ClInclude Include="SK_Effect00.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="spriteManager.h" />
+    <ClInclude Include="stageOne.h" />
+    <ClInclude Include="stageThree.h" />
+    <ClInclude Include="stageTwo.h" />
     <ClInclude Include="startScene.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="terrain.h" />
@@ -363,6 +368,7 @@
     <ClCompile Include="cFilepathManager.cpp" />
     <ClCompile Include="characterController.cpp" />
     <ClCompile Include="cImageTest.cpp" />
+    <ClCompile Include="CinematicManger.cpp" />
     <ClCompile Include="cRegistBase.cpp" />
     <ClCompile Include="cLoadingBarTest.cpp" />
     <ClCompile Include="cLoadingTest.cpp" />
@@ -418,6 +424,7 @@
     <ClCompile Include="ioBaseManager.cpp" />
     <ClCompile Include="ioHeightManager.cpp" />
     <ClCompile Include="ioMapManager.cpp" />
+    <ClCompile Include="ioSaveCinemaManger.cpp" />
     <ClCompile Include="ioSaveManager.cpp" />
     <ClCompile Include="ioSaveMonsterManger.cpp" />
     <ClCompile Include="ioSaveNodeManager.cpp" />
@@ -483,6 +490,9 @@
     <ClCompile Include="SK_Effect00.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="spriteManager.cpp" />
+    <ClCompile Include="stageOne.cpp" />
+    <ClCompile Include="stageThree.cpp" />
+    <ClCompile Include="stageTwo.cpp" />
     <ClCompile Include="startScene.cpp" />
     <ClCompile Include="terrain.cpp" />
     <ClCompile Include="terrainPickingTest.cpp" />

@@ -301,6 +301,15 @@
     <Filter Include="GameFramework3D\Action\ActionManager">
       <UniqueIdentifier>{efa7246c-a722-4065-8171-0e42c83d8849}</UniqueIdentifier>
     </Filter>
+    <Filter Include="팀 포트폴리오\00.Scene\03.Stage1">
+      <UniqueIdentifier>{f2459efd-5cd9-4d64-b8f9-3b048d479de7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\00.Scene\04.Stage2">
+      <UniqueIdentifier>{1b310998-4a6e-4a88-bde6-54d2a6180395}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\00.Scene\05.Stage3">
+      <UniqueIdentifier>{45d8f959-0760-49b5-a2d8-71b8eb9a601f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainGame.cpp">
@@ -830,6 +839,17 @@
     <ClCompile Include="ioSaveNodeManager.cpp">
       <Filter>팀 포트폴리오\01.맵툴\3.IO매니져</Filter>
     </ClCompile>
+    <ClCompile Include="stageOne.cpp">
+      <Filter>팀 포트폴리오\00.Scene\03.Stage1</Filter>
+    </ClCompile>
+    <ClCompile Include="stageTwo.cpp">
+      <Filter>팀 포트폴리오\00.Scene\04.Stage2</Filter>
+    </ClCompile>
+    <ClCompile Include="stageThree.cpp">
+      <Filter>팀 포트폴리오\00.Scene\05.Stage3</Filter>
+    </ClCompile>
+    <ClCompile Include="CinematicManger.cpp" />
+    <ClCompile Include="ioSaveCinemaManger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainGame.h">
@@ -1359,6 +1379,17 @@
     <ClInclude Include="ioSaveNodeManager.h">
       <Filter>팀 포트폴리오\01.맵툴\3.IO매니져</Filter>
     </ClInclude>
+    <ClInclude Include="stageOne.h">
+      <Filter>팀 포트폴리오\00.Scene\03.Stage1</Filter>
+    </ClInclude>
+    <ClInclude Include="stageTwo.h">
+      <Filter>팀 포트폴리오\00.Scene\04.Stage2</Filter>
+    </ClInclude>
+    <ClInclude Include="stageThree.h">
+      <Filter>팀 포트폴리오\00.Scene\05.Stage3</Filter>
+    </ClInclude>
+    <ClInclude Include="CinematicManger.h" />
+    <ClInclude Include="ioSaveCinemaManger.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Texture_Gray.fx">

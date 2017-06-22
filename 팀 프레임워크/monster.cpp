@@ -30,6 +30,7 @@ monster::~monster()
 {
 	SAFE_DELETE(CurrAction);
 	SAFE_DELETE(NextAction);
+	SAFE_DELETE(test);
 }
 
 void monster::baseObjectEnable()

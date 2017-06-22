@@ -480,5 +480,5 @@ void cRegistBase::XMeshSkinnedRegist()
 	FILEPATH_MANAGER->AddFilepath("몬스터_랩터", "Resource/Meshes/monster/raptor_ok/x/raptor.x");
 	FILEPATH_MANAGER->AddFilepath("몬스터_전갈", "Resource/Meshes/monster/scorpion_ok/x/scorpion.x");
 	FILEPATH_MANAGER->AddFilepath("몬스터_도마뱀", "Resource/Meshes/monster/thunderlizard_ok/x/thunderlizard.x");
-	FILEPATH_MANAGER->AddFilepath("몬스터_데스윙", "Resource/Meshes/BossMonster/deathwing_ok/x");
+	FILEPATH_MANAGER->AddFilepath("몬스터_데스윙", "Resource/Meshes/BossMonster/deathwing_ok/x/deathWing.x");
 }

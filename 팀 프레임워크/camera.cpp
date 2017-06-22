@@ -70,6 +70,11 @@ void camera::renderFrustumGizmo()
 	_frustum.renderGizmo();
 }
 
+D3DXVECTOR3 camera::getCameraPos()
+{
+	return this->GetWorldPosition();
+}
+
 //화면의 위치를 가지고 카메라의 투영레이를 얻는 함수
 void camera::computeRay(LPRay pOutRay, D3DXVECTOR2* screenPos)
 {
