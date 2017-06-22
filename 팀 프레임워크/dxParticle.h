@@ -42,7 +42,7 @@ struct tagDxAttribute
 {
 	
 	//transform		trans;				//트랜스폼
-
+	bool			isInit;				//초기화 완료 여부
 
 	D3DXVECTOR3		posCenter;			//평면 파티클용 - 중심점
 	D3DXVECTOR3		InitPos;			//최기 위치용
@@ -167,6 +167,8 @@ struct tagDxAttribute
 
 		posRotateAngle = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 		posRotAngleSpeed = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+
+		isInit = false;
 		
 	}
 };

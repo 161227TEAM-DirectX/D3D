@@ -2,19 +2,22 @@
 https://drive.google.com/drive/folders/0B4_g278pl7PYOGdyQnRQSXl5ZFU
 이미지 매니져 테스트를 위해서 이미지3장 추가했습니다!
 
+========================================================
 17.06.19
 http://naver.me/GdxVlIrX
 리소스 경로 변경
 
+========================================================
 17.06.20
 https://drive.google.com/drive/folders/0B4_g278pl7PYOGdyQnRQSXl5ZFU
 컷씬 관련 이미지와 프레임 이미지
 
+========================================================
 17.06.20
 https://drive.google.com/open?id=0BzBsJiLsaAW9QlJfeU9KVUQwU28
 노드관련 UI추가
 
-
+========================================================
 [ 17.06.21 오후 3:09 - 올린 사람 : 이현총 ]
 < 리소스 파일 전체(파티클 리소스 파일도 포함)>
 http://naver.me/5Hnqza9P
@@ -22,6 +25,9 @@ http://naver.me/5Hnqza9P
 < 파티클 리소스 파일 >
 http://naver.me/5W7m3Bkz
 
+========================================================
 오전 1:18 2017-06-22 - 이현수
 https://drive.google.com/open?id=0BzBsJiLsaAW9QlJfeU9KVUQwU28
 전체 리소스 - UI변경점 저장
+
+========================================================

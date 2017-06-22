@@ -56,6 +56,7 @@ protected:
 
 	int		_drawPtcNum;				//그릴 파티클 개수	
 
+protected:
 	//활성시간 정도
 	bool	_activeTimeCheckOn;
 	float	_activeCurrentTime;
@@ -71,13 +72,24 @@ protected:
 
 	bool	_startRenderOn;
 
-	
+protected:
+	//미리 업데이트 부분 관련
+	int _preInitPtcMaxNum;
+	int _preInitPtcCurrentNum;
+	int _oneFramePtcCurrentNum;
+	int _oneFramePtcNum;
+
+	float _accrueTime;
+	float _limitTime;
+
+	float OneFrameTime;
 
 public:		//함수
 
 	//순수 가상함수
 	//virtual HRESULT init(string textureFileName, int particleNumber) = 0;
 	virtual HRESULT init(string, int OneTimePaticleNum, float spawnTime, int totalParticlenum) = 0;
+	virtual void preUpdate() {};
 	virtual void update() = 0;
 	virtual void render() = 0;
 	//virtual void reset() = 0;
