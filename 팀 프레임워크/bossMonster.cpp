@@ -74,6 +74,8 @@ void bossMonster::baseObjectRender()
 
 void bossMonster::switchState(void)
 {
+	if (HP <= 0) result = LHS::ACTIONRESULT::ACTION_DIE;
+
 	switch (result)
 	{
 	case LHS::ACTION_ATT:

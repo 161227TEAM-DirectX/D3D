@@ -86,6 +86,7 @@ public:
 	void loadMonsterAndNode(void);
 	void loadMonster(void);
 	xMesh* findMonster(int&);
+	string findMonsterName(int&);
 	void loadNode(void);
 };
 
