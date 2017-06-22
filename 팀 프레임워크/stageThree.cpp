@@ -83,6 +83,8 @@ HRESULT stageThree::init()
 	
 	start = false;
 
+	SOUNDMANAGER->play("º¸½º1", 0.5f);
+
 	return S_OK;
 }
 

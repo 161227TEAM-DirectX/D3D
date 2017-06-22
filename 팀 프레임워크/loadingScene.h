@@ -20,5 +20,6 @@ public:
 	static void UILoading();
 	static void XMeshStaticLoading();
 	static void XMeshSkinnedLoading();
+	static void SoundLoading();
 };
 
