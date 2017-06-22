@@ -22,6 +22,7 @@ void ioSaveNodeManager::loadFile(string filePath)
 	while (!inFile.eof())
 	{
 		count++;
+		memset(&node, 0, sizeof(node));
 		inFile.getline(ioString, 128, '/');	//한글이름(테이블 키)
 		node.infoName = ioString;
 
@@ -37,10 +38,13 @@ void ioSaveNodeManager::loadFile(string filePath)
 		inFile.getline(ioString, 128, '/');	
 		node.nodeZ = atof(ioString);
 
+		inFile.getline(ioString, 128, '/');
+		node.nodeFSSize = atoi(ioString);
+		node.nodeFS.resize(node.nodeFSSize);
 		for (int i = 0; i < node.nodeFS.size(); i++)
 		{
 			inFile.getline(ioString, 128, '/');
-			node.nodeFS[i].first = atof(ioString);
+			node.nodeFS[i].first = atoi(ioString);
 			inFile.getline(ioString, 128, '/');
 			node.nodeFS[i].second = atof(ioString);
 		}
@@ -68,7 +72,8 @@ void ioSaveNodeManager::saveFile(string filePath, vector<tagSaveNode>& vecT)
 				<< vecT[i].Inumber << '/'
 				<< vecT[i].nodeX << '/'
 				<< vecT[i].nodeY << '/'
-				<< vecT[i].nodeZ << '/';
+				<< vecT[i].nodeZ << '/'
+				<< vecT[i].nodeFSSize << '/';
 			for (int j = 0; j < vecT[i].nodeFS.size(); j++)
 			{
 				if (j == vecT[i].nodeFS.size() - 1)
@@ -91,7 +96,8 @@ void ioSaveNodeManager::saveFile(string filePath, vector<tagSaveNode>& vecT)
 				<< vecT[i].Inumber << '/'
 				<< vecT[i].nodeX << '/'
 				<< vecT[i].nodeY << '/'
-				<< vecT[i].nodeZ << '/';
+				<< vecT[i].nodeZ << '/'
+				<< vecT[i].nodeFS.size() << '/';
 			for (int j = 0; j < vecT[i].nodeFS.size(); j++)
 			{
 				if (j == vecT[i].nodeFS.size() - 1)

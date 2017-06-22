@@ -302,6 +302,7 @@ struct tagSaveNode
 	float nodeX;
 	float nodeY;
 	float nodeZ;
+	int nodeFSSize;
 	vector<pair<int, float>> nodeFS;
 };
 
