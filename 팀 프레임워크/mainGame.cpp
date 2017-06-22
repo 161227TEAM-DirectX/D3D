@@ -12,12 +12,12 @@ mainGame::mainGame()
 {
 	REGIST_SGT->Init();
 
-	SCENEMANAGER->addScene("loading", new loadingScene, true);
+	//SCENEMANAGER->addScene("loading", new loadingScene, true);
 
-	SCENEMANAGER->addScene("start", new startScene, false);
-	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
-	SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
-	SCENEMANAGER->addScene("test", new cButtonTest, false);
+	//SCENEMANAGER->addScene("start", new startScene, false);
+	//SCENEMANAGER->addScene("maptool", new mapToolScene, false);
+	//SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
+	//SCENEMANAGER->addScene("test", new cButtonTest, false);
 }
 
 mainGame::~mainGame()
@@ -68,7 +68,7 @@ HRESULT mainGame::init(void)
 //===================================================================================
 //±èÅÂÈÆ ¾À Å×½ºÆ® Çì´õÆÄÀÏ
 //===================================================================================
-	//SCENEMANAGER->addScene("test", new kimsNewTest, false);
+	SCENEMANAGER->addScene("test", new kimsNewTest, true);
 	//SCENEMANAGER->addScene("test", new cubeLight, false);
 
 
