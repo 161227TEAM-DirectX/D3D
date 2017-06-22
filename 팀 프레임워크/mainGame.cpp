@@ -12,11 +12,11 @@ mainGame::mainGame()
 {
 	REGIST_SGT->Init();
 
-	SCENEMANAGER->addScene("loading", new loadingScene, true);
+	SCENEMANAGER->addScene("loading", new loadingScene, false);
 
 	SCENEMANAGER->addScene("start", new startScene, false);
 	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
-	SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
+	SCENEMANAGER->addScene("particleTest13", new particleTest13, true);
 	SCENEMANAGER->addScene("test", new cButtonTest, false);
 	SCENEMANAGER->addScene("gameSceneOne", new stageOne, false);
 	SCENEMANAGER->addScene("gameSceneTwo", new stageTwo, false);
@@ -34,55 +34,55 @@ mainGame::~mainGame()
 //==================================================================
 HRESULT mainGame::init(void)
 {
-//===================================================================================
-//이현총 씬 테스트 헤더파일
-//===================================================================================
-	//SCENEMANAGER->addScene("test", new particleTest);
-	//SCENEMANAGER->addScene("test", new particleTest02);
-	//SCENEMANAGER->addScene("test", new particleTest03);
-	//SCENEMANAGER->addScene("test", new particleTest04);
-	//SCENEMANAGER->addScene("test", new particleTest05);
-	//SCENEMANAGER->addScene("test", new particleTest06);
-	//SCENEMANAGER->addScene("test", new particleTest07);
-	//SCENEMANAGER->addScene("test", new particleTest08);
-	//SCENEMANAGER->addScene("test", new particleTest09);
-	//SCENEMANAGER->addScene("test", new particleTest10);
+	//===================================================================================
+	//이현총 씬 테스트 헤더파일
+	//===================================================================================
+		//SCENEMANAGER->addScene("test", new particleTest);
+		//SCENEMANAGER->addScene("test", new particleTest02);
+		//SCENEMANAGER->addScene("test", new particleTest03);
+		//SCENEMANAGER->addScene("test", new particleTest04);
+		//SCENEMANAGER->addScene("test", new particleTest05);
+		//SCENEMANAGER->addScene("test", new particleTest06);
+		//SCENEMANAGER->addScene("test", new particleTest07);
+		//SCENEMANAGER->addScene("test", new particleTest08);
+		//SCENEMANAGER->addScene("test", new particleTest09);
+		//SCENEMANAGER->addScene("test", new particleTest10);
 
 
 
-//===================================================================================
-//이현수 씬 테스트 헤더파일
-//===================================================================================
-	//씬추가
-	//SCENEMANAGER->addScene("test", new terrainPickingTest, false);
-	
-
-
-//===================================================================================
-//김만웅 씬 테스트 헤더파일
-//===================================================================================
-	////씬추가
-	//SCENEMANAGER->addScene("test", new cLoadingBarTest);
-	//SCENEMANAGER->addScene("test", new cLoadingTest);
-	//SCENEMANAGER->addScene("test", new cImageTest,false);
+	//===================================================================================
+	//이현수 씬 테스트 헤더파일
+	//===================================================================================
+		//씬추가
+		//SCENEMANAGER->addScene("test", new terrainPickingTest, false);
 
 
 
-//===================================================================================
-//김태훈 씬 테스트 헤더파일
-//===================================================================================
-	//SCENEMANAGER->addScene("test", new kimsNewTest, false);
-	//SCENEMANAGER->addScene("test", new cubeLight, false);
+	//===================================================================================
+	//김만웅 씬 테스트 헤더파일
+	//===================================================================================
+		////씬추가
+		//SCENEMANAGER->addScene("test", new cLoadingBarTest);
+		//SCENEMANAGER->addScene("test", new cLoadingTest);
+		//SCENEMANAGER->addScene("test", new cImageTest,false);
 
 
 
-//===================================================================================
-//김태승 씬 테스트 헤더파일
-//===================================================================================
+	//===================================================================================
+	//김태훈 씬 테스트 헤더파일
+	//===================================================================================
+		//SCENEMANAGER->addScene("test", new kimsNewTest, false);
+		//SCENEMANAGER->addScene("test", new cubeLight, false);
 
 
-	//씬초기화
-	//SCENEMANAGER->changeScene("test");
+
+	//===================================================================================
+	//김태승 씬 테스트 헤더파일
+	//===================================================================================
+
+
+		//씬초기화
+		//SCENEMANAGER->changeScene("test");
 	return S_OK;
 }
 
@@ -117,7 +117,7 @@ void mainGame::render(void)
 			0,			//청소할 영역의 D3D렉트 배열 갯수	(전체 클리어 0)
 			NULL,		//청소할 영역의 D3D렉트 배열 포인터 (전체 클리어 NULL)
 			D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, //청소될 버퍼 플래그 (컬러버퍼, 깊이버퍼, 스텐실버퍼)
-			D3DCOLOR_XRGB(100, 100, 100),			//컬러버퍼를 청소하고 채워질 색상 (0xAARRGGBB)
+			D3DCOLOR_XRGB(50, 50, 50),			//컬러버퍼를 청소하고 채워질 색상 (0xAARRGGBB)
 			1.0f,								//깊이버퍼를 청소할 값 (0 ~ 1, 0이 카메라에서 제일 가깝고 1이 카메라에서 제일 멀다)
 			0);									//스텐실 버퍼를 채울값
 
@@ -134,10 +134,13 @@ void mainGame::render(void)
 			if (KEYMANAGER->isToggleKey(VK_F9))
 			{
 				//월드그리드 렌더
-				GIZMOMANAGER->WorldGrid(1, 10);
+			GIZMOMANAGER->WorldGrid(1, 10);
 			}
-			//타임매니져 렌더
-			TIMEMANAGER->render();
+			if (KEYMANAGER->isToggleKey(VK_F8))
+			{
+				//타임매니져 렌더
+				TIMEMANAGER->render();
+			}
 #endif	
 
 			//디바이스 렌더 종료

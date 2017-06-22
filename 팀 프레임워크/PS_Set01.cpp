@@ -21,9 +21,12 @@ void PS_Set01::set00_00(string psName)
 
 	_pointEMT = NULL;
 	_pointEMT = new dxPointEmitter;
-	_pointEMT->init("PaticleResources/Texture/effect_001.png", 1, 1.0f, 1);
+	_pointEMT->init("PaticleResources/Texture/Light.png", 36, 0.5f, 200);
 	_pointEMT->InitRandomLifeTime(1.0f, 1.0f);
-
+	_pointEMT->SetPositionType();
+	_pointEMT->InitDirSphere(1.0f,0.0f,1.0f);
+	_pointEMT->InitRandomPosSphereRadius(3.0f, 3.0f);
+	_pointEMT->InitConstAttractCenter(0.0f,6.0f, 0.0f);
 	//_pointEMT->InitRandomColorR(0.2126, 0.2126f);
 	//_pointEMT->InitRandomColorG(0.07152f, 0.7152f);
 	//_pointEMT->InitRandomColorB(0.0722f, 0.0722f);

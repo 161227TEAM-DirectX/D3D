@@ -29,9 +29,11 @@ protected:
 	//파티클 시스템용 트랜스폼
 	dx::transform* _psTrans;
 
+	dx::transform* _psBoardTrans;	//빌보드용
+
 	dx::transform* _trans;
 
-	LPDIRECT3DTEXTURE9		_texture;			//텍스쳐
+	LPDIRECT3DTEXTURE9	_texture;			//텍스쳐
 
 	float _constPaticleSize;
 
@@ -287,7 +289,8 @@ public:
 		_startRenderOn = FALSE;
 	}
 
-	bool autoActiveTimeCheck(void);
+	//그레이스케일을 알파로
+	void setGrayScaleAlphaOn(void);
 
 	bool autoActiveTimeCheck(float timeDelta);
 
@@ -295,9 +298,9 @@ public:
 
 	void setParticleSystemTrans(dx::transform* inTrance) { _psTrans = inTrance; }
 
-	void setEmitterNum(int num) { _emitterNum = num; };
+	void setPsBoardTrans(dx::transform* inBoardTrance) { _psBoardTrans = inBoardTrance; }
 
-	//void setRealtimeTrackingPosOn() { _realtimeTrackingPosOn = true; }
+	void setEmitterNum(int num) { _emitterNum = num; };
 
 public:
 	void EmitterInit(void)

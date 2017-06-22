@@ -7,18 +7,9 @@ void dxEmitter::release()
 	 SAFE_DELETE(_module);
 }
 
-bool dxEmitter::autoActiveTimeCheck(void)
+void dxEmitter::setGrayScaleAlphaOn()
 {
-	if (_activeTimeCheckOn == FALSE) return FALSE;
-
-	if (_activeLimitTime <= _activeCurrentTime)
-	{
-		//_activeCurrentTime = 0.0f;
-		return TRUE;
-	}
-	_activeCurrentTime += _timeDelta;
-
-	return FALSE;
+	PTM->ChangeGrayScaleAlpha(this->_texture);
 }
 
 bool dxEmitter::autoActiveTimeCheck(float timeDelta)

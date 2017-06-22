@@ -46,7 +46,7 @@ using namespace std;
 //			## 매크로상수 ##
 //====================================================================
 #define WINNAME (LPTSTR)(TEXT("161227TEAM"))
-#define WINSTARTX	150
+#define WINSTARTX	50
 #define WINSTARTY	30
 #define WINSIZEX	1600
 #define WINSIZEY	900
