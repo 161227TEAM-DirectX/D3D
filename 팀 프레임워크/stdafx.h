@@ -339,7 +339,8 @@ using namespace myUtil;
 //#include "xPlayer.h"
 #include "cDxImg.h"
 #include "cDxImgButton.h"
-
+#include "cDxImgBar.h"
+#include "cDxImgUI.h"
 
 
 
@@ -381,6 +382,9 @@ using namespace myUtil;
 #include "cDxImgManager.h"
 #include "cDxImgAniManager.h"
 #include "cXmeshManager.h"
+#include "cUIManager.h"
+
+
 
 
 

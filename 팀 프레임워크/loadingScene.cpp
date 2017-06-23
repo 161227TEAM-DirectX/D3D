@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "loadingScene.h"
 
+bool loadingScene::m_isChange = false;
 
 loadingScene::loadingScene()
 {
@@ -15,6 +16,11 @@ HRESULT loadingScene::init()
 {
 	DXIMG_MANAGER->AddDxImg("로딩화면", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_로딩화면")));
 
+	m_pLoadingBar = new cDxImgBar("UI_loadingbar_cover",
+								  "UI_loadingbar_back",
+								  "UI_loadingbar_move",
+								  D3DXVECTOR2(WINSIZEX / 2, WINSIZEY / 2 + 400), true);
+
 	InitializeCriticalSection(&_cs);
 
 	DWORD dwThID[2];
@@ -25,10 +31,12 @@ HRESULT loadingScene::init()
 
 void loadingScene::release()
 {
+	SAFE_DELETE(m_pLoadingBar);
 }
 
 void loadingScene::update()
 {
+	m_pLoadingBar->update();
 }
 
 void loadingScene::render()
@@ -36,28 +44,405 @@ void loadingScene::render()
 	EnterCriticalSection(&_cs);
 
 	DXIMG_MANAGER->GetDxImg("로딩화면")->render();
+	m_pLoadingBar->render();
 
-	FONTMANAGER->fontOut("" + to_string(i++), 100, 100, WHITE);
+	if (m_isChange && m_pLoadingBar->IsFullBar())
+	{
+		SCENEMANAGER->changeScene("start");
+	}
 
 	LeaveCriticalSection(&_cs);
 }
 
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
-	XMeshStaticLoading();
-	XMeshSkinnedLoading();
-	SoundLoading();
+	//XMeshStaticLoading();
+	//XMeshSkinnedLoading();
+	//SoundLoading();
 	UILoading();
+	AniLoading();
 
-	g_eSelectMode = E_MAPTOOL;
-	SCENEMANAGER->changeScene("maptool");
-	
+	//g_eSelectMode = E_MAPTOOL;
+	//SCENEMANAGER->changeScene("maptool");
+	m_isChange = true;
+
 	return S_OK;
 }
 
 void loadingScene::UILoading()
 {
 	DXIMG_MANAGER->AddDxImg("시작화면", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_시작화면")));
+
+	DXIMG_MANAGER->AddDxImg("종료버튼_오프", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_btn_exit_off")));
+	DXIMG_MANAGER->AddDxImg("종료버튼_오버", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_btn_exit_over")));
+	DXIMG_MANAGER->AddDxImg("설정버튼_오프", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_btn_option_off")));
+	DXIMG_MANAGER->AddDxImg("설정버튼_오버", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_btn_option_over")));
+	DXIMG_MANAGER->AddDxImg("시작버튼_오프", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_btn_gameStart_off")));
+	DXIMG_MANAGER->AddDxImg("시작버튼_오버", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_btn_gameStart_over")));
+	DXIMG_MANAGER->AddDxImg("맵툴버튼_오프", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_btn_mapTool_off")));
+	DXIMG_MANAGER->AddDxImg("맵툴버튼_오버", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_btn_mapTool_over")));
+
+	DXIMG_MANAGER->AddDxImg("인벤", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_game_TestInven")));
+	DXIMG_MANAGER->AddDxImg("인벤2", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_game_TestInven2")));
+	DXIMG_MANAGER->AddDxImg("퀵슬롯", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_quickSlotUI_back")));
+}
+
+void loadingScene::AniLoading()
+{
+	vector<cDxImg*> temp;
+
+	//======================================================================================================
+	//  Fire01
+	//======================================================================================================
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_0", temp, ST_DXIMGANI(1));
+
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_1", temp, ST_DXIMGANI(2));
+
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_2", temp, ST_DXIMGANI(3));
+
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_3", temp, ST_DXIMGANI(4));
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_4", temp, ST_DXIMGANI(5));
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_5", temp, ST_DXIMGANI(6));
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_6", temp, ST_DXIMGANI(7));
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_7", temp, ST_DXIMGANI(8));
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_8", temp, ST_DXIMGANI(9));
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_9", temp, ST_DXIMGANI(1));
+
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_10", temp, ST_DXIMGANI(2));
+
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_11", temp, ST_DXIMGANI(3));
+
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_12", temp, ST_DXIMGANI(4));
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_13", temp, ST_DXIMGANI(5));
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_14", temp, ST_DXIMGANI(6));
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_15", temp, ST_DXIMGANI(7));
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_16", temp, ST_DXIMGANI(8));
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_17", temp, ST_DXIMGANI(9));
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_18", temp, ST_DXIMGANI(1));
+
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_19", temp, ST_DXIMGANI(2));
+
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_20", temp, ST_DXIMGANI(3));
+
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_21", temp, ST_DXIMGANI(4));
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_22", temp, ST_DXIMGANI(5));
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_23", temp, ST_DXIMGANI(6));
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_24", temp, ST_DXIMGANI(7));
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_25", temp, ST_DXIMGANI(8));
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_26", temp, ST_DXIMGANI(9));
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_27", temp, ST_DXIMGANI(1));
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_28", temp, ST_DXIMGANI(2));
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_29", temp, ST_DXIMGANI(3));
+
+	temp.clear();
+	for (int i = 0; i < 10; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_0" + to_string(i))));
+	}
+	for (int i = 10; i < 33; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_30", temp, ST_DXIMGANI(4));
 }
 
 void loadingScene::XMeshStaticLoading()

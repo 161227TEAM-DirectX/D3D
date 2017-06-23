@@ -11,18 +11,85 @@ startScene::~startScene()
 
 HRESULT startScene::init()
 {
+	for (int i=0; i < DXIMGANI_MANAGER->getSize() - 1; i++)
+	{
+		DXIMGANI_MANAGER->setDxImgAniPosition("Ani_Fire01_" + to_string(i), D3DXVECTOR2(i * 50, 800));
+	}
+
+	cDxImgButton* temp;
+
+	temp = new cDxImgButton(DXIMG_MANAGER->GetDxImg("종료버튼_오프"),
+							DXIMG_MANAGER->GetDxImg("종료버튼_오버"),
+							D3DXVECTOR2(25, 25), "종료버튼");
+	m_vecBtn.push_back(temp);
+
+
+	temp = new cDxImgButton(DXIMG_MANAGER->GetDxImg("설정버튼_오프"),
+							DXIMG_MANAGER->GetDxImg("설정버튼_오버"),
+							D3DXVECTOR2(130, 25), "설정버튼");
+	m_vecBtn.push_back(temp);
+
+
+	temp = new cDxImgButton(DXIMG_MANAGER->GetDxImg("시작버튼_오프"),
+							DXIMG_MANAGER->GetDxImg("시작버튼_오버"),
+							D3DXVECTOR2(1200, 600), "시작버튼");
+	m_vecBtn.push_back(temp);
+
+
+	temp = new cDxImgButton(DXIMG_MANAGER->GetDxImg("맵툴버튼_오프"),
+							DXIMG_MANAGER->GetDxImg("맵툴버튼_오버"),
+							D3DXVECTOR2(1200, 750), "맵툴버튼");
+	m_vecBtn.push_back(temp);
+
 	return S_OK;
 }
 
 void startScene::release()
 {
+	for (int i = 0; i<m_vecBtn.size(); i++)
+	{
+		SAFE_DELETE(m_vecBtn[i]);
+	}
+	m_vecBtn.clear();
 }
 
 void startScene::update()
 {
+	for (int i = 0; i < m_vecBtn.size(); i++)
+	{
+		if (m_vecBtn[i]->click())
+		{
+			if (m_vecBtn[i]->GetBtnName() == "종료버튼")
+			{
+				exit(0);
+			}
+			if (m_vecBtn[i]->GetBtnName() == "설정버튼")
+			{
+
+			}
+			if (m_vecBtn[i]->GetBtnName() == "시작버튼")
+			{
+
+			}
+			if (m_vecBtn[i]->GetBtnName() == "맵툴버튼")
+			{
+
+			}
+		}
+	}
 }
 
 void startScene::render()
 {
 	DXIMG_MANAGER->GetDxImg("시작화면")->render();
+
+	for (int i=0; i < DXIMGANI_MANAGER->getSize() - 1; i++)
+	{
+		DXIMGANI_MANAGER->render("Ani_Fire01_" + to_string(i));
+	}
+
+	for (int i=0; i<m_vecBtn.size(); i++)
+	{
+		m_vecBtn[i]->render();
+	}
 }

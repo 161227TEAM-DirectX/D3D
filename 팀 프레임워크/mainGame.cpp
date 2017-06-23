@@ -7,6 +7,7 @@
 #include "cTerrainTest.h"
 #include "cImageTest.h"
 #include "cButtonTest.h"
+#include "cGameUITest.h"
 
 mainGame::mainGame()
 {
@@ -17,7 +18,7 @@ mainGame::mainGame()
 	SCENEMANAGER->addScene("start", new startScene, false);
 	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
 	SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
-	SCENEMANAGER->addScene("test", new cButtonTest, false);
+	SCENEMANAGER->addScene("test", new cGameUITest, false);
 	SCENEMANAGER->addScene("gameSceneOne", new stageOne, false);
 	SCENEMANAGER->addScene("gameSceneTwo", new stageTwo, false);
 	SCENEMANAGER->addScene("gameSceneThree", new stageThree, false);

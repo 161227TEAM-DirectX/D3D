@@ -310,6 +310,12 @@
     <Filter Include="팀 포트폴리오\00.Scene\05.Stage3">
       <UniqueIdentifier>{45d8f959-0760-49b5-a2d8-71b8eb9a601f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameManager%28매크로%29\UI">
+      <UniqueIdentifier>{9bd561fa-d68f-4746-883b-c5abf0b40cbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\김만웅\06.게임UI">
+      <UniqueIdentifier>{c2aac9ca-7419-4ee2-82b7-9e423c6439f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainGame.cpp">
@@ -765,8 +771,6 @@
     <ClCompile Include="cDxImgAniManager.cpp">
       <Filter>GameManager%28매크로%29\DxImg</Filter>
     </ClCompile>
-    <ClCompile Include="cubeLight.cpp" />
-    <ClCompile Include="Text.cpp" />
     <ClCompile Include="cXmeshManager.cpp">
       <Filter>GameManager%28매크로%29\Xmesh</Filter>
     </ClCompile>
@@ -812,9 +816,6 @@
     <ClCompile Include="cXmeshManager.cpp">
       <Filter>GameManager%28매크로%29\Xmesh</Filter>
     </ClCompile>
-    <ClCompile Include="cDxImgButton.cpp">
-      <Filter>팀 포트폴리오\02.UI</Filter>
-    </ClCompile>
     <ClCompile Include="cButtonTest.cpp">
       <Filter>Z테스트\김만웅\05.UI 재설계</Filter>
     </ClCompile>
@@ -848,8 +849,36 @@
     <ClCompile Include="stageThree.cpp">
       <Filter>팀 포트폴리오\00.Scene\05.Stage3</Filter>
     </ClCompile>
-    <ClCompile Include="CinematicManger.cpp" />
-    <ClCompile Include="ioSaveCinemaManger.cpp" />
+    <ClCompile Include="ioSaveCinemaManger.cpp">
+      <Filter>팀 포트폴리오\01.맵툴\3.IO매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Z테스트\이현수</Filter>
+    </ClCompile>
+    <ClCompile Include="CinematicManger.cpp">
+      <Filter>Z테스트\김태승</Filter>
+    </ClCompile>
+    <ClCompile Include="cubeLight.cpp">
+      <Filter>Z테스트\김태훈</Filter>
+    </ClCompile>
+    <ClCompile Include="cDxImgButton.cpp">
+      <Filter>팀 포트폴리오\02.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="cUIManager.cpp">
+      <Filter>GameManager%28매크로%29\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="cDxImgBar.cpp">
+      <Filter>팀 포트폴리오\02.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="cDxImgUI.cpp">
+      <Filter>팀 포트폴리오\02.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="cBarTest.cpp">
+      <Filter>Z테스트\김만웅\05.UI 재설계</Filter>
+    </ClCompile>
+    <ClCompile Include="cGameUITest.cpp">
+      <Filter>Z테스트\김만웅\06.게임UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainGame.h">
@@ -1305,8 +1334,6 @@
     <ClInclude Include="cDxImgAniManager.h">
       <Filter>GameManager%28매크로%29\DxImg</Filter>
     </ClInclude>
-    <ClInclude Include="cubeLight.h" />
-    <ClInclude Include="Text.h" />
     <ClInclude Include="cXmeshManager.h">
       <Filter>GameManager%28매크로%29\Xmesh</Filter>
     </ClInclude>
@@ -1352,9 +1379,6 @@
     <ClInclude Include="cXmeshManager.h">
       <Filter>GameManager%28매크로%29\Xmesh</Filter>
     </ClInclude>
-    <ClInclude Include="cDxImgButton.h">
-      <Filter>팀 포트폴리오\02.UI</Filter>
-    </ClInclude>
     <ClInclude Include="cButtonTest.h">
       <Filter>Z테스트\김만웅\05.UI 재설계</Filter>
     </ClInclude>
@@ -1388,8 +1412,36 @@
     <ClInclude Include="stageThree.h">
       <Filter>팀 포트폴리오\00.Scene\05.Stage3</Filter>
     </ClInclude>
-    <ClInclude Include="CinematicManger.h" />
-    <ClInclude Include="ioSaveCinemaManger.h" />
+    <ClInclude Include="ioSaveCinemaManger.h">
+      <Filter>팀 포트폴리오\01.맵툴\3.IO매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Z테스트\이현수</Filter>
+    </ClInclude>
+    <ClInclude Include="CinematicManger.h">
+      <Filter>Z테스트\김태승</Filter>
+    </ClInclude>
+    <ClInclude Include="cubeLight.h">
+      <Filter>Z테스트\김태훈</Filter>
+    </ClInclude>
+    <ClInclude Include="cDxImgButton.h">
+      <Filter>팀 포트폴리오\02.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="cUIManager.h">
+      <Filter>GameManager%28매크로%29\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="cDxImgBar.h">
+      <Filter>팀 포트폴리오\02.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="cDxImgUI.h">
+      <Filter>팀 포트폴리오\02.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="cBarTest.h">
+      <Filter>Z테스트\김만웅\05.UI 재설계</Filter>
+    </ClInclude>
+    <ClInclude Include="cGameUITest.h">
+      <Filter>Z테스트\김만웅\06.게임UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Texture_Gray.fx">

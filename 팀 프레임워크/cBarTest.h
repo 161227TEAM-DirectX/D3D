@@ -1,14 +1,16 @@
 #pragma once
 #include "iGameNode.h"
 
-class startScene : public iGameNode
+class cBarTest : public iGameNode
 {
 private:
-	vector<cDxImgButton*> m_vecBtn;
+	cDxImgBar* bar;
+	camera m_camera;
+	int i = 0;
 
 public:
-	startScene();
-	virtual ~startScene();
+	cBarTest();
+	virtual ~cBarTest();
 
 	virtual HRESULT init();
 	virtual void release();
