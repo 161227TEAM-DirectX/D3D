@@ -45,6 +45,8 @@ void dxBoardEmitter::relese()
 	SAFE_DELETE_ARRAY(_trans);
 }
 
+
+
 void dxBoardEmitter::update()
 {
 	//시간
@@ -76,16 +78,15 @@ void dxBoardEmitter::update()
 		{
 			iter->isAlive = false;
 			iter->age = 0.0f;
-			//ptcVtx->position = iter->position;
+			//iter->isInit = false;
 		}
 
 		if (_spawnTime <= _spawnCurrentTime)
 		{
-			if (iter->isAlive == false && checkNum < _onePtcNum)
+			if (iter->isAlive == false && checkNum < _onePtcNum )
 			{
 
 				//재활성화
-				//iter->size = _constPaticleSize;
 				iter->isAlive = true;
 				iter->emitterNum = _emitterNum;
 				if (_psTrans != NULL)
@@ -95,6 +96,9 @@ void dxBoardEmitter::update()
 				}
 
 				_module->InitUpdate(iter);
+
+				//프리 업데이트 재가동
+				//_preUpdateOn = TRUE;
 
 				//this->InitCreatePlane(&_ptcVertex[InitNum * 4], &_ptcIndex[InitNum * 6], iter, InitNum);
 
@@ -129,13 +133,8 @@ void dxBoardEmitter::update()
 			iter->age += DeltaTime;
 			_drawPtcNum++;
 
-
-
-
 		}
 		ActiveNum++;
-
-
 
 
 	}
@@ -148,7 +147,6 @@ void dxBoardEmitter::update()
 
 	//스폰 시간 업
 	_spawnCurrentTime += DeltaTime;
-
 
 }
 

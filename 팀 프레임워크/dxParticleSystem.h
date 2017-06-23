@@ -1,5 +1,6 @@
 #pragma once
 #include "dxEmitter.h"
+#include <thread>
 
 class dxParticleSystem
 {
@@ -27,6 +28,12 @@ private:
 
 	bool _RealTimeTrackingOn;
 
+	//쓰레드
+	//thread* _randerThread;
+
+	//thread _testThread;
+	//bool _randerThreadOneSettingOn;
+
 public:
 	HRESULT init();
 	void addEmitter(dxEmitter* emitter);
@@ -44,7 +51,7 @@ public:
 
 	void SetTime(float inTime) { _currentTime = inTime; };
 	float GetTime(void) { return _currentTime; }
-	
+
 	//트랜스폼
 	dx::transform* Transform() { return _trans; }
 	//벡터 접근
@@ -54,6 +61,39 @@ public:
 	bool autoTimeReset(bool ResetFunOn = true);
 
 	void setRealTimeTrackingOn(bool realTimeTrackingOn) { _RealTimeTrackingOn = realTimeTrackingOn; };
+
+	//렌더 쓰레드 -> 생각해보니 이렇게 쓰면 쓰레드 의미가 없다......고로 안씀
+	//void autoRenderThread(void)
+	//{
+	//	//초기화
+	//	if (_randerThreadOneSettingOn)
+	//	{
+	//		
+	//		_randerThread = new thread[_vEmitter.size()];
+	//		
+	//		_randerThreadOneSettingOn = FALSE;
+	//	}
+
+	//	for (int i = 0; i < _vEmitter.size(); i++)
+	//	{
+	//		//
+	//		_randerThread[i] = thread(&vEmitterRender, i);
+	//		//_randerThread[i] = thread(&vEmitter->rander));
+
+	//	}
+
+	//	for (int i = 0; i < _vEmitter.size(); i++)
+	//	{
+	//		_randerThread[i].join();
+	//	}
+
+	//}
+	//void vEmitterRender(int i)
+	//{
+	//	_vEmitter[i]->render();
+	//}
+
+
 
 public:
 	dxParticleSystem()
@@ -65,6 +105,9 @@ public:
 		_EmitterCountNum = 0;
 
 		_RealTimeTrackingOn = true;
+
+		//렌더 쓰레드
+		//_randerThreadOneSettingOn = false;
 	}
 	~dxParticleSystem() {}
 };

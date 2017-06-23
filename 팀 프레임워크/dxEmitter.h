@@ -76,22 +76,23 @@ protected:
 
 protected:
 	//미리 업데이트 부분 관련
-	int _preInitPtcMaxNum;
 	int _preInitPtcCurrentNum;
 	int _oneFramePtcCurrentNum;
 	int _oneFramePtcNum;
 
+	//누적시간 관련
 	float _accrueTime;
-	float _limitTime;
+	float _preLimitTime;
 
 	bool _preUpdateOn;
+	bool _preOneSettingOn;
 
 public:		//함수
 
 	//순수 가상함수
 	//virtual HRESULT init(string textureFileName, int particleNumber) = 0;
 	virtual HRESULT init(string, int OneTimePaticleNum, float spawnTime, int totalParticlenum) = 0;
-	virtual void preUpdate() {};
+	virtual void preUpdate();	//계획은 창대했지만 결국 실패했다.
 	virtual void update() = 0;
 	virtual void render() = 0;
 	//virtual void reset() = 0;
@@ -335,16 +336,15 @@ public:
 		_allRotateSpeed = D3DXVECTOR3(0.0f,0.0f,0.0f);
 
 		//미리 업데이트 초기화
-		_preInitPtcMaxNum = 0;
 		_preInitPtcCurrentNum = 0;
 		_oneFramePtcCurrentNum = 0;
 		_oneFramePtcNum = 0;
 
 		 _accrueTime = 0.0f;
-		 _limitTime = 0.0f;
-
+		 _preLimitTime = 0.0f;
 
 		_preUpdateOn = true;
+		_preOneSettingOn = true;
 
 	}
 	dxEmitter() {};
