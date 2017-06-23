@@ -73,6 +73,8 @@ private:
 
 	float nowPeriod;
 
+	float _BladeLength;
+
 	DWORD vertexNum ;
 	DWORD primitives;
 	DWORD maxNum;
