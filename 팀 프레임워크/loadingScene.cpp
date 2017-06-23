@@ -297,10 +297,10 @@ void loadingScene::XMeshSkinnedLoading()
 
 void loadingScene::SoundLoading()
 {
-	SOUNDMANAGER->addSound("샤우팅", FILEPATH_MANAGER->GetFilepath("보스울음소리"));
-	SOUNDMANAGER->addSound("샤우팅2", FILEPATH_MANAGER->GetFilepath("보스울음소리2"));
-	SOUNDMANAGER->addSound("샤우팅3", FILEPATH_MANAGER->GetFilepath("보스울음소리3"));
-	SOUNDMANAGER->addSound("샤우팅4", FILEPATH_MANAGER->GetFilepath("보스울음소리4"));
+	SOUNDMANAGER->addSound("샤우팅", FILEPATH_MANAGER->GetFilepath("보스울음소리"), false, false);
+	SOUNDMANAGER->addSound("샤우팅2", FILEPATH_MANAGER->GetFilepath("보스울음소리2"), false, false);
+	SOUNDMANAGER->addSound("샤우팅3", FILEPATH_MANAGER->GetFilepath("보스울음소리3"), false, false);
+	SOUNDMANAGER->addSound("샤우팅4", FILEPATH_MANAGER->GetFilepath("보스울음소리4"), false, false);
 	SOUNDMANAGER->addSound("보스공격1", FILEPATH_MANAGER->GetFilepath("보스공격1"));
 	SOUNDMANAGER->addSound("보스공격2", FILEPATH_MANAGER->GetFilepath("보스공격2"));
 	SOUNDMANAGER->addSound("보스공격3", FILEPATH_MANAGER->GetFilepath("보스공격3"));

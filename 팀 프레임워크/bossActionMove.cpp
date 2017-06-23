@@ -23,19 +23,6 @@ int bossActionMove::Start()
 	{
 		SOUNDMANAGER->play("걷기");
 	}
-	
-	//확률을 위한 벡터 및 시드 초기화
-	int seed = 0;
-	
-	seed = 1;
-	for (int i = 0; i < 8; i++)
-	{
-		list.push_back(seed);
-	}
-	seed = 2;
-	list.push_back(seed);
-	seed = 3;
-	list.push_back(seed);
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }
@@ -69,7 +56,6 @@ int bossActionMove::Update()
 	//현재 구현해야 할 내역이 시작되는 부분이다.
 	//한번 생성해 놓아서 index가 초기화가 필요하다.
 	index = myUtil::RandomFloatRange(0.1f, 1.0f);
-	//index = 0.991f;
 
 	//걷다가 hit박스에 플레이어가 있다면.
 	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))

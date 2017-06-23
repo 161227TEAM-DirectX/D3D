@@ -50,6 +50,31 @@ int bossActionSkillFire::Update()
 	//애니메이션이 본격적으로 시작 될 때.
 	if (!strcmp(owner->getSkinnedAnim().getAnimationSet()->GetName(), "Animation_14"))
 	{
+		//액션 종료 조건이 필요.
+		if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
+		{
+			SOUNDMANAGER->stop("브레스2");
+
+			//꼬리치기 조건
+			if (angle >= -1.0f && angle <= -0.8f)
+			{
+				//range박스 안에 있다면.
+				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
+				{
+					return LHS::ACTIONRESULT::ACTION_SKILL_TAIL;
+				}
+			}
+
+			//hit박스 안에 있다면
+			if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
+			{
+				return LHS::ACTIONRESULT::ACTION_ATT;
+			}
+
+			//일반적인 경우 바로 이동패턴으로 넘어가자.
+			return LHS::ACTIONRESULT::ACTION_MOVE;
+		}
+
 		//케릭터의 위치에 따라 브레스 대미지가 들어가는 구간을 설정하는 if문
 		if (1 >= angle && angle >= 0.7f)
 		{
@@ -65,30 +90,6 @@ int bossActionSkillFire::Update()
 			}
 		}
 		//cout << "angle : " << angle << endl;
-		//액션 종료 조건이 필요.
-		if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
-		{
-			SOUNDMANAGER->stop("브레스2");
-
-			//range박스 안에 있다면.
-			if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
-			{
-				//꼬리치기 조건
-				if (angle >= -1.0f && angle <= -0.8f)
-				{
-					return LHS::ACTIONRESULT::ACTION_SKILL_TAIL;
-				}
-			}
-
-			//hit박스 안에 있다면
-			if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
-			{
-				return LHS::ACTIONRESULT::ACTION_ATT;
-			}
-			
-			//일반적인 경우 바로 이동패턴으로 넘어가자.
-			return LHS::ACTIONRESULT::ACTION_MOVE;
-		}
 	}
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;

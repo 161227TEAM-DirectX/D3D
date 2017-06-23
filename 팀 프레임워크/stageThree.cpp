@@ -38,7 +38,7 @@ HRESULT stageThree::init()
 	_terrain->setTile1(IOMAPMANAGER->loadMapInfo("보스지형").tile1);
 	_terrain->setTile2(IOMAPMANAGER->loadMapInfo("보스지형").tile2);
 	_terrain->setTile3(IOMAPMANAGER->loadMapInfo("보스지형").tile3);
-	_terrain->setSlat(FILEPATH_MANAGER->GetFilepath("스플랫_1"));
+	_terrain->setSlat(IOMAPMANAGER->loadMapInfo("보스지형").splat);
 	_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("보스지형").vecPos);
 	_terrain->setting();
 	_terrain->changeHeightTerrain();
@@ -50,7 +50,7 @@ HRESULT stageThree::init()
 	_terrainShadow->setTile1(IOMAPMANAGER->loadMapInfo("보스지형").tile1);
 	_terrainShadow->setTile2(IOMAPMANAGER->loadMapInfo("보스지형").tile2);
 	_terrainShadow->setTile3(IOMAPMANAGER->loadMapInfo("보스지형").tile3);
-	_terrainShadow->setSlat(FILEPATH_MANAGER->GetFilepath("스플랫_1"));
+	_terrain->setSlat(IOMAPMANAGER->loadMapInfo("보스지형").splat);
 	_terrainShadow->setMapPosition(IOMAPMANAGER->loadMapInfo("보스지형").vecPos);
 	_terrainShadow->setting();
 	_terrainShadow->changeHeightTerrain();
@@ -83,7 +83,7 @@ HRESULT stageThree::init()
 	
 	start = false;
 
-	SOUNDMANAGER->play("보스1", 0.5f);
+	SOUNDMANAGER->play("보스1", 0.1f);
 
 	return S_OK;
 }

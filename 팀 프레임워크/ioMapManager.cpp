@@ -30,6 +30,8 @@ void ioMapManager::saveFile(string filePath, ST_MAP & stT)
 
 	ofstream outFile(str);
 
+	assert(!outFile.fail() && "경로에 리소스가 있는지 확인하십시오.");
+
 	outFile << stT.heightMap << endl;	//높이맵
 	outFile << stT.splat << endl;		//스플랫팅
 	outFile << stT.tile0 << endl;		//타일0
