@@ -9,6 +9,7 @@ private:
 	float dotTime;
 	float passedTime;
 	int attackStyle;
+	bool isShout;
 public:
 	bossActionSkillBattleRoar();
 	~bossActionSkillBattleRoar();

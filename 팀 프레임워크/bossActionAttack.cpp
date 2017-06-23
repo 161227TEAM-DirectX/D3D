@@ -42,6 +42,7 @@ int bossActionAttack::Update()
 		//적이 나의 hit박스 안에 없다면 다른 패턴으로 간다.
 		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
 		{
+			//적이 나의 range박스 안에 있다면
 			if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 			{
 				resultValue = myUtil::RandomFloatRange(0.1f, 1.0f);
@@ -49,22 +50,38 @@ int bossActionAttack::Update()
 				//이동
 				if (resultValue >= 0.1f && resultValue <= 0.98f)
 				{
+					if (SOUNDMANAGER->isPlaySound("보스공격1")) SOUNDMANAGER->stop("보스공격1");
+					if (SOUNDMANAGER->isPlaySound("보스공격2")) SOUNDMANAGER->stop("보스공격2");
+					if (SOUNDMANAGER->isPlaySound("보스공격3")) SOUNDMANAGER->stop("보스공격3");
+					if (SOUNDMANAGER->isPlaySound("보스공격4")) SOUNDMANAGER->stop("보스공격4");
 					return LHS::ACTIONRESULT::ACTION_MOVE;
 				}
 				//배틀로어
 				else if (resultValue >= 0.98f && resultValue <= 0.99f)
 				{
+					if (SOUNDMANAGER->isPlaySound("보스공격1")) SOUNDMANAGER->stop("보스공격1");
+					if (SOUNDMANAGER->isPlaySound("보스공격2")) SOUNDMANAGER->stop("보스공격2");
+					if (SOUNDMANAGER->isPlaySound("보스공격3")) SOUNDMANAGER->stop("보스공격3");
+					if (SOUNDMANAGER->isPlaySound("보스공격4")) SOUNDMANAGER->stop("보스공격4");
 					return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
 				}
 				//브레스
 				else if (resultValue >= 0.99f && resultValue <= 1.0f)
 				{
+					if (SOUNDMANAGER->isPlaySound("보스공격1")) SOUNDMANAGER->stop("보스공격1");
+					if (SOUNDMANAGER->isPlaySound("보스공격2")) SOUNDMANAGER->stop("보스공격2");
+					if (SOUNDMANAGER->isPlaySound("보스공격3")) SOUNDMANAGER->stop("보스공격3");
+					if (SOUNDMANAGER->isPlaySound("보스공격4")) SOUNDMANAGER->stop("보스공격4");
 					return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
 				}
 			}
 			//range안에 없다면 이동이다.
 			else
 			{
+				if (SOUNDMANAGER->isPlaySound("보스공격1")) SOUNDMANAGER->stop("보스공격1");
+				if (SOUNDMANAGER->isPlaySound("보스공격2")) SOUNDMANAGER->stop("보스공격2");
+				if (SOUNDMANAGER->isPlaySound("보스공격3")) SOUNDMANAGER->stop("보스공격3");
+				if (SOUNDMANAGER->isPlaySound("보스공격4")) SOUNDMANAGER->stop("보스공격4");
 				return LHS::ACTIONRESULT::ACTION_MOVE;
 			}
 		}
@@ -99,6 +116,11 @@ int bossActionAttack::Update()
 			owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 			break;
 		}
+
+		if (SOUNDMANAGER->isPlaySound("보스공격1")) SOUNDMANAGER->stop("보스공격1");
+		if (SOUNDMANAGER->isPlaySound("보스공격2")) SOUNDMANAGER->stop("보스공격2");
+		if (SOUNDMANAGER->isPlaySound("보스공격3")) SOUNDMANAGER->stop("보스공격3");
+		if (SOUNDMANAGER->isPlaySound("보스공격4")) SOUNDMANAGER->stop("보스공격4");
 
 		random = myUtil::RandomIntRange(1, 4);
 		switch (random)

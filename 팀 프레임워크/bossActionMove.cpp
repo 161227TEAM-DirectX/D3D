@@ -19,6 +19,10 @@ int bossActionMove::Start()
 	//baseObject의 transform을 호출하여 world위치를 from으로 변경
 	owner->getSkinnedAnim().Play("Animation_56", 0.5f);
 	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
+	if (!SOUNDMANAGER->isPlaySound("걷기"))
+	{
+		SOUNDMANAGER->play("걷기");
+	}
 	
 	//확률을 위한 벡터 및 시드 초기화
 	int seed = 0;
@@ -67,37 +71,19 @@ int bossActionMove::Update()
 	index = myUtil::RandomFloatRange(0.1f, 1.0f);
 	//index = 0.991f;
 
+	//걷다가 hit박스에 플레이어가 있다면.
 	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
 	{
+		SOUNDMANAGER->stop("걷기");
 		return LHS::ACTIONRESULT::ACTION_ATT;
 	}
-	else if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
+	//걷다가 range박스 안에 플레이어가 있다면.
+	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 	{
+		SOUNDMANAGER->stop("걷기");
 		if (index >= 0.98f && index <= 0.99f) return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
 		else if (index >= 0.99f && index <= 1.0f) return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
 	}
-
-	/*if (index >= 0.1f && index <= 0.98f)
-	{
-		if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
-		{
-			return LHS::ACTIONRESULT::ACTION_ATT;
-		}
-	}
-	else if (index >= 0.98f && index <= 0.99f)
-	{
-		if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
-		{
-			return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
-		}
-	}
-	else if(index >= 0.99f && index <= 1.0f)
-	{
-		if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
-		{
-			return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
-		}
-	}*/
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }

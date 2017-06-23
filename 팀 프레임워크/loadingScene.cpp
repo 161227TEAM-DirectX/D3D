@@ -49,8 +49,8 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 	SoundLoading();
 	UILoading();
 
-	//g_eSelectMode = E_MAPTOOL;
-	SCENEMANAGER->changeScene("gameSceneThree");
+	g_eSelectMode = E_MAPTOOL;
+	SCENEMANAGER->changeScene("maptool");
 	
 	return S_OK;
 }
@@ -298,6 +298,9 @@ void loadingScene::XMeshSkinnedLoading()
 void loadingScene::SoundLoading()
 {
 	SOUNDMANAGER->addSound("샤우팅", FILEPATH_MANAGER->GetFilepath("보스울음소리"));
+	SOUNDMANAGER->addSound("샤우팅2", FILEPATH_MANAGER->GetFilepath("보스울음소리2"));
+	SOUNDMANAGER->addSound("샤우팅3", FILEPATH_MANAGER->GetFilepath("보스울음소리3"));
+	SOUNDMANAGER->addSound("샤우팅4", FILEPATH_MANAGER->GetFilepath("보스울음소리4"));
 	SOUNDMANAGER->addSound("보스공격1", FILEPATH_MANAGER->GetFilepath("보스공격1"));
 	SOUNDMANAGER->addSound("보스공격2", FILEPATH_MANAGER->GetFilepath("보스공격2"));
 	SOUNDMANAGER->addSound("보스공격3", FILEPATH_MANAGER->GetFilepath("보스공격3"));
@@ -306,5 +309,8 @@ void loadingScene::SoundLoading()
 	SOUNDMANAGER->addSound("보스죽음2", FILEPATH_MANAGER->GetFilepath("보스죽음2"));
 	SOUNDMANAGER->addSound("보스숨소리1", FILEPATH_MANAGER->GetFilepath("보스숨소리1"), false, true);
 	SOUNDMANAGER->addSound("보스숨소리2", FILEPATH_MANAGER->GetFilepath("보스숨소리2"), false, true);
-	SOUNDMANAGER->addSound("브레스", FILEPATH_MANAGER->GetFilepath("보스브레스"));
+	SOUNDMANAGER->addSound("브레스1", FILEPATH_MANAGER->GetFilepath("보스브레스"));
+	SOUNDMANAGER->addSound("브레스2", FILEPATH_MANAGER->GetFilepath("보스브레스2"));
+	SOUNDMANAGER->addSound("꼬리공격", FILEPATH_MANAGER->GetFilepath("꼬리공격"));
+	SOUNDMANAGER->addSound("걷기", FILEPATH_MANAGER->GetFilepath("걷기"), false, true);
 }

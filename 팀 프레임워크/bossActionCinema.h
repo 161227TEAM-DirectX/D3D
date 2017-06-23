@@ -5,6 +5,7 @@ class bossActionCinema : public Action
 private:
 	float actionTime;
 	float passedTime;
+	bool isShout;
 public:
 	bossActionCinema();
 	~bossActionCinema();

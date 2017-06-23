@@ -32,6 +32,7 @@ int bossActionSkillTailAtt::Start()
 		break;
 	}
 
+	SOUNDMANAGER->play("꼬리공격");
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
 }
 
@@ -64,11 +65,13 @@ int bossActionSkillTailAtt::Update()
 				//보스몬스터의 공격모션 아무거나 시작.
 				owner->getSkinnedAnim().Play("Animation_18");
 				owner->getSkinnedAnim().SetPlaySpeed(0.5f);
+				SOUNDMANAGER->play("꼬리공격");
 				break;
 			case 2:
 				//보스몬스터의 공격모션 아무거나 시작.
 				owner->getSkinnedAnim().Play("Animation_68");
 				owner->getSkinnedAnim().SetPlaySpeed(0.5f);
+				SOUNDMANAGER->play("꼬리공격");
 				break;
 			}
 		}
@@ -83,12 +86,12 @@ int bossActionSkillTailAtt::Update()
 				case 1:
 					return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
 				default:
-					return LHS::ACTIONRESULT::ACTION_ATT;
+					return LHS::ACTIONRESULT::ACTION_MOVE;
 				}
 			}
 			else
 			{
-				return LHS::ACTIONRESULT::ACTION_ATT;
+				return LHS::ACTIONRESULT::ACTION_MOVE;
 			}
 		}
 	}

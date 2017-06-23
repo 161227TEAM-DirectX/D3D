@@ -3,6 +3,40 @@
 
 HRESULT terrainPickingTest::init(void)
 {
+	FILEPATH_MANAGER->AddFilepath("보스울음소리", "Resource/Sound/deathWing/deathwing_shouting_good.mp3");
+	FILEPATH_MANAGER->AddFilepath("보스울음소리2", "Resource/Sound/deathWing/event_deathwingattacks_roar_01.ogg");
+	FILEPATH_MANAGER->AddFilepath("보스울음소리3", "Resource/Sound/deathWing/event_deathwingattacks_roar_03.ogg");
+	FILEPATH_MANAGER->AddFilepath("보스울음소리4", "Resource/Sound/deathWing/event_deathwingattacks_roar_04.ogg");
+	FILEPATH_MANAGER->AddFilepath("보스공격1", "Resource/Sound/deathWing/mon_deathwing_attack_02.ogg");
+	FILEPATH_MANAGER->AddFilepath("보스공격2", "Resource/Sound/deathWing/mon_deathwing_attack_04.ogg");
+	FILEPATH_MANAGER->AddFilepath("보스공격3", "Resource/Sound/deathWing/mon_deathwing_attack_10.ogg");
+	FILEPATH_MANAGER->AddFilepath("보스공격4", "Resource/Sound/deathWing/mon_deathwing_wound_01.ogg");
+	FILEPATH_MANAGER->AddFilepath("보스죽음1", "Resource/Sound/deathWing/mon_deathwing_death_09.ogg");
+	FILEPATH_MANAGER->AddFilepath("보스죽음2", "Resource/Sound/deathWing/mon_deathwing_death_10.ogg");
+	FILEPATH_MANAGER->AddFilepath("보스숨소리1", "Resource/Sound/deathWing/mon_deathwing_preaggro_03.ogg");
+	FILEPATH_MANAGER->AddFilepath("보스숨소리2", "Resource/Sound/deathWing/mon_deathwing_preaggro_04.ogg");
+	FILEPATH_MANAGER->AddFilepath("보스브레스", "Resource/Sound/deathWing/European_Dragon_Roaring_and_breathe_fire-daniel-simon.mp3");
+	FILEPATH_MANAGER->AddFilepath("보스브레스2", "Resource/Sound/deathWing/flamebreath.ogg");
+	FILEPATH_MANAGER->AddFilepath("꼬리공격", "Resource/Sound/deathWing/mdeathimpactcolossalgrassa.ogg");
+	FILEPATH_MANAGER->AddFilepath("걷기", "Resource/Sound/deathWing/mdeathimpactgiantdirta.ogg");
+
+	SOUNDMANAGER->addSound("샤우팅", FILEPATH_MANAGER->GetFilepath("보스울음소리"));
+	SOUNDMANAGER->addSound("샤우팅2", FILEPATH_MANAGER->GetFilepath("보스울음소리2"));
+	SOUNDMANAGER->addSound("샤우팅3", FILEPATH_MANAGER->GetFilepath("보스울음소리3"));
+	SOUNDMANAGER->addSound("샤우팅4", FILEPATH_MANAGER->GetFilepath("보스울음소리4"));
+	SOUNDMANAGER->addSound("보스공격1", FILEPATH_MANAGER->GetFilepath("보스공격1"));
+	SOUNDMANAGER->addSound("보스공격2", FILEPATH_MANAGER->GetFilepath("보스공격2"));
+	SOUNDMANAGER->addSound("보스공격3", FILEPATH_MANAGER->GetFilepath("보스공격3"));
+	SOUNDMANAGER->addSound("보스공격4", FILEPATH_MANAGER->GetFilepath("보스공격4"));
+	SOUNDMANAGER->addSound("보스죽음1", FILEPATH_MANAGER->GetFilepath("보스죽음1"));
+	SOUNDMANAGER->addSound("보스죽음2", FILEPATH_MANAGER->GetFilepath("보스죽음2"));
+	SOUNDMANAGER->addSound("보스숨소리1", FILEPATH_MANAGER->GetFilepath("보스숨소리1"), false, true);
+	SOUNDMANAGER->addSound("보스숨소리2", FILEPATH_MANAGER->GetFilepath("보스숨소리2"), false, true);
+	SOUNDMANAGER->addSound("브레스1", FILEPATH_MANAGER->GetFilepath("보스브레스"));
+	SOUNDMANAGER->addSound("브레스2", FILEPATH_MANAGER->GetFilepath("보스브레스2"));
+	SOUNDMANAGER->addSound("꼬리공격", FILEPATH_MANAGER->GetFilepath("꼬리공격"));
+	SOUNDMANAGER->addSound("걷기", FILEPATH_MANAGER->GetFilepath("걷기"), false, true);
+
 	shadowInit();
 
 	_terrain = new terrain;
@@ -52,7 +86,7 @@ HRESULT terrainPickingTest::init(void)
 	D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
 	mat = matRotate;
 
-//	boss = new bossMonster;
+	boss = new bossMonster;
 	_player = new xPlayer;
 	_player->setlinkTerrain(*_terrain);
 	_player->init();
@@ -66,25 +100,25 @@ HRESULT terrainPickingTest::init(void)
 
 	float tempY = _terrain->getHeight(0.0f, 0.0f);
 
-	InitMonster();
+	//InitMonster();
 	
 
 	ACMANAGER->Init(*_terrain, testObject, *_player);
 
-	for (int i = 0; i < mon.size(); i++)
-	{
-		//monster* temp = dynamic_cast<monster*>(mon[i]);
-		//temp->setActive(true);
-		mon[i]->setActive(true);
-		_renderObjects.push_back(mon[i]);
-	}
+	//for (int i = 0; i < mon.size(); i++)
+	//{
+	//	//monster* temp = dynamic_cast<monster*>(mon[i]);
+	//	//temp->setActive(true);
+	//	mon[i]->setActive(true);
+	//	_renderObjects.push_back(mon[i]);
+	//}
 
 
-//	boss->setMesh(RM_SKINNED->getResource("Resource/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
-//	boss->_transform->SetScale(1.0f, 1.0f, 1.0f);
-//	boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
-//	boss->setActive(true);
-//	this->_renderObjects.push_back(boss);
+	boss->setMesh(RM_SKINNED->getResource("Resource/Meshes/BossMonster/deathwing_ok/x/deathWing.x", mat));
+	boss->_transform->SetScale(1.0f, 1.0f, 1.0f);
+	boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+	boss->setActive(true);
+	this->_renderObjects.push_back(boss);
 
 //	this->setEnvironment("Resource/TextureCUBE/SuperKanjiCube.dds");
 
@@ -200,7 +234,7 @@ void terrainPickingTest::render(void)
 
 	//_mainCamera->renderTextureEnd();
 
-	testRender();
+	//testRender();
 	//char tempchar[128];
 	//sprintf_s(tempchar, "vecNodeSize : %d, adjSize: %d", temp.size(), _terrain->getDijkstra().getadjNode().size());
 	//FONTMANAGER->fontOut(tempchar, 0, 100, 0xffffffff);

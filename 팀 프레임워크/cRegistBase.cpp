@@ -185,6 +185,9 @@ void cRegistBase::SoundRegist()
 	FILEPATH_MANAGER->AddFilepath("베기", "Sound/베기1.mp3");
 	FILEPATH_MANAGER->AddFilepath("걸음소리", "Sound/걸음소리1.mp3");
 	FILEPATH_MANAGER->AddFilepath("보스울음소리", "Resource/Sound/deathWing/deathwing_shouting_good.mp3");
+	FILEPATH_MANAGER->AddFilepath("보스울음소리2", "Resource/Sound/deathWing/event_deathwingattacks_roar_01.ogg");
+	FILEPATH_MANAGER->AddFilepath("보스울음소리3", "Resource/Sound/deathWing/event_deathwingattacks_roar_03.ogg");
+	FILEPATH_MANAGER->AddFilepath("보스울음소리4", "Resource/Sound/deathWing/event_deathwingattacks_roar_04.ogg");
 	FILEPATH_MANAGER->AddFilepath("보스공격1", "Resource/Sound/deathWing/mon_deathwing_attack_02.ogg");
 	FILEPATH_MANAGER->AddFilepath("보스공격2", "Resource/Sound/deathWing/mon_deathwing_attack_04.ogg");
 	FILEPATH_MANAGER->AddFilepath("보스공격3", "Resource/Sound/deathWing/mon_deathwing_attack_10.ogg");
@@ -194,7 +197,9 @@ void cRegistBase::SoundRegist()
 	FILEPATH_MANAGER->AddFilepath("보스숨소리1", "Resource/Sound/deathWing/mon_deathwing_preaggro_03.ogg");
 	FILEPATH_MANAGER->AddFilepath("보스숨소리2", "Resource/Sound/deathWing/mon_deathwing_preaggro_04.ogg");
 	FILEPATH_MANAGER->AddFilepath("보스브레스", "Resource/Sound/deathWing/European_Dragon_Roaring_and_breathe_fire-daniel-simon.mp3");
-
+	FILEPATH_MANAGER->AddFilepath("보스브레스2", "Resource/Sound/deathWing/flamebreath.ogg");
+	FILEPATH_MANAGER->AddFilepath("꼬리공격", "Resource/Sound/deathWing/mdeathimpactcolossalgrassa.ogg");
+	FILEPATH_MANAGER->AddFilepath("걷기", "Resource/Sound/deathWing/mdeathimpactgiantdirta.ogg");
 }
 
 

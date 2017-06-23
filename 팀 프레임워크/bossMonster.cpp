@@ -18,7 +18,7 @@ void bossMonster::baseObjectEnable()
 	D3DXVECTOR3 temp(_boundBox._localCenter);
 	temp.z = _boundBox._localMaxPos.z;
 	//경계박스
-	range.setBound(&D3DXVECTOR3(0.0f, 0.0f, 0.0f), &D3DXVECTOR3(_transform->GetScale().x * BOSSRANGE, _transform->GetScale().y * BOSSRANGE, _transform->GetScale().z * BOSSRANGE));
+	range.setBound(&D3DXVECTOR3(0.0f, 0.0f, 0.0f), &D3DXVECTOR3(_boundBox._localMaxPos.x * BOSSRANGE, _boundBox._localMaxPos.y * BOSSRANGE, _boundBox._localMaxPos.z * BOSSRANGE));
 
 	//충돌박스
 	hitBox.setBound(&temp, &D3DXVECTOR3(_transform->GetScale().x * 0.6f, temp.y*1.0f, _transform->GetScale().z * 0.5f));

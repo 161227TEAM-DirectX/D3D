@@ -3,7 +3,7 @@
 
 
 bossActionCinema::bossActionCinema()
-	:Action(), actionTime(5.0f), passedTime(0.0f)
+	:Action(), actionTime(5.0f), passedTime(0.0f), isShout(true)
 {
 }
 
@@ -18,7 +18,7 @@ int bossActionCinema::Start()
 
 	owner->getSkinnedAnim().Play("Animation_62");
 	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
-	SOUNDMANAGER->play("焊胶见家府1", 0.5f);
+	SOUNDMANAGER->play("焊胶见家府2", 0.5f);
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }
@@ -34,22 +34,37 @@ int bossActionCinema::Update()
 			if (!strcmp("Animation_13", temp.c_str()))
 			{
 				if (deleGate) deleGate->OnActionFinish(this, true);
-				SOUNDMANAGER->stop("箕快泼");
+				SOUNDMANAGER->stop("箕快泼4");
 				return LHS::ACTIONRESULT::ACTION_MOVE;
 			}
 
 			if (!strcmp("Animation_61", temp.c_str()))
 			{
-				SOUNDMANAGER->stop("焊胶见家府1");
 				owner->getSkinnedAnim().Play("Animation_13", 1.0f);
 				owner->getSkinnedAnim().SetPlaySpeed(0.5f);
-				SOUNDMANAGER->play("箕快泼");
+				//SOUNDMANAGER->play("箕快泼4");
+				SOUNDMANAGER->stop("叭扁");
 			}
 
-			if(!strcmp("Animation_62", temp.c_str())) owner->getSkinnedAnim().Play("Animation_61", 1.0f);
+			if (!strcmp("Animation_62", temp.c_str()))
+			{
+				owner->getSkinnedAnim().Play("Animation_61", 1.0f);
+				SOUNDMANAGER->stop("焊胶见家府2");
+				SOUNDMANAGER->play("叭扁");
+				SOUNDMANAGER->setMusicSpeed("叭扁", 0.8F);
+			}
+		}
+
+		
+		if (!strcmp("Animation_13", owner->getSkinnedAnim().getAnimationSet()->GetName()))
+		{
+			if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.5f && isShout)
+			{
+				SOUNDMANAGER->play("箕快泼4");
+				isShout = false;
+			}
 		}
 	}
-
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }

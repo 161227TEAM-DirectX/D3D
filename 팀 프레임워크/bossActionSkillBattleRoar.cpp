@@ -3,7 +3,7 @@
 
 
 bossActionSkillBattleRoar::bossActionSkillBattleRoar()
-	:Action(), resultValue(0.0f), dotTime(2.0f), passedTime(0), attackStyle(555)
+	:Action(), resultValue(0.0f), dotTime(2.0f), passedTime(0), attackStyle(555), isShout(true)
 {
 }
 
@@ -19,7 +19,6 @@ int bossActionSkillBattleRoar::Start()
 	//보스몬스터의 공격모션 아무거나 시작.
 	owner->getSkinnedAnim().Play("Animation_13");
 	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
-	SOUNDMANAGER->play("샤우팅");
 
 	//공격방식 변경 -> 0이면 스턴을 위한 방식 / 1이면 range범위에서의 전방위 마법공격 -> 둘다 도트뎀(데미지는 마법공격이 더 강하도록 설정)
 	attackStyle = myUtil::RandomIntRange(0, 1);
@@ -42,17 +41,34 @@ int bossActionSkillBattleRoar::Update()
 	//그러면 무려 신기하게도 0~1, 0~-1사이값이 나온다.
 	float angle = D3DXVec3Dot(&temp->_transform->GetForward(), &enemyNormal);
 
+	//배틀로어 모션에 맞춰 샤우팅
+	if (isShout && owner->getSkinnedAnim().getAnimationPlayFactor() > 0.3f)
+	{
+		SOUNDMANAGER->play("샤우팅3");
+		isShout = false;
+	}
+
 	//배틀로어 애니메이션이 끝나면 ->일반공격 또는 꼬리치기
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
 	{
-		SOUNDMANAGER->stop("샤우팅");
-		//내적을 통해 구한 값을 범위로 표현하였다. 
-		if (angle >= -1.0f && angle < -0.8f)
+		SOUNDMANAGER->stop("샤우팅3");
+
+		//range박스 안에 있다면
+		if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 		{
-			return LHS::ACTIONRESULT::ACTION_SKILL_TAIL;
+			//내적을 통해 구한 값을 범위로 표현하였다. 
+			if (angle >= -1.0f && angle < -0.8f)
+			{
+				return LHS::ACTIONRESULT::ACTION_SKILL_TAIL;
+			}
+		}
+		//hitBox안에 플레이어가 있다면
+		if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
+		{
+			return LHS::ACTIONRESULT::ACTION_ATT;
 		}
 
-		return LHS::ACTIONRESULT::ACTION_ATT;
+		return LHS::ACTIONRESULT::ACTION_MOVE;
 	}
 
 	dotTime -= 0.08f;

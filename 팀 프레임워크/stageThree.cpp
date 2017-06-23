@@ -34,24 +34,24 @@ HRESULT stageThree::init()
 	//지형 초기화
 	_terrain = new terrain;
 	_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath("높이맵_3"));
-	_terrain->setTile0(IOMAPMANAGER->loadMapInfo("지형0").tile0);
-	_terrain->setTile1(IOMAPMANAGER->loadMapInfo("지형0").tile1);
-	_terrain->setTile2(IOMAPMANAGER->loadMapInfo("지형0").tile2);
-	_terrain->setTile3(IOMAPMANAGER->loadMapInfo("지형0").tile3);
+	_terrain->setTile0(IOMAPMANAGER->loadMapInfo("보스지형").tile0);
+	_terrain->setTile1(IOMAPMANAGER->loadMapInfo("보스지형").tile1);
+	_terrain->setTile2(IOMAPMANAGER->loadMapInfo("보스지형").tile2);
+	_terrain->setTile3(IOMAPMANAGER->loadMapInfo("보스지형").tile3);
 	_terrain->setSlat(FILEPATH_MANAGER->GetFilepath("스플랫_1"));
-	_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("지형0").vecPos);
+	_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("보스지형").vecPos);
 	_terrain->setting();
 	_terrain->changeHeightTerrain();
 
 	//그림자 지형 초기화
 	_terrainShadow = new terrain;
 	_terrainShadow->setHeightmap(FILEPATH_MANAGER->GetFilepath("높이맵_3"));
-	_terrainShadow->setTile0(IOMAPMANAGER->loadMapInfo("지형0").tile0);
-	_terrainShadow->setTile1(IOMAPMANAGER->loadMapInfo("지형0").tile1);
-	_terrainShadow->setTile2(IOMAPMANAGER->loadMapInfo("지형0").tile2);
-	_terrainShadow->setTile3(IOMAPMANAGER->loadMapInfo("지형0").tile3);
+	_terrainShadow->setTile0(IOMAPMANAGER->loadMapInfo("보스지형").tile0);
+	_terrainShadow->setTile1(IOMAPMANAGER->loadMapInfo("보스지형").tile1);
+	_terrainShadow->setTile2(IOMAPMANAGER->loadMapInfo("보스지형").tile2);
+	_terrainShadow->setTile3(IOMAPMANAGER->loadMapInfo("보스지형").tile3);
 	_terrainShadow->setSlat(FILEPATH_MANAGER->GetFilepath("스플랫_1"));
-	_terrainShadow->setMapPosition(IOMAPMANAGER->loadMapInfo("지형0").vecPos);
+	_terrainShadow->setMapPosition(IOMAPMANAGER->loadMapInfo("보스지형").vecPos);
 	_terrainShadow->setting();
 	_terrainShadow->changeHeightTerrain();
 
