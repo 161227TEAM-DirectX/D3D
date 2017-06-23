@@ -384,6 +384,8 @@ struct tagDxAttributeMaxMin
 		aniSectionOn = false;
 
 		posRotateOn = false;
+
+		dirSphere = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 	}
 
 };

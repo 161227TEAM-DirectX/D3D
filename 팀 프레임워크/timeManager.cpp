@@ -116,16 +116,15 @@ void timeManager::render(void)
 	TextOut(hdc, 0, 40, str, strlen(str));
 	*/
 
-	if (KEYMANAGER->isToggleKey(VK_F8))
-	{
-		char str[128];
-		sprintf_s(str, "FPS: %d", _frameRate);
-		FONTMANAGER->fontOut(str, 0, 0, 0xffffff00);
-		//한프레임당 경과시간
-		//sprintf(str, "DeltaTime: %.2f", _timeElapsed);
-		//FONTMANAGER->fontOut(str, 0, 25, 0xffffff00);
-		//전체시간
-		//sprintf(str, "WorldTime: %.2f", _worldTime);
-		//FONTMANAGER->fontOut(str, 0, 50, 0xffffff00);
-	}
+
+	char str[128];
+	sprintf_s(str, "FPS: %d", _frameRate);
+	FONTMANAGER->fontOut(str, 0, 0, 0xffffff00);
+	//한프레임당 경과시간
+	sprintf(str, "DeltaTime: %.2f", _timeElapsed);
+	FONTMANAGER->fontOut(str, 0, 25, 0xffffff00);
+	//전체시간
+	sprintf(str, "WorldTime: %.2f", _worldTime);
+	FONTMANAGER->fontOut(str, 0, 50, 0xffffff00);
+
 }

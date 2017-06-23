@@ -26,9 +26,9 @@ bool skBoss_GrandMagic::Prepare()
 {
 
 	//_pvPrepaerPS[0][0]->Transform()->SetWorldMatrix(_skillPosTrans->GetFinalMatrix());
-	/*_pvPrepaerPS[0][0]->Transform()->SetWorldPosition(_skillPosTrans->GetWorldPosition());
+	_pvPrepaerPS[0][0]->Transform()->SetWorldPosition(_skillPosTrans->GetWorldPosition());
 	_pvPrepaerPS[0][0]->Transform()->LookDirection(_skillDirTrans->GetForward());
-	_pvPrepaerPS[0][0]->update();*/
+	_pvPrepaerPS[0][0]->update();
 	//_pvPrepaerPS[0][0]->Transform()->RotateWorld(0.0f,0.0f,0.01f);
 	/*if (_pvPrepaerPS[0][0]->autoTimeReset(false))
 	{
@@ -48,7 +48,7 @@ bool skBoss_GrandMagic::Prepare()
 bool skBoss_GrandMagic::Action()
 {
 
-	_pvActionPS[0][0]->update();
+//	_pvActionPS[0][0]->update();
 
 	return false;
 }

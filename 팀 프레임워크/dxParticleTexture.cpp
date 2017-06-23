@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "dxParticleTexture.h"
 
-LPDIRECT3DTEXTURE9* dxParticleTexture::LoadImg(string inPath, bool grayScaleOn)
+LPDIRECT3DTEXTURE9* dxParticleTexture::LoadImg(string inPath, bool grayScaleAlphaOn)
 {
 
 	HRESULT hr = NULL;
@@ -27,7 +27,7 @@ LPDIRECT3DTEXTURE9* dxParticleTexture::LoadImg(string inPath, bool grayScaleOn)
 
 	if (FAILED(hr))	return NULL;
 
-	if (grayScaleOn == TRUE)
+	if (grayScaleAlphaOn == TRUE)
 	{
 		D3DSURFACE_DESC dsc;
 		D3DLOCKED_RECT	drc;
@@ -65,8 +65,8 @@ LPDIRECT3DTEXTURE9* dxParticleTexture::LoadImg(string inPath, bool grayScaleOn)
 				//I = 0.30R + 0.59G + 0.11B
 				grayScale = texColor.r * 0.2126f + texColor.g * 0.7152f + texColor.b * 0.0722f;
 
-				pColorDst[nIdx] = D3DXCOLOR(grayScale, grayScale, grayScale, texColor.a);
-				//pColorDst[nIdx] = D3DXCOLOR(texColor.r, texColor.g, texColor.b, grayScale);
+				//pColorDst[nIdx] = D3DXCOLOR(grayScale, grayScale, grayScale, texColor.a);
+				pColorDst[nIdx] = D3DXCOLOR(texColor.r, texColor.g, texColor.b, grayScale);
 			}
 		}
 	}
@@ -78,6 +78,54 @@ LPDIRECT3DTEXTURE9* dxParticleTexture::LoadImg(string inPath, bool grayScaleOn)
 
 	//경로 저장
 	_path = inPath;
+	//알파 여부
+	_isGrayScaleAlpha = grayScaleAlphaOn;
 
 	return &_texture;
 }
+
+void dxParticleTexture::ChangeGrayScaleAlpha()
+{
+	D3DSURFACE_DESC dsc;
+	D3DLOCKED_RECT	drc;
+	DWORD*	pColorSrc = NULL;
+	DWORD*	pColorDst = NULL;
+
+
+	// 원본 텍스처 정보 얻기
+	_texture->GetLevelDesc(0, &dsc);
+
+	int		texImgW = dsc.Width;
+	int		texImgH = dsc.Height;
+
+	// 임시 버퍼 생성
+	pColorSrc = new DWORD[texImgW * texImgH];
+
+
+	// 원본 텍스처 픽셀 값을 임시 버퍼에 복사
+	_texture->LockRect(0, &drc, NULL, 0);
+	memcpy(pColorSrc, drc.pBits, texImgW * texImgH * sizeof(DWORD));
+	pColorDst = (DWORD*)drc.pBits;
+	_texture->UnlockRect(0);
+
+	D3DXCOLOR texColor;
+	float grayScale;
+
+	for (int y = 0; y < texImgH; ++y)
+	{
+		for (int x = 0; x < texImgW; ++x)
+		{
+			int nIdx = y*texImgW + x;
+
+			texColor = pColorSrc[nIdx];
+
+			//I = 0.30R + 0.59G + 0.11B
+			grayScale = texColor.r * 0.2126f + texColor.g * 0.7152f + texColor.b * 0.0722f;
+
+			//pColorDst[nIdx] = D3DXCOLOR(grayScale, grayScale, grayScale, texColor.a);
+			pColorDst[nIdx] = D3DXCOLOR(texColor.r, texColor.g, texColor.b, grayScale);
+		}
+	}
+}
+
+

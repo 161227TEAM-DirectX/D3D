@@ -93,13 +93,33 @@ void dxParticleSystem::update()
 	//이미터 업데이트
 	if (_vEmitter.empty() == FALSE)
 	{
+
+		//실패함
 		/*for (int i = 0; i < _vEmitter.size(); i++)
 		{
-			_vEmitter[i]->update();
+			_vEmitter[i]->preUpdate();
 		}*/
-		//트랜스폼 세팅
-		if (_RealTimeTrackingOn == FALSE) { _vEmitter[_EmitterCountNum]->setParticleSystemTrans(_trans); }
+		
+		
+
+		//트랜스폼 세팅 관련
+		if (_RealTimeTrackingOn == FALSE)
+		{
+			//실시간 추적이 아니면
+			_vEmitter[_EmitterCountNum]->setParticleSystemTrans(_trans); 
+		}
+		else
+		{
+			//실시간 추적이면 빌보드를 위해 행렬용 트랜스폼 세팅
+			if (_vEmitter[_EmitterCountNum]->GetType() == ET_BOARD)
+			{
+				_vEmitter[_EmitterCountNum]->setPsBoardTrans(_trans);
+			}
+		}
+
+		//사이즈 세팅->시간 맞추기용
 		_vEmitter[_EmitterCountNum]->setEmitterNum(_vEmitter.size());
+
 		//업데이트
 		_vEmitter[_EmitterCountNum]->update();
 		_EmitterCountNum++;
@@ -124,6 +144,9 @@ void dxParticleSystem::render()
 		{
 			_vEmitter[i]->render();
 		}
+		//this->autoRenderThread();
+		//_testThread = thread(&_vEmitter[0]->render);
+		//_testThread.join();
 	}
 }
 

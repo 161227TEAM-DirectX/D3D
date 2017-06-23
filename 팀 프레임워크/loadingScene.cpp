@@ -46,11 +46,12 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
 	XMeshStaticLoading();
 	XMeshSkinnedLoading();
+	SoundLoading();
 	UILoading();
 
 	//g_eSelectMode = E_MAPTOOL;
-	SCENEMANAGER->changeScene("particleTest13");
-
+	SCENEMANAGER->changeScene("gameSceneThree");
+	
 	return S_OK;
 }
 
@@ -292,4 +293,18 @@ void loadingScene::XMeshSkinnedLoading()
 	XMESH_MANAGER->AddXmeshSkinned("전갈", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("몬스터_전갈"), matRotate));
 	XMESH_MANAGER->AddXmeshSkinned("도마뱀", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("몬스터_도마뱀"), matRotate));
 	XMESH_MANAGER->AddXmeshSkinned("데스윙", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("몬스터_데스윙"), matRotate));
+}
+
+void loadingScene::SoundLoading()
+{
+	SOUNDMANAGER->addSound("샤우팅", FILEPATH_MANAGER->GetFilepath("보스울음소리"));
+	SOUNDMANAGER->addSound("보스공격1", FILEPATH_MANAGER->GetFilepath("보스공격1"));
+	SOUNDMANAGER->addSound("보스공격2", FILEPATH_MANAGER->GetFilepath("보스공격2"));
+	SOUNDMANAGER->addSound("보스공격3", FILEPATH_MANAGER->GetFilepath("보스공격3"));
+	SOUNDMANAGER->addSound("보스공격4", FILEPATH_MANAGER->GetFilepath("보스공격4"));
+	SOUNDMANAGER->addSound("보스죽음1", FILEPATH_MANAGER->GetFilepath("보스죽음1"));
+	SOUNDMANAGER->addSound("보스죽음2", FILEPATH_MANAGER->GetFilepath("보스죽음2"));
+	SOUNDMANAGER->addSound("보스숨소리1", FILEPATH_MANAGER->GetFilepath("보스숨소리1"), false, true);
+	SOUNDMANAGER->addSound("보스숨소리2", FILEPATH_MANAGER->GetFilepath("보스숨소리2"), false, true);
+	SOUNDMANAGER->addSound("브레스", FILEPATH_MANAGER->GetFilepath("보스브레스"));
 }

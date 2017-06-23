@@ -49,8 +49,8 @@ void particleTest13::update()
 
 void particleTest13::render()
 {
-	_player->RenderGimozo();
-	_target->RenderGimozo();
+	//_player->RenderGimozo();
+	//_target->RenderGimozo();
 
 	testSkill00->render();
 

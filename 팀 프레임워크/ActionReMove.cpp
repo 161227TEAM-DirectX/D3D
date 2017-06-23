@@ -20,6 +20,7 @@ int ActionReMove::Start()
 
 	//baseObject의 transform을 호출하여 world위치를 from으로 변경
 	owner->getSkinnedAnim().Play("Run");
+	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 	owner->_transform->SetWorldPosition(from);
 	m_fPassedTime = 0.0f;
 	return LHS::ACTIONRESULT::ACTION_PLAY;

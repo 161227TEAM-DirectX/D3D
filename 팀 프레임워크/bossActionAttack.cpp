@@ -19,6 +19,7 @@ int bossActionAttack::Start()
 	//보스몬스터의 공격모션 아무거나 시작.
 	owner->getSkinnedAnim().Play("Animation_12");
 	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
+	SOUNDMANAGER->play("보스공격1");
 
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
 }
@@ -96,6 +97,23 @@ int bossActionAttack::Update()
 		default:
 			owner->getSkinnedAnim().Play("Animation_10");
 			owner->getSkinnedAnim().SetPlaySpeed(0.5f);
+			break;
+		}
+
+		random = myUtil::RandomIntRange(1, 4);
+		switch (random)
+		{
+		case 1:
+			SOUNDMANAGER->play("보스공격1");
+			break;
+		case 2:
+			SOUNDMANAGER->play("보스공격2");
+			break;
+		case 3:
+			SOUNDMANAGER->play("보스공격3");
+			break;
+		case 4:
+			SOUNDMANAGER->play("보스공격4");
 			break;
 		}
 	}

@@ -24,7 +24,7 @@ void psBossSet00::BreathSet00(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/fire02_frame5x4.png", 15, 0.1f, 1000);
+	_boardEMT->init("PaticleResources/Texture/fire02_frame5x4.png", 15, 0.1f, 800);
 	//_pointEMT->InitConstSize(2.4f);
 
 	_boardEMT->InitRandomSize(1.0f, 1.5f);
@@ -84,7 +84,7 @@ void psBossSet00::BreathSet00(string psName)
 	_boardEMT->InitRandomLifeTime(3.0f, 5.0f);
 
 	_PS->addEmitter(_boardEMT);
-
+	
 
 	PSM->addPS(psName, _PS, false);
 }

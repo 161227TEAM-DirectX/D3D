@@ -62,7 +62,7 @@ void dxPositionModule::InitUpdate(vector<tagDxAttribute>::iterator iter)
 
 	}
 
-	iter->posRotAngleSpeed.y = 10.0f;
+	//iter->posRotAngleSpeed.y = 10.0f;
 
 	//Æø¹ß
 	if (_radPtc.radPosExprosionVelOn)

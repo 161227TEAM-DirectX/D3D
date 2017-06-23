@@ -251,9 +251,9 @@ void dxMeshEmitter::update()
 
 				//this->InitCreatePlane(&_ptcVertex[InitNum * 4], &_ptcIndex[InitNum * 6], iter, InitNum);
 
-				_trans[InitNum].SetScale(iter->size, iter->size, iter->size);
-				_trans[InitNum].SetRotateLocal(iter->rotateAngle.x, iter->rotateAngle.y, iter->rotateAngle.z);
-				_trans[InitNum].SetWorldPosition(iter->position);
+				//_trans[InitNum].SetScale(iter->size, iter->size, iter->size);
+				//_trans[InitNum].SetRotateLocal(iter->rotateAngle.x, iter->rotateAngle.y, iter->rotateAngle.z);
+				//_trans[InitNum].SetWorldPosition(iter->position);
 
 				checkNum++;
 				//if (checkNum >= _onePtcNum) break;
