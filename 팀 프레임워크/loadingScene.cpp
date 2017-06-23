@@ -306,5 +306,5 @@ void loadingScene::SoundLoading()
 	SOUNDMANAGER->addSound("보스죽음2", FILEPATH_MANAGER->GetFilepath("보스죽음2"));
 	SOUNDMANAGER->addSound("보스숨소리1", FILEPATH_MANAGER->GetFilepath("보스숨소리1"), false, true);
 	SOUNDMANAGER->addSound("보스숨소리2", FILEPATH_MANAGER->GetFilepath("보스숨소리2"), false, true);
-	SOUNDMANAGER->addSound("보스브레스", FILEPATH_MANAGER->GetFilepath("보스브레스"));
+	SOUNDMANAGER->addSound("브레스", FILEPATH_MANAGER->GetFilepath("보스브레스"));
 }

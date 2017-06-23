@@ -20,6 +20,7 @@ int bossActionSkillFire::Start()
 	//보스몬스터의 공격모션 아무거나 시작.
 	owner->getSkinnedAnim().Play("Animation_65", 1.0f);
 	owner->getSkinnedAnim().SetPlaySpeed(0.3f);
+	SOUNDMANAGER->play("브레스");
 
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
 }
@@ -34,6 +35,7 @@ int bossActionSkillFire::Update()
 	{
 		if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
 		{
+			SOUNDMANAGER->stop("브레스");
 			owner->getSkinnedAnim().Play("Animation_14");
 			owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 		}

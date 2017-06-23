@@ -16,7 +16,7 @@ mainGame::mainGame()
 
 	SCENEMANAGER->addScene("start", new startScene, false);
 	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
-	SCENEMANAGER->addScene("particleTest13", new particleTest13, true);
+	SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
 	SCENEMANAGER->addScene("test", new cButtonTest, false);
 	SCENEMANAGER->addScene("gameSceneOne", new stageOne, false);
 	SCENEMANAGER->addScene("gameSceneTwo", new stageTwo, false);
@@ -54,7 +54,7 @@ HRESULT mainGame::init(void)
 	//이현수 씬 테스트 헤더파일
 	//===================================================================================
 		//씬추가
-		//SCENEMANAGER->addScene("test", new terrainPickingTest, false);
+		SCENEMANAGER->addScene("testMON", new terrainPickingTest, false);
 
 
 
@@ -82,7 +82,7 @@ HRESULT mainGame::init(void)
 
 
 		//씬초기화
-		//SCENEMANAGER->changeScene("test");
+		SCENEMANAGER->changeScene("testMON");
 	return S_OK;
 }
 
