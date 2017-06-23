@@ -178,12 +178,12 @@ void cRegistBase::BrushRegist()
 
 void cRegistBase::SoundRegist()
 {
-	FILEPATH_MANAGER->AddFilepath("필드", "Sound/FieldBGM1.mp3");
-	FILEPATH_MANAGER->AddFilepath("보스", "Sound/BossBGM1.mp3");
-	FILEPATH_MANAGER->AddFilepath("마을", "Sound/TownBGM1.mp3");
-	FILEPATH_MANAGER->AddFilepath("공격", "Sound/공격1.mp3");
-	FILEPATH_MANAGER->AddFilepath("베기", "Sound/베기1.mp3");
-	FILEPATH_MANAGER->AddFilepath("걸음소리", "Sound/걸음소리1.mp3");
+	FILEPATH_MANAGER->AddFilepath("필드", "Resource/Sound/FieldBGM1.mp3");
+	FILEPATH_MANAGER->AddFilepath("보스", "Resource/Sound/BossBGM1.mp3");
+	FILEPATH_MANAGER->AddFilepath("마을", "Resource/Sound/TownBGM1.mp3");
+	FILEPATH_MANAGER->AddFilepath("공격", "Resource/Sound/공격1.mp3");
+	FILEPATH_MANAGER->AddFilepath("베기", "Resource/Sound/베기1.mp3");
+	FILEPATH_MANAGER->AddFilepath("걸음소리", "Resource/Sound/걸음소리1.mp3");
 	FILEPATH_MANAGER->AddFilepath("보스울음소리", "Resource/Sound/deathWing/deathwing_shouting_good.mp3");
 	FILEPATH_MANAGER->AddFilepath("보스공격1", "Resource/Sound/deathWing/mon_deathwing_attack_02.ogg");
 	FILEPATH_MANAGER->AddFilepath("보스공격2", "Resource/Sound/deathWing/mon_deathwing_attack_04.ogg");

@@ -83,7 +83,7 @@ HRESULT kimsNewTest::init()
 	_env->init();
 	_env->linkCamera(*_mainCamera);
 
-	_mainCamera->SetWorldPosition(0.0f, 0.0f, 0.0f);
+	_mainCamera->SetWorldPosition(0.0f, 3.0f, 3.0f);
 	_mainCamera->LookPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	D3DXVECTOR3 camPos = _mainCamera->GetWorldPosition();
 	_directionLightCamera->SetWorldPosition(camPos.x, camPos.y, camPos.z);
@@ -182,6 +182,7 @@ void kimsNewTest::render()
 		if (_cullObjects[i] == _player->getPlayerObject())
 		{
 			_player->itemUpdate();
+			_player->updateBladeLight();
 		}
 	}
 	_terrain->render(_mainCamera, _sceneBaseDirectionLight, _directionLightCamera);

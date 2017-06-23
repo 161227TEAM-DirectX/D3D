@@ -83,6 +83,7 @@ HRESULT mainGame::init(void)
 
 		//¾ÀÃÊ±âÈ­
 		//SCENEMANAGER->changeScene("testMON");
+		//SCENEMANAGER->changeScene("test");
 	return S_OK;
 }
 
