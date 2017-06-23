@@ -19,6 +19,7 @@ int bossActionSkillBattleRoar::Start()
 	//보스몬스터의 공격모션 아무거나 시작.
 	owner->getSkinnedAnim().Play("Animation_13");
 	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
+	SOUNDMANAGER->play("샤우팅");
 
 	//공격방식 변경 -> 0이면 스턴을 위한 방식 / 1이면 range범위에서의 전방위 마법공격 -> 둘다 도트뎀(데미지는 마법공격이 더 강하도록 설정)
 	attackStyle = myUtil::RandomIntRange(0, 1);
@@ -44,6 +45,7 @@ int bossActionSkillBattleRoar::Update()
 	//배틀로어 애니메이션이 끝나면 ->일반공격 또는 꼬리치기
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
 	{
+		SOUNDMANAGER->stop("샤우팅");
 		//내적을 통해 구한 값을 범위로 표현하였다. 
 		if (angle >= -1.0f && angle < -0.8f)
 		{
