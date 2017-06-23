@@ -10,11 +10,14 @@ class cDxImg
 	SYNTHESIZE(LPDIRECT3DTEXTURE9, m_pTexture, Texture);		//텍스쳐
 	SYNTHESIZE(D3DXIMAGE_INFO, m_stImageInfo, stImageInfo);		//텍스쳐 정보
 	SYNTHESIZE(string, m_sFullPath, FullPath);					//텍스쳐 경로
+	SYNTHESIZE(int, m_nImgAlpha, ImgAlpha);						//알파값
 
 	SYNTHESIZE(eImgLayer, m_eImgLayer, ImgLayer);				//레이어
 	SYNTHESIZE(bool, m_isCenterDraw, CenterDraw);				//중점에서 그리는지
+	SYNTHESIZE(float, m_fCurX, CurX);							//바에서 현재 x위치
 
-	//프레임
+
+																//프레임
 	SYNTHESIZE(int, m_currentFrameX, CurrentFrameX);			//현재 프레임 x
 	SYNTHESIZE(int, m_currentFrameY, CurrentFrameY);			//현재 프레임 y
 	SYNTHESIZE(int, m_maxFrameX, MaxFrameX);					//최대 프레임 x개수
@@ -32,13 +35,14 @@ private:
 
 public:
 	cDxImg();
-	cDxImg(string sImgKey, bool _isCenter=false);
+	cDxImg(string sImgKey, D3DXVECTOR2 vecPos={ 0,0 }, bool _isCenter=false);
 	cDxImg(string sImgKey, int maxFrameX, int maxFrameY, int frameTime = 5, bool _isCenter=true);
 	~cDxImg();
 
 	void render();
 	void render(float cx, float cy, float angle = 0.0f);
 	void renderFrame();
+	void renderBarX();
 
 	RECT getRect();
 };

@@ -29,6 +29,17 @@ bool cDxImgAniManager::AddDxImgAni(string sKey, vector<cDxImg*> dxImg, ST_DXIMGA
 	return true;
 }
 
+void cDxImgAniManager::setDxImgAniPosition(string sKey, D3DXVECTOR2 vecPos)
+{
+	assert(m_mapDxImgAni.find(sKey) != m_mapDxImgAni.end() &&
+		   "키에 해당하는 값을 찾을 수 없습니다.");
+
+	for (int i = 0; i < m_mapDxImgAni[sKey].size(); i++)
+	{
+		m_mapDxImgAni[sKey][i]->SetPosition(D3DXVECTOR3(vecPos.x, vecPos.y, 0));
+	}
+}
+
 vector<cDxImg*> cDxImgAniManager::GetDxImgAni(string sKey)
 {
 	assert(m_mapDxImgAni.find(sKey) != m_mapDxImgAni.end() &&

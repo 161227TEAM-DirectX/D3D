@@ -491,4 +491,31 @@ namespace myUtil
 			_device->SetRenderState(D3DRS_LIGHTING, (bool)dwPrev);
 		}
 	}
+
+	void LineMake(float startX, float startY, float endX, float endY, D3DCOLOR dwColor)
+	{
+		D3DXMATRIXA16 m_matTrans;
+		D3DXMatrixIdentity(&m_matTrans);
+
+		D3DXVECTOR3 v ={ startX,startY,0.0f };
+		D3DXMatrixTranslation(&m_matTrans, v.x, v.y, v.z);
+
+		DWORD dwPrev = 0;
+		_device->SetTexture(0, NULL);
+		_device->GetRenderState(D3DRS_LIGHTING, &dwPrev);
+		_device->SetRenderState(D3DRS_LIGHTING, false);
+
+		int nCnt = 0;
+		ST_RHWC_VERTEX aVertex[2];
+
+		aVertex[nCnt].p = D3DXVECTOR4(startX, startY, 0, 1);
+		aVertex[nCnt++].c = dwColor;
+
+		aVertex[nCnt].p = D3DXVECTOR4(endX, endY, 0, 1);
+		aVertex[nCnt++].c = dwColor;
+
+		_device->SetFVF(ST_RHWC_VERTEX::FVF);
+		_device->DrawPrimitiveUP(D3DPT_LINESTRIP, 1, aVertex, sizeof(ST_RHWC_VERTEX));
+		_device->SetRenderState(D3DRS_LIGHTING, (bool)dwPrev);
+	}
 }

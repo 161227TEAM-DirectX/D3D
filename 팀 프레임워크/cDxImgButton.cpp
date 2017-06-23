@@ -2,12 +2,19 @@
 #include "cDxImgButton.h"
 
 
-cDxImgButton::cDxImgButton(cDxImg* dxImg, D3DXVECTOR2 vecPos, bool isCenter, bool isBoundingBox)
+cDxImgButton::cDxImgButton(cDxImg* off, cDxImg* over, D3DXVECTOR2 vecPos, string sBtnName, bool isCenter, bool isBoundingBox)
+	: m_isOver(false)
+	, m_sBtnName(sBtnName)
 {
-	m_pDxImg = dxImg;
-	m_pDxImg->SetCenterDraw(isCenter);
-	m_pDxImg->SetDrawBoundingBox(isBoundingBox);
-	m_pDxImg->SetPosition(D3DXVECTOR3(vecPos.x, vecPos.y, 0));
+	m_pOff = off;
+	m_pOff->SetCenterDraw(isCenter);
+	m_pOff->SetDrawBoundingBox(isBoundingBox);
+	m_pOff->SetPosition(D3DXVECTOR3(vecPos.x, vecPos.y, 0));
+
+	m_pOver = over;
+	m_pOver->SetCenterDraw(isCenter);
+	m_pOver->SetDrawBoundingBox(isBoundingBox);
+	m_pOver->SetPosition(D3DXVECTOR3(vecPos.x, vecPos.y, 0));
 }
 
 
@@ -17,17 +24,33 @@ cDxImgButton::~cDxImgButton()
 
 void cDxImgButton::render()
 {
-	m_pDxImg->render();
+	if (PtInRect(&m_pOff->getRect(), GetMousePos()))
+	{
+		m_isOver = true;
+	}
+	else
+	{
+		m_isOver = false;
+	}
+
+	if (m_isOver)
+	{
+		m_pOver->render();
+	}
+	else
+	{
+		m_pOff->render();
+	}
 }
 
 bool cDxImgButton::click()
 {
-	if(KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
-		if(PtInRect(&m_pDxImg->getRect(), GetMousePos()))
+		if (PtInRect(&m_pOff->getRect(), GetMousePos()))
 		{
 			return true;
 		}
-		else false;
 	}
+	return false;
 }

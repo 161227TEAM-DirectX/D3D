@@ -19,7 +19,10 @@ public:
 					 D3DXVECTOR2 vPos ={ WINSIZEX / 2,WINSIZEY / 2 },
 					 bool isCenter = true);
 
+	void setDxImgAniPosition(string sKey, D3DXVECTOR2 vecPos);
+
 	vector<cDxImg*> GetDxImgAni(string sKey);
+	int getSize() { return m_mapDxImgAni.size(); }
 
 	void render(string sKey);
 };

@@ -3,7 +3,8 @@
 class loadingScene : public iGameNode
 {
 private:
-	int i = 0;
+	cDxImgBar* m_pLoadingBar;
+	static bool m_isChange;
 
 public:
 	loadingScene();
@@ -18,6 +19,7 @@ public:
 	static HRESULT ThreadInit(LPVOID lpVod);
 
 	static void UILoading();
+	static void AniLoading();
 	static void XMeshStaticLoading();
 	static void XMeshSkinnedLoading();
 	static void SoundLoading();

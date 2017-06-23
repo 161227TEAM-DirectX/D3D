@@ -178,11 +178,15 @@
     <ClInclude Include="boundSphere.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="cameraManager.h" />
+    <ClInclude Include="cBarTest.h" />
     <ClInclude Include="cDxImg.h" />
     <ClInclude Include="cDxImgAniManager.h" />
+    <ClInclude Include="cDxImgBar.h" />
     <ClInclude Include="cDxImgButton.h" />
     <ClInclude Include="cDxImgManager.h" />
+    <ClInclude Include="cDxImgUI.h" />
     <ClInclude Include="cFilepathManager.h" />
+    <ClInclude Include="cGameUITest.h" />
     <ClInclude Include="characterController.h" />
     <ClInclude Include="cImageTest.h" />
     <ClInclude Include="CinematicManger.h" />
@@ -202,6 +206,7 @@
     <ClInclude Include="cUIImageView.h" />
     <ClInclude Include="cUILoading.h" />
     <ClInclude Include="cUILoadingBar.h" />
+    <ClInclude Include="cUIManager.h" />
     <ClInclude Include="cUIObject.h" />
     <ClInclude Include="cUIStart.h" />
     <ClInclude Include="cXmeshManager.h" />
@@ -361,11 +366,15 @@
     <ClCompile Include="boundSphere.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="cameraManager.cpp" />
+    <ClCompile Include="cBarTest.cpp" />
     <ClCompile Include="cDxImg.cpp" />
     <ClCompile Include="cDxImgAniManager.cpp" />
+    <ClCompile Include="cDxImgBar.cpp" />
     <ClCompile Include="cDxImgButton.cpp" />
     <ClCompile Include="cDxImgManager.cpp" />
+    <ClCompile Include="cDxImgUI.cpp" />
     <ClCompile Include="cFilepathManager.cpp" />
+    <ClCompile Include="cGameUITest.cpp" />
     <ClCompile Include="characterController.cpp" />
     <ClCompile Include="cImageTest.cpp" />
     <ClCompile Include="CinematicManger.cpp" />
@@ -385,6 +394,7 @@
     <ClCompile Include="cUIImageView.cpp" />
     <ClCompile Include="cUILoading.cpp" />
     <ClCompile Include="cUILoadingBar.cpp" />
+    <ClCompile Include="cUIManager.cpp" />
     <ClCompile Include="cUIObject.cpp" />
     <ClCompile Include="cUIStart.cpp" />
     <ClCompile Include="cXmeshManager.cpp" />
