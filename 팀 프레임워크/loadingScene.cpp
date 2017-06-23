@@ -56,14 +56,14 @@ void loadingScene::render()
 
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
-	//XMeshStaticLoading();
-	//XMeshSkinnedLoading();
-	//SoundLoading();
+	XMeshStaticLoading();
+	XMeshSkinnedLoading();
+	SoundLoading();
 	UILoading();
 	AniLoading();
 
-	//g_eSelectMode = E_MAPTOOL;
-	//SCENEMANAGER->changeScene("maptool");
+	g_eSelectMode = E_MAPTOOL;
+	SCENEMANAGER->changeScene("maptool");
 	m_isChange = true;
 
 	return S_OK;

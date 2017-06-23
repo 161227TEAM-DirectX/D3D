@@ -73,7 +73,9 @@ void ioSaveNodeManager::saveFile(string filePath, vector<tagSaveNode>& vecT)
 				<< vecT[i].nodeX << '/'
 				<< vecT[i].nodeY << '/'
 				<< vecT[i].nodeZ << '/'
-				<< vecT[i].nodeFSSize << '/';
+				<< vecT[i].nodeFSSize;
+			if (vecT[i].nodeFSSize == 0) outFile << endl;
+			else outFile << '/';
 			for (int j = 0; j < vecT[i].nodeFS.size(); j++)
 			{
 				if (j == vecT[i].nodeFS.size() - 1)
@@ -97,7 +99,9 @@ void ioSaveNodeManager::saveFile(string filePath, vector<tagSaveNode>& vecT)
 				<< vecT[i].nodeX << '/'
 				<< vecT[i].nodeY << '/'
 				<< vecT[i].nodeZ << '/'
-				<< vecT[i].nodeFS.size() << '/';
+				<< vecT[i].nodeFS.size();
+			if (vecT[i].nodeFSSize == 0) outFile << endl;
+			else outFile << '/';
 			for (int j = 0; j < vecT[i].nodeFS.size(); j++)
 			{
 				if (j == vecT[i].nodeFS.size() - 1)

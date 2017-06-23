@@ -540,6 +540,10 @@ void leftViewHead::monsterMaptul()
 				_mainCamera.computeRay(&ray, &_screenPos, 1);
 
 				_terrain->isIntersectRay(&_hitPos, &ray);
+				if (_hitPos.y > 0.1f)
+				{
+					_hitPos.y = 0;
+				}
 				_terrain->getDijkstra().addNode(_hitPos);
 			}
 		}
@@ -671,8 +675,8 @@ void leftViewHead::save()
 			_rightView->setNumberEnv(_envTemp.number);
 			_rightView->setnumberwater(_waterTemp.number);
 
-			/*loadMonster();
-			loadNode();*/
+			/*loadMonster();*/
+			loadNode();
 		}
 	}
 	else
@@ -745,29 +749,29 @@ void leftViewHead::save()
 			//}
 
 			////노드지정 ,위치,값 저장////////////////////////////
-			//vector<tagSaveNode> nodeTemp;
-			//tagSaveNode nTemp;
+			vector<tagSaveNode> nodeTemp;
+			tagSaveNode nTemp;
 
-			//for (int i = 0; i < _terrain->getDijkstra().getVecNode().size(); i++)
-			//{
-			//	nTemp.nodeFS.clear();
-			//	nTemp.infoName = "노드" + to_string(i + 1);
-			//	nTemp.Inumber = i;														// 벡터의 인덱스값 저장
-			//	nTemp.nodeX = _terrain->getDijkstra().getVecNode()[i]->getPosition().x;	//위치값 저장
-			//	nTemp.nodeY = _terrain->getDijkstra().getVecNode()[i]->getPosition().y;	//위치값 저장
-			//	nTemp.nodeZ = _terrain->getDijkstra().getVecNode()[i]->getPosition().z;	//위치값 저장
-			//	nTemp.nodeFSSize = _terrain->getDijkstra().getadjNode()[i].size();			//벡터 사이즈값 저장
+			for (int i = 0; i < _terrain->getDijkstra().getVecNode().size(); i++)
+			{
+				nTemp.nodeFS.clear();
+				nTemp.infoName = "노드" + to_string(i + 1);
+				nTemp.Inumber = i;														// 벡터의 인덱스값 저장
+				nTemp.nodeX = _terrain->getDijkstra().getVecNode()[i]->getPosition().x;	//위치값 저장
+				nTemp.nodeY = _terrain->getDijkstra().getVecNode()[i]->getPosition().y;	//위치값 저장
+				nTemp.nodeZ = _terrain->getDijkstra().getVecNode()[i]->getPosition().z;	//위치값 저장
+				nTemp.nodeFSSize = _terrain->getDijkstra().getadjNode()[i].size();			//벡터 사이즈값 저장
 
-			//	for (int j = 0; j < _terrain->getDijkstra().getadjNode()[i].size(); j++)
-			//	{
-			//		nTemp.nodeFS.push_back(make_pair(_terrain->getDijkstra().getadjNode()[i][j].first, _terrain->getDijkstra().getadjNode()[i][j].second)); 	//first는 벡터에서 몇번 노드인지를 알려준다.	
-			//																																					//second는 현재 노드에서 j노드까지의 거리값을 가진다.
-			//	}
+				for (int j = 0; j < _terrain->getDijkstra().getadjNode()[i].size(); j++)
+				{
+					nTemp.nodeFS.push_back(make_pair(_terrain->getDijkstra().getadjNode()[i][j].first, _terrain->getDijkstra().getadjNode()[i][j].second)); 	//first는 벡터에서 몇번 노드인지를 알려준다.	
+																																								//second는 현재 노드에서 j노드까지의 거리값을 가진다.
+				}
 
-			//	nodeTemp.push_back(nTemp);
-			//}
+				nodeTemp.push_back(nTemp);
+			}
 
-			//IOSAVENODEMANAGER->saveFile("노드", nodeTemp);
+			IOSAVENODEMANAGER->saveFile("노드", nodeTemp);
 		}
 
 	}
