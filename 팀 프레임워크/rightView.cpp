@@ -6,7 +6,7 @@
 
 rightView::rightView()
 	:boolTile1(false), boolTile2(false), boolTile3(false), boolTile4(false), boolRaw(false), numberTile1(0), numberTile2(0), numberTile3(0), numberTile4(0), numberRaw(0)
-	, numberSplate(0), boolSplate(false), numberNodeInstal(0), numberNodelink(0), numberMonster(0)
+	, numberSplate(0), boolSplate(false), numberNodeInstal(0), numberNodelink(0), numberMonster(0), boolHeight(false)
 {
 }
 
@@ -1766,7 +1766,16 @@ void rightView::buttonTerUdate()
 		//왼쪽키
 		if (PtInRect(&_TERRIANbutton.rc2, GetMousePos()))
 		{
-			numberHeight = 0; //높이조절 초기화
+			for (int i = 0; i < 2; i++)
+			{
+				numberHeight = 0; //높이조절 초기화
+				_heightContorol[i].uiNumber = UISTAGE::UIOFF;
+				//false시켜버리기
+				numberNodeInstal = 0;
+				numberNodelink = 0;
+				_nodeInstalContorol[i].uiNumber = UISTAGE::UIOFF;
+				_nodeLinkContorol[i].uiNumber = UISTAGE::UIOFF;
+			}
 
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
@@ -1783,10 +1792,10 @@ void rightView::buttonTerUdate()
 		//오른쪽키
 		if (PtInRect(&_TERRIANbutton.rc3, GetMousePos()))
 		{
-			numberHeight = 0; //높이조절 초기화
-
 			for (int i = 0; i < 2; i++)
 			{
+				numberHeight = 0; //높이조절 초기화
+				_heightContorol[i].uiNumber = UISTAGE::UIOFF;
 				//false시켜버리기
 				numberNodeInstal = 0;
 				numberNodelink = 0;
@@ -1934,6 +1943,7 @@ void rightView::buttonTerUdate()
 
 					if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 					{
+						boolHeight = true;
 						boolRaw = true;
 						numberRaw = i + 1;
 					}

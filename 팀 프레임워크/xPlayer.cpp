@@ -30,7 +30,7 @@ HRESULT xPlayer::init()
 	_state = P_STAND;
 	_prevState = P_STAND;
 	PLAYERMANAGER->SetArmor(A_PLATE);
-	PLAYERMANAGER->SetWeapon(W_BROAD);
+	PLAYERMANAGER->SetWeapon(W_BLACK_WING);
 	PLAYERMANAGER->SetShield(SH_CROSS);
 	PLAYERMANAGER->Setatt(1000000);
 	PLAYERMANAGER->SetHp(100000000);
@@ -49,9 +49,12 @@ HRESULT xPlayer::init()
 
 	_moveSpeed = 1.5;
 
+	_BladeLength = 1.0f;//칼의 길이 검광의 길이를 결정한다 1이 기본값. 악마검 0.5 카타나 0.7, 브로드소드 0.7 날개검 1.0
+
 	_isOnBattle = false;
 	_isJump = false;
 	_isBladePosInit = false;
+
 
 
 	//데이터를 로딩해 이전의 스테이터스와 장비상태를 초기화한다.
@@ -147,6 +150,7 @@ HRESULT xPlayer::init()
 		pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon01/weapon01.X", &matCorrection2);
 		_weaponObject->setActive(false);
 		_renderObjects.push_back(_weaponObject);
+		_BladeLength = 10.0f;
 		break;
 	case W_BLACK_WING:
 		D3DXMatrixRotationY(&matRotate2, D3DXToRadian(270));
@@ -155,6 +159,7 @@ HRESULT xPlayer::init()
 		pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon01/weapon01.X", &matCorrection2);
 		_weaponObject->setActive(true);
 		_renderObjects.push_back(_weaponObject);
+		_BladeLength = 1.0f;
 		break;
 	case W_BROAD:
 		D3DXMatrixRotationY(&matRotate2, D3DXToRadian(270));
@@ -164,6 +169,7 @@ HRESULT xPlayer::init()
 		pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon02/weapon02.X", &matCorrection2);
 		_weaponObject->setActive(true);
 		_renderObjects.push_back(_weaponObject);
+		_BladeLength = 0.7f;
 		break;
 	case W_DEAMON:
 		D3DXMatrixRotationZ(&matRotate2, D3DXToRadian(0));
@@ -173,6 +179,7 @@ HRESULT xPlayer::init()
 		pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon03/weapon03.X", &matCorrection2);
 		_weaponObject->setActive(true);
 		_renderObjects.push_back(_weaponObject);
+		_BladeLength = 0.72f;
 		break;
 	case W_KATANA:
 		D3DXMatrixRotationZ(&matRotate2, D3DXToRadian(0));
@@ -182,6 +189,7 @@ HRESULT xPlayer::init()
 		pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon04/weapon04.X", &matCorrection2);
 		_weaponObject->setActive(true);
 		_renderObjects.push_back(_weaponObject);
+		_BladeLength = 0.5f;
 		break;
 	case W_WOOD:
 		D3DXMatrixRotationZ(&matRotate2, D3DXToRadian(0));
@@ -191,6 +199,7 @@ HRESULT xPlayer::init()
 		pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon05/weapon05.X", &matCorrection2);
 		_weaponObject->setActive(true);
 		_renderObjects.push_back(_weaponObject);
+		_BladeLength = 0.4f;
 		break;
 	case W_END:
 		break;
@@ -276,7 +285,7 @@ HRESULT xPlayer::init()
 	setBladeLight();
 	
 	_playerObject->_skinnedAnim->AddBoneTransform("humanfemale_Bone121_CSR", _handTrans);
-	_edgeTrans->SetWorldPosition(_handTrans->GetWorldPosition() + _handTrans->GetRight() * 0.7);
+	_edgeTrans->SetWorldPosition(_handTrans->GetWorldPosition() + _handTrans->GetRight() * _BladeLength);
 	_handTrans->AddChild(_edgeTrans);
 
 	BladePosInit();
@@ -308,13 +317,14 @@ void xPlayer::update()
 
 	_prevState = _state;
 
-	updateBladeLight();
+	//updateBladeLight();
+	testControl();
 }
 
 void xPlayer::render()
 {
-	_handTrans->RenderGimozo();
-	_edgeTrans->RenderGimozo();
+	//_handTrans->RenderGimozo();
+	//_edgeTrans->RenderGimozo();
 
 	
 	//_lightSkill->render();
@@ -678,7 +688,7 @@ void xPlayer::playerStateManager()
 				_playSpeed = 1.8f;
 
 			}
-			else if (_playerObject->_skinnedAnim->getAnimFactor() > 0.4)//애니메이션 다 재생했으면
+			else if (_playerObject->_skinnedAnim->getAnimFactor() > 0.5)//애니메이션 다 재생했으면
 			{
 				//normalAttackDamageProcessing();
 				if (_isOnBattle)
@@ -748,7 +758,7 @@ void xPlayer::playerStateManager()
 				//_lightSkill->setPlayer(_skillTrans);
 				//_lightSkill->setPlayerDir(_playerObject->_transform);
 				//_lightSkill->Start();
-				/*
+				
 				if (_isOnBattle)
 				{
 					_state = P_READYTOATTACK;
@@ -756,7 +766,7 @@ void xPlayer::playerStateManager()
 				else
 				{
 					_state = P_STAND;
-				}*/
+				}
 			}
 		}
 		break;
@@ -1053,7 +1063,7 @@ void xPlayer::testControl()
 {
 
 
-	if (KEYMANAGER->isOnceKeyDown(VK_TAB))
+	if (KEYMANAGER->isOnceKeyDown('3'))
 	{
 		if (_isOnBattle == true)
 		{
@@ -1243,15 +1253,30 @@ void xPlayer::normalAttackDamageProcessing()
 void xPlayer::setBladeLight()
 {
 
-	vertexNum = 60;//한 샘플당 버텍스 개수
-	//maxNum = vertexNum * 19;//전체 샘플을 그리기 위한 버텍스 개수
+	vertexNum = 45;//한 샘플당 버텍스 개수
 
-							//primitives = maxNum - 2;
 	primitives = vertexNum - 2;
 
-	maxNum = vertexNum;
+	
 
 	idx = new DWORD[vertexNum];
+
+	D3DXVECTOR3 nowEdgePos = _edgeTrans->GetWorldPosition();
+	D3DXVECTOR3 nowHandPos = _handTrans->GetWorldPosition();
+
+	//_vertexDeque.clear();//덱은 비어있다.
+
+						 //현재 위치를 받는다!
+						 //이 정보가 계속 누적 되리!
+	//_vecPosEdge.push_front(nowEdgePos);//위치정보는 얘네가 들고있다! 덱은 계속 비워준다.
+	//_vecPosHand.push_front(nowHandPos);
+
+	//if (_vecPosEdge.size() > vertexNum / 2)
+	//{
+	//	_vecPosEdge.pop_back();
+	//	_vecPosHand.pop_back();
+	//}
+
 
 	////정점 버퍼 생성
 	//_device->CreateVertexBuffer(
@@ -1285,12 +1310,11 @@ void xPlayer::setBladeLight()
 
 
 	//memset(pVertices, 0, sizeof(MYLIGHTVERTEX)*vertexNum);
-
 	for (int i = 0; i < vertexNum / 2; i++)
 	{
 		//0,2,4....
-		float x = 0;
-		x = ((i * 2 + 1) * ((maxX - minX) / (vertexNum - 2)) + minX);
+		//float x = 0;
+		//x = nowEdgePos; //((i * 2 + 1) * ((maxX - minX) / (vertexNum - 2)) + minX);
 
 		float u = 0;
 
@@ -1304,13 +1328,13 @@ void xPlayer::setBladeLight()
 		}
 		MYLIGHTVERTEX tempVertex;
 
-		tempVertex.pos = D3DXVECTOR3(x, -5, 0);//posHand +
+		tempVertex.pos = nowHandPos;//D3DXVECTOR3(x, -5, 0);//posHand +
 		tempVertex.uv = D3DXVECTOR2(u, 1);
 		_vertexDeque.push_back(tempVertex);
 
 		//1,3,5
-		float y = 0;
-		y = ((i * 2) * ((maxX - minX) / (vertexNum - 2)) + minX);
+		//float y = 0;
+		//y = ((i * 2) * ((maxX - minX) / (vertexNum - 2)) + minX);
 
 		float  z = 0;
 		if (i == 1)
@@ -1323,7 +1347,7 @@ void xPlayer::setBladeLight()
 		}
 
 		MYLIGHTVERTEX tempVertex2;
-		tempVertex2.pos = D3DXVECTOR3(y, 5, 0);//posHand +
+		tempVertex2.pos = nowEdgePos;//D3DXVECTOR3(y, 5, 0);//posHand +
 		tempVertex2.uv = D3DXVECTOR2(z, 0);
 
 		_vertexDeque.push_back(tempVertex2);
@@ -1333,7 +1357,7 @@ void xPlayer::setBladeLight()
 	//_myVertexbuffer->Lock(0, 0, (void**)&pVertices, 0);
 
 
-	pVertices = new MYLIGHTVERTEX[60];
+	pVertices = new MYLIGHTVERTEX[vertexNum];
 
 	for (int i = 0; i < _vertexDeque.size(); i++)
 	{
@@ -1360,7 +1384,7 @@ void xPlayer::setBladeLight()
 //텍스쳐 로딩
 	D3DXCreateTextureFromFile(
 		_device,
-		"검광4.png",
+		"검광_001.png",
 		&_texture);
 
 
@@ -1397,7 +1421,7 @@ void xPlayer::setBladeLight()
 	int a = 0;
 	}*/
 	//pv2용
-
+	
 }
 
 
@@ -1423,7 +1447,7 @@ void xPlayer::updateBladeLight()
 	_vecPosEdge.push_front(nowEdgePos);//위치정보는 얘네가 들고있다! 덱은 계속 비워준다.
 	_vecPosHand.push_front(nowHandPos);
 
-	if (_vecPosEdge.size() > vertexNum / 2 - 2)
+	if (_vecPosEdge.size() > vertexNum / 2)
 	{
 		_vecPosEdge.pop_back();
 		_vecPosHand.pop_back();
@@ -1441,7 +1465,7 @@ void xPlayer::updateBladeLight()
 		}
 		else
 		{
-			u = ((float)(i * 2) / (float)(vertexNum - 2));
+			u = ((float)(i * 2) / (float)(vertexNum));
 		}
 
 		MYLIGHTVERTEX tempVertex1;
@@ -1457,7 +1481,7 @@ void xPlayer::updateBladeLight()
 		}
 		else
 		{
-			u = ((float)(i * 2 + 1) / (float)(vertexNum - 2));
+			u = ((float)(i * 2 + 1) / (float)(vertexNum));
 		}
 
 		MYLIGHTVERTEX tempVertex2;

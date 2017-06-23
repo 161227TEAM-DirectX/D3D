@@ -146,7 +146,7 @@ void cRegistBase::TileRegist()
 	FILEPATH_MANAGER->AddFilepath("타일맵_17", "Resource/Maptool/Textures/Tile/3.png");
 	FILEPATH_MANAGER->AddFilepath("타일맵_18", "Resource/Maptool/Textures/Tile/18.png");
 	FILEPATH_MANAGER->AddFilepath("타일맵_19", "Resource/Maptool/Textures/Tile/19.png");
-	FILEPATH_MANAGER->AddFilepath("타일맵_20", "Resource/Maptool/Textures/Tile/20.png");
+	FILEPATH_MANAGER->AddFilepath("타일맵_20", "Resource/Maptool/Textures/Tile/2.png");
 	FILEPATH_MANAGER->AddFilepath("타일맵_21", "Resource/Maptool/Textures/Tile/21.png");
 	FILEPATH_MANAGER->AddFilepath("타일맵_22", "Resource/Maptool/Textures/Tile/22.png");
 	FILEPATH_MANAGER->AddFilepath("타일맵_23", "Resource/Maptool/Textures/Tile/14.png");
@@ -178,12 +178,12 @@ void cRegistBase::BrushRegist()
 
 void cRegistBase::SoundRegist()
 {
-	FILEPATH_MANAGER->AddFilepath("필드", "Sound/FieldBGM1.mp3");
-	FILEPATH_MANAGER->AddFilepath("보스", "Sound/BossBGM1.mp3");
-	FILEPATH_MANAGER->AddFilepath("마을", "Sound/TownBGM1.mp3");
-	FILEPATH_MANAGER->AddFilepath("공격", "Sound/공격1.mp3");
-	FILEPATH_MANAGER->AddFilepath("베기", "Sound/베기1.mp3");
-	FILEPATH_MANAGER->AddFilepath("걸음소리", "Sound/걸음소리1.mp3");
+	FILEPATH_MANAGER->AddFilepath("필드", "Resource/Sound/FieldBGM1.mp3");
+	FILEPATH_MANAGER->AddFilepath("보스", "Resource/Sound/BossBGM1.mp3");
+	FILEPATH_MANAGER->AddFilepath("마을", "Resource/Sound/TownBGM1.mp3");
+	FILEPATH_MANAGER->AddFilepath("공격", "Resource/Sound/공격1.mp3");
+	FILEPATH_MANAGER->AddFilepath("베기", "Resource/Sound/베기1.mp3");
+	FILEPATH_MANAGER->AddFilepath("걸음소리", "Resource/Sound/걸음소리1.mp3");
 	FILEPATH_MANAGER->AddFilepath("보스울음소리", "Resource/Sound/deathWing/deathwing_shouting_good.mp3");
 	FILEPATH_MANAGER->AddFilepath("보스울음소리2", "Resource/Sound/deathWing/event_deathwingattacks_roar_01.ogg");
 	FILEPATH_MANAGER->AddFilepath("보스울음소리3", "Resource/Sound/deathWing/event_deathwingattacks_roar_03.ogg");

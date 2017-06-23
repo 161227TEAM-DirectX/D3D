@@ -1209,13 +1209,13 @@ HRESULT terrain::changeHeightTerrain(float cursorX, float cursorZ)
 		sizeof(TERRAINVERTEX) * _totalVerNum,
 		D3DUSAGE_WRITEONLY,
 		0,
-		D3DPOOL_MANAGED,
+		D3DPOOL_DEFAULT,
 		&_terrainVb,
 		0);
 
 	//만들어진 정점 버퍼를 Lock 하여 지형 정점 값을 쓴다.
 	void* p = NULL;
-	_terrainVb->Lock(0, 0, &p, 0);
+	_terrainVb->Lock(0, 0, &p, D3DLOCK_DISCARD);
 	memcpy(p, _terrainVertices, sizeof(TERRAINVERTEX) * _totalVerNum);
 	_terrainVb->Unlock();
 

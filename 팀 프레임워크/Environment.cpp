@@ -5,7 +5,7 @@ HRESULT Environment::init(void)
 {
 	_environmentEffect =  RM_SHADERFX->loadResource("Resource/Maptool/_Prev/FX/EnvironmentCUBE.fx");
 
-	D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/AIRSKY.dds", &_temp);
+	D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/fire.dds", &_temp);
 	_environmentTexture.push_back(_temp);
 
 	D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/autumnday1.dds", &_temp);
