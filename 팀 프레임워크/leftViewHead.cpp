@@ -45,7 +45,7 @@ HRESULT leftViewHead::init()
 
 	//지형
 	_terrain = new terrain;
-	_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath("높이맵_1"));
+	_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath("높이맵_2"));
 	_terrain->setTile0(FILEPATH_MANAGER->GetFilepath("타일맵_4"));
 	_terrain->setTile1(FILEPATH_MANAGER->GetFilepath("타일맵_10"));
 	_terrain->setTile2(FILEPATH_MANAGER->GetFilepath("타일맵_13"));
@@ -61,7 +61,7 @@ HRESULT leftViewHead::init()
 	tile3 = "타일맵_13";
 	tile4 = "타일맵_23";
 	splat = "스플랫_1";
-	raw = "높이맵_3";
+	raw = "높이맵_1";
 
 	//충돌지역, 카메라
 	_hitPos = D3DXVECTOR3(0, 0, 0);
@@ -214,6 +214,8 @@ void leftViewHead::terrainUpdate()
 
 	if (_ptMousePos.x < leftViewPort.X + leftViewPort.Width && _ptMousePos.x >= 0)
 	{
+
+
 		//높이값 변경하는 상태면...
 		if (m_eHeightType != eHeightType::E_NONE)
 		{
@@ -250,7 +252,7 @@ void leftViewHead::terrainUpdate()
 				_mainCamera.computeRay(&ray, &_screenPos, 1);
 
 				m_eHeightType = eHeightType::E_DOWN;
-				_terrain->_nHeightSign = -3;
+				_terrain->_nHeightSign = -20;
 			}
 		}
 	}
@@ -437,32 +439,87 @@ void leftViewHead::terrainTextureUpate()
 	{
 	case 1:
 		raw = "높이맵_1";
+		{
+			if (_rightView->GetGSboolHeight() == true)
+			{
+				for (int i = 0; i < _terrain->_vecPos.size(); i++)
+				{
+					_terrain->_vecPos[i].y = 0;
+				}
+			}
+		}
 		_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath(raw));
 		break;
 	case 2:
 		raw = "높이맵_2";
+		{
+			if (_rightView->GetGSboolHeight() == true)
+			{
+				for (int i = 0; i < _terrain->_vecPos.size(); i++)
+				{
+					_terrain->_vecPos[i].y = 0;
+				}
+			}
+		}
 		_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath(raw));
 		break;
 	case 3:
 		raw = "높이맵_3";
+		{
+			if (_rightView->GetGSboolHeight() == true)
+			{
+				for (int i = 0; i < _terrain->_vecPos.size(); i++)
+				{
+					_terrain->_vecPos[i].y = 0;
+				}
+			}
+		}
 		_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath(raw));
 		break;
 	case 4:
 		raw = "높이맵_4";
+		{
+			if (_rightView->GetGSboolHeight() == true)
+			{
+				for (int i = 0; i < _terrain->_vecPos.size(); i++)
+				{
+					_terrain->_vecPos[i].y = 0;
+				}
+			}
+		}
 		_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath(raw));
 		break;
 	case 5:
 		raw = "높이맵_5";
+		{
+			if (_rightView->GetGSboolHeight() == true)
+			{
+				for (int i = 0; i < _terrain->_vecPos.size(); i++)
+				{
+					_terrain->_vecPos[i].y = 0;
+				}
+			}
+		}
 		_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath(raw));
 		break;
 	case 6:
 		raw = "높이맵_6";
+		{
+			if (_rightView->GetGSboolHeight() == true)
+			{
+				for (int i = 0; i < _terrain->_vecPos.size(); i++)
+				{
+					_terrain->_vecPos[i].y = 0;
+				}
+			}
+		}
 		_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath(raw));
 		break;
 	}
 
 	if (_rightView->GetGSboolRaw())
 	{
+		_rightView->SetGSboolHeight(false);
 		_rightView->SetGSboolRaw(false);
 		_terrain->setting();
 	}
@@ -593,13 +650,29 @@ void leftViewHead::save()
 
 				InfoObjectTemp.push_back(object);
 			}
-
+		
+			_terrain->setTile0(IOMAPMANAGER->loadMapInfo("지형0").tile0);
+			_terrain->setTile1(IOMAPMANAGER->loadMapInfo("지형0").tile1);
+			_terrain->setTile2(IOMAPMANAGER->loadMapInfo("지형0").tile2);
+			_terrain->setTile3(IOMAPMANAGER->loadMapInfo("지형0").tile3);
+			_terrain->setSlat(IOMAPMANAGER->loadMapInfo("지형0").splat);
 			_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("지형0").vecPos);
 			_terrain->setting();
 			_terrain->changeHeightTerrain();
 
-			loadMonster();
-			loadNode();
+			tagSaveMap _envTemp;
+			tagSaveMap _waterTemp;
+
+			IOSAVEMANAGER->loadFile("세이브맵");
+
+			_envTemp = IOSAVEMANAGER->findTag("환경맵");
+			_waterTemp = IOSAVEMANAGER->findTag("물결맵");
+
+			_rightView->setNumberEnv(_envTemp.number);
+			_rightView->setnumberwater(_waterTemp.number);
+
+			/*loadMonster();
+			loadNode();*/
 		}
 	}
 	else
@@ -783,7 +856,6 @@ void leftViewHead::render()
 	_terrain->getDijkstra().render();
 
 	FONTMANAGER->fontOut(to_string(cocoNumber), 100, 100, D3DCOLOR_XRGB(255, 255, 255));
-
 }
 
 void leftViewHead::monsterSelect(string str ,int monsterNumber)
@@ -805,11 +877,6 @@ void leftViewHead::monsterSelect(string str ,int monsterNumber)
 	temp->setActive(true);
 	temp->SetObjectNumber(monsterNumber);
 	_monster.push_back(temp);
-}
-
-void leftViewHead::loadMonsterAndNode(void)
-{
-
 }
 
 void leftViewHead::loadMonster(void)

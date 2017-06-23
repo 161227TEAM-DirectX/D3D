@@ -87,7 +87,6 @@ public:
 	void setLink(rightView* rightView) { _rightView = rightView; }
 
 	void monsterSelect(string str, int monsterNumber);
-	void loadMonsterAndNode(void);
 	void loadMonster(void);
 	xMesh* findMonster(int&);
 	string findMonsterName(int&);

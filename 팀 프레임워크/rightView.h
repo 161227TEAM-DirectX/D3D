@@ -118,7 +118,8 @@ private:
 	SYNTHESIZE(int, numberTile4, GSnumberTile4);
 	SYNTHESIZE(int, numberRaw, GSnumberRaw);
 	SYNTHESIZE(int, numberSplate, GSnumberSplate);
-	
+	SYNTHESIZE(bool, boolHeight, GSboolHeight);
+
 private:
 	D3DXVECTOR3 lookPos;
 	float RotateAngle;

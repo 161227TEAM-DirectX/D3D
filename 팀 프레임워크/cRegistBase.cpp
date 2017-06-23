@@ -146,7 +146,7 @@ void cRegistBase::TileRegist()
 	FILEPATH_MANAGER->AddFilepath("≈∏¿œ∏ _17", "Resource/Maptool/Textures/Tile/3.png");
 	FILEPATH_MANAGER->AddFilepath("≈∏¿œ∏ _18", "Resource/Maptool/Textures/Tile/18.png");
 	FILEPATH_MANAGER->AddFilepath("≈∏¿œ∏ _19", "Resource/Maptool/Textures/Tile/19.png");
-	FILEPATH_MANAGER->AddFilepath("≈∏¿œ∏ _20", "Resource/Maptool/Textures/Tile/20.png");
+	FILEPATH_MANAGER->AddFilepath("≈∏¿œ∏ _20", "Resource/Maptool/Textures/Tile/2.png");
 	FILEPATH_MANAGER->AddFilepath("≈∏¿œ∏ _21", "Resource/Maptool/Textures/Tile/21.png");
 	FILEPATH_MANAGER->AddFilepath("≈∏¿œ∏ _22", "Resource/Maptool/Textures/Tile/22.png");
 	FILEPATH_MANAGER->AddFilepath("≈∏¿œ∏ _23", "Resource/Maptool/Textures/Tile/14.png");

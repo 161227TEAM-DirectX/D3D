@@ -58,7 +58,7 @@ int ActionStanding::Update()
 	}
 	
 	//만약 플레이어가 없는 상태라면 그냥 계속 진행하자.
-	//if (playerObject == nullptr) return LHS::ACTIONRESULT::ACTION_STAND;
+	if (playerObject == nullptr) return LHS::ACTIONRESULT::ACTION_STAND;
 
 	//몬스터의 범위 박스에 케릭터가 오면 케릭터의 위치로 이동 - enemy설정이 필요함.
 	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))

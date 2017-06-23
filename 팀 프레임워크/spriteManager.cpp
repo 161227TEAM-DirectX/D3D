@@ -106,7 +106,7 @@ void spriteManager::renderRectTexture(LPDIRECT3DTEXTURE9 texture, LPRECT rcSour,
 		&pos,		//그릴 화면 위치좌표
 		color);		//컬러(이미지에 원하는 색을 덧입혀서 화면에 출력된다 // 셀로판지)
 
-					//스프라이트 사용 종료
+	//스프라이트 사용 종료
 	_sprite->End();
 }
 
