@@ -3,6 +3,9 @@
 
 class startScene : public iGameNode
 {
+private:
+	vector<cDxImgButton*> m_vecBtn;
+
 public:
 	startScene();
 	virtual ~startScene();
