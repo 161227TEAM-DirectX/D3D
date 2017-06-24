@@ -1,6 +1,7 @@
 #pragma once
 #include "iGameNode.h"
 #include "xPlayerStatus.h"
+#include "skPlayer_Heal.h"
 #include <list>
 
 //#include "skill00_03.h"
@@ -45,7 +46,7 @@ private:
 	//SK_Boss00* _lightSkill;
 	//dx::transform* _skillTrans;
 
-	
+	skPlayer_Heal* _healSkill;
 
 	bool _isJump;
 	bool _isOnBattle;

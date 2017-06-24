@@ -92,7 +92,7 @@ void gameNode::updateGameNode(void)
 
 	if (KEYMANAGER->isToggleKey(VK_CAPITAL))
 	{
-		_mainCamera->DefaultControl(_timeDelta);
+		//_mainCamera->DefaultControl(_timeDelta);
 	}
 	_mainCamera->updateCamToDevice();
 	_mainCamera->updateFrustum();
@@ -277,7 +277,7 @@ void gameNode::readyShadowMap(vector<baseObject*>* renderObjects, terrain * pTer
 //카메라 업데이트
 void gameNode::updateCamera(void)
 {
-	_mainCamera->DefaultControl(_timeDelta);
+	//_mainCamera->DefaultControl(_timeDelta);
 	_mainCamera->updateCamToDevice();
 }
 

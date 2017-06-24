@@ -39,7 +39,7 @@ void Environment::release(void)
 
 void Environment::update()
 {
-	_mainCamera->DefaultControl(_timeDelta, 1);
+	//_mainCamera->DefaultControl(_timeDelta, 1);
 }
 
 void Environment::render(void)

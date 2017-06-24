@@ -12,6 +12,7 @@ public:
 	bool				_isOrtho;				//직교냐? (직교투영)
 	float				_orthoSize;				//직교시 사이즈
 	frustum				_frustum;				//프러스텀
+	float				_zoom;
 
 protected:
 	D3DXMATRIXA16		_matView;				//뷰행렬
@@ -75,5 +76,17 @@ public:
 
 	//렌더 Texture 얻는다
 	LPDIRECT3DTEXTURE9 getRenderTexture() { return _renderTexture; }
+
+
+
+	void zoomIn();
+
+	void zoomOut();
+
+	void rotateSLerp();
+
+	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
+
 };
 

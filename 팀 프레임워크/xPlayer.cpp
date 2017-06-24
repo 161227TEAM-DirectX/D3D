@@ -7,7 +7,7 @@ HRESULT xPlayer::init()
 {
 	_handTrans = new dx::transform;
 	_edgeTrans = new dx::transform;
-
+	
 	//테스트용 라이트 스킬
 	//_lightSkill = new SK_Boss00;
 	//_skillTrans = new dx::transform;
@@ -290,13 +290,16 @@ HRESULT xPlayer::init()
 
 	BladePosInit();
 
+	_healSkill = new skPlayer_Heal;
+	_healSkill->setSkillPosTrans(this->getPlayerObject()->_transform);
+	_healSkill->init();
 
 	return S_OK;
 }
 
 void xPlayer::update()
 {
-	
+	_healSkill->update();
 	/*for (int i = 0; i < this->_renderObjects.size(); i++)
 	{
 		this->_renderObjects[i]->render();
@@ -323,6 +326,7 @@ void xPlayer::update()
 
 void xPlayer::render()
 {
+	_healSkill->render();
 	//_handTrans->RenderGimozo();
 	//_edgeTrans->RenderGimozo();
 
@@ -976,6 +980,7 @@ void xPlayer::playerAnimationManager()
 		_playerObject->_skinnedAnim->Play("RDSO", 0.2f);
 		break;
 	case P_CASTOMNI:
+		_healSkill->Start();
 		_playerObject->_skinnedAnim->Play("SPCO", 0.2f);
 		break;
 	case P_JUMPUP:
@@ -1081,7 +1086,7 @@ void xPlayer::testControl()
 	{
 		//데미지, 경직시간, 경직확률, 스턴확률, 스턴시간 
 		//playerDamaged(1, 0.5, 100.0, 0.0, 0.0);
-		playerSkillDirect(1.0f);
+		playerSkillOmni(1.0f);
 
 	}
 

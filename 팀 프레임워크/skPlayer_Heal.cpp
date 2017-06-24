@@ -50,8 +50,12 @@ void skPlayer_Heal::release()
 
 bool skPlayer_Heal::Prepare()
 {
+	D3DXVECTOR3 circlePos = _skillPosTrans->GetWorldPosition();
+	
+	circlePos.y += 0.05;
+
 	//_pvPrepaerPS[0][0]->Transform()->SetWorldMatrix(_skillPosTrans->GetFinalMatrix());
-	_pvPrepaerPS[0][0]->Transform()->SetWorldPosition(_skillPosTrans->GetWorldPosition());
+	_pvPrepaerPS[0][0]->Transform()->SetWorldPosition(circlePos);
 	//_pvPrepaerPS[0][0]->Transform()->LookDirection(_skillPosTrans->GetForward());
 	_pvPrepaerPS[0][0]->update();
 
@@ -103,4 +107,3 @@ void skPlayer_Heal::Reset()
 	_limitShootTime = 0.3f;
 	_currentShootTime = 0.0f;
 }
-
