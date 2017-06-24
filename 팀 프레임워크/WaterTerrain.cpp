@@ -129,7 +129,7 @@ HRESULT WaterTerrain::init(float cellSize, int tileNum)
 
 	D3DXCreateTextureFromFile(_device, "Resource/Maptool/Textures/water/1.jpg", &temp);
 	m_pWaterBump.push_back(temp);
-	D3DXCreateTextureFromFile(_device, "Resource/Maptool/Textures/water/5.jpg", &temp);
+	D3DXCreateTextureFromFile(_device, "Resource/Maptool/Textures/water/1.jpg", &temp);
 	m_pWaterBump.push_back(temp);
 	D3DXCreateTextureFromFile(_device, "Resource/Maptool/Textures/water/4.jpg", &temp);
 	m_pWaterBump.push_back(temp);
@@ -192,7 +192,7 @@ void WaterTerrain::update(int number)
 	if (number == 2)
 	{
 		waterOption.AlphaLayer = true;                                    //알파 레이어
-		waterOption.BumpScale = 0.2f;                                      //범프 스케일
+		waterOption.BumpScale = 0.5f;                                      //범프 스케일
 		waterOption.bumpSpeed = D3DXVECTOR2(0.015f, 0.015f);
 		waterOption.deepColor = D3DXVECTOR4(0.3f, 0.4f, 0.4f, 1.0f);     //멀리서바지는 깊은색상인듯
 		waterOption.fresnelBias = 0.328f; //프레 넬 바이어스
@@ -200,7 +200,7 @@ void WaterTerrain::update(int number)
 		waterOption.hdrMultiplier = 0.471f; //hdr 곱셈기
 		waterOption.reflectionAmount = 1.0f; //얕은색상 옆에 흰색상 // 반사 양
 		waterOption.reflectionBlur = 0.0f; //반사 흐림
-		waterOption.reflectionColor = D3DXVECTOR4(0.95f, 1.0f, 1.0f, 0.55f); //반사색상
+		waterOption.reflectionColor = D3DXVECTOR4(0.95f, 1.0f, 1.0f, 0.65f); //반사색상
 		waterOption.shallowColor = D3DXVECTOR4(0, 1, 1, 1.0f);    //얕은색상(바로맨위 색상)
 		waterOption.textureScale = D3DXVECTOR2(1, 2); //텍스쳐를 나누너서 하는것
 		waterOption.waterAmount = 0.3f;                  //바닥을 더욱더 파랗게 만드는거 같다
@@ -274,7 +274,7 @@ void WaterTerrain::update(int number)
 		waterOption.AlphaLayer = true;                                    //알파 레이어
 		waterOption.BumpScale = 2.2f;                                      //범프 스케일
 		waterOption.bumpSpeed = D3DXVECTOR2(0.015f, 0.015f);
-		waterOption.deepColor = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);     //멀리서바지는 깊은색상인듯
+		waterOption.deepColor = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 0.4f);     //멀리서바지는 깊은색상인듯
 		waterOption.fresnelBias = 0.328f; //프레 넬 바이어스
 		waterOption.fresnelPower = 3.0f;   //프레 넬 파워
 		waterOption.hdrMultiplier = 0.471f; //hdr 곱셈기
