@@ -42,10 +42,13 @@ public:
 	void readyPlayerShadowMap(vector<baseObject*>* renderObjects, terrain * pTerrain);
 
 //	void readyShadowMap(vector<baseObject*>* renderObjects, terrain * pTerrain);
-
+	
 	//void readyShadowMap(vector<baseObject*>* renderObjects);
 
 	//void renderShadowMap(vector<baseObject*>* renderObjects, terrain * pTerrain);
+
+	
+	virtual void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 	kimsNewTest() {};
 	~kimsNewTest() {};

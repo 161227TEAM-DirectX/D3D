@@ -1,15 +1,16 @@
 #include "stdafx.h"
 #include "leftViewHead.h"
-//
 #include "terrain.h"
 #include "terrainSc.h"
 #include "Environment.h"
 #include "mapObject.h"
 #include "WaterTerrain.h"
-//
 #include "rightView.h"		//상호참조 클래스
-
 #include "monster.h"
+
+//1.로드를 불러서 오브젝트를 찍으면 처음지형값에 적용된다.하지만 지형을 내리거나 올리면 적용이되버린다.
+//2.두번쨰 버그는 raw3번을 눌렸다 그렇게 하고 지형을 누르면 지형이 0을로 돌아가는 버그
+//3.나중에 수정할것.
 
 leftViewHead::leftViewHead()
 	: m_eHeightType(eHeightType::E_NONE), sour(-1), dest(-1)
@@ -20,7 +21,6 @@ leftViewHead::leftViewHead()
 	_sceneBaseDirectionLight->_color = D3DXCOLOR(1, 1, 1, 1);
 	_sceneBaseDirectionLight->_intensity = 1.0f;
 }
-
 
 leftViewHead::~leftViewHead()
 {
@@ -41,11 +41,11 @@ HRESULT leftViewHead::init()
 	_mapObject->objectinit();
 
 	_waterTerrain = new WaterTerrain;
-	_waterTerrain->init(3.0f, 100);
+	_waterTerrain->init(3.0f, 256);
 
 	//지형
 	_terrain = new terrain;
-	_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath("높이맵_1"));
+	_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath("높이맵_4"));
 	_terrain->setTile0(FILEPATH_MANAGER->GetFilepath("타일맵_4"));
 	_terrain->setTile1(FILEPATH_MANAGER->GetFilepath("타일맵_10"));
 	_terrain->setTile2(FILEPATH_MANAGER->GetFilepath("타일맵_13"));
@@ -70,8 +70,6 @@ HRESULT leftViewHead::init()
 	_LoadButton.FT = false;
 
 	mapRotation = D3DXToRadian(180);
-
-	cocoNumber = 0;
 
 	return S_OK;
 }
@@ -123,7 +121,6 @@ void leftViewHead::PickUdate()
 		{
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
-				cocoNumber++;
 				float scale;
 				baseObject* temp = new baseObject;
 				D3DXMATRIX mapRotate;
@@ -172,7 +169,6 @@ void leftViewHead::PickUdate()
 			{
 				if (PHYSICSMANAGER->isRayHitStaticMeshObject(&ray, m_vecObject[i], &_hitPos, NULL))
 				{
-					cocoNumber--;
 					//오브젝트 삭제
 					m_vecObject.erase(m_vecObject.begin() + i);
 					//오브젝트 세이브 삭제
@@ -645,7 +641,6 @@ void leftViewHead::save()
 			IOSAVEOBJECTMANAGER->loadFile("오브젝트");
 			for (int i = 0; i < IOSAVEOBJECTMANAGER->getCount(); i++)
 			{
-				cocoNumber = IOSAVEOBJECTMANAGER->getCount();
 				object = IOSAVEOBJECTMANAGER->findTag("넘버" + to_string(i + 1));
 				baseObject* temp2 = new baseObject;
 				D3DXMATRIX mapRotate;
@@ -663,6 +658,7 @@ void leftViewHead::save()
 			_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("지형0").vecPos);
 			_terrain->setting();
 			_terrain->changeHeightTerrain();
+
 
 			tagSaveMap _envTemp;
 			tagSaveMap _waterTemp;
@@ -840,14 +836,14 @@ void leftViewHead::render()
 		_monster[i]->render();
 	}
 
-	if (_rightView->getnumberwater() != 0)
-	{
-		_waterTerrain->render(_rightView->getnumberwater());
-	}
-
 	if (_rightView->getNumberEnv() != 0)
 	{
 		_environment->renderEnvironment(_rightView->getNumberEnv());
+	}
+
+	if (_rightView->getnumberwater() != 0)
+	{
+		_waterTerrain->render(_rightView->getnumberwater());
 	}
 
 	const vector<Node*>& temp = _terrain->getDijkstra().getVecNode();
@@ -858,8 +854,6 @@ void leftViewHead::render()
 
 	//다익스트라 노드 그리기
 	_terrain->getDijkstra().render();
-
-	FONTMANAGER->fontOut(to_string(cocoNumber), 100, 100, D3DCOLOR_XRGB(255, 255, 255));
 }
 
 void leftViewHead::monsterSelect(string str ,int monsterNumber)

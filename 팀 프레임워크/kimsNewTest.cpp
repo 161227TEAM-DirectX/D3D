@@ -4,7 +4,15 @@
 
 HRESULT kimsNewTest::init()
 {
-	//SOUNDMANAGER->play("마을1");
+	//SOUNDMANAGER->play("마을1", 1.0f);
+	cDxImgUI* temp;
+	temp = new cDxImgUI("퀵슬롯");
+	temp->GetUI()->SetPosition(D3DXVECTOR3(WINSIZEX / 2, WINSIZEY / 2, 0));
+	temp->GetUI()->SetDrawBoundingBox(true);
+	temp->GetUI()->SetCenterDraw(true);
+	UI_MANAGER->AddUI("퀵슬롯", temp);
+
+	SOUNDMANAGER->play("마을1");
 	_mainCamera = new camera;
 
 	_directionLightCamera = new camera;
@@ -103,7 +111,20 @@ void kimsNewTest::release()
 
 void kimsNewTest::update()
 {
-	_mainCamera->updateBase();
+	UI_MANAGER->update();
+
+	if (KEYMANAGER->isToggleKey(VK_CAPITAL))
+	{
+		//플레이어 3인칭 시점 카메라
+		//_mainCamera->LookPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+		
+	}
+	else
+	{
+		//자유시점 카메라
+		_mainCamera->updateBase();
+	}
+
 	_sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
 
 
@@ -193,6 +214,8 @@ void kimsNewTest::render()
 
 	_directionLightCamera->_frustum.renderGizmo();
 	_mainCamera->_frustum.renderGizmo();
+
+	UI_MANAGER->render();
 }
 
 
@@ -259,3 +282,9 @@ void kimsNewTest::readyShadowMap(vector<baseObject*>* renderObjects, terrain * p
 	//쉐도우 행렬
 	xMeshSkinned::_sSkinnedMeshEffect->SetMatrix("matLightViewProjection", &_directionLightCamera->getViewProjectionMatrix());
 }
+
+void kimsNewTest::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	_mainCamera->WndProc(hWnd, message, wParam, lParam);
+}
+

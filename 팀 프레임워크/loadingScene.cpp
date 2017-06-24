@@ -64,6 +64,7 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 
 	//g_eSelectMode = E_MAPTOOL;
 	SCENEMANAGER->changeScene("gameSceneOne");
+
 	m_isChange = true;
 
 	return S_OK;

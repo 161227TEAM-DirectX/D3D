@@ -12,6 +12,8 @@ camera::camera() : _isOrtho(FALSE), _renderTexture(NULL), _renderSurface(NULL), 
 	_aspect = static_cast<float>(WINSIZEX) / static_cast<float>(WINSIZEY);
 	//직교시 사이즈
 	_orthoSize = 10.0f;
+
+	_zoom = 1.0f;
 }
 
 camera::~camera()
@@ -336,4 +338,33 @@ void camera::renderTextureEnd()
 	//세팅된 Surface 정보는 바로 날려주는 센스
 	SAFE_RELEASE(_deviceTargetSurface);
 	SAFE_RELEASE(_deviceDepthAndStencilSurface);
+}
+
+
+void camera::zoomIn()
+{
+	this->MovePositionWorld( this->GetForward() * 0.2f);
+}
+
+void camera::zoomOut()
+{
+	this->MovePositionWorld( this->GetForward() * -0.2f);
+}
+
+void camera::rotateSLerp()
+{
+}
+
+void camera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	WORD Wheel = HIWORD(lParam);
+	switch (message)
+	{
+	case WM_MOUSEWHEEL:
+		((short)HIWORD(wParam)<0) ? zoomOut() : zoomIn();
+
+		break;
+	default:
+		break;
+	}
 }

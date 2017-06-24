@@ -1412,6 +1412,7 @@ namespace dx {
 			float deltaY = mousePos.y - screenCenterY;
 
 			//앵글 추가
+
 			nowAngleH += deltaX * sensitivityH;
 			nowAngleV += deltaY * sensitivityV;
 
@@ -1419,6 +1420,12 @@ namespace dx {
 			nowAngleV = Clamp(nowAngleV, minAngleV, maxAngleV);
 			//다시 마우스 위치를 센터로...
 			SetMousePos(screenCenterX, screenCenterY);
+
+			//if (nowAngleV < 0)
+			//{
+			//	nowAngleV = D3DXToRadian(180) - nowAngleV * D3DXToRadian(1);
+			//}
+
 			this->SetRotateWorld(nowAngleV * D3DXToRadian(1), nowAngleH * D3DXToRadian(1), 0.0f);
 		}
 	}

@@ -64,7 +64,6 @@ private:
 
 	int sour;
 	int dest;
-	int cocoNumber;
 //LOADºÎºÐ
 private:
 	tagSaveObject object;

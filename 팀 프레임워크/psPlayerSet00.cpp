@@ -352,6 +352,9 @@ void psPlayerSet00::HealSet00(string psName)
 
 	_planeEMT->InitRandomLifeTime(1.0f, 1.0f);
 
+
+	_planeEMT->SetActiveLimitTime(1.0f);
+
 	_PS->addEmitter(_planeEMT);
 
 	_boardEMT = NULL;
@@ -405,6 +408,7 @@ void psPlayerSet00::HealSet00(string psName)
 	_boardEMT->InitRandomSize(2.5f, 2.5f);
 	_boardEMT->addSizeGraph(0.5f, 3.0f, 3.0f);
 	_boardEMT->addSizeGraph(1.0f, 2.5f, 2.5f);
+	
 
 	_boardEMT->InitRandomPositionY(3.0f,3.0f);
 	//_planeEMT->InitRandomSizeEnd(3.0f, 3.0f);
@@ -421,7 +425,7 @@ void psPlayerSet00::HealSet00(string psName)
 
 
 
-	PSM->addPS(psName, _PS);
+	PSM->addPS(psName, _PS, false);
 }
 
 void psPlayerSet00::HealSet01(string psName)

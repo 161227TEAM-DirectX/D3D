@@ -14,11 +14,10 @@ mainGame::mainGame()
 	REGIST_SGT->Init();
 
 	SCENEMANAGER->addScene("loading", new loadingScene, true);
-
 	SCENEMANAGER->addScene("start", new startScene, false);
 	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
 	SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
-	SCENEMANAGER->addScene("test", new cGameUITest, false);
+	SCENEMANAGER->addScene("test1", new cGameUITest, false);
 	SCENEMANAGER->addScene("gameSceneOne", new stageOne, false);
 	SCENEMANAGER->addScene("gameSceneTwo", new stageTwo, false);
 	SCENEMANAGER->addScene("gameSceneThree", new stageThree, false);
@@ -72,7 +71,7 @@ HRESULT mainGame::init(void)
 	//===================================================================================
 	//±èÅÂÈÆ ¾À Å×½ºÆ® Çì´õÆÄÀÏ
 	//===================================================================================
-		//SCENEMANAGER->addScene("test", new kimsNewTest, false);
+		SCENEMANAGER->addScene("test", new kimsNewTest, false);
 		//SCENEMANAGER->addScene("test", new cubeLight, false);
 
 

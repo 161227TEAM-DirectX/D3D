@@ -10,23 +10,26 @@ void ioSaveManager::loadFile(string filePath)
 
 	sprintf_s(ioString, "%s.txt", filePath.c_str());
 
-	ifstream inFile(ioString);
+	char str[128] = "Resource/맵정보/";
+	strcat_s(str, ioString);
+
+	ifstream inFile(str);
 
 	assert(!inFile.fail() && "경로에 리소스가 있는지 확인하십시오.");
 
-	inFile.getline(ioString, 128);
-	inFile.getline(ioString, 128);
+	inFile.getline(str, 128);
+	inFile.getline(str, 128);
 
 	while(!inFile.eof())
 	{
-		inFile.getline(ioString, 128, '/');	//한글이름(테이블 키)
-		object.infoName = ioString;
+		inFile.getline(str, 128, '/');	//한글이름(테이블 키)
+		object.infoName = str;
 
-		inFile.getline(ioString, 128, '/');	//넘버값
-		object.number = atoi(ioString);
+		inFile.getline(str, 128, '/');	//넘버값
+		object.number = atoi(str);
 
-		inFile.getline(ioString, 128, '/');	//넘버값
-		object.mapHeight = atof(ioString);
+		inFile.getline(str, 128, '/');	//넘버값
+		object.mapHeight = atof(str);
 
 		_resourceTable.insert(make_pair(object.infoName, object));
 	}
@@ -39,7 +42,10 @@ void ioSaveManager::saveFile(string filePath, vector<tagSaveMap>& vecT)
 
 	sprintf_s(ioString, "%s.txt", filePath.c_str());
 
-	ofstream outFile(ioString);
+	char str[128] = "Resource/맵정보/";
+	strcat_s(str, ioString);
+
+	ofstream outFile(str);
 	outFile << "한글이름" << '/' << "넘버값" << '/' << "높이값" << endl << endl;
 
 	for(int i = 0; i < vecT.size(); i++)
