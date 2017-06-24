@@ -99,14 +99,11 @@ void dxParticleSystem::update()
 		{
 			_vEmitter[i]->preUpdate();
 		}*/
-		
-		
 
-		//트랜스폼 세팅 관련
-		if (_RealTimeTrackingOn == FALSE)
+		if (_vEmitter[_EmitterCountNum]->getRealtimeTrackingPosOn() == FALSE && _AllRealTimeTrackingOn == FALSE)
 		{
 			//실시간 추적이 아니면
-			_vEmitter[_EmitterCountNum]->setParticleSystemTrans(_trans); 
+			_vEmitter[_EmitterCountNum]->setParticleSystemTrans(_trans);
 		}
 		else
 		{
@@ -133,20 +130,24 @@ void dxParticleSystem::render()
 	//파티클 시스템 활성화 여부 판단
 	if (_isActive == FALSE) return;
 
-	//트렌스폼 업데이트
-	if(_RealTimeTrackingOn) _trans->SetDeviceWorld();
 
-	//이미터 업데이트
-
+	//이미터 작동
 	if (_vEmitter.empty() == FALSE)
 	{
 		for (int i = 0; i < _vEmitter.size(); i++)
 		{
+			//트렌스폼 업데이트->트루일 때
+			if (_vEmitter[i]->getRealtimeTrackingPosOn() || _AllRealTimeTrackingOn)
+			{
+				_trans->SetDeviceWorld();
+			}
+
+
+
+			//이미터 렌더
 			_vEmitter[i]->render();
 		}
-		//this->autoRenderThread();
-		//_testThread = thread(&_vEmitter[0]->render);
-		//_testThread.join();
+
 	}
 }
 

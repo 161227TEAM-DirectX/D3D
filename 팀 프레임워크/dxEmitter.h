@@ -40,7 +40,7 @@ protected:
 	//이미터 개수(시간 맞춤용)
 	int _emitterNum;
 
-	//bool _realtimeTrackingPosOn;
+	bool _realtimeTrackingPosOn;
 
 protected:
 	//전체 회전용
@@ -247,7 +247,10 @@ public:	//======================================================================
 
 	//void InitRandomSpawnTime(float min, float max) { init(_textureFileName, _onePtcNum, RandomFloatRange(min, max)); }
 	//void InitRandomDirectionVelocity(float min, float max) { _module->InitRandomDirectionVelocity(min, max); }
-
+public:
+	//실시간 추적여부
+	void setRealtimeTrackingPosOn() { _realtimeTrackingPosOn = true; }
+	bool getRealtimeTrackingPosOn() { return _realtimeTrackingPosOn; }
 
 public:
 	//특수함수
@@ -261,7 +264,7 @@ public:
 	{
 		_activeRenderOn = true;
 		_activeRenderControlOn = true;
-		//_realtimeTrackingPosOn = false;
+		
 
 		_ptcList.clear();
 		_ptcList.resize(_totalPtcNum);
@@ -346,6 +349,7 @@ public:
 		_preUpdateOn = true;
 		_preOneSettingOn = true;
 
+		_realtimeTrackingPosOn = false;
 	}
 	dxEmitter() {};
 	~dxEmitter() {};

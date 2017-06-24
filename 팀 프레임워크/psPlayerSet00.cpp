@@ -425,7 +425,7 @@ void psPlayerSet00::HealSet00(string psName)
 
 
 
-	PSM->addPS(psName, _PS, false);
+	PSM->addPS(psName, _PS);
 }
 
 void psPlayerSet00::HealSet01(string psName)

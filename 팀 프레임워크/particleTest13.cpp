@@ -38,12 +38,15 @@ void particleTest13::update()
 	
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 	{
+		SKM->findSK("브레스")->setSkillPosTrans(_player);
+		SKM->findSK("브레스")->setSkillDirTrans(_player);
+		SKM->findSK("브레스")->Start();
 		//testSkill00->SetManyTargetTrans(_target,0);
-		testSkill00->setOneTargetTrans(_target);
-		testSkill00->Start();
+		//testSkill00->setOneTargetTrans(_target);
+		//testSkill00->Start();
 	}
 
-	testSkill00->update();
+	//testSkill00->update();
 
 }
 
@@ -52,7 +55,7 @@ void particleTest13::render()
 	//_player->RenderGimozo();
 	//_target->RenderGimozo();
 
-	testSkill00->render();
+	//testSkill00->render();
 
 	/*for (int i = 0; i < 5; i++)
 	{

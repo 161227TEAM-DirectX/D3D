@@ -26,7 +26,6 @@ void psBossSet00::BreathSet00(string psName)
 	_boardEMT = new dxBoardEmitter;
 	_boardEMT->init("PaticleResources/Texture/fire02_frame5x4.png", 15, 0.1f, 800);
 	//_pointEMT->InitConstSize(2.4f);
-
 	_boardEMT->InitRandomSize(1.0f, 1.5f);
 	_boardEMT->InitRandomSizeEnd(2.3f, 2.8f);
 	//_pointEMT->addSizeGraph(0.5f, 2.8f, 2.8f);

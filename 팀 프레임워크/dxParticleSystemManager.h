@@ -25,12 +25,12 @@ private:
 
 public:
 	//파티클 등록
-	void addPS(string psName, dxParticleSystem* inPS, bool realTimeTrackingOn = true)
+	void addPS(string psName, dxParticleSystem* inPS, bool allRealTimeTrackingOn = false)
 	{
 		//있는지 확인
 		if (checkName(psName)) return;
 		//_mapPS.insert(pair<string, dxParticleSystem*>(psName,inPS));
-		inPS->setRealTimeTrackingOn(realTimeTrackingOn);
+		inPS->setAllRealTimeTrackingOn(allRealTimeTrackingOn);
 		_mapPS.insert(pair<string, dxParticleSystem*>(psName, inPS));
 		
 

@@ -13,10 +13,10 @@ mainGame::mainGame()
 {
 	REGIST_SGT->Init();
 
-	SCENEMANAGER->addScene("loading", new loadingScene, true);
+	SCENEMANAGER->addScene("loading", new loadingScene, false);
 	SCENEMANAGER->addScene("start", new startScene, false);
 	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
-	SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
+	SCENEMANAGER->addScene("particleTest13", new particleTest13, true);
 	SCENEMANAGER->addScene("test1", new cGameUITest, false);
 	SCENEMANAGER->addScene("gameSceneOne", new stageOne, false);
 	SCENEMANAGER->addScene("gameSceneTwo", new stageTwo, false);
@@ -101,6 +101,7 @@ void mainGame::update(void)
 {
 	//씬매니져 업데이트
 	SCENEMANAGER->update();
+	SKM->update();//이거 회의가 필요하겠군(UI겹침 문제)
 	SOUNDMANAGER->update();
 }
 
@@ -128,7 +129,9 @@ void mainGame::render(void)
 			//디바이스 렌더링 시작
 			_device->BeginScene();
 
-			SCENEMANAGER->render();
+			SCENEMANAGER->render();//이거 회의가 필요하겠군(UI겹침 문제)
+			
+			SKM->render();
 
 			//디버그 모드에서만 실행
 #ifdef _DEBUG 

@@ -11,6 +11,9 @@ private:
 public:
 	//이미지 등록 초기화
 	void LoadImgInit(void);
+	//이미지 등록 해제
+	void ImgRelease(void);
+
 public:
 	//경로인지 이름인지 판단
 	LPDIRECT3DTEXTURE9* LoadImgPathAndName(string inDecName, bool grayScaleAlphaOn = FALSE)

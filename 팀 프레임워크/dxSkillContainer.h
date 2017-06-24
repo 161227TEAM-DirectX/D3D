@@ -1,8 +1,5 @@
 #pragma once
 #include "dxParticleSystem.h"
-#include "transform.h"
-
-
 
 class dxSkillContainer
 {
@@ -140,6 +137,9 @@ public:
 	void setPvPreparePS(int skillNum,string psName, int arrayNum) { PSM->initArrayPS(_pvPrepaerPS[skillNum], arrayNum, psName); }
 	void setPvActionPS(int skillNum, string psName, int arrayNum) { PSM->initArrayPS(_pvActionPS[skillNum], arrayNum, psName); }
 	void setPvFinishPS(int skillNum, string psName, int arrayNum) { PSM->initArrayPS(_pvFinishPS[skillNum], arrayNum, psName); }
+
+public:
+	bool getActive() { return _skillStartOn; }
 
 protected:
 	bool AutoResetTime(float inTime);

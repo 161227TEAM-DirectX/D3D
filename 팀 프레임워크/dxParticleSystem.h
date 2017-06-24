@@ -26,7 +26,7 @@ private:
 	//카운터용
 	int _EmitterCountNum;
 
-	bool _RealTimeTrackingOn;
+	bool _AllRealTimeTrackingOn;
 
 	//쓰레드
 	//thread* _randerThread;
@@ -60,7 +60,7 @@ public:
 	//자동 시간 리셋
 	bool autoTimeReset(bool ResetFunOn = true);
 
-	void setRealTimeTrackingOn(bool realTimeTrackingOn) { _RealTimeTrackingOn = realTimeTrackingOn; };
+	void setAllRealTimeTrackingOn(bool realTimeTrackingOn) { _AllRealTimeTrackingOn = realTimeTrackingOn; };
 
 	//렌더 쓰레드 -> 생각해보니 이렇게 쓰면 쓰레드 의미가 없다......고로 안씀
 	//void autoRenderThread(void)
@@ -104,7 +104,7 @@ public:
 		_currentTime = 0.0f;
 		_EmitterCountNum = 0;
 
-		_RealTimeTrackingOn = true;
+		_AllRealTimeTrackingOn = false;
 
 		//렌더 쓰레드
 		//_randerThreadOneSettingOn = false;
