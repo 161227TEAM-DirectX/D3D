@@ -69,11 +69,12 @@ void startScene::update()
 			}
 			if (m_vecBtn[i]->GetBtnName() == "시작버튼")
 			{
-
+				SCENEMANAGER->changeScene("gameSceneOne");
 			}
 			if (m_vecBtn[i]->GetBtnName() == "맵툴버튼")
 			{
-
+				g_eSelectMode = E_MAPTOOL;
+				SCENEMANAGER->changeScene("maptool");
 			}
 		}
 	}
