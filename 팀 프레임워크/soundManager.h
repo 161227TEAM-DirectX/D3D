@@ -10,9 +10,9 @@ using namespace FMOD;
 //=============================================================
 
 //채널, 사운드버퍼
-#define EXTRACHANELBUFFER 5
+#define EXTRACHANELBUFFER 30
 //사운드 갯수만큼 설정해주기
-#define SOUNDBUFFER 20
+#define SOUNDBUFFER 50
 //총 사운드 버퍼설정
 #define TOTALSOUNDBUFFER EXTRACHANELBUFFER + SOUNDBUFFER
 

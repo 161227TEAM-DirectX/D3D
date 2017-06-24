@@ -2,6 +2,8 @@
 #include "iGameNode.h"
 //class terrain;
 class bossMonster;
+class Environment;
+class WaterTerrain;
 
 class stageThree : public iGameNode
 {
@@ -14,6 +16,9 @@ private:
 
 	terrain*			_terrain;			//지형클래스
 	terrain*			_terrainShadow;		//지형 그림자
+
+	Environment*		env;
+	WaterTerrain*		water;
 private:
 	vector<baseObject*> _renderObject;
 	vector<baseObject*>	_cullObject;
@@ -21,6 +26,8 @@ private:
 private:
 	float _shadowDistance;
 	bool start;
+	tagSaveMap envTemp;
+	tagSaveMap waterTemp;
 
 public:
 	stageThree();

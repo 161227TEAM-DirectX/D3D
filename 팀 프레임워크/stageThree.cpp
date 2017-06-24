@@ -4,6 +4,8 @@
 #include "xPlayer.h"
 #include "terrain.h"
 #include "mapObject.h"
+#include "Environment.h"
+#include "WaterTerrain.h"
 
 stageThree::stageThree()
 	:_shadowDistance(0.0f)
@@ -13,6 +15,8 @@ stageThree::stageThree()
 	_mainCamera = new camera;
 	_directionLightCamera = new camera;
 	sceneBaseDirectionLight = new lightDirection;
+	env = new Environment;
+	water = new WaterTerrain;
 }
 
 
@@ -25,6 +29,10 @@ stageThree::~stageThree()
 	SAFE_DELETE(_mainCamera);
 	SAFE_DELETE(_directionLightCamera);
 	SAFE_DELETE(sceneBaseDirectionLight);
+	SAFE_DELETE(_terrain);
+	SAFE_DELETE(_terrainShadow);
+	SAFE_DELETE(env);
+	SAFE_DELETE(water);
 }
 
 HRESULT stageThree::init()
@@ -50,10 +58,19 @@ HRESULT stageThree::init()
 	_terrainShadow->setTile1(IOMAPMANAGER->loadMapInfo("보스지형").tile1);
 	_terrainShadow->setTile2(IOMAPMANAGER->loadMapInfo("보스지형").tile2);
 	_terrainShadow->setTile3(IOMAPMANAGER->loadMapInfo("보스지형").tile3);
-	_terrain->setSlat(IOMAPMANAGER->loadMapInfo("보스지형").splat);
+	_terrainShadow->setSlat(IOMAPMANAGER->loadMapInfo("보스지형").splat);
 	_terrainShadow->setMapPosition(IOMAPMANAGER->loadMapInfo("보스지형").vecPos);
 	_terrainShadow->setting();
 	_terrainShadow->changeHeightTerrain();
+
+	env->init();
+	env->linkCamera(*_mainCamera);
+	water->init(3.0f, 256);
+
+	//환경맵 / 물결맵 불러오기
+	IOSAVEMANAGER->loadFile("보스세이브맵");
+	envTemp = IOSAVEMANAGER->findTag("환경맵");
+	waterTemp = IOSAVEMANAGER->findTag("물결맵");
 
 	float tempY = _terrain->getHeight(5.0f, 5.0f); 
 
@@ -100,6 +117,8 @@ void stageThree::update()
 
 	//오브젝트 업데이트
 	for (int i = 0; i < _renderObject.size(); i++) _renderObject[i]->update();
+
+	water->update(waterTemp.number);
 }
 
 void stageThree::render()
@@ -118,6 +137,9 @@ void stageThree::render()
 	}
 
 	_terrain->render(_mainCamera, sceneBaseDirectionLight, _directionLightCamera);
+
+	env->renderEnvironment(envTemp.number);
+	water->render(waterTemp.number);
 
 	//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅
 	xMeshStatic::setCamera(_mainCamera);
@@ -142,14 +164,6 @@ void stageThree::render()
 			player->itemUpdate();
 		}
 	}
-
-	const vector<Node*>& temp = _terrain->getDijkstra().getVecNode();
-	for (size_t i = 0; i < temp.size(); i++)
-	{
-		temp[i]->Render();
-	}
-
-	_terrain->getDijkstra().render();
 }
 
 void stageThree::shadowInit(void)

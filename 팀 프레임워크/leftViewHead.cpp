@@ -45,7 +45,7 @@ HRESULT leftViewHead::init()
 
 	//지형
 	_terrain = new terrain;
-	_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath("높이맵_2"));
+	_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath("높이맵_1"));
 	_terrain->setTile0(FILEPATH_MANAGER->GetFilepath("타일맵_4"));
 	_terrain->setTile1(FILEPATH_MANAGER->GetFilepath("타일맵_10"));
 	_terrain->setTile2(FILEPATH_MANAGER->GetFilepath("타일맵_13"));
@@ -675,7 +675,7 @@ void leftViewHead::save()
 			_rightView->setNumberEnv(_envTemp.number);
 			_rightView->setnumberwater(_waterTemp.number);
 
-			/*loadMonster();*/
+			loadMonster();
 			loadNode();
 		}
 	}
@@ -728,25 +728,25 @@ void leftViewHead::save()
 			IOMAPMANAGER->saveFile("지형0", temp0);
 
 			//몬스터 위치 ,값 저장/////////////////////////////////
-			//vector<tagSaveMonster> monsterTemp;
-			//tagSaveMonster Mtemp;
+			vector<tagSaveMonster> monsterTemp;
+			tagSaveMonster Mtemp;
 
-			//if (_monster.size() != 0)
-			//{
-			//	for (int i = 0; i < _monster.size(); i++)
-			//	{
-			//		Mtemp.infoName = "몬스터넘버" + to_string(i + 1);
-			//		Mtemp.monsterNumber = _monster[i]->getObjectNumber();
-			//		Mtemp.monsterX = _monster[i]->_transform->GetWorldPosition().x;
-			//		Mtemp.monsterY = _monster[i]->_transform->GetWorldPosition().y;
-			//		Mtemp.monsterZ = _monster[i]->_transform->GetWorldPosition().z;
-			//		Mtemp.scale = 1.0f;
+			if (_monster.size() != 0)
+			{
+				for (int i = 0; i < _monster.size(); i++)
+				{
+					Mtemp.infoName = "몬스터넘버" + to_string(i + 1);
+					Mtemp.monsterNumber = _monster[i]->getObjectNumber();
+					Mtemp.monsterX = _monster[i]->_transform->GetWorldPosition().x;
+					Mtemp.monsterY = _monster[i]->_transform->GetWorldPosition().y;
+					Mtemp.monsterZ = _monster[i]->_transform->GetWorldPosition().z;
+					Mtemp.scale = 1.0f;
 
-			//		monsterTemp.push_back(Mtemp);
-			//	}
+					monsterTemp.push_back(Mtemp);
+				}
 
-			//	IOSAVEMONSTERMANAGER->saveFile("몬스터", monsterTemp);
-			//}
+				IOSAVEMONSTERMANAGER->saveFile("몬스터", monsterTemp);
+			}
 
 			////노드지정 ,위치,값 저장////////////////////////////
 			vector<tagSaveNode> nodeTemp;
