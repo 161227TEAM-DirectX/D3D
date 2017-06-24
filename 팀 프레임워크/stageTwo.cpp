@@ -104,6 +104,8 @@ HRESULT stageTwo::init()
 		_renderObject.push_back(player->getRenderObject()[i]);
 	}
 
+	ACMANAGER->Init(*_terrain, *player);
+
 	loadMonster();
 	loadNode();
 
@@ -298,43 +300,30 @@ xMesh * stageTwo::findMonster(int & index)
 		return XMESH_MANAGER->GetXmeshSkinned("°ñ·½");
 	case 2:
 		return XMESH_MANAGER->GetXmeshSkinned("°³");
-		break;
 	case 3:
 		return XMESH_MANAGER->GetXmeshSkinned("¸äµÅÁö");
-		break;
 	case 4:
 		return XMESH_MANAGER->GetXmeshSkinned("³ª¹«Áü½Â");
-		break;
 	case 5:
 		return XMESH_MANAGER->GetXmeshSkinned("ºê·çÅ»·ç½º");
-		break;
 	case 6:
 		return XMESH_MANAGER->GetXmeshSkinned("È÷µå¶ó");
-		break;
 	case 7:
 		return XMESH_MANAGER->GetXmeshSkinned("»õ");
-		break;
 	case 8:
 		return XMESH_MANAGER->GetXmeshSkinned("¾Ç¾î");
-		break;
 	case 9:
 		return XMESH_MANAGER->GetXmeshSkinned("°õ");
-		break;
 	case 10:
 		return XMESH_MANAGER->GetXmeshSkinned("µÒ°¡µå");
-		break;
 	case 11:
 		return XMESH_MANAGER->GetXmeshSkinned("ÇÏÇÇ");
-		break;
 	case 12:
 		return XMESH_MANAGER->GetXmeshSkinned("·¦ÅÍ");
-		break;
 	case 13:
 		return XMESH_MANAGER->GetXmeshSkinned("Àü°¥");
-		break;
 	case 14:
 		return XMESH_MANAGER->GetXmeshSkinned("µµ¸¶¹ì");
-		break;
 	}
 }
 
