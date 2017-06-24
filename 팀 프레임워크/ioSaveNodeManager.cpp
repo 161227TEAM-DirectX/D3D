@@ -11,42 +11,45 @@ void ioSaveNodeManager::loadFile(string filePath)
 
 	sprintf_s(ioString, "%s.map", filePath.c_str());
 
-	ifstream inFile(ioString);
+	char str[128] = "Resource/몬스터정보/";
+	strcat_s(str, ioString);
+
+	ifstream inFile(str);
 
 	assert(!inFile.fail() && "경로에 리소스가 있는지 확인하십시오.");
 
-	inFile.getline(ioString, 128);
-	inFile.getline(ioString, 128);
+	inFile.getline(str, 128);
+	inFile.getline(str, 128);
 
 	count = 0;
 	while (!inFile.eof())
 	{
 		count++;
 		memset(&node, 0, sizeof(node));
-		inFile.getline(ioString, 128, '/');	//한글이름(테이블 키)
-		node.infoName = ioString;
+		inFile.getline(str, 128, '/');	//한글이름(테이블 키)
+		node.infoName = str;
 
-		inFile.getline(ioString, 128, '/');	
-		node.Inumber = atof(ioString);
+		inFile.getline(str, 128, '/');
+		node.Inumber = atof(str);
 
-		inFile.getline(ioString, 128, '/');	
-		node.nodeX = atof(ioString);
+		inFile.getline(str, 128, '/');
+		node.nodeX = atof(str);
 
-		inFile.getline(ioString, 128, '/');	
-		node.nodeY = atof(ioString);
+		inFile.getline(str, 128, '/');
+		node.nodeY = atof(str);
 
-		inFile.getline(ioString, 128, '/');	
-		node.nodeZ = atof(ioString);
+		inFile.getline(str, 128, '/');
+		node.nodeZ = atof(str);
 
-		inFile.getline(ioString, 128, '/');
-		node.nodeFSSize = atoi(ioString);
+		inFile.getline(str, 128, '/');
+		node.nodeFSSize = atoi(str);
 		node.nodeFS.resize(node.nodeFSSize);
 		for (int i = 0; i < node.nodeFS.size(); i++)
 		{
-			inFile.getline(ioString, 128, '/');
-			node.nodeFS[i].first = atoi(ioString);
-			inFile.getline(ioString, 128, '/');
-			node.nodeFS[i].second = atof(ioString);
+			inFile.getline(str, 128, '/');
+			node.nodeFS[i].first = atoi(str);
+			inFile.getline(str, 128, '/');
+			node.nodeFS[i].second = atof(str);
 		}
 
 		_resourceTable.insert(make_pair(node.infoName, node));
@@ -60,7 +63,10 @@ void ioSaveNodeManager::saveFile(string filePath, vector<tagSaveNode>& vecT)
 
 	sprintf_s(ioString, "%s.map", filePath.c_str());
 
-	ofstream outFile(ioString);
+	char str[128] = "Resource/몬스터정보/";
+	strcat_s(str, ioString);
+
+	ofstream outFile(str);
 	outFile << "노드" << endl << endl;
 
 	for (int i = 0; i < vecT.size(); i++)
