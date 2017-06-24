@@ -64,6 +64,7 @@ int ActionStanding::Update()
 	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 	{
 		if (deleGate) deleGate->OnActionFinish(this, true);
+		owner->getSkinnedAnim().Stop();
 		return LHS::ACTIONRESULT::ACTION_MOVE;
 	}
 

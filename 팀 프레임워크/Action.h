@@ -25,6 +25,7 @@ protected:
 
 	float _oldTimeDelta;
 	const float Gap;
+	const float LENGTHGAP;
 public:
 	Action();
 	virtual ~Action();

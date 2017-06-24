@@ -46,10 +46,10 @@ void loadingScene::render()
 	DXIMG_MANAGER->GetDxImg("로딩화면")->render();
 	m_pLoadingBar->render();
 
-	if (m_isChange && m_pLoadingBar->IsFullBar())
-	{
-		SCENEMANAGER->changeScene("start");
-	}
+//	if (m_isChange && m_pLoadingBar->IsFullBar())
+//	{
+//		SCENEMANAGER->changeScene("start");
+//	}
 
 	LeaveCriticalSection(&_cs);
 }
@@ -63,7 +63,7 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 	AniLoading();
 
 	//g_eSelectMode = E_MAPTOOL;
-	//SCENEMANAGER->changeScene("gameSceneOne");
+	SCENEMANAGER->changeScene("gameSceneTwo");
 
 	m_isChange = true;
 
