@@ -78,7 +78,7 @@ void dxPositionModule::InitUpdate(vector<tagDxAttribute>::iterator iter)
 
 	}
 
-	//익스플
+	//익스플로
 	if (_grpPosExprosionVelOn) { this->SetGraph(_grpPosExprosionVel); }
 
 	//끌림 초기화
@@ -91,7 +91,7 @@ void dxPositionModule::InitUpdate(vector<tagDxAttribute>::iterator iter)
 		//iter->attractStrartPos = iter->psTransPos+iter->position; 
 		iter->attractStrartPos = iter->position;
 
-		iter->attractPos = (iter->attractCenter - iter->attractStrartPos);// /iter->lifeTime;
+		iter->attractPos = (iter->attractCenter - iter->attractStrartPos) /iter->lifeTime;
 		//iter->attractPos = VecLerp(iter->attractCenter, iter->attractStrartPos, _timeDelta*iter->emitterNum);
 	}
 

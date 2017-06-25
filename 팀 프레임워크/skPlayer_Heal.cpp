@@ -14,10 +14,6 @@ HRESULT skPlayer_Heal::init()
 	setPvPreparePS(0, "Èú_¸¶¹ýÁø", 1);
 	//setPvPreparePS(1, "Å¸°ÙÆÃ", 1);
 
-	setPvActionPS(0, "±¸Ã¼", 6);
-
-	setPvFinishPS(0, "Æø¹ß", 6);
-
 	_pvPrepaerPS[0][0]->SetLimitTime(2.0f);
 
 	for (int i = 0; i < _pvFinishPS[0].size(); i++)
@@ -52,7 +48,7 @@ bool skPlayer_Heal::Prepare()
 {
 	D3DXVECTOR3 circlePos = _skillPosTrans->GetWorldPosition();
 	
-	circlePos.y += 0.05;
+	circlePos.y += 0.01;
 
 	//_pvPrepaerPS[0][0]->Transform()->SetWorldMatrix(_skillPosTrans->GetFinalMatrix());
 	_pvPrepaerPS[0][0]->Transform()->SetWorldPosition(circlePos);
@@ -67,7 +63,8 @@ bool skPlayer_Heal::Prepare()
 	if (_pvPrepaerPS[0][0]->autoTimeReset(false))
 	{
 		//_skillPrepareOn = false;
-		_skillActionOn = true;
+		//_skillActionOn = true;
+		_skillResetOn = true;
 	}
 
 	

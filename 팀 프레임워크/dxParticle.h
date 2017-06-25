@@ -319,6 +319,7 @@ struct tagDxAttributeMaxMin
 
 	bool attractOn;
 
+	//구형 위치 설정시 기본 방향
 	D3DXVECTOR3 dirSphere;
 
 	//위치에서 회전
@@ -386,6 +387,8 @@ struct tagDxAttributeMaxMin
 		posRotateOn = false;
 
 		dirSphere = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+
+		aniSectionOn = false;
 	}
 
 };

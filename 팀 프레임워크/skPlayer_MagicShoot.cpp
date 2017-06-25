@@ -50,7 +50,7 @@ void skPlayer_MagicShoot::release()
 
 bool skPlayer_MagicShoot::Prepare()
 {
-	_pvPrepaerPS[0][0]->Transform()->SetWorldMatrix(_skillPosTrans->GetFinalMatrix());
+	//_pvPrepaerPS[0][0]->Transform()->SetWorldMatrix(_skillPosTrans->GetFinalMatrix());
 	_pvPrepaerPS[0][0]->Transform()->SetWorldPosition(_skillPosTrans->GetWorldPosition());
 	_pvPrepaerPS[0][0]->Transform()->LookDirection(_skillPosTrans->GetForward());
 	_pvPrepaerPS[0][0]->update();
@@ -81,7 +81,7 @@ bool skPlayer_MagicShoot::Action()
 		{
 			_pvActionPS[0][i]->SetActive(FALSE);
 			_pvFinishPS[0][i]->SetActive(FALSE);
-			_pvActionPS[0][i]->Transform()->LookDirection(_skillPosTrans->GetForward());
+			_pvActionPS[0][i]->Transform()->LookPosition(_oneTargetTrans->GetWorldPosition());
 		}
 		_OneActionSettingOn = false;
 	}

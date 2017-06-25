@@ -141,7 +141,7 @@ void dxParticleSystem::render()
 			//트렌스폼 업데이트->트루일 때
 			if (_vEmitter[i]->getRealtimeTrackingPosOn() || _AllRealTimeTrackingOn)
 			{
-				//_trans->SetDeviceWorld();
+				_trans->SetDeviceWorld();
 			}
 			else
 			{

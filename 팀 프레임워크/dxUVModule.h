@@ -27,6 +27,7 @@ public:
 	//애니메이션 재생구간
 	void InitAniPlaySection(int inStartFrameNum, int inEndFrameNum)
 	{
+		_radPtc.aniSectionOn = true;
 		_radPtc.startFrameNum = inStartFrameNum;
 		_radPtc.endFrameNum = inEndFrameNum;	//1더하기는 개수를 위해
 	};

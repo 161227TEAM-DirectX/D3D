@@ -927,7 +927,7 @@ void xPlayer::playerStateManager()
 void xPlayer::playerAnimationManager()
 {
 	dx::transform* _testTrans = new dx::transform;
-
+	_testTrans->SetWorldPosition(RandomFloatRange(-5.0f, 5.0f), RandomFloatRange(0.0f, 3.0f), RandomFloatRange(5.0f, 8.0f));
 
 	if (_prevState == _state) return;
 	switch (_state)
@@ -981,9 +981,9 @@ void xPlayer::playerAnimationManager()
 	case P_CASTSPELL:
 		
 
-		SKM->findSK("¸ÅÁ÷½´ÅÍ")->setSkillPosTrans(_testTrans);
-		SKM->findSK("¸ÅÁ÷½´ÅÍ")->setSkillDirTrans(_testTrans);
-		SKM->findSK("¸ÅÁ÷½´ÅÍ")->setOneTargetTrans(&_attackTrans);
+		SKM->findSK("¸ÅÁ÷½´ÅÍ")->setSkillPosTrans(this->_playerObject->_transform);
+//		SKM->findSK("¸ÅÁ÷½´ÅÍ")->setSkillDirTrans(_testTrans);
+		SKM->findSK("¸ÅÁ÷½´ÅÍ")->setOneTargetTrans(_testTrans);
 		SKM->findSK("¸ÅÁ÷½´ÅÍ")->Start();
 		_playSpeed = 1.0f;
 		_playerObject->_skinnedAnim->PlayOneShotAfterHold("SPCD", 0.2f);

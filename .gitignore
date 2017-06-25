@@ -1,9 +1,9 @@
-PaticleResources/
+癤풮aticleResources/
 Debug/
 Resource/
 ResourceAnimation/
 ResourceUI/
-맵txt파일/
-맵txt파일/마을txt파일/
-맵txt파일/보스txt파일/
-맵txt파일/사냥터txt파일/
+ipch/
+.vs/
+ResourceUI/
+DIRECT3D.VC.db
