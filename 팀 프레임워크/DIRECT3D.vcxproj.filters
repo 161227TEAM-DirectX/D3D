@@ -316,6 +316,9 @@
     <Filter Include="Z테스트\김만웅\06.게임UI">
       <UniqueIdentifier>{c2aac9ca-7419-4ee2-82b7-9e423c6439f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Z테스트\김만웅\07.미니맵">
+      <UniqueIdentifier>{5f425716-1ccf-4a54-92c7-6ccaa3e78d41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainGame.cpp">
@@ -879,6 +882,9 @@
     <ClCompile Include="cGameUITest.cpp">
       <Filter>Z테스트\김만웅\06.게임UI</Filter>
     </ClCompile>
+    <ClCompile Include="cMinimapTest.cpp">
+      <Filter>Z테스트\김만웅\07.미니맵</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainGame.h">
@@ -1441,6 +1447,9 @@
     </ClInclude>
     <ClInclude Include="cGameUITest.h">
       <Filter>Z테스트\김만웅\06.게임UI</Filter>
+    </ClInclude>
+    <ClInclude Include="cMinimapTest.h">
+      <Filter>Z테스트\김만웅\07.미니맵</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

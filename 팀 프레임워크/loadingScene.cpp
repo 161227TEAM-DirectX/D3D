@@ -14,11 +14,14 @@ loadingScene::~loadingScene()
 
 HRESULT loadingScene::init()
 {
-	DXIMG_MANAGER->AddDxImg("로딩화면", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_로딩화면")));
+	//로딩씬에 필요한 이미지들은 미리 로딩해둔다.
+	DXIMG_MANAGER->AddDxImg("로딩화면", new cDxImg(FILEPATH_MANAGER->GetFilepath("로딩화면")));
+	DXIMG_MANAGER->AddDxImg("loadingbar_move", new cDxImg(FILEPATH_MANAGER->GetFilepath("loadingbar_move")));
+	DXIMG_MANAGER->AddDxImg("loadingbar_back", new cDxImg(FILEPATH_MANAGER->GetFilepath("loadingbar_back")));
+	DXIMG_MANAGER->AddDxImg("loadingbar_cover", new cDxImg(FILEPATH_MANAGER->GetFilepath("loadingbar_cover")));
 
-	m_pLoadingBar = new cDxImgBar("UI_loadingbar_cover",
-								  "UI_loadingbar_back",
-								  "UI_loadingbar_move",
+
+	m_pLoadingBar = new cDxImgBar("loadingbar_cover", "loadingbar_back", "loadingbar_move",
 								  D3DXVECTOR2(WINSIZEX / 2, WINSIZEY / 2 + 400), true);
 
 	InitializeCriticalSection(&_cs);
@@ -36,7 +39,7 @@ void loadingScene::release()
 
 void loadingScene::update()
 {
-	m_pLoadingBar->update();
+	m_pLoadingBar->updateLoading();
 }
 
 void loadingScene::render()
@@ -46,24 +49,21 @@ void loadingScene::render()
 	DXIMG_MANAGER->GetDxImg("로딩화면")->render();
 	m_pLoadingBar->render();
 
-//	if (m_isChange && m_pLoadingBar->IsFullBar())
-//	{
-//		SCENEMANAGER->changeScene("start");
-//	}
+	if (m_isChange && m_pLoadingBar->IsFullBar())
+	{
+		SCENEMANAGER->changeScene("start");
+	}
 
 	LeaveCriticalSection(&_cs);
 }
 
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
-	SoundLoading();
-	XMeshStaticLoading();
-	XMeshSkinnedLoading();
+	//SoundLoading();
+	//XMeshStaticLoading();
+	//XMeshSkinnedLoading();
 	UILoading();
 	AniLoading();
-
-	//g_eSelectMode = E_MAPTOOL;
-	SCENEMANAGER->changeScene("gameSceneTwo");
 
 	m_isChange = true;
 
@@ -72,20 +72,31 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 
 void loadingScene::UILoading()
 {
-	DXIMG_MANAGER->AddDxImg("시작화면", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_시작화면")));
+	DXIMG_MANAGER->AddDxImg("시작화면", new cDxImg(FILEPATH_MANAGER->GetFilepath("시작화면")));
 
-	DXIMG_MANAGER->AddDxImg("종료버튼_오프", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_btn_exit_off")));
-	DXIMG_MANAGER->AddDxImg("종료버튼_오버", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_btn_exit_over")));
-	DXIMG_MANAGER->AddDxImg("설정버튼_오프", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_btn_option_off")));
-	DXIMG_MANAGER->AddDxImg("설정버튼_오버", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_btn_option_over")));
-	DXIMG_MANAGER->AddDxImg("시작버튼_오프", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_btn_gameStart_off")));
-	DXIMG_MANAGER->AddDxImg("시작버튼_오버", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_btn_gameStart_over")));
-	DXIMG_MANAGER->AddDxImg("맵툴버튼_오프", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_btn_mapTool_off")));
-	DXIMG_MANAGER->AddDxImg("맵툴버튼_오버", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_btn_mapTool_over")));
+	DXIMG_MANAGER->AddDxImg("btn_exit_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_exit_off")));
+	DXIMG_MANAGER->AddDxImg("btn_exit_over", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_exit_over")));
+	DXIMG_MANAGER->AddDxImg("btn_option_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_option_off")));
+	DXIMG_MANAGER->AddDxImg("btn_option_over", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_option_over")));
+	DXIMG_MANAGER->AddDxImg("btn_gameStart_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_gameStart_off")));
+	DXIMG_MANAGER->AddDxImg("btn_gameStart_over", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_gameStart_over")));
+	DXIMG_MANAGER->AddDxImg("btn_mapTool_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_mapTool_off")));
+	DXIMG_MANAGER->AddDxImg("btn_mapTool_over", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_mapTool_over")));
 
-	DXIMG_MANAGER->AddDxImg("인벤", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_game_TestInven")));
-	DXIMG_MANAGER->AddDxImg("인벤2", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_game_TestInven2")));
-	DXIMG_MANAGER->AddDxImg("퀵슬롯", new cDxImg(FILEPATH_MANAGER->GetFilepath("UI_quickSlotUI_back")));
+	DXIMG_MANAGER->AddDxImg("Test_Inven", new cDxImg(FILEPATH_MANAGER->GetFilepath("Test_Inven")));
+	DXIMG_MANAGER->AddDxImg("Test_Inven2", new cDxImg(FILEPATH_MANAGER->GetFilepath("Test_Inven2")));
+	DXIMG_MANAGER->AddDxImg("quickSlotUI_back", new cDxImg(FILEPATH_MANAGER->GetFilepath("quickSlotUI_back")));
+
+	DXIMG_MANAGER->AddDxImg("playerbar_back", new cDxImg(FILEPATH_MANAGER->GetFilepath("playerbar_back")));
+	DXIMG_MANAGER->AddDxImg("playerbarHP_cover", new cDxImg(FILEPATH_MANAGER->GetFilepath("playerbarHP_cover")));
+	DXIMG_MANAGER->AddDxImg("playerbarHP_move", new cDxImg(FILEPATH_MANAGER->GetFilepath("playerbarHP_move")));
+	DXIMG_MANAGER->AddDxImg("playerbarMP_cover", new cDxImg(FILEPATH_MANAGER->GetFilepath("playerbarMP_cover")));
+	DXIMG_MANAGER->AddDxImg("playerbarMP_move", new cDxImg(FILEPATH_MANAGER->GetFilepath("playerbarMP_move")));
+
+	DXIMG_MANAGER->AddDxImg("minimap", new cDxImg(FILEPATH_MANAGER->GetFilepath("minimap")));
+	DXIMG_MANAGER->AddDxImg("minimap2", new cDxImg(FILEPATH_MANAGER->GetFilepath("minimap")));
+	DXIMG_MANAGER->AddDxImg("minimapTest", new cDxImg(FILEPATH_MANAGER->GetFilepath("minimapTest")));
+
 }
 
 void loadingScene::AniLoading()

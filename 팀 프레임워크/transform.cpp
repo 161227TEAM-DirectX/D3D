@@ -1278,8 +1278,8 @@ namespace dx {
 		//디폴트 컨트롤을 위한 카메라 Angle 값
 		static float nowAngleH = 0.0f;						//수평앵글
 		static float nowAngleV = 0.0f;						//수직앵글
-		static float maxAngleV = 85.0f;						//수직 최대 앵글
-		static float minAngleV = -85.0f;						//수직 최저 앵글
+		static float maxAngleV = 90.0f;						//수직 최대 앵글
+		static float minAngleV = -90.0f;					//수직 최저 앵글
 		static float sensitivityH = 1.0f;					//가로 민감도
 		static float sensitivityV = 1.0f;					//세로 민감도 ( 이값이 음수면 Invert Mouse )
 		static D3DXVECTOR3 nowVelocity(0, 0, 0);			//현제 방향과 속도를 가진 벡터

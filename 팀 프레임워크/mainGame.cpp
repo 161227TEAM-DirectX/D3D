@@ -1,26 +1,32 @@
 #include "stdafx.h"
 #include "mainGame.h"
 
+#include "cLoadingBarTest.h"	
+#include "cLoadingTest.h"		
 #include "startScene.h"
 #include "loadingScene.h"
 #include "mapToolScene.h"
 #include "cTerrainTest.h"
 #include "cImageTest.h"
 #include "cButtonTest.h"
+#include "cBarTest.h"
 #include "cGameUITest.h"
+#include "cMinimapTest.h"
 
 mainGame::mainGame()
 {
 	REGIST_SGT->Init();
 
-	SCENEMANAGER->addScene("loading", new loadingScene, false);
+	SCENEMANAGER->addScene("loading", new loadingScene, true);
 	SCENEMANAGER->addScene("start", new startScene, false);
 	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
-	SCENEMANAGER->addScene("particleTest13", new particleTest13, true);
-	SCENEMANAGER->addScene("test1", new cGameUITest, false);
+	//SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
 	SCENEMANAGER->addScene("gameSceneOne", new stageOne, false);
 	SCENEMANAGER->addScene("gameSceneTwo", new stageTwo, false);
 	SCENEMANAGER->addScene("gameSceneThree", new stageThree, false);
+
+	//SCENEMANAGER->addScene("test", new cGameUITest, false);
+	//SCENEMANAGER->addScene("test", new cMinimapTest, false);
 }
 
 mainGame::~mainGame()
@@ -71,7 +77,7 @@ HRESULT mainGame::init(void)
 	//===================================================================================
 	//±èÅÂÈÆ ¾À Å×½ºÆ® Çì´õÆÄÀÏ
 	//===================================================================================
-		SCENEMANAGER->addScene("test", new kimsNewTest, false);
+		//SCENEMANAGER->addScene("test", new kimsNewTest, false);
 		//SCENEMANAGER->addScene("test", new cubeLight, false);
 
 

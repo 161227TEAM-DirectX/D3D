@@ -190,6 +190,7 @@
     <ClInclude Include="characterController.h" />
     <ClInclude Include="cImageTest.h" />
     <ClInclude Include="CinematicManger.h" />
+    <ClInclude Include="cMinimapTest.h" />
     <ClInclude Include="cRegistBase.h" />
     <ClInclude Include="cLoadingBarTest.h" />
     <ClInclude Include="cLoadingTest.h" />
@@ -378,6 +379,7 @@
     <ClCompile Include="characterController.cpp" />
     <ClCompile Include="cImageTest.cpp" />
     <ClCompile Include="CinematicManger.cpp" />
+    <ClCompile Include="cMinimapTest.cpp" />
     <ClCompile Include="cRegistBase.cpp" />
     <ClCompile Include="cLoadingBarTest.cpp" />
     <ClCompile Include="cLoadingTest.cpp" />

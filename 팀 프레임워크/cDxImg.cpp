@@ -24,6 +24,10 @@ cDxImg::cDxImg(string sImgKey, D3DXVECTOR2 vecPos, bool _isCenter)
 	, m_frameWidth(0)						//1프레임 가로크기
 	, m_frameHeight(0)						//1프레임 세로크기
 	, m_stImgAni(5)							//프레임 컨트롤 구조체
+	, m_fMiniStartX(0.0f)					//미니맵 시작 좌표x
+	, m_fMiniStartY(0.0f)					//미니맵 시작 좌표y
+	, m_fMiniWidth(0.0f)					//미니맵 가로
+	, m_fMiniHeight(0.0f)					//미니맵 세로
 {
 	ZeroMemory(&m_stImageInfo, sizeof(D3DXIMAGE_INFO));
 
@@ -58,6 +62,10 @@ cDxImg::cDxImg(string sImgKey, int maxFrameX, int maxFrameY, int frameTime, bool
 	, m_frameWidth(0)					//1프레임 가로크기
 	, m_frameHeight(0)					//1프레임 세로크기
 	, m_stImgAni(5)						//프레임 컨트롤 구조체
+	, m_fMiniStartX(0.0f)				//미니맵 시작 좌표x
+	, m_fMiniStartY(0.0f)				//미니맵 시작 좌표y
+	, m_fMiniWidth(0.0f)				//미니맵 가로
+	, m_fMiniHeight(0.0f)				//미니맵 세로
 {
 	ZeroMemory(&m_stImageInfo, sizeof(D3DXIMAGE_INFO));
 
@@ -95,6 +103,78 @@ void cDxImg::render()
 	SetRect(&rc, 0, 0, m_stImageInfo.Width, m_stImageInfo.Height);
 
 	D3DXVECTOR3 v = m_vPosition;
+
+	if (!m_isCenterDraw)
+	{
+		D3DXMatrixTranslation(&m_matTrans, v.x, v.y, v.z);
+		m_matWorld = m_matScale * m_matTrans;
+
+		m_pSprite->SetTransform(&m_matWorld);
+		m_pSprite->Draw(m_pTexture,
+						&rc,
+						&D3DXVECTOR3(0, 0, 0),
+						&D3DXVECTOR3(0, 0, 0),
+						D3DCOLOR_ARGB(m_nImgAlpha, 255, 255, 255));
+
+		m_pSprite->End();
+
+		if (m_isDrawBoundingBox)
+		{
+			RectMake(m_vPosition.x, m_vPosition.y, m_stSize.fWidth, m_stSize.fHeight, false, m_dwBoundingColor);
+		}
+	}
+	else
+	{
+		v.x-=m_stImageInfo.Width / 2;
+		v.y-=m_stImageInfo.Height / 2;
+
+		D3DXMatrixTranslation(&m_matTrans, v.x, v.y, v.z);
+		m_matWorld = m_matScale * m_matTrans;
+
+		m_pSprite->SetTransform(&m_matWorld);
+		m_pSprite->Draw(m_pTexture,
+						&rc,
+						&D3DXVECTOR3(0, 0, 0),
+						&D3DXVECTOR3(0, 0, 0),
+						D3DCOLOR_ARGB(m_nImgAlpha, 255, 255, 255));
+
+		m_pSprite->End();
+
+		if (m_isDrawBoundingBox)
+		{
+			RectMakeCenter(m_vPosition.x, m_vPosition.y, m_stSize.fWidth, m_stSize.fHeight, false, m_dwBoundingColor);
+		}
+	}
+}
+
+void cDxImg::render(float srcX, float srcY, float srcWidth, float srcHeight, float moveX, float moveY)
+{
+	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+
+	m_fMiniStartX = srcX - moveX;
+	if (m_fMiniStartX <= 0.0f)
+		m_fMiniStartX = 0.0f;
+	if (m_fMiniStartX >= this->m_stSize.fWidth - srcWidth)
+		m_fMiniStartX = this->m_stSize.fWidth - srcWidth;
+
+
+	m_fMiniStartY = srcY - moveY;
+	if (m_fMiniStartY <= 0.0f)
+		m_fMiniStartY = 0.0f;
+	if (m_fMiniStartY >= this->m_stSize.fHeight - srcHeight)
+		m_fMiniStartY = this->m_stSize.fHeight - srcHeight;
+
+
+	m_fMiniWidth = m_fMiniStartX + srcWidth;
+	m_fMiniHeight = m_fMiniStartY + srcHeight;
+
+	RECT rc;
+	SetRect(&rc, m_fMiniStartX, m_fMiniStartY, m_fMiniWidth, m_fMiniHeight);
+
+	D3DXVECTOR3 v = m_vPosition;
+
+	v.x += srcX;
+	v.y += srcY;
 
 	if (!m_isCenterDraw)
 	{

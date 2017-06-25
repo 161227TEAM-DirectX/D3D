@@ -18,26 +18,26 @@ HRESULT startScene::init()
 
 	cDxImgButton* temp;
 
-	temp = new cDxImgButton(DXIMG_MANAGER->GetDxImg("종료버튼_오프"),
-							DXIMG_MANAGER->GetDxImg("종료버튼_오버"),
+	temp = new cDxImgButton(DXIMG_MANAGER->GetDxImg("btn_exit_off"),
+							DXIMG_MANAGER->GetDxImg("btn_exit_over"),
 							D3DXVECTOR2(25, 25), "종료버튼");
 	m_vecBtn.push_back(temp);
 
 
-	temp = new cDxImgButton(DXIMG_MANAGER->GetDxImg("설정버튼_오프"),
-							DXIMG_MANAGER->GetDxImg("설정버튼_오버"),
+	temp = new cDxImgButton(DXIMG_MANAGER->GetDxImg("btn_option_off"),
+							DXIMG_MANAGER->GetDxImg("btn_option_over"),
 							D3DXVECTOR2(130, 25), "설정버튼");
 	m_vecBtn.push_back(temp);
 
 
-	temp = new cDxImgButton(DXIMG_MANAGER->GetDxImg("시작버튼_오프"),
-							DXIMG_MANAGER->GetDxImg("시작버튼_오버"),
+	temp = new cDxImgButton(DXIMG_MANAGER->GetDxImg("btn_gameStart_off"),
+							DXIMG_MANAGER->GetDxImg("btn_gameStart_over"),
 							D3DXVECTOR2(1200, 600), "시작버튼");
 	m_vecBtn.push_back(temp);
 
 
-	temp = new cDxImgButton(DXIMG_MANAGER->GetDxImg("맵툴버튼_오프"),
-							DXIMG_MANAGER->GetDxImg("맵툴버튼_오버"),
+	temp = new cDxImgButton(DXIMG_MANAGER->GetDxImg("btn_mapTool_off"),
+							DXIMG_MANAGER->GetDxImg("btn_mapTool_over"),
 							D3DXVECTOR2(1200, 750), "맵툴버튼");
 	m_vecBtn.push_back(temp);
 

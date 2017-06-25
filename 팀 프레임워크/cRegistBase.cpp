@@ -211,32 +211,36 @@ void cRegistBase::SoundRegist()
 
 void cRegistBase::UIRegist()
 {
-	FILEPATH_MANAGER->AddFilepath("UI_로딩화면", "Resource/UI/로딩화면.png");
-	FILEPATH_MANAGER->AddFilepath("UI_시작화면", "Resource/UI/시작화면.png");
-	FILEPATH_MANAGER->AddFilepath("UI_시작버튼오버", "Resource/UI/시작버튼_오버.png");
-	FILEPATH_MANAGER->AddFilepath("UI_시작버튼오프", "Resource/UI/시작버튼_오프.png");
+	FILEPATH_MANAGER->AddFilepath("로딩화면", "ResourceUI/loading/로딩화면.png");
+	FILEPATH_MANAGER->AddFilepath("시작화면", "ResourceUI/loading/시작화면.png");
+	FILEPATH_MANAGER->AddFilepath("시작버튼_오버", "ResourceUI/loading/시작버튼_오버.png");
+	FILEPATH_MANAGER->AddFilepath("시작버튼_오프", "ResourceUI/loading/시작버튼_오프.png");
+	
+	FILEPATH_MANAGER->AddFilepath("loadingbar_move", "ResourceUI/loading/loadingbar_move.png");
+	FILEPATH_MANAGER->AddFilepath("loadingbar_back", "ResourceUI/loading/loadingbar_back.png");
+	FILEPATH_MANAGER->AddFilepath("loadingbar_cover", "ResourceUI/loading/loadingbar_cover.png");
 
-	FILEPATH_MANAGER->AddFilepath("UI_backBar", "Resource/UI/Loading/backBar.png");
-	FILEPATH_MANAGER->AddFilepath("UI_moveBar", "Resource/UI/Loading/moveBar.png");
-	FILEPATH_MANAGER->AddFilepath("UI_coverBar", "Resource/UI/Loading/coverBar.png");
+	FILEPATH_MANAGER->AddFilepath("btn_exit_off", "ResourceUI/start/btn_exit_off.png");
+	FILEPATH_MANAGER->AddFilepath("btn_exit_over", "ResourceUI/start/btn_exit_over.png");
+	FILEPATH_MANAGER->AddFilepath("btn_option_off", "ResourceUI/start/btn_option_off.png");
+	FILEPATH_MANAGER->AddFilepath("btn_option_over", "ResourceUI/start/btn_option_over.png");
+	FILEPATH_MANAGER->AddFilepath("btn_gameStart_off", "ResourceUI/start/btn_gameStart_off.png");
+	FILEPATH_MANAGER->AddFilepath("btn_gameStart_over", "ResourceUI/start/btn_gameStart_over.png");
+	FILEPATH_MANAGER->AddFilepath("btn_mapTool_off", "ResourceUI/start/btn_mapTool_off.png");
+	FILEPATH_MANAGER->AddFilepath("btn_mapTool_over", "ResourceUI/start/btn_mapTool_over.png");
 
-	FILEPATH_MANAGER->AddFilepath("UI_loadingbar_move", "Resource/UI/Bar/loadingbar_move.png");
-	FILEPATH_MANAGER->AddFilepath("UI_loadingbar_back", "Resource/UI/Bar/loadingbar_back.png");
-	FILEPATH_MANAGER->AddFilepath("UI_loadingbar_cover", "Resource/UI/Bar/loadingbar_cover.png");
+	FILEPATH_MANAGER->AddFilepath("Test_Inven", "ResourceUI/game/Test_Inven.png");
+	FILEPATH_MANAGER->AddFilepath("Test_Inven2", "ResourceUI/game/Test_Inven2.png");
+	FILEPATH_MANAGER->AddFilepath("quickSlotUI_back", "ResourceUI/game/quickSlotUI_back.png");
 
-	FILEPATH_MANAGER->AddFilepath("UI_btn_exit_off", "ResourceUI/start/btn_exit_off.png");
-	FILEPATH_MANAGER->AddFilepath("UI_btn_exit_over", "ResourceUI/start/btn_exit_over.png");
-	FILEPATH_MANAGER->AddFilepath("UI_btn_option_off", "ResourceUI/start/btn_option_off.png");
-	FILEPATH_MANAGER->AddFilepath("UI_btn_option_over", "ResourceUI/start/btn_option_over.png");
-	FILEPATH_MANAGER->AddFilepath("UI_btn_gameStart_off", "ResourceUI/start/btn_gameStart_off.png");
-	FILEPATH_MANAGER->AddFilepath("UI_btn_gameStart_over", "ResourceUI/start/btn_gameStart_over.png");
-	FILEPATH_MANAGER->AddFilepath("UI_btn_mapTool_off", "ResourceUI/start/btn_mapTool_off.png");
-	FILEPATH_MANAGER->AddFilepath("UI_btn_mapTool_over", "ResourceUI/start/btn_mapTool_over.png");
+	FILEPATH_MANAGER->AddFilepath("playerbar_back", "ResourceUI/game/playerbar_back.png");
+	FILEPATH_MANAGER->AddFilepath("playerbarHP_cover", "ResourceUI/game/playerbarHP_cover.png");
+	FILEPATH_MANAGER->AddFilepath("playerbarHP_move", "ResourceUI/game/playerbarHP_move.png");
+	FILEPATH_MANAGER->AddFilepath("playerbarMP_cover", "ResourceUI/game/playerbarMP_cover.png");
+	FILEPATH_MANAGER->AddFilepath("playerbarMP_move", "ResourceUI/game/playerbarMP_move.png");
 
-	FILEPATH_MANAGER->AddFilepath("UI_game_TestInven", "ResourceUI/game/Test_Inven.png");
-	FILEPATH_MANAGER->AddFilepath("UI_game_TestInven2", "ResourceUI/game/Test_Inven2.png");
-	FILEPATH_MANAGER->AddFilepath("UI_quickSlotUI_back", "ResourceUI/game/quickSlotUI_back.png");
-
+	FILEPATH_MANAGER->AddFilepath("minimap", "ResourceUI/test/minimap.png");
+	FILEPATH_MANAGER->AddFilepath("minimapTest", "ResourceUI/test/minimapTest.png");
 }
 
 

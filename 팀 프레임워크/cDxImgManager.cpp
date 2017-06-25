@@ -53,6 +53,12 @@ void cDxImgManager::render(string sKey)
 	m_mapDxImg[sKey]->render();
 }
 
+void cDxImgManager::render(string sKey, float srcX, float srcY, float srcWidth, float srcHeight, float moveX, float moveY)
+{
+	assert(m_mapDxImg.find(sKey) != m_mapDxImg.end() && "찾고자 하는 키의 이미지가 없습니다.");
+	m_mapDxImg[sKey]->render(srcX, srcY, srcWidth, srcHeight, moveX, moveY);
+}
+
 void cDxImgManager::render()
 {
 	for (int i=0; i < m_vecDxImg.size(); i++)

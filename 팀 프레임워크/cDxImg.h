@@ -27,6 +27,12 @@ class cDxImg
 	SYNTHESIZE(ST_DXIMGANI, m_stImgAni, ImgAni);				//프레임 컨트롤 구조체
 
 
+																//미니맵
+	SYNTHESIZE(float, m_fMiniStartX, MiniStartX);				//미니맵 시작좌표x
+	SYNTHESIZE(float, m_fMiniStartY, MiniStartY);				//미니맵 시작좌표y
+	SYNTHESIZE(float, m_fMiniWidth, MiniWidth);					//미니맵 그릴 가로길이
+	SYNTHESIZE(float, m_fMiniHeight, MiniHeight);				//미니맵 그릴 세로길이
+
 private:
 	D3DXMATRIXA16			m_matWorld;
 	D3DXMATRIXA16			m_matScale;
@@ -40,6 +46,7 @@ public:
 	~cDxImg();
 
 	void render();
+	void render(float srcX, float srcY, float srcWidth, float srcHeight, float moveX = 0.0f, float moveY = 0.0f);
 	void render(float cx, float cy, float angle = 0.0f);
 	void renderFrame();
 	void renderBarX();
