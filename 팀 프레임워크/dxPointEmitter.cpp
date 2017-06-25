@@ -255,8 +255,8 @@ void dxPointEmitter::update()
 				checkNum++;
 				//if (checkNum >= _onePtcNum) break;
 			}
-
 		}
+
 		InitNum++;
 		
 		//È°¼ºÈ­

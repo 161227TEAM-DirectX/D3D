@@ -5,7 +5,7 @@
 //====================================================================
 
 #define KEYMAX 256
-#define KEYSAME	100
+#define KEYSAME	10
 
 class keyManager : public singletonBase <keyManager>
 {

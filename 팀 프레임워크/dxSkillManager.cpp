@@ -8,15 +8,12 @@
 
 void dxSkillManager::skillSetting()
 {
-	
-
 	//플레이어 스킬 등록
 	this->addSK("매직슈터", new skPlayer_MagicShoot);
 	this->addSK("힐", new skPlayer_Heal);
 
 	//보스 스킬 등록
 	this->addSK("브레스", new skBoss_Breath);
-
 
 	//this->skillInit();
 }
