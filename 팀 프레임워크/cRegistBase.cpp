@@ -248,39 +248,39 @@ void cRegistBase::UIRegist()
 void cRegistBase::AniRegist()
 {
 	//Fire01
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_00", "ResourceAnimation/Fire01/output-00.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_01", "ResourceAnimation/Fire01/output-01.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_02", "ResourceAnimation/Fire01/output-02.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_03", "ResourceAnimation/Fire01/output-03.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_04", "ResourceAnimation/Fire01/output-04.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_05", "ResourceAnimation/Fire01/output-05.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_06", "ResourceAnimation/Fire01/output-06.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_07", "ResourceAnimation/Fire01/output-07.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_08", "ResourceAnimation/Fire01/output-08.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_09", "ResourceAnimation/Fire01/output-09.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_10", "ResourceAnimation/Fire01/output-10.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_11", "ResourceAnimation/Fire01/output-11.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_12", "ResourceAnimation/Fire01/output-12.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_13", "ResourceAnimation/Fire01/output-13.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_14", "ResourceAnimation/Fire01/output-14.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_15", "ResourceAnimation/Fire01/output-15.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_16", "ResourceAnimation/Fire01/output-16.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_17", "ResourceAnimation/Fire01/output-17.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_18", "ResourceAnimation/Fire01/output-18.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_19", "ResourceAnimation/Fire01/output-19.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_20", "ResourceAnimation/Fire01/output-20.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_21", "ResourceAnimation/Fire01/output-21.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_22", "ResourceAnimation/Fire01/output-22.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_23", "ResourceAnimation/Fire01/output-23.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_24", "ResourceAnimation/Fire01/output-24.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_25", "ResourceAnimation/Fire01/output-25.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_26", "ResourceAnimation/Fire01/output-26.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_27", "ResourceAnimation/Fire01/output-27.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_28", "ResourceAnimation/Fire01/output-28.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_29", "ResourceAnimation/Fire01/output-29.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_30", "ResourceAnimation/Fire01/output-30.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_31", "ResourceAnimation/Fire01/output-31.png");
-	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_32", "ResourceAnimation/Fire01/output-32.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_00", "ResourceUI/animation/Fire01/output-00.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_01", "ResourceUI/animation/Fire01/output-01.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_02", "ResourceUI/animation/Fire01/output-02.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_03", "ResourceUI/animation/Fire01/output-03.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_04", "ResourceUI/animation/Fire01/output-04.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_05", "ResourceUI/animation/Fire01/output-05.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_06", "ResourceUI/animation/Fire01/output-06.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_07", "ResourceUI/animation/Fire01/output-07.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_08", "ResourceUI/animation/Fire01/output-08.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_09", "ResourceUI/animation/Fire01/output-09.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_10", "ResourceUI/animation/Fire01/output-10.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_11", "ResourceUI/animation/Fire01/output-11.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_12", "ResourceUI/animation/Fire01/output-12.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_13", "ResourceUI/animation/Fire01/output-13.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_14", "ResourceUI/animation/Fire01/output-14.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_15", "ResourceUI/animation/Fire01/output-15.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_16", "ResourceUI/animation/Fire01/output-16.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_17", "ResourceUI/animation/Fire01/output-17.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_18", "ResourceUI/animation/Fire01/output-18.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_19", "ResourceUI/animation/Fire01/output-19.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_20", "ResourceUI/animation/Fire01/output-20.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_21", "ResourceUI/animation/Fire01/output-21.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_22", "ResourceUI/animation/Fire01/output-22.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_23", "ResourceUI/animation/Fire01/output-23.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_24", "ResourceUI/animation/Fire01/output-24.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_25", "ResourceUI/animation/Fire01/output-25.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_26", "ResourceUI/animation/Fire01/output-26.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_27", "ResourceUI/animation/Fire01/output-27.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_28", "ResourceUI/animation/Fire01/output-28.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_29", "ResourceUI/animation/Fire01/output-29.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_30", "ResourceUI/animation/Fire01/output-30.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_31", "ResourceUI/animation/Fire01/output-31.png");
+	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_32", "ResourceUI/animation/Fire01/output-32.png");
 }
 
 void cRegistBase::XMeshStaticRegist()
