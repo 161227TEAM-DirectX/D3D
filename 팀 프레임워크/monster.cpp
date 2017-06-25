@@ -57,7 +57,7 @@ void monster::baseObjectDisable()
 void monster::baseObjectUpdate()
 {
 	stateSwitch();
-	name->update();
+	//name->update();
 
 	if (NextAction != nullptr)
 	{
@@ -67,8 +67,7 @@ void monster::baseObjectUpdate()
 		NextAction = nullptr;
 	}
 
-	if (CurrAction) result = (LHS::ACTIONRESULT)CurrAction->Update();
-	_skinnedAnim->update();
+	if (CurrAction != NULL) result = (LHS::ACTIONRESULT)CurrAction->Update();
 }
 
 void monster::baseObjectNoActiveUpdate()
@@ -80,12 +79,12 @@ void monster::baseObjectRender()
 	if (_skinnedAnim != nullptr) _skinnedAnim->render(_transform);
 
 	D3DXVECTOR3 temp = { _transform->GetWorldPosition().x, _boundBox._localMaxPos.y, _transform->GetWorldPosition().z };
-	name->render();
+	//name->render();
 
 	hitBox.renderGizmo(_transform, D3DCOLOR_XRGB(255, 0, 0));
 	range.renderGizmo(_transform, D3DCOLOR_XRGB(255, 255, 0));
 
-	//_boundBox.renderGizmo(_transform);
+	_boundBox.renderGizmo(_transform);
 }
 
 void monster::stateSwitch(void)

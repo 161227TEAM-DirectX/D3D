@@ -26,7 +26,6 @@ protected:
 	boundBox hitBox;							//공격용탐색박스
 	LHS::ACTIONRESULT result;					//액션을 위한 입력값
 	Text*	name;								//몬스터의 이름
-	
 
 protected:
 	Action*					CurrAction;				//현재 활성화된 행동 클래스

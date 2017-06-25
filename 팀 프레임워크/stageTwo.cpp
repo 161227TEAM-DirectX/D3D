@@ -302,6 +302,8 @@ void stageTwo::loadNode(void)
 
 xMesh * stageTwo::findMonster(int & index)
 {
+	D3DXMATRIX mat;
+	D3DXMatrixRotationY(&mat, D3DXToRadian(180));
 	switch (index)
 	{
 	case 1:

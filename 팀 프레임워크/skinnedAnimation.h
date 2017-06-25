@@ -30,6 +30,7 @@ private:
 	double						_AnimationPlayFactor;		//Animation 진행 Factor ( 0 이면 처음 1 일수록 마지막 )
 	float						_fAnimDelta;
 	float						_AnimSpeed;
+	string						_AnimName;					//현재 실행하고자 하는 애니메이션
 
 public:
 	HRESULT	init(xMeshSkinned* pSkinnedMesh);
