@@ -130,6 +130,8 @@ void dxParticleSystem::render()
 	//파티클 시스템 활성화 여부 판단
 	if (_isActive == FALSE) return;
 
+	D3DXMATRIXA16 matInitWorld;
+	D3DXMatrixIdentity(&matInitWorld);
 
 	//이미터 작동
 	if (_vEmitter.empty() == FALSE)
@@ -141,14 +143,17 @@ void dxParticleSystem::render()
 			{
 				_trans->SetDeviceWorld();
 			}
-
-
+			else
+			{
+				_device->SetTransform(D3DTS_WORLD,&matInitWorld);
+			}
 
 			//이미터 렌더
 			_vEmitter[i]->render();
 		}
 
 	}
+	_device->SetTransform(D3DTS_WORLD, &matInitWorld);
 }
 
 bool dxParticleSystem::autoTimeReset(bool ResetFunOn)
