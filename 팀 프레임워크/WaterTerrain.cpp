@@ -61,9 +61,6 @@ HRESULT WaterTerrain::init(float cellSize, int tileNum)
 			int idx = z * _verNumX + x;
 
 			_terrainVertices[idx].pos = pos;
-
-			_terrainVertices[idx].tu = ((float)x / (_verNumX - 1));
-			_terrainVertices[idx].tv = ((float)z / (_verNumZ - 1));
 		}
 	}
 
@@ -127,24 +124,23 @@ HRESULT WaterTerrain::init(float cellSize, int tileNum)
 
 	_flowAngle = 0.0f;
 
-	D3DXCreateTextureFromFile(_device, "Resource/Maptool/Textures/water/1.jpg", &temp);
-	m_pWaterBump.push_back(temp);
-	D3DXCreateTextureFromFile(_device, "Resource/Maptool/Textures/water/1.jpg", &temp);
-	m_pWaterBump.push_back(temp);
-	D3DXCreateTextureFromFile(_device, "Resource/Maptool/Textures/water/4.jpg", &temp);
-	m_pWaterBump.push_back(temp);
-	D3DXCreateTextureFromFile(_device, "Resource/Maptool/Textures/water/3.jpg", &temp);
-	m_pWaterBump.push_back(temp);
-	D3DXCreateTextureFromFile(_device, "Resource/Maptool/Textures/water/2.jpg", &temp);
-	m_pWaterBump.push_back(temp);
-	D3DXCreateTextureFromFile(_device, "Resource/Maptool/Textures/water/1.jpg", &temp);
-	m_pWaterBump.push_back(temp);
-
-	m_pReflectionMap = NULL;
 	m_Effect_Water = NULL;
 	m_timer = 0.0f;
 
-	D3DXCreateCubeTextureFromFile(_device, "cubemap.dds", &m_pReflectionMap);
+	D3DXCreateTextureFromFile(_device, "Resource/Maptool/TextureCUBE/waves2.dds", &m_pWaterBump);
+
+	D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/autumnday1.dds", &temp);
+	m_pReflectionMap.push_back(temp);
+	D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/freeskymatter.dds", &temp);
+	m_pReflectionMap.push_back(temp);
+	D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/deserted.dds", &temp);
+	m_pReflectionMap.push_back(temp);
+	D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/freeskymatter.dds", &temp);
+	m_pReflectionMap.push_back(temp);
+	D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/ZORL.dds", &temp);
+	m_pReflectionMap.push_back(temp);
+	D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/fire.dds", &temp);
+	m_pReflectionMap.push_back(temp);
 
 	HRESULT hr;
 	LPD3DXBUFFER pBufferErrors = NULL;
@@ -173,47 +169,47 @@ void WaterTerrain::update(int number)
 	{
 		waterOption.AlphaLayer = true;                                    //알파 레이어
 		waterOption.BumpScale = 0.2f;                                      //범프 스케일
-		waterOption.bumpSpeed = D3DXVECTOR2(0.015f, 0.015f);
-		waterOption.deepColor = D3DXVECTOR4(0.3f, 0.4f, 0.4f, 1.0f);     //멀리서바지는 깊은색상인듯
+		waterOption.bumpSpeed = D3DXVECTOR2(0.0f, 0.0f);
+		waterOption.deepColor = D3DXVECTOR4(0.0f, 0.3f, 0.5f, 1.0f);     //멀리서바지는 깊은색상인듯
 		waterOption.fresnelBias = 0.328f; //프레 넬 바이어스
-		waterOption.fresnelPower = 3.0f;   //프레 넬 파워
+		waterOption.fresnelPower = 5.0f;   //프레 넬 파워
 		waterOption.hdrMultiplier = 0.471f; //hdr 곱셈기
 		waterOption.reflectionAmount = 1.0f; //얕은색상 옆에 흰색상 // 반사 양
 		waterOption.reflectionBlur = 0.0f; //반사 흐림
-		waterOption.reflectionColor = D3DXVECTOR4(0.95f, 1.0f, 1.0f, 0.25f); //반사색상
+		waterOption.reflectionColor = D3DXVECTOR4(0.95f, 1.0f, 1.0f, 1.0f); //반사색상
 		waterOption.shallowColor = D3DXVECTOR4(0, 1, 1, 1.0f);    //얕은색상(바로맨위 색상)
-		waterOption.textureScale = D3DXVECTOR2(1, 2); //텍스쳐를 나누너서 하는것
-		waterOption.waterAmount = 0.3f;                  //바닥을 더욱더 파랗게 만드는거 같다
-		waterOption.waveAmp = 0.3f;                      //웨이브 앰프 // 지형 왓다갓다하게 하는거같음
-		waterOption.waveFreq = 0.028f;                     //파 주파수 //정확히모르겠음
+		waterOption.textureScale = D3DXVECTOR2(2, 3); //텍스쳐를 나누너서 하는것
+		waterOption.waterAmount = 0.05f;                  //바닥을 더욱더 파랗게 만드는거 같다
+		waterOption.waveAmp = 0.1f;                      //웨이브 앰프 // 지형 왓다갓다하게 하는거같음
+		waterOption.waveFreq = 0.9f;                     //파 주파수 //정확히모르겠음
 		waterOption._using = true;
 	}
 
 	if (number == 2)
 	{
 		waterOption.AlphaLayer = true;                                    //알파 레이어
-		waterOption.BumpScale = 0.5f;                                      //범프 스케일
-		waterOption.bumpSpeed = D3DXVECTOR2(0.015f, 0.015f);
+		waterOption.BumpScale = 0.2f;                                      //범프 스케일
+		waterOption.bumpSpeed = D3DXVECTOR2(0.0f, 0.0f);
 		waterOption.deepColor = D3DXVECTOR4(0.3f, 0.4f, 0.4f, 1.0f);     //멀리서바지는 깊은색상인듯
 		waterOption.fresnelBias = 0.328f; //프레 넬 바이어스
-		waterOption.fresnelPower = 3.0f;   //프레 넬 파워
+		waterOption.fresnelPower = 5.0f;   //프레 넬 파워
 		waterOption.hdrMultiplier = 0.471f; //hdr 곱셈기
 		waterOption.reflectionAmount = 1.0f; //얕은색상 옆에 흰색상 // 반사 양
 		waterOption.reflectionBlur = 0.0f; //반사 흐림
-		waterOption.reflectionColor = D3DXVECTOR4(0.95f, 1.0f, 1.0f, 0.65f); //반사색상
+		waterOption.reflectionColor = D3DXVECTOR4(0.95f, 1.0f, 1.0f, 1.0f); //반사색상
 		waterOption.shallowColor = D3DXVECTOR4(0, 1, 1, 1.0f);    //얕은색상(바로맨위 색상)
-		waterOption.textureScale = D3DXVECTOR2(1, 2); //텍스쳐를 나누너서 하는것
-		waterOption.waterAmount = 0.3f;                  //바닥을 더욱더 파랗게 만드는거 같다
-		waterOption.waveAmp = 0.3f;                      //웨이브 앰프 // 지형 왓다갓다하게 하는거같음
-		waterOption.waveFreq = 0.028f;                     //파 주파수 //정확히모르겠음
+		waterOption.textureScale = D3DXVECTOR2(2, 3); //텍스쳐를 나누너서 하는것
+		waterOption.waterAmount = 0.05f;                  //바닥을 더욱더 파랗게 만드는거 같다
+		waterOption.waveAmp = 0.1f;                      //웨이브 앰프 // 지형 왓다갓다하게 하는거같음
+		waterOption.waveFreq = 0.9f;                     //파 주파수 //정확히모르겠음
 		waterOption._using = true;
 	}
 
 	if (number == 3)
 	{
 		waterOption.AlphaLayer = true;                                    //알파 레이어
-		waterOption.BumpScale = 1.5f;                                      //범프 스케일
-		waterOption.bumpSpeed = D3DXVECTOR2(0.015f, 0.015f);
+		waterOption.BumpScale = 0.2f;                                      //범프 스케일
+		waterOption.bumpSpeed = D3DXVECTOR2(0.0f, 0.0f);
 		waterOption.deepColor = D3DXVECTOR4(1.0 / 255 * 160, 1.0 / 255 * 20, 1.0 / 255 * 170, 1.0f);    //멀리서바지는 깊은색상인듯
 		waterOption.fresnelBias = 0.328f; //프레 넬 바이어스
 		waterOption.fresnelPower = 3.0f;   //프레 넬 파워
@@ -223,9 +219,9 @@ void WaterTerrain::update(int number)
 		waterOption.reflectionColor = D3DXVECTOR4(1.0 / 255 * 255, 1.0 / 255 * 255, 1.0 / 255 * 0, 0.55f); //반사색상
 		waterOption.shallowColor = D3DXVECTOR4(1.0 / 255 * 80, 1.0 / 255 * 180, 1.0 / 255 * 60, 1.0f);    //얕은색상(바로맨위 색상)
 		waterOption.textureScale = D3DXVECTOR2(1, 2); //텍스쳐를 나누너서 하는것
-		waterOption.waterAmount = 0.3f;                  //바닥을 더욱더 파랗게 만드는거 같다
-		waterOption.waveAmp = 0.8f;                      //웨이브 앰프 // 지형 왓다갓다하게 하는거같음
-		waterOption.waveFreq = 0.528f;                     //파 주파수 //정확히모르겠음
+		waterOption.waterAmount = 0.05f;                  //바닥을 더욱더 파랗게 만드는거 같다
+		waterOption.waveAmp = 0.1f;                      //웨이브 앰프 // 지형 왓다갓다하게 하는거같음
+		waterOption.waveFreq = 0.9f;                     //파 주파수 //정확히모르겠음
 		waterOption._using = true;
 	}
 
@@ -233,7 +229,7 @@ void WaterTerrain::update(int number)
 	{
 		waterOption.AlphaLayer = true;                                    //알파 레이어
 		waterOption.BumpScale = 0.2f;                                      //범프 스케일
-		waterOption.bumpSpeed = D3DXVECTOR2(0.015f, 0.015f);
+		waterOption.bumpSpeed = D3DXVECTOR2(0.0f, 0.0f);
 		waterOption.deepColor = D3DXVECTOR4(1.0f / 50 * 0, 1.0f / 255 * 150, 1.0f / 255 * 20, 0.6f);     //멀리서바지는 깊은색상인듯
 		waterOption.fresnelBias = 0.328f; //프레 넬 바이어스
 		waterOption.fresnelPower = 3.0f;   //프레 넬 파워
@@ -243,9 +239,9 @@ void WaterTerrain::update(int number)
 		waterOption.reflectionColor = D3DXVECTOR4(1.0f / 255 * 190, 1.0f / 255 * 220, 1.0f / 255 * 70, 0.6f); //반사색상
 		waterOption.shallowColor = D3DXVECTOR4(0, 1, 1, 1.0f);    //얕은색상(바로맨위 색상)
 		waterOption.textureScale = D3DXVECTOR2(1, 2); //텍스쳐를 나누너서 하는것
-		waterOption.waterAmount = 0.3f;                  //바닥을 더욱더 파랗게 만드는거 같다
-		waterOption.waveAmp = 1.8f;                      //웨이브 앰프 // 지형 왓다갓다하게 하는거같음
-		waterOption.waveFreq = 0.028f;                     //파 주파수 //정확히모르겠음
+		waterOption.waterAmount = 0.05f;                  //바닥을 더욱더 파랗게 만드는거 같다
+		waterOption.waveAmp = 0.1f;                      //웨이브 앰프 // 지형 왓다갓다하게 하는거같음
+		waterOption.waveFreq = 0.9f;                     //파 주파수 //정확히모르겠음
 		waterOption._using = true;
 	}
 
@@ -253,7 +249,7 @@ void WaterTerrain::update(int number)
 	{
 		waterOption.AlphaLayer = true;                                    //알파 레이어
 		waterOption.BumpScale = 0.2f;                                      //범프 스케일
-		waterOption.bumpSpeed = D3DXVECTOR2(0.015f, 0.015f);
+		waterOption.bumpSpeed = D3DXVECTOR2(0.0f, 0.0f);
 		waterOption.deepColor = D3DXVECTOR4(0.3f, 0.7f, 0.3f, 1.0f);     //멀리서바지는 깊은색상인듯
 		waterOption.fresnelBias = 0.328f; //프레 넬 바이어스
 		waterOption.fresnelPower = 3.0f;   //프레 넬 파워
@@ -263,17 +259,17 @@ void WaterTerrain::update(int number)
 		waterOption.reflectionColor = D3DXVECTOR4(0.7f, 0.3f, 0.1f, 0.55f); //반사색상
 		waterOption.shallowColor = D3DXVECTOR4(0, 1, 1, 1.0f);    //얕은색상(바로맨위 색상)
 		waterOption.textureScale = D3DXVECTOR2(1, 2); //텍스쳐를 나누너서 하는것
-		waterOption.waterAmount = 0.3f;                  //바닥을 더욱더 파랗게 만드는거 같다
-		waterOption.waveAmp = 1.8f;                      //웨이브 앰프 // 지형 왓다갓다하게 하는거같음
-		waterOption.waveFreq = 0.028f;                     //파 주파수 //정확히모르겠음
+		waterOption.waterAmount = 0.05f;                  //바닥을 더욱더 파랗게 만드는거 같다
+		waterOption.waveAmp = 0.1f;                      //웨이브 앰프 // 지형 왓다갓다하게 하는거같음
+		waterOption.waveFreq = 0.9f;                     //파 주파수 //정확히모르겠음
 		waterOption._using = true;
 	}
 
 	if (number == 6)
 	{
 		waterOption.AlphaLayer = true;                                    //알파 레이어
-		waterOption.BumpScale = 2.2f;                                      //범프 스케일
-		waterOption.bumpSpeed = D3DXVECTOR2(0.015f, 0.015f);
+		waterOption.BumpScale = 0.2f;                                      //범프 스케일
+		waterOption.bumpSpeed = D3DXVECTOR2(0.0f, 0.0f);
 		waterOption.deepColor = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 0.4f);     //멀리서바지는 깊은색상인듯
 		waterOption.fresnelBias = 0.328f; //프레 넬 바이어스
 		waterOption.fresnelPower = 3.0f;   //프레 넬 파워
@@ -301,36 +297,24 @@ void WaterTerrain::update(int number)
 
 void WaterTerrain::render(int number)
 {
-	D3DXMATRIX				mat_WorldViewProj;
-	D3DXMATRIX				mat_World;
-
-	D3DXMatrixIdentity(&mat_WorldViewProj);
-	D3DXMatrixIdentity(&mat_World);
-
-	D3DXMATRIX				mat_View = _mainCamera.getViewMatrix(); /*= _mainCamera.getViewMatrix()*/;
-	D3DXMATRIX				mat_Proj = _mainCamera.getProjectionMatrix();/* = _mainCamera.getProjectionMatrix()*/;
-
-	_device->GetTransform(D3DTS_WORLD, &mat_World);
-	_device->GetTransform(D3DTS_VIEW, &mat_View);
-	_device->GetTransform(D3DTS_PROJECTION, &mat_Proj);
-
-	mat_WorldViewProj = mat_World * mat_View * mat_Proj;
 
 	//이쪽부분에 나중에 카메라 위치
-	D3DXVECTOR4 eye(_mainCamera.GetWorldPosition(), 1.0f);
+	D3DXVECTOR4 eye(_mainCamera->GetWorldPosition(), 1.0f);
 
 	//이펙트파일 적용 하는부분
-	if (number == 1) 	m_Effect_Water->SetTexture("texture0", m_pWaterBump[0]);
-	if (number == 2) m_Effect_Water->SetTexture("texture0", m_pWaterBump[1]);
-	if (number == 3) m_Effect_Water->SetTexture("texture0", m_pWaterBump[2]);
-	if (number == 4) m_Effect_Water->SetTexture("texture0", m_pWaterBump[3]);
-	if (number == 5) m_Effect_Water->SetTexture("texture0", m_pWaterBump[4]);
-	if (number == 6) m_Effect_Water->SetTexture("texture0", m_pWaterBump[5]);
+	m_Effect_Water->SetTexture("texture0", m_pWaterBump);
 
-	m_Effect_Water->SetTexture("texture1", m_pReflectionMap);
+	if (number == 1) m_Effect_Water->SetTexture("texture1", m_pReflectionMap[0]);
+	if (number == 2) m_Effect_Water->SetTexture("texture1", m_pReflectionMap[1]);
+	if (number == 3) m_Effect_Water->SetTexture("texture1", m_pReflectionMap[2]);
+	if (number == 4) m_Effect_Water->SetTexture("texture1", m_pReflectionMap[3]);
+	if (number == 5) m_Effect_Water->SetTexture("texture1", m_pReflectionMap[4]);
+	if (number == 6) m_Effect_Water->SetTexture("texture1", m_pReflectionMap[5]);
+
+	
 
 
-	m_Effect_Water->SetMatrix("WorldViewProj", &mat_WorldViewProj);
+	m_Effect_Water->SetMatrix("WorldViewProj", &_mainCamera->getViewProjectionMatrix());
 
 	m_Effect_Water->SetVector("eyePosition", &eye);
 

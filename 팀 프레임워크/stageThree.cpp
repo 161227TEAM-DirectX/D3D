@@ -139,7 +139,7 @@ void stageThree::render()
 	_terrain->render(_mainCamera, sceneBaseDirectionLight, _directionLightCamera);
 
 	env->renderEnvironment(envTemp.number);
-	water->render(waterTemp.number);
+//	water->render(waterTemp.number);
 
 	//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅
 	xMeshStatic::setCamera(_mainCamera);

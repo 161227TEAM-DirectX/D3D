@@ -31,6 +31,7 @@ bool keyManager::isOnceKeyDown(int key)
 				_keyDown[key][i] = true;
 				return true;
 			}
+			break;
 		}
 	}
 	else

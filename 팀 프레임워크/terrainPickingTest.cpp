@@ -194,7 +194,7 @@ void terrainPickingTest::render(void)
 
 //	_mapObject->objectRenderTool(m_vecObject, _mainCamera, _sceneBaseDirectionLight);
 
-	_waterTerrain->render(1);
+	//_waterTerrain->render(1);
 
 	_env->renderEnvironment(2);
 
