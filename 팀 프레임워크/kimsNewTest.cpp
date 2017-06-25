@@ -72,7 +72,7 @@ HRESULT kimsNewTest::init()
 	mat = matRotate;
 
 	_player = new xPlayer;
-	_player->setlinkTerrain(*_terrain);
+	_player->out_setlinkTerrain(*_terrain);
 	_player->init();
 	_player->getPlayerObject()->_transform->SetWorldPosition(0.0f, 0.0f, 0.0f);
 	//	_player->getPlayerObject()->_transform->SetWorldPosition(20.0f, 0.0f, -20.0f);
@@ -202,7 +202,7 @@ void kimsNewTest::render()
 		this->_cullObjects[i]->render();
 		if (_cullObjects[i] == _player->getPlayerObject())
 		{
-			_player->itemUpdate();
+			_player->out_ItemUpdate();
 			_player->updateBladeLight();
 		}
 	}

@@ -88,7 +88,7 @@ HRESULT stageOne::init()
 	float tempY = _terrain->getHeight(0.0f, 0.0f);
 
 	//플레이어 초기화
-	player->setlinkTerrain(*_terrain);
+	player->out_setlinkTerrain(*_terrain);
 	player->init();
 	player->getPlayerObject()->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
 	player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
@@ -159,7 +159,7 @@ void stageOne::render()
 		this->_cullObject[i]->render();
 		if (_cullObject[i] == player->getPlayerObject())
 		{
-			player->itemUpdate();
+			player->out_ItemUpdate();
 		}
 	}
 }

@@ -94,10 +94,11 @@ HRESULT stageTwo::init()
 	float tempY = _terrain->getHeight(0.0f, 0.0f);
 
 	//플레이어 초기화
-	player->setlinkTerrain(*_terrain);
+	player->out_setlinkTerrain(*_terrain);
 	player->init();
 	player->getPlayerObject()->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
 	player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
+	
 
 	for (int i = 0; i < player->getRenderObject().size(); i++)
 	{
@@ -108,6 +109,10 @@ HRESULT stageTwo::init()
 
 	loadMonster();
 	loadNode();
+
+	player->out_setMonsterRegion(&_monsterRegion);
+
+	//PLAYER
 
 	SOUNDMANAGER->play("필드1", 0.5f);
 
@@ -123,6 +128,8 @@ void stageTwo::update()
 	shadowUpdate();
 
 	player->update();
+
+	player->out_setTargetByMouse(_mainCamera);
 
 	//오브젝트 업데이트
 	for (int i = 0; i < _renderObject.size(); i++) _renderObject[i]->update();
@@ -171,7 +178,7 @@ void stageTwo::render()
 		this->_cullObject[i]->render();
 		if (_cullObject[i] == player->getPlayerObject())
 		{
-			player->itemUpdate();
+			player->out_ItemUpdate();
 		}
 	}
 
@@ -260,6 +267,7 @@ void stageTwo::loadMonster(void)
 		tempMonster->setActive(true);
 		tempMonster->SetObjectNumber(temp[i].monsterNumber);
 		_renderObject.push_back(tempMonster);
+		_monsterRegion.push_back(tempMonster);
 	}
 }
 
