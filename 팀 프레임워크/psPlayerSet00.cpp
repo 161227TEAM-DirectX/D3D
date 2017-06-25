@@ -296,29 +296,29 @@ void psPlayerSet00::MagicShootSet03(string psName)
 {
 	dxParticleSystemSet::init();
 
-	_boardEMT = NULL;
-	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/targeting.png", 1, 1.0f, 1);
-	_boardEMT->InitRandomSize(5.0f,5.0f);
-	_boardEMT->InitRandomSizeEnd(1.0f, 1.0f);
-	_boardEMT->SetActiveLimitTime(1.0f);
-	_boardEMT->InitRandomAlpha(0.1f, 0.1f);
-	_boardEMT->InitRandomAlphaFade(0.8f, 0.8f);
-	_boardEMT->InitRandomLifeTime(1.0f, 1.0f);
+	_pointEMT = NULL;
+	_pointEMT = new dxPointEmitter;
+	_pointEMT->init("PaticleResources/Texture/targeting.png", 1, 1.0f, 1);
+	_pointEMT->InitRandomSize(5.0f,5.0f);
+	_pointEMT->InitRandomSizeEnd(1.0f, 1.0f);
+	_pointEMT->SetActiveLimitTime(1.0f);
+	_pointEMT->InitRandomAlpha(0.1f, 0.1f);
+	_pointEMT->InitRandomAlphaFade(0.8f, 0.8f);
+	_pointEMT->InitRandomLifeTime(1.0f, 1.0f);
 
-	_PS->addEmitter(_boardEMT);
+	_PS->addEmitter(_pointEMT);
 
-	_boardEMT = NULL;
-	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/targeting.png", 1, 0.8f, 2);
-	_boardEMT->InitRandomSize(1.0f, 1.0f);
-	_boardEMT->addSizeGraph(0.5f, 1.2f, 1.2f);
-	_boardEMT->addSizeGraph(1.0f, 1.0f, 1.0f);
-	_boardEMT->SetStartLimitTime(0.2f);
-	_boardEMT->InitRandomAlpha(0.6f, 0.6f);
-	_boardEMT->addAlphaGraph(0.5f, 0.4f, 0.4f);
-	_boardEMT->addAlphaGraph(1.0f, 0.6f, 0.6f);
-	_boardEMT->InitRandomLifeTime(0.8f,0.8f);
+	_pointEMT = NULL;
+	_pointEMT = new dxPointEmitter;
+	_pointEMT->init("PaticleResources/Texture/targeting.png", 1, 0.8f, 2);
+	_pointEMT->InitRandomSize(1.0f, 1.0f);
+	_pointEMT->addSizeGraph(0.5f, 1.2f, 1.2f);
+	_pointEMT->addSizeGraph(1.0f, 1.0f, 1.0f);
+	_pointEMT->SetStartLimitTime(0.2f);
+	_pointEMT->InitRandomAlpha(0.6f, 0.6f);
+	_pointEMT->addAlphaGraph(0.5f, 0.4f, 0.4f);
+	_pointEMT->addAlphaGraph(1.0f, 0.6f, 0.6f);
+	_pointEMT->InitRandomLifeTime(0.8f,0.8f);
 	/*_boardEMT->InitRandomColorR(1.0f, 1.0f);
 	_boardEMT->InitRandomColorG(1.0f, 1.0f);
 	_boardEMT->InitRandomColorB(1.0f, 1.0f);
@@ -328,7 +328,7 @@ void psPlayerSet00::MagicShootSet03(string psName)
 	_boardEMT->InitRandomColorFadeB(0.0f, 0.0f);*/
 
 
-	_PS->addEmitter(_boardEMT);
+	_PS->addEmitter(_pointEMT);
 
 	PSM->addPS(psName, _PS, true);
 }

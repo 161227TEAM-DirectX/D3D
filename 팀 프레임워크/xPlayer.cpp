@@ -5,9 +5,13 @@
 
 HRESULT xPlayer::init()
 {
+	//스킬 루틴을 플레이어 내부에 작성해야겠다.
+	//필요한 루틴 : 파티클온, 애니메이션 바꾸기, 
+	//우선 맵에 스킬 정보를 저장한다...
+
 	_handTrans = new dx::transform;
 	_edgeTrans = new dx::transform;
-	
+
 	//테스트용 라이트 스킬
 	//_lightSkill = new SK_Boss00;
 	//_skillTrans = new dx::transform;
@@ -922,6 +926,8 @@ void xPlayer::playerStateManager()
 //플레이어의 상태에 따른 애니메이션의 처리
 void xPlayer::playerAnimationManager()
 {
+	dx::transform* _testTrans = new dx::transform;
+
 
 	if (_prevState == _state) return;
 	switch (_state)
@@ -973,8 +979,10 @@ void xPlayer::playerAnimationManager()
 		_playerObject->_skinnedAnim->Play("RDSD", 0.2f);
 		break;
 	case P_CASTSPELL:
-		SKM->findSK("매직슈터")->setSkillPosTrans(_playerObject->_transform);
-		SKM->findSK("매직슈터")->setSkillDirTrans(_playerObject->_transform);
+		
+
+		SKM->findSK("매직슈터")->setSkillPosTrans(_testTrans);
+		SKM->findSK("매직슈터")->setSkillDirTrans(_testTrans);
 		SKM->findSK("매직슈터")->setOneTargetTrans(&_attackTrans);
 		SKM->findSK("매직슈터")->Start();
 		_playSpeed = 1.0f;
@@ -1094,8 +1102,6 @@ void xPlayer::testControl()
 		playerSkillOmni(1.0f);
 
 	}
-
-	
 
 	if (KEYMANAGER->isOnceKeyDown('2'))
 	{

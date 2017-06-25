@@ -4,6 +4,7 @@
 
 HRESULT kimsNewTest::init()
 {
+
 	//SOUNDMANAGER->play("¸¶À»1", 1.0f);
 	cDxImgUI* temp = new cDxImgUI("quickSlotUI_back");
 	temp->GetUI()->SetPosition(D3DXVECTOR3(WINSIZEX / 2, WINSIZEY / 2, 0));
