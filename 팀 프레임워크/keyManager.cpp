@@ -6,8 +6,11 @@ HRESULT keyManager::init()
 	//키값을 전부 눌려 있지 않은 상태로 초기화 한다
 	for (int i = 0; i < KEYMAX; i++)
 	{
-		_keyUp[i] = false;
-		_keyDown[i] = false;
+		for (int j=0; j < KEYSAME; j++)
+		{
+			_keyUp[i][j] = false;
+			_keyDown[i][j] = false;
+		}
 	}
 
 	return S_OK;
@@ -21,15 +24,21 @@ bool keyManager::isOnceKeyDown(int key)
 {
 	if (GetAsyncKeyState(key) & 0x8000)
 	{
-		if (!_keyDown[key])
+		for (int i=0; i < KEYSAME; i++)
 		{
-			_keyDown[key] = true;
-			return true;
+			if (!_keyDown[key][i])
+			{
+				_keyDown[key][i] = true;
+				return true;
+			}
 		}
 	}
 	else
 	{
-		_keyDown[key] = false;
+		for (int i=0; i < KEYSAME; i++)
+		{
+			_keyDown[key][i] = false;
+		}
 	}
 
 	return false;
@@ -39,14 +48,20 @@ bool keyManager::isOnceKeyUp(int key)
 {
 	if (GetAsyncKeyState(key) & 0x8000)
 	{
-		_keyUp[key] = true;
+		for (int i=0; i < KEYSAME; i++)
+		{
+			_keyUp[key][i] = true;
+		}
 	}
 	else
 	{
-		if (_keyUp[key])
+		for (int i=0; i < KEYSAME; i++)
 		{
-			_keyUp[key] = false;
-			return true;
+			if (_keyUp[key][i])
+			{
+				_keyUp[key][i] = false;
+				return true;
+			}
 		}
 	}
 

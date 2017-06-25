@@ -49,7 +49,7 @@ void loadingScene::render()
 	DXIMG_MANAGER->GetDxImg("로딩화면")->render();
 	m_pLoadingBar->render();
 
-	if (m_isChange && m_pLoadingBar->IsFullBar())
+	if (m_isChange /*&& m_pLoadingBar->IsFullBar()*/)
 	{
 		SCENEMANAGER->changeScene("test");
 	}

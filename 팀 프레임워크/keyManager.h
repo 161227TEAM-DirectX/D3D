@@ -5,12 +5,13 @@
 //====================================================================
 
 #define KEYMAX 256
+#define KEYSAME	100
 
 class keyManager : public singletonBase <keyManager>
 {
 private:
-	bool _keyUp[KEYMAX];
-	bool _keyDown[KEYMAX];
+	bool _keyUp[KEYMAX][KEYSAME];
+	bool _keyDown[KEYMAX][KEYSAME];
 
 public:
 	//키매니져 초기화
