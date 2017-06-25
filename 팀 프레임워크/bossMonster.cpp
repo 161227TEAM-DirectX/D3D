@@ -55,8 +55,6 @@ void bossMonster::baseObjectUpdate()
 	}
 
 	if (CurrAction) result = (LHS::ACTIONRESULT)CurrAction->Update();
-	
-	_skinnedAnim->update();
 }
 
 void bossMonster::baseObjectNoActiveUpdate()

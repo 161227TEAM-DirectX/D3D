@@ -18,7 +18,7 @@ int bossActionSkillBattleRoar::Start()
 
 	//보스몬스터의 공격모션 아무거나 시작.
 	owner->getSkinnedAnim().Play("Animation_13");
-	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
+//	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 
 	//공격방식 변경 -> 0이면 스턴을 위한 방식 / 1이면 range범위에서의 전방위 마법공격 -> 둘다 도트뎀(데미지는 마법공격이 더 강하도록 설정)
 	attackStyle = myUtil::RandomIntRange(0, 1);

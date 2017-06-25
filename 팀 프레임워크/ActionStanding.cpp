@@ -16,7 +16,7 @@ int ActionStanding::Start()
 {
 	if (!owner)return LHS::ACTIONRESULT::ACTION_FINISH;
 	owner->getSkinnedAnim().Play("Stand");
-	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
+//	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 	PassedTime = 0.0f;
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }
