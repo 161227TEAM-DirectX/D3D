@@ -17,7 +17,7 @@ int bossActionCinema::Start()
 	if (!owner) return LHS::ACTIONRESULT::ACTION_FINISH;
 
 	owner->getSkinnedAnim().Play("Animation_62");
-	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
+//	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 	SOUNDMANAGER->play("焊胶见家府2", 0.5f);
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
@@ -41,7 +41,7 @@ int bossActionCinema::Update()
 			if (!strcmp("Animation_61", temp.c_str()))
 			{
 				owner->getSkinnedAnim().Play("Animation_13", 1.0f);
-				owner->getSkinnedAnim().SetPlaySpeed(0.5f);
+//				owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 				//SOUNDMANAGER->play("箕快泼4");
 				SOUNDMANAGER->stop("叭扁");
 			}

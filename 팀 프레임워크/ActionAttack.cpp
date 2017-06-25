@@ -17,7 +17,7 @@ int ActionAttack::Start()
 	if (!owner)return LHS::ACTIONRESULT::ACTION_FINISH;
 
 	owner->getSkinnedAnim().Play("Attack01");
-	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
+//	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
 }
@@ -43,7 +43,7 @@ int ActionAttack::Update()
 
 	
 	//적이 나의 hit박스 안에 있는가?
-	if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->_boundBox, playerObject->_transform, &playerObject->_boundBox))
+	if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
 	{
 		//owner->getSkinnedAnim().Stop();
 		return LHS::ACTIONRESULT::ACTION_MOVE;

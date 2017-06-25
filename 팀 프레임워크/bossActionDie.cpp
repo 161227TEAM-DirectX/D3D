@@ -17,7 +17,7 @@ int bossActionDie::Start()
 
 	//보스몬스터의 공격모션 아무거나 시작.
 	owner->getSkinnedAnim().Play("Animation_19");
-	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
+//	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
 }

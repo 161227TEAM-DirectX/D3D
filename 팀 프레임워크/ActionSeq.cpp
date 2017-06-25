@@ -13,8 +13,9 @@ ActionSeq::~ActionSeq()
 	{
 		SAFE_DELETE(vecAction[i]);
 	}
-	
+	vecAction.clear();
 	vector<Action*>().swap(vecAction);
+	SAFE_DELETE(deleGate);
 }
 
 void ActionSeq::AddAction(Action * tAction)

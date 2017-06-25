@@ -57,7 +57,7 @@ void monster::baseObjectDisable()
 void monster::baseObjectUpdate()
 {
 	stateSwitch();
-	//name->update();
+	name->update();
 
 	if (NextAction != nullptr)
 	{
@@ -79,7 +79,7 @@ void monster::baseObjectRender()
 	if (_skinnedAnim != nullptr) _skinnedAnim->render(_transform);
 
 	D3DXVECTOR3 temp = { _transform->GetWorldPosition().x, _boundBox._localMaxPos.y, _transform->GetWorldPosition().z };
-	//name->render();
+	name->render();
 
 	hitBox.renderGizmo(_transform, D3DCOLOR_XRGB(255, 0, 0));
 	range.renderGizmo(_transform, D3DCOLOR_XRGB(255, 255, 0));
