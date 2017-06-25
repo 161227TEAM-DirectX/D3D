@@ -20,7 +20,10 @@ HRESULT skinnedAnimation::init(xMeshSkinned * pSkinnedMesh)
 
 	if (pSkinnedMesh == NULL) return E_FAIL;
 
+	//_pSkinnedMesh = new xMeshSkinned;
+	_pSkinnedMesh = NULL;
 	_pSkinnedMesh = pSkinnedMesh;
+	_pAnimController = NULL;
 
 	//SKinned Mesh 에 Animation 를 복사한다.
 	_pSkinnedMesh->_pAnimController->CloneAnimationController(
@@ -59,6 +62,8 @@ void skinnedAnimation::release()
 
 void skinnedAnimation::update()
 {
+	_pSkinnedMesh->SetAnimation(_pNowPlayAnimationSet);
+	
 	//0 번 Track 정보를 얻는다
 	_pAnimController->GetTrackDesc(0, &_Track_Desc_0);
 	
@@ -138,12 +143,6 @@ void skinnedAnimation::update()
 			_pAnimController->SetTrackWeight(1, w1);
 		}
 	}
-	//현재 자신의 Animation 정보로 세팅
-	_pAnimController->AdvanceTime(_fAnimDelta, NULL);
-	
-	_fAnimDelta = 0.0f;		//애니메이션을 진행시켰기 때문에 delta 량은 0 으로....
-
-	updateBone();
 }
 
 void skinnedAnimation::updateBone()
@@ -162,6 +161,13 @@ void skinnedAnimation::updateBone()
 
 void skinnedAnimation::render(dx::transform * _transform)
 {
+	//현재 자신의 Animation 정보로 세팅
+	_pAnimController->AdvanceTime(_fAnimDelta, NULL);
+
+	_fAnimDelta = 0.0f;		//애니메이션을 진행시켰기 때문에 delta 량은 0 으로....
+
+	updateBone();
+
 	_pSkinnedMesh->render(_transform);
 }
 
@@ -186,6 +192,7 @@ void skinnedAnimation::renderBoneName(camera * pCam, dx::transform * _transform)
 
 void skinnedAnimation::Play(string animName, float crossFadeTime)
 {
+	_AnimName = animName;
 	_bPlay = true;
 	_bLoop = true;
 
@@ -310,8 +317,7 @@ void skinnedAnimation::RemoveApplyTransform(string boneName)
 void skinnedAnimation::SetAnimation(LPD3DXANIMATIONSET animSet)
 {
 	//이미 플레이되고 있는 Animation 이라면 실행이 되지 않는다.
-	if (this->_pNowPlayAnimationSet != NULL &&
-		animSet == this->_pNowPlayAnimationSet) return;
+	if (this->_pNowPlayAnimationSet != NULL && animSet == this->_pNowPlayAnimationSet) return;
 
 	//크로스 페이드가 존재한다면..
 	if (this->_fCrossFadeTime > 0.0f)

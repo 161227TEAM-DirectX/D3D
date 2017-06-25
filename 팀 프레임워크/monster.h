@@ -26,6 +26,7 @@ protected:
 	boundBox hitBox;							//공격용탐색박스
 	LHS::ACTIONRESULT result;					//액션을 위한 입력값
 	Text*	name;								//몬스터의 이름
+	int i;
 protected:
 	Action*					CurrAction;				//현재 활성화된 행동 클래스
 	Action*					NextAction;				//다음 활성화될 행동 클래스
@@ -33,6 +34,7 @@ public:
 //	monster();
 	monster(string Name = "이름을입력해주세요");
 	virtual ~monster();
+	inline void setI(int& temp) { this->i = temp; }
 
 	inline int& getHP(void) { return HP; }
 	inline void setHP(const int& temp) { HP = temp; }

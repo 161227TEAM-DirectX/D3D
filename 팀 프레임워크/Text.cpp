@@ -15,6 +15,7 @@ Text::~Text()
 
 void Text::init(string str)
 {
+	nameStr = str;
 	strLength = str.length();
 
 	HDC hdc = CreateCompatibleDC(nullptr);

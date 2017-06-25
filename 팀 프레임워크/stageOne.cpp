@@ -73,7 +73,7 @@ HRESULT stageOne::init()
 		object = IOSAVEOBJECTMANAGER->findTag("³Ñ¹ö" + to_string(i + 1));
 		baseObject* temp = new baseObject;
 		D3DXMATRIX matRotate;
-		objectSet->objectSet(object.objectNumber, temp, matRotate, object.objectX, object.objectY, object.objectZ, 0.3f, object.objectRotate);
+		objectSet->objectSet(object.objectNumber, temp, matRotate, object.objectX, object.objectY, object.objectZ, object.objectScale, object.objectRotate);
 
 		_renderObject.push_back(temp);
 	}

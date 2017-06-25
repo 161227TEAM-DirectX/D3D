@@ -110,6 +110,7 @@ HRESULT terrainPickingTest::init(void)
 		//monster* temp = dynamic_cast<monster*>(mon[i]);
 		//temp->setActive(true);
 		mon[i]->setActive(true);
+		mon[i]->setI(i);
 		_renderObjects.push_back(mon[i]);
 	}
 
@@ -452,7 +453,7 @@ void terrainPickingTest::addObject(void)
 void terrainPickingTest::InitMonster(void)
 {
 	//임시 플레이어 코드
-	D3DXMATRIX mat;
+	D3DXMATRIXA16 mat;
 	//	D3DXMATRIX matScaling;
 	D3DXMATRIX matRotate;
 	//	D3DXMatrixScaling(&matScaling, 0.1f, 0.1f, 0.1f);
@@ -461,6 +462,7 @@ void terrainPickingTest::InitMonster(void)
 	monster* tempObject;
 
 	tempObject = new monster;
+
 	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	float tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
@@ -469,178 +471,187 @@ void terrainPickingTest::InitMonster(void)
 
 	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
 	tempObject->setRegenPosition(tempX, tempY, tempZ);
+	//xMeshSkinned* temp = new xMeshSkinned;
+	//temp->init("Resource/Meshes/monster/arcanegolem_ok/x/golem2.x", &mat);
+	//tempObject->setMesh(temp);
 	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/arcanegolem_ok/x/golem2.x", mat));
+	//xMeshSkinned* newMesh = RM_SKINNED->getResource("Resource/Meshes/monster/arcanegolem_ok/x/golem2.x", mat);
+
+
 	mon.push_back(tempObject);
 	tempObject = nullptr;
 
-	tempObject = new monster;
-	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+	monster* tempObject2 = new monster;
+	tempObject2->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
 	tempY = _terrain->getHeight(tempX, tempZ);
 
-	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
-	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/Beargod_ok/x/beargod.x", mat));
-	//mon.push_back(tempObject);
-	tempObject = nullptr;
+	tempObject2->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	tempObject2->setRegenPosition(tempX, tempY, tempZ);
+	//xMeshSkinned* temp2 = new xMeshSkinned;
+	//temp2->init("Resource/Meshes/monster/arcanegolem_ok/x/golem2.x", &mat);
+	//tempObject->setMesh(temp2);
+	tempObject2->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/arcanegolem_ok/x/golem2.x", mat));
+	mon.push_back(tempObject2);
+	tempObject2 = nullptr;
 
-	tempObject = new monster;
-	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+	//tempObject = new monster;
+	//tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
-	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempY = _terrain->getHeight(tempX, tempZ);
+	//tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempY = _terrain->getHeight(tempX, tempZ);
 
-	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
-	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/boar_ok/x/boar.x", mat));
-	//mon.push_back(tempObject);
-	tempObject = nullptr;
+	//tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	//tempObject->setRegenPosition(tempX, tempY, tempZ);
+	//tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/boar_ok/x/boar.x", mat));
+	////mon.push_back(tempObject);
+	//tempObject = nullptr;
 
-	tempObject = new monster;
-	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+	//tempObject = new monster;
+	//tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
-	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempY = _terrain->getHeight(tempX, tempZ);
+	//tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempY = _terrain->getHeight(tempX, tempZ);
 
-	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
-	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/bogbeast_ok/x/bogbeast.x", mat));
-	//mon.push_back(tempObject);
-	tempObject = nullptr;
+	//tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	//tempObject->setRegenPosition(tempX, tempY, tempZ);
+	//tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/bogbeast_ok/x/bogbeast.x", mat));
+	////mon.push_back(tempObject);
+	//tempObject = nullptr;
 
-	tempObject = new monster;
-	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+	//tempObject = new monster;
+	//tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
-	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempY = _terrain->getHeight(tempX, tempZ);
+	//tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempY = _terrain->getHeight(tempX, tempZ);
 
-	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
-	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/Brutallus_ok/x/brutallus.x", mat));
-	//mon.push_back(tempObject);
-	tempObject = nullptr;
+	//tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	//tempObject->setRegenPosition(tempX, tempY, tempZ);
+	//tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/Brutallus_ok/x/brutallus.x", mat));
+	////mon.push_back(tempObject);
+	//tempObject = nullptr;
 
-	tempObject = new monster;
-	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+	//tempObject = new monster;
+	//tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
-	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempY = _terrain->getHeight(tempX, tempZ);
+	//tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempY = _terrain->getHeight(tempX, tempZ);
 
-	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
-	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/chimerabeast_ok/x/chimerabeast.x", mat));
-	//mon.push_back(tempObject);
-	tempObject = nullptr;
+	//tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	//tempObject->setRegenPosition(tempX, tempY, tempZ);
+	//tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/chimerabeast_ok/x/chimerabeast.x", mat));
+	////mon.push_back(tempObject);
+	//tempObject = nullptr;
 
-	tempObject = new monster;
-	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+	//tempObject = new monster;
+	//tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
-	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempY = _terrain->getHeight(tempX, tempZ);
+	//tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempY = _terrain->getHeight(tempX, tempZ);
 
-	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
-	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/cockatriceelite_ok/x/cockatriceelite.x", mat));
-	//mon.push_back(tempObject);
-	tempObject = nullptr;
+	//tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	//tempObject->setRegenPosition(tempX, tempY, tempZ);
+	//tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/cockatriceelite_ok/x/cockatriceelite.x", mat));
+	////mon.push_back(tempObject);
+	//tempObject = nullptr;
 
-	tempObject = new monster;
-	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+	//tempObject = new monster;
+	//tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
-	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempY = _terrain->getHeight(tempX, tempZ);
+	//tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempY = _terrain->getHeight(tempX, tempZ);
 
-	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
-	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/crocodile_ok/x/crocodile.x", mat));
-	//mon.push_back(tempObject);
-	tempObject = nullptr;
+	//tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	//tempObject->setRegenPosition(tempX, tempY, tempZ);
+	//tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/crocodile_ok/x/crocodile.x", mat));
+	////mon.push_back(tempObject);
+	//tempObject = nullptr;
 
-	tempObject = new monster;
-	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+	//tempObject = new monster;
+	//tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
-	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempY = _terrain->getHeight(tempX, tempZ);
+	//tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempY = _terrain->getHeight(tempX, tempZ);
 
-	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
-	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/direfurbolg_ok/x/direfurbolg.x", mat));
-	//mon.push_back(tempObject);
-	tempObject = nullptr;
+	//tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	//tempObject->setRegenPosition(tempX, tempY, tempZ);
+	//tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/direfurbolg_ok/x/direfurbolg.x", mat));
+	////mon.push_back(tempObject);
+	//tempObject = nullptr;
 
-	tempObject = new monster;
-	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+	//tempObject = new monster;
+	//tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
-	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempY = _terrain->getHeight(tempX, tempZ);
+	//tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempY = _terrain->getHeight(tempX, tempZ);
 
-	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
-	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/doomguard_ok/x/doomguard.x", mat));
-	//mon.push_back(tempObject);
-	tempObject = nullptr;
+	//tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	//tempObject->setRegenPosition(tempX, tempY, tempZ);
+	//tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/doomguard_ok/x/doomguard.x", mat));
+	////mon.push_back(tempObject);
+	//tempObject = nullptr;
 
-	tempObject = new monster;
-	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+	//tempObject = new monster;
+	//tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
-	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempY = _terrain->getHeight(tempX, tempZ);
+	//tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempY = _terrain->getHeight(tempX, tempZ);
 
-	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
-	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/harpy_ok/x/harpy.x", mat));
-	//mon.push_back(tempObject);
-	tempObject = nullptr;
+	//tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	//tempObject->setRegenPosition(tempX, tempY, tempZ);
+	//tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/harpy_ok/x/harpy.x", mat));
+	////mon.push_back(tempObject);
+	//tempObject = nullptr;
 
-	tempObject = new monster;
-	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+	//tempObject = new monster;
+	//tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
-	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempY = _terrain->getHeight(tempX, tempZ);
+	//tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempY = _terrain->getHeight(tempX, tempZ);
 
-	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
-	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/raptor_ok/x/raptor.x", mat));
-	//mon.push_back(tempObject);
-	tempObject = nullptr;
+	//tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	//tempObject->setRegenPosition(tempX, tempY, tempZ);
+	//tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/raptor_ok/x/raptor.x", mat));
+	////mon.push_back(tempObject);
+	//tempObject = nullptr;
 
-	tempObject = new monster;
-	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+	//tempObject = new monster;
+	//tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
-	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempY = _terrain->getHeight(tempX, tempZ);
+	//tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempY = _terrain->getHeight(tempX, tempZ);
 
-	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
-	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/scorpion_ok/x/scorpion.x", mat));
-	//mon.push_back(tempObject);
-	tempObject = nullptr;
+	//tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	//tempObject->setRegenPosition(tempX, tempY, tempZ);
+	//tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/scorpion_ok/x/scorpion.x", mat));
+	////mon.push_back(tempObject);
+	//tempObject = nullptr;
 
-	tempObject = new monster;
-	tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
+	//tempObject = new monster;
+	//tempObject->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
-	tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
-	tempY = _terrain->getHeight(tempX, tempZ);
+	//tempX = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempZ = myUtil::RandomFloatRange(1.0f, 20.0f);
+	//tempY = _terrain->getHeight(tempX, tempZ);
 
-	tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
-	tempObject->setRegenPosition(tempX, tempY, tempZ);
-	tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
-	//mon.push_back(tempObject);
-	tempObject = nullptr;
+	//tempObject->_transform->SetWorldPosition(tempX, tempY, tempZ);
+	//tempObject->setRegenPosition(tempX, tempY, tempZ);
+	//tempObject->setMesh(RM_SKINNED->getResource("Resource/Meshes/monster/thunderlizard_ok/x/thunderlizard.x", mat));
+	////mon.push_back(tempObject);
+	//tempObject = nullptr;
 }
 
 void terrainPickingTest::readyShadowMap(vector<baseObject*>* renderObjects, terrain * pTerrain)

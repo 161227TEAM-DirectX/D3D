@@ -638,7 +638,7 @@ void leftViewHead::save()
 		{
 			m_vecObject.clear();
 
-			IOSAVEOBJECTMANAGER->loadFile("오브젝트");
+			IOSAVEOBJECTMANAGER->loadFile("마을오브젝트");
 			for (int i = 0; i < IOSAVEOBJECTMANAGER->getCount(); i++)
 			{
 				object = IOSAVEOBJECTMANAGER->findTag("넘버" + to_string(i + 1));
@@ -650,12 +650,12 @@ void leftViewHead::save()
 				InfoObjectTemp.push_back(object);
 			}
 		
-			_terrain->setTile0(IOMAPMANAGER->loadMapInfo("지형0").tile0);
-			_terrain->setTile1(IOMAPMANAGER->loadMapInfo("지형0").tile1);
-			_terrain->setTile2(IOMAPMANAGER->loadMapInfo("지형0").tile2);
-			_terrain->setTile3(IOMAPMANAGER->loadMapInfo("지형0").tile3);
-			_terrain->setSlat(IOMAPMANAGER->loadMapInfo("지형0").splat);
-			_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("지형0").vecPos);
+			_terrain->setTile0(IOMAPMANAGER->loadMapInfo("마을지형").tile0);
+			_terrain->setTile1(IOMAPMANAGER->loadMapInfo("마을지형").tile1);
+			_terrain->setTile2(IOMAPMANAGER->loadMapInfo("마을지형").tile2);
+			_terrain->setTile3(IOMAPMANAGER->loadMapInfo("마을지형").tile3);
+			_terrain->setSlat(IOMAPMANAGER->loadMapInfo("마을지형").splat);
+			_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("마을지형").vecPos);
 			_terrain->setting();
 			_terrain->changeHeightTerrain();
 
@@ -663,7 +663,7 @@ void leftViewHead::save()
 			tagSaveMap _envTemp;
 			tagSaveMap _waterTemp;
 
-			IOSAVEMANAGER->loadFile("세이브맵");
+			IOSAVEMANAGER->loadFile("마을세이브맵");
 
 			_envTemp = IOSAVEMANAGER->findTag("환경맵");
 			_waterTemp = IOSAVEMANAGER->findTag("물결맵");

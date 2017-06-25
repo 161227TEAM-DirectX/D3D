@@ -45,6 +45,7 @@ void baseObject::setMesh(xMesh * pMesh)
 {
 	_mesh = pMesh;
 	xMeshSkinned* pSkin = dynamic_cast<xMeshSkinned*>(pMesh);
+
 	this->computeBoundBox();
 
 	//StaticMesh ¶ó¸é...
