@@ -34,8 +34,7 @@ public:
 	{
 		D3DXVECTOR3 pos;	//위치
 		DWORD		color;	//색깔
-		float		tu, tv; //텍스쳐 좌표
-		enum { FVF_Flags = D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1 };
+		enum { FVF_Flags = D3DFVF_XYZ | D3DFVF_DIFFUSE };
 	}WATERVERTEX, *LPWATERVERTEX;
 
 	typedef struct tagWATERTRI
@@ -47,14 +46,15 @@ public:
 
 private:
 	Option_Shader_Water				waterOption;		// 물 옵션
-	LPDIRECT3DTEXTURE9              temp;               //벡터담을 변수
-	vector<LPDIRECT3DTEXTURE9>		m_pWaterBump;		// 물
-	LPDIRECT3DCUBETEXTURE9			m_pReflectionMap;	// 하늘의 반사 맵
+	LPDIRECT3DTEXTURE9          	m_pWaterBump;		// 물
+	vector<LPDIRECT3DCUBETEXTURE9>	m_pReflectionMap;	// 하늘의 반사 맵
+	LPDIRECT3DCUBETEXTURE9          temp;               //벡터담을 변수
 	LPD3DXEFFECT					m_Effect_Water;
 	float							m_timer;
-	camera							_mainCamera;
 
 private:
+	camera* _mainCamera;
+
 	LPDIRECT3DVERTEXBUFFER9			_terrainVb;			//지형 정점버퍼
 	LPDIRECT3DINDEXBUFFER9			_terrainIb;			//지형 인덱스버퍼
 	LPWATERVERTEX					_terrainVertices;	//지형 정점정보
@@ -85,5 +85,8 @@ public:
 	void update(int number);
 	void render(){}
 	void render(int number);
+
+	void linkCamera(camera& temp) { this->_mainCamera = &temp; }
+
 };
 
