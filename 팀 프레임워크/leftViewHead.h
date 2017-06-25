@@ -26,7 +26,7 @@ private:
 	lightDirection*		_directionLight;	//빛클래스
 	mapObject*			_mapObject;		//맵오브젝트
 	WaterTerrain*		_waterTerrain;    //물결 오브젝트
-	camera				_mainCamera;		//그래
+	camera*				_mainCamera;		//그래
 	vector<baseObject*>	_monster;
 
 	lightDirection*			_sceneBaseDirectionLight;	//씬에 배치된 기본라이팅
@@ -64,6 +64,8 @@ private:
 
 	int sour;
 	int dest;
+	
+	int cocoNumber;
 //LOAD부분
 private:
 	tagSaveObject object;

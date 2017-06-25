@@ -88,7 +88,7 @@ HRESULT terrainPickingTest::init(void)
 
 //	boss = new bossMonster;
 	_player = new xPlayer;
-	_player->setlinkTerrain(*_terrain);
+	_player->out_setlinkTerrain(*_terrain);
 	_player->init();
 	_player->getPlayerObject()->_transform->SetWorldPosition(1.0f, 0.0f, -3.0f);
 //	_player->getPlayerObject()->_transform->SetWorldPosition(20.0f, 0.0f, -20.0f);
@@ -137,7 +137,7 @@ HRESULT terrainPickingTest::init(void)
 	dest = -1;
 
 	_player->setTargetMonster(*boss);
-	_player->setMonsterRegion(&mon);
+	_player->out_setMonsterRegion(&mon);
 
 	return S_OK;
 }
@@ -194,7 +194,7 @@ void terrainPickingTest::render(void)
 
 //	_mapObject->objectRenderTool(m_vecObject, _mainCamera, _sceneBaseDirectionLight);
 
-	_waterTerrain->render(1);
+	//_waterTerrain->render(1);
 
 	_env->renderEnvironment(2);
 
@@ -216,7 +216,7 @@ void terrainPickingTest::render(void)
 		this->_cullObjects[i]->render();
 		if (_cullObjects[i] == _player->getPlayerObject())
 		{
-			_player->itemUpdate();
+			_player->out_ItemUpdate();
 		}
 	}
 

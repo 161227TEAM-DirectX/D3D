@@ -2,7 +2,6 @@
 #include "xPlayer.h"
 #include "monster.h"
 
-
 HRESULT xPlayer::init()
 {
 	//스킬 루틴을 플레이어 내부에 작성해야겠다.
@@ -293,21 +292,20 @@ HRESULT xPlayer::init()
 	_handTrans->AddChild(_edgeTrans);
 
 	BladePosInit();
-/*
-	_healSkill = new skPlayer_Heal;
-	_healSkill->setSkillPosTrans(this->getPlayerObject()->_transform);
-	_healSkill->init();*/
+
+	targetMonster = NULL;
 
 	return S_OK;
 }
 
 void xPlayer::update()
 {
-	//_healSkill->update();
 	/*for (int i = 0; i < this->_renderObjects.size(); i++)
 	{
 		this->_renderObjects[i]->render();
 	}*/
+	setHeight();
+	
 
 	PLAYERMANAGER->SetPos(_playerObject->_transform->GetWorldPosition());
 
@@ -330,12 +328,9 @@ void xPlayer::update()
 
 void xPlayer::render()
 {
-	//_healSkill->render();
 	_handTrans->RenderGimozo();
 	_edgeTrans->RenderGimozo();
-
 	
-	//_lightSkill->render();
 	//렌더링은 씬에 렌더오브젝트를 넘겨 처리한다.
 	if (KEYMANAGER->isToggleKey(VK_F7))
 	{
@@ -361,16 +356,13 @@ void xPlayer::render()
 		RM_SKINNED->getResource("Resource/Player/FHUMAN_PLATE/FHUMAN.X")->ShowAnimationName(0, 0);
 	}
 
-	//for (int i = 0; i < this->_renderObjects.size(); i++)
-	//{
-	//	this->_renderObjects[i]->render();
-	//	if (_renderObjects[i] == getPlayerObject())
-	//	{
-	//		itemUpdate();
-	//	}
-	//}
 
 	drawBladeLight();
+
+	if (NULL != targetMonster)
+	{
+		targetMonster->_boundBox.renderGizmo(targetMonster->_transform);
+	}
 }
 
 void xPlayer::release(void)
@@ -387,7 +379,8 @@ void xPlayer::release(void)
 
 void xPlayer::LoadData()
 {
-	//플레이어 데이터 싱글톤 함수로 부터 데이터를 복사한다.
+	//플레이어 데이터 싱글톤 함수에 데이터를 초기화 시킨다. 이게 꼭 플레이어 클래스여야 할까?
+
 }
 
 
@@ -400,7 +393,7 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 
 		if (!_isJump)
 		{
-			//moveControl();
+			moveControl();
 			jumpControl();
 			attackControl();
 			if (KEYMANAGER->isStayKeyDown('W'))
@@ -422,6 +415,9 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 		moveControl();
 		attackControl();
 		jumpControl();
+
+		
+
 		if (!KEYMANAGER->isStayKeyDown('W'))
 		{
 			if (_isOnBattle)
@@ -1036,7 +1032,7 @@ void xPlayer::moveControl()
 {
 	if (KEYMANAGER->isStayKeyDown('W'))
 	{
-		_playerObject->_transform->MovePositionWorld(_playerObject->_transform->GetForward()*0.05 *_moveSpeed);
+		_playerObject->_transform->MovePositionWorld(_playerObject->_transform->GetForward()*0.05*_moveSpeed);
 	}
 	if (KEYMANAGER->isStayKeyDown('S'))
 	{
@@ -1119,7 +1115,7 @@ void xPlayer::testControl()
 
 void xPlayer::actionControl()
 {
-	moveControl();
+	//moveControl();
 
 	rotateControl();
 
@@ -1133,7 +1129,7 @@ void xPlayer::actionControl()
 //플레이어 공격을 제어
 void xPlayer::playerAttack()
 {
-	BladePosInit();
+	//BladePosInit();
 	//해당상태가 아니면 행동하지 말아라.
 	//if (!(_state == P_STAND || _state == P_RUN || _state == P_MOVE || _state == P_WALKBACK || _state == P_READYTOATTACK)) { return; }
 
@@ -1230,7 +1226,7 @@ void xPlayer::setHeight()
 	_baseHeight = linkTerrain->getHeight(pos.x, pos.z);
 }
 
-void xPlayer::itemUpdate()
+void xPlayer::out_ItemUpdate()
 {
 
 	if (PLAYERMANAGER->GetWeapon() != W_NONE)
@@ -1454,6 +1450,45 @@ void xPlayer::BladePosInit()
 
 }
 
+//씬에서 호출해준다.
+void xPlayer::out_setTargetByMouse(camera* mainCamera)
+{
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	{
+		targetMonster = NULL;//타겟을 강제로 비운다.
+		for (int i = 0; i < _monsterPool->size(); i++)
+		{
+			Ray ray;
+			
+			D3DXVECTOR2 ptmouse = { (float)GetMousePos().x, (float)GetMousePos().y };
+			mainCamera->computeRay(&ray, &ptmouse);
+
+			if (PHYSICSMANAGER->isRayHitBound(&ray, &(*_monsterPool)[i]->_boundBox, (*_monsterPool)[i]->_transform, NULL, NULL))
+			{
+				
+				if (NULL != targetMonster)
+				{
+					D3DXVECTOR3 LengthVector = targetMonster->_transform->GetWorldPosition() - _playerObject->_transform->GetWorldPosition();
+					float Now = D3DXVec3Length(&LengthVector);
+					LengthVector = (*_monsterPool)[i]->_transform->GetWorldPosition() - _playerObject->_transform->GetWorldPosition();
+					float New = D3DXVec3Length(&LengthVector);
+
+					if (Now > New)//몬스터 위치 비교
+					{
+						//둘중에 가까운놈을 지정
+						targetMonster = (*_monsterPool)[i];
+					}
+				}
+				else
+				{
+					//비었으면 걍 넣기.
+					targetMonster = (*_monsterPool)[i];
+				}
+			}
+		}
+	}
+}
+
 void xPlayer::updateBladeLight()
 {
 	D3DXVECTOR3 nowEdgePos = _edgeTrans->GetWorldPosition();
@@ -1583,16 +1618,14 @@ void xPlayer::drawBladeLight()
 	}
 
 	_device->SetRenderState(D3DRS_LIGHTING, false);		//라이팅을 끈다.
-	//_device->SetRenderState(D3DRS_ZWRITEENABLE, false);	//z 버퍼의 쓰기를 막는다.
+	_device->SetRenderState(D3DRS_ZWRITEENABLE, false);	//z 버퍼의 쓰기를 막는다.
 
 	_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	//알파 블렌딩 셋팅
 	_device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
-	//_device->SetRenderState( D3DRS_SRCBLEND, D3DBLEND_SRCALPHA );
-	_device->SetRenderState( D3DRS_DESTBLEND, D3DBLEND_ONE);
-
 	_device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	_device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
 	_device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
 	//Texture 의 값과 Diffuse 여기서는 정점컬러의 알파값 을 섞어 최종 출력을 한다.

@@ -43,21 +43,12 @@ struct tagIndex
 class xPlayer :	public iGameNode
 {
 private:
-	//SK_Boss00* _lightSkill;
-	//dx::transform* _skillTrans;
-
-	skPlayer_Heal* _healSkill;
-
 	bool _isJump;
 	bool _isOnBattle;
 	PL_STATE _state;
 	PL_STATE _prevState;
 
-	//PL_ARMOR Equipments;
-	//int _Hp;
-	//int _Att;
-	//int _Def;
-
+	
 	float _moveSpeed;
 
 	float _damagedTime;
@@ -67,7 +58,7 @@ private:
 	float _baseHeight;//점프시작높이
 	float _jumpHeight;//점프높이!
 	float _jumpPower;//점프파워
-	float _degree;//삼각함수 높이
+	float _degree;//2차방정식에 따른 높이
 	float _jumpSpeed;
 
 	float _playSpeed;
@@ -83,17 +74,12 @@ private:
 	D3DXVECTOR3 posHand;
 	D3DXVECTOR3 posEdge;
 
-	//D3DXVECTOR3 PVs1[4];
-	//D3DXVECTOR3 PVs2[4];
-
 	deque<MYLIGHTVERTEX> _vertexDeque;
 
 	MYLIGHTVERTEX* pVertices;
 
 	deque<D3DXVECTOR3> _vecPosHand;
 	deque<D3DXVECTOR3> _vecPosEdge;
-
-
 
 	bool _isBladePosInit;
 
@@ -203,16 +189,9 @@ public:
 
 	void setHeight();
 
-	//궁여지책, 아이템의 행렬을 업데이트해준다.
-	void itemUpdate();
-
 	void setPlaySpeed(float speed) { _playSpeed = speed; }
 
-	void setlinkTerrain(terrain& rand) { this->linkTerrain = &rand; }
-
 	void setTargetMonster(monster& monster) { this->targetMonster = &monster; }
-
-	void setMonsterRegion(vector<monster*>* monsters) { this->_monsterPool = monsters; }
 
 	void normalAttackDamageProcessing();
 
@@ -223,6 +202,20 @@ public:
 	void drawBladeLight();
 
 	void BladePosInit();
+
+	//씬에서 호출해주는 친구들
+
+	//아이템의 행렬을 업데이트해준다.
+	void out_ItemUpdate();
+
+	//마우스를 이용한 타겟 설정
+	void out_setTargetByMouse(camera* mainCamera);
+
+	//
+	void out_setlinkTerrain(terrain& rand) { this->linkTerrain = &rand; }
+
+	//
+	void out_setMonsterRegion(vector<monster*>* monsters) { this->_monsterPool = monsters; }
 
 	xPlayer() {};
 	~xPlayer() {};

@@ -3,8 +3,8 @@
 class mapObject;
 class Environment;
 class WaterTerrain;
-class stageTwo :
-	public iGameNode
+class monster;
+class stageTwo :	public iGameNode
 {
 private:
 	camera* _mainCamera;						//메인카메라
@@ -21,6 +21,7 @@ private:
 private:
 	vector<baseObject*> _renderObject;			//출력할 오브젝트 벡터
 	vector<baseObject*>	_cullObject;			//프러스텀 컬링된 오브젝트 벡터
+	vector<monster*> _monsterRegion;
 private:
 	float _shadowDistance;
 	tagSaveMap envTemp;
