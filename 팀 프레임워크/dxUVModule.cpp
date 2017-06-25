@@ -82,7 +82,7 @@ void dxUVModule::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 
 		//애니메이션 시작부분고 엔드부분 설정
 
-		/*_radPtc.startFrameNum = 1;
+	/*	_radPtc.startFrameNum = 1;
 		_radPtc.endFrameNum = 2;
 		_radPtc.totalFrameNum = (_radPtc.endFrameNum - _radPtc.startFrameNum) + 1;
 		_radPtc.useFrameMaxNumY = (_radPtc.endFrameNum + _radPtc.frameMaxNumX) / _radPtc.frameMaxNumX - _radPtc.startFrameNum / _radPtc.frameMaxNumX;*/

@@ -53,7 +53,7 @@ HRESULT kimsTestScene::init(void)
 	//this->_renderObjects.push_back(enemy);
 
 	_player = new xPlayer;
-	_player->setlinkTerrain(*_terrain);
+	_player->out_setlinkTerrain(*_terrain);
 	_player->init();
 	_player->getPlayerObject()->_transform->SetWorldPosition(D3DXVECTOR3(3, 0, 0));
 	for (int i = 0; i < _player->getRenderObject().size(); i++)
@@ -266,7 +266,7 @@ void kimsTestScene::render(void)
 		this->_cullObjects[i]->render();
 		if (_cullObjects[i] == _player->getPlayerObject())
 		{
-			_player->itemUpdate();
+			_player->out_ItemUpdate();
 		}
 	}
 	

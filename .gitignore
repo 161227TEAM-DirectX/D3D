@@ -1,2 +1,9 @@
-PaticleResources/
+﻿PaticleResources/
 Debug/
+Resource/
+ResourceAnimation/
+ResourceUI/
+ipch/
+.vs/
+ResourceUI/
+DIRECT3D.VC.db

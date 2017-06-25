@@ -272,7 +272,8 @@ public:
 		_spawnCurrentTime = _spawnTime;
 		_startCurrentTime = 0.0f;
 		_activeCurrentTime = 0.0f;
-		
+
+		if (_startTimeCheckOn) { _startRenderOn = FALSE; }
 		
 	}
 public:

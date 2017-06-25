@@ -118,9 +118,6 @@ void dxPlaneEmitter::update()
 	_spawnCurrentTime += DeltaTime;
 
 	
-	
-
-
 }
 
 void dxPlaneEmitter::render()

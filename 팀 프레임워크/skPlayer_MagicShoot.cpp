@@ -50,13 +50,13 @@ void skPlayer_MagicShoot::release()
 
 bool skPlayer_MagicShoot::Prepare()
 {
-	_pvPrepaerPS[0][0]->Transform()->SetWorldMatrix(_skillPosTrans->GetFinalMatrix());
+	//_pvPrepaerPS[0][0]->Transform()->SetWorldMatrix(_skillPosTrans->GetFinalMatrix());
 	_pvPrepaerPS[0][0]->Transform()->SetWorldPosition(_skillPosTrans->GetWorldPosition());
 	_pvPrepaerPS[0][0]->Transform()->LookDirection(_skillPosTrans->GetForward());
 	_pvPrepaerPS[0][0]->update();
 
 	//_pvPrepaerPS[1][0]->Transform()->SetWorldMatrix(_skillPosTrans->GetFinalMatrix());
-	_pvPrepaerPS[1][0]->Transform()->SetWorldPosition(_oneTagerTrans->GetWorldPosition());
+	_pvPrepaerPS[1][0]->Transform()->SetWorldPosition(_oneTargetTrans->GetWorldPosition());
 	_pvPrepaerPS[1][0]->update();
 
 
@@ -81,7 +81,7 @@ bool skPlayer_MagicShoot::Action()
 		{
 			_pvActionPS[0][i]->SetActive(FALSE);
 			_pvFinishPS[0][i]->SetActive(FALSE);
-			_pvActionPS[0][i]->Transform()->LookDirection(_skillPosTrans->GetForward());
+			_pvActionPS[0][i]->Transform()->LookPosition(_oneTargetTrans->GetWorldPosition());
 		}
 		_OneActionSettingOn = false;
 	}
@@ -99,7 +99,7 @@ bool skPlayer_MagicShoot::Action()
 		_BP[_actionAtiveNum].P0 = _pvActionPS[0][_actionAtiveNum]->Transform()->GetWorldPosition();
 		_BP[_actionAtiveNum].P1 = _BP[_actionAtiveNum].P0 + _pvActionPS[0][_actionAtiveNum]->Transform()->GetRight() *RightDir* 5.0f + _pvActionPS[0][_actionAtiveNum]->Transform()->GetForward()*-5.0f;
 		_BP[_actionAtiveNum].P2 = _BP[_actionAtiveNum].P0 + _pvActionPS[0][_actionAtiveNum]->Transform()->GetRight() *RightDir* 3.0f + _pvActionPS[0][_actionAtiveNum]->Transform()->GetForward()*-3.0f;
-		_BP[_actionAtiveNum].P3 = _oneTagerTrans->GetWorldPosition();
+		_BP[_actionAtiveNum].P3 = _oneTargetTrans->GetWorldPosition();
 
 		_currentShootTime = 0.0f;
 
@@ -142,7 +142,7 @@ void skPlayer_MagicShoot::Finsh()
 	{
 		if (_pvFinishPS[0][i]->GetActive())
 		{
-			_pvFinishPS[0][i]->Transform()->SetWorldPosition(_oneTagerTrans->GetWorldPosition());
+			_pvFinishPS[0][i]->Transform()->SetWorldPosition(_oneTargetTrans->GetWorldPosition());
 			_pvFinishPS[0][i]->update();
 			_pvFinishPS[0][i]->autoTimeReset();
 		}

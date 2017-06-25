@@ -4,13 +4,13 @@
 
 HRESULT kimsNewTest::init()
 {
+
 	//SOUNDMANAGER->play("¸¶À»1", 1.0f);
-	cDxImgUI* temp;
-	temp = new cDxImgUI("Äü½½·Ô");
+	cDxImgUI* temp = new cDxImgUI("quickSlotUI_back");
 	temp->GetUI()->SetPosition(D3DXVECTOR3(WINSIZEX / 2, WINSIZEY / 2, 0));
 	temp->GetUI()->SetDrawBoundingBox(true);
 	temp->GetUI()->SetCenterDraw(true);
-	UI_MANAGER->AddUI("Äü½½·Ô", temp);
+	UI_MANAGER->AddUI("quickSlotUI_back", temp);
 
 	SOUNDMANAGER->play("¸¶À»1");
 	_mainCamera = new camera;
@@ -72,7 +72,7 @@ HRESULT kimsNewTest::init()
 	mat = matRotate;
 
 	_player = new xPlayer;
-	_player->setlinkTerrain(*_terrain);
+	_player->out_setlinkTerrain(*_terrain);
 	_player->init();
 	_player->getPlayerObject()->_transform->SetWorldPosition(0.0f, 0.0f, 0.0f);
 	//	_player->getPlayerObject()->_transform->SetWorldPosition(20.0f, 0.0f, -20.0f);
@@ -202,7 +202,7 @@ void kimsNewTest::render()
 		this->_cullObjects[i]->render();
 		if (_cullObjects[i] == _player->getPlayerObject())
 		{
-			_player->itemUpdate();
+			_player->out_ItemUpdate();
 			_player->updateBladeLight();
 		}
 	}

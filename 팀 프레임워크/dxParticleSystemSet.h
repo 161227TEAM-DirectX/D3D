@@ -7,6 +7,9 @@
 
 #include "dxParticleSystem.h"
 
+//
+#define OneColorByte(oneColor) (1.0f/255.0f*(float)((int)oneColor))
+
 class dxParticleSystemSet
 {
 protected:

@@ -85,10 +85,6 @@ void monster::baseObjectRender()
 	range.renderGizmo(_transform, D3DCOLOR_XRGB(255, 255, 0));
 
 	_boundBox.renderGizmo(_transform);
-
-	cout << "이름: " << name->getName() << i << " | 현재애니메이션: " << _skinnedAnim->getNowPlayAnimSet()->GetName() << " | 스키드애니메이션주소값: " << _skinnedAnim
-		<< " | 스키드애니메이션 메쉬 : " << _skinnedAnim->getSkinnedMesh() << endl;
-	//_skinnedAnim->getSkinnedMesh()->Play("Stand01");
 }
 
 void monster::stateSwitch(void)

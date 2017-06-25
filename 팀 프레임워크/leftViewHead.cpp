@@ -30,17 +30,21 @@ leftViewHead::~leftViewHead()
 
 HRESULT leftViewHead::init()
 {
+	cocoNumber = 0;
+	_mainCamera = new camera;
+	_mainCamera->SetWorldPosition(0.0f, 0.0f, 0.0f);
 
 	//환경맵
 	_environment = new Environment;
 	_environment->init();
-	_environment->linkCamera(_mainCamera);
+	_environment->linkCamera(*_mainCamera);
 
 	//오브젝트
 	_mapObject = new mapObject;
 	_mapObject->objectinit();
 
 	_waterTerrain = new WaterTerrain;
+	_waterTerrain->linkCamera(*_mainCamera);
 	_waterTerrain->init(3.0f, 256);
 
 	//지형
@@ -65,7 +69,6 @@ HRESULT leftViewHead::init()
 
 	//충돌지역, 카메라
 	_hitPos = D3DXVECTOR3(0, 0, 0);
-	_mainCamera.SetWorldPosition(0.0f, 0.0f, 0.0f);
 	_SaveButton.FT = false;
 	_LoadButton.FT = false;
 
@@ -90,9 +93,9 @@ void leftViewHead::update()
 {
 	_sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
 	//레프트 메인카메라 움직이기
-	_mainCamera.DefaultControl(_timeDelta, 1);
-	_mainCamera.updateMatrix();
-	_mainCamera.updateCamToDevice();
+	_mainCamera->DefaultControl(_timeDelta, 1);
+	_mainCamera->updateMatrix();
+	_mainCamera->updateCamToDevice();
 
 	//마우스 포인트 가져오기
 	_ptMousePos = GetMousePos();
@@ -128,7 +131,7 @@ void leftViewHead::PickUdate()
 
 				scale = 0.3f;
 
-				_mainCamera.computeRay(&ray, &_screenPos, 1);
+				_mainCamera->computeRay(&ray, &_screenPos, 1);
 
 				_terrain->isIntersectRay(&_hitPos, &ray);
 
@@ -163,7 +166,7 @@ void leftViewHead::PickUdate()
 		if (KEYMANAGER->isOnceKeyDown('H'))
 		{
 			D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
-			_mainCamera.computeRay(&ray, &_screenPos, 1);
+			_mainCamera->computeRay(&ray, &_screenPos, 1);
 
 			for (int i = 0; i < m_vecObject.size(); i++)
 			{
@@ -181,7 +184,7 @@ void leftViewHead::PickUdate()
 	//각도 조절하는 키입력
 	if (KEYMANAGER->isOnceKeyDown('C'))
 	{
-		if (mapRotation > D3DXToRadian(360))
+		if (mapRotation >= D3DXToRadian(360))
 		{
 			mapRotation = D3DXToRadian(0);
 		}
@@ -193,7 +196,7 @@ void leftViewHead::PickUdate()
 
 	if (KEYMANAGER->isOnceKeyDown('V'))
 	{
-		if (mapRotation < D3DXToRadian(0))
+		if (mapRotation <= D3DXToRadian(0))
 		{
 			mapRotation = D3DXToRadian(360);
 		}
@@ -234,7 +237,7 @@ void leftViewHead::terrainUpdate()
 			if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
 			{
 				D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
-				_mainCamera.computeRay(&ray, &_screenPos, 1);
+				_mainCamera->computeRay(&ray, &_screenPos, 1);
 
 				m_eHeightType = eHeightType::E_UP;
 				_terrain->_nHeightSign = 3;
@@ -245,7 +248,7 @@ void leftViewHead::terrainUpdate()
 			if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
 			{
 				D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
-				_mainCamera.computeRay(&ray, &_screenPos, 1);
+				_mainCamera->computeRay(&ray, &_screenPos, 1);
 
 				m_eHeightType = eHeightType::E_DOWN;
 				_terrain->_nHeightSign = -20;
@@ -533,7 +536,7 @@ void leftViewHead::monsterMaptul()
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
 				D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
-				_mainCamera.computeRay(&ray, &_screenPos, 1);
+				_mainCamera->computeRay(&ray, &_screenPos, 1);
 
 				_terrain->isIntersectRay(&_hitPos, &ray);
 				if (_hitPos.y > 0.1f)
@@ -556,7 +559,7 @@ void leftViewHead::monsterMaptul()
 				const vector<Node*>& temp = _terrain->getDijkstra().getVecNode();
 
 				D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
-				_mainCamera.computeRay(&ray, &_screenPos, 1);
+				_mainCamera->computeRay(&ray, &_screenPos, 1);
 
 				_terrain->isIntersectRay(&_hitPos, &ray);
 				for (int i = 0; i < temp.size(); i++)
@@ -638,24 +641,25 @@ void leftViewHead::save()
 		{
 			m_vecObject.clear();
 
-			IOSAVEOBJECTMANAGER->loadFile("마을오브젝트");
+			IOSAVEOBJECTMANAGER->loadFile("성밖오브젝트");
 			for (int i = 0; i < IOSAVEOBJECTMANAGER->getCount(); i++)
 			{
+				cocoNumber = IOSAVEOBJECTMANAGER->getCount();
 				object = IOSAVEOBJECTMANAGER->findTag("넘버" + to_string(i + 1));
 				baseObject* temp2 = new baseObject;
 				D3DXMATRIX mapRotate;
-				_mapObject->objectSet(object.objectNumber, temp2, mapRotate, object.objectX, object.objectY, object.objectZ, 0.3f, object.objectRotate);
+				_mapObject->objectSet(object.objectNumber, temp2, mapRotate, object.objectX, object.objectY, object.objectZ, object.objectScale, object.objectRotate);
 				m_vecObject.push_back(temp2);
 
 				InfoObjectTemp.push_back(object);
 			}
 		
-			_terrain->setTile0(IOMAPMANAGER->loadMapInfo("마을지형").tile0);
-			_terrain->setTile1(IOMAPMANAGER->loadMapInfo("마을지형").tile1);
-			_terrain->setTile2(IOMAPMANAGER->loadMapInfo("마을지형").tile2);
-			_terrain->setTile3(IOMAPMANAGER->loadMapInfo("마을지형").tile3);
-			_terrain->setSlat(IOMAPMANAGER->loadMapInfo("마을지형").splat);
-			_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("마을지형").vecPos);
+			_terrain->setTile0(IOMAPMANAGER->loadMapInfo("성밖지형").tile0);
+			_terrain->setTile1(IOMAPMANAGER->loadMapInfo("성밖지형").tile1);
+			_terrain->setTile2(IOMAPMANAGER->loadMapInfo("성밖지형").tile2);
+			_terrain->setTile3(IOMAPMANAGER->loadMapInfo("성밖지형").tile3);
+			_terrain->setSlat(IOMAPMANAGER->loadMapInfo("성밖지형").splat);
+			_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("성밖지형").vecPos);
 			_terrain->setting();
 			_terrain->changeHeightTerrain();
 
@@ -663,7 +667,7 @@ void leftViewHead::save()
 			tagSaveMap _envTemp;
 			tagSaveMap _waterTemp;
 
-			IOSAVEMANAGER->loadFile("마을세이브맵");
+			IOSAVEMANAGER->loadFile("성밖세이브맵");
 
 			_envTemp = IOSAVEMANAGER->findTag("환경맵");
 			_waterTemp = IOSAVEMANAGER->findTag("물결맵");
@@ -671,8 +675,8 @@ void leftViewHead::save()
 			_rightView->setNumberEnv(_envTemp.number);
 			_rightView->setnumberwater(_waterTemp.number);
 
-			loadMonster();
-			loadNode();
+			//loadMonster();
+			//loadNode();
 		}
 	}
 	else
@@ -685,89 +689,89 @@ void leftViewHead::save()
 		_SaveButton.FT = true;
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
-			//맵에 관한 save
-			//벡터로 담을 temp설정
-			vector<tagSaveMap> InfoTemp;
-			tagSaveMap temp;
+			////맵에 관한 save
+			////벡터로 담을 temp설정
+			//vector<tagSaveMap> InfoTemp;
+			//tagSaveMap temp;
 
-			temp.infoName = "환경맵";
-			temp.number = _rightView->getNumberEnv();
-			temp.mapHeight = 0;
-			InfoTemp.push_back(temp);
+			//temp.infoName = "환경맵";
+			//temp.number = _rightView->getNumberEnv();
+			//temp.mapHeight = 0;
+			//InfoTemp.push_back(temp);
 
-			temp.infoName = "물결맵";
-			temp.number = _rightView->getnumberwater();
-			temp.mapHeight = 0;
-			InfoTemp.push_back(temp);
+			//temp.infoName = "물결맵";
+			//temp.number = _rightView->getnumberwater();
+			//temp.mapHeight = 0;
+			//InfoTemp.push_back(temp);
 
-			IOSAVEMANAGER->saveFile("세이브맵", InfoTemp);
+			//IOSAVEMANAGER->saveFile("마을세이브맵", InfoTemp);
 
-			//지우고 나서 문제가 생겨서 이름을 다시 1번부터 저자시켜준다
-			for (int i = 0; i < InfoObjectTemp.size(); i++)
-			{
-				InfoObjectTemp[i].infoName = "넘버" + to_string(i + 1);
-			}
+			////지우고 나서 문제가 생겨서 이름을 다시 1번부터 저자시켜준다
+			//for (int i = 0; i < InfoObjectTemp.size(); i++)
+			//{
+			//	InfoObjectTemp[i].infoName = "넘버" + to_string(i + 1);
+			//}
 
-			IOSAVEOBJECTMANAGER->saveFile("오브젝트", InfoObjectTemp);
+			//IOSAVEOBJECTMANAGER->saveFile("마을오브젝트", InfoObjectTemp);
 
-			ST_MAP temp0;
+			//ST_MAP temp0;
 
-			temp0.heightMap = FILEPATH_MANAGER->GetFilepath(raw);
-			temp0.splat = FILEPATH_MANAGER->GetFilepath(splat);
-			temp0.tile0 = FILEPATH_MANAGER->GetFilepath(tile1);
-			temp0.tile1 = FILEPATH_MANAGER->GetFilepath(tile2);
-			temp0.tile2 = FILEPATH_MANAGER->GetFilepath(tile3);
-			temp0.tile3 = FILEPATH_MANAGER->GetFilepath(tile4);
+			//temp0.heightMap = FILEPATH_MANAGER->GetFilepath(raw);
+			//temp0.splat = FILEPATH_MANAGER->GetFilepath(splat);
+			//temp0.tile0 = FILEPATH_MANAGER->GetFilepath(tile1);
+			//temp0.tile1 = FILEPATH_MANAGER->GetFilepath(tile2);
+			//temp0.tile2 = FILEPATH_MANAGER->GetFilepath(tile3);
+			//temp0.tile3 = FILEPATH_MANAGER->GetFilepath(tile4);
 
-			temp0.vecPos = _terrain->getMapPosition();
+			//temp0.vecPos = _terrain->getMapPosition();
 
-			IOMAPMANAGER->saveFile("지형0", temp0);
+			//IOMAPMANAGER->saveFile("마을지형", temp0);
 
-			//몬스터 위치 ,값 저장/////////////////////////////////
-			vector<tagSaveMonster> monsterTemp;
-			tagSaveMonster Mtemp;
+			////몬스터 위치 ,값 저장/////////////////////////////////
+			//vector<tagSaveMonster> monsterTemp;
+			//tagSaveMonster Mtemp;
 
-			if (_monster.size() != 0)
-			{
-				for (int i = 0; i < _monster.size(); i++)
-				{
-					Mtemp.infoName = "몬스터넘버" + to_string(i + 1);
-					Mtemp.monsterNumber = _monster[i]->getObjectNumber();
-					Mtemp.monsterX = _monster[i]->_transform->GetWorldPosition().x;
-					Mtemp.monsterY = _monster[i]->_transform->GetWorldPosition().y;
-					Mtemp.monsterZ = _monster[i]->_transform->GetWorldPosition().z;
-					Mtemp.scale = 1.0f;
+			//if (_monster.size() != 0)
+			//{
+			//	for (int i = 0; i < _monster.size(); i++)
+			//	{
+			//		Mtemp.infoName = "몬스터넘버" + to_string(i + 1);
+			//		Mtemp.monsterNumber = _monster[i]->getObjectNumber();
+			//		Mtemp.monsterX = _monster[i]->_transform->GetWorldPosition().x;
+			//		Mtemp.monsterY = _monster[i]->_transform->GetWorldPosition().y;
+			//		Mtemp.monsterZ = _monster[i]->_transform->GetWorldPosition().z;
+			//		Mtemp.scale = 1.0f;
 
-					monsterTemp.push_back(Mtemp);
-				}
+			//		monsterTemp.push_back(Mtemp);
+			//	}
 
-				IOSAVEMONSTERMANAGER->saveFile("몬스터", monsterTemp);
-			}
+			//	IOSAVEMONSTERMANAGER->saveFile("몬스터", monsterTemp);
+			//}
 
-			////노드지정 ,위치,값 저장////////////////////////////
-			vector<tagSaveNode> nodeTemp;
-			tagSaveNode nTemp;
+			//////노드지정 ,위치,값 저장////////////////////////////
+			//vector<tagSaveNode> nodeTemp;
+			//tagSaveNode nTemp;
 
-			for (int i = 0; i < _terrain->getDijkstra().getVecNode().size(); i++)
-			{
-				nTemp.nodeFS.clear();
-				nTemp.infoName = "노드" + to_string(i + 1);
-				nTemp.Inumber = i;														// 벡터의 인덱스값 저장
-				nTemp.nodeX = _terrain->getDijkstra().getVecNode()[i]->getPosition().x;	//위치값 저장
-				nTemp.nodeY = _terrain->getDijkstra().getVecNode()[i]->getPosition().y;	//위치값 저장
-				nTemp.nodeZ = _terrain->getDijkstra().getVecNode()[i]->getPosition().z;	//위치값 저장
-				nTemp.nodeFSSize = _terrain->getDijkstra().getadjNode()[i].size();			//벡터 사이즈값 저장
+			//for (int i = 0; i < _terrain->getDijkstra().getVecNode().size(); i++)
+			//{
+			//	nTemp.nodeFS.clear();
+			//	nTemp.infoName = "노드" + to_string(i + 1);
+			//	nTemp.Inumber = i;														// 벡터의 인덱스값 저장
+			//	nTemp.nodeX = _terrain->getDijkstra().getVecNode()[i]->getPosition().x;	//위치값 저장
+			//	nTemp.nodeY = _terrain->getDijkstra().getVecNode()[i]->getPosition().y;	//위치값 저장
+			//	nTemp.nodeZ = _terrain->getDijkstra().getVecNode()[i]->getPosition().z;	//위치값 저장
+			//	nTemp.nodeFSSize = _terrain->getDijkstra().getadjNode()[i].size();			//벡터 사이즈값 저장
 
-				for (int j = 0; j < _terrain->getDijkstra().getadjNode()[i].size(); j++)
-				{
-					nTemp.nodeFS.push_back(make_pair(_terrain->getDijkstra().getadjNode()[i][j].first, _terrain->getDijkstra().getadjNode()[i][j].second)); 	//first는 벡터에서 몇번 노드인지를 알려준다.	
-																																								//second는 현재 노드에서 j노드까지의 거리값을 가진다.
-				}
+			//	for (int j = 0; j < _terrain->getDijkstra().getadjNode()[i].size(); j++)
+			//	{
+			//		nTemp.nodeFS.push_back(make_pair(_terrain->getDijkstra().getadjNode()[i][j].first, _terrain->getDijkstra().getadjNode()[i][j].second)); 	//first는 벡터에서 몇번 노드인지를 알려준다.	
+			//																																					//second는 현재 노드에서 j노드까지의 거리값을 가진다.
+			//	}
 
-				nodeTemp.push_back(nTemp);
-			}
+			//	nodeTemp.push_back(nTemp);
+			//}
 
-			IOSAVENODEMANAGER->saveFile("노드", nodeTemp);
+			//IOSAVENODEMANAGER->saveFile("노드", nodeTemp);
 		}
 
 	}
@@ -820,12 +824,12 @@ void leftViewHead::render()
 	}
 
 	//지형 렌더
-	_terrain->render(&_mainCamera, _sceneBaseDirectionLight);
+	_terrain->render(_mainCamera, _sceneBaseDirectionLight);
 
 	//오브젝트 렌더
-	if (!m_vecObject.empty()) _mapObject->objectRenderTool(m_vecObject, &_mainCamera, _sceneBaseDirectionLight);
+	if (!m_vecObject.empty()) _mapObject->objectRenderTool(m_vecObject, _mainCamera, _sceneBaseDirectionLight);
 
-	xMeshSkinned::setCamera(&_mainCamera);
+	xMeshSkinned::setCamera(_mainCamera);
 	xMeshSkinned::setTechniqueName("Toon");
 	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resource/Testures/Ramp_1.png"));
 	xMeshSkinned::setBaseLight(this->_sceneBaseDirectionLight);
@@ -865,7 +869,7 @@ void leftViewHead::monsterSelect(string str ,int monsterNumber)
 	temp->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
-	_mainCamera.computeRay(&ray, &_screenPos, 1);
+	_mainCamera->computeRay(&ray, &_screenPos, 1);
 
 	_terrain->isIntersectRay(&_hitPos, &ray);
 

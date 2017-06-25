@@ -78,6 +78,7 @@ D3DXVECTOR3 camera::getCameraPos()
 }
 
 //화면의 위치를 가지고 카메라의 투영레이를 얻는 함수
+//인자로서 LPRay를 쓰지말것. &Ray를 쓸것.
 void camera::computeRay(LPRay pOutRay, D3DXVECTOR2* screenPos)
 {
 	//디바이스를 통해 뷰포트를 얻기
