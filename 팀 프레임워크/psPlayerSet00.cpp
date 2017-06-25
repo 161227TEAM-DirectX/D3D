@@ -113,7 +113,7 @@ void psPlayerSet00::MagicShootSet00(string psName)
 
 	_boardEMT = NULL;
 	_pointEMT = new dxPointEmitter;
-	_pointEMT->init("PaticleResources/Texture/light_f5x6.png", 1, 1.0f, 1);
+	_pointEMT->init("PaticleResources/Texture/default.png", 1, 1.0f, 1);
 
 	//_pointEMT->InitRandomPositionX(-1.0f, 1.0f);
 	//_pointEMT->InitRandomPositionY(-0.5f, 0.5f);
@@ -143,7 +143,7 @@ void psPlayerSet00::MagicShootSet00(string psName)
 	_PS->addEmitter(_pointEMT);
 
 
-	PSM->addPS(psName, _PS);
+	PSM->addPS(psName, _PS, true);
 }
 
 void psPlayerSet00::MagicShootSet01(string psName)
@@ -237,7 +237,7 @@ void psPlayerSet00::MagicShootSet01(string psName)
 
 	_PS->addEmitter(_pointEMT);
 
-	PSM->addPS(psName, _PS);
+	PSM->addPS(psName, _PS, true);
 }
 
 void psPlayerSet00::MagicShootSet02(string psName)
@@ -289,7 +289,7 @@ void psPlayerSet00::MagicShootSet02(string psName)
 	_PS->addEmitter(_pointEMT);
 
 
-	PSM->addPS(psName, _PS);
+	PSM->addPS(psName, _PS, true);
 }
 
 void psPlayerSet00::MagicShootSet03(string psName)
@@ -330,7 +330,7 @@ void psPlayerSet00::MagicShootSet03(string psName)
 
 	_PS->addEmitter(_boardEMT);
 
-	PSM->addPS(psName, _PS);
+	PSM->addPS(psName, _PS, true);
 }
 
 void psPlayerSet00::HealSet00(string psName)

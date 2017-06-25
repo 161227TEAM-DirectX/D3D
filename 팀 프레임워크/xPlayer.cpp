@@ -289,17 +289,17 @@ HRESULT xPlayer::init()
 	_handTrans->AddChild(_edgeTrans);
 
 	BladePosInit();
-
+/*
 	_healSkill = new skPlayer_Heal;
 	_healSkill->setSkillPosTrans(this->getPlayerObject()->_transform);
-	_healSkill->init();
+	_healSkill->init();*/
 
 	return S_OK;
 }
 
 void xPlayer::update()
 {
-	_healSkill->update();
+	//_healSkill->update();
 	/*for (int i = 0; i < this->_renderObjects.size(); i++)
 	{
 		this->_renderObjects[i]->render();
@@ -326,9 +326,9 @@ void xPlayer::update()
 
 void xPlayer::render()
 {
-	_healSkill->render();
-	//_handTrans->RenderGimozo();
-	//_edgeTrans->RenderGimozo();
+	//_healSkill->render();
+	_handTrans->RenderGimozo();
+	_edgeTrans->RenderGimozo();
 
 	
 	//_lightSkill->render();
@@ -973,6 +973,10 @@ void xPlayer::playerAnimationManager()
 		_playerObject->_skinnedAnim->Play("RDSD", 0.2f);
 		break;
 	case P_CASTSPELL:
+		SKM->findSK("¸ÅÁ÷½´ÅÍ")->setSkillPosTrans(_playerObject->_transform);
+		SKM->findSK("¸ÅÁ÷½´ÅÍ")->setSkillDirTrans(_playerObject->_transform);
+		SKM->findSK("¸ÅÁ÷½´ÅÍ")->setOneTargetTrans(&_attackTrans);
+		SKM->findSK("¸ÅÁ÷½´ÅÍ")->Start();
 		_playSpeed = 1.0f;
 		_playerObject->_skinnedAnim->PlayOneShotAfterHold("SPCD", 0.2f);
 		break;
@@ -980,7 +984,8 @@ void xPlayer::playerAnimationManager()
 		_playerObject->_skinnedAnim->Play("RDSO", 0.2f);
 		break;
 	case P_CASTOMNI:
-		_healSkill->Start();
+		SKM->findSK("Èú")->setSkillPosTrans(this->_playerObject->_transform);
+		SKM->findSK("Èú")->Start();
 		_playerObject->_skinnedAnim->Play("SPCO", 0.2f);
 		break;
 	case P_JUMPUP:
@@ -1090,9 +1095,12 @@ void xPlayer::testControl()
 
 	}
 
+	
+
 	if (KEYMANAGER->isOnceKeyDown('2'))
 	{
-		playerDamaged(1, 0.5, 100.0, 100.0, 2.0);
+		playerSkillDirect(1.0);
+		//playerDamaged(1, 0.5, 100.0, 100.0, 2.0);
 	}
 
 

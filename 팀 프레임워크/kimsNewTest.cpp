@@ -5,12 +5,11 @@
 HRESULT kimsNewTest::init()
 {
 	//SOUNDMANAGER->play("¸¶À»1", 1.0f);
-	cDxImgUI* temp;
-	temp = new cDxImgUI("Äü½½·Ô");
+	cDxImgUI* temp = new cDxImgUI("quickSlotUI_back");
 	temp->GetUI()->SetPosition(D3DXVECTOR3(WINSIZEX / 2, WINSIZEY / 2, 0));
 	temp->GetUI()->SetDrawBoundingBox(true);
 	temp->GetUI()->SetCenterDraw(true);
-	UI_MANAGER->AddUI("Äü½½·Ô", temp);
+	UI_MANAGER->AddUI("quickSlotUI_back", temp);
 
 	SOUNDMANAGER->play("¸¶À»1");
 	_mainCamera = new camera;

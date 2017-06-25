@@ -51,7 +51,7 @@ void loadingScene::render()
 
 	if (m_isChange && m_pLoadingBar->IsFullBar())
 	{
-		SCENEMANAGER->changeScene("start");
+		SCENEMANAGER->changeScene("test");
 	}
 
 	LeaveCriticalSection(&_cs);

@@ -15,8 +15,8 @@ protected:
 	dx::transform* _skillDirTrans;
 
 	//ÇÑ Å¸°Ù ¹ÙÇâ ¹× Æ®·£½ºÆû
-	dx::transform* _oneTagerTrans;
-	dx::transform* _AllTagerTrans;
+	dx::transform* _oneTargetTrans;
+	dx::transform* _allTargetTrans;
 
 	int _targetMaxNum;
 
@@ -35,11 +35,11 @@ public:
 	virtual void setSkillDirTrans(dx::transform* inDirTrans) { _skillDirTrans = inDirTrans; };
 
 	//Å¸°Ù
-	virtual void setOneTargetTrans(dx::transform* inTarger) { _oneTagerTrans = inTarger; };
+	virtual void setOneTargetTrans(dx::transform* inTarget) { _oneTargetTrans = inTarget; };
 
 	void SetManyTargetTrans(dx::transform*& allTarget, int targetMaxNum)
 	{
-		_AllTagerTrans = allTarget;
+		_allTargetTrans = allTarget;
 		_targetMaxNum = targetMaxNum;
 
 	};
