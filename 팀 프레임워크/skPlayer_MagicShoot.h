@@ -13,6 +13,25 @@ private:
 
 	int _actionAtiveNum;
 
+	bool collisionCheckOn[6];
+
+public:
+	virtual bool getCollision()
+	{
+		if (_skillFinshOn)
+		{
+			for (int i = 0; i < _pvFinishPS[0].size(); i++)
+			{
+				if (_pvFinishPS[0][i]->GetActive() && collisionCheckOn[i] == FALSE)
+				{
+					collisionCheckOn[i] = true;
+					return true;
+				}
+			}
+		}
+		return FALSE;
+	}
+
 public:
 	virtual HRESULT init();
 	virtual void release();
