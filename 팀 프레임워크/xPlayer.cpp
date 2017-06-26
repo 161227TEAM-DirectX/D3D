@@ -326,6 +326,8 @@ void xPlayer::update()
 
 	useNowSkill();
 
+	skillProcesser();
+
 	_prevState = _state;
 
 	//updateBladeLight();
@@ -335,6 +337,11 @@ void xPlayer::render()
 {
 	_handTrans->RenderGimozo();
 	_edgeTrans->RenderGimozo();
+	if (targetMonster != NULL)
+	{
+		FONTMANAGER->fontOut("몬스터HP : " + to_string(targetMonster->getHP()), 300, 300, 0xffffffff);
+		FONTMANAGER->fontOut("공격력 : " + to_string(PLAYERMANAGER->Getatt()), 300, 350, 0xffffffff);
+	}
 
 	//렌더링은 씬에 렌더오브젝트를 넘겨 처리한다.
 	if (KEYMANAGER->isToggleKey(VK_F7))
@@ -593,7 +600,7 @@ void xPlayer::playerStateManager()
 		{
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.6)//애니메이션 다 재생했으면
 			{
-				//normalAttackDamageProcessing();
+				normalAttackDamageProcessing();
 				//if (PHYSICSMANAGER->isOverlap(_playerObject->_transform, &_attackBound, targetMonster->_transform, &targetMonster->_boundBox))
 				//{
 				//	//exit(0);
@@ -634,6 +641,7 @@ void xPlayer::playerStateManager()
 		{
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.80)//애니메이션 다 재생했으면
 			{
+				normalAttackDamageProcessing();
 				//if (PHYSICSMANAGER->isOverlap(_playerObject->_transform, &_attackBound, targetMonster->_transform, &targetMonster->_boundBox))
 				//{
 				//	//exit(0);
@@ -663,11 +671,12 @@ void xPlayer::playerStateManager()
 		{
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.7)//애니메이션 다 재생했으면
 			{
+				normalAttackDamageProcessing();
 				//if (PHYSICSMANAGER->isOverlap(_playerObject->_transform, &_attackBound, targetMonster->_transform, &targetMonster->_boundBox))
 				//{
 				//	//exit(0);
 				//}
-				//normalAttackDamageProcessing();
+				
 				if (!_isJump)
 				{
 					if (_isOnBattle)
@@ -690,6 +699,7 @@ void xPlayer::playerStateManager()
 
 		if (animName == "AT2H2")
 		{
+			
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.2  && _playerObject->_skinnedAnim->getAnimFactor() < 0.45)//애니메이션 다 재생했으면
 			{
 				//if (PHYSICSMANAGER->isOverlap(_playerObject->_transform, &_attackBound, targetMonster->_transform, &targetMonster->_boundBox))
@@ -701,7 +711,8 @@ void xPlayer::playerStateManager()
 			}
 			else if (_playerObject->_skinnedAnim->getAnimFactor() > 0.5)//애니메이션 다 재생했으면
 			{
-				//normalAttackDamageProcessing();
+				normalAttackDamageProcessing();
+				
 				if (_isOnBattle)
 				{
 					_state = P_ATTACK;
@@ -731,7 +742,7 @@ void xPlayer::playerStateManager()
 			}
 			else if (_playerObject->_skinnedAnim->getAnimFactor() > 0.8)
 			{
-				//normalAttackDamageProcessing();
+				normalAttackDamageProcessing();
 				if (!_isJump)
 				{
 					if (_isOnBattle)
@@ -1258,17 +1269,18 @@ void xPlayer::normalAttackDamageProcessing()
 {
 	vector<monster*>::iterator iter;
 
+
 	if (_monsterPool != NULL)
 	{
 		for (iter = _monsterPool->begin(); iter != _monsterPool->end(); ++iter)
 		{
-			if (PHYSICSMANAGER->isOverlap(this->_playerObject, *iter))
+			if (PHYSICSMANAGER->isOverlap(this->_playerObject->_transform, &this->_attackBound, (*iter)->_transform, &(*iter)->_boundBox))
 			{
 				(*iter)->setHP((*iter)->getHP() - PLAYERMANAGER->Getatt());
-				if ((*iter)->getHP() < 0)
+				/*if ((*iter)->getHP() < 0)
 				{
 					exit(0);
-				}
+				}*/
 				//FONTMANAGER->fontOut("때렸어!", WINSIZEX / 2, WINSIZEY / 2, 0xffffffff);
 			}
 		}
@@ -1502,18 +1514,24 @@ void xPlayer::out_setTargetByMouse(camera* mainCamera)
 //방아쇠
 void xPlayer::skilltrigger()
 {
-	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
+	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON,false))
 	{
 		switch (_nowSelectedSkill)
 		{
 		case SKILL_NONE:
 			break;
 		case SKILL_HEAL:
-			playerSkillOmni(2.0f);
+			if (targetMonster != NULL)
+			{
+				playerSkillOmni(2.0f);
+			}
 			//_state = P_READYOMNI;
 			break;
 		case SKILL_MAGICMISSILE:
-			playerSkillDirect(1.0f);
+			if (targetMonster != NULL)
+			{
+				playerSkillDirect(1.0f);
+			}
 			//_state = P_READYSPELL;
 			break;
 		case SKILL_SHIELD:
@@ -1530,7 +1548,7 @@ void xPlayer::skilltrigger()
 
 void xPlayer::useNowSkill()
 {
-	if ((_state == P_CASTOMNI && _prevState != P_CASTOMNI)|| (_state == P_CASTSPELL && _prevState != P_CASTSPELL))//
+	if ((_state == P_CASTOMNI && _prevState != P_CASTOMNI) || (_state == P_CASTSPELL && _prevState != P_CASTSPELL))//
 	{
 		switch (_nowSelectedSkill)
 		{
@@ -1562,46 +1580,44 @@ void xPlayer::useNowSkill()
 	}
 }
 
-void xPlayer::skillProcesser(){
+void xPlayer::skillProcesser() {
 
-	if ((_state == P_CASTOMNI && _prevState != P_CASTOMNI) || (_state == P_CASTSPELL && _prevState != P_CASTSPELL))//
+
+	switch (_nowSelectedSkill)
 	{
-		switch (_nowSelectedSkill)
+	case SKILL_NONE:
+		break;
+	case SKILL_HEAL:
+		if ((_state == P_CASTOMNI && _prevState != P_CASTOMNI) || (_state == P_CASTSPELL && _prevState != P_CASTSPELL))//
 		{
-		case SKILL_NONE:
-			break;
-		case SKILL_HEAL:
-			
-
-			/*SKM->findSK("힐")->setSkillPosTrans(_playerObject->_transform);
-			SKM->findSK("힐")->Start();*/
-			break;
-		case SKILL_MAGICMISSILE:
-			if (SKM->findSK("매직슈터")->getCollision())
-			{
-				targetMonster->setHP(targetMonster->getHP() - PLAYERMANAGER->Getatt());
-			}
-
-			//if (targetMonster != NULL)
-			//{
-			//	SKM->findSK("매직슈터")->setSkillPosTrans(this->_playerObject->_transform);
-			//	//		SKM->findSK("매직슈터")->setSkillDirTrans(_testTrans);
-			//	SKM->findSK("매직슈터")->setOneTargetTrans(targetMonster->_transform);
-			//	SKM->findSK("매직슈터")->Start();
-			//	//SKM->findSK("매직슈터")->setOneTargetTrans(targetMonster->_transform);
-			//}
-			break;
-		case SKILL_SHIELD:
-			/*SKM->findSK("실드")->setSkillPosTrans(_playerObject->_transform);
-			SKM->findSK("실드")->Start();*/
-			break;
-		case SKILL_END:
-			break;
-		default:
-			break;
+			PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() + PLAYERMANAGER->Getatt());
 		}
-	}
+		break;
+	case SKILL_MAGICMISSILE:
 
+		if (SKM->findSK("매직슈터")->getCollision())
+		{
+			targetMonster->setHP(targetMonster->getHP() - PLAYERMANAGER->Getatt());
+		}
+
+		//if (targetMonster != NULL)
+		//{
+		//	SKM->findSK("매직슈터")->setSkillPosTrans(this->_playerObject->_transform);
+		//	//		SKM->findSK("매직슈터")->setSkillDirTrans(_testTrans);
+		//	SKM->findSK("매직슈터")->setOneTargetTrans(targetMonster->_transform);
+		//	SKM->findSK("매직슈터")->Start();
+		//	//SKM->findSK("매직슈터")->setOneTargetTrans(targetMonster->_transform);
+		//}
+		break;
+	case SKILL_SHIELD:
+		/*SKM->findSK("실드")->setSkillPosTrans(_playerObject->_transform);
+		SKM->findSK("실드")->Start();*/
+		break;
+	case SKILL_END:
+		break;
+	default:
+		break;
+	}
 }
 
 void xPlayer::updateBladeLight()

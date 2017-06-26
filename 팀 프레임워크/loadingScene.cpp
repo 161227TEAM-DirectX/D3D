@@ -51,7 +51,7 @@ void loadingScene::render()
 
 	if (m_isChange /*&& m_pLoadingBar->IsFullBar()*/)
 	{
-		SCENEMANAGER->changeScene("test");
+		SCENEMANAGER->changeScene("gameSceneTwo");
 	}
 
 	LeaveCriticalSection(&_cs);
@@ -60,8 +60,8 @@ void loadingScene::render()
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
 	SoundLoading();
-	//XMeshStaticLoading();
-	//XMeshSkinnedLoading();
+	XMeshStaticLoading();
+	XMeshSkinnedLoading();
 	UILoading();
 	AniLoading();
 

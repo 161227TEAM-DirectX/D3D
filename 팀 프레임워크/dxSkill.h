@@ -50,7 +50,7 @@ public:
 	//virtual void setAction(transform* inTargetTrans) { _actionTrans = inTargetTrans; };
 
 public:
-	virtual bool getCollision() {}
+	virtual bool getCollision() { return true; }
 
 public:
 	//»ý¼ºÀÚ
