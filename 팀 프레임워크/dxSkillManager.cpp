@@ -2,9 +2,15 @@
 #include "dxSkillManager.h"
 #include "dxSkill.h"
 
+
+// ## [ 플레이어 스킬 ] ## ==================================================
 #include "skPlayer_MagicShoot.h"
-#include "skBoss_Breath.h"
 #include "skPlayer_Heal.h"
+
+// ## [ 보스 스킬 ] ## ==================================================
+#include "skBoss_Breath.h"
+#include "skBoss_GrandMagic.h"
+#include "skBoss_Shouting.h"
 
 void dxSkillManager::skillSetting()
 {
@@ -14,6 +20,8 @@ void dxSkillManager::skillSetting()
 
 	//보스 스킬 등록
 	this->addSK("브레스", new skBoss_Breath);
+	this->addSK("대마법", new skBoss_GrandMagic);
+	this->addSK("샤우팅", new skBoss_Shouting);
 
 	//this->skillInit();
 }

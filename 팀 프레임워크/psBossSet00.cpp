@@ -7,7 +7,7 @@ HRESULT psBossSet00::init()
 	this->BreathSet00("브레스");
 	this->ShoutingSet00("샤우팅");
 
-	this->GrandMagic00("대규모_마법진");
+	this->GrandMagic00("대마법진");
 	this->GrandMagic01("대규모");
 
 	return S_OK;
@@ -112,86 +112,24 @@ void psBossSet00::GrandMagic00(string psName)
 {
 	dxParticleSystemSet::init();
 
-	_planeEMT = NULL;
+	/*_planeEMT = NULL;
 	_planeEMT = new dxPlaneEmitter;
-	_planeEMT->init("PaticleResources/Texture/cast_magiCircle_f5x4.png", 1, 2.0f, 1);
-	//_planeEMT->InitStartDelayTime(f);
+	_planeEMT->init("PaticleResources/Texture/cast_magiCircle02_f5x7.png", 1, 1.0f, 1);
+	_planeEMT->InitAnimation(5,7);
+	_planeEMT->InitRandomLifeTime(1.0f,1.0f);
+	_planeEMT->InitRandomSize(5.0f, 5.0f);
 
-	//_planeEMT->SetActiveLimitTime(2.0f);
-	_planeEMT->SetStartLimitTime(2.0f);
-	_planeEMT->InitRandomSize(1.0f, 1.0f);
-	_planeEMT->InitRandomSizeEnd(20.0f, 20.0f);
-	_planeEMT->InitRandomPositionY(9.0f,9.0f);
-	_planeEMT->InitRandomLifeTime(2.0f, 2.0f);
-
-	_planeEMT->InitAnimation(5, 4);
-
-
-	_PS->addEmitter(_planeEMT);
+	_PS->addEmitter(_planeEMT);*/
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/fire01_frame5x4.png", 1, 1.0f, 1);
-	_boardEMT->SetStartLimitTime(0.05f);
-	_boardEMT->SetActiveLimitTime(1.0f);
-
-	_boardEMT->InitRandomSize(1.0f, 1.0f);
-	_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
-
-	_boardEMT->InitRandomPositionY(8.5f, 8.5f);
-
-	_boardEMT->InitRandomLifeTime(0.8f, 0.8f);
-
-	_boardEMT->InitAnimation(5, 4);
-
-	_PS->addEmitter(_boardEMT);
-
-	_boardEMT = NULL;
-	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/fire01_frame5x4.png", 1, 1.0f, 1);
-	_boardEMT->SetStartLimitTime(0.1f);
-
-	_boardEMT->InitRandomSize(1.0f, 1.0f);
-	_boardEMT->InitRandomSizeEnd(10.0f, 10.0f);
-	
-	_boardEMT->InitRandomPositionY(6.5f, 6.5f);
-
-	_boardEMT->InitRandomLifeTime(0.8f, 0.8f);
-
-	_boardEMT->InitAnimation(5, 4);
-
-	_PS->addEmitter(_boardEMT);
-
-	_boardEMT = NULL;
-	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/fire01_frame5x4.png", 1, 1.0f, 1);
-	_boardEMT->SetStartLimitTime(0.15f);
-
-	_boardEMT->InitRandomSize(2.0f, 2.0f);
-	_boardEMT->InitRandomSizeEnd(12.0f, 12.0f);
-	
-	_boardEMT->InitRandomPositionY(4.5f, 4.5f);
-
+	_boardEMT->init("PaticleResources/Texture/wind_f5x3_tt13.png", 1, 1.0f, 1);
+	_boardEMT->InitAnimation(5, 3, 12);
+	//_boardEMT->InitAnimation(5, 3, 13);
 	_boardEMT->InitRandomLifeTime(1.0f, 1.0f);
-
-	_boardEMT->InitAnimation(5, 4);
-
-	_PS->addEmitter(_boardEMT);
-
-	_boardEMT = NULL;
-	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/fire01_frame5x4.png", 1, 1.0f, 1);
-	_boardEMT->SetStartLimitTime(0.20f);
-
-
-	_boardEMT->InitRandomSize(3.0f, 3.0f);
-	_boardEMT->InitRandomSizeEnd(14.0f, 14.0f);
-
-	_boardEMT->InitRandomPositionY(2.5f,2.5f);
-
-	_boardEMT->InitRandomLifeTime(1.0f, 1.0f);
-
-	_boardEMT->InitAnimation(5, 4);
+	_boardEMT->InitRandomSize(4.0f, 4.0f);
+	_boardEMT->InitRandomSizeEnd(20.0f, 20.0f);
+	_boardEMT->InitRandomAlpha(0.1f, 0.1f);
 
 	_PS->addEmitter(_boardEMT);
 

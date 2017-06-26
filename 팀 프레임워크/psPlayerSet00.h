@@ -13,7 +13,7 @@ private:
 	void MagicShootSet03(string psName);
 
 	void HealSet00(string psName);
-	void HealSet01(string psName);
+	void FireMagicSet00(string psName);
 	void HealSet02(string psName);
 
 public:

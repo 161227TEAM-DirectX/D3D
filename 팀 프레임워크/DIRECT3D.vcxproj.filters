@@ -34,9 +34,6 @@
     <Filter Include="Z테스트\이현총\dx파티클\모듈">
       <UniqueIdentifier>{f0944b83-cb55-4449-a011-5fa582cba929}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Z테스트\이현총\dx파티클\스킬 매니져">
-      <UniqueIdentifier>{6396ffa8-cad8-498c-bfbd-881c13cde972}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Z테스트\이현총\dx파티클\이미터">
       <UniqueIdentifier>{cb7c5640-5766-41db-925e-00697431f376}</UniqueIdentifier>
     </Filter>
@@ -280,9 +277,6 @@
     <Filter Include="Z테스트\이현총\!스킬 및 파티클 모음">
       <UniqueIdentifier>{8eb59574-b862-4c28-be5b-2d1f0c4d8dab}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Z테스트\이현총\!스킬 및 파티클 모음\이펙트 모음">
-      <UniqueIdentifier>{3d561301-11f5-4d12-a129-4eff48b0798f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Z테스트\이현총\!스킬 및 파티클 모음\1. 스킬모음">
       <UniqueIdentifier>{1af4ede4-1d12-4848-bcaf-94e9951cdb82}</UniqueIdentifier>
     </Filter>
@@ -318,6 +312,12 @@
     </Filter>
     <Filter Include="Z테스트\김만웅\07.미니맵">
       <UniqueIdentifier>{5f425716-1ccf-4a54-92c7-6ccaa3e78d41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\이현총\dx스킬 매니져">
+      <UniqueIdentifier>{6396ffa8-cad8-498c-bfbd-881c13cde972}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\이현총\!스킬 및 파티클 모음\1. 스킬모음\3. 이펙트 모음">
+      <UniqueIdentifier>{3d561301-11f5-4d12-a129-4eff48b0798f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -547,10 +547,10 @@
       <Filter>Z테스트\이현총\dx파티클\모듈\모듈키트</Filter>
     </ClCompile>
     <ClCompile Include="dxSkill.cpp">
-      <Filter>Z테스트\이현총\dx파티클\스킬 매니져</Filter>
+      <Filter>Z테스트\이현총\dx스킬 매니져</Filter>
     </ClCompile>
     <ClCompile Include="dxSkillManager.cpp">
-      <Filter>Z테스트\이현총\dx파티클\스킬 매니져</Filter>
+      <Filter>Z테스트\이현총\dx스킬 매니져</Filter>
     </ClCompile>
     <ClCompile Include="dxParticle.cpp">
       <Filter>Z테스트\이현총\dx파티클\파티클 매니져</Filter>
@@ -649,7 +649,7 @@
       <Filter>GameFramework3D\ActionBoss</Filter>
     </ClCompile>
     <ClCompile Include="dxSkillContainer.cpp">
-      <Filter>Z테스트\이현총\dx파티클\스킬 매니져</Filter>
+      <Filter>Z테스트\이현총\dx스킬 매니져</Filter>
     </ClCompile>
     <ClCompile Include="dxPlaneEmitter.cpp">
       <Filter>Z테스트\이현총\dx파티클\이미터</Filter>
@@ -781,7 +781,7 @@
       <Filter>RegistBase</Filter>
     </ClCompile>
     <ClCompile Include="SK_Effect00.cpp">
-      <Filter>Z테스트\이현총\!스킬 및 파티클 모음\이펙트 모음</Filter>
+      <Filter>Z테스트\이현총\!스킬 및 파티클 모음\1. 스킬모음\3. 이펙트 모음</Filter>
     </ClCompile>
     <ClCompile Include="skBoss_Breath.cpp">
       <Filter>Z테스트\이현총\!스킬 및 파티클 모음\1. 스킬모음\1. 보스 스킬</Filter>
@@ -1116,10 +1116,10 @@
       <Filter>Z테스트\이현총\dx파티클\모듈\모듈키트</Filter>
     </ClInclude>
     <ClInclude Include="dxSkill.h">
-      <Filter>Z테스트\이현총\dx파티클\스킬 매니져</Filter>
+      <Filter>Z테스트\이현총\dx스킬 매니져</Filter>
     </ClInclude>
     <ClInclude Include="dxSkillManager.h">
-      <Filter>Z테스트\이현총\dx파티클\스킬 매니져</Filter>
+      <Filter>Z테스트\이현총\dx스킬 매니져</Filter>
     </ClInclude>
     <ClInclude Include="dxParticle.h">
       <Filter>Z테스트\이현총\dx파티클\파티클 매니져</Filter>
@@ -1218,7 +1218,7 @@
       <Filter>GameFramework3D\ActionBoss</Filter>
     </ClInclude>
     <ClInclude Include="dxSkillContainer.h">
-      <Filter>Z테스트\이현총\dx파티클\스킬 매니져</Filter>
+      <Filter>Z테스트\이현총\dx스킬 매니져</Filter>
     </ClInclude>
     <ClInclude Include="dxPlaneEmitter.h">
       <Filter>Z테스트\이현총\dx파티클\이미터</Filter>
@@ -1347,7 +1347,7 @@
       <Filter>RegistBase</Filter>
     </ClInclude>
     <ClInclude Include="SK_Effect00.h">
-      <Filter>Z테스트\이현총\!스킬 및 파티클 모음\이펙트 모음</Filter>
+      <Filter>Z테스트\이현총\!스킬 및 파티클 모음\1. 스킬모음\3. 이펙트 모음</Filter>
     </ClInclude>
     <ClInclude Include="skBoss_Breath.h">
       <Filter>Z테스트\이현총\!스킬 및 파티클 모음\1. 스킬모음\1. 보스 스킬</Filter>

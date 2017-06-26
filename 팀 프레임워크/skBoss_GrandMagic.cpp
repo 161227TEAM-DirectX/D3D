@@ -9,10 +9,10 @@ HRESULT skBoss_GrandMagic::init()
 
 	setMaxNumPreparePS(2);
 	setMaxNumActionPS(2);
-	setPvPreparePS(0, "브레스", 1);
-	setPvActionPS(0, "대규모_마법진", 1);
+	setPvPreparePS(0, "대마법진", 1);
+	//setPvActionPS(0, "대규모_마법진", 1);
 
-	_pvPrepaerPS[0][0]->SetLimitTime(20.0f);
+	_pvPrepaerPS[0][0]->SetLimitTime(100.0f);
 
 	return S_OK;
 
