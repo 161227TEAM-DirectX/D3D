@@ -25,7 +25,7 @@ HRESULT xPlayer::init()
 
 	//-1.0~2.0
 
-
+	_nowSelectedSkill = SKILL_NONE;
 
 
 
@@ -286,7 +286,7 @@ HRESULT xPlayer::init()
 	_playerObject->_skinnedAnim->Play("S", 0.3F);
 
 	setBladeLight();
-	
+
 	_playerObject->_skinnedAnim->AddBoneTransform("humanfemale_Bone121_CSR", _handTrans);
 	_edgeTrans->SetWorldPosition(_handTrans->GetWorldPosition() + _handTrans->GetRight() * _BladeLength);
 	_handTrans->AddChild(_edgeTrans);
@@ -305,7 +305,7 @@ void xPlayer::update()
 		this->_renderObjects[i]->render();
 	}*/
 	setHeight();
-	
+
 
 	PLAYERMANAGER->SetPos(_playerObject->_transform->GetWorldPosition());
 
@@ -320,17 +320,22 @@ void xPlayer::update()
 	playerStateManager();
 	playerAnimationManager();
 
+	testControl();
+
+	skilltrigger();
+
+	useNowSkill();
+
 	_prevState = _state;
 
 	//updateBladeLight();
-	testControl();
 }
 
 void xPlayer::render()
 {
 	_handTrans->RenderGimozo();
 	_edgeTrans->RenderGimozo();
-	
+
 	//렌더링은 씬에 렌더오브젝트를 넘겨 처리한다.
 	if (KEYMANAGER->isToggleKey(VK_F7))
 	{
@@ -389,6 +394,7 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 	switch (_state)
 	{
 	case P_STAND:
+		skilltrigger();
 		rotateControl();
 
 		if (!_isJump)
@@ -415,8 +421,8 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 		moveControl();
 		attackControl();
 		jumpControl();
+		skilltrigger();
 
-		
 
 		if (!KEYMANAGER->isStayKeyDown('W'))
 		{
@@ -435,6 +441,7 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 		break;
 	case P_READYTOATTACK:
 		rotateControl();
+		skilltrigger();
 
 		if (!_isJump)
 		{
@@ -581,7 +588,7 @@ void xPlayer::playerStateManager()
 
 		break;
 	case P_ATTACK:
-		
+
 		if (animName == "AT1H")
 		{
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.6)//애니메이션 다 재생했으면
@@ -610,7 +617,7 @@ void xPlayer::playerStateManager()
 		}
 		break;
 	case P_ATTACK2:
-		
+
 		if (!SOUNDMANAGER->isPlaySound("공격1"))
 		{
 			if (animName == "AT2H")
@@ -651,7 +658,7 @@ void xPlayer::playerStateManager()
 		}
 		break;
 	case P_ATTACK3:
-		
+
 		if (animName == "AT2HL")
 		{
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.7)//애니메이션 다 재생했으면
@@ -680,7 +687,7 @@ void xPlayer::playerStateManager()
 		}
 		break;
 	case P_ATTACK4:
-		
+
 		if (animName == "AT2H2")
 		{
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.2  && _playerObject->_skinnedAnim->getAnimFactor() < 0.45)//애니메이션 다 재생했으면
@@ -711,7 +718,7 @@ void xPlayer::playerStateManager()
 		}
 		break;
 	case P_ATTACK5:
-		
+
 		if (animName == "AT2HL2")
 		{
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.5 && _playerObject->_skinnedAnim->getAnimFactor() < 0.8)//애니메이션 다 재생했으면
@@ -762,7 +769,7 @@ void xPlayer::playerStateManager()
 				//_lightSkill->setPlayer(_skillTrans);
 				//_lightSkill->setPlayerDir(_playerObject->_transform);
 				//_lightSkill->Start();
-				
+
 				if (_isOnBattle)
 				{
 					_state = P_READYTOATTACK;
@@ -948,39 +955,39 @@ void xPlayer::playerAnimationManager()
 		//SOUNDMANAGER->setMusicSpeed("공격1", _moveSpeed);
 		SOUNDMANAGER->play("공격1", 0.7f);
 		_playerObject->_skinnedAnim->Play("AT1H", 0.3f);
-		
+
 		break;
 	case P_ATTACK2:
 		//SOUNDMANAGER->play("공격1", 0.7f);
 		_playerObject->_skinnedAnim->Play("AT2H", 0.3f);
-		
+
 
 		break;
 	case P_ATTACK3:
 		SOUNDMANAGER->play("공격1", 0.7f);
 		_playerObject->_skinnedAnim->Play("AT2HL", 0.3f);
-		
+
 		break;
 	case P_ATTACK4:
 		SOUNDMANAGER->play("공격1", 0.7f);
 		_playerObject->_skinnedAnim->Play("AT2H2", 0.3f);
-		
+
 		break;
 	case P_ATTACK5:
 		SOUNDMANAGER->play("공격1", 0.7f);
 		_playerObject->_skinnedAnim->Play("AT2HL2", 0.3f);
-		
+
 		break;
 	case P_READYSPELL:
 		_playerObject->_skinnedAnim->Play("RDSD", 0.2f);
 		break;
 	case P_CASTSPELL:
-		
 
-		SKM->findSK("매직슈터")->setSkillPosTrans(this->_playerObject->_transform);
-//		SKM->findSK("매직슈터")->setSkillDirTrans(_testTrans);
-		SKM->findSK("매직슈터")->setOneTargetTrans(_testTrans);
-		SKM->findSK("매직슈터")->Start();
+
+		//SKM->findSK("매직슈터")->setSkillPosTrans(this->_playerObject->_transform);
+		////		SKM->findSK("매직슈터")->setSkillDirTrans(_testTrans);
+		//SKM->findSK("매직슈터")->setOneTargetTrans(_testTrans);
+		//SKM->findSK("매직슈터")->Start();
 		_playSpeed = 1.0f;
 		_playerObject->_skinnedAnim->PlayOneShotAfterHold("SPCD", 0.2f);
 		break;
@@ -988,8 +995,8 @@ void xPlayer::playerAnimationManager()
 		_playerObject->_skinnedAnim->Play("RDSO", 0.2f);
 		break;
 	case P_CASTOMNI:
-		SKM->findSK("힐")->setSkillPosTrans(this->_playerObject->_transform);
-		SKM->findSK("힐")->Start();
+		//SKM->findSK("힐")->setSkillPosTrans(this->_playerObject->_transform);
+		//SKM->findSK("힐")->Start();
 		_playerObject->_skinnedAnim->Play("SPCO", 0.2f);
 		break;
 	case P_JUMPUP:
@@ -1077,7 +1084,7 @@ void xPlayer::testControl()
 {
 
 
-	if (KEYMANAGER->isOnceKeyDown('3'))
+	if (KEYMANAGER->isOnceKeyDown(VK_TAB))
 	{
 		if (_isOnBattle == true)
 		{
@@ -1095,22 +1102,25 @@ void xPlayer::testControl()
 	{
 		//데미지, 경직시간, 경직확률, 스턴확률, 스턴시간 
 		//playerDamaged(1, 0.5, 100.0, 0.0, 0.0);
-		playerSkillOmni(1.0f);
+		//playerSkillOmni(1.0f);
+		_nowSelectedSkill = SKILL_HEAL;
+
 
 	}
 
 	if (KEYMANAGER->isOnceKeyDown('2'))
 	{
-		playerSkillDirect(1.0);
+		//playerSkillDirect(1.0);
 		//playerDamaged(1, 0.5, 100.0, 100.0, 2.0);
+		_nowSelectedSkill = SKILL_MAGICMISSILE;
 	}
 
 
-	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
-	{
+	//if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
+	//{
 
-		//playerSkillDirect(1.0f);
-	}
+	//	//playerSkillDirect(1.0f);
+	//}
 }
 
 void xPlayer::actionControl()
@@ -1272,7 +1282,7 @@ void xPlayer::setBladeLight()
 
 	primitives = vertexNum - 2;
 
-	
+
 
 	idx = new DWORD[vertexNum];
 
@@ -1436,7 +1446,7 @@ void xPlayer::setBladeLight()
 	int a = 0;
 	}*/
 	//pv2용
-	
+
 }
 
 
@@ -1459,13 +1469,13 @@ void xPlayer::out_setTargetByMouse(camera* mainCamera)
 		for (int i = 0; i < _monsterPool->size(); i++)
 		{
 			Ray ray;
-			
+
 			D3DXVECTOR2 ptmouse = { (float)GetMousePos().x, (float)GetMousePos().y };
 			mainCamera->computeRay(&ray, &ptmouse);
 
 			if (PHYSICSMANAGER->isRayHitBound(&ray, &(*_monsterPool)[i]->_boundBox, (*_monsterPool)[i]->_transform, NULL, NULL))
 			{
-				
+
 				if (NULL != targetMonster)
 				{
 					D3DXVECTOR3 LengthVector = targetMonster->_transform->GetWorldPosition() - _playerObject->_transform->GetWorldPosition();
@@ -1487,6 +1497,111 @@ void xPlayer::out_setTargetByMouse(camera* mainCamera)
 			}
 		}
 	}
+}
+
+//방아쇠
+void xPlayer::skilltrigger()
+{
+	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
+	{
+		switch (_nowSelectedSkill)
+		{
+		case SKILL_NONE:
+			break;
+		case SKILL_HEAL:
+			playerSkillOmni(2.0f);
+			//_state = P_READYOMNI;
+			break;
+		case SKILL_MAGICMISSILE:
+			playerSkillDirect(1.0f);
+			//_state = P_READYSPELL;
+			break;
+		case SKILL_SHIELD:
+			playerSkillOmni(2.0f);
+			//_state = P_READYOMNI;
+			break;
+		case SKILL_END:
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+void xPlayer::useNowSkill()
+{
+	if ((_state == P_CASTOMNI && _prevState != P_CASTOMNI)|| (_state == P_CASTSPELL && _prevState != P_CASTSPELL))//
+	{
+		switch (_nowSelectedSkill)
+		{
+		case SKILL_NONE:
+			break;
+		case SKILL_HEAL:
+			SKM->findSK("힐")->setSkillPosTrans(_playerObject->_transform);
+			SKM->findSK("힐")->Start();
+			break;
+		case SKILL_MAGICMISSILE:
+			if (targetMonster != NULL)
+			{
+				SKM->findSK("매직슈터")->setSkillPosTrans(this->_playerObject->_transform);
+				//		SKM->findSK("매직슈터")->setSkillDirTrans(_testTrans);
+				SKM->findSK("매직슈터")->setOneTargetTrans(targetMonster->_transform);
+				SKM->findSK("매직슈터")->Start();
+				//SKM->findSK("매직슈터")->setOneTargetTrans(targetMonster->_transform);
+			}
+			break;
+		case SKILL_SHIELD:
+			SKM->findSK("실드")->setSkillPosTrans(_playerObject->_transform);
+			SKM->findSK("실드")->Start();
+			break;
+		case SKILL_END:
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+void xPlayer::skillProcesser(){
+
+	if ((_state == P_CASTOMNI && _prevState != P_CASTOMNI) || (_state == P_CASTSPELL && _prevState != P_CASTSPELL))//
+	{
+		switch (_nowSelectedSkill)
+		{
+		case SKILL_NONE:
+			break;
+		case SKILL_HEAL:
+			
+
+			/*SKM->findSK("힐")->setSkillPosTrans(_playerObject->_transform);
+			SKM->findSK("힐")->Start();*/
+			break;
+		case SKILL_MAGICMISSILE:
+			if (SKM->findSK("매직슈터")->getCollision())
+			{
+				targetMonster->setHP(targetMonster->getHP() - PLAYERMANAGER->Getatt());
+			}
+
+			//if (targetMonster != NULL)
+			//{
+			//	SKM->findSK("매직슈터")->setSkillPosTrans(this->_playerObject->_transform);
+			//	//		SKM->findSK("매직슈터")->setSkillDirTrans(_testTrans);
+			//	SKM->findSK("매직슈터")->setOneTargetTrans(targetMonster->_transform);
+			//	SKM->findSK("매직슈터")->Start();
+			//	//SKM->findSK("매직슈터")->setOneTargetTrans(targetMonster->_transform);
+			//}
+			break;
+		case SKILL_SHIELD:
+			/*SKM->findSK("실드")->setSkillPosTrans(_playerObject->_transform);
+			SKM->findSK("실드")->Start();*/
+			break;
+		case SKILL_END:
+			break;
+		default:
+			break;
+		}
+	}
+
 }
 
 void xPlayer::updateBladeLight()
@@ -1525,7 +1640,7 @@ void xPlayer::updateBladeLight()
 		MYLIGHTVERTEX tempVertex1;
 		tempVertex1.pos = _vecPosHand[i]; //D3DXVECTOR3(x, 5, 0);//posHand +
 		tempVertex1.uv = D3DXVECTOR2(u, 1);
-		
+
 
 		//1,3,5
 		u = 0;
@@ -1572,7 +1687,7 @@ void xPlayer::updateBladeLight()
 
 
 	//==========================================================
-	
+
 	//primitives = _ - 2;
 
 	//for (int i = 0; i < _vecPosHand.size(); i++)
