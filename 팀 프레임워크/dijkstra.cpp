@@ -10,25 +10,25 @@
 
 dijkstra::dijkstra()
 {
+
 }
 
 
 dijkstra::~dijkstra()
 {
+	for (int i = 0; i < vecNode.size(); i++)
+	{
+		SAFE_DELETE(vecNode[i]);
+	}
 }
 
 void dijkstra::render(void)
 {
 	D3DXMATRIXA16 matT;
 	D3DXMATRIX oldMat;
-	//D3DXMatrixTranslation(&matT,
-	//	position.x,
-	//	position.y,
-	//	position.z);
+
 	_device->GetTransform(D3DTS_WORLD, &oldMat);
 	_device->SetTransform(D3DTS_WORLD, &matT);
-//	_device->SetFVF(mesh->GetFVF());
-//	mesh->DrawSubset(0);
 
 	for (int i = 0; i < adj.size(); i++)
 	{
@@ -76,8 +76,13 @@ void dijkstra::FindPath(D3DXVECTOR3 vSt, D3DXVECTOR3 vDst/*, vector<baseObject*>
 {
 	bool isCollision = false;
 	vector<float> dist(vecNode.size(), FLT_MAX);	//모든 벡터의 dist(거리값)을 가지고 있을 임시 벡터
-	path.clear();
-	tempPath.clear();
+	vector<int> swap;
+	path.swap(swap);
+	//path.clear();
+	map<int, pair<float, int>> mapSwap;
+	tempPath.swap(mapSwap);
+	//tempPath.clear();
+	
 
 	//오류처리 노드가 없다면 길을 찾지 마라.
 	if (vecNode.size() <= 0) return;
@@ -103,19 +108,6 @@ void dijkstra::FindPath(D3DXVECTOR3 vSt, D3DXVECTOR3 vDst/*, vector<baseObject*>
 		//두 정점(시작위치(케릭터위치), i번째 벡터 위치)사이의 벡터를 구한다.
 		D3DXVECTOR3 v = vecNode[i]->getPosition() - vSt;
 		float tempDistance = D3DXVec3Length(&v);
-		//Ray ray(vSt, v);
-
-		//for (int j = 0; j < object.size(); j++)
-		//{
-		//	D3DXVECTOR3 hitPos = { 0.0f, 0.0f, 0.0f };
-		//	if (PHYSICSMANAGER->isRayHitBound(&ray, &object[j]->_boundBox, object[i]->_transform, &hitPos, nullptr))
-		//	{
-		//		isCollision = true;
-		//		break;
-		//	}
-		//}
-
-		//if (isCollision) continue;
 
 		if (fDistance > tempDistance)
 		{
@@ -133,19 +125,6 @@ void dijkstra::FindPath(D3DXVECTOR3 vSt, D3DXVECTOR3 vDst/*, vector<baseObject*>
 		D3DXVECTOR3 v = vecNode[i]->getPosition() - vDst;
 		//두 점 사이의 거리를 구한다.
 		float tempDistance = D3DXVec3Length(&v);
-		//Ray ray(vDst, v);
-
-		//for (int j = 0; j < object.size(); j++)
-		//{
-		//	D3DXVECTOR3 hitPos = { 0.0f, 0.0f, 0.0f };
-		//	if (PHYSICSMANAGER->isRayHitBound(&ray, &object[j]->_boundBox, object[i]->_transform, &hitPos, nullptr))
-		//	{
-		//		isCollision = true;
-		//		break;
-		//	}
-		//}
-
-		//if (isCollision) continue;
 
 		if (fDistance > tempDistance)
 		{
@@ -354,7 +333,6 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& playerObjec
 		aM->setTo(vecNode[path[startNodeIndex]]->getPosition());
 		aM->setActionTime(LHS::MOVETIME);
 		aM->setOwner(player);
-//		aM->changeAni();
 		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
@@ -370,7 +348,6 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& playerObjec
 			aM->setActionTime(LHS::MOVETIME);
 			aM->setObject(object);
 			aM->setOwner(player);
-//			aM->changeAni();
 			aM->setRand(rand);
 			aM->setPlayerObject(playerObject);
 			aM->setDelegate(actionSeq);
@@ -383,7 +360,6 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& playerObjec
 		aM->setTo(vDest);
 		aM->setActionTime(LHS::MOVETIME);
 		aM->setOwner(player);
-//		aM->changeAni();
 		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
@@ -403,7 +379,6 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& playerObjec
 		aM->setTo(vecNode[path[startNodeIndex]]->getPosition());
 		aM->setActionTime(LHS::MOVETIME);
 		aM->setOwner(player);
-//		aM->changeAni();
 		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
@@ -416,7 +391,6 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& playerObjec
 		aM->setTo(vDest);
 		aM->setActionTime(LHS::MOVETIME);
 		aM->setOwner(player);
-//		aM->changeAni();
 		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
@@ -434,7 +408,6 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& playerObjec
 		aM->setTo(vecNode[path[path.size()-1]]->getPosition());
 		aM->setActionTime(LHS::MOVETIME);
 		aM->setOwner(player);
-//		aM->changeAni();
 		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
@@ -450,7 +423,6 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& playerObjec
 			aM->setActionTime(LHS::MOVETIME);
 			aM->setObject(object);
 			aM->setOwner(player);
-//			aM->changeAni();
 			aM->setRand(rand);
 			aM->setPlayerObject(playerObject);
 			aM->setDelegate(actionSeq);
@@ -463,7 +435,6 @@ ActionSeq* dijkstra::OptimizedAction(baseObject& player, baseObject& playerObjec
 		aM->setTo(vDest);
 		aM->setActionTime(LHS::MOVETIME);
 		aM->setOwner(player);
-//		aM->changeAni();
 		aM->setRand(rand);
 		aM->setDelegate(actionSeq);
 		aM->setObject(object);
