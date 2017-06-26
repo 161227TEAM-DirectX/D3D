@@ -3,6 +3,10 @@
 
 namespace dx {
 	transform::transform(void)
+		: m_fAngleX(0.0f)
+		, m_fAngleY(0.0f)
+		, m_fAngleZ(0.0f)
+		, m_fMove(10.0f)
 	{
 		this->pParent = NULL;
 		this->pFirstChild = NULL;
@@ -714,6 +718,10 @@ namespace dx {
 	//사원수를 이용한 특정 회전값으로 회전량을 가져라....
 	void transform::SetRotateWorld(float eAngleX, float eAngleY, float aAngleZ)
 	{
+		this->m_fAngleX = D3DXToDegree(eAngleX);
+		this->m_fAngleY = D3DXToDegree(eAngleY);
+		this->m_fAngleZ = D3DXToDegree(aAngleZ);
+
 		//사원수 준비
 		D3DXQUATERNION quatRot;
 		D3DXQuaternionRotationYawPitchRoll(&quatRot, eAngleY, eAngleX, aAngleZ);
@@ -1681,7 +1689,7 @@ namespace dx {
 
 	void transform::DefaultMyControl(float _timeDelta)
 	{
-		float deltaMove = 3.0f * _timeDelta;
+		float deltaMove = m_fMove * _timeDelta;
 		float deltaAngle = D3DXToRadian(90) * _timeDelta;
 
 		if (KEYMANAGER->isStayKeyDown(VK_RBUTTON) == FALSE)

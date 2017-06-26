@@ -94,7 +94,8 @@ HRESULT terrain::init(char * heightMapName, char * tile_0, char * tile_1, char *
 	_texSlat = RM_TEXTURE->getResource(tileSplat);
 
 	//ÁöÇü ¼ÎÀÌ´õÀÌÆåÆ® ·Îµù
-	_terrainEffect = RM_SHADERFX->getResource("Resource/Maptool/Shaders/TerrainBase.fx");
+	//_terrainEffect = RM_SHADERFX->getResource("Resource/Maptool/Shaders/TerrainBase.fx");
+	_terrainEffect = RM_SHADERFX->getResource("ResourceUI/test/fx/TerrainBase.fx");
 
 	dijk = new dijkstra;
 }

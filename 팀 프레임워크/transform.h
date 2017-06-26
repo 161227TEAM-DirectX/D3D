@@ -50,6 +50,11 @@ namespace dx
 		//위치값  ( 부모가 있으면 부모에대한 상태적인 로컬위치 없으면 월드 위치 )
 		D3DXVECTOR3		position;
 
+		SYNTHESIZE(float, m_fAngleX, AngleX);
+		SYNTHESIZE(float, m_fAngleY, AngleY);
+		SYNTHESIZE(float, m_fAngleZ, AngleZ);
+		SYNTHESIZE(float, m_fMove, Move);
+
 		//스케일 값 
 		D3DXVECTOR3		scale;
 

@@ -12,21 +12,23 @@
 #include "cBarTest.h"
 #include "cGameUITest.h"
 #include "cMinimapTest.h"
+#include "cMinimapTest2.h"
+#include "cCameraTest.h"
 
 mainGame::mainGame()
 {
 	REGIST_SGT->Init();
 
+	SCENEMANAGER->addScene("test", new cMinimapTest, false);
 	SCENEMANAGER->addScene("loading", new loadingScene, true);
-	SCENEMANAGER->addScene("start", new startScene, false);
-	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
-	SCENEMANAGER->addScene("particleTest13", new particleTest13, true);
-	SCENEMANAGER->addScene("gameSceneOne", new stageOne, false);
-	SCENEMANAGER->addScene("gameSceneTwo", new stageTwo, false);
-	SCENEMANAGER->addScene("gameSceneThree", new stageThree, false);
+	//SCENEMANAGER->addScene("start", new startScene, false);
+	//SCENEMANAGER->addScene("maptool", new mapToolScene, false);
+	//SCENEMANAGER->addScene("particleTest13", new particleTest13, true);
+	//SCENEMANAGER->addScene("gameSceneOne", new stageOne, false);
+	//SCENEMANAGER->addScene("gameSceneTwo", new stageTwo, false);
+	//SCENEMANAGER->addScene("gameSceneThree", new stageThree, false);
 
-	//SCENEMANAGER->addScene("test", new cGameUITest, false);
-	//SCENEMANAGER->addScene("test", new cMinimapTest, false);
+	
 }
 
 mainGame::~mainGame()
@@ -60,7 +62,7 @@ HRESULT mainGame::init(void)
 	//이현수 씬 테스트 헤더파일
 	//===================================================================================
 		//씬추가
-		SCENEMANAGER->addScene("testMON", new terrainPickingTest, false);
+		//SCENEMANAGER->addScene("testMON", new terrainPickingTest, false);
 
 
 
