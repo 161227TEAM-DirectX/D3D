@@ -17,6 +17,7 @@ stageThree::stageThree()
 	sceneBaseDirectionLight = new lightDirection;
 	env = new Environment;
 	water = new WaterTerrain;
+	water->linkCamera(*_mainCamera);
 }
 
 
