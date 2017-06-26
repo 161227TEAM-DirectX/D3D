@@ -89,14 +89,14 @@ namespace myUtil
 		bool isFill=false,							//렉트 내부를 채울건지
 		D3DCOLOR dwColor = D3DCOLOR_XRGB(0, 0, 0));	//렉트 색깔
 
-													//좌표가 렉트의 중점이 되도록 그린다.
+	//좌표가 렉트의 중점이 되도록 그린다.
 	void RectMakeCenter(
 		float cCenterX, float cCenterY,				//그릴 중점 좌표
 		float nWidth, float nHeight, 				//가로,세로
 		bool isFill=false, 							//렉트 내부를 채울건지
 		D3DCOLOR dwColor = D3DCOLOR_XRGB(0, 0, 0));	//렉트 색깔
 
-													//선을 그린다.
+	//선을 그린다.
 	void LineMake(
 		float startX, float startY,					//시작점
 		float endX, float endY,						//끝점

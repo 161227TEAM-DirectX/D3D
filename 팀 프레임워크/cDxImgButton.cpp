@@ -45,7 +45,7 @@ void cDxImgButton::render()
 
 bool cDxImgButton::click()
 {
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON, false))
 	{
 		if (PtInRect(&m_pOff->getRect(), GetMousePos()))
 		{

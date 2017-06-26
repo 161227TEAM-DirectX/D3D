@@ -19,9 +19,9 @@ public:
 	void release(void);
 
 	//키가 한번만 눌렸냐?
-	bool isOnceKeyDown(int key);
+	bool isOnceKeyDown(int key, bool isOne = true);
 	//키가 한번 눌렸다 띄었냐?
-	bool isOnceKeyUp(int key);
+	bool isOnceKeyUp(int key, bool isOne = true);
 	//키가 계속 눌려 있냐?
 	bool isStayKeyDown(int key);
 	//토글키냐?

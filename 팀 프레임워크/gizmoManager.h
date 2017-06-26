@@ -22,6 +22,8 @@ public:
 
 	//선을 그리는 함수
 	void Line(D3DXVECTOR3& startPos, D3DXVECTOR3& endPos, DWORD color = 0xff808080);
+	//축을 그리는 함수
+	void LineAxis(float length = 10000);
 	//월드 그리는 함수
 	void WorldGrid(float cellSize, int cellNum);
 	//원을 그리는 함수

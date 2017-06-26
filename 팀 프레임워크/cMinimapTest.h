@@ -17,6 +17,19 @@ private:
 	float moveX = 0;
 	float moveY = 0;
 
+	//필드에서 움직일 무언가
+private:
+	baseObject			_player;	//플레이어 오브젝트
+	vector<light*>		_lights;	//광원
+
+									//미니맵에서 움직일 무언가
+private:
+	float miniMoveX = 0;
+	float miniMoveY = 0;
+	float angle = 0.0f;
+	D3DXVECTOR3 dir ={ 0,0,1 };
+	float moveValue;
+
 public:
 	cMinimapTest();
 	virtual ~cMinimapTest();

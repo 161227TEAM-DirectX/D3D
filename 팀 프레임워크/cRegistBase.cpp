@@ -113,7 +113,7 @@ void cRegistBase::Destroy()
 
 void cRegistBase::FxRegist()
 {
-	FILEPATH_MANAGER->AddFilepath("FX_지형기본", "Resource/Maptool/Shaders/TerrainBase.fx");
+	//FILEPATH_MANAGER->AddFilepath("FX_지형기본", "Resource/Maptool/Shaders/TerrainBase.fx");
 }
 
 
@@ -239,8 +239,36 @@ void cRegistBase::UIRegist()
 	FILEPATH_MANAGER->AddFilepath("playerbarMP_cover", "ResourceUI/game/playerbarMP_cover.png");
 	FILEPATH_MANAGER->AddFilepath("playerbarMP_move", "ResourceUI/game/playerbarMP_move.png");
 
+	//=============================================================================
+	//test
+	//=============================================================================
 	FILEPATH_MANAGER->AddFilepath("minimap", "ResourceUI/test/minimap.png");
+	FILEPATH_MANAGER->AddFilepath("minimap3", "ResourceUI/test/minimap3.png");
 	FILEPATH_MANAGER->AddFilepath("minimapTest", "ResourceUI/test/minimapTest.png");
+
+	FILEPATH_MANAGER->AddFilepath("tileTest0", "ResourceUI/test/tileTest0.png");
+	FILEPATH_MANAGER->AddFilepath("tileTest1", "ResourceUI/test/tileTest1.png");
+	FILEPATH_MANAGER->AddFilepath("tileTest2", "ResourceUI/test/tileTest2.png");
+	FILEPATH_MANAGER->AddFilepath("tileTest3", "ResourceUI/test/tileTest3.png");
+
+	FILEPATH_MANAGER->AddFilepath("splat_red_base", "ResourceUI/test/splat_red_base.png");
+	FILEPATH_MANAGER->AddFilepath("splat_green_base", "ResourceUI/test/splat_green_base.png");
+	FILEPATH_MANAGER->AddFilepath("splat_blue_base", "ResourceUI/test/splat_blue_base.png");
+	FILEPATH_MANAGER->AddFilepath("splat_black_base", "ResourceUI/test/splat_black_base.png");
+
+	FILEPATH_MANAGER->AddFilepath("miniPlayer", "ResourceUI/test/miniPlayer.png");
+	FILEPATH_MANAGER->AddFilepath("radar", "ResourceUI/test/radar.png");
+
+	FILEPATH_MANAGER->AddFilepath("height_base", "ResourceUI/test/height_base.png");
+
+	FILEPATH_MANAGER->AddFilepath("StaticMesh", "ResourceUI/test/fx/StaticMesh.fx");
+	FILEPATH_MANAGER->AddFilepath("diffuseDefault", "ResourceUI/test/meshTx/diffuseDefault.png");
+	FILEPATH_MANAGER->AddFilepath("normalDefault", "ResourceUI/test/meshTx/normalDefault.png");
+	FILEPATH_MANAGER->AddFilepath("specularDefault", "ResourceUI/test/meshTx/specularDefault.png");
+	FILEPATH_MANAGER->AddFilepath("emissionDefault", "ResourceUI/test/meshTx/emissionDefault.png");
+
+	FILEPATH_MANAGER->AddFilepath("FX_지형기본", "ResourceUI/test/fx/TerrainBase.fx");
+
 }
 
 
