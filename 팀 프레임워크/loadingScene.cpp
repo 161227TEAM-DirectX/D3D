@@ -51,7 +51,11 @@ void loadingScene::render()
 
 	if (m_isChange /*&& m_pLoadingBar->IsFullBar()*/)
 	{
+<<<<<<< HEAD
 		SCENEMANAGER->changeScene("gameSceneTwo");
+=======
+		SCENEMANAGER->changeScene("gameSceneOne");
+>>>>>>> 77088246d44c9d7c07f72f5b6b25f2e9eaec2a34
 	}
 
 	LeaveCriticalSection(&_cs);
