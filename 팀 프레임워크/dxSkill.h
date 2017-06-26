@@ -50,6 +50,9 @@ public:
 	//virtual void setAction(transform* inTargetTrans) { _actionTrans = inTargetTrans; };
 
 public:
+	virtual bool getCollision() {}
+
+public:
 	//»ý¼ºÀÚ
 	dxSkill()
 	{
