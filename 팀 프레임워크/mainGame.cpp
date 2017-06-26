@@ -15,12 +15,14 @@
 #include "cMinimapTest2.h"
 #include "cCameraTest.h"
 
+
 mainGame::mainGame()
 {
 	REGIST_SGT->Init();
 
 	SCENEMANAGER->addScene("test", new cMinimapTest, false);
 	SCENEMANAGER->addScene("loading", new loadingScene, true);
+<<<<<<< HEAD
 	//SCENEMANAGER->addScene("start", new startScene, false);
 	//SCENEMANAGER->addScene("maptool", new mapToolScene, false);
 	//SCENEMANAGER->addScene("particleTest13", new particleTest13, true);
@@ -29,6 +31,17 @@ mainGame::mainGame()
 	//SCENEMANAGER->addScene("gameSceneThree", new stageThree, false);
 
 	
+=======
+	SCENEMANAGER->addScene("start", new startScene, false);
+	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
+	SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
+	SCENEMANAGER->addScene("gameSceneOne", new stageOne, false);
+	SCENEMANAGER->addScene("gameSceneTwo", new stageTwo, false);
+	SCENEMANAGER->addScene("gameSceneThree", new stageThree, false);
+
+	//SCENEMANAGER->addScene("test", new cGameUITest, false);
+	//SCENEMANAGER->addScene("test", new cMinimapTest, false);
+>>>>>>> 459058971e8d02a62127f1b2d2e80718a1ae7433
 }
 
 mainGame::~mainGame()
