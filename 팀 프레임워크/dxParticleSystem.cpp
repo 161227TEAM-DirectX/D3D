@@ -57,6 +57,7 @@ HRESULT dxParticleSystem::init()
 				*(dynamic_cast<dxMeshEmitter*>(tempEMT)) = *(dynamic_cast<dxMeshEmitter*>(_vTempEmitter[i]));
 			}
 
+			//tempEMT->reset();
 			_vEmitter.push_back(tempEMT);
 		}
 	}

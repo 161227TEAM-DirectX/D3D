@@ -363,6 +363,7 @@ using namespace myUtil;
 #include "dxParticleTextureManager.h"
 #include "dxParticleSystemManager.h"
 #include "dxSkillManager.h"
+#include "dxEffectManager.h"
 #include "soundManager.h"
 #include "xPlayerStatus.h"
 #include "ActionManager.h"
@@ -407,6 +408,7 @@ using namespace myUtil;
 #define PSM	dxParticleSystemManager::getSingleton()
 #define PTM	dxParticleTextureManager::getSingleton()
 #define SKM	dxSkillManager::getSingleton()
+#define EFFECT dxEffectManager::getSingleton()
 #define PLAYERMANAGER xPlayerStatus::getSingleton()
 #define SOUNDMANAGER soundManager::getSingleton()
 #define IOBASEMANAGER ioBaseManager::getSingleton()

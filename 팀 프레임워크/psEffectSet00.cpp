@@ -143,7 +143,7 @@ void psEffectSet00::EffectSet01(string psName)
 	_PS->addEmitter(_boardEMT);
 
 
-	PSM->addPS(psName, _PS);
+	PSM->addPS(psName, _PS, true);
 }
 
 void psEffectSet00::EffectSet02(string psName)

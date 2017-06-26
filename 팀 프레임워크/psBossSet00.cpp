@@ -123,13 +123,14 @@ void psBossSet00::GrandMagic00(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/wind_f5x3_tt13.png", 1, 1.0f, 1);
-	_boardEMT->InitAnimation(5, 3, 12);
+	_boardEMT->init("PaticleResources/Texture/fireSun01_f60x1.png", 1, 2.0f, 1);
+	_boardEMT->setGrayScaleAlphaOn();
+	_boardEMT->InitAnimation(60, 1);
 	//_boardEMT->InitAnimation(5, 3, 13);
-	_boardEMT->InitRandomLifeTime(1.0f, 1.0f);
-	_boardEMT->InitRandomSize(4.0f, 4.0f);
-	_boardEMT->InitRandomSizeEnd(20.0f, 20.0f);
-	_boardEMT->InitRandomAlpha(0.1f, 0.1f);
+	_boardEMT->InitRandomLifeTime(2.0f, 2.0f);
+	_boardEMT->InitRandomSize(1.0f, 1.0f);
+	_boardEMT->InitRandomSizeEnd(1.0f, 1.0f);
+	//_boardEMT->InitRandomAlpha(0.1f, 0.1f);
 
 	_PS->addEmitter(_boardEMT);
 

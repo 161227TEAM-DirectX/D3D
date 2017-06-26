@@ -22,7 +22,7 @@ mainGame::mainGame()
 
 	SCENEMANAGER->addScene("test", new cMinimapTest, false);
 	SCENEMANAGER->addScene("loading", new loadingScene, true);
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	//SCENEMANAGER->addScene("start", new startScene, false);
 	//SCENEMANAGER->addScene("maptool", new mapToolScene, false);
 	//SCENEMANAGER->addScene("particleTest13", new particleTest13, true);
@@ -31,17 +31,17 @@ mainGame::mainGame()
 	//SCENEMANAGER->addScene("gameSceneThree", new stageThree, false);
 
 	
-=======
+//=======
 	SCENEMANAGER->addScene("start", new startScene, false);
 	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
-	SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
+	SCENEMANAGER->addScene("particleTest13", new particleTest13, true);
 	SCENEMANAGER->addScene("gameSceneOne", new stageOne, false);
 	SCENEMANAGER->addScene("gameSceneTwo", new stageTwo, false);
 	SCENEMANAGER->addScene("gameSceneThree", new stageThree, false);
 
 	//SCENEMANAGER->addScene("test", new cGameUITest, false);
 	//SCENEMANAGER->addScene("test", new cMinimapTest, false);
->>>>>>> 459058971e8d02a62127f1b2d2e80718a1ae7433
+//>>>>>>> 459058971e8d02a62127f1b2d2e80718a1ae7433
 }
 
 mainGame::~mainGame()
@@ -122,7 +122,8 @@ void mainGame::update(void)
 {
 	//씬매니져 업데이트
 	SCENEMANAGER->update();
-	SKM->update();//이거 회의가 필요하겠군(UI겹침 문제)
+	EFFECT->update();
+	SKM->update();
 	SOUNDMANAGER->update();
 }
 
@@ -152,6 +153,8 @@ void mainGame::render(void)
 
 			SCENEMANAGER->render();//이거 회의가 필요하겠군(UI겹침 문제)
 			
+			EFFECT->render();
+
 			SKM->render();
 
 			//디버그 모드에서만 실행

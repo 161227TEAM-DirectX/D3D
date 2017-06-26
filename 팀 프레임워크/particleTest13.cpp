@@ -38,13 +38,20 @@ void particleTest13::update()
 	
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 	{
-		SKM->findSK("대마법")->setSkillPosTrans(_player);
+		/*SKM->findSK("대마법")->setSkillPosTrans(_player);
 		SKM->findSK("대마법")->setSkillDirTrans(_player);
 		SKM->findSK("대마법")->setOneTargetTrans(_target);
-		SKM->findSK("대마법")->Start();
+		SKM->findSK("대마법")->Start();*/
 		//testSkill00->SetManyTargetTrans(_target,0);
 		//testSkill00->setOneTargetTrans(_target);
 		//testSkill00->Start();
+		EFFECT->findEff("스턴")->setLimitTime(5.0f);
+		EFFECT->findEff("스턴")->setPositon(&_player->GetWorldPosition());
+		EFFECT->findEff("스턴")->setPositon(&_target->GetWorldPosition());
+		EFFECT->findEff("스턴")->setPosTrans(_player);
+		EFFECT->findEff("스턴")->setPosTrans(_target);
+		EFFECT->findEff("스턴")->Start();
+
 	}
 
 	//testSkill00->update();

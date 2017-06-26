@@ -12,7 +12,7 @@ private:
 	
 	tagDxParticleEX*	_drawVertex;
 
-	D3DXVECTOR3* _posCenter;
+	//D3DXVECTOR3* _posCenter;
 
 	dx::transform* _trans;
 

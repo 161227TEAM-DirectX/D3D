@@ -27,12 +27,12 @@ HRESULT dxBoardEmitter::init(string textureFileName, int OneTimePaticleNum, floa
 	_ptcList.resize(_totalPtcNum);
 
 
-	_posCenter = new D3DXVECTOR3[_totalPtcNum];
+	/*_posCenter = new D3DXVECTOR3[_totalPtcNum];
 
 	for (int i = 0; i < _totalPtcNum; i++)
 	{
 		_posCenter[i] = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	}
+	}*/
 	_activeCurrentTime = 0.0f;
 
 	return S_OK;

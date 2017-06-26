@@ -19,7 +19,6 @@ bool skBoss_Shouting::Prepare()
 {
 
 	_vPrepaerPS[0]->update();
-
 	return false;
 }
 

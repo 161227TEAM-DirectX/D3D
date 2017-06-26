@@ -218,6 +218,8 @@
     <ClInclude Include="dxBoardEmitter.h" />
     <ClInclude Include="dxCircleModule.h" />
     <ClInclude Include="dxColorModule.h" />
+    <ClInclude Include="dxEffect.h" />
+    <ClInclude Include="dxEffectManager.h" />
     <ClInclude Include="dxEmitter.h" />
     <ClInclude Include="dxLifeTimeModule.h" />
     <ClInclude Include="dxMeshEmitter.h" />
@@ -409,6 +411,8 @@
     <ClCompile Include="dxBoardEmitter.cpp" />
     <ClCompile Include="dxCircleModule.cpp" />
     <ClCompile Include="dxColorModule.cpp" />
+    <ClCompile Include="dxEffect.cpp" />
+    <ClCompile Include="dxEffectManager.cpp" />
     <ClCompile Include="dxEmitter.cpp" />
     <ClCompile Include="dxLifeTimeModule.cpp" />
     <ClCompile Include="dxMeshEmitter.cpp" />

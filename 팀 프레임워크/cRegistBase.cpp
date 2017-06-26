@@ -53,6 +53,7 @@ void cRegistBase::Init()
 	PTM->LoadImgInit();					//파티클텍스쳐_매니져 초기화(순서1)
 	PSM->ParticleSystemSetInit();		//파티클시스템_매니져 초기화(순서2)
 	SKM->skillSetting();				//스킬 매니저 초기화(순서3)
+	EFFECT->EffectSetting();			//이펙트 매니저 초기화(똑같이 순서3)
 	SOUNDMANAGER->init();				//사운드매니저초기화
 
 	
@@ -99,8 +100,11 @@ void cRegistBase::Destroy()
 	PSM->ParticleSystemSetRelease();
 	PSM->releaseSingleton();
 	//파티클시스템텍스쳐매니져 싱글톤 해제(역순3)
-	PTM->releaseSingleton();
 	PTM->ImgRelease();
+	PTM->releaseSingleton();
+	//파티클시스템텍스쳐매니져 싱글톤 해제(같이 역순3)
+	EFFECT->EffectRelease();
+	EFFECT->releaseSingleton();
 	
 	SOUNDMANAGER->release();
 	SOUNDMANAGER->releaseSingleton();
