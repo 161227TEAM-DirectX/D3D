@@ -74,7 +74,9 @@ private:
 	SYNTHESIZE(int, _mDef, mDef);
 	SYNTHESIZE(float, _crit, Crit);
 	SYNTHESIZE(int, _hp, Hp);
+	SYNTHESIZE(int, _MaxHp, MaxHp);
 	SYNTHESIZE(int, _mp, Mp);
+	SYNTHESIZE(int, _MaxMp, MaxMp);
 	SYNTHESIZE(PL_WEAPON, _weapon, Weapon);
 	SYNTHESIZE(PL_ARMOR, _armor, Armor);
 	SYNTHESIZE(PL_SHIELD, _shield, Shield);	

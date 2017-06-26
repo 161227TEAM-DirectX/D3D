@@ -51,7 +51,7 @@ void loadingScene::render()
 
 	if (m_isChange /*&& m_pLoadingBar->IsFullBar()*/)
 	{
-		SCENEMANAGER->changeScene("test");
+		SCENEMANAGER->changeScene("gameSceneTwo");
 	}
 
 	LeaveCriticalSection(&_cs);
@@ -60,8 +60,8 @@ void loadingScene::render()
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
 	SoundLoading();
-	//XMeshStaticLoading();
-	//XMeshSkinnedLoading();
+	XMeshStaticLoading();
+	XMeshSkinnedLoading();
 	UILoading();
 	AniLoading();
 
@@ -727,4 +727,7 @@ void loadingScene::SoundLoading()
 	SOUNDMANAGER->addSound("브레스2", FILEPATH_MANAGER->GetFilepath("보스브레스2"));
 	SOUNDMANAGER->addSound("꼬리공격", FILEPATH_MANAGER->GetFilepath("꼬리공격"));
 	SOUNDMANAGER->addSound("걷기", FILEPATH_MANAGER->GetFilepath("걷기"), false, true);
+	SOUNDMANAGER->addSound("몬스터대기", FILEPATH_MANAGER->GetFilepath("몬스터대기"));
+	SOUNDMANAGER->addSound("몬스터공격", FILEPATH_MANAGER->GetFilepath("몬스터공격"));
+	SOUNDMANAGER->addSound("몬스터죽음", FILEPATH_MANAGER->GetFilepath("몬스터죽음"));
 }

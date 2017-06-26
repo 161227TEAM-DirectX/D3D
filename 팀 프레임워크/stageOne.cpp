@@ -15,6 +15,7 @@ stageOne::stageOne()
 	player = new xPlayer;
 	env = new Environment;
 	water = new WaterTerrain;
+	water->linkCamera(*_mainCamera);
 }
 
 
@@ -73,7 +74,7 @@ HRESULT stageOne::init()
 		object = IOSAVEOBJECTMANAGER->findTag("넘버" + to_string(i + 1));
 		baseObject* temp = new baseObject;
 		D3DXMATRIX matRotate;
-		objectSet->objectSet(object.objectNumber, temp, matRotate, object.objectX, object.objectY, object.objectZ, object.objectScale, object.objectRotate);
+		objectSet->objectSet(object.objectNumber, temp, matRotate, object.objectX, object.objectY, object.objectZ, 0.6f, object.objectRotate);
 
 		_renderObject.push_back(temp);
 	}
@@ -98,7 +99,7 @@ HRESULT stageOne::init()
 		_renderObject.push_back(player->getRenderObject()[i]);
 	}
 
-	SOUNDMANAGER->play("마을1", 0.5f);
+	SOUNDMANAGER->play("마을1", 0.1f);
 	return S_OK;
 }
 
@@ -137,7 +138,7 @@ void stageOne::render()
 
 
 	env->renderEnvironment(envTemp.number);
-//	water->render(waterTemp.number);
+	water->render(waterTemp.number);
 
 	//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅
 	xMeshStatic::setCamera(_mainCamera);

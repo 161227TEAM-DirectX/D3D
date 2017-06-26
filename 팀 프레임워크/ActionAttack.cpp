@@ -41,12 +41,14 @@ int ActionAttack::Update()
 	}
 	*/
 
+
 	
 	//적이 나의 hit박스 안에 있는가?
 	if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
 	{
-		//owner->getSkinnedAnim().Stop();
-		return LHS::ACTIONRESULT::ACTION_MOVE;
+		float tempLengthY = playerObject->_transform->GetWorldPosition().y - owner->_transform->GetWorldPosition().y;
+		if (tempLengthY >= 1.0f) return LHS::ACTIONRESULT::ACTION_PLAY;
+		else return LHS::ACTIONRESULT::ACTION_MOVE;
 	}
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;

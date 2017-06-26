@@ -213,6 +213,7 @@
     <ClInclude Include="cUIObject.h" />
     <ClInclude Include="cUIStart.h" />
     <ClInclude Include="cXmeshManager.h" />
+    <ClInclude Include="damageText.h" />
     <ClInclude Include="dijkstra.h" />
     <ClInclude Include="dxAccelerationModule.h" />
     <ClInclude Include="dxBoardEmitter.h" />
@@ -406,6 +407,7 @@
     <ClCompile Include="cUIObject.cpp" />
     <ClCompile Include="cUIStart.cpp" />
     <ClCompile Include="cXmeshManager.cpp" />
+    <ClCompile Include="damageText.cpp" />
     <ClCompile Include="dijkstra.cpp" />
     <ClCompile Include="dxAccelerationModule.cpp" />
     <ClCompile Include="dxBoardEmitter.cpp" />

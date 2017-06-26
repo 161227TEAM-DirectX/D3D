@@ -10,7 +10,7 @@
 //}
 
 monster::monster(string Name)
-	: baseObject(), CurrAction(nullptr), NextAction(nullptr)
+	: baseObject(), CurrAction(nullptr), NextAction(nullptr), dieCount(60)
 {
 	name = new Text;
 	name->init(Name);
@@ -68,10 +68,16 @@ void monster::baseObjectUpdate()
 	}
 
 	if (CurrAction != NULL) result = (LHS::ACTIONRESULT)CurrAction->Update();
+	name->setPos(D3DXVECTOR3(_transform->GetWorldPosition().x, _boundBox._localMaxPos.y, _transform->GetWorldPosition().z));
 }
 
 void monster::baseObjectNoActiveUpdate()
 {
+	if (TIMEMANAGER->getWorldTime() - startTime > dieCount)
+	{
+		result = LHS::ACTIONRESULT::ACTION_STAND;
+		setActive(true);
+	}
 }
 
 void monster::baseObjectRender()
@@ -80,6 +86,10 @@ void monster::baseObjectRender()
 
 	D3DXVECTOR3 temp = { _transform->GetWorldPosition().x, _boundBox._localMaxPos.y, _transform->GetWorldPosition().z };
 	name->render();
+
+	string temps = "hp:" + to_string(HP);
+
+	FONTMANAGER->fontOut(temps.c_str(), 100, 100, D3DCOLOR_XRGB(255, 255, 255));
 
 	//hitBox.renderGizmo(_transform, D3DCOLOR_XRGB(255, 0, 0));
 	//range.renderGizmo(_transform, D3DCOLOR_XRGB(255, 255, 0));
@@ -90,7 +100,7 @@ void monster::baseObjectRender()
 void monster::stateSwitch(void)
 {
 	//몬스터의 HP가 떨어지면 죽음 상태로 변경
-	if (HP < 0) result = LHS::ACTIONRESULT::ACTION_DIE;
+	if (HP < 0 && result != LHS::ACTIONRESULT::ACTION_NONE) result = LHS::ACTIONRESULT::ACTION_DIE;
 	// 각 액션이 update 함수를 실행 후에 상태값을 넘겨온다.
 	// 그 상태값에 따라 몬스터가 해야 할 행동을 취하면 된다.
 	switch (result)
@@ -130,6 +140,7 @@ void monster::stateSwitch(void)
 		break;
 	case LHS::ACTIONRESULT::ACTION_NONE:
 		this->setActive(false);
+		startTime = TIMEMANAGER->getWorldTime();
 		break;
 	}
 }

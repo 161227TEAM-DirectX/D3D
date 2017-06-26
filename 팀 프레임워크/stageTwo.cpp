@@ -17,6 +17,7 @@ stageTwo::stageTwo()
 	objectSet = new mapObject;
 	env = new Environment;
 	water = new WaterTerrain;
+	water->linkCamera(*_mainCamera);
 }
 
 
@@ -114,7 +115,7 @@ HRESULT stageTwo::init()
 
 	//PLAYER
 
-	SOUNDMANAGER->play("필드1", 0.5f);
+	SOUNDMANAGER->play("필드1", 0.1f);
 
 	return S_OK;
 }

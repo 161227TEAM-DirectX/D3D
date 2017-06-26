@@ -22,6 +22,8 @@ int ActionReMove::Start()
 	owner->getSkinnedAnim().Play("Run");
 //	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 	owner->_transform->SetWorldPosition(from);
+	float tempY = rand->getHeight(to.x, to.z);
+	to.y = tempY;
 	rotateMonster = *owner->_transform;
 	m_fPassedTime = 0.0f;
 	return LHS::ACTIONRESULT::ACTION_PLAY;
@@ -59,14 +61,18 @@ int ActionReMove::Update()
 	//D3DXVECTOR3 prev = owner->_transform->GetWorldPosition();		//개체의 월드위치값을 저장
 	rotateMonster = *owner->_transform;
 
-	owner->_transform->LookPosition(to);						//방향벡터를 transform의 정면벡터에 저장
+	D3DXVECTOR3 tempTo = to;
+	float tempY = 0;
+	tempY = rand->getHeight(tempTo.x, tempTo.z);
+	tempTo.y = tempY;
+	owner->_transform->LookPosition(tempTo);						//방향벡터를 transform의 정면벡터에 저장
 	owner->_transform->RotateSlerp(rotateMonster, *owner->_transform, _timeDelta * 3);
 
 	//owner->_transform->LookPosition(p);						//방향벡터를 transform의 정면벡터에 저장
 	//owner->_transform->SetWorldPosition(p);					//개채의 위치를 선형보간된 위치로 변경
 
 	D3DXVECTOR3 look(0.0f, 0.0f, 0.07f);
-	float tempY = 0;
+	tempY = 0;
 	owner->_transform->MovePositionSelf(look);
 	look = owner->_transform->GetWorldPosition();
 	tempY = rand->getHeight(look.x, look.z);

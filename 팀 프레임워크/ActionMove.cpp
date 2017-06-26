@@ -21,7 +21,8 @@ int ActionMove::Start()
 	//baseObject의 transform을 호출하여 world위치를 from으로 변경
 	owner->getSkinnedAnim().Play("Run");
 	owner->_transform->SetWorldPosition(from);
-	//owner->_transform->LookPosition(to);
+	float tempY = rand->getHeight(to.x, to.z);
+	to.y = tempY;
 	rotateMonster = *owner->_transform;
 	m_fPassedTime = 0.0f;
 	return LHS::ACTIONRESULT::ACTION_PLAY;
@@ -66,8 +67,6 @@ int ActionMove::Update()
 		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 		{
 			if (deleGate) deleGate->OnActionFinish(this, true);
-			owner->getSkinnedAnim().Stop();
-
 			return LHS::ACTIONRESULT::ACTION_REMOVE;
 		}
 
@@ -92,8 +91,11 @@ int ActionMove::Update()
 	rotateMonster = *owner->_transform;
 
 	//D3DXVECTOR3 result = prev - p;							//과거 위치에서 선형보간된 위치를 바라보는 방향벡터
-
-	owner->_transform->LookPosition(to);						//방향벡터를 transform의 정면벡터에 저장
+	D3DXVECTOR3 tempTo = to;
+	float tempY = 0;
+	tempY = rand->getHeight(tempTo.x, tempTo.z);
+	tempTo.y = tempY;
+	owner->_transform->LookPosition(tempTo);						//방향벡터를 transform의 정면벡터에 저장
 	owner->_transform->RotateSlerp(rotateMonster, *owner->_transform, _timeDelta*3);
 	//owner->_transform->SetWorldPosition(p);					//개채의 위치를 선형보간된 위치로 변경
 
@@ -103,7 +105,7 @@ int ActionMove::Update()
 	//cout << "플레이어 위치값 x: " << playerObject->_transform->GetWorldPosition().x << " y: " << playerObject->_transform->GetWorldPosition().y << " z: " << playerObject->_transform->GetWorldPosition().z << endl;
 
 	D3DXVECTOR3 look(0.0f, 0.0f, 0.07f);
-	float tempY = 0;
+	tempY = 0;
 	owner->_transform->MovePositionSelf(look);
 	look = owner->_transform->GetWorldPosition();
 	tempY = rand->getHeight(look.x, look.z);
