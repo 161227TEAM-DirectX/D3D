@@ -51,7 +51,7 @@ void loadingScene::render()
 
 	if (m_isChange /*&& m_pLoadingBar->IsFullBar()*/)
 	{
-		SCENEMANAGER->changeScene("gameSceneTwo");
+		SCENEMANAGER->changeScene("test");
 	}
 
 	LeaveCriticalSection(&_cs);
@@ -60,8 +60,8 @@ void loadingScene::render()
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
 	SoundLoading();
-	XMeshStaticLoading();
-	XMeshSkinnedLoading();
+	//XMeshStaticLoading();
+	//XMeshSkinnedLoading();
 	UILoading();
 	AniLoading();
 
@@ -93,9 +93,26 @@ void loadingScene::UILoading()
 	DXIMG_MANAGER->AddDxImg("playerbarMP_cover", new cDxImg(FILEPATH_MANAGER->GetFilepath("playerbarMP_cover")));
 	DXIMG_MANAGER->AddDxImg("playerbarMP_move", new cDxImg(FILEPATH_MANAGER->GetFilepath("playerbarMP_move")));
 
+	//=======================================================================
+	//test
+	//=======================================================================
 	DXIMG_MANAGER->AddDxImg("minimap", new cDxImg(FILEPATH_MANAGER->GetFilepath("minimap")));
 	DXIMG_MANAGER->AddDxImg("minimap2", new cDxImg(FILEPATH_MANAGER->GetFilepath("minimap")));
+	DXIMG_MANAGER->AddDxImg("minimap3", new cDxImg(FILEPATH_MANAGER->GetFilepath("minimap3")));
 	DXIMG_MANAGER->AddDxImg("minimapTest", new cDxImg(FILEPATH_MANAGER->GetFilepath("minimapTest")));
+
+	DXIMG_MANAGER->AddDxImg("tileTest0", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest0")));
+	DXIMG_MANAGER->AddDxImg("tileTest1", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest1")));
+	DXIMG_MANAGER->AddDxImg("tileTest2", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest2")));
+	DXIMG_MANAGER->AddDxImg("tileTest3", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest3")));
+
+	DXIMG_MANAGER->AddDxImg("splat_red_base", new cDxImg(FILEPATH_MANAGER->GetFilepath("splat_red_base")));
+	DXIMG_MANAGER->AddDxImg("splat_green_base", new cDxImg(FILEPATH_MANAGER->GetFilepath("splat_green_base")));
+	DXIMG_MANAGER->AddDxImg("splat_blue_base", new cDxImg(FILEPATH_MANAGER->GetFilepath("splat_blue_base")));
+	DXIMG_MANAGER->AddDxImg("splat_black_base", new cDxImg(FILEPATH_MANAGER->GetFilepath("splat_black_base")));
+
+	DXIMG_MANAGER->AddDxImg("miniPlayer", new cDxImg(FILEPATH_MANAGER->GetFilepath("miniPlayer")));
+	DXIMG_MANAGER->AddDxImg("radar", new cDxImg(FILEPATH_MANAGER->GetFilepath("radar")));
 
 }
 

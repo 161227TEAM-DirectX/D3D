@@ -169,12 +169,22 @@ void cDxImg::render(float srcX, float srcY, float srcWidth, float srcHeight, flo
 	m_fMiniHeight = m_fMiniStartY + srcHeight;
 
 	RECT rc;
-	SetRect(&rc, m_fMiniStartX, m_fMiniStartY, m_fMiniWidth, m_fMiniHeight);
-
 	D3DXVECTOR3 v = m_vPosition;
 
-	v.x += srcX;
-	v.y += srcY;
+	if (!m_isCenterDraw)
+	{
+		SetRect(&rc, m_fMiniStartX, m_fMiniStartY, m_fMiniWidth, m_fMiniHeight);
+		//v.x -= srcWidth;
+		//v.y -= srcHeight;
+	}
+	else
+	{
+		SetRect(&rc, m_fMiniStartX, m_fMiniStartY, m_fMiniWidth, m_fMiniHeight);
+		v.x += srcX;
+		v.y += srcY;
+	}
+
+
 
 	if (!m_isCenterDraw)
 	{
@@ -244,33 +254,7 @@ void cDxImg::render(float cx, float cy, float angle)
 
 		if (m_isDrawBoundingBox)
 		{
-			DWORD dwPrev = 0;
-			_device->SetTexture(0, NULL);
-			_device->GetRenderState(D3DRS_LIGHTING, &dwPrev);
-			_device->SetRenderState(D3DRS_LIGHTING, false);
-
-			int nCnt = 0;
-			ST_RHWC_VERTEX aVertex[5];
-
-			aVertex[nCnt].p = D3DXVECTOR4(m_matWorld._41, m_matWorld._42, 0, 1);
-			aVertex[nCnt++].c = m_dwBoundingColor;
-
-			aVertex[nCnt].p = D3DXVECTOR4(m_matWorld._41, m_matWorld._42 + m_stSize.fHeight, 0, 1);
-			aVertex[nCnt++].c = m_dwBoundingColor;
-
-			aVertex[nCnt].p = D3DXVECTOR4(m_matWorld._41 + m_stSize.fWidth, m_matWorld._42 + m_stSize.fHeight, 0, 1);
-			aVertex[nCnt++].c = m_dwBoundingColor;
-
-			aVertex[nCnt].p = D3DXVECTOR4(m_matWorld._41 + m_stSize.fWidth, m_matWorld._42, 0, 1);
-			aVertex[nCnt++].c = m_dwBoundingColor;
-
-			aVertex[nCnt].p = D3DXVECTOR4(m_matWorld._41, m_matWorld._42, 0, 1);
-			aVertex[nCnt++].c = m_dwBoundingColor;
-
-			_device->SetFVF(ST_RHWC_VERTEX::FVF);
-			_device->DrawPrimitiveUP(D3DPT_LINESTRIP, 4, aVertex, sizeof(ST_RHWC_VERTEX));
-
-			_device->SetRenderState(D3DRS_LIGHTING, (bool)dwPrev);
+			RectMake(m_vPosition.x, m_vPosition.y, m_stSize.fWidth, m_stSize.fHeight, false, m_dwBoundingColor);
 		}
 	}
 	else
@@ -299,33 +283,7 @@ void cDxImg::render(float cx, float cy, float angle)
 
 		if (m_isDrawBoundingBox)
 		{
-			DWORD dwPrev = 0;
-			_device->SetTexture(0, NULL);
-			_device->GetRenderState(D3DRS_LIGHTING, &dwPrev);
-			_device->SetRenderState(D3DRS_LIGHTING, false);
-
-			int nCnt = 0;
-			ST_RHWC_VERTEX aVertex[5];
-
-			aVertex[nCnt].p = D3DXVECTOR4(_cx, _cy, 0, 1);
-			aVertex[nCnt++].c = m_dwBoundingColor;
-
-			aVertex[nCnt].p = D3DXVECTOR4(_cx, _cyE, 0, 1);
-			aVertex[nCnt++].c = m_dwBoundingColor;
-
-			aVertex[nCnt].p = D3DXVECTOR4(_cxE, _cyE, 0, 1);
-			aVertex[nCnt++].c = m_dwBoundingColor;
-
-			aVertex[nCnt].p = D3DXVECTOR4(_cxE, _cy, 0, 1);
-			aVertex[nCnt++].c = m_dwBoundingColor;
-
-			aVertex[nCnt].p = D3DXVECTOR4(_cx, _cy, 0, 1);
-			aVertex[nCnt++].c = m_dwBoundingColor;
-
-			_device->SetFVF(ST_RHWC_VERTEX::FVF);
-			_device->DrawPrimitiveUP(D3DPT_LINESTRIP, 4, aVertex, sizeof(ST_RHWC_VERTEX));
-
-			_device->SetRenderState(D3DRS_LIGHTING, (bool)dwPrev);
+			RectMakeCenter(m_vPosition.x, m_vPosition.y, m_stSize.fWidth, m_stSize.fHeight, false, m_dwBoundingColor);
 		}
 	}
 }

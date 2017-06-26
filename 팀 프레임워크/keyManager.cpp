@@ -20,7 +20,7 @@ void keyManager::release(void)
 {
 }
 
-bool keyManager::isOnceKeyDown(int key)
+bool keyManager::isOnceKeyDown(int key, bool isOne)
 {
 	if (GetAsyncKeyState(key) & 0x8000)
 	{
@@ -31,7 +31,10 @@ bool keyManager::isOnceKeyDown(int key)
 				_keyDown[key][i] = true;
 				return true;
 			}
-			break;
+			if (isOne)
+			{
+				break;
+			}
 		}
 	}
 	else
@@ -45,7 +48,7 @@ bool keyManager::isOnceKeyDown(int key)
 	return false;
 }
 
-bool keyManager::isOnceKeyUp(int key)
+bool keyManager::isOnceKeyUp(int key, bool isOne)
 {
 	if (GetAsyncKeyState(key) & 0x8000)
 	{
@@ -62,6 +65,10 @@ bool keyManager::isOnceKeyUp(int key)
 			{
 				_keyUp[key][i] = false;
 				return true;
+			}
+			if (isOne)
+			{
+				break;
 			}
 		}
 	}

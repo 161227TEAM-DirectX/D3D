@@ -57,6 +57,29 @@ void gizmoManager::Line(D3DXVECTOR3 & startPos, D3DXVECTOR3& endPos, DWORD color
 	_device->SetRenderState(D3DRS_LIGHTING, prevLight);
 }
 
+void gizmoManager::LineAxis(float length)
+{
+	//축의 절반 길이
+	float axisLineLength =  length;
+
+	//x축 라인
+	D3DXVECTOR3 xStart(-axisLineLength, 0, 0);
+	D3DXVECTOR3 xEnd(axisLineLength, 0, 0);
+
+	//y축 라인
+	D3DXVECTOR3 yStart(0, -axisLineLength, 0);
+	D3DXVECTOR3 yEnd(0, axisLineLength, 0);
+
+	//z축 라인
+	D3DXVECTOR3 zStart(0, 0, -axisLineLength);
+	D3DXVECTOR3 zEnd(0, 0, axisLineLength);
+
+	//축그린다
+	Line(xStart, xEnd, 0xffff0000); //빨
+	Line(yStart, yEnd, 0xff00ff00); //녹
+	Line(zStart, zEnd, 0xff0000ff); //파
+}
+
 //월드 그리는 함수
 void gizmoManager::WorldGrid(float cellSize, int cellNum)
 {

@@ -179,6 +179,7 @@
     <ClInclude Include="camera.h" />
     <ClInclude Include="cameraManager.h" />
     <ClInclude Include="cBarTest.h" />
+    <ClInclude Include="cCameraTest.h" />
     <ClInclude Include="cDxImg.h" />
     <ClInclude Include="cDxImgAniManager.h" />
     <ClInclude Include="cDxImgBar.h" />
@@ -191,6 +192,7 @@
     <ClInclude Include="cImageTest.h" />
     <ClInclude Include="CinematicManger.h" />
     <ClInclude Include="cMinimapTest.h" />
+    <ClInclude Include="cMinimapTest2.h" />
     <ClInclude Include="cRegistBase.h" />
     <ClInclude Include="cLoadingBarTest.h" />
     <ClInclude Include="cLoadingTest.h" />
@@ -368,6 +370,7 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="cBarTest.cpp" />
+    <ClCompile Include="cCameraTest.cpp" />
     <ClCompile Include="cDxImg.cpp" />
     <ClCompile Include="cDxImgAniManager.cpp" />
     <ClCompile Include="cDxImgBar.cpp" />
@@ -380,6 +383,7 @@
     <ClCompile Include="cImageTest.cpp" />
     <ClCompile Include="CinematicManger.cpp" />
     <ClCompile Include="cMinimapTest.cpp" />
+    <ClCompile Include="cMinimapTest2.cpp" />
     <ClCompile Include="cRegistBase.cpp" />
     <ClCompile Include="cLoadingBarTest.cpp" />
     <ClCompile Include="cLoadingTest.cpp" />

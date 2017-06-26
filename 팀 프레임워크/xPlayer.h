@@ -20,6 +20,15 @@ V 피격 (HP -1)
 SPACE 스턴 (HP -1)
 */
 
+enum SkillType
+{
+	SKILL_NONE = 0,
+	SKILL_HEAL,
+	SKILL_MAGICMISSILE,
+	SKILL_SHIELD,
+	SKILL_END
+};
+
 typedef struct tagLightVertex
 {
 	D3DXVECTOR3 pos;			//정점의 위치
@@ -47,10 +56,9 @@ private:
 	bool _isOnBattle;
 	PL_STATE _state;
 	PL_STATE _prevState;
-
+	SkillType _nowSelectedSkill;
 	
 	float _moveSpeed;
-
 	float _damagedTime;
 	float _stunnedTime;
 	float _castingTime;
@@ -216,6 +224,12 @@ public:
 
 	//
 	void out_setMonsterRegion(vector<monster*>* monsters) { this->_monsterPool = monsters; }
+
+	void skilltrigger();
+
+	void useNowSkill();
+
+	void skillProcesser();
 
 	xPlayer() {};
 	~xPlayer() {};

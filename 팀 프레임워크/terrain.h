@@ -31,10 +31,10 @@ private:
 	int _cellNumZ;					//깊이 셀수
 	int _totalCellNum;				//전체 셀수
 	int _totalTriangle;				//전체 삼각형수
-	float _terrainSizeX;			//지형 가로 사이즈
-	float _terrainSizeZ;			//지형 세로 사이즈
+	SYNTHESIZE(float, _terrainSizeX, TerrainSizeX);			//지형 가로 사이즈(128,256,같은)
+	SYNTHESIZE(float, _terrainSizeZ, TerrainSizeZ);			//지형 세로 사이즈(128,256,같은)
 
-									//정확한 높이 계산을 위해 필요한 변수들
+	//정확한 높이 계산을 위해 필요한 변수들
 	float _terrainStartX;			//지형 시작 위치X
 	float _terrainStartZ;			//지형 시작 위치Z
 	float _terrainEndX;				//지형 종료 위치X

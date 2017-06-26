@@ -12,23 +12,30 @@ xMeshStatic::xMeshStatic()
 	//셰이더와 디폴트텍스쳐 초기화
 	if (_staticMeshEffect == NULL)
 	{
-		_staticMeshEffect = RM_SHADERFX->getResource("Resource/Shaders/StaticMesh.fx");
+		//_staticMeshEffect = RM_SHADERFX->getResource("Resource/Shaders/StaticMesh.fx");
+		//_staticMeshEffect = RM_SHADERFX->getResource("ResourceUI/test/fx/StaticMesh.fx");
+		_staticMeshEffect = RM_SHADERFX->getResource(FILEPATH_MANAGER->GetFilepath("StaticMesh"));
 	}
 	if (_defDiffuseTex == NULL)
 	{
-		_defDiffuseTex = RM_TEXTURE->getResource("Resource/Meshes/diffuseDefault.png");
+		//_defDiffuseTex = RM_TEXTURE->getResource("ResourceUI/test/meshTx/diffuseDefault.png");
+		//_defDiffuseTex = RM_TEXTURE->getResource("Resource/Meshes/diffuseDefault.png");
+		_defDiffuseTex = RM_TEXTURE->getResource(FILEPATH_MANAGER->GetFilepath("diffuseDefault"));
 	}
 	if (_defNormalTex == NULL)
 	{
-		_defNormalTex = RM_TEXTURE->getResource("Resource/Meshes/normalDefault.png");
+		//_defNormalTex = RM_TEXTURE->getResource("ResourceUI/test/meshTx/normalDefault.png");
+		_defNormalTex = RM_TEXTURE->getResource(FILEPATH_MANAGER->GetFilepath("normalDefault"));
 	}
 	if (_defSpecularTex == NULL)
 	{
-		_defSpecularTex = RM_TEXTURE->getResource("Resource/Meshes/specularDefault.png");
+		//_defSpecularTex = RM_TEXTURE->getResource("ResourceUI/test/meshTx/specularDefault.png");
+		_defSpecularTex = RM_TEXTURE->getResource(FILEPATH_MANAGER->GetFilepath("specularDefault"));
 	}
 	if (_defEmissionTex == NULL)
 	{
-		_defEmissionTex = RM_TEXTURE->getResource("Resource/Meshes/emissionDefault.png");
+		//_defEmissionTex = RM_TEXTURE->getResource("ResourceUI/test/meshTx/emissionDefault.png");
+		_defEmissionTex = RM_TEXTURE->getResource(FILEPATH_MANAGER->GetFilepath("emissionDefault"));
 	}
 }
 xMeshStatic::~xMeshStatic()
