@@ -20,18 +20,8 @@ mainGame::mainGame()
 {
 	REGIST_SGT->Init();
 
-	SCENEMANAGER->addScene("test", new cMinimapTest, false);
 	SCENEMANAGER->addScene("loading", new loadingScene, true);
-
-	//SCENEMANAGER->addScene("start", new startScene, false);
-	//SCENEMANAGER->addScene("maptool", new mapToolScene, false);
-	//SCENEMANAGER->addScene("particleTest13", new particleTest13, true);
-	//SCENEMANAGER->addScene("gameSceneOne", new stageOne, false);
-	//SCENEMANAGER->addScene("gameSceneTwo", new stageTwo, false);
-	//SCENEMANAGER->addScene("gameSceneThree", new stageThree, false);
-
-	
-
+	SCENEMANAGER->addScene("test", new cMinimapTest, false);
 	SCENEMANAGER->addScene("start", new startScene, false);
 	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
 	SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
