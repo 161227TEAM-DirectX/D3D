@@ -96,7 +96,7 @@ int ActionMove::Update()
 	tempY = rand->getHeight(tempTo.x, tempTo.z);
 	tempTo.y = tempY;
 	owner->_transform->LookPosition(tempTo);						//방향벡터를 transform의 정면벡터에 저장
-	owner->_transform->RotateSlerp(rotateMonster, *owner->_transform, _timeDelta*3);
+	owner->_transform->RotateSlerp(rotateMonster, *owner->_transform, _timeDelta*8);
 	//owner->_transform->SetWorldPosition(p);					//개채의 위치를 선형보간된 위치로 변경
 
 	//cout << "몬스터 바라보는 방향 x: " << owner->_transform->GetForward().x << " y: " << owner->_transform->GetForward().y << " z: " << owner->_transform->GetForward().z << endl;
