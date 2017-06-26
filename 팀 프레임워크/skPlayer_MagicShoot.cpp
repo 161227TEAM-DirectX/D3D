@@ -25,6 +25,18 @@ HRESULT skPlayer_MagicShoot::init()
 		_pvFinishPS[0][i]->SetLimitTime(0.4f);
 	}
 	
+	for (int i = 0; i < _pvActionPS[0].size(); i++)
+	{
+		_pvActionPS[0][i]->SetActive(FALSE);
+		_pvFinishPS[0][i]->SetActive(FALSE);
+	}
+
+	//충돌 체크 초기화
+	for (int i = 0; i < 6; i++)
+	{
+		collisionCheckOn[i] = FALSE;
+	}
+	
 
 
 	_OneActionSettingOn = true;
@@ -156,7 +168,6 @@ void skPlayer_MagicShoot::Finsh()
 	{
 		_skillResetOn = true;
 	}
-
 }
 
 void skPlayer_MagicShoot::Reset()
@@ -174,5 +185,11 @@ void skPlayer_MagicShoot::Reset()
 
 	_limitShootTime = 0.3f;
 	_currentShootTime = 0.0f;
+
+	for (int i = 0; i < 6; i++)
+	{
+		collisionCheckOn[i] = FALSE;
+	}
+
 }
 
