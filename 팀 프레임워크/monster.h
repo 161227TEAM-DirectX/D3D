@@ -21,6 +21,8 @@ protected:
 	int att;									//공격력
 	int def;									//방어력
 	int mana;									//마력
+	int dieCount;								//죽고 나서 다시 태어나기 위한 시간
+	int startTime;								//죽은 시간
 	D3DXVECTOR3 regenPosition;					//최초 설치 위치 - 몬스터가 다시 젠되는 위치
 	boundBox range;								//탐색범위
 	boundBox hitBox;							//공격용탐색박스

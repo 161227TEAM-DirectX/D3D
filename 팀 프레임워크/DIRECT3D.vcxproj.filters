@@ -894,6 +894,9 @@
     <ClCompile Include="cCameraTest.cpp">
       <Filter>Z테스트\김만웅\08.카메라 제어</Filter>
     </ClCompile>
+    <ClCompile Include="damageText.cpp">
+      <Filter>Z테스트\이현수</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainGame.h">
@@ -1465,6 +1468,9 @@
     </ClInclude>
     <ClInclude Include="cCameraTest.h">
       <Filter>Z테스트\김만웅\08.카메라 제어</Filter>
+    </ClInclude>
+    <ClInclude Include="damageText.h">
+      <Filter>Z테스트\이현수</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

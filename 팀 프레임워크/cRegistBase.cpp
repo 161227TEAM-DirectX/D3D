@@ -205,6 +205,9 @@ void cRegistBase::SoundRegist()
 	FILEPATH_MANAGER->AddFilepath("보스브레스2", "Resource/Sound/deathWing/flamebreath.ogg");
 	FILEPATH_MANAGER->AddFilepath("꼬리공격", "Resource/Sound/deathWing/mdeathimpactcolossalgrassa.ogg");
 	FILEPATH_MANAGER->AddFilepath("걷기", "Resource/Sound/deathWing/mdeathimpactgiantdirta.ogg");
+	FILEPATH_MANAGER->AddFilepath("몬스터대기", "Resource/Sound/monster/ancientofarcane_aggro_01.ogg");
+	FILEPATH_MANAGER->AddFilepath("몬스터공격", "Resource/Sound/monster/ancientofarcane_attack_02.ogg");
+	FILEPATH_MANAGER->AddFilepath("몬스터죽음", "Resource/Sound/monster/ancientofarcane_death_02.ogg");
 }
 
 

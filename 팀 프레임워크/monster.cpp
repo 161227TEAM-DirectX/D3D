@@ -10,7 +10,7 @@
 //}
 
 monster::monster(string Name)
-	: baseObject(), CurrAction(nullptr), NextAction(nullptr)
+	: baseObject(), CurrAction(nullptr), NextAction(nullptr), dieCount(60)
 {
 	name = new Text;
 	name->init(Name);
@@ -73,6 +73,11 @@ void monster::baseObjectUpdate()
 
 void monster::baseObjectNoActiveUpdate()
 {
+	if (TIMEMANAGER->getWorldTime() - startTime > dieCount)
+	{
+		result = LHS::ACTIONRESULT::ACTION_STAND;
+		setActive(true);
+	}
 }
 
 void monster::baseObjectRender()
@@ -82,9 +87,9 @@ void monster::baseObjectRender()
 	D3DXVECTOR3 temp = { _transform->GetWorldPosition().x, _boundBox._localMaxPos.y, _transform->GetWorldPosition().z };
 	name->render();
 
-	//string temps = "hp:" + to_string(HP);
+	string temps = "hp:" + to_string(HP);
 
-	//FONTMANAGER->fontOut(temps.c_str(), 100, 100, D3DCOLOR_XRGB(255, 255, 255));
+	FONTMANAGER->fontOut(temps.c_str(), 100, 100, D3DCOLOR_XRGB(255, 255, 255));
 
 	//hitBox.renderGizmo(_transform, D3DCOLOR_XRGB(255, 0, 0));
 	//range.renderGizmo(_transform, D3DCOLOR_XRGB(255, 255, 0));
@@ -135,6 +140,7 @@ void monster::stateSwitch(void)
 		break;
 	case LHS::ACTIONRESULT::ACTION_NONE:
 		this->setActive(false);
+		startTime = TIMEMANAGER->getWorldTime();
 		break;
 	}
 }

@@ -27,6 +27,7 @@ stageThree::~stageThree()
 	{
 		SAFE_DELETE(_renderObject[i]);
 	}
+
 	SAFE_DELETE(_mainCamera);
 	SAFE_DELETE(_directionLightCamera);
 	SAFE_DELETE(sceneBaseDirectionLight);
