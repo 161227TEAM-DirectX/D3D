@@ -31,6 +31,14 @@ int ActionAttack::Update()
 	//모션이 끝나면 대미지를 입힌다.
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.95f)
 	{
+		//적이 나의 hit박스 안에 있는가?
+		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
+		{
+			float tempLengthY = playerObject->_transform->GetWorldPosition().y - owner->_transform->GetWorldPosition().y;
+			if (tempLengthY >= 1.0f) return LHS::ACTIONRESULT::ACTION_PLAY;
+			else return LHS::ACTIONRESULT::ACTION_MOVE;
+		}
+
 		//대미지를 넣는 구문이 필요
 		enemy->playerDamaged(temp->getAtt(), 0.5f, 30.0f, 0.5f, 0.5f);
 		SOUNDMANAGER->stop("몬스터공격");
@@ -43,14 +51,6 @@ int ActionAttack::Update()
 		return LHS::ACTIONRESULT::ACTION_STUN;
 	}
 	*/
-
-	//적이 나의 hit박스 안에 있는가?
-	if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
-	{
-		float tempLengthY = playerObject->_transform->GetWorldPosition().y - owner->_transform->GetWorldPosition().y;
-		if (tempLengthY >= 1.0f) return LHS::ACTIONRESULT::ACTION_PLAY;
-		else return LHS::ACTIONRESULT::ACTION_MOVE;
-	}
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }

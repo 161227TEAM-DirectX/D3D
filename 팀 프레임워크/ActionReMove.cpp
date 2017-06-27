@@ -43,6 +43,7 @@ int ActionReMove::Update()
 		//owner->_transform->SetWorldPosition(to);
 		//deleGate변수가 nullptr이 아니라면 함수 호출
 		if (deleGate)deleGate->OnActionFinish(this);
+		owner->getSkinnedAnim().Stop();
 
 		return LHS::ACTIONRESULT::ACTION_FINISH;
 	}
@@ -86,6 +87,7 @@ int ActionReMove::Update()
 		if (PHYSICSMANAGER->isOverlap(owner->_transform, &owner->_boundBox, (*object)[i]->_transform, &(*object)[i]->_boundBox))
 		{
 			if (deleGate) deleGate->OnActionFinish(this, true);
+			owner->getSkinnedAnim().Stop();
 
 			return LHS::ACTIONRESULT::ACTION_REMOVE;
 		}
