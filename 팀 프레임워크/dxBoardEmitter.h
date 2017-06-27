@@ -31,8 +31,6 @@ private:
 	void ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcIndex, vector<tagDxAttribute>::iterator iter, DWORD drawParticleNum);
 
 
-
-
 public:
 	dxBoardEmitter()
 	{
@@ -44,6 +42,6 @@ public:
 
 
 	};
-	~dxBoardEmitter() {};
+	virtual ~dxBoardEmitter() {};
 };
 

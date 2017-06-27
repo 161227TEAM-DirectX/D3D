@@ -41,6 +41,6 @@ public:
 		_EmitterType = ET_PLANE;
 
 	};
-	~dxPlaneEmitter() {};
+	virtual ~dxPlaneEmitter() {};
 };
 

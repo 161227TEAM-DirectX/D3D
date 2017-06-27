@@ -16,6 +16,13 @@ HRESULT psPlayerSet00::init()
 	this->FireMagicSet00("È­¿°¸¶¹ý");
 	//this->set00_02("");
 
+
+	//¹æ¾î¸¶¹ý
+	this->MagicShieldSet00("½¯µå");
+
+	//¶óÀÌÆ®´×
+	this->LightningSet00("¹ø°³");
+
 	return S_OK;
 }
 
@@ -30,7 +37,7 @@ void psPlayerSet00::MagicShootSet00(string psName)
 
 	_planeEMT = NULL;
 	_planeEMT = new dxPlaneEmitter;
-	_planeEMT->init("PaticleResources/Texture/cast_magiCircle01_f5x4.png", 1, 1.0f, 1);
+	_planeEMT->init("ParticleResources/Texture/cast_magiCircle01_f5x4.png", 1, 1.0f, 1);
 	//_pointEMT->InitConstSize(2.4f);
 
 	_planeEMT->InitRandomPositionY(0.01f,0.01f);
@@ -87,7 +94,7 @@ void psPlayerSet00::MagicShootSet00(string psName)
 	//
 	_pointEMT = NULL;
 	_pointEMT = new dxPointEmitter;
-	_pointEMT->init("PaticleResources/Texture/Light11.png", 30, 0.2f, 30);
+	_pointEMT->init("ParticleResources/Texture/Light11.png", 30, 0.2f, 30);
 	//_pointEMT->setRealtimeTrackingPosOn();
 	//_pointEMT->InitRandomPositionX(-1.0f, 1.0f);
 	//_pointEMT->InitRandomPositionY(-0.5f, 0.5f);
@@ -118,7 +125,7 @@ void psPlayerSet00::MagicShootSet00(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/light_f5x6.png", 1, 1.0f, 1);
+	_boardEMT->init("ParticleResources/Texture/light_f5x6.png", 1, 1.0f, 1);
 
 	_boardEMT->InitAnimation(5,6);
 	_boardEMT->InitAniPlaySection(0, 6);
@@ -154,7 +161,7 @@ void psPlayerSet00::MagicShootSet01(string psName)
 
 	_pointEMT = NULL;
 	_pointEMT = new dxPointEmitter;
-	_pointEMT->init("PaticleResources/Texture/explosion.png", 1, 1.0f, 1);
+	_pointEMT->init("ParticleResources/Texture/explosion.png", 1, 1.0f, 1);
 	//_pointEMT->InitConstSize(2.4f);
 
 	_pointEMT->InitRandomSize(1.8f, 1.8f);
@@ -194,7 +201,7 @@ void psPlayerSet00::MagicShootSet01(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/magicSpher01_f5x5.png", 1, 0.5f, 1);
+	_boardEMT->init("ParticleResources/Texture/magicSpher01_f5x5.png", 1, 0.5f, 1);
 	//_pointEMT->InitConstSize(3.5f);
 	_boardEMT->InitRandomSize(0.5f, 0.5f);
 	_boardEMT->addSizeGraph(0.5f, 1.5f, 1.5f);
@@ -250,7 +257,7 @@ void psPlayerSet00::MagicShootSet02(string psName)
 
 	_pointEMT = NULL;
 	_pointEMT = new dxPointEmitter;
-	_pointEMT->init("PaticleResources/Texture/Light12.png", 1, 1.0f, 1);
+	_pointEMT->init("ParticleResources/Texture/Light12.png", 1, 1.0f, 1);
 	_pointEMT->InitRandomLifeTime(0.2f, 0.2f);
 
 	_pointEMT->InitRandomSize(2.5f, 2.5f);
@@ -266,7 +273,7 @@ void psPlayerSet00::MagicShootSet02(string psName)
 
 	_pointEMT = NULL;
 	_pointEMT = new dxPointEmitter;
-	_pointEMT->init("PaticleResources/Texture/explosion01.png", 1, 1.0f, 1);
+	_pointEMT->init("ParticleResources/Texture/explosion01.png", 1, 1.0f, 1);
 	_pointEMT->InitRandomLifeTime(0.2f, 0.2f);
 	_pointEMT->InitRandomSize(2.2f, 2.2f);
 	_pointEMT->addSizeGraph(0.5f, 4.5f, 4.5f);
@@ -279,7 +286,7 @@ void psPlayerSet00::MagicShootSet02(string psName)
 
 	_pointEMT = NULL;
 	_pointEMT = new dxPointEmitter;
-	_pointEMT->init("PaticleResources/Texture/Light02.png", 1, 1.0f, 1);
+	_pointEMT->init("ParticleResources/Texture/Light02.png", 1, 1.0f, 1);
 	_pointEMT->InitRandomLifeTime(0.2f, 0.2f);
 	_pointEMT->InitRandomSize(2.0f, 2.0f);
 	_pointEMT->addSizeGraph(0.7f, 2.5f, 2.5f);
@@ -300,7 +307,7 @@ void psPlayerSet00::MagicShootSet03(string psName)
 
 	_pointEMT = NULL;
 	_pointEMT = new dxPointEmitter;
-	_pointEMT->init("PaticleResources/Texture/targeting.png", 1, 1.2f, 1);
+	_pointEMT->init("ParticleResources/Texture/targeting.png", 1, 1.2f, 1);
 	_pointEMT->InitRandomSize(5.0f,5.0f);
 	_pointEMT->InitRandomSizeEnd(1.2f, 1.2f);
 	_pointEMT->SetActiveLimitTime(1.2f);
@@ -312,7 +319,7 @@ void psPlayerSet00::MagicShootSet03(string psName)
 
 	_pointEMT = NULL;
 	_pointEMT = new dxPointEmitter;
-	_pointEMT->init("PaticleResources/Texture/targeting.png", 1, 0.8f, 2);
+	_pointEMT->init("ParticleResources/Texture/targeting.png", 1, 0.8f, 2);
 	_pointEMT->InitRandomSize(1.2f, 1.2f);
 	_pointEMT->addSizeGraph(0.5f, 1.5f, 1.5f);
 	_pointEMT->addSizeGraph(1.0f, 1.2f, 1.2f);
@@ -341,7 +348,7 @@ void psPlayerSet00::HealSet00(string psName)
 	
 	_planeEMT = NULL;
 	_planeEMT = new dxPlaneEmitter;
-	_planeEMT->init("PaticleResources/Texture/HealMagicCircle_f5x4.png", 1, 1.0f, 1);
+	_planeEMT->init("ParticleResources/Texture/HealMagicCircle_f5x4.png", 1, 1.0f, 1);
 
 	_planeEMT->InitRandomSize(2.5f, 2.5f);
 	_planeEMT->addSizeGraph(0.5f,3.0f,3.0f);
@@ -361,7 +368,7 @@ void psPlayerSet00::HealSet00(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/HealMagicHead_5x7.png", 1, 2.0f, 1);
+	_boardEMT->init("ParticleResources/Texture/HealMagicHead_5x7.png", 1, 2.0f, 1);
 
 	_boardEMT->InitRandomSize(1.6f, 1.6f);
 	_boardEMT->InitAnimation(5, 7);
@@ -379,7 +386,7 @@ void psPlayerSet00::HealSet00(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/HealParticle_f5x5.png", 20, 0.5f, 360);
+	_boardEMT->init("ParticleResources/Texture/HealParticle_f5x5.png", 20, 0.5f, 360);
 
 	_boardEMT->InitRandomSize(0.1f, 0.2f);
 	_boardEMT->InitAnimation(5, 5);
@@ -405,7 +412,7 @@ void psPlayerSet00::HealSet00(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/HealExplosion_f5x6.png", 1, 1.5f, 1);
+	_boardEMT->init("ParticleResources/Texture/HealExplosion_f5x6.png", 1, 1.5f, 1);
 
 	_boardEMT->InitRandomSize(2.5f, 2.5f);
 	_boardEMT->addSizeGraph(0.5f, 3.0f, 3.0f);
@@ -436,7 +443,7 @@ void psPlayerSet00::FireMagicSet00(string psName)
 
 	_planeEMT = NULL;
 	_planeEMT = new dxPlaneEmitter;
-	_planeEMT->init("PaticleResources/Texture/cast_magiCircle_f5x4.png", 1, 2.0f, 1);
+	_planeEMT->init("ParticleResources/Texture/cast_magiCircle_f5x4.png", 1, 2.0f, 1);
 	//_planeEMT->InitStartDelayTime(f);
 
 	//_planeEMT->SetActiveLimitTime(2.0f);
@@ -453,7 +460,7 @@ void psPlayerSet00::FireMagicSet00(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/fire01_frame5x4.png", 1, 1.0f, 1);
+	_boardEMT->init("ParticleResources/Texture/fire01_frame5x4.png", 1, 1.0f, 1);
 	_boardEMT->SetStartLimitTime(0.05f);
 	_boardEMT->SetActiveLimitTime(1.0f);
 
@@ -470,7 +477,7 @@ void psPlayerSet00::FireMagicSet00(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/fire01_frame5x4.png", 1, 1.0f, 1);
+	_boardEMT->init("ParticleResources/Texture/fire01_frame5x4.png", 1, 1.0f, 1);
 	_boardEMT->SetStartLimitTime(0.1f);
 
 	_boardEMT->InitRandomSize(1.0f, 1.0f);
@@ -486,7 +493,7 @@ void psPlayerSet00::FireMagicSet00(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/fire01_frame5x4.png", 1, 1.0f, 1);
+	_boardEMT->init("ParticleResources/Texture/fire01_frame5x4.png", 1, 1.0f, 1);
 	_boardEMT->SetStartLimitTime(0.15f);
 
 	_boardEMT->InitRandomSize(2.0f, 2.0f);
@@ -502,7 +509,7 @@ void psPlayerSet00::FireMagicSet00(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/fire01_frame5x4.png", 1, 1.0f, 1);
+	_boardEMT->init("ParticleResources/Texture/fire01_frame5x4.png", 1, 1.0f, 1);
 	_boardEMT->SetStartLimitTime(0.20f);
 
 
@@ -516,8 +523,75 @@ void psPlayerSet00::FireMagicSet00(string psName)
 	_boardEMT->InitAnimation(5, 4);
 
 	_PS->addEmitter(_boardEMT);
+
+
 }
 
-void psPlayerSet00::HealSet02(string psName)
+
+void psPlayerSet00::MagicShieldSet00(string psName)
 {
+	dxParticleSystemSet::init();
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/fireSun02_f60x1.png", 1, 2.0f, 1);
+	//_boardEMT->SetStartLimitTime(0.05f);
+	//_boardEMT->SetActiveLimitTime(1.0f);
+
+	//_boardEMT->InitRandomSize(1.0f, 1.0f);
+	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
+
+	//_boardEMT->InitRandomPositionY(8.5f, 8.5f);
+
+	_boardEMT->InitRandomLifeTime(2.0f, 2.0f);
+
+	_boardEMT->InitAnimation(60, 1);
+	
+	_PS->addEmitter(_boardEMT);
+
+
+	PSM->addPS(psName, _PS, true);
+}
+
+void psPlayerSet00::LightningSet00(string psName)
+{
+	dxParticleSystemSet::init();
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/thunder_f5x10.png", 1, 3.0f, 1);
+	//_boardEMT->SetStartLimitTime(0.05f);
+	//_boardEMT->SetActiveLimitTime(1.0f);
+
+	_boardEMT->InitRandomSize(3.0f, 3.0f);
+	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
+
+	//_boardEMT->InitRandomPositionY(8.5f, 8.5f);
+
+	_boardEMT->InitRandomLifeTime(3.0f, 3.0f);
+
+	_boardEMT->InitAnimation(5, 10);
+
+	_PS->addEmitter(_boardEMT);
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/thunder_f5x10.png", 1, 3.0f, 1);
+	//_boardEMT->SetStartLimitTime(0.05f);
+	//_boardEMT->SetActiveLimitTime(1.0f);
+
+	_boardEMT->InitRandomSize(3.0f, 3.0f);
+	//_boardEMT->Rot
+	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
+
+	//_boardEMT->InitRandomPositionY(8.5f, 8.5f);
+
+	_boardEMT->InitRandomLifeTime(3.0f, 3.0f);
+
+	_boardEMT->InitAnimation(5, 10);
+
+	_PS->addEmitter(_boardEMT);
+
+
+	PSM->addPS(psName, _PS, true);
 }

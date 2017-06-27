@@ -36,6 +36,7 @@ private:
 
 public:
 	HRESULT init();
+	void release();
 	void addEmitter(dxEmitter* emitter);
 	void reset();
 	void update();

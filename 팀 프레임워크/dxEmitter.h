@@ -110,8 +110,8 @@ public: //======================================================================
 	void InitAllStartRotate(float startX, float startY, float startZ) { _allRotate = D3DXVECTOR3(startX, startY, startZ); };
 
 	//회전 스피드
-	void InitAllRotateSpeed(float speedX, float speedY, float speedZ) { _allRotateSpeed = D3DXVECTOR3(speedX,speedY,speedZ); };
-	
+	void InitAllRotateSpeed(float speedX, float speedY, float speedZ) { _allRotateSpeed = D3DXVECTOR3(speedX, speedY, speedZ); };
+
 
 public: //=======================================================================================================================
 	//위치 타입 세팅
@@ -264,7 +264,7 @@ public:
 	{
 		_activeRenderOn = true;
 		_activeRenderControlOn = true;
-		
+
 
 		_ptcList.clear();
 		_ptcList.resize(_totalPtcNum);
@@ -274,16 +274,16 @@ public:
 		_activeCurrentTime = 0.0f;
 
 		if (_startTimeCheckOn) { _startRenderOn = FALSE; }
-		
+
 	}
 public:
 	//작동 시간 설정
 	void SetActiveLimitTime(float inTime, bool inRenderControlOn = true)
 	{
-		_activeLimitTime = inTime; 
+		_activeLimitTime = inTime;
 		_activeRenderControlOn = inRenderControlOn;
-		_activeCurrentTime = 0.0f; 
-		_activeTimeCheckOn = TRUE; 
+		_activeCurrentTime = 0.0f;
+		_activeTimeCheckOn = TRUE;
 	};
 
 	void SetStartLimitTime(float inTime)
@@ -307,19 +307,24 @@ public:
 
 	void setEmitterNum(int num) { _emitterNum = num; };
 
+
 public:
 	void EmitterInit(void)
 	{
 		//모듈 초기화
 		_module = new dxModuleKit;
 		_trans = new dx::transform;
+
+		//트랜스 초기화
+		_psTrans = NULL;
+		_psBoardTrans = NULL;
 		_module->init();
 
 		//작동시간 초기화
 		_activeTimeCheckOn = FALSE;
 		_activeCurrentTime = 0.0f;
 		_activeLimitTime = 0.0f;
-		
+
 		_activeRenderOn = true;
 		_activeRenderControlOn = true;
 
@@ -335,17 +340,17 @@ public:
 
 
 		_psTrans = NULL;
-		
+
 		_allRotate = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-		_allRotateSpeed = D3DXVECTOR3(0.0f,0.0f,0.0f);
+		_allRotateSpeed = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
 		//미리 업데이트 초기화
 		_preInitPtcCurrentNum = 0;
 		_oneFramePtcCurrentNum = 0;
 		_oneFramePtcNum = 0;
 
-		 _accrueTime = 0.0f;
-		 _preLimitTime = 0.0f;
+		_accrueTime = 0.0f;
+		_preLimitTime = 0.0f;
 
 		_preUpdateOn = true;
 		_preOneSettingOn = true;

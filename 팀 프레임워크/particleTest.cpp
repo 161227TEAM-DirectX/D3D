@@ -8,7 +8,7 @@ HRESULT particleTest::init(void)
 
 
 	_testEmitter = new dxPointEmitter;
-	_testEmitter->init("PaticleResources/Texture/Light.png", 1, 0.5f);
+	_testEmitter->init("ParticleResources/Texture/Light.png", 1, 0.5f);
 	//_testEmitter->InitRandomPositionX(-2.0f, 2.0f);
 	//_testEmitter->InitRandomPositionY(0.0f, 0.0f);
 	//_testEmitter->InitRandomPositionZ(-2.0f, 2.0f);
@@ -68,7 +68,7 @@ HRESULT particleTest::init(void)
 
 	_testEmitter = NULL;
 	_testEmitter = new dxPointEmitter;
-	_testEmitter->init("PaticleResources/Texture/alpha.png", 1, 0.1f);
+	_testEmitter->init("ParticleResources/Texture/alpha.png", 1, 0.1f);
 	
 	//_testEmitter->InitRandomPositionX(-3.0f, -1.0f);
 
@@ -97,7 +97,7 @@ HRESULT particleTest::init(void)
 	//SAFE_DELETE(_testEmitter);
 	_testEmitter = NULL;
 	_testEmitter = new dxPointEmitter;
-	_testEmitter->init("PaticleResources/Texture/arrow.png", 1, 2.0f);
+	_testEmitter->init("ParticleResources/Texture/arrow.png", 1, 2.0f);
 	//_testEmitter->InitConstSize(5.0f);
 
 	//_testEmitter->InitRandomPositionX(-3.0f, -1.0f);

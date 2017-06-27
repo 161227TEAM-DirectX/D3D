@@ -195,6 +195,8 @@ HRESULT dxMeshEmitter::init(string xFileName, int OneTimePaticleNum, float spawn
 
 void dxMeshEmitter::relese()
 {
+	//dxEmitter::release();
+
 	SAFE_DELETE_ARRAY(_ptcVertex);
 	SAFE_DELETE_ARRAY(_ptcIndex);
 	SAFE_DELETE_ARRAY(_trans);

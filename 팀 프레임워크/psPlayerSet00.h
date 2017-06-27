@@ -14,7 +14,8 @@ private:
 
 	void HealSet00(string psName);
 	void FireMagicSet00(string psName);
-	void HealSet02(string psName);
+	void MagicShieldSet00(string psName);
+	void LightningSet00(string psName);
 
 public:
 	psPlayerSet00() {};

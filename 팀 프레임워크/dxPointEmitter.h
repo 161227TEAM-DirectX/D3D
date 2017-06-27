@@ -68,7 +68,7 @@ public:
 		_EmitterType = ET_POINT;
 		
 	};
-	~dxPointEmitter() {};
+	virtual ~dxPointEmitter() {};
 	
 };
 

@@ -5,7 +5,7 @@
 class dxEffect
 {
 private:
-	
+
 	//dxParticleSystem* _ps;
 
 	bool _startOn;
@@ -27,6 +27,7 @@ private:
 	vector<D3DXVECTOR3*>::iterator _dirIter;
 
 	vector<dx::transform*> _vPosTrans;
+	vector<dx::transform*> _vDirTrans;
 
 
 public:
@@ -37,15 +38,21 @@ public:
 public:
 	//기본들
 	void setPS(string psName) { _psName = psName; }
-	void setPositon(D3DXVECTOR3* pos) { this->_vPos.push_back(pos); }
+	void setPositoin(D3DXVECTOR3* pos);
 	void setDirection(D3DXVECTOR3* dir) { this->_vDir.push_back(dir); }
 
-	void setPosTrans(dx::transform* posTrans) { this->_vPosTrans.push_back(posTrans); }
+	void setPosTrans(dx::transform* posTrans);
 
 	void setLimitTime(float inTime) { _limitTime = inTime; };
 	void Start() { _startOn = true; };
+	void Start(D3DXVECTOR3* pos, D3DXVECTOR3* dir);//실패(주소는)
+
+	void Start(dx::transform* posTrans, dx::transform* dirTrans = NULL);
+
+	
+
 public:
-	dxEffect() 
+	dxEffect()
 	{
 		_startOn = false;
 		_oneSettingOn = true;

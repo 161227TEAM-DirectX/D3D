@@ -216,9 +216,11 @@
     <ClInclude Include="damageText.h" />
     <ClInclude Include="dijkstra.h" />
     <ClInclude Include="dxAccelerationModule.h" />
+    <ClInclude Include="dxBeamEmitter.h" />
     <ClInclude Include="dxBoardEmitter.h" />
     <ClInclude Include="dxCircleModule.h" />
     <ClInclude Include="dxColorModule.h" />
+    <ClInclude Include="dxCylinderEmitter.h" />
     <ClInclude Include="dxEffect.h" />
     <ClInclude Include="dxEffectManager.h" />
     <ClInclude Include="dxEmitter.h" />
@@ -314,8 +316,11 @@
     <ClInclude Include="skill00_02.h" />
     <ClInclude Include="skill00_03.h" />
     <ClInclude Include="skinnedAnimation.h" />
+    <ClInclude Include="skPlayer_FireMagic.h" />
     <ClInclude Include="skPlayer_Heal.h" />
+    <ClInclude Include="skPlayer_Lightning.h" />
     <ClInclude Include="skPlayer_MagicShoot.h" />
+    <ClInclude Include="skPlayer_Shield.h" />
     <ClInclude Include="SK_Effect00.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="spriteManager.h" />
@@ -410,9 +415,11 @@
     <ClCompile Include="damageText.cpp" />
     <ClCompile Include="dijkstra.cpp" />
     <ClCompile Include="dxAccelerationModule.cpp" />
+    <ClCompile Include="dxBeamEmitter.cpp" />
     <ClCompile Include="dxBoardEmitter.cpp" />
     <ClCompile Include="dxCircleModule.cpp" />
     <ClCompile Include="dxColorModule.cpp" />
+    <ClCompile Include="dxCylinderEmitter.cpp" />
     <ClCompile Include="dxEffect.cpp" />
     <ClCompile Include="dxEffectManager.cpp" />
     <ClCompile Include="dxEmitter.cpp" />
@@ -507,8 +514,11 @@
     <ClCompile Include="skill00_02.cpp" />
     <ClCompile Include="skill00_03.cpp" />
     <ClCompile Include="skinnedAnimation.cpp" />
+    <ClCompile Include="skPlayer_FireMagic.cpp" />
     <ClCompile Include="skPlayer_Heal.cpp" />
+    <ClCompile Include="skPlayer_Lightning.cpp" />
     <ClCompile Include="skPlayer_MagicShoot.cpp" />
+    <ClCompile Include="skPlayer_Shield.cpp" />
     <ClCompile Include="SK_Effect00.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="spriteManager.cpp" />

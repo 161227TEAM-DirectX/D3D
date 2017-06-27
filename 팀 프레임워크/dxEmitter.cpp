@@ -83,8 +83,15 @@ void dxEmitter::preUpdate()
 
 void dxEmitter::release()
 {
-	 _module->relese();
-	 SAFE_DELETE(_module);
+	 
+	//if (this->_psTrans != NULL)	SAFE_DELETE(this->_psTrans);
+	//if (this->_psBoardTrans != NULL) SAFE_DELETE(this->_psBoardTrans);
+	//this->_module = NULL;
+	/* if (_module != NULL)
+	 {
+		 _module->relese();
+		 SAFE_DELETE(_module);
+	 }*/
 }
 
 void dxEmitter::setGrayScaleAlphaOn()
