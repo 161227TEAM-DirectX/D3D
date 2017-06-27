@@ -1,11 +1,11 @@
 #pragma once
-#include "gameNode.h"
+#include "iGameNode.h"
 #include "dxParticleSystem.h"
 #include "dxPointEmitter.h"
 #include "skill00.h"
 #include "skill00_02.h"
 
-class particleTest05:	public gameNode
+class particleTest05:	public iGameNode
 {
 private:
 	dx::transform* _player;

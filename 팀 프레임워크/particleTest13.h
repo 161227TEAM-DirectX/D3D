@@ -24,6 +24,7 @@ class particleTest13 : public iGameNode
 private:
 	dx::transform* _player;
 	dx::transform* _target;
+	dx::transform* _manyTarget;
 	dxParticleSystem* _testPS;
 	
 	dxSkillManager* _skm;

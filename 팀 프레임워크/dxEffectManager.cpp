@@ -10,7 +10,6 @@ void dxEffectManager::EffectSetting()
 	this->addEffect("피격");
 	this->addEffect("스턴");
 	this->addEffect("먼지");
-
 }
 
 void dxEffectManager::EffectRelease()

@@ -109,7 +109,7 @@ void PS_Set00::set00_00(string psName)
 
 	_PS->addEmitter(_pointEMT);
 
-	PSM->addPS(psName, _PS);
+	PSM->addPS(psName, _PS, true);
 }
 
 void PS_Set00::set00_01(string psName)
@@ -160,7 +160,7 @@ void PS_Set00::set00_01(string psName)
 
 	_PS->addEmitter(_pointEMT);
 
-	PSM->addPS(psName, _PS);
+	PSM->addPS(psName, _PS, true);
 }
 
 void PS_Set00::set01_00(string psName)
@@ -315,7 +315,7 @@ void PS_Set00::set01_00(string psName)
 
 	_PS->addEmitter(_pointEMT);
 
-	PSM->addPS(psName, _PS);
+	PSM->addPS(psName, _PS, true);
 }
 
 void PS_Set00::set01_01(string psName)
@@ -364,5 +364,5 @@ void PS_Set00::set01_01(string psName)
 
 	_PS->addEmitter(_pointEMT);
 
-	PSM->addPS(psName, _PS);
+	PSM->addPS(psName, _PS, true);
 }
