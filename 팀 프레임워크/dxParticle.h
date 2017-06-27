@@ -107,6 +107,18 @@ struct tagDxAttribute
 
 	int				emitterNum;			//외부 이미터 개수(시간 차이 맞춤용)
 
+	//중심점으로부터의 길이(플랜, 빌보드용)
+	D3DXVECTOR2 lengthHV0;
+	D3DXVECTOR2 lengthHV1;
+	D3DXVECTOR2 lengthHV2;
+	D3DXVECTOR2 lengthHV3;
+
+	//스케일 계산
+	D3DXVECTOR2 scaleHV0;
+	D3DXVECTOR2 scaleHV1;
+	D3DXVECTOR2 scaleHV2;
+	D3DXVECTOR2 scaleHV3;
+
 	//초기화
 	tagDxAttribute()
 	{
@@ -170,6 +182,17 @@ struct tagDxAttribute
 
 		isInit = false;
 		
+
+		lengthHV0 = D3DXVECTOR2(0.5f,0.5f);
+		lengthHV1 = D3DXVECTOR2(0.5f,0.5f);
+		lengthHV2 = D3DXVECTOR2(0.5f,0.5f);
+		lengthHV3 = D3DXVECTOR2(0.5f,0.5f);
+
+		scaleHV0 = D3DXVECTOR2(0.5f, 0.5f);
+		scaleHV1 = D3DXVECTOR2(0.5f, 0.5f);
+		scaleHV2 = D3DXVECTOR2(0.5f, 0.5f);
+		scaleHV3 = D3DXVECTOR2(0.5f, 0.5f);
+
 	}
 };
 
@@ -329,6 +352,16 @@ struct tagDxAttributeMaxMin
 
 	bool posRotateOn;
 
+	
+
+	//uv좌표 반전
+	bool reverseImgU_On;
+	bool reverseImgV_On;
+
+	//중심좌표 옮기기(플랜, 빌보드용)
+	D3DXVECTOR2 centerPointHV;
+	bool centerPointHV_On;
+
 	//초기화
 	tagDxAttributeMaxMin()
 	{
@@ -389,6 +422,13 @@ struct tagDxAttributeMaxMin
 		dirSphere = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 
 		aniSectionOn = false;
+
+		reverseImgU_On = false;
+		reverseImgV_On = false;
+
+		centerPointHV = D3DXVECTOR2(0.5f, 0.5f);
+		centerPointHV_On = false;
+
 	}
 
 };

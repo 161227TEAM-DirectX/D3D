@@ -277,9 +277,6 @@
     <ClInclude Include="particle.h" />
     <ClInclude Include="particleQuad.h" />
     <ClInclude Include="particleEmitter.h" />
-    <ClInclude Include="particleTest.h" />
-    <ClInclude Include="particleTest02.h" />
-    <ClInclude Include="particleTest03.h" />
     <ClInclude Include="particleTest04.h" />
     <ClInclude Include="particleTest05.h" />
     <ClInclude Include="particleTest06.h" />
@@ -476,9 +473,6 @@
     <ClCompile Include="particle.cpp" />
     <ClCompile Include="particleQuad.cpp" />
     <ClCompile Include="particleEmitter.cpp" />
-    <ClCompile Include="particleTest.cpp" />
-    <ClCompile Include="particleTest02.cpp" />
-    <ClCompile Include="particleTest03.cpp" />
     <ClCompile Include="particleTest04.cpp" />
     <ClCompile Include="particleTest05.cpp" />
     <ClCompile Include="particleTest06.cpp" />

@@ -202,7 +202,13 @@ void dxPlaneEmitter::ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcI
 	D3DXVECTOR3 x = ptcTrans.GetRight()*iter->horizontal;
 	D3DXVECTOR3 z = ptcTrans.GetForward()*iter->vertical;
 
-	float halfScale = iter->size*0.5;
+	//float halfScale = iter->size*0.5;
+
+	//그려지는 중심 위치에 따른 보정
+	D3DXVECTOR2 scale0 = iter->scaleHV0;
+	D3DXVECTOR2 scale1 = iter->scaleHV1;
+	D3DXVECTOR2 scale2 = iter->scaleHV2;
+	D3DXVECTOR2 scale3 = iter->scaleHV3;
 
 	D3DXCOLOR inColor = iter->color;
 
@@ -221,10 +227,15 @@ void dxPlaneEmitter::ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcI
 	//iter->circleSpeed + iter->velocity*_timeDelta + (iter->acceleration*(iter->age*_timeDelta)*(iter->age*_timeDelta) / 2.0f) + iter->posDirectVel*_timeDelta;
 
 	//정점 정보 대입
-	(ptcVertex + 0)->position = posCenter + (-x * halfScale) + (z * halfScale);
+	(ptcVertex + 0)->position = posCenter + (-x * scale0.x) + (z * scale0.y);
+	(ptcVertex + 1)->position = posCenter + (x * scale1.x) + (z * scale1.y);
+	(ptcVertex + 2)->position = posCenter + (-x * scale2.x) + (-z * scale2.y);
+	(ptcVertex + 3)->position = posCenter + (x * scale3.x) + (-z * scale3.y);
+
+	/*(ptcVertex + 0)->position = posCenter + (-x * halfScale) + (z * halfScale);
 	(ptcVertex + 1)->position = posCenter + (x * halfScale) + (z * halfScale);
 	(ptcVertex + 2)->position = posCenter + (-x * halfScale) + (-z * halfScale);
-	(ptcVertex + 3)->position = posCenter + (x * halfScale) + (-z * halfScale);
+	(ptcVertex + 3)->position = posCenter + (x * halfScale) + (-z * halfScale);*/
 
 	/*(ptcVertex + 0)->uv = D3DXVECTOR2(0.0f, 0.0f);
 	(ptcVertex + 1)->uv = D3DXVECTOR2(1.0f, 0.0f);
