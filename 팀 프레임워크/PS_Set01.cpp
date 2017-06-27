@@ -21,7 +21,7 @@ void PS_Set01::set00_00(string psName)
 
 	_pointEMT = NULL;
 	_pointEMT = new dxPointEmitter;
-	_pointEMT->init("PaticleResources/Texture/Light.png", 36, 0.5f, 200);
+	_pointEMT->init("ParticleResources/Texture/Light.png", 36, 0.5f, 200);
 	_pointEMT->InitRandomLifeTime(1.0f, 1.0f);
 	_pointEMT->SetPositionType();
 	_pointEMT->InitDirSphere(1.0f,0.0f,1.0f);
@@ -43,7 +43,7 @@ void PS_Set01::set00_01(string psName)
 
 	_pointEMT = NULL;
 	_pointEMT = new dxPointEmitter;
-	_pointEMT->init("PaticleResources/Texture/Light06.png", 1, 1.0f , 1);
+	_pointEMT->init("ParticleResources/Texture/Light06.png", 1, 1.0f , 1);
 	_pointEMT->InitRandomLifeTime(0.2f, 0.2f);
 	
 	_pointEMT->InitRandomSize(2.5f, 2.5f);
@@ -61,7 +61,7 @@ void PS_Set01::set00_01(string psName)
 
 	_pointEMT = NULL;
 	_pointEMT = new dxPointEmitter;
-	_pointEMT->init("PaticleResources/Texture/explosion.png", 1, 1.0f,1);
+	_pointEMT->init("ParticleResources/Texture/explosion.png", 1, 1.0f,1);
 	_pointEMT->InitRandomLifeTime(0.2f, 0.2f);
 	_pointEMT->InitRandomSize(2.2f,2.2f);
 	_pointEMT->addSizeGraph(0.5f,4.5f,4.5f);
@@ -74,7 +74,7 @@ void PS_Set01::set00_01(string psName)
 
 	_pointEMT = NULL;
 	_pointEMT = new dxPointEmitter;
-	_pointEMT->init("PaticleResources/Texture/Light02.png", 1, 1.0f,1);
+	_pointEMT->init("ParticleResources/Texture/Light02.png", 1, 1.0f,1);
 	_pointEMT->InitRandomLifeTime(0.2f, 0.2f);
 	_pointEMT->InitRandomSize(2.0f, 2.0f);
 	_pointEMT->addSizeGraph(0.7f, 2.5f, 2.5f);

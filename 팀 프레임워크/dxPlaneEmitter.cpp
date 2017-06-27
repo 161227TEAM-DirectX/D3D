@@ -34,9 +34,12 @@ HRESULT dxPlaneEmitter::init(string textureFileName, int OneTimePaticleNum, floa
 
 void dxPlaneEmitter::relese()
 {
-	SAFE_DELETE_ARRAY(_ptcVertex);
+	//dxEmitter::release();
+
+	/*SAFE_DELETE_ARRAY(_ptcVertex);
 	SAFE_DELETE_ARRAY(_ptcIndex);
-	SAFE_DELETE_ARRAY(_trans);
+	SAFE_DELETE_ARRAY(_trans);*/
+	SAFE_DELETE(_module);
 }
 
 void dxPlaneEmitter::update()

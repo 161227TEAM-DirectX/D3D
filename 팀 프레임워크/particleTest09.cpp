@@ -13,9 +13,9 @@ HRESULT particleTest09::init(void)
 
 	_testEmitter = NULL;
 	_testEmitter = new dxMeshEmitter;
-	//_testEmitter->init("PaticleResources/Texture/magicCircle.png",1,1.0f,1);
-	//_testEmitter->init("PaticleResources/Texture/fire00_frame7x7.png", 20, 0.1f, 100);
-	//_testEmitter->init("PaticleResources/Mesh/stone.x", 20, 0.1f, 100);
+	//_testEmitter->init("ParticleResources/Texture/magicCircle.png",1,1.0f,1);
+	//_testEmitter->init("ParticleResources/Texture/fire00_frame7x7.png", 20, 0.1f, 100);
+	//_testEmitter->init("ParticleResources/Mesh/stone.x", 20, 0.1f, 100);
 	_testEmitter->init("Resources/Meshes/Elementalist/Elementalist.x", 20, 0.1f, 100);
 	
 	_testEmitter->InitRandomPositionX(-10.0f, 10.0f);
@@ -52,7 +52,7 @@ HRESULT particleTest09::init(void)
 	
 	//_testPS->init();
 	//_testEmitter = new dxPointEmitter;
-	//_testEmitter->init("PaticleResources/Texture/Light02.png", 1, 1.5f);
+	//_testEmitter->init("ParticleResources/Texture/Light02.png", 1, 1.5f);
 
 	rotateY = 0.0f;
 

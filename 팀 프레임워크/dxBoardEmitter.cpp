@@ -40,9 +40,11 @@ HRESULT dxBoardEmitter::init(string textureFileName, int OneTimePaticleNum, floa
 
 void dxBoardEmitter::relese()
 {
-	SAFE_DELETE_ARRAY(_ptcVertex);
-	SAFE_DELETE_ARRAY(_ptcIndex);
-	SAFE_DELETE_ARRAY(_trans);
+	//dxEmitter::release();
+	//SAFE_DELETE_ARRAY(_ptcVertex);
+	//SAFE_DELETE_ARRAY(_ptcIndex);
+	//SAFE_DELETE_ARRAY(_trans);
+	SAFE_DELETE(_module);
 }
 
 

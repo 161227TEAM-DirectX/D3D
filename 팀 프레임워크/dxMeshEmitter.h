@@ -59,5 +59,5 @@ public:
 		_EmitterType = ET_MESH;		
 
 	};
-	~dxMeshEmitter() {};
+	virtual ~dxMeshEmitter() {};
 };

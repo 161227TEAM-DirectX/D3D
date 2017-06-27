@@ -23,7 +23,7 @@ void psEffectSet00::EffectSet00(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/star.png", 1, 1.0f, 1);
+	_boardEMT->init("ParticleResources/Texture/star.png", 1, 1.0f, 1);
 
 	_boardEMT->InitRandomSize(0.4f, 0.4f);
 
@@ -37,7 +37,7 @@ void psEffectSet00::EffectSet00(string psName)
 	//
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/star.png", 1, 1.0f, 1);
+	_boardEMT->init("ParticleResources/Texture/star.png", 1, 1.0f, 1);
 
 	_boardEMT->InitRandomSize(0.4f, 0.4f);
 
@@ -52,7 +52,7 @@ void psEffectSet00::EffectSet00(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/star.png", 1, 1.0f, 1);
+	_boardEMT->init("ParticleResources/Texture/star.png", 1, 1.0f, 1);
 
 	_boardEMT->InitRandomSize(0.4f, 0.4f);
 
@@ -76,7 +76,7 @@ void psEffectSet00::EffectSet01(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/smoke02_frame4x4.png", 1, 0.4f, 20);
+	_boardEMT->init("ParticleResources/Texture/smoke02_frame4x4.png", 1, 0.4f, 20);
 	//_pointEMT->InitConstSize(2.4f);
 
 	_boardEMT->InitRandomSize(0.0f, 0.2f);
@@ -152,7 +152,7 @@ void psEffectSet00::EffectSet02(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/GlassShatter.png", 2, 0.3f, 2);
+	_boardEMT->init("ParticleResources/Texture/GlassShatter.png", 2, 0.3f, 2);
 	//_pointEMT->InitConstSize(2.4f);
 
 	_boardEMT->InitRandomSize(2.0f, 2.0f);
@@ -221,7 +221,7 @@ void psEffectSet00::EffectSet02(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/damage01.png", 1, 0.3f, 1);
+	_boardEMT->init("ParticleResources/Texture/damage01.png", 1, 0.3f, 1);
 	//_pointEMT->InitConstSize(2.4f);
 
 	_boardEMT->InitRandomSize(1.5f, 1.5f);

@@ -24,7 +24,7 @@ void psBossSet00::BreathSet00(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/fire02_frame5x4.png", 15, 0.1f, 800);
+	_boardEMT->init("ParticleResources/Texture/fire02_frame5x4.png", 15, 0.1f, 800);
 	//_pointEMT->InitConstSize(2.4f);
 	_boardEMT->InitRandomSize(1.0f, 1.5f);
 	_boardEMT->InitRandomSizeEnd(2.3f, 2.8f);
@@ -95,7 +95,7 @@ void psBossSet00::ShoutingSet00(string psName)
 
 	_planeEMT = NULL;
 	_planeEMT = new dxPlaneEmitter;
-	_planeEMT->init("PaticleResources/Texture/shouting02.png", 1, 0.5f, 1);
+	_planeEMT->init("ParticleResources/Texture/shouting02.png", 1, 0.5f, 1);
 	
 	_planeEMT->InitRandomSize(1.0f,1.0f);
 	_planeEMT->InitRandomSizeEnd(20.0f, 20.0f);
@@ -114,7 +114,7 @@ void psBossSet00::GrandMagic00(string psName)
 
 	/*_planeEMT = NULL;
 	_planeEMT = new dxPlaneEmitter;
-	_planeEMT->init("PaticleResources/Texture/cast_magiCircle02_f5x7.png", 1, 1.0f, 1);
+	_planeEMT->init("ParticleResources/Texture/cast_magiCircle02_f5x7.png", 1, 1.0f, 1);
 	_planeEMT->InitAnimation(5,7);
 	_planeEMT->InitRandomLifeTime(1.0f,1.0f);
 	_planeEMT->InitRandomSize(5.0f, 5.0f);
@@ -123,7 +123,7 @@ void psBossSet00::GrandMagic00(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("PaticleResources/Texture/fireSun01_f60x1.png", 1, 2.0f, 1);
+	_boardEMT->init("ParticleResources/Texture/fireSun01_f60x1.png", 1, 2.0f, 1);
 	_boardEMT->setGrayScaleAlphaOn();
 	_boardEMT->InitAnimation(60, 1);
 	//_boardEMT->InitAnimation(5, 3, 13);

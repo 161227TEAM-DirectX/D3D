@@ -26,7 +26,7 @@ public:
 	}
 
 	//¿Ã∆Â∆Æ √£±‚
-	dxEffect* findEff(string psName)
+	dxEffect* findEffect(string psName)
 	{
 		_iter = _mapEff.find(psName);
 		if (_iter != _mapEff.end())

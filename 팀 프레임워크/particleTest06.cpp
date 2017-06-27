@@ -31,7 +31,7 @@ HRESULT particleTest06::init(void)
 	
 	//_testPS->init();
 	//_testEmitter = new dxPointEmitter;
-	//_testEmitter->init("PaticleResources/Texture/Light02.png", 1, 1.5f);
+	//_testEmitter->init("ParticleResources/Texture/Light02.png", 1, 1.5f);
 
 
 	return S_OK;
