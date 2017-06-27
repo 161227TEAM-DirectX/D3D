@@ -316,8 +316,11 @@
     <ClInclude Include="skill00_02.h" />
     <ClInclude Include="skill00_03.h" />
     <ClInclude Include="skinnedAnimation.h" />
+    <ClInclude Include="skPlayer_FireMagic.h" />
     <ClInclude Include="skPlayer_Heal.h" />
+    <ClInclude Include="skPlayer_Lightning.h" />
     <ClInclude Include="skPlayer_MagicShoot.h" />
+    <ClInclude Include="skPlayer_Shield.h" />
     <ClInclude Include="SK_Effect00.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="spriteManager.h" />
@@ -511,8 +514,11 @@
     <ClCompile Include="skill00_02.cpp" />
     <ClCompile Include="skill00_03.cpp" />
     <ClCompile Include="skinnedAnimation.cpp" />
+    <ClCompile Include="skPlayer_FireMagic.cpp" />
     <ClCompile Include="skPlayer_Heal.cpp" />
+    <ClCompile Include="skPlayer_Lightning.cpp" />
     <ClCompile Include="skPlayer_MagicShoot.cpp" />
+    <ClCompile Include="skPlayer_Shield.cpp" />
     <ClCompile Include="SK_Effect00.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="spriteManager.cpp" />

@@ -16,6 +16,13 @@ HRESULT psPlayerSet00::init()
 	this->FireMagicSet00("È­¿°¸¶¹ý");
 	//this->set00_02("");
 
+
+	//¹æ¾î¸¶¹ý
+	this->MagicShieldSet00("½¯µå");
+
+	//¶óÀÌÆ®´×
+	this->LightningSet00("¹ø°³");
+
 	return S_OK;
 }
 
@@ -516,8 +523,75 @@ void psPlayerSet00::FireMagicSet00(string psName)
 	_boardEMT->InitAnimation(5, 4);
 
 	_PS->addEmitter(_boardEMT);
+
+
 }
 
-void psPlayerSet00::HealSet02(string psName)
+
+void psPlayerSet00::MagicShieldSet00(string psName)
 {
+	dxParticleSystemSet::init();
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/fireSun02_f60x1.png", 1, 2.0f, 1);
+	//_boardEMT->SetStartLimitTime(0.05f);
+	//_boardEMT->SetActiveLimitTime(1.0f);
+
+	//_boardEMT->InitRandomSize(1.0f, 1.0f);
+	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
+
+	//_boardEMT->InitRandomPositionY(8.5f, 8.5f);
+
+	_boardEMT->InitRandomLifeTime(2.0f, 2.0f);
+
+	_boardEMT->InitAnimation(60, 1);
+	
+	_PS->addEmitter(_boardEMT);
+
+
+	PSM->addPS(psName, _PS, true);
+}
+
+void psPlayerSet00::LightningSet00(string psName)
+{
+	dxParticleSystemSet::init();
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/thunder_f5x10.png", 1, 3.0f, 1);
+	//_boardEMT->SetStartLimitTime(0.05f);
+	//_boardEMT->SetActiveLimitTime(1.0f);
+
+	_boardEMT->InitRandomSize(3.0f, 3.0f);
+	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
+
+	//_boardEMT->InitRandomPositionY(8.5f, 8.5f);
+
+	_boardEMT->InitRandomLifeTime(3.0f, 3.0f);
+
+	_boardEMT->InitAnimation(5, 10);
+
+	_PS->addEmitter(_boardEMT);
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/thunder_f5x10.png", 1, 3.0f, 1);
+	//_boardEMT->SetStartLimitTime(0.05f);
+	//_boardEMT->SetActiveLimitTime(1.0f);
+
+	_boardEMT->InitRandomSize(3.0f, 3.0f);
+	//_boardEMT->Rot
+	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
+
+	//_boardEMT->InitRandomPositionY(8.5f, 8.5f);
+
+	_boardEMT->InitRandomLifeTime(3.0f, 3.0f);
+
+	_boardEMT->InitAnimation(5, 10);
+
+	_PS->addEmitter(_boardEMT);
+
+
+	PSM->addPS(psName, _PS, true);
 }
