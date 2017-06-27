@@ -44,7 +44,10 @@ int ActionSeq::Update()
 {
 	int result = -555;
 	//CurrIdx값이 벡터의 사이즈보다 크거나 같다면 Update를 실행하지 마라
-	if (CurrIdx >= (int)vecAction.size()) return LHS::ACTIONRESULT::ACTION_FINISH;;
+	if (CurrIdx >= (int)vecAction.size())
+	{
+		return LHS::ACTIONRESULT::ACTION_FINISH;;
+	}
 	
 	//CurrIdx번째 액션의 Update()함수를 호출해라
 	result = vecAction[CurrIdx]->Update();

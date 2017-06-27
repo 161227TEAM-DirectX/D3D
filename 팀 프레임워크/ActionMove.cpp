@@ -67,12 +67,13 @@ int ActionMove::Update()
 		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 		{
 			if (deleGate) deleGate->OnActionFinish(this, true);
+			owner->getSkinnedAnim().Stop();
 			return LHS::ACTIONRESULT::ACTION_REMOVE;
 		}
 
 		//deleGate변수가 nullptr이 아니라면 함수 호출
 		if (deleGate)deleGate->OnActionFinish(this);
-
+		owner->getSkinnedAnim().Stop();
 		return LHS::ACTIONRESULT::ACTION_FINISH;
 	}
 	//선형보간을 위해 현재시간 / 전체 시간
