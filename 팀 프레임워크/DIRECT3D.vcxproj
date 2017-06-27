@@ -216,9 +216,11 @@
     <ClInclude Include="damageText.h" />
     <ClInclude Include="dijkstra.h" />
     <ClInclude Include="dxAccelerationModule.h" />
+    <ClInclude Include="dxBeamEmitter.h" />
     <ClInclude Include="dxBoardEmitter.h" />
     <ClInclude Include="dxCircleModule.h" />
     <ClInclude Include="dxColorModule.h" />
+    <ClInclude Include="dxCylinderEmitter.h" />
     <ClInclude Include="dxEffect.h" />
     <ClInclude Include="dxEffectManager.h" />
     <ClInclude Include="dxEmitter.h" />
@@ -410,9 +412,11 @@
     <ClCompile Include="damageText.cpp" />
     <ClCompile Include="dijkstra.cpp" />
     <ClCompile Include="dxAccelerationModule.cpp" />
+    <ClCompile Include="dxBeamEmitter.cpp" />
     <ClCompile Include="dxBoardEmitter.cpp" />
     <ClCompile Include="dxCircleModule.cpp" />
     <ClCompile Include="dxColorModule.cpp" />
+    <ClCompile Include="dxCylinderEmitter.cpp" />
     <ClCompile Include="dxEffect.cpp" />
     <ClCompile Include="dxEffectManager.cpp" />
     <ClCompile Include="dxEmitter.cpp" />
