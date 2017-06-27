@@ -28,6 +28,9 @@ int ActionStanding::Update()
 	//owner는 baseobject클래스이고 monster클래스가 필요하기에 타입 캐스팅.
 	monster* temp = dynamic_cast<monster*>(owner);
 
+	//죽음조건
+	if (temp->getHP() < 0)return LHS::ACTIONRESULT::ACTION_DIE;
+
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
 	{
 		int random = myUtil::RandomIntRange(0, 4);
@@ -64,7 +67,7 @@ int ActionStanding::Update()
 	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 	{
 		if (deleGate) deleGate->OnActionFinish(this, true);
-		owner->getSkinnedAnim().Stop();
+//		owner->getSkinnedAnim().Stop();
 		return LHS::ACTIONRESULT::ACTION_MOVE;
 	}
 

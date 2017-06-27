@@ -1,5 +1,6 @@
 #pragma once
 #include "Action.h"
+#include "monster.h"
 class ActionReMove : public Action
 {
 private:

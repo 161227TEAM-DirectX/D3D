@@ -101,7 +101,7 @@ HRESULT terrainPickingTest::init(void)
 	float tempY = _terrain->getHeight(0.0f, 0.0f);
 
 	InitMonster();
-	
+	//_player->out_setTargetByMouse(_mainCamera);
 
 	ACMANAGER->Init(*_terrain, testObject, *_player);
 
@@ -136,7 +136,7 @@ HRESULT terrainPickingTest::init(void)
 	sour = -1;
 	dest = -1;
 
-	_player->setTargetMonster(*boss);
+//	_player->setTargetMonster(*boss);
 	_player->out_setMonsterRegion(&mon);
 
 	return S_OK;
