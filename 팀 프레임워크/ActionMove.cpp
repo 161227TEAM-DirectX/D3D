@@ -34,13 +34,15 @@ int ActionMove::Update()
 
 	monster* temp = dynamic_cast<monster*>(owner);
 
+	//죽음조건
+	if (temp->getHP() < 0)return LHS::ACTIONRESULT::ACTION_DIE;
+
 	//장애물과 충돌하면 멈춘다. - 다시 이동??
 	for (int i = 0; i < object->size(); i++)
 	{
 		if (PHYSICSMANAGER->isOverlap(owner->_transform, &owner->_boundBox, (*object)[i]->_transform, &(*object)[i]->_boundBox))
 		{
 			if (deleGate) deleGate->OnActionFinish(this, true);
-			owner->getSkinnedAnim().Stop();
 			return LHS::ACTIONRESULT::ACTION_MOVE;
 		}
 	}
@@ -49,7 +51,6 @@ int ActionMove::Update()
 	if (PHYSICSMANAGER->isOverlap(owner->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
 	{
 		if (deleGate) deleGate->OnActionFinish(this, true);
-		owner->getSkinnedAnim().Stop();
 		return LHS::ACTIONRESULT::ACTION_ATT;
 	}
 
@@ -67,13 +68,11 @@ int ActionMove::Update()
 		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 		{
 			if (deleGate) deleGate->OnActionFinish(this, true);
-			owner->getSkinnedAnim().Stop();
 			return LHS::ACTIONRESULT::ACTION_REMOVE;
 		}
 
 		//deleGate변수가 nullptr이 아니라면 함수 호출
 		if (deleGate)deleGate->OnActionFinish(this);
-		owner->getSkinnedAnim().Stop();
 		return LHS::ACTIONRESULT::ACTION_FINISH;
 	}
 	//선형보간을 위해 현재시간 / 전체 시간

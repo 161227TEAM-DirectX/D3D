@@ -317,7 +317,11 @@ void skinnedAnimation::RemoveApplyTransform(string boneName)
 void skinnedAnimation::SetAnimation(LPD3DXANIMATIONSET animSet)
 {
 	//이미 플레이되고 있는 Animation 이라면 실행이 되지 않는다.
-	if (this->_pNowPlayAnimationSet != NULL && animSet == this->_pNowPlayAnimationSet) return;
+	if (this->_pNowPlayAnimationSet != NULL && animSet == this->_pNowPlayAnimationSet)
+	{
+	//	_AnimationPlayFactor = 0.0;
+		return;
+	}
 
 	//크로스 페이드가 존재한다면..
 	if (this->_fCrossFadeTime > 0.0f)
