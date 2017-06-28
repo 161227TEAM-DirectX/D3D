@@ -557,39 +557,109 @@ void psPlayerSet00::LightningSet00(string psName)
 {
 	dxParticleSystemSet::init();
 
+	//_boardEMT = NULL;
+	//_boardEMT = new dxBoardEmitter;
+	//_boardEMT->init("ParticleResources/Texture/thunder_f5x10.png", 1, 0.5f, 80);
+	////_boardEMT->SetStartLimitTime(0.05f);
+	////_boardEMT->SetActiveLimitTime(1.0f);
+
+	//_boardEMT->InitRandomSize(1.0f, 3.0f);
+	////_boardEMT->Rot
+	////_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
+
+	////_boardEMT->InitRandomPositionY(8.5f, 8.5f);
+
+	////_boardEMT->InitRandomPositionY(8.5f, 8.5f);
+	//_boardEMT->InitRotateStartAngleZ(-65.0f, 0.0f);
+	//
+
+	//_boardEMT->InitRandomLifeTime(1.5f, 3.0f);
+
+	//_boardEMT->InitAnimation(5, 10);
+
+	//_boardEMT->InitCenterPointHV(0.5f,1.0f);
+
+	////_boardEMT->InitConstHV(1.0f, 2.0f);
+
+	//_PS->addEmitter(_boardEMT);
+
+	//_boardEMT = NULL;
+	//_boardEMT = new dxBoardEmitter;
+	//_boardEMT->init("ParticleResources/Texture/thunder_f5x10.png", 1, 0.5f, 80);
+	////_boardEMT->SetStartLimitTime(0.05f);
+	////_boardEMT->SetActiveLimitTime(1.0f);
+
+	//_boardEMT->InitRandomSize(1.0f, 3.0f);
+	////_boardEMT->Rot
+	////_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
+
+	////_boardEMT->InitRandomPositionY(8.5f, 8.5f);
+
+	////_boardEMT->InitRandomPositionY(8.5f, 8.5f);
+
+	//_boardEMT->InitRotateStartAngleZ(0.0f, 65.0f);
+
+	//_boardEMT->InitRandomLifeTime(1.5f, 3.0f);
+
+	//_boardEMT->InitAnimation(5, 10);
+
+	//_boardEMT->InitCenterPointHV(0.5f, 1.0f);
+
+	//_boardEMT->uvReverseImgU();
+
+	////_boardEMT->InitConstHV(1.0f, 1.0f);
+
+	//_PS->addEmitter(_boardEMT);
+
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("ParticleResources/Texture/thunder_f5x10.png", 1, 0.5f, 80);
+	_boardEMT->init("ParticleResources/Texture/Lightning02_f54x1.png", 2, 0.6f, 200);
 	//_boardEMT->SetStartLimitTime(0.05f);
 	//_boardEMT->SetActiveLimitTime(1.0f);
 
-	_boardEMT->InitRandomSize(1.0f, 3.0f);
+	_boardEMT->InitRandomSize(1.0f, 2.0f);
+
+	_boardEMT->SetPositionType();
+
+	_boardEMT->InitDirSphere(1.0f,0.0f, 1.0f);
+	_boardEMT->InitRandomPosSphereRadius(0.0f, 2.0f);
+
+
 	//_boardEMT->Rot
 	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
 
 	//_boardEMT->InitRandomPositionY(8.5f, 8.5f);
 
 	//_boardEMT->InitRandomPositionY(8.5f, 8.5f);
-	_boardEMT->InitRotateStartAngleZ(-65.0f, 0.0f);
-	
 
-	_boardEMT->InitRandomLifeTime(1.5f, 3.0f);
+	//_boardEMT->InitRotateStartAngleZ(-60.0f, 60.0f);
 
-	_boardEMT->InitAnimation(5, 10);
+	_boardEMT->InitRandomLifeTime(1.3f, 2.0f);
 
-	_boardEMT->InitCenterPointHV(0.5f,1.0f);
+	_boardEMT->InitAnimation(54, 1);
 
-	//_boardEMT->InitConstHV(1.0f, 2.0f);
+	_boardEMT->InitCenterPointHV(0.5f, 1.0f);
+
+	//_boardEMT->uvReverseImgU();
+
+	_boardEMT->InitConstHV(1.0f, 3.0f);
 
 	_PS->addEmitter(_boardEMT);
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("ParticleResources/Texture/thunder_f5x10.png", 1, 0.5f, 80);
+	_boardEMT->init("ParticleResources/Texture/Lightning02_f54x1.png", 2, 0.6f, 200);
 	//_boardEMT->SetStartLimitTime(0.05f);
 	//_boardEMT->SetActiveLimitTime(1.0f);
 
-	_boardEMT->InitRandomSize(1.0f, 3.0f);
+	_boardEMT->InitRandomSize(1.0f, 2.0f);
+
+	_boardEMT->SetPositionType();
+
+	_boardEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
+	_boardEMT->InitRandomPosSphereRadius(0.0f, 2.0f);
+
+
 	//_boardEMT->Rot
 	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
 
@@ -597,17 +667,17 @@ void psPlayerSet00::LightningSet00(string psName)
 
 	//_boardEMT->InitRandomPositionY(8.5f, 8.5f);
 
-	_boardEMT->InitRotateStartAngleZ(0.0f, 65.0f);
+	//_boardEMT->InitRotateStartAngleZ(-60.0f, 60.0f);
 
-	_boardEMT->InitRandomLifeTime(1.5f, 3.0f);
+	_boardEMT->InitRandomLifeTime(1.3f, 2.0f);
 
-	_boardEMT->InitAnimation(5, 10);
+	_boardEMT->InitAnimation(54, 1);
 
 	_boardEMT->InitCenterPointHV(0.5f, 1.0f);
 
 	_boardEMT->uvReverseImgU();
 
-	//_boardEMT->InitConstHV(1.0f, 1.0f);
+	_boardEMT->InitConstHV(1.0f, 3.0f);
 
 	_PS->addEmitter(_boardEMT);
 
