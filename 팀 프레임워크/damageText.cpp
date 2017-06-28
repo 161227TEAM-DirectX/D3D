@@ -3,6 +3,7 @@
 
 
 damageText::damageText()
+	:str(nullptr), strLength(0)
 {
 }
 
@@ -11,10 +12,11 @@ damageText::~damageText()
 {
 }
 
-void damageText::init(string str, D3DXCOLOR color)
+void damageText::init(int damage, LHS::FONTCOLOR color)
 {
-	nameStr = str;
-	strLength = str.length();
+	string tempStr = to_string(damage);
+	nameStr = tempStr;
+	strLength = tempStr.length();
 
 	HDC hdc = CreateCompatibleDC(nullptr);
 
@@ -35,7 +37,8 @@ void damageText::init(string str, D3DXCOLOR color)
 	lf.lfQuality = 0;
 	lf.lfPitchAndFamily = 0;
 
-	strcpy_s(lf.lfFaceName, "HY견고딕");	//폰트 스타일.
+	//strcpy_s(lf.lfFaceName, "HY견고딕");	//폰트 스타일.
+	strcpy_s(lf.lfFaceName, "굴림체");
 
 	HFONT hFont = CreateFontIndirect(&lf);
 	HFONT hFontOld = (HFONT)SelectObject(hdc, hFont);
@@ -53,9 +56,9 @@ void damageText::init(string str, D3DXCOLOR color)
 	);*/
 	wchar_t temp[_MAX_PATH] = { 0, };
 	char temp2[_MAX_PATH] = { 0, };
-	strcpy(temp2, str.c_str());
+	strcpy(temp2, tempStr.c_str());
 
-	MultiByteToWideChar(CP_ACP, 0, temp2, -1, temp, strlen(str.c_str()) + 1);
+	MultiByteToWideChar(CP_ACP, 0, temp2, -1, temp, strlen(tempStr.c_str()) + 1);
 
 	LPD3DXMESH pMesh = nullptr;
 
@@ -71,12 +74,30 @@ void damageText::init(string str, D3DXCOLOR color)
 
 	switch (color)
 	{
-
-	}
-
-	for (int i = 0; i < pMesh->GetNumVertices(); ++i)
-	{
-		pV2[i].color = D3DCOLOR_XRGB(0, 255, 0);
+	case LHS::FONT_WHITE:
+		for (int i = 0; i < pMesh->GetNumVertices(); ++i)
+		{
+			pV2[i].color = WHITE;
+		}
+		break;
+	case LHS::FONT_RED:
+		for (int i = 0; i < pMesh->GetNumVertices(); ++i)
+		{
+			pV2[i].color = RED;
+		}
+		break;
+	case LHS::FONT_BLUE:
+		for (int i = 0; i < pMesh->GetNumVertices(); ++i)
+		{
+			pV2[i].color = BLUE;
+		}
+		break;
+	case LHS::FONT_GREEN:
+		for (int i = 0; i < pMesh->GetNumVertices(); ++i)
+		{
+			pV2[i].color = GREEN;
+		}
+		break;
 	}
 
 	this->str->UnlockVertexBuffer();
@@ -91,8 +112,41 @@ void damageText::init(string str, D3DXCOLOR color)
 
 void damageText::update(void)
 {
+	D3DXVECTOR3 vPos = this->pos;
+	D3DXMATRIX matScaling;
+	//빌보딩(행렬 필요)
+	D3DXMatrixTranslation(&matBillBoard, vPos.x, vPos.y, vPos.z);
+	D3DXMatrixScaling(&matScaling, 0.1f, 0.1f, 0.1f);
+
+	D3DXMATRIX matView, matInvView;
+
+	_device->GetTransform(D3DTS_VIEW, &matView);
+
+	D3DXMatrixInverse(&matInvView, 0, &matView);
+
+	matBillBoard._11 = matInvView._11; matBillBoard._21 = matInvView._21; matBillBoard._31 = matInvView._31;
+	matBillBoard._12 = matInvView._12; matBillBoard._22 = matInvView._22; matBillBoard._32 = matInvView._32;
+	matBillBoard._13 = matInvView._13; matBillBoard._23 = matInvView._23; matBillBoard._33 = matInvView._33;
+
+	D3DXMATRIX matT;
+	float x = (strLength / 2) * -0.05f;
+	D3DXMatrixTranslation(&matT, x, 0, 0);
+	matBillBoard = matScaling * matT * matBillBoard;
 }
 
 void damageText::render(void)
 {
+	D3DXMATRIX matS, matWorld;
+	D3DXMATRIX oldMat;
+	//D3DXMatrixScaling(&matS, 0.1f, 0.1f, 0.1f);
+
+	_device->GetTransform(D3DTS_WORLD, &oldMat);
+
+	matWorld = matBillBoard;
+
+	_device->SetTransform(D3DTS_WORLD, &matWorld);
+	_device->SetRenderState(D3DRS_LIGHTING, false);
+	this->str->DrawSubset(0);
+	_device->SetRenderState(D3DRS_LIGHTING, true);
+	_device->SetTransform(D3DTS_WORLD, &oldMat);
 }

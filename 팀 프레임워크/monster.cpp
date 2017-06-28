@@ -84,6 +84,8 @@ void monster::baseObjectRender()
 {
 	if (_skinnedAnim != nullptr) _skinnedAnim->render(_transform);
 
+	CurrAction->Render();
+
 	D3DXVECTOR3 temp = { _transform->GetWorldPosition().x, _boundBox._localMaxPos.y, _transform->GetWorldPosition().z };
 	name->render();
 
