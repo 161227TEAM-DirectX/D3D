@@ -12,10 +12,7 @@ void ioSaveNameManager::loadFile(string filePath)
 
 	ifstream inFile(ioString);
 
-	if (inFile.fail())
-	{
-		exit(0);
-	}
+	assert(!inFile.fail() && "경로에 오브젝트.txt 리소스가 있는지 확인하십시오.");
 
 	inFile.getline(ioString, 128);
 	inFile.getline(ioString, 128);
