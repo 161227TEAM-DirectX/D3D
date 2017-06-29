@@ -96,10 +96,10 @@ HRESULT stageTwo::init()
 
 	//플레이어 초기화
 	player->out_setlinkTerrain(*_terrain);
+	
 	player->init();
 	player->getPlayerObject()->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
 	player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
-	
 
 	for (int i = 0; i < player->getRenderObject().size(); i++)
 	{
@@ -116,6 +116,9 @@ HRESULT stageTwo::init()
 	//PLAYER
 
 	SOUNDMANAGER->play("필드1", 0.1f);
+
+	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
+	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3( 0, 5, 5));
 
 	return S_OK;
 }
@@ -172,7 +175,7 @@ void stageTwo::render()
 	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resource/Testures/Ramp_1.png"));
 	xMeshSkinned::setBaseLight(this->sceneBaseDirectionLight);
 
-	player->render();
+	
 
 	for (int i = 0; i < this->_cullObject.size(); i++)
 	{
@@ -180,8 +183,10 @@ void stageTwo::render()
 		if (_cullObject[i] == player->getPlayerObject())
 		{
 			player->out_ItemUpdate();
+			player->out_updateBladeLight();
 		}
 	}
+	player->render();
 
 	const vector<Node*>& temp = _terrain->getDijkstra().getVecNode();
 	for (size_t i = 0; i < temp.size(); i++)

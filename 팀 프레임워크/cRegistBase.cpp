@@ -275,7 +275,6 @@ void cRegistBase::UIRegist()
 	FILEPATH_MANAGER->AddFilepath("emissionDefault", "ResourceUI/test/meshTx/emissionDefault.png");
 
 	FILEPATH_MANAGER->AddFilepath("FX_지형기본", "ResourceUI/test/fx/TerrainBase.fx");
-
 }
 
 

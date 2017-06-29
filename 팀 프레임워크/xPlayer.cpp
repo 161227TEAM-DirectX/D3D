@@ -1,9 +1,12 @@
 #include "stdafx.h"
 #include "xPlayer.h"
 #include "monster.h"
+#include "damageText.h"
 
 HRESULT xPlayer::init()
 {
+	_dmText = new damageText;
+
 	//스킬 루틴을 플레이어 내부에 작성해야겠다.
 	//필요한 루틴 : 파티클온, 애니메이션 바꾸기, 
 	//우선 맵에 스킬 정보를 저장한다...
@@ -295,11 +298,15 @@ HRESULT xPlayer::init()
 
 	targetMonster = NULL;
 
+	
+
 	return S_OK;
 }
 
 void xPlayer::update()
 {
+
+	//_dmText->setPos();
 	/*for (int i = 0; i < this->_renderObjects.size(); i++)
 	{
 		this->_renderObjects[i]->render();
@@ -539,9 +546,6 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 void xPlayer::playerStateManager()
 {
 
-
-
-
 	if (_state != P_RUN && _state != P_WALKBACK)
 		SOUNDMANAGER->stop("걸음소리1");
 
@@ -568,6 +572,7 @@ void xPlayer::playerStateManager()
 		_degree = 0;
 		_playerObject->_transform->SetWorldPosition(pos.x, _baseHeight, pos.z);
 	}
+
 
 	switch (_state)
 	{
@@ -837,7 +842,7 @@ void xPlayer::playerStateManager()
 			{
 				_state = P_JUMP;
 			}
-			else if (pos.y <= linkTerrain->getHeight(pos.x, pos.z))
+			else if (pos.y <= _baseHeight)
 			{
 				//_degree = 0;
 				_state = P_JUMPDOWN;
@@ -851,7 +856,10 @@ void xPlayer::playerStateManager()
 	case P_JUMP:
 		if (animName == "JUMP")
 		{
-			if (pos.y <= linkTerrain->getHeight(pos.x, pos.z))
+
+			pos = getPlayerObject()->_transform->GetWorldPosition();
+
+			if (pos.y <= _baseHeight)
 			{
 				//_degree = 0;
 				_state = P_JUMPDOWN;
@@ -897,7 +905,6 @@ void xPlayer::playerStateManager()
 
 		break;
 	case P_WALKBACK:
-
 
 		if (!SOUNDMANAGER->isPlaySound("걸음소리1"))
 		{
@@ -1277,6 +1284,7 @@ void xPlayer::normalAttackDamageProcessing()
 			if (PHYSICSMANAGER->isOverlap(this->_playerObject->_transform, &this->_attackBound, (*iter)->_transform, &(*iter)->_boundBox))
 			{
 				(*iter)->setHP((*iter)->getHP() - PLAYERMANAGER->Getatt());
+				_dmText->init(PLAYERMANAGER->Getatt(), LHS::FONTCOLOR::FONT_WHITE);
 				/*if ((*iter)->getHP() < 0)
 				{
 					exit(0);
@@ -1620,7 +1628,7 @@ void xPlayer::skillProcesser() {
 	}
 }
 
-void xPlayer::updateBladeLight()
+void xPlayer::out_updateBladeLight()
 {
 	D3DXVECTOR3 nowEdgePos = _edgeTrans->GetWorldPosition();
 	D3DXVECTOR3 nowHandPos = _handTrans->GetWorldPosition();
