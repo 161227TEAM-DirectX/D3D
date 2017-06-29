@@ -14,6 +14,11 @@
 #include "cMinimapTest.h"
 #include "cMinimapTest2.h"
 #include "cCameraTest.h"
+#include "cUITestChatting.h"
+#include "cInvenTest.h"
+#include "cUserInterfaceTest.h"
+#include "cUserInterfaceTest2.h"
+
 
 
 mainGame::mainGame()
@@ -22,14 +27,14 @@ mainGame::mainGame()
 
 	SCENEMANAGER->addScene("loading", new loadingScene, true);	
 
-	SCENEMANAGER->addScene("test", new cMinimapTest, false);
-	SCENEMANAGER->addScene("start", new startScene, false);
-	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
-	SCENEMANAGER->addScene("particleTest5", new particleTest05, false);
-	SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
-	SCENEMANAGER->addScene("gameSceneOne", new stageOne, false);
-	SCENEMANAGER->addScene("gameSceneTwo", new stageTwo, false);
-	SCENEMANAGER->addScene("gameSceneThree", new stageThree, false);
+	SCENEMANAGER->addScene("test", new cUserInterfaceTest2, false);
+	//SCENEMANAGER->addScene("start", new startScene, false);
+	//SCENEMANAGER->addScene("maptool", new mapToolScene, false);
+	//SCENEMANAGER->addScene("particleTest5", new particleTest05, false);
+	//SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
+	//SCENEMANAGER->addScene("gameSceneOne", new stageOne, false);
+	//SCENEMANAGER->addScene("gameSceneTwo", new stageTwo, false);
+	//SCENEMANAGER->addScene("gameSceneThree", new stageThree, false);
 
 	//SCENEMANAGER->addScene("test", new cGameUITest, false);
 	//SCENEMANAGER->addScene("test", new cMinimapTest, false);
@@ -66,7 +71,7 @@ HRESULT mainGame::init(void)
 	//이현수 씬 테스트 헤더파일
 	//===================================================================================
 		//씬추가
-		SCENEMANAGER->addScene("testMON", new terrainPickingTest, false);
+		//SCENEMANAGER->addScene("testMON", new terrainPickingTest, false);
 
 
 
