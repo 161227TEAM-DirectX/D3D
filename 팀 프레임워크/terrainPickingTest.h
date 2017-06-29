@@ -60,6 +60,7 @@ private:
 private:
 	vector<baseObject*>	m_vecObject;
 	tagSaveObject object;
+	D3DXMATRIX matRotate;
 private:
 	float currTime;
 	int oldTime;

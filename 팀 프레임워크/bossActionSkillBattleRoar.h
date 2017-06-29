@@ -2,6 +2,9 @@
 #include "Action.h"
 #include "bossMonster.h"
 #include "xPlayer.h"
+
+class damageText;
+
 class bossActionSkillBattleRoar : public Action
 {
 private:
@@ -10,6 +13,8 @@ private:
 	float passedTime;
 	int attackStyle;
 	bool isShout;
+	float yPosition;
+	damageText* damage;
 public:
 	bossActionSkillBattleRoar();
 	~bossActionSkillBattleRoar();
@@ -18,5 +23,6 @@ public:
 	int Start() override;
 	//액션을 실행하는 함수 - 순수가상함수
 	int Update() override;
+	void Render() override;
 };
 

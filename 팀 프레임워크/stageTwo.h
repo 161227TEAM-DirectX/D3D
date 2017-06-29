@@ -19,12 +19,16 @@ private:
 	terrain*			_terrainShadow;			//지형 그림자
 	Environment*		env;					//환경맵 정보
 	WaterTerrain*		water;					//물지형 정보
+	dx::transform*		toRotate;			//태양 보정값용
 private:
 	vector<baseObject*> _renderObject;			//출력할 오브젝트 벡터
 	vector<baseObject*>	_cullObject;			//프러스텀 컬링된 오브젝트 벡터
 	vector<monster*> _monsterRegion;
+	D3DXMATRIX matRotate;
 private:
 	float _shadowDistance;
+	float currTime;
+	int angleZ;
 	tagSaveMap envTemp;
 	tagSaveMap waterTemp;
 
