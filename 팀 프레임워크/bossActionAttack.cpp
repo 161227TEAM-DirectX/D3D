@@ -1,24 +1,28 @@
 #include "stdafx.h"
 #include "bossActionAttack.h"
 #include "xPlayer.h"
+#include "damageText.h"
 
 
-bossActionAttack::bossActionAttack() :Action(), resultValue(0)
+bossActionAttack::bossActionAttack() :Action(), resultValue(0), yPosition(0.0f)
 {
+	text = new damageText;
 }
 
 
 bossActionAttack::~bossActionAttack()
 {
+	SAFE_DELETE(text);
 }
 
 int bossActionAttack::Start()
 {
 	if (!owner)return LHS::ACTIONRESULT::ACTION_FINISH;
-
+	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
 	//보스몬스터의 공격모션 아무거나 시작.
 	owner->getSkinnedAnim().Play("Animation_12");
 //	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
+	text->init(temp->getAtt(), LHS::FONT_RED);
 	SOUNDMANAGER->play("보스공격1");
 
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
@@ -30,11 +34,22 @@ int bossActionAttack::Update()
 
 	PHYSICSMANAGER->isBlocking(owner, playerObject);
 
+	if (owner->getSkinnedAnim().getAnimationPlayFactor() < 0.05f)
+	{
+		yPosition = playerObject->_boundBox._localMaxPos.y;
+		enemy->playerDamaged(temp->getAtt(), 0.6f, 25.0f);
+	}
+	
+
 	//애니메이션 일정 시간 지난뒤에 데미지를 입력.
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() <= 0.45f && owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.40f)
 	{
-		enemy->playerDamaged(temp->getAtt(), 0.6f, 25.0f);
+		
 	}
+
+	yPosition += 0.01f;
+	text->setPos(D3DXVECTOR3(playerObject->_transform->GetWorldPosition().x, yPosition, playerObject->_transform->GetWorldPosition().z));
+	text->update();
 
 	//애니메이션이 끝나갈때쯤이면
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.9f)
@@ -93,27 +108,21 @@ int bossActionAttack::Update()
 		{
 		case 1:
 			owner->getSkinnedAnim().Play("Animation_12");
-			owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 			break;
 		case 2:
 			owner->getSkinnedAnim().Play("Animation_10");
-			owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 			break;
 		case 3:
 			owner->getSkinnedAnim().Play("Animation_9");
-			owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 			break;
 		case 4:
 			owner->getSkinnedAnim().Play("Animation_11");
-			owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 			break;
 		case 5:
 			owner->getSkinnedAnim().Play("Animation_21");
-			owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 			break;
 		default:
 			owner->getSkinnedAnim().Play("Animation_10");
-			owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 			break;
 		}
 
@@ -141,4 +150,9 @@ int bossActionAttack::Update()
 	}
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
+}
+
+void bossActionAttack::Render()
+{
+	text->render();
 }

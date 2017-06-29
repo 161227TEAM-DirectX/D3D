@@ -168,8 +168,10 @@ void terrainPickingTest::update(void)
 	currTime += _timeDelta;
 	if (currTime > 1)
 	{
-		D3DXMATRIX matRotate;
-		D3DXMatrixRotationZ(&matRotate, D3DXToRadian(angleZ));
+		//D3DXVECTOR3 matAxis(0.0f, 0.0f, 1.0f);
+		D3DXMatrixIdentity(&matRotate);
+		//D3DXMatrixRotationAxis(&matRotate, &matAxis, D3DXToRadian(angleZ));
+		D3DXMatrixRotationX(&matRotate, D3DXToRadian(angleZ));
 		//_sceneBaseDirectionLight->_transform->RotateWorld(0.0f, 0.0f, D3DXToRadian(angleZ));
 		_sceneBaseDirectionLight->_transform->SetRotateWorld(matRotate);
 		angleZ--;
@@ -246,6 +248,20 @@ void terrainPickingTest::render(void)
 	}
 
 	_terrain->getDijkstra().render();
+
+	char tempc[MAX_PATH];
+	sprintf_s(tempc, "angleZ: %d", angleZ);
+
+	FONTMANAGER->fontOut(tempc, 250, 250, D3DCOLOR_XRGB(255, 255, 255));
+
+	/*for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			sprintf_s(tempc, "matRotate[%d][%d] : %f", i, j, matRotate.m[i][j]);
+			FONTMANAGER->fontOut(tempc, 150 + i * 450, 50 + j * 50, D3DCOLOR_XRGB(255, 255, 255));
+		}		
+	}*/
 
 	//_mainCamera->renderTextureEnd();
 

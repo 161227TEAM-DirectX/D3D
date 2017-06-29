@@ -1,15 +1,18 @@
 #include "stdafx.h"
 #include "bossActionSkillTailAtt.h"
 #include "xPlayer.h"
+#include "damageText.h"
 
 bossActionSkillTailAtt::bossActionSkillTailAtt()
-	:Action(), Frequency(0)
+	:Action(), Frequency(0), yPosition(0.0f)
 {
+	damage = new damageText;
 }
 
 
 bossActionSkillTailAtt::~bossActionSkillTailAtt()
 {
+	SAFE_DELETE(damage);
 }
 
 int bossActionSkillTailAtt::Start()
@@ -53,9 +56,13 @@ int bossActionSkillTailAtt::Update()
 
 		if (angle >= -1 && angle <= -0.8f)
 		{
+			float tempAtt = temp->getAtt() * myUtil::RandomFloatRange(0.9f, 1.8f);
 			//케릭터의 체력을 한번에 깍는다.
 			//PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - temp->getAtt() * myUtil::RandomFloatRange(0.9f, 1.8f));
-			enemy->playerDamaged(temp->getAtt() * myUtil::RandomFloatRange(0.9f, 1.8f), 0.0f, 0.0f, 50.0f, 2.0f);
+			enemy->playerDamaged(tempAtt, 0.0f, 0.0f, 50.0f, 2.0f);
+			damage->init(tempAtt, LHS::FONTCOLOR::FONT_RED);
+			yPosition = playerObject->_boundBox._localMaxPos.y;
+
 			//아직 있다는 뜻이므로 한번 더 실행한다.
 			Frequency = myUtil::RandomIntRange(1, 2);
 
@@ -96,5 +103,14 @@ int bossActionSkillTailAtt::Update()
 		}
 	}
 
+	yPosition += 0.01f;
+	damage->setPos(D3DXVECTOR3(playerObject->_transform->GetWorldPosition().x, yPosition, playerObject->_transform->GetWorldPosition().z));
+	damage->update();
+
 	return LHS::ACTIONRESULT::ACTION_PLAY;
+}
+
+void bossActionSkillTailAtt::Render()
+{
+	damage->render();
 }

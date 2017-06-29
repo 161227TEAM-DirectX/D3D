@@ -8,7 +8,7 @@
 
 
 stageTwo::stageTwo()
-	:_shadowDistance(0.0f)
+	:_shadowDistance(0.0f), currTime(0.0f), angleZ(90)
 {
 	player = new xPlayer;
 	_mainCamera = new camera;
@@ -18,6 +18,7 @@ stageTwo::stageTwo()
 	env = new Environment;
 	water = new WaterTerrain;
 	water->linkCamera(*_mainCamera);
+	toRotate = new dx::transform;
 }
 
 
@@ -34,6 +35,7 @@ stageTwo::~stageTwo()
 	SAFE_DELETE(_terrainShadow);
 	SAFE_DELETE(env);
 	SAFE_DELETE(water);
+	SAFE_DELETE(toRotate);
 }
 
 HRESULT stageTwo::init()
@@ -128,6 +130,24 @@ void stageTwo::update()
 {
 	shadowUpdate();
 
+	currTime += _timeDelta;
+	if (currTime > 1)
+	{
+		//D3DXVECTOR3 matAxis(0.0f, 0.0f, 1.0f);
+		D3DXMatrixIdentity(&matRotate);
+		//D3DXMatrixRotationAxis(&matRotate, &matAxis, D3DXToRadian(angleZ));
+		D3DXMatrixRotationX(&matRotate, D3DXToRadian(angleZ));
+		//_sceneBaseDirectionLight->_transform->RotateWorld(0.0f, 0.0f, D3DXToRadian(angleZ));
+		//sceneBaseDirectionLight->_transform->SetRotateWorld(matRotate);
+		toRotate->SetRotateWorld(matRotate);
+		angleZ--;
+		if (angleZ <= 0) angleZ = 360;
+		else if (angleZ >= 360) angleZ = 0;
+		currTime = 0;
+	}
+
+	sceneBaseDirectionLight->_transform->RotateSlerp(*sceneBaseDirectionLight->_transform, *toRotate, _timeDelta);
+
 	player->update();
 
 	player->out_setTargetByMouse(_mainCamera);
@@ -157,7 +177,7 @@ void stageTwo::render()
 
 
 	env->renderEnvironment(envTemp.number);
-//	water->render(waterTemp.number);
+	water->render(waterTemp.number);
 
 	//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅
 	xMeshStatic::setCamera(_mainCamera);
@@ -208,7 +228,7 @@ void stageTwo::shadowInit(void)
 	_directionLightCamera->_aspect = 1;
 	_directionLightCamera->_orthoSize = _shadowDistance * 1.5f;	//투영크기
 
-																//텍스처 준비
+	//텍스처 준비
 	_directionLightCamera->readyShadowTexture(4096);
 
 	_mainCamera->readyRenderToTexture(WINSIZEX, WINSIZEY);
@@ -220,7 +240,7 @@ void stageTwo::shadowInit(void)
 void stageTwo::shadowUpdate(void)
 {
 	_mainCamera->updateBase();
-	sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
+	//sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
 
 	//광원 위치
 	D3DXVECTOR3 camPos = _mainCamera->GetWorldPosition();	//메인카메라의 위치

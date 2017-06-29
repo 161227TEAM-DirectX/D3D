@@ -18,11 +18,15 @@ private:
 
 	Environment*		env;				//환경맵
 	WaterTerrain*		water;				//물지형 맵
+	dx::transform*		toRotate;			//태양 보정값용
 private:
 	vector<baseObject*> _renderObject;
 	vector<baseObject*>	_cullObject;
+	D3DXMATRIX matRotate;
 private:
 	float _shadowDistance;
+	float currTime;
+	int angleZ;
 	tagSaveMap envTemp;
 	tagSaveMap waterTemp;
 public:

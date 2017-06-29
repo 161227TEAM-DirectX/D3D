@@ -65,6 +65,8 @@ void bossMonster::baseObjectNoActiveUpdate()
 void bossMonster::baseObjectRender()
 {
 	if (_skinnedAnim != nullptr) _skinnedAnim->render(_transform);
+	CurrAction->Render();
+
 	hitBox.renderGizmo(_transform, D3DCOLOR_XRGB(255,0,0));
 	range.renderGizmo(_transform, D3DCOLOR_XRGB(255,255,0));
 

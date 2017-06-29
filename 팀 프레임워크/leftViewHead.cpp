@@ -689,30 +689,30 @@ void leftViewHead::save()
 		_SaveButton.FT = true;
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
-			////맵에 관한 save
-			////벡터로 담을 temp설정
-			//vector<tagSaveMap> InfoTemp;
-			//tagSaveMap temp;
+			//맵에 관한 save
+			//벡터로 담을 temp설정
+			vector<tagSaveMap> InfoTemp;
+			tagSaveMap temp;
 
-			//temp.infoName = "환경맵";
-			//temp.number = _rightView->getNumberEnv();
-			//temp.mapHeight = 0;
-			//InfoTemp.push_back(temp);
+			temp.infoName = "환경맵";
+			temp.number = _rightView->getNumberEnv();
+			temp.mapHeight = 0;
+			InfoTemp.push_back(temp);
 
-			//temp.infoName = "물결맵";
-			//temp.number = _rightView->getnumberwater();
-			//temp.mapHeight = 0;
-			//InfoTemp.push_back(temp);
+			temp.infoName = "물결맵";
+			temp.number = _rightView->getnumberwater();
+			temp.mapHeight = 0;
+			InfoTemp.push_back(temp);
 
-			//IOSAVEMANAGER->saveFile("마을세이브맵", InfoTemp);
+			IOSAVEMANAGER->saveFile("성밖세이브맵", InfoTemp);
 
-			////지우고 나서 문제가 생겨서 이름을 다시 1번부터 저자시켜준다
-			//for (int i = 0; i < InfoObjectTemp.size(); i++)
-			//{
-			//	InfoObjectTemp[i].infoName = "넘버" + to_string(i + 1);
-			//}
+			//지우고 나서 문제가 생겨서 이름을 다시 1번부터 저자시켜준다
+			for (int i = 0; i < InfoObjectTemp.size(); i++)
+			{
+				InfoObjectTemp[i].infoName = "넘버" + to_string(i + 1);
+			}
 
-			//IOSAVEOBJECTMANAGER->saveFile("마을오브젝트", InfoObjectTemp);
+			IOSAVEOBJECTMANAGER->saveFile("성밖오브젝트", InfoObjectTemp);
 
 			//ST_MAP temp0;
 
