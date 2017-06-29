@@ -51,7 +51,7 @@ void loadingScene::render()
 
 	if (m_isChange /*&& m_pLoadingBar->IsFullBar()*/)
 	{
-		SCENEMANAGER->changeScene("gameSceneTwo");
+		SCENEMANAGER->changeScene("test");
 	}
 
 	LeaveCriticalSection(&_cs);
@@ -59,9 +59,9 @@ void loadingScene::render()
 
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
-	SoundLoading();
-	XMeshStaticLoading();
-	XMeshSkinnedLoading();
+	//SoundLoading();
+	//XMeshStaticLoading();
+	//XMeshSkinnedLoading();
 	UILoading();
 	AniLoading();
 
@@ -83,8 +83,6 @@ void loadingScene::UILoading()
 	DXIMG_MANAGER->AddDxImg("btn_mapTool_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_mapTool_off")));
 	DXIMG_MANAGER->AddDxImg("btn_mapTool_over", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_mapTool_over")));
 
-	DXIMG_MANAGER->AddDxImg("Test_Inven", new cDxImg(FILEPATH_MANAGER->GetFilepath("Test_Inven")));
-	DXIMG_MANAGER->AddDxImg("Test_Inven2", new cDxImg(FILEPATH_MANAGER->GetFilepath("Test_Inven2")));
 	DXIMG_MANAGER->AddDxImg("quickSlotUI_back", new cDxImg(FILEPATH_MANAGER->GetFilepath("quickSlotUI_back")));
 
 	DXIMG_MANAGER->AddDxImg("playerbar_back", new cDxImg(FILEPATH_MANAGER->GetFilepath("playerbar_back")));
@@ -92,6 +90,30 @@ void loadingScene::UILoading()
 	DXIMG_MANAGER->AddDxImg("playerbarHP_move", new cDxImg(FILEPATH_MANAGER->GetFilepath("playerbarHP_move")));
 	DXIMG_MANAGER->AddDxImg("playerbarMP_cover", new cDxImg(FILEPATH_MANAGER->GetFilepath("playerbarMP_cover")));
 	DXIMG_MANAGER->AddDxImg("playerbarMP_move", new cDxImg(FILEPATH_MANAGER->GetFilepath("playerbarMP_move")));
+
+	DXIMG_MANAGER->AddDxImg("채팅창", new cDxImg(FILEPATH_MANAGER->GetFilepath("채팅창")));
+
+	DXIMG_MANAGER->AddDxImg("shopSlot_back", new cDxImg(FILEPATH_MANAGER->GetFilepath("shopSlot_back")));
+	DXIMG_MANAGER->AddDxImg("shopSlot_off00", new cDxImg(FILEPATH_MANAGER->GetFilepath("shopSlot_off00")));
+	DXIMG_MANAGER->AddDxImg("shopSlot_off01", new cDxImg(FILEPATH_MANAGER->GetFilepath("shopSlot_off01")));
+	DXIMG_MANAGER->AddDxImg("shopSlot_off02", new cDxImg(FILEPATH_MANAGER->GetFilepath("shopSlot_off02")));
+	DXIMG_MANAGER->AddDxImg("shopSlot_over00", new cDxImg(FILEPATH_MANAGER->GetFilepath("shopSlot_over00")));
+	DXIMG_MANAGER->AddDxImg("shopSlot_over01", new cDxImg(FILEPATH_MANAGER->GetFilepath("shopSlot_over01")));
+	DXIMG_MANAGER->AddDxImg("shopSlot_over02", new cDxImg(FILEPATH_MANAGER->GetFilepath("shopSlot_over02")));
+
+	DXIMG_MANAGER->AddDxImg("minimap", new cDxImg(FILEPATH_MANAGER->GetFilepath("minimap")));
+
+	DXIMG_MANAGER->AddDxImg("btn_invetory_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_invetory_off")));
+	DXIMG_MANAGER->AddDxImg("btn_invetory_over", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_invetory_over")));
+	DXIMG_MANAGER->AddDxImg("btn_skillbook_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_skillbook_off")));
+	DXIMG_MANAGER->AddDxImg("btn_skillbook_over", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_skillbook_over")));
+	DXIMG_MANAGER->AddDxImg("btn_worldmap_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_worldmap_off")));
+	DXIMG_MANAGER->AddDxImg("btn_worldmap_over", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_worldmap_over")));
+	DXIMG_MANAGER->AddDxImg("numbox_money", new cDxImg(FILEPATH_MANAGER->GetFilepath("numbox_money")));
+	DXIMG_MANAGER->AddDxImg("numbox_soul", new cDxImg(FILEPATH_MANAGER->GetFilepath("numbox_soul")));
+
+
+
 
 	//=======================================================================
 	//test
@@ -111,8 +133,17 @@ void loadingScene::UILoading()
 	DXIMG_MANAGER->AddDxImg("splat_blue_base", new cDxImg(FILEPATH_MANAGER->GetFilepath("splat_blue_base")));
 	DXIMG_MANAGER->AddDxImg("splat_black_base", new cDxImg(FILEPATH_MANAGER->GetFilepath("splat_black_base")));
 
+	DXIMG_MANAGER->AddDxImg("Test_Inven", new cDxImg(FILEPATH_MANAGER->GetFilepath("Test_Inven")));
+	DXIMG_MANAGER->AddDxImg("Test_Inven2", new cDxImg(FILEPATH_MANAGER->GetFilepath("Test_Inven2")));
+
 	DXIMG_MANAGER->AddDxImg("miniPlayer", new cDxImg(FILEPATH_MANAGER->GetFilepath("miniPlayer")));
 	DXIMG_MANAGER->AddDxImg("radar", new cDxImg(FILEPATH_MANAGER->GetFilepath("radar")));
+
+	DXIMG_MANAGER->AddDxImg("상점슬롯", new cDxImg(FILEPATH_MANAGER->GetFilepath("상점슬롯")));
+	DXIMG_MANAGER->AddDxImg("무기상점아이콘", new cDxImg(FILEPATH_MANAGER->GetFilepath("무기상점아이콘")));
+	DXIMG_MANAGER->AddDxImg("물약상점아이콘", new cDxImg(FILEPATH_MANAGER->GetFilepath("물약상점아이콘")));
+	DXIMG_MANAGER->AddDxImg("강화상점아이콘", new cDxImg(FILEPATH_MANAGER->GetFilepath("강화상점아이콘")));
+	DXIMG_MANAGER->AddDxImg("인벤토리아이콘", new cDxImg(FILEPATH_MANAGER->GetFilepath("인벤토리아이콘")));
 
 }
 

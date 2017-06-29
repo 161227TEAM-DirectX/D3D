@@ -101,5 +101,41 @@ namespace myUtil
 		float startX, float startY,					//시작점
 		float endX, float endY,						//끝점
 		D3DCOLOR dwColor = D3DCOLOR_XRGB(0, 0, 0));	//렉트 색깔
+
+
+
+	//렉트를 그린다.(렉트를 인자로 받아서)
+	inline void RectMake(RECT& rt)
+	{
+		RectMake((float)rt.left, (float)rt.top, (float)(rt.right - rt.left), (float)(rt.bottom - rt.top));
+	}
+
+
+
+	//렉트를 만든다.
+	inline RECT& RectMake(int cx, int cy, int width, int height)
+	{
+		RECT rt;
+
+		rt.left = cx;
+		rt.right = cx + width;
+		rt.top = cy;
+		rt.bottom = cy + height;
+
+		return rt;
+	}
+
+	//렉트를 만든다.(중심점)
+	inline RECT& RectMakeCenter(int cx, int cy, int width, int height)
+	{
+		RECT rt;
+
+		rt.left = cx - width / 2;
+		rt.right = cx + width / 2;
+		rt.top = cy - height / 2;
+		rt.bottom = cy + height / 2;
+
+		return rt;
+	}
 }
 

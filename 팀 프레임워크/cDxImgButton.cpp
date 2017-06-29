@@ -15,6 +15,8 @@ cDxImgButton::cDxImgButton(cDxImg* off, cDxImg* over, D3DXVECTOR2 vecPos, string
 	m_pOver->SetCenterDraw(isCenter);
 	m_pOver->SetDrawBoundingBox(isBoundingBox);
 	m_pOver->SetPosition(D3DXVECTOR3(vecPos.x, vecPos.y, 0));
+
+	m_rtBtn = m_pOff->getRect();
 }
 
 
@@ -53,4 +55,10 @@ bool cDxImgButton::click()
 		}
 	}
 	return false;
+}
+
+void cDxImgButton::setPos(D3DXVECTOR2 vecPos)
+{
+	m_pOff->SetPosition(D3DXVECTOR3(vecPos.x, vecPos.y, 0));
+	m_pOver->SetPosition(D3DXVECTOR3(vecPos.x, vecPos.y, 0));
 }

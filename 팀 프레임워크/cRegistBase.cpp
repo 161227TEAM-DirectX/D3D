@@ -222,7 +222,7 @@ void cRegistBase::UIRegist()
 	FILEPATH_MANAGER->AddFilepath("시작화면", "ResourceUI/loading/시작화면.png");
 	FILEPATH_MANAGER->AddFilepath("시작버튼_오버", "ResourceUI/loading/시작버튼_오버.png");
 	FILEPATH_MANAGER->AddFilepath("시작버튼_오프", "ResourceUI/loading/시작버튼_오프.png");
-	
+
 	FILEPATH_MANAGER->AddFilepath("loadingbar_move", "ResourceUI/loading/loadingbar_move.png");
 	FILEPATH_MANAGER->AddFilepath("loadingbar_back", "ResourceUI/loading/loadingbar_back.png");
 	FILEPATH_MANAGER->AddFilepath("loadingbar_cover", "ResourceUI/loading/loadingbar_cover.png");
@@ -236,8 +236,6 @@ void cRegistBase::UIRegist()
 	FILEPATH_MANAGER->AddFilepath("btn_mapTool_off", "ResourceUI/start/btn_mapTool_off.png");
 	FILEPATH_MANAGER->AddFilepath("btn_mapTool_over", "ResourceUI/start/btn_mapTool_over.png");
 
-	FILEPATH_MANAGER->AddFilepath("Test_Inven", "ResourceUI/game/Test_Inven.png");
-	FILEPATH_MANAGER->AddFilepath("Test_Inven2", "ResourceUI/game/Test_Inven2.png");
 	FILEPATH_MANAGER->AddFilepath("quickSlotUI_back", "ResourceUI/game/quickSlotUI_back.png");
 
 	FILEPATH_MANAGER->AddFilepath("playerbar_back", "ResourceUI/game/playerbar_back.png");
@@ -245,6 +243,29 @@ void cRegistBase::UIRegist()
 	FILEPATH_MANAGER->AddFilepath("playerbarHP_move", "ResourceUI/game/playerbarHP_move.png");
 	FILEPATH_MANAGER->AddFilepath("playerbarMP_cover", "ResourceUI/game/playerbarMP_cover.png");
 	FILEPATH_MANAGER->AddFilepath("playerbarMP_move", "ResourceUI/game/playerbarMP_move.png");
+
+	FILEPATH_MANAGER->AddFilepath("채팅창", "ResourceUI/chat/채팅창.png");
+
+	FILEPATH_MANAGER->AddFilepath("shopSlot_back", "ResourceUI/game/shopSlot_back.png");
+	FILEPATH_MANAGER->AddFilepath("shopSlot_off00", "ResourceUI/game/shopSlot_off00.png");
+	FILEPATH_MANAGER->AddFilepath("shopSlot_off01", "ResourceUI/game/shopSlot_off01.png");
+	FILEPATH_MANAGER->AddFilepath("shopSlot_off02", "ResourceUI/game/shopSlot_off02.png");
+	FILEPATH_MANAGER->AddFilepath("shopSlot_over00", "ResourceUI/game/shopSlot_over00.png");
+	FILEPATH_MANAGER->AddFilepath("shopSlot_over01", "ResourceUI/game/shopSlot_over01.png");
+	FILEPATH_MANAGER->AddFilepath("shopSlot_over02", "ResourceUI/game/shopSlot_over02.png");
+
+	FILEPATH_MANAGER->AddFilepath("minimap", "ResourceUI/game/minimap.png");
+
+	FILEPATH_MANAGER->AddFilepath("btn_invetory_off", "ResourceUI/game/btn_invetory_off.png");
+	FILEPATH_MANAGER->AddFilepath("btn_invetory_over", "ResourceUI/game/btn_invetory_over.png");
+	FILEPATH_MANAGER->AddFilepath("btn_skillbook_off", "ResourceUI/game/btn_skillbook_off.png");
+	FILEPATH_MANAGER->AddFilepath("btn_skillbook_over", "ResourceUI/game/btn_skillbook_over.png");
+	FILEPATH_MANAGER->AddFilepath("btn_worldmap_off", "ResourceUI/game/btn_worldmap_off.png");
+	FILEPATH_MANAGER->AddFilepath("btn_worldmap_over", "ResourceUI/game/btn_worldmap_over.png");
+	FILEPATH_MANAGER->AddFilepath("numbox_money", "ResourceUI/game/numbox_money.png");
+	FILEPATH_MANAGER->AddFilepath("numbox_soul", "ResourceUI/game/numbox_soul.png");
+
+
 
 	//=============================================================================
 	//test
@@ -263,6 +284,9 @@ void cRegistBase::UIRegist()
 	FILEPATH_MANAGER->AddFilepath("splat_blue_base", "ResourceUI/test/splat_blue_base.png");
 	FILEPATH_MANAGER->AddFilepath("splat_black_base", "ResourceUI/test/splat_black_base.png");
 
+	FILEPATH_MANAGER->AddFilepath("Test_Inven", "ResourceUI/test/Test_Inven.png");
+	FILEPATH_MANAGER->AddFilepath("Test_Inven2", "ResourceUI/test/Test_Inven2.png");
+
 	FILEPATH_MANAGER->AddFilepath("miniPlayer", "ResourceUI/test/miniPlayer.png");
 	FILEPATH_MANAGER->AddFilepath("radar", "ResourceUI/test/radar.png");
 
@@ -275,6 +299,13 @@ void cRegistBase::UIRegist()
 	FILEPATH_MANAGER->AddFilepath("emissionDefault", "ResourceUI/test/meshTx/emissionDefault.png");
 
 	FILEPATH_MANAGER->AddFilepath("FX_지형기본", "ResourceUI/test/fx/TerrainBase.fx");
+
+	FILEPATH_MANAGER->AddFilepath("상점슬롯", "ResourceUI/test/상점슬롯.png");
+	FILEPATH_MANAGER->AddFilepath("무기상점아이콘", "ResourceUI/test/무기상점아이콘.png");
+	FILEPATH_MANAGER->AddFilepath("물약상점아이콘", "ResourceUI/test/물약상점아이콘.png");
+	FILEPATH_MANAGER->AddFilepath("강화상점아이콘", "ResourceUI/test/강화상점아이콘.png");
+	FILEPATH_MANAGER->AddFilepath("인벤토리아이콘", "ResourceUI/test/인벤토리아이콘.png");
+
 }
 
 
