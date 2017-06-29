@@ -60,8 +60,10 @@ private:
 private:
 	vector<baseObject*>	m_vecObject;
 	tagSaveObject object;
-
-
+private:
+	float currTime;
+	int oldTime;
+	int angleZ;
 public:
 	HRESULT init(void);
 	void release(void);
@@ -86,6 +88,6 @@ public:
 	void shadowRender(void);
 	void testRender(void);
 
-	terrainPickingTest() {}
+	terrainPickingTest(): currTime(0), oldTime(0), angleZ(90) {}
 	~terrainPickingTest() {}
 };

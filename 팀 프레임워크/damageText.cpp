@@ -62,7 +62,7 @@ void damageText::init(int damage, LHS::FONTCOLOR color)
 
 	LPD3DXMESH pMesh = nullptr;
 
-	D3DXCreateTextW(_device, hdc, temp, 0.001f, 0.001f, &pMesh, nullptr, nullptr);
+	D3DXCreateTextW(_device, hdc, temp, 0.01f, 0.001f, &pMesh, nullptr, nullptr);
 
 	//	D3DXMESH_MANAGED
 	//메쉬를 복사한다. str에

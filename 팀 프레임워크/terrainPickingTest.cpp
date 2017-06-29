@@ -158,11 +158,26 @@ void terrainPickingTest::release(void)
 //	SAFE_DELETE(this->_trans);
 
 	_waterTerrain->release();
+	SAFE_DELETE(_waterTerrain);
 }
 
 void terrainPickingTest::update(void)
 {
 	shadowUpdate();
+	
+	currTime += _timeDelta;
+	if (currTime > 1)
+	{
+		D3DXMATRIX matRotate;
+		D3DXMatrixRotationZ(&matRotate, D3DXToRadian(angleZ));
+		//_sceneBaseDirectionLight->_transform->RotateWorld(0.0f, 0.0f, D3DXToRadian(angleZ));
+		_sceneBaseDirectionLight->_transform->SetRotateWorld(matRotate);
+		angleZ--;
+		if (angleZ <= 0) angleZ = 360;
+		else if (angleZ >= 360) angleZ = 0;
+		currTime = 0;
+	}
+	
 
 	lButtonStateChange();
 	selectLButton();
@@ -363,13 +378,13 @@ void terrainPickingTest::shadowInit(void)
 //	_postEffect = RM_SHADERFX->getResource("Resource/Shaders/PostEffect.fx");
 	
 	this->_sceneBaseDirectionLight->_transform->SetWorldPosition(0, 20, 0);
-	_sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(90), 0, 0);
+	_sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(89), 0, 0);
 }
 
 void terrainPickingTest::shadowUpdate(void)
 {
 	_mainCamera->updateBase();
-	_sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
+	//_sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
 
 	//D3DXVECTOR3 pPos = _player->getPlayerObject()->_transform->GetWorldPosition();
 
