@@ -26,7 +26,7 @@ mainGame::mainGame()
 	SCENEMANAGER->addScene("start", new startScene, false);
 	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
 	SCENEMANAGER->addScene("particleTest5", new particleTest05, false);
-	SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
+	SCENEMANAGER->addScene("particleTest13", new particleTest13, true);
 	SCENEMANAGER->addScene("gameSceneOne", new stageOne, false);
 	SCENEMANAGER->addScene("gameSceneTwo", new stageTwo, false);
 	SCENEMANAGER->addScene("gameSceneThree", new stageThree, false);

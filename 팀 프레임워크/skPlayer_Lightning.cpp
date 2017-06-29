@@ -11,11 +11,11 @@ HRESULT skPlayer_Lightning::init()
 	setMaxNumActionPS(1);
 	setMaxNumFinishPS(1);
 	
-	setPvPreparePS(0, "번개", 1);
+	setPvPreparePS(0, "번개준비", 1);
 	setPvActionPS(0, "번개", 1);
 
-	//_pvPrepaerPS[0][0]->SetLimitTime(0.1f);
-	_pvActionPS[0][0]->SetLimitTime(20.0f);
+	_pvPrepaerPS[0][0]->SetLimitTime(1.0f);
+	_pvActionPS[0][0]->SetLimitTime(6.0f);
 
 	/*for (int i = 0; i < _pvFinishPS[0].size(); i++)
 	{
@@ -50,21 +50,21 @@ bool skPlayer_Lightning::Prepare()
 	//playerPos.y += 0.01;
 
 	////_pvPrepaerPS[0][0]->Transform()->SetWorldMatrix(_skillPosTrans->GetFinalMatrix());
-	//_pvPrepaerPS[0][0]->Transform()->SetWorldPosition(playerPos);
+	_pvPrepaerPS[0][0]->Transform()->SetWorldPosition(_skillPosTrans->GetLocalPosition());
 	////_pvPrepaerPS[0][0]->Transform()->LookDirection(_skillPosTrans->GetForward());
-	//_pvPrepaerPS[0][0]->update();
+	_pvPrepaerPS[0][0]->update();
 
 	////_pvPrepaerPS[1][0]->Transform()->SetWorldMatrix(_skillPosTrans->GetFinalMatrix());
 	////_pvPrepaerPS[1][0]->Transform()->SetWorldPosition(_oneTagerTrans->GetWorldPosition());
 	////_pvPrepaerPS[1][0]->update();
 
 
-	//if (_pvPrepaerPS[0][0]->autoTimeReset(false))
-	//{
+	if (_pvPrepaerPS[0][0]->autoTimeReset(false))
+	{
 		//_skillPrepareOn = false;
 		_skillActionOn = true;
 		//_skillResetOn = true;
-	//}
+	}
 
 	
 
@@ -75,7 +75,13 @@ bool skPlayer_Lightning::Action()
 {
 	D3DXVECTOR3 ActionPos = _skillPosTrans->GetWorldPosition();
 
+	_pvActionPS[0][0]->Transform()->SetWorldPosition(_oneTargetTrans->GetWorldPosition());
 	_pvActionPS[0][0]->update();
+
+	if (_pvActionPS[0][0]->autoTimeReset())
+	{
+		_skillResetOn = true;
+	}
 
 	return false;
 }
