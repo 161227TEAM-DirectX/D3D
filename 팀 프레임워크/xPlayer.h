@@ -9,6 +9,7 @@
 
 class monster;
 class terrain;
+class damageText;
 /*
 플레이어 키
 
@@ -46,6 +47,7 @@ struct tagIndex
 	DWORD z;
 	DWORD w;
 };
+
 
 //플레이어는 항상 존재하지만 싱글톤으로는 구현하지 않고,
 //플레이어의 데이터만을 싱글톤으로 구현한다.
@@ -141,11 +143,13 @@ private:
 
 	DWORD* idx;
 
+	damageText* _dmText;
+
 public:
 
 	HRESULT init();
 	void update();
-	void render();
+	void render();//플레이어 렌더는 씬에서 오브젝트 렌더 후 따로 호출해줘야함.
 	void release(void);
 
 	//초기화 부분에서 호출되어 이전 데이터를 가져온다.
@@ -205,13 +209,23 @@ public:
 
 	void setBladeLight();
 
-	void updateBladeLight();
-
 	void drawBladeLight();
 
 	void BladePosInit();
 
-	//씬에서 호출해주는 친구들
+	void skilltrigger();
+
+	void useNowSkill();
+
+	void skillProcesser();
+
+
+	//=========================================================================================================//
+	//											씬에서 호출해주는 친구들
+	//=========================================================================================================//
+
+	//검광행렬을 렌더부분에서 업데이트 해야함.
+	void out_updateBladeLight();
 
 	//아이템의 행렬을 업데이트해준다.
 	void out_ItemUpdate();
@@ -219,17 +233,12 @@ public:
 	//마우스를 이용한 타겟 설정
 	void out_setTargetByMouse(camera* mainCamera);
 
-	//
+	//지형 연결
 	void out_setlinkTerrain(terrain& rand) { this->linkTerrain = &rand; }
 
-	//
+	//몬스터 리젼 연결
 	void out_setMonsterRegion(vector<monster*>* monsters) { this->_monsterPool = monsters; }
 
-	void skilltrigger();
-
-	void useNowSkill();
-
-	void skillProcesser();
 
 	xPlayer() {};
 	~xPlayer() {};

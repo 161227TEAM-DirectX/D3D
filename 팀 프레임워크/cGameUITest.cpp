@@ -34,11 +34,11 @@ HRESULT cGameUITest::init()
 	//UI_MANAGER->AddUI("플레이어바", temp);
 
 
-	temp = new cDxImgUI("quickSlotUI_back");
-	temp->GetUI()->SetPosition(D3DXVECTOR3(WINSIZEX / 2, WINSIZEY / 2, 0));
-	temp->GetUI()->SetDrawBoundingBox(true);
-	temp->GetUI()->SetCenterDraw(true);
-	UI_MANAGER->AddUI("quickSlotUI_back", temp);
+	//temp = new cDxImgUI("quickSlotUI_back");
+	//temp->GetUI()->SetPosition(D3DXVECTOR3(WINSIZEX / 2, WINSIZEY / 2, 0));
+	//temp->GetUI()->SetDrawBoundingBox(true);
+	//temp->GetUI()->SetCenterDraw(true);
+	//UI_MANAGER->AddUI("quickSlotUI_back", temp);
 
 	return S_OK;
 }
@@ -62,7 +62,7 @@ void cGameUITest::update()
 	m_pBar->movePos(m_pPlBar->GetUI()->GetPosition().x, m_pPlBar->GetUI()->GetPosition().y);
 	m_pBar2->movePos(m_pPlBar->GetUI()->GetPosition().x, m_pPlBar->GetUI()->GetPosition().y);
 
-	UI_MANAGER->update();
+	//UI_MANAGER->update();
 }
 
 void cGameUITest::render()
@@ -70,7 +70,7 @@ void cGameUITest::render()
 	LineMake(0, WINSIZEY / 2, WINSIZEX, WINSIZEY / 2);
 	LineMake(WINSIZEX / 2, 0, WINSIZEX / 2, WINSIZEY);
 
-	UI_MANAGER->render();
+	//UI_MANAGER->render();
 
 	m_pPlBar->render();
 	m_pBar->render();

@@ -92,6 +92,7 @@ HRESULT stageOne::init()
 
 	float tempY = _terrain->getHeight(0.0f, 0.0f);
 
+
 	//플레이어 초기화
 	player->out_setlinkTerrain(*_terrain);
 	player->init();
@@ -103,7 +104,13 @@ HRESULT stageOne::init()
 		_renderObject.push_back(player->getRenderObject()[i]);
 	}
 
-	SOUNDMANAGER->play("마을1", 0.1f);
+	ACMANAGER->Init(*_terrain, *player);
+	
+	SOUNDMANAGER->play("필드1", 0.1f);
+
+	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
+	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, 5));
+
 	return S_OK;
 }
 
@@ -134,6 +141,8 @@ void stageOne::update()
 	sceneBaseDirectionLight->_transform->RotateSlerp(*sceneBaseDirectionLight->_transform, *toRotate, _timeDelta);
 
 	player->update();
+
+	player->out_setTargetByMouse(_mainCamera);
 
 	//오브젝트 업데이트
 	for (int i = 0; i < _renderObject.size(); i++) _renderObject[i]->update();
@@ -175,7 +184,6 @@ void stageOne::render()
 	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resource/Testures/Ramp_1.png"));
 	xMeshSkinned::setBaseLight(this->sceneBaseDirectionLight);
 
-	player->render();
 
 	for (int i = 0; i < this->_cullObject.size(); i++)
 	{
@@ -183,8 +191,10 @@ void stageOne::render()
 		if (_cullObject[i] == player->getPlayerObject())
 		{
 			player->out_ItemUpdate();
+			player->out_updateBladeLight();
 		}
 	}
+	player->render();
 }
 
 void stageOne::shadowInit(void)

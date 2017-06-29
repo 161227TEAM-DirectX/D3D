@@ -88,6 +88,10 @@ namespace dx
 		int ShakePosFlag;			//위치 허용축 플레그
 		int ShakeRotFlag;			//회전 허용축 플레그
 
+		transform* _linkTrans;		//카메라가 플레이어를 추적하기 위한 트랜스폼
+
+		D3DXVECTOR3 _relativeCamPos; //플레이어가 있다면
+
 	public:
 		transform(void);
 		~transform(void);
@@ -251,5 +255,10 @@ namespace dx
 		//흔들림 축 설정
 		void SetShakePosFlag(int flag);
 		void SetShakeRotFlag(int flag);
+
+
+		//외부 호출!
+		void out_SetLinkTrans(dx::transform* trans) { _linkTrans = trans; }
+		void out_SetRelativeCamPos(D3DXVECTOR3 vec) { _relativeCamPos = vec; }
 	};
 }

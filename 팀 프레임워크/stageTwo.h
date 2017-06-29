@@ -4,6 +4,7 @@ class mapObject;
 class Environment;
 class WaterTerrain;
 class monster;
+class cUIPlayer;
 class stageTwo :	public iGameNode
 {
 private:
@@ -30,6 +31,10 @@ private:
 	int angleZ;
 	tagSaveMap envTemp;
 	tagSaveMap waterTemp;
+
+private:
+	cUIPlayer* m_pUIPlayer;
+
 public:
 	stageTwo();
 	~stageTwo();
