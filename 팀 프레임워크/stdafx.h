@@ -479,6 +479,14 @@ namespace LHS
 	};
 
 	const float MOVETIME = 1.5f;
+
+	enum FONTCOLOR
+	{
+		FONT_WHITE = 0,
+		FONT_RED,
+		FONT_BLUE,
+		FONT_GREEN
+	};
 }
 
 

@@ -32,6 +32,10 @@ public:
 		_radPtc.endFrameNum = inEndFrameNum;	//1더하기는 개수를 위해
 	};
 
+	//UV이미지 반전
+	void uvReverseImgU() { _radPtc.reverseImgU_On = true; };
+	void uvReverseImgV() { _radPtc.reverseImgV_On = true; };
+
 	//void InitStartAnimation(int startFrameX, int startFrameY, bool reverseOn = FALSE) {};
 
 public:

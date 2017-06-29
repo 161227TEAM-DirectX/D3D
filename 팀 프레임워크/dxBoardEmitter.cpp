@@ -85,7 +85,7 @@ void dxBoardEmitter::update()
 
 		if (_spawnTime <= _spawnCurrentTime)
 		{
-			if (iter->isAlive == false && checkNum < _onePtcNum )
+			if (iter->isAlive == false && checkNum < _onePtcNum)
 			{
 
 				//재활성화
@@ -287,6 +287,8 @@ void dxBoardEmitter::ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcI
 		ptcTrans.SetWorldMatrix(getViewInverse);
 	}
 
+	//회전 적용
+	ptcTrans.RotateSelf(iter->rotateAngle);
 
 	//ptcTrans.SetWorldMatrix(_psTrans->GetFinalMatrix()*getViewInverse);
 	//ptcTrans.SetWorldMatrix(_psTrans->GetFinalMatrix()*getView);
@@ -303,7 +305,15 @@ void dxBoardEmitter::ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcI
 	D3DXVECTOR3 y = ptcTrans.GetUp()*iter->vertical;
 	//D3DXVECTOR3 z = ptcTrans.GetForward()*iter->vertical;
 
-	float halfScale = iter->size*0.5;
+	//float halfScale = iter->size*0.5;
+
+	//그려지는 중심 위치에 따른 보정
+	D3DXVECTOR2 scale0 = iter->scaleHV0;
+	D3DXVECTOR2 scale1 = iter->scaleHV1;
+	D3DXVECTOR2 scale2 = iter->scaleHV2;
+	D3DXVECTOR2 scale3 = iter->scaleHV3;
+
+
 
 	D3DXCOLOR inColor = iter->color;
 
@@ -383,10 +393,15 @@ void dxBoardEmitter::ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcI
 	D3DXVECTOR2 uv3 = iter->UV3;
 
 	//정점 정보 대입
-	(ptcVertex + 0)->position = posCenter + (-x * halfScale) + (y * halfScale);
+	(ptcVertex + 0)->position = posCenter + (-x * scale0.x) + (y * scale0.y);
+	(ptcVertex + 1)->position = posCenter + (x * scale1.x) + (y * scale1.y);
+	(ptcVertex + 2)->position = posCenter + (-x * scale2.x) + (-y * scale2.y);
+	(ptcVertex + 3)->position = posCenter + (x * scale3.x) + (-y * scale3.y);
+
+	/*(ptcVertex + 0)->position = posCenter + (-x * halfScale) + (y * halfScale);
 	(ptcVertex + 1)->position = posCenter + (x * halfScale) + (y * halfScale);
 	(ptcVertex + 2)->position = posCenter + (-x * halfScale) + (-y * halfScale);
-	(ptcVertex + 3)->position = posCenter + (x * halfScale) + (-y * halfScale);
+	(ptcVertex + 3)->position = posCenter + (x * halfScale) + (-y * halfScale);*/
 
 	(ptcVertex + 0)->uv = uv0;
 	(ptcVertex + 1)->uv = uv1;

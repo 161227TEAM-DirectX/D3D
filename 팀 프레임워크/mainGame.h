@@ -4,9 +4,6 @@
 //===================================================================================
 //이현총 씬 테스트 헤더파일
 //===================================================================================
-#include "particleTest.h"
-#include "particleTest02.h"
-#include "particleTest03.h"
 #include "particleTest04.h"
 #include "particleTest05.h"
 #include "particleTest06.h"

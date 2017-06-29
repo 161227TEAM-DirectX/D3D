@@ -16,6 +16,13 @@ HRESULT psPlayerSet00::init()
 	this->FireMagicSet00("È­¿°¸¶¹ý");
 	//this->set00_02("");
 
+
+	//¹æ¾î¸¶¹ý
+	this->MagicShieldSet00("½¯µå");
+
+	//¶óÀÌÆ®´×
+	this->LightningSet00("¹ø°³");
+
 	return S_OK;
 }
 
@@ -516,8 +523,235 @@ void psPlayerSet00::FireMagicSet00(string psName)
 	_boardEMT->InitAnimation(5, 4);
 
 	_PS->addEmitter(_boardEMT);
+
+
 }
 
-void psPlayerSet00::HealSet02(string psName)
+
+void psPlayerSet00::MagicShieldSet00(string psName)
 {
+	dxParticleSystemSet::init();
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/fireSun02_f60x1.png", 1, 2.0f, 1);
+	//_boardEMT->SetStartLimitTime(0.05f);
+	//_boardEMT->SetActiveLimitTime(1.0f);
+
+	//_boardEMT->InitRandomSize(1.0f, 1.0f);
+	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
+
+	//_boardEMT->InitRandomPositionY(8.5f, 8.5f);
+
+	_boardEMT->InitRandomLifeTime(2.0f, 2.0f);
+
+	_boardEMT->InitAnimation(60, 1);
+	
+	_PS->addEmitter(_boardEMT);
+
+
+	PSM->addPS(psName, _PS, true);
+}
+
+void psPlayerSet00::LightningSet00(string psName)
+{
+	dxParticleSystemSet::init();
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/groundLightnimg_f22x4.png", 5, 0.8f, 40);
+	//_boardEMT->SetStartLimitTime(0.05f);
+	//_boardEMT->SetActiveLimitTime(1.0f);
+
+	_boardEMT->InitRandomAlpha(0.7f, 0.9f);
+
+	_boardEMT->InitRandomSize(1.2f, 2.4f);
+
+	_boardEMT->SetPositionType();
+
+	_boardEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
+	_boardEMT->InitRandomPosSphereRadius(0.0f, 2.0f);
+
+
+	//_boardEMT->Rot
+	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
+
+	_boardEMT->InitRandomPositionY(0.1f, 0.8f);
+
+	//_boardEMT->InitRandomPositionY(8.5f, 8.5f);
+
+	_boardEMT->InitRotateStartAngleZ(0.0f, 360.0f);
+
+	_boardEMT->InitRandomLifeTime(1.0f, 1.6f);
+
+	_boardEMT->InitAnimation(22, 4);
+
+	//_boardEMT->InitCenterPointHV(0.5f, 0.9f);
+
+
+	_PS->addEmitter(_boardEMT);
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/Lightning05_f54x1.png", 2, 0.8f, 200);
+	//_boardEMT->SetStartLimitTime(0.05f);
+	//_boardEMT->SetActiveLimitTime(1.0f);
+
+	_boardEMT->InitRandomAlpha(0.8f, 1.0f);
+
+	_boardEMT->InitRandomSize(1.0f, 2.2f);
+
+	_boardEMT->SetPositionType();
+
+	_boardEMT->InitDirSphere(1.0f,0.0f, 1.0f);
+	_boardEMT->InitRandomPosSphereRadius(0.0f, 1.5f);
+
+
+	//_boardEMT->Rot
+	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
+
+	//_boardEMT->InitRandomPositionY(8.5f, 8.5f);
+
+	//_boardEMT->InitRandomPositionY(8.5f, 8.5f);
+
+	//_boardEMT->InitRotateStartAngleZ(-60.0f, 60.0f);
+
+	_boardEMT->InitRandomLifeTime(1.5f, 2.2f);
+
+	_boardEMT->InitAnimation(54, 1);
+
+	_boardEMT->InitCenterPointHV(0.5f, 0.9f);
+
+	//_boardEMT->uvReverseImgU();
+
+	_boardEMT->InitConstHV(0.5f, 3.0f);
+
+	_PS->addEmitter(_boardEMT);
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/Lightning05_f54x1.png", 2, 0.8f, 200);
+	//_boardEMT->SetStartLimitTime(0.05f);
+	//_boardEMT->SetActiveLimitTime(1.0f);
+
+	_boardEMT->InitRandomAlpha(0.8f, 1.0f);
+
+	_boardEMT->InitRandomSize(1.0f, 2.2f);
+
+	_boardEMT->SetPositionType();
+
+	_boardEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
+	_boardEMT->InitRandomPosSphereRadius(0.0f, 1.5f);
+
+
+	//_boardEMT->Rot
+	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
+
+	//_boardEMT->InitRandomPositionY(8.5f, 8.5f);
+
+	//_boardEMT->InitRandomPositionY(8.5f, 8.5f);
+
+	//_boardEMT->InitRotateStartAngleZ(-60.0f, 60.0f);
+
+	_boardEMT->InitRandomLifeTime(1.5f, 2.2f);
+
+	_boardEMT->InitAnimation(54, 1);
+
+	_boardEMT->InitCenterPointHV(0.5f, 0.9f);
+
+	_boardEMT->uvReverseImgU();
+
+	_boardEMT->InitConstHV(0.3f, 3.0f);
+
+	_PS->addEmitter(_boardEMT);
+
+	_boardEMT->InitConstHV(0.5f, 3.0f);
+
+	_PS->addEmitter(_boardEMT);
+
+	_planeEMT = NULL;
+	_planeEMT = new dxPlaneEmitter;
+	_planeEMT->init("ParticleResources/Texture/LightningCircle_f43x2.png", 1, 2.0f, 1);
+
+	_planeEMT->InitRandomAlpha(0.8f,0.8f);
+	_planeEMT->InitRandomSize(4.0f, 4.0f);
+
+	//_planeEMT->SetPositionType();
+
+	_planeEMT->InitRandomPositionY(0.01f,0.01f);
+
+	//_planeEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
+	//_planeEMT->InitRandomPosSphereRadius(0.0f, 2.0f);
+
+	_planeEMT->InitRandomLifeTime(2.0f, 2.0f);
+
+	_planeEMT->InitAnimation(43, 2);
+
+	//_planeEMT->InitCenterPointHV(0.5f, 1.0f);
+
+	//_planeEMT->uvReverseImgU();
+
+	//_planeEMT->InitConstHV(1.0f, 3.0f);
+
+	_PS->addEmitter(_planeEMT);
+
+	
+	_planeEMT = NULL;
+	_planeEMT = new dxPlaneEmitter;
+	_planeEMT->init("ParticleResources/Texture/circleEffect_f21x1.png", 1, 0.6f, 1);
+
+	_planeEMT->InitRandomAlpha(0.8f, 0.8f);
+	_planeEMT->InitRandomSize(4.0f, 4.0f);
+	_planeEMT->addSizeGraph(0.5f, 3.0f, 3.0f);
+	_planeEMT->addSizeGraph(1.0f, 4.0f, 4.0f);
+	//_planeEMT->SetPositionType();
+
+	_planeEMT->InitRandomPositionY(0.01f, 0.01f);
+
+	//_planeEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
+	//_planeEMT->InitRandomPosSphereRadius(0.0f, 2.0f);
+
+	_planeEMT->InitRandomLifeTime(0.6f, 0.6f);
+
+	_planeEMT->InitAnimation(21, 1);
+
+	//_planeEMT->InitCenterPointHV(0.5f, 1.0f);
+
+	//_planeEMT->uvReverseImgU();
+
+	//_planeEMT->InitConstHV(1.0f, 3.0f);
+
+	_PS->addEmitter(_planeEMT);
+
+
+	//_boardEMT = NULL;
+	//_boardEMT = new dxBoardEmitter;
+	//_boardEMT->init("ParticleResources/Texture/circleEffect_f21x1.png", 1, 0.6f, 1);
+
+	//_boardEMT->InitRandomAlpha(0.6f, 0.8f);
+	//_boardEMT->InitRandomSize(4.0f, 4.0f);
+	//_boardEMT->addSizeGraph(0.5f,3.0f,3.0f);
+	//_boardEMT->addSizeGraph(1.0f, 4.0f, 4.0f);
+
+	////_boardEMT->SetPositionType();
+
+	//_boardEMT->InitRandomPositionY(0.01f, 0.01f);
+
+	////_boardEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
+	////_boardEMT->InitRandomPosSphereRadius(0.0f, 2.0f);
+
+	//_boardEMT->InitRandomLifeTime(0.6f, 0.6f);
+
+	//_boardEMT->InitAnimation(21, 1);
+
+	////_boardEMT->InitCenterPointHV(0.5f, 1.0f);
+
+	////_boardEMT->uvReverseImgU();
+
+	////_boardEMT->InitConstHV(1.0f, 3.0f);
+
+	//_PS->addEmitter(_boardEMT);
+
+
+	PSM->addPS(psName, _PS, true);
 }

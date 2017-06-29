@@ -30,6 +30,8 @@ stageOne::~stageOne()
 	SAFE_DELETE(sceneBaseDirectionLight);
 	SAFE_DELETE(_terrain);
 	SAFE_DELETE(_terrainShadow);
+	water->release();
+	SAFE_DELETE(water);
 }
 
 HRESULT stageOne::init()

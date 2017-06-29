@@ -20,7 +20,10 @@ public:
 	void addSizeGraph(float point, float min, float max) { GraphCheck(_grpSize, point, min, max); _grpSizeOn = true; }
 
 	//가로세로
-	void InitConstVH(float vertical, float horizontal) { _radPtc.vertical = vertical; _radPtc.horizontal = horizontal; }
+	void InitConstHV(float horizontal, float vertical) { _radPtc.horizontal = horizontal; _radPtc.vertical = vertical; }
+
+	//면 상에서 중심 위치를 세팅
+	void InitCenterPointHV(float pointH, float pointV) { _radPtc.centerPointHV.x = pointH, _radPtc.centerPointHV.y = pointV; _radPtc.centerPointHV_On = true; }
 
 public:
 	dxSizeModule() {};

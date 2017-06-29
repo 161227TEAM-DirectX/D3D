@@ -233,7 +233,10 @@ public:	//======================================================================
 
 public:	//=======================================================================================================================
 	//가로세로
-	void InitConstVH(float vertical, float horizontal) { _module->InitConstVH(vertical, horizontal); }
+	void InitConstHV(float horizontal, float vertical) { _module->InitConstHV(horizontal, vertical); }
+
+	//면 상에서 중심 위치를 세팅
+	void InitCenterPointHV(float pointH, float pointV) { _module->InitCenterPointHV(pointH, pointV); }
 
 public:	//=======================================================================================================================
 	//UV애니메이션
@@ -244,6 +247,10 @@ public:	//======================================================================
 
 	//애니매이션 시작지점과 끝지점 지정가능
 	void InitAniPlaySection(int inStartFrameNum, int inEndFrameNum) { _module->InitAniPlaySection(inStartFrameNum, inEndFrameNum); }
+
+	//UV이미지 반전
+	void uvReverseImgU() { _module->uvReverseImgU(); }
+	void uvReverseImgV() { _module->uvReverseImgV(); }
 
 	//void InitRandomSpawnTime(float min, float max) { init(_textureFileName, _onePtcNum, RandomFloatRange(min, max)); }
 	//void InitRandomDirectionVelocity(float min, float max) { _module->InitRandomDirectionVelocity(min, max); }

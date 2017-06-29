@@ -113,8 +113,16 @@ void dxModuleKit::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 
 	_uvMD->ActiveUpdate(iter);			//uv
 
-	//최종계산
 
+
+	//사이즈 및 중심 위치 종합계산
+	iter->scaleHV0 = D3DXVECTOR2(iter->size*iter->lengthHV0.x, iter->size*iter->lengthHV0.y);
+	iter->scaleHV1 = D3DXVECTOR2(iter->size*iter->lengthHV1.x, iter->size*iter->lengthHV1.y);
+	iter->scaleHV2 = D3DXVECTOR2(iter->size*iter->lengthHV2.x, iter->size*iter->lengthHV2.y);
+	iter->scaleHV3 = D3DXVECTOR2(iter->size*iter->lengthHV3.x, iter->size*iter->lengthHV3.y);
+
+
+	//최종계산
 	float DeltaTime = _timeDelta*iter->emitterNum;
 
 	iter->vectorDir = (-iter->preCircleSpeed) + iter->circleSpeed + iter->velocity*DeltaTime + (iter->acceleration*(iter->age*DeltaTime)*(iter->age*DeltaTime) / 2.0f) + iter->posDirectVel*DeltaTime + iter->attractPos*DeltaTime;

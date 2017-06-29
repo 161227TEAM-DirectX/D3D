@@ -34,6 +34,34 @@ void dxSizeModule::InitUpdate(vector<tagDxAttribute>::iterator iter)
 	iter->vertical = _radPtc.vertical;
 	iter->horizontal = _radPtc.horizontal;
 
+	if (_radPtc.centerPointHV_On)
+	{
+		//0----1
+		//|   /|
+		//|  / |
+		//| /  |
+		//|/   |
+		//2----3
+
+		//테스트
+		//_radPtc.centerPointHV.x = 0.5f;
+		//_radPtc.centerPointHV.y = 1.0f;
+
+
+		//H길이(가로)
+		iter->lengthHV0.x = _radPtc.centerPointHV.x;
+		iter->lengthHV1.x = (1.0f -_radPtc.centerPointHV.x);
+		iter->lengthHV2.x = _radPtc.centerPointHV.x;
+		iter->lengthHV3.x = (1.0f - _radPtc.centerPointHV.x);
+
+		//V길이(세로)
+		iter->lengthHV0.y = _radPtc.centerPointHV.y;
+		iter->lengthHV1.y = _radPtc.centerPointHV.y;
+		iter->lengthHV2.y = (1.0f - _radPtc.centerPointHV.y);
+		iter->lengthHV3.y = (1.0f - _radPtc.centerPointHV.y);
+	}
+
+
 }
 
 void dxSizeModule::ActiveUpdate(vector<tagDxAttribute>::iterator iter)

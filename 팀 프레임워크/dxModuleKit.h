@@ -171,7 +171,10 @@ public:	//======================================================================
 
 public:	//=======================================================================================================================
 	//가로세로
-	void InitConstVH(float vertical, float horizontal) { _sizeMD->InitConstVH(vertical, horizontal); }
+	void InitConstHV(float horizontal, float vertical) { _sizeMD->InitConstHV(horizontal, vertical); }
+
+	//면 상에서 중심 위치를 세팅
+	void InitCenterPointHV(float pointH, float pointV) { _sizeMD->InitCenterPointHV(pointH, pointV); }
 
 public:	//=======================================================================================================================
 	//UV애니메이션
@@ -180,6 +183,11 @@ public:	//======================================================================
 	void InitConstAniReactivateNum(int inReactiveateNum) { _uvMD->InitConstAniReactivateNum(inReactiveateNum); }
 	//애니매이션 시작지점과 끝지점 지정가능
 	void InitAniPlaySection(int inStartFrameNum, int inEndFrameNum) { _uvMD->InitAniPlaySection(inStartFrameNum, inEndFrameNum); }
+
+	//UV이미지 반전
+	void uvReverseImgU() { _uvMD->uvReverseImgU(); }
+	void uvReverseImgV() { _uvMD->uvReverseImgV(); }
+
 
 public:
 	dxModuleKit() {};

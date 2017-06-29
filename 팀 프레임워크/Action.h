@@ -53,5 +53,7 @@ public:
 	virtual int Start() = 0;
 	//액션을 실행하는 함수 - 순수가상함수
 	virtual int Update() = 0;
+	//액션중에 랜더가 필요하면 실행하는 함수.
+	virtual void Render() {}
 };
 
