@@ -5,7 +5,8 @@
 #include "Environment.h"
 #include "WaterTerrain.h"
 #include "monster.h"
-
+//
+#include "cUIPlayer.h"
 
 stageTwo::stageTwo()
 	:_shadowDistance(0.0f)
@@ -18,6 +19,9 @@ stageTwo::stageTwo()
 	env = new Environment;
 	water = new WaterTerrain;
 	water->linkCamera(*_mainCamera);
+
+	m_pUIPlayer = new cUIPlayer;
+	
 }
 
 
@@ -34,11 +38,15 @@ stageTwo::~stageTwo()
 	SAFE_DELETE(_terrainShadow);
 	SAFE_DELETE(env);
 	SAFE_DELETE(water);
+	SAFE_DELETE(m_pUIPlayer);
+	SAFE_DELETE(player);
 }
 
 HRESULT stageTwo::init()
 {
 	this->shadowInit();
+
+	m_pUIPlayer->init();
 
 	//지형 초기화
 	_terrain = new terrain;
@@ -94,9 +102,9 @@ HRESULT stageTwo::init()
 
 	float tempY = _terrain->getHeight(0.0f, 0.0f);
 
+
 	//플레이어 초기화
 	player->out_setlinkTerrain(*_terrain);
-	
 	player->init();
 	player->getPlayerObject()->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
 	player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
@@ -112,8 +120,6 @@ HRESULT stageTwo::init()
 	loadNode();
 
 	player->out_setMonsterRegion(&_monsterRegion);
-
-	//PLAYER
 
 	SOUNDMANAGER->play("필드1", 0.1f);
 
@@ -132,13 +138,15 @@ void stageTwo::update()
 	shadowUpdate();
 
 	player->update();
-
 	player->out_setTargetByMouse(_mainCamera);
 
 	//오브젝트 업데이트
 	for (int i = 0; i < _renderObject.size(); i++) _renderObject[i]->update();
 
 	water->update(waterTemp.number);
+
+	m_pUIPlayer->update();
+
 }
 
 void stageTwo::render()
@@ -195,6 +203,8 @@ void stageTwo::render()
 	}
 
 	_terrain->getDijkstra().render();
+
+	m_pUIPlayer->render();
 }
 
 void stageTwo::shadowInit(void)

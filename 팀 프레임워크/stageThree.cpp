@@ -117,6 +117,8 @@ void stageThree::update()
 
 	player->update();
 
+	player->out_setTargetByMouse(_mainCamera);
+
 	//오브젝트 업데이트
 	for (int i = 0; i < _renderObject.size(); i++) _renderObject[i]->update();
 
@@ -156,7 +158,6 @@ void stageThree::render()
 	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resource/Testures/Ramp_1.png"));
 	xMeshSkinned::setBaseLight(this->sceneBaseDirectionLight);
 
-	player->render();
 
 	for (int i = 0; i < this->_cullObject.size(); i++)
 	{
@@ -164,8 +165,10 @@ void stageThree::render()
 		if (_cullObject[i] == player->getPlayerObject())
 		{
 			player->out_ItemUpdate();
+			player->out_updateBladeLight();
 		}
 	}
+	player->render();
 }
 
 void stageThree::shadowInit(void)
