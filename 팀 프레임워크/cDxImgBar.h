@@ -26,7 +26,8 @@ public:
 	void setMoveGauge(int nGauge);
 
 	void updateLoading();
-	void moveBar(int nCurX);
+	void moveBar(int nCurX);		//현재 체력에서 일정 값을 가감한다.
+	void moveBar(float fCurX);		//현재 체력에서 일정 퍼센트를 나타낸다.
 	void movePos(int cx, int cy);
 
 	void render();
