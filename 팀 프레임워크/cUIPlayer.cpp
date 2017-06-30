@@ -198,7 +198,8 @@ void cUIPlayer::update()
 		//m_pBar->moveBar(1);
 		//m_pBar2->moveBar(1);
 	}
-
+	
+	m_pBar->moveBar((float)PLAYERMANAGER->GetHp() / (float)PLAYERMANAGER->GetMaxHp() * 100);
 	
 
 

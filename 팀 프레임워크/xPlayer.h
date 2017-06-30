@@ -59,6 +59,9 @@ private:
 	PL_STATE _state;
 	PL_STATE _prevState;
 	SkillType _nowSelectedSkill;
+
+	PL_WEAPON _weaponCurrent;
+	PL_SHIELD _shieldCurrent;
 	
 	float _moveSpeed;
 	float _damagedTime;
@@ -218,7 +221,8 @@ public:
 	void useNowSkill();
 
 	void skillProcesser();
-
+	
+	void updateEquipments();
 
 	//=========================================================================================================//
 	//											씬에서 호출해주는 친구들

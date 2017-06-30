@@ -74,6 +74,8 @@ public:
 	void removePlayerItemInformation(int num, ITEMINFOMATION temp);
 	void removePlaterInformation(ITEMINFOMATION temp);
 
+	void updatePlayerInfo();
+
 	playerItem() {}
 	~playerItem() {}
 };

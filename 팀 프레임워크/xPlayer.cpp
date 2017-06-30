@@ -36,10 +36,16 @@ HRESULT xPlayer::init()
 	_state = P_STAND;
 	_prevState = P_STAND;
 	PLAYERMANAGER->SetArmor(A_PLATE);
-	PLAYERMANAGER->SetWeapon(W_BLACK_WING);
-	PLAYERMANAGER->SetShield(SH_CROSS);
-	PLAYERMANAGER->Setatt(10000);
-	PLAYERMANAGER->SetHp(1000);
+	//PLAYERMANAGER->SetWeapon(W_BLACK_WING);
+	//PLAYERMANAGER->SetShield(SH_CROSS);
+	
+
+	PLAYERMANAGER->SetorgAtt(10000);
+	PLAYERMANAGER->Setatt(PLAYERMANAGER->GetorgAtt());
+
+	PLAYERMANAGER->SetMaxHp(10000);
+	PLAYERMANAGER->SetHp(PLAYERMANAGER->GetMaxHp());
+
 	PLAYERMANAGER->SetCrit(20.0f);
 
 	_damagedTime = 0.0f;
@@ -61,10 +67,9 @@ HRESULT xPlayer::init()
 	_isJump = false;
 	_isBladePosInit = false;
 
-
-
 	//데이터를 로딩해 이전의 스테이터스와 장비상태를 초기화한다.
 	LoadData();
+
 	xMeshSkinned* pSkinned;
 	D3DXMATRIXA16 matCorrection;
 	D3DXMATRIXA16 matScale;
@@ -109,8 +114,8 @@ HRESULT xPlayer::init()
 
 	//_playerObject->_transform->SetWorldPosition(D3DXVECTOR3(_playerObject->_transform->GetWorldPosition().x, tempY, _playerObject->_transform->GetWorldPosition().z));
 
-
 	_renderObjects.push_back(_playerObject);
+
 	dx::transform* playerTrans = _playerObject->_transform;
 	D3DXVECTOR3 pos = playerTrans->GetWorldPosition();
 
@@ -120,6 +125,7 @@ HRESULT xPlayer::init()
 
 	_attackBound.setBound(&_attackTrans.GetWorldPosition(), &D3DXVECTOR3(0.5, 0.5, 0.5));
 
+	
 	//소켓 설정
 	BONE* handF = _playerObject->_skinnedAnim->getSkinnedMesh()->GetFineBONE("humanfemale_Bone121_CSR");
 	BONE* HEAD = _playerObject->_skinnedAnim->getSkinnedMesh()->GetFineBONE("humanfemale_Bone102");
@@ -284,7 +290,7 @@ HRESULT xPlayer::init()
 	}
 
 	_shieldObject->setMesh(pSkinned3);
-
+	
 
 	_playerObject->_skinnedAnim->Play("S", 0.3F);
 
@@ -305,6 +311,7 @@ HRESULT xPlayer::init()
 
 void xPlayer::update()
 {
+	updateEquipments();
 
 	//_dmText->setPos();
 	/*for (int i = 0; i < this->_renderObjects.size(); i++)
@@ -401,6 +408,12 @@ void xPlayer::release(void)
 void xPlayer::LoadData()
 {
 	//플레이어 데이터 싱글톤 함수에 데이터를 초기화 시킨다. 이게 꼭 플레이어 클래스여야 할까?
+	
+	PLAYERMANAGER->SetWeapon(W_NONE);
+	PLAYERMANAGER->SetShield(SH_NONE);
+
+	_weaponCurrent = W_NONE;
+	_shieldCurrent = SH_NONE;
 
 }
 
@@ -1236,6 +1249,8 @@ void xPlayer::playerSkillOmni(float castingTime)
 //스턴시간 최대 2초가 자연스러움. 그 이상은 좀 부자연스럽.
 void xPlayer::playerDamaged(int damage, float damagedTime, float delayRate, float StunRate, float StunedTime)
 {
+	if (_state == P_DEATH) return;
+
 	PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - damage);
 
 	//무거운 공격! 경직에 걸렸다.
@@ -1263,15 +1278,18 @@ void xPlayer::setHeight()
 void xPlayer::out_ItemUpdate()
 {
 
-	if (PLAYERMANAGER->GetWeapon() != W_NONE)
+	if (_weaponCurrent != W_NONE)
 	{
+		
+
 		D3DXMATRIX matHand = _EquipSocket.find("RHAND")->second->CombinedTransformationMatrix;
 		_weaponObject->_transform->SetWorldMatrix(matHand);
 		//_weaponObject->update();
 	}
 
-	if (PLAYERMANAGER->GetShield() != SH_NONE)
+	if (_shieldCurrent != SH_NONE)
 	{
+	
 		D3DXMATRIX matShield = _EquipSocket.find("SHIELD")->second->CombinedTransformationMatrix;
 		_shieldObject->_transform->SetWorldMatrix(matShield);
 		//_shieldObject->update();
@@ -1637,6 +1655,188 @@ void xPlayer::skillProcesser() {
 		break;
 	default:
 		break;
+	}
+}
+
+void xPlayer::updateEquipments()
+{
+	if (_weaponCurrent != PLAYERMANAGER->GetWeapon())
+	{
+		//소켓 설정
+		BONE* handF = _playerObject->_skinnedAnim->getSkinnedMesh()->GetFineBONE("humanfemale_Bone121_CSR");
+		BONE* HEAD = _playerObject->_skinnedAnim->getSkinnedMesh()->GetFineBONE("humanfemale_Bone102");
+		BONE* ShoulderR = _playerObject->_skinnedAnim->getSkinnedMesh()->GetFineBONE("humanfemale_Bone99");
+		BONE* ShoulderL = _playerObject->_skinnedAnim->getSkinnedMesh()->GetFineBONE("humanfemale_Bone98");
+		BONE* Shield = _playerObject->_skinnedAnim->getSkinnedMesh()->GetFineBONE("humanfemale_Bone110");
+		BONE* handF2 = _playerObject->_skinnedAnim->getSkinnedMesh()->GetFineBONE("humanfemale_Bone113");
+
+		_EquipSocket.insert(make_pair("RHAND", handF));
+		_EquipSocket.insert(make_pair("HEAD", HEAD));
+		_EquipSocket.insert(make_pair("RSHOULDER", ShoulderR));
+		_EquipSocket.insert(make_pair("LSHOULDER", ShoulderL));
+		_EquipSocket.insert(make_pair("SHIELD", Shield));
+		_EquipSocket.insert(make_pair("LHAND", handF2));
+
+		//무기로딩 및 보정행렬 적용
+		D3DXMATRIXA16 matCorrection2, matScale2, matRotate2;
+		D3DXMatrixIdentity(&matCorrection2);
+		//D3DXMatrixRotationY(&matRotate2, D3DXToRadian(270)); //1, 2
+		D3DXMatrixRotationZ(&matRotate2, D3DXToRadian(0)); // 3,4,5
+														   //D3DXMatrixScaling(&matScale2, 0.25, 0.25, 0.25); // 2
+		D3DXMatrixScaling(&matScale2, 0.5, 0.5, 0.5); // 1,3,4,5
+		matCorrection2 = matRotate2*matScale2;
+
+		xMeshStatic* pSkinned2;
+		pSkinned2 = new xMeshStatic;
+
+		//웨폰 오브젝트 초기화 디폴트로 블랙윙을 가져오고 w_none이면 액티브 하지 않는다.
+		//_weaponObject = new baseObject;
+
+		PL_WEAPON AA = PLAYERMANAGER->GetWeapon();
+
+		switch (PLAYERMANAGER->GetWeapon())
+		{
+		case W_NONE:
+			pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon01/weapon01.X", &matCorrection2);
+			_weaponObject->setActive(false);
+			
+			_BladeLength = 0.0f;
+			break;
+		case W_BLACK_WING:
+			D3DXMatrixRotationY(&matRotate2, D3DXToRadian(270));
+			D3DXMatrixScaling(&matScale2, 0.5, 0.5, 0.5);
+			matCorrection2 = matRotate2*matScale2;
+			pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon01/weapon01.X", &matCorrection2);
+			_weaponObject->setActive(true);
+			
+			_BladeLength = 1.0f;
+			break;
+		case W_BROAD:
+			D3DXMatrixRotationY(&matRotate2, D3DXToRadian(270));
+			D3DXMatrixScaling(&matScale2, 0.25, 0.25, 0.25);
+			matCorrection2 = matRotate2*matScale2;
+
+			pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon02/weapon02.X", &matCorrection2);
+			_weaponObject->setActive(true);
+			
+			_BladeLength = 0.7f;
+			break;
+		case W_DEAMON:
+			D3DXMatrixRotationZ(&matRotate2, D3DXToRadian(0));
+			D3DXMatrixScaling(&matScale2, 0.5, 0.5, 0.5);
+			matCorrection2 = matRotate2*matScale2;
+
+			pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon03/weapon03.X", &matCorrection2);
+			_weaponObject->setActive(true);
+			
+			_BladeLength = 0.72f;
+			break;
+		case W_KATANA:
+			D3DXMatrixRotationZ(&matRotate2, D3DXToRadian(0));
+			D3DXMatrixScaling(&matScale2, 0.5, 0.5, 0.5);
+			matCorrection2 = matRotate2*matScale2;
+
+			pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon04/weapon04.X", &matCorrection2);
+			_weaponObject->setActive(true);
+			
+			_BladeLength = 0.5f;
+			break;
+		case W_WOOD:
+			D3DXMatrixRotationZ(&matRotate2, D3DXToRadian(0));
+			D3DXMatrixScaling(&matScale2, 0.33, 0.33, 0.33);
+			matCorrection2 = matRotate2*matScale2;
+
+			pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon05/weapon05.X", &matCorrection2);
+			_weaponObject->setActive(true);
+			
+			_BladeLength = 0.0f;
+			break;
+		case W_END:
+			break;
+		default:
+			break;
+		}
+		_weaponObject->setMesh(pSkinned2);
+
+		_edgeTrans->SetWorldPosition(_handTrans->GetWorldPosition() + _handTrans->GetRight() * _BladeLength);
+		_handTrans->AddChild(_edgeTrans);
+
+		_weaponCurrent = PLAYERMANAGER->GetWeapon();
+	}
+
+	if (_shieldCurrent != PLAYERMANAGER->GetShield())
+	{
+
+		D3DXMATRIXA16 matCorrection3, matScale3, matRotate3;
+		D3DXMatrixIdentity(&matCorrection3);
+		D3DXMatrixRotationY(&matRotate3, D3DXToRadian(270));
+		D3DXMatrixScaling(&matScale3, 0.25f, 0.25f, 0.25f);
+		matCorrection3 = matRotate3 * matScale3;
+		xMeshStatic* pSkinned3;
+		pSkinned3 = new xMeshStatic;
+		//_shieldObject = new baseObject;
+
+		switch (PLAYERMANAGER->GetShield())
+		{
+		case SH_NONE:
+			pSkinned3 = RM_XMESH->getResource("Resource/item/Shield/shield01/shield01.X", &matCorrection3);
+			_shieldObject->setActive(false);
+			
+			break;
+		case SH_SPIKE:
+			D3DXMatrixRotationY(&matRotate3, D3DXToRadian(270));//실드 1, 2
+			D3DXMatrixScaling(&matScale3, 0.25f, 0.25f, 0.25f);
+			matCorrection3 = matRotate3 * matScale3;
+
+			pSkinned3 = RM_XMESH->getResource("Resource/item/Shield/shield01/shield01.X", &matCorrection3);
+			_shieldObject->setActive(true);
+			
+			break;
+		case SH_BUCKLER:
+			D3DXMatrixRotationY(&matRotate3, D3DXToRadian(270));//실드 1, 2
+			D3DXMatrixScaling(&matScale3, 0.2f, 0.2f, 0.2f);
+			matCorrection3 = matRotate3 * matScale3;
+
+			pSkinned3 = RM_XMESH->getResource("Resource/item/Shield/shield02/shield02.X", &matCorrection3);
+			_shieldObject->setActive(true);
+			
+			break;
+		case SH_BRONZE:
+			D3DXMatrixRotationZ(&matRotate3, D3DXToRadian(270));//실드 3, 4, 5
+			D3DXMatrixScaling(&matScale3, 0.5f, 0.5f, 0.5f);
+			matCorrection3 = matRotate3 * matScale3;
+
+			pSkinned3 = RM_XMESH->getResource("Resource/item/Shield/shield03/shield03.X", &matCorrection3);
+			_shieldObject->setActive(true);
+			
+			break;
+		case SH_CROSS:
+			D3DXMatrixRotationZ(&matRotate3, D3DXToRadian(270));//실드 3, 4, 5
+			D3DXMatrixScaling(&matScale3, 0.25f, 0.25f, 0.25f);
+			matCorrection3 = matRotate3 * matScale3;
+
+			pSkinned3 = RM_XMESH->getResource("Resource/item/Shield/shield04/shield04.X", &matCorrection3);
+			_shieldObject->setActive(true);
+			
+			break;
+		case SH_KITE:
+			D3DXMatrixRotationZ(&matRotate3, D3DXToRadian(270));//실드 3, 4, 5
+			D3DXMatrixScaling(&matScale3, 0.25f, 0.25f, 0.25f);
+			matCorrection3 = matRotate3 * matScale3;
+
+			pSkinned3 = RM_XMESH->getResource("Resource/item/Shield/shield05/shield05.X", &matCorrection3);
+			_shieldObject->setActive(true);
+			
+			break;
+		case SH_END:
+			break;
+		default:
+			break;
+		}
+
+		_shieldObject->setMesh(pSkinned3);
+
+		_shieldCurrent = PLAYERMANAGER->GetShield();
 	}
 }
 
