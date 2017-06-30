@@ -787,44 +787,49 @@ void psPlayerSet00::LightningSet01(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("ParticleResources/Texture/rune00_frame7x4_tt15.png", 1, 0.5f, 1);
+	_boardEMT->init("ParticleResources/Texture/rune01_f22x1.png", 1, 2.0f, 1);
 	//_planeEMT->SetStartLimitTime(2.0f);
 	//_boardEMT->SetActiveLimitTime(1.0f);
 
 	_boardEMT->InitRandomAlpha(0.8f, 1.0f);
 
-	_boardEMT->InitRandomSize(2.0f, 2.0f);
+	_boardEMT->InitRandomSize(0.5f, 0.5f);
 
-	_boardEMT->InitRandomPositionY(3.5f, 3.5f);
+	_boardEMT->InitRandomPositionY(3.2f, 3.2f);
 	//_boardEMT->InitRandomPositionZ(2.5f, 2.5f);
 
 
-	_boardEMT->InitRotateAngleSpeedY(90.0f,90.0f);
+	//_boardEMT->InitRotateAngleSpeedY(90.0f,90.0f);
 
-	_boardEMT->InitRandomLifeTime(1.5f, 1.5f);
+	_boardEMT->InitRandomLifeTime(2.0f, 2.0f);
 
 
 
 	//_planeEMT->InitCenterPointHV(0.5f,1.0f);
 
-	_boardEMT->InitAnimation(7, 4, 15);
+	_boardEMT->InitAnimation(22, 1);
 
 	_PS->addEmitter(_boardEMT);
 
 
 	_planeEMT = NULL;
 	_planeEMT = new dxPlaneEmitter;
-	_planeEMT->init("ParticleResources/Texture/magicCircle_part02.tga", 1, 1.5f, 1);
+	_planeEMT->init("ParticleResources/Texture/magicCircle_part02.tga", 1, 0.5f, 10);
 	//_planeEMT->SetStartLimitTime(2.0f);
 	//_boardEMT->SetActiveLimitTime(1.0f);
 
 	_planeEMT->InitRandomAlpha(0.8f, 1.0f);
 
-	_planeEMT->InitRandomSize(4.0f, 4.0f);
+	_planeEMT->InitRandomSize(2.0f, 2.0f);
+	_planeEMT->InitRandomSizeEnd(4.0f, 4.0f);
 
-	_planeEMT->InitRandomPositionY(2.0f, 2.0f);
+	_planeEMT->InitRandomPositionY(2.5f, 2.5f);
 
+	//_planeEMT->InitRotateAngleSpeedX(20.0f, 20.0f);
 	_planeEMT->InitRotateAngleSpeedY(90.0f, 90.0f);
+
+	_planeEMT->InitRandomVelocityY(-1.5f, -1.5f);
+	//_planeEMT->InitRandomAccelerationY(-280.0f, -280.0f);
 
 	_planeEMT->InitRandomLifeTime(1.5f, 1.5f);
 
