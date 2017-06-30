@@ -535,7 +535,50 @@ void psPlayerSet00::MagicShieldSet00(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("ParticleResources/Texture/fireSun02_f60x1.png", 1, 3.0f, 1);
+	_boardEMT->init("ParticleResources/Texture/sheild_f4x4.png", 1, 2.0f, 1);
+	//_boardEMT->SetStartLimitTime(0.05f);
+	//_boardEMT->SetActiveLimitTime(1.0f);
+
+	_boardEMT->InitRandomSize(2.0f, 2.0f);
+	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
+
+	_boardEMT->InitRandomPositionY(1.3f, 1.3f);
+
+	_boardEMT->InitRandomPositionX(1.0f, 1.0f);
+
+	_boardEMT->InitRandomLifeTime(2.0f, 2.0f);
+
+	_boardEMT->InitAnimation(4, 4);
+	
+	_PS->addEmitter(_boardEMT);
+
+
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/sheild_f4x4.png", 1, 2.0f, 1);
+	//_boardEMT->SetStartLimitTime(0.05f);
+	//_boardEMT->SetActiveLimitTime(1.0f);
+
+	//_boardEMT->InitRandomSize(1.0f, 1.0f);
+	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
+
+	_boardEMT->InitRandomSize(2.0f, 2.0f);
+
+	_boardEMT->InitRandomPositionY(1.3f, 1.3f);
+
+	_boardEMT->InitRandomPositionX(-1.0f, -1.0f);
+
+	_boardEMT->InitRandomLifeTime(2.0f, 2.0f);
+
+	_boardEMT->InitAnimation(4, 4);
+
+	_PS->addEmitter(_boardEMT);
+
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/sheild_f4x4.png", 1, 2.0f, 1);
 	//_boardEMT->SetStartLimitTime(0.05f);
 	//_boardEMT->SetActiveLimitTime(1.0f);
 
@@ -544,10 +587,40 @@ void psPlayerSet00::MagicShieldSet00(string psName)
 
 	//_boardEMT->InitRandomPositionY(8.5f, 8.5f);
 
-	_boardEMT->InitRandomLifeTime(3.0f, 3.0f);
+	_boardEMT->InitRandomSize(3.0f, 3.0f);
 
-	_boardEMT->InitAnimation(60, 1);
-	
+	_boardEMT->InitRandomPositionY(1.3f, 1.3f);
+
+	_boardEMT->InitRandomPositionZ(1.0f, 1.0f);
+
+	_boardEMT->InitRandomLifeTime(2.0f, 2.0f);
+
+	_boardEMT->InitAnimation(4, 4);
+
+	_PS->addEmitter(_boardEMT);
+
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/sheild_f4x4.png", 1, 2.0f, 1);
+	//_boardEMT->SetStartLimitTime(0.05f);
+	//_boardEMT->SetActiveLimitTime(1.0f);
+
+	//_boardEMT->InitRandomSize(1.0f, 1.0f);
+	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
+
+	//_boardEMT->InitRandomPositionY(8.5f, 8.5f);
+
+	_boardEMT->InitRandomSize(2.0f, 2.0f);
+
+	_boardEMT->InitRandomPositionY(1.3f, 1.3f);
+
+	_boardEMT->InitRandomPositionZ(-1.0f, -1.0f);
+
+	_boardEMT->InitRandomLifeTime(2.0f, 2.0f);
+
+	_boardEMT->InitAnimation(4, 4);
+
 	_PS->addEmitter(_boardEMT);
 
 
