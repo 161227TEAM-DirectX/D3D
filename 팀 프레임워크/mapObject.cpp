@@ -298,6 +298,16 @@ void mapObject::deletePortal()
 	_tportal.clear();
 }
 
+void mapObject::portalRender(camera * _mainCamera)
+{
+	for (int j = 0; j < _tportal.size(); j++)
+	{
+		_tportal[j]->LinkCamera(*_mainCamera);
+		_tportal[j]->update();
+		_tportal[j]->renderPortal();
+	}
+}
+
 void mapObject::portal(vector<baseObject*>& tempObect)
 {
 	int j = 0;

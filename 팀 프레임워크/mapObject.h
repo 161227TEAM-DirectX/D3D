@@ -22,6 +22,8 @@ public:
 	void potralErase(int objectNumber, int number);
 
 	void deletePortal();
+
+	void portalRender(camera * _mainCamera);
 	void portal(vector<baseObject*>& tempObectr);
 
 	HRESULT init() { return S_OK; }

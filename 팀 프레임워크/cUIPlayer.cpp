@@ -190,15 +190,16 @@ void cUIPlayer::update()
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
 		//m_pBar->moveBar(-1);
-		m_pBar2->moveBar(-1);
+		//m_pBar2->moveBar(-1);
+
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
 		//m_pBar->moveBar(1);
-		m_pBar2->moveBar(1);
+		//m_pBar2->moveBar(1);
 	}
 
-
+	
 
 
 	//=================================================================================

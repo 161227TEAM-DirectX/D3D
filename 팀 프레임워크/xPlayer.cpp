@@ -38,8 +38,8 @@ HRESULT xPlayer::init()
 	PLAYERMANAGER->SetArmor(A_PLATE);
 	PLAYERMANAGER->SetWeapon(W_BLACK_WING);
 	PLAYERMANAGER->SetShield(SH_CROSS);
-	PLAYERMANAGER->Setatt(1000000);
-	PLAYERMANAGER->SetHp(100000000);
+	PLAYERMANAGER->Setatt(10000);
+	PLAYERMANAGER->SetHp(1000);
 	PLAYERMANAGER->SetCrit(20.0f);
 
 	_damagedTime = 0.0f;
@@ -338,6 +338,8 @@ void xPlayer::update()
 	_prevState = _state;
 
 	//updateBladeLight();
+
+	
 }
 
 void xPlayer::render()
@@ -1133,6 +1135,10 @@ void xPlayer::testControl()
 		_nowSelectedSkill = SKILL_MAGICMISSILE;
 	}
 
+	if (KEYMANAGER->isOnceKeyDown('3'))
+	{
+		_nowSelectedSkill = SKILL_LIGHTNING;
+	}
 
 	//if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
 	//{
@@ -1529,10 +1535,7 @@ void xPlayer::skilltrigger()
 		case SKILL_NONE:
 			break;
 		case SKILL_HEAL:
-			if (targetMonster != NULL)
-			{
-				playerSkillOmni(2.0f);
-			}
+			playerSkillOmni(2.0f);
 			//_state = P_READYOMNI;
 			break;
 		case SKILL_MAGICMISSILE:
@@ -1542,8 +1545,11 @@ void xPlayer::skilltrigger()
 			}
 			//_state = P_READYSPELL;
 			break;
-		case SKILL_SHIELD:
-			playerSkillOmni(2.0f);
+		case SKILL_LIGHTNING:
+			if (targetMonster != NULL)
+			{
+				playerSkillOmni(2.0f);
+			}
 			//_state = P_READYOMNI;
 			break;
 		case SKILL_END:
@@ -1576,9 +1582,11 @@ void xPlayer::useNowSkill()
 				//SKM->findSK("¸ÅÁ÷½´ÅÍ")->setOneTargetTrans(targetMonster->_transform);
 			}
 			break;
-		case SKILL_SHIELD:
-			SKM->findSK("½Çµå")->setSkillPosTrans(_playerObject->_transform);
-			SKM->findSK("½Çµå")->Start();
+		case SKILL_LIGHTNING:
+			SKM->findSK("¶óÀÌÆ®´×")->setSkillPosTrans(this->_playerObject->_transform);
+			SKM->findSK("¶óÀÌÆ®´×")->setSkillDirTrans(this->_playerObject->_transform);
+			SKM->findSK("¶óÀÌÆ®´×")->setOneTargetTrans(targetMonster->_transform);
+			SKM->findSK("¶óÀÌÆ®´×")->Start();
 			break;
 		case SKILL_END:
 			break;
@@ -1617,7 +1625,11 @@ void xPlayer::skillProcesser() {
 		//	//SKM->findSK("¸ÅÁ÷½´ÅÍ")->setOneTargetTrans(targetMonster->_transform);
 		//}
 		break;
-	case SKILL_SHIELD:
+	case SKILL_LIGHTNING:
+		if (SKM->findSK("¶óÀÌÆ®´×")->getCollision())
+		{
+			targetMonster->setHP(targetMonster->getHP() - PLAYERMANAGER->Getatt());
+		}
 		/*SKM->findSK("½Çµå")->setSkillPosTrans(_playerObject->_transform);
 		SKM->findSK("½Çµå")->Start();*/
 		break;

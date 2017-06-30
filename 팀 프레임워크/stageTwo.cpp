@@ -89,7 +89,7 @@ HRESULT stageTwo::init()
 		object = IOSAVEOBJECTMANAGER->findTag("³Ñ¹ö" + to_string(i + 1));
 		baseObject* temp = new baseObject;
 		D3DXMATRIX matRotate;
-		objectSet->objectSet(object.objectNumber, temp, matRotate, object.objectX, object.objectY, object.objectZ, 0.3f, object.objectRotate);
+		objectSet->objectSet(object.objectNumber, temp, matRotate, object.objectX, object.objectY, object.objectZ, object.objectScale, object.objectRotate);
 
 		_renderObject.push_back(temp);
 	}
@@ -182,6 +182,7 @@ void stageTwo::render()
 			this->_cullObject.push_back(_renderObject[i]);
 		}
 	}
+	objectSet->portalRender(_mainCamera);
 
 	_terrain->render(_mainCamera, sceneBaseDirectionLight, _directionLightCamera);
 
