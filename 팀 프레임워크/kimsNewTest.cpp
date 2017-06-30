@@ -203,7 +203,7 @@ void kimsNewTest::render()
 		if (_cullObjects[i] == _player->getPlayerObject())
 		{
 			_player->out_ItemUpdate();
-			_player->updateBladeLight();
+			_player->out_updateBladeLight();
 		}
 	}
 	_terrain->render(_mainCamera, _sceneBaseDirectionLight, _directionLightCamera);

@@ -5,10 +5,11 @@
 #include "Environment.h"
 #include "WaterTerrain.h"
 #include "monster.h"
-
+//
+#include "cUIPlayer.h"
 
 stageTwo::stageTwo()
-	:_shadowDistance(0.0f)
+	:_shadowDistance(0.0f), currTime(0.0f), angleZ(90)
 {
 	player = new xPlayer;
 	_mainCamera = new camera;
@@ -18,6 +19,9 @@ stageTwo::stageTwo()
 	env = new Environment;
 	water = new WaterTerrain;
 	water->linkCamera(*_mainCamera);
+	toRotate = new dx::transform;
+
+	m_pUIPlayer = new cUIPlayer;
 }
 
 
@@ -34,11 +38,16 @@ stageTwo::~stageTwo()
 	SAFE_DELETE(_terrainShadow);
 	SAFE_DELETE(env);
 	SAFE_DELETE(water);
+	SAFE_DELETE(toRotate);
+	SAFE_DELETE(m_pUIPlayer);
+	SAFE_DELETE(player);
 }
 
 HRESULT stageTwo::init()
 {
 	this->shadowInit();
+
+	m_pUIPlayer->init();
 
 	//지형 초기화
 	_terrain = new terrain;
@@ -94,12 +103,12 @@ HRESULT stageTwo::init()
 
 	float tempY = _terrain->getHeight(0.0f, 0.0f);
 
+
 	//플레이어 초기화
 	player->out_setlinkTerrain(*_terrain);
 	player->init();
 	player->getPlayerObject()->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
 	player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
-	
 
 	for (int i = 0; i < player->getRenderObject().size(); i++)
 	{
@@ -113,9 +122,10 @@ HRESULT stageTwo::init()
 
 	player->out_setMonsterRegion(&_monsterRegion);
 
-	//PLAYER
-
 	SOUNDMANAGER->play("필드1", 0.1f);
+
+	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
+	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3( 0, 5, 5));
 
 	return S_OK;
 }
@@ -128,14 +138,34 @@ void stageTwo::update()
 {
 	shadowUpdate();
 
-	player->update();
+	currTime += _timeDelta;
+	if (currTime > 1)
+	{
+		//D3DXVECTOR3 matAxis(0.0f, 0.0f, 1.0f);
+		D3DXMatrixIdentity(&matRotate);
+		//D3DXMatrixRotationAxis(&matRotate, &matAxis, D3DXToRadian(angleZ));
+		D3DXMatrixRotationX(&matRotate, D3DXToRadian(angleZ));
+		//_sceneBaseDirectionLight->_transform->RotateWorld(0.0f, 0.0f, D3DXToRadian(angleZ));
+		//sceneBaseDirectionLight->_transform->SetRotateWorld(matRotate);
+		toRotate->SetRotateWorld(matRotate);
+		angleZ--;
+		if (angleZ <= 0) angleZ = 360;
+		else if (angleZ >= 360) angleZ = 0;
+		currTime = 0;
+	}
 
+	sceneBaseDirectionLight->_transform->RotateSlerp(*sceneBaseDirectionLight->_transform, *toRotate, _timeDelta);
+
+	player->update();
 	player->out_setTargetByMouse(_mainCamera);
 
 	//오브젝트 업데이트
 	for (int i = 0; i < _renderObject.size(); i++) _renderObject[i]->update();
 
 	water->update(waterTemp.number);
+
+	m_pUIPlayer->update();
+
 }
 
 void stageTwo::render()
@@ -157,7 +187,7 @@ void stageTwo::render()
 
 
 	env->renderEnvironment(envTemp.number);
-//	water->render(waterTemp.number);
+	water->render(waterTemp.number);
 
 	//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅
 	xMeshStatic::setCamera(_mainCamera);
@@ -172,7 +202,7 @@ void stageTwo::render()
 	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resource/Testures/Ramp_1.png"));
 	xMeshSkinned::setBaseLight(this->sceneBaseDirectionLight);
 
-	player->render();
+	
 
 	for (int i = 0; i < this->_cullObject.size(); i++)
 	{
@@ -180,8 +210,10 @@ void stageTwo::render()
 		if (_cullObject[i] == player->getPlayerObject())
 		{
 			player->out_ItemUpdate();
+			player->out_updateBladeLight();
 		}
 	}
+	player->render();
 
 	const vector<Node*>& temp = _terrain->getDijkstra().getVecNode();
 	for (size_t i = 0; i < temp.size(); i++)
@@ -190,6 +222,8 @@ void stageTwo::render()
 	}
 
 	_terrain->getDijkstra().render();
+
+	m_pUIPlayer->render();
 }
 
 void stageTwo::shadowInit(void)
@@ -208,7 +242,7 @@ void stageTwo::shadowInit(void)
 	_directionLightCamera->_aspect = 1;
 	_directionLightCamera->_orthoSize = _shadowDistance * 1.5f;	//투영크기
 
-																//텍스처 준비
+	//텍스처 준비
 	_directionLightCamera->readyShadowTexture(4096);
 
 	_mainCamera->readyRenderToTexture(WINSIZEX, WINSIZEY);
@@ -220,7 +254,7 @@ void stageTwo::shadowInit(void)
 void stageTwo::shadowUpdate(void)
 {
 	_mainCamera->updateBase();
-	sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
+	//sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
 
 	//광원 위치
 	D3DXVECTOR3 camPos = _mainCamera->GetWorldPosition();	//메인카메라의 위치

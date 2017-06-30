@@ -1,11 +1,16 @@
 #pragma once
 #include "Action.h"
 #include "bossMonster.h"
+
+class damageText;
+
 class bossActionSkillFire : public Action
 {
 private:
 	float dotTime;
 	boundBox breathRange;
+	float yPosition;
+	damageText* damage;
 public:
 	bossActionSkillFire();
 	~bossActionSkillFire();
@@ -14,5 +19,6 @@ public:
 	int Start() override;
 	//액션을 실행하는 함수 - 순수가상함수
 	int Update() override;
+	void Render() override;
 };
 

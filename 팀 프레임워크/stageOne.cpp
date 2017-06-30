@@ -7,7 +7,7 @@
 
 
 stageOne::stageOne()
-	:_shadowDistance(0.0f)
+	:_shadowDistance(0.0f), angleZ(90), currTime(0.0f)
 {
 	_mainCamera = new camera;
 	_directionLightCamera = new camera;
@@ -16,6 +16,7 @@ stageOne::stageOne()
 	env = new Environment;
 	water = new WaterTerrain;
 	water->linkCamera(*_mainCamera);
+	toRotate = new dx::transform;
 }
 
 
@@ -32,6 +33,7 @@ stageOne::~stageOne()
 	SAFE_DELETE(_terrainShadow);
 	water->release();
 	SAFE_DELETE(water);
+	SAFE_DELETE(toRotate);
 }
 
 HRESULT stageOne::init()
@@ -90,6 +92,7 @@ HRESULT stageOne::init()
 
 	float tempY = _terrain->getHeight(0.0f, 0.0f);
 
+
 	//플레이어 초기화
 	player->out_setlinkTerrain(*_terrain);
 	player->init();
@@ -101,7 +104,13 @@ HRESULT stageOne::init()
 		_renderObject.push_back(player->getRenderObject()[i]);
 	}
 
-	SOUNDMANAGER->play("마을1", 0.1f);
+	ACMANAGER->Init(*_terrain, *player);
+	
+	SOUNDMANAGER->play("필드1", 0.1f);
+
+	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
+	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, 5));
+
 	return S_OK;
 }
 
@@ -113,7 +122,27 @@ void stageOne::update()
 {
 	shadowUpdate();
 
+	currTime += _timeDelta;
+	if (currTime > 1)
+	{
+		//D3DXVECTOR3 matAxis(0.0f, 0.0f, 1.0f);
+		D3DXMatrixIdentity(&matRotate);
+		//D3DXMatrixRotationAxis(&matRotate, &matAxis, D3DXToRadian(angleZ));
+		D3DXMatrixRotationX(&matRotate, D3DXToRadian(angleZ));
+		//_sceneBaseDirectionLight->_transform->RotateWorld(0.0f, 0.0f, D3DXToRadian(angleZ));
+		//sceneBaseDirectionLight->_transform->SetRotateWorld(matRotate);
+		toRotate->SetRotateWorld(matRotate);
+		angleZ--;
+		if (angleZ <= 0) angleZ = 360;
+		else if (angleZ >= 360) angleZ = 0;
+		currTime = 0;
+	}
+
+	sceneBaseDirectionLight->_transform->RotateSlerp(*sceneBaseDirectionLight->_transform, *toRotate, _timeDelta);
+
 	player->update();
+
+	player->out_setTargetByMouse(_mainCamera);
 
 	//오브젝트 업데이트
 	for (int i = 0; i < _renderObject.size(); i++) _renderObject[i]->update();
@@ -155,7 +184,6 @@ void stageOne::render()
 	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resource/Testures/Ramp_1.png"));
 	xMeshSkinned::setBaseLight(this->sceneBaseDirectionLight);
 
-	player->render();
 
 	for (int i = 0; i < this->_cullObject.size(); i++)
 	{
@@ -163,8 +191,10 @@ void stageOne::render()
 		if (_cullObject[i] == player->getPlayerObject())
 		{
 			player->out_ItemUpdate();
+			player->out_updateBladeLight();
 		}
 	}
+	player->render();
 }
 
 void stageOne::shadowInit(void)
@@ -195,7 +225,7 @@ void stageOne::shadowInit(void)
 void stageOne::shadowUpdate(void)
 {
 	_mainCamera->updateBase();
-	sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
+	//sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
 
 	//광원 위치
 	D3DXVECTOR3 camPos = _mainCamera->GetWorldPosition();	//메인카메라의 위치

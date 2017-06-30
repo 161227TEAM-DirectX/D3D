@@ -1,16 +1,18 @@
 #include "stdafx.h"
 #include "bossActionSkillFire.h"
 #include "xPlayer.h"
-
+#include "damageText.h"
 
 bossActionSkillFire::bossActionSkillFire()
-	:Action(), dotTime(0.5f)
+	:Action(), dotTime(0.5f), yPosition(0.0f)
 {
+	damage = new damageText;
 }
 
 
 bossActionSkillFire::~bossActionSkillFire()
 {
+	SAFE_DELETE(damage);
 }
 
 int bossActionSkillFire::Start()
@@ -81,9 +83,12 @@ int bossActionSkillFire::Update()
 			//도트데미지가 들어가는 구간
 			if (dotTime < 0)
 			{
+				float tempAtt = (float)temp->getAtt() * myUtil::RandomFloatRange(0.05f, 0.09f);
 				dotTime = 2.0f;
 				//PLAYERMANAGER->SetHp( PLAYERMANAGER->GetHp() - ((float)temp->getAtt() * myUtil::RandomFloatRange(0.05f, 0.09f)));
-				enemy->playerDamaged(((float)temp->getAtt() * myUtil::RandomFloatRange(0.05f, 0.09f)), 0.6f, 30.0f);
+				enemy->playerDamaged(tempAtt, 0.6f, 30.0f);
+				damage->init(tempAtt, LHS::FONTCOLOR::FONT_RED);
+				yPosition = playerObject->_boundBox._localMaxPos.y;
 				//cout << "mForword.x : " << temp->_transform->GetForward().x << "mForword.y : " << temp->_transform->GetForward().y << "mForword.z : " << temp->_transform->GetForward().z << endl;
 				//cout << "enemy.x:" << enemyNormal.x << "enemy.y:" << enemyNormal.y << "enemy.z:" << enemyNormal.z << endl;
 				//cout << "dotTime: " << dotTime << endl;
@@ -92,5 +97,14 @@ int bossActionSkillFire::Update()
 		//cout << "angle : " << angle << endl;
 	}
 
+	yPosition += 0.01f;
+	damage->setPos(D3DXVECTOR3(playerObject->_transform->GetWorldPosition().x, yPosition, playerObject->_transform->GetWorldPosition().z));
+	damage->update();
+
 	return LHS::ACTIONRESULT::ACTION_PLAY;
+}
+
+void bossActionSkillFire::Render()
+{
+	if(damage->getStrLength() > 1)damage->render();
 }

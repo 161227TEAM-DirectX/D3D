@@ -11,6 +11,9 @@
 // Windows 헤더 파일:
 #include <Windows.h>
 #include <assert.h>
+#include <imm.h>
+#pragma comment(lib, "imm32.lib")
+
 
 // C 런타임 헤더 파일입니다.
 #include <stdlib.h>
@@ -83,6 +86,7 @@ public:\
 #define SAFE_DELETE_ARRAY(p)	{if(p) {delete[] (p); (p) = NULL;}}
 #define SAFE_RELEASE(p)			{if(p) {(p)->Release(); (p) = NULL;}}
 #define SAFE_ADD_REF(p)			{if(p) {p->AddRef();}}
+#define SAFE_release(p)			{if(p) {(p)->release(); (p) = NULL;}}
 
 #define SYNTHESIZE(varType, varName, funName)\
 protected: varType varName;\
@@ -314,6 +318,15 @@ struct tagSaveNode
 	vector<pair<int, float>> nodeFS;
 };
 
+struct tagSaveName
+{
+	string infoName;	//정보이름
+	string chatName;
+	string password;
+};
+
+
+
 
 
 //====================================================================
@@ -341,6 +354,7 @@ using namespace myUtil;
 #include "cDxImgButton.h"
 #include "cDxImgBar.h"
 #include "cDxImgUI.h"
+#include "cUIchatting.h"
 
 
 
@@ -376,6 +390,9 @@ using namespace myUtil;
 #include "ioMapManager.h"
 #include "CinematicManger.h"
 #include "ioSaveCinemaManger.h"
+#include "ioSaveNameManager.h"
+
+
 
 #include "cObjectManager.h"
 #include "cTextureManager.h"
@@ -418,6 +435,7 @@ using namespace myUtil;
 #define IOSAVEMONSTERMANAGER ioSaveMonsterManger::getSingleton()
 #define IOSAVENODEMANAGER ioSaveNodeManager::getSingleton()
 #define IOMAPMANAGER ioMapManager::getSingleton()
+#define IOSAVENAMEMANAGER ioSaveNameManager::getSingleton()
 #define CINEMATICMANAGER  CinematicManger::getSingleton()
 #define IOCINEMATICMANAGER ioSaveCinemaManger::getSingleton()
 
@@ -502,3 +520,5 @@ extern CRITICAL_SECTION _cs;
 extern D3DVIEWPORT9		leftViewPort;	//왼쪽 뷰포트
 extern D3DVIEWPORT9		rightViewPort;  //오른쪽 뷰포트
 extern eSelectMode		g_eSelectMode;	//게임모드인지 맵툴모드인지
+extern bool				ViewTrue;
+extern int				forceViewNumber;

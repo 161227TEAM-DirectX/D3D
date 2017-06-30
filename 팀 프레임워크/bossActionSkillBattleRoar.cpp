@@ -1,10 +1,11 @@
 #include "stdafx.h"
 #include "bossActionSkillBattleRoar.h"
-
+#include "damageText.h"
 
 bossActionSkillBattleRoar::bossActionSkillBattleRoar()
-	:Action(), resultValue(0.0f), dotTime(2.0f), passedTime(0), attackStyle(555), isShout(true)
+	:Action(), resultValue(0.0f), dotTime(2.0f), passedTime(0), attackStyle(555), isShout(true), yPosition(0.0f)
 {
+	damage = new damageText;
 }
 
 
@@ -19,7 +20,6 @@ int bossActionSkillBattleRoar::Start()
 	//보스몬스터의 공격모션 아무거나 시작.
 	owner->getSkinnedAnim().Play("Animation_13");
 //	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
-
 	//공격방식 변경 -> 0이면 스턴을 위한 방식 / 1이면 range범위에서의 전방위 마법공격 -> 둘다 도트뎀(데미지는 마법공격이 더 강하도록 설정)
 	attackStyle = myUtil::RandomIntRange(0, 1);
 
@@ -81,22 +81,36 @@ int bossActionSkillBattleRoar::Update()
 			//적의 HP를 감소시키자. 마법공격. -> 데미지는 높지만 스턴을 걸지 않는다.
 			if (dotTime < 0)
 			{
+				float tempAtt = (float)temp->getAtt()*myUtil::RandomFloatRange(1.3f, 1.8f);
 				dotTime = 2.0f;
 				//PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - ((float)temp->getAtt()*myUtil::RandomFloatRange(1.3f, 1.8f)));
-				enemy->playerDamaged(((float)temp->getAtt()*myUtil::RandomFloatRange(1.3f, 1.8f)), 0.6f, 100.0f, 0.0f, 0.0f);
+				enemy->playerDamaged(tempAtt, 0.6f, 100.0f, 0.0f, 0.0f);
+				damage->init(tempAtt, LHS::FONTCOLOR::FONT_RED);
+				yPosition = playerObject->_boundBox._localMaxPos.y;
 			}
 			break;
 		case 1:
 			if (dotTime < 0)
 			{
+				float tempAtt = (float)temp->getAtt() * myUtil::RandomFloatRange(0.1f, 0.3f);
 				dotTime = 2.0f;
 				//플레이어의 상태를 스턴으로 변경해야 한다. 데미지는 마법공격보다 낮게 책정.
 				//PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - ((float)temp->getAtt() * myUtil::RandomFloatRange(0.1f, 0.3f)));
-				enemy->playerDamaged(((float)temp->getAtt() * myUtil::RandomFloatRange(0.1f, 0.3f)), 0.0f, 0.0f, 100.0f, 2.0f);
+				enemy->playerDamaged(tempAtt, 0.0f, 0.0f, 100.0f, 2.0f);
+				damage->init(tempAtt, LHS::FONTCOLOR::FONT_RED);
+				yPosition = playerObject->_boundBox._localMaxPos.y;
 			}
 			break;
 		}
 	}
+	yPosition += 0.01f;
+	damage->setPos(D3DXVECTOR3(playerObject->_transform->GetWorldPosition().x, yPosition, playerObject->_transform->GetWorldPosition().z));
+	damage->update();
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
+}
+
+void bossActionSkillBattleRoar::Render()
+{
+	if (damage->getStrLength() > 1)damage->render();
 }
