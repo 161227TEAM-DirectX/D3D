@@ -39,7 +39,7 @@ void particleTest13::update()
 {
 
 	_mainCamera->DefaultControl(_timeDelta);
-	_mainCamera->updateCamToDevice();_mainCamera->updateCamToDevice();
+	_mainCamera->updateCamToDevice();
 
 	_player->DefaultMyControl(_timeDelta);
 	
@@ -102,6 +102,62 @@ void particleTest13::update()
 		SKM->findSK("ÆÄÀÌ¾î¸ÅÁ÷")->setOneTargetTrans(_target);
 		SKM->findSK("ÆÄÀÌ¾î¸ÅÁ÷")->Start();
 	}
+
+	if (KEYMANAGER->isOnceKeyDown('4'))
+	{
+		SKM->findSK("¸ÅÁ÷½´ÅÍ")->setSkillPosTrans(_player);
+		SKM->findSK("¸ÅÁ÷½´ÅÍ")->setSkillDirTrans(_player);
+		SKM->findSK("¸ÅÁ÷½´ÅÍ")->setOneTargetTrans(_target);
+		SKM->findSK("¸ÅÁ÷½´ÅÍ")->Start();
+
+		/*SKM->findSK("ÀÌÆåÆ®")->setSkillPosTrans(_player);
+		SKM->findSK("ÀÌÆåÆ®")->setSkillDirTrans(_player);
+		SKM->findSK("ÀÌÆåÆ®")->SetManyTargetTrans(_manyTarget, 10);
+		SKM->findSK("ÀÌÆåÆ®")->Start();*/
+
+
+		//testSkill00->SetManyTargetTrans(_target,0);
+		//testSkill00->setOneTargetTrans(_target);
+		//testSkill00->Start();
+
+
+		/*EFFECT->findEffect("½ºÅÏ")->setLimitTime(5.0f);
+		EFFECT->findEffect("½ºÅÏ")->setPositoin(&_player->GetWorldPosition());
+		EFFECT->findEffect("½ºÅÏ")->setPositoin(&_target->GetWorldPosition());
+		EFFECT->findEffect("½ºÅÏ")->Start();*/
+		//EFFECT->findEffect("½ºÅÏ")->setLimitTime(2.0f);
+		//EFFECT->findEffect("½ºÅÏ")->Start(_player);
+		//EFFECT->findEffect("½ºÅÏ")->Start(_target);
+	}
+	if (KEYMANAGER->isOnceKeyDown('5'))
+	{
+		SKM->findSK("Èú")->setSkillPosTrans(_player);
+		SKM->findSK("Èú")->setSkillDirTrans(_player);
+		SKM->findSK("Èú")->setOneTargetTrans(_target);
+		SKM->findSK("Èú")->Start();
+
+		/*SKM->findSK("ÀÌÆåÆ®")->setSkillPosTrans(_player);
+		SKM->findSK("ÀÌÆåÆ®")->setSkillDirTrans(_player);
+		SKM->findSK("ÀÌÆåÆ®")->SetManyTargetTrans(_manyTarget, 10);
+		SKM->findSK("ÀÌÆåÆ®")->Start();*/
+
+
+		//testSkill00->SetManyTargetTrans(_target,0);
+		//testSkill00->setOneTargetTrans(_target);
+		//testSkill00->Start();
+
+
+		/*EFFECT->findEffect("½ºÅÏ")->setLimitTime(5.0f);
+		EFFECT->findEffect("½ºÅÏ")->setPositoin(&_player->GetWorldPosition());
+		EFFECT->findEffect("½ºÅÏ")->setPositoin(&_target->GetWorldPosition());
+		EFFECT->findEffect("½ºÅÏ")->Start();*/
+		//EFFECT->findEffect("½ºÅÏ")->setLimitTime(2.0f);
+		//EFFECT->findEffect("½ºÅÏ")->Start(_player);
+		//EFFECT->findEffect("½ºÅÏ")->Start(_target);
+	}
+	
+
+
 
 	//testSkill00->update();
 
