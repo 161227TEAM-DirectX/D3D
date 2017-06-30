@@ -11,6 +11,7 @@
 //1.로드를 불러서 오브젝트를 찍으면 처음지형값에 적용된다.하지만 지형을 내리거나 올리면 적용이되버린다.
 //2.두번쨰 버그는 raw3번을 눌렸다 그렇게 하고 지형을 누르면 지형이 0을로 돌아가는 버그
 //3.나중에 수정할것.
+//4.로드릃 하고 다시 세이브를 하고 로드를해서 삭제를 시키면 벡터순서떄문에 떙겨짐 . list가 필요함
 
 leftViewHead::leftViewHead()
 	: m_eHeightType(eHeightType::E_NONE), sour(-1), dest(-1)
@@ -30,7 +31,6 @@ leftViewHead::~leftViewHead()
 
 HRESULT leftViewHead::init()
 {
-	cocoNumber = 0;
 	_mainCamera = new camera;
 	_mainCamera->SetWorldPosition(0.0f, 0.0f, 0.0f);
 
@@ -70,7 +70,7 @@ HRESULT leftViewHead::init()
 	//충돌지역, 카메라
 	_hitPos = D3DXVECTOR3(0, 0, 0);
 	_SaveButton.FT = false;
-	_LoadButton.FT = false;
+	first = false;
 
 	mapRotation = D3DXToRadian(180);
 
@@ -129,30 +129,38 @@ void leftViewHead::PickUdate()
 				D3DXMATRIX mapRotate;
 				D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
 
-				scale = 0.3f;
-
 				_mainCamera->computeRay(&ray, &_screenPos, 1);
 
 				_terrain->isIntersectRay(&_hitPos, &ray);
 
+				scale = 1.5f;
 
 				//넘버값 , 로테이트값 저장
 				temp->SetObjectNumber(_rightView->getnumberObject());
 				temp->SetObjectRotation(mapRotation);
 
+				if ((temp->getObjectNumber() == 189 || temp->getObjectNumber() == 190 || temp->getObjectNumber() == 191 || temp->getObjectNumber() == 192))
+				{
+					scale = 1.5f;
+				}
+				else
+				{
+					scale = 0.6f;
+				}
+
 				//오브젝트를 함수로 뻇음.
 				_mapObject->objectSet(temp->getObjectNumber(), temp, mapRotate, _hitPos.x, _hitPos.y, _hitPos.z, scale, temp->getObjectRotation());
 
+				m_vecObject.push_back(temp);
 				//지정해놓았던것을 push로 넣는다
 				//스케일을 곱해줘야 제대로 y값에 든다 
 				temp->_transform->SetWorldPosition(_hitPos.x, _hitPos.y + (-temp->getBoundBox()._localMinPos.y * scale), _hitPos.z);
-				m_vecObject.push_back(temp);
 
 				//오브젝트 세이브 하기전에 값 넣기
 				ObjecTemp.infoName = "넘버" + to_string(m_vecObject.size());
 				ObjecTemp.objectNumber = temp->getObjectNumber();
 				ObjecTemp.objectRotate = temp->getObjectRotation();
-				ObjecTemp.objectScale = 0.3f;
+				ObjecTemp.objectScale = scale;
 				ObjecTemp.objectX = temp->_transform->GetWorldPosition().x;
 				ObjecTemp.objectY = temp->_transform->GetWorldPosition().y;
 				ObjecTemp.objectZ = temp->_transform->GetWorldPosition().z;
@@ -172,6 +180,15 @@ void leftViewHead::PickUdate()
 			{
 				if (PHYSICSMANAGER->isRayHitStaticMeshObject(&ray, m_vecObject[i], &_hitPos, NULL))
 				{
+					switch (m_vecObject[i]->getObjectNumber())
+					{
+					case 189:
+					case 190:
+					case 191:
+					case 192:
+						_mapObject->potralErase(m_vecObject[i]->getObjectNumber(), m_vecObject[i]->getportalNumber());
+						break;
+					}
 					//오브젝트 삭제
 					m_vecObject.erase(m_vecObject.begin() + i);
 					//오브젝트 세이브 삭제
@@ -179,6 +196,8 @@ void leftViewHead::PickUdate()
 				}
 			}
 		}
+
+		_mapObject->portal(m_vecObject);
 	}
 
 	//각도 조절하는 키입력
@@ -546,7 +565,7 @@ void leftViewHead::monsterMaptul()
 				_terrain->getDijkstra().addNode(_hitPos);
 			}
 		}
-			break;
+		break;
 		}
 
 		//노드 연결
@@ -583,46 +602,46 @@ void leftViewHead::monsterMaptul()
 		switch (_rightView->GetGSnumberMonster())
 		{
 		case 1:
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("골렘",1);
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("골렘", 1);
 			break;
 		case 2:
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("개",2);
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("개", 2);
 			break;
 		case 3:
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("멧돼지",3);
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("멧돼지", 3);
 			break;
 		case 4:
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("나무짐승",4);
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("나무짐승", 4);
 			break;
 		case 5:
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("브루탈루스",5);
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("브루탈루스", 5);
 			break;
 		case 6:
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("히드라",6);
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("히드라", 6);
 			break;
 		case 7:
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("새",7);
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("새", 7);
 			break;
 		case 8:
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("악어",8);
-			break;													  
-		case 9:														  
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("곰",9);
-			break;													  
-		case 10:													  
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("둠가드",10);
-			break;													  
-		case 11:													  
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("하피",11);
-			break;													  
-		case 12:													  
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("랩터",12);
-			break;													  
-		case 13:													  
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("전갈",13);
-			break;													  
-		case 14:													  
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("도마뱀",14);
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("악어", 8);
+			break;
+		case 9:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("곰", 9);
+			break;
+		case 10:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("둠가드", 10);
+			break;
+		case 11:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("하피", 11);
+			break;
+		case 12:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("랩터", 12);
+			break;
+		case 13:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("전갈", 13);
+			break;
+		case 14:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("도마뱀", 14);
 			break;
 		}
 
@@ -634,40 +653,40 @@ void leftViewHead::monsterMaptul()
 
 void leftViewHead::save()
 {
-	if (PtInRect(&_LoadButton.rc2, GetMousePos()))
+	if (first == false)
 	{
-		_LoadButton.FT = true;
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+		if (KEYMANAGER->isOnceKeyDown('L'))
 		{
 			m_vecObject.clear();
+			InfoObjectTemp.clear();
+			_mapObject->deletePortal();
 
-			IOSAVEOBJECTMANAGER->loadFile("성밖오브젝트");
+			IOSAVEOBJECTMANAGER->loadFile("1오브젝트");
 			for (int i = 0; i < IOSAVEOBJECTMANAGER->getCount(); i++)
 			{
-				cocoNumber = IOSAVEOBJECTMANAGER->getCount();
 				object = IOSAVEOBJECTMANAGER->findTag("넘버" + to_string(i + 1));
 				baseObject* temp2 = new baseObject;
 				D3DXMATRIX mapRotate;
 				_mapObject->objectSet(object.objectNumber, temp2, mapRotate, object.objectX, object.objectY, object.objectZ, object.objectScale, object.objectRotate);
-				m_vecObject.push_back(temp2);
-
 				InfoObjectTemp.push_back(object);
+				temp2->SetObjectNumber(object.objectNumber);
+				m_vecObject.push_back(temp2);
 			}
-		
-			_terrain->setTile0(IOMAPMANAGER->loadMapInfo("성밖지형").tile0);
+
+			/*	_terrain->setTile0(IOMAPMANAGER->loadMapInfo("성밖지형").tile0);
 			_terrain->setTile1(IOMAPMANAGER->loadMapInfo("성밖지형").tile1);
 			_terrain->setTile2(IOMAPMANAGER->loadMapInfo("성밖지형").tile2);
 			_terrain->setTile3(IOMAPMANAGER->loadMapInfo("성밖지형").tile3);
 			_terrain->setSlat(IOMAPMANAGER->loadMapInfo("성밖지형").splat);
 			_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("성밖지형").vecPos);
 			_terrain->setting();
-			_terrain->changeHeightTerrain();
+			_terrain->changeHeightTerrain();*/
 
 
 			tagSaveMap _envTemp;
 			tagSaveMap _waterTemp;
 
-			IOSAVEMANAGER->loadFile("성밖세이브맵");
+			IOSAVEMANAGER->loadFile("1세이브맵");
 
 			_envTemp = IOSAVEMANAGER->findTag("환경맵");
 			_waterTemp = IOSAVEMANAGER->findTag("물결맵");
@@ -677,13 +696,9 @@ void leftViewHead::save()
 
 			//loadMonster();
 			//loadNode();
+			first = true;
 		}
 	}
-	else
-	{
-		_LoadButton.FT = false;
-	}
-
 	if (PtInRect(&_SaveButton.rc2, GetMousePos()))
 	{
 		_SaveButton.FT = true;
@@ -704,15 +719,15 @@ void leftViewHead::save()
 			temp.mapHeight = 0;
 			InfoTemp.push_back(temp);
 
-			IOSAVEMANAGER->saveFile("성밖세이브맵", InfoTemp);
+			IOSAVEMANAGER->saveFile("1세이브맵", InfoTemp);
 
-			//지우고 나서 문제가 생겨서 이름을 다시 1번부터 저자시켜준다
+			//지우고 나서 문제가 생겨서 이름을 다시 1번부터 저장시켜준다
 			for (int i = 0; i < InfoObjectTemp.size(); i++)
 			{
 				InfoObjectTemp[i].infoName = "넘버" + to_string(i + 1);
 			}
 
-			IOSAVEOBJECTMANAGER->saveFile("성밖오브젝트", InfoObjectTemp);
+			IOSAVEOBJECTMANAGER->saveFile("1오브젝트", InfoObjectTemp);
 
 			//ST_MAP temp0;
 
@@ -795,31 +810,15 @@ void leftViewHead::render()
 	switch (_SaveButton.FT)
 	{
 	case true:
-		_SaveButton.rc2 = { 900,860,_SaveButton.rc2.left + 95,_SaveButton.rc2.top + 37 };
+		_SaveButton.rc2 = { 1050,860,_SaveButton.rc2.left + 95,_SaveButton.rc2.top + 37 };
 		_SaveButton.tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/SAVE.png");
-		SPRITEMANAGER->renderRectTexture(_SaveButton.tex, &_SaveButton.rc1, &_SaveButton.rc2, 0, 0, 256, 37, leftViewPort.X + 900, leftViewPort.Y + 860);
+		SPRITEMANAGER->renderRectTexture(_SaveButton.tex, &_SaveButton.rc1, &_SaveButton.rc2, 0, 0, 256, 37, leftViewPort.X + 1050, leftViewPort.Y + 860);
 		break;
 
 	case false:
-		_SaveButton.rc2 = { 900,860,_SaveButton.rc2.left + 95,_SaveButton.rc2.top + 37 };
+		_SaveButton.rc2 = { 1050,860,_SaveButton.rc2.left + 95,_SaveButton.rc2.top + 37 };
 		_SaveButton.tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/SAVE.png");
-		SPRITEMANAGER->renderRectTexture(_SaveButton.tex, &_SaveButton.rc1, &_SaveButton.rc2, 0, 37, 256, 74, leftViewPort.X + 900, leftViewPort.Y + 860);
-		break;
-	}
-
-	//save버튼
-	switch (_LoadButton.FT)
-	{
-	case true:
-		_LoadButton.rc2 = { 1050,860,_LoadButton.rc2.left + 95,_LoadButton.rc2.top + 37 };
-		_LoadButton.tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/LOAD.png");
-		SPRITEMANAGER->renderRectTexture(_LoadButton.tex, &_LoadButton.rc1, &_LoadButton.rc2, 0, 0, 256, 37, leftViewPort.X + 1050, leftViewPort.Y + 860);
-		break;
-
-	case false:
-		_LoadButton.rc2 = { 1050,860,_LoadButton.rc2.left + 95,_LoadButton.rc2.top + 37 };
-		_LoadButton.tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/LOAD.png");
-		SPRITEMANAGER->renderRectTexture(_LoadButton.tex, &_LoadButton.rc1, &_LoadButton.rc2, 0, 37, 256, 74, leftViewPort.X + 1050, leftViewPort.Y + 860);
+		SPRITEMANAGER->renderRectTexture(_SaveButton.tex, &_SaveButton.rc1, &_SaveButton.rc2, 0, 37, 256, 74, leftViewPort.X + 1050, leftViewPort.Y + 860);
 		break;
 	}
 
@@ -860,11 +859,8 @@ void leftViewHead::render()
 	_terrain->getDijkstra().render();
 }
 
-void leftViewHead::monsterSelect(string str ,int monsterNumber)
+void leftViewHead::monsterSelect(string str, int monsterNumber)
 {
-	//D3DXMATRIX matRotate;
-	//D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
-
 	monster* temp = new monster(findMonsterName(monsterNumber));
 	temp->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
@@ -893,7 +889,7 @@ void leftViewHead::loadMonster(void)
 
 		temp.push_back(tagMTemp);
 	}
-	
+
 	for (int i = 0; i < temp.size(); i++)
 	{
 		D3DXMATRIX matRotate;

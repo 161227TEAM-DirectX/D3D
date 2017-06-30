@@ -12,6 +12,7 @@ public:
 protected:
 	bool				_isActive;				//활성화 여부
 	int					_objectNumber;
+	int                 _portalNumber;
 	float				_objectRatation;
 
 protected:
@@ -42,9 +43,11 @@ public:
 	boundBox getBoundBox(void) { return _boundBox; }
 
 	//오브젝트 로테이트 , 넘버
+	int getportalNumber(void) { return _portalNumber; }
 	int getObjectNumber(void) { return _objectNumber; }
 	float getObjectRotation(void) { return _objectRatation; }
 
+	void SetportalNumber(int portalNumber) { _portalNumber = portalNumber; }
 	void SetObjectNumber(int ObjectNumber) { _objectNumber = ObjectNumber; }
 	void SetObjectRotation(float ObjectRotation) { _objectRatation = ObjectRotation; }
 

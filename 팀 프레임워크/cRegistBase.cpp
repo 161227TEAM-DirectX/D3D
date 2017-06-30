@@ -556,6 +556,11 @@ void cRegistBase::XMeshStaticRegist()
 	FILEPATH_MANAGER->AddFilepath("Xmesh_ob186", "Resource/Maptool/Meshes/piramid/4.piramidRock/4/4.X");
 	FILEPATH_MANAGER->AddFilepath("Xmesh_ob187", "Resource/Maptool/Meshes/piramid/4.piramidRock/5/5.X");
 
+	//Æ÷Å»-----------------------------------------------------------------------------------------------------
+	FILEPATH_MANAGER->AddFilepath("Xmesh_portal1", "Resource/Maptool/Meshes/portal/1/1.X");
+	FILEPATH_MANAGER->AddFilepath("Xmesh_portal2", "Resource/Maptool/Meshes/portal/2/2.X");
+	FILEPATH_MANAGER->AddFilepath("Xmesh_portal3", "Resource/Maptool/Meshes/portal/3/3.X");
+	FILEPATH_MANAGER->AddFilepath("Xmesh_portal4", "Resource/Maptool/Meshes/portal/4/4.X");
 }
 
 void cRegistBase::XMeshSkinnedRegist()

@@ -14,19 +14,8 @@ mapObject::~mapObject()
 
 HRESULT mapObject::objectinit()
 {
-	////라이트 설정
-	//_directionLight = new lightDirection;
-	//_directionLight->_transform->RotateWorld(D3DXToRadian(90), 0, 0);
-	//_directionLight->_color = D3DXCOLOR(1, 1, 1, 1);
-	//_directionLight->_intensity = 2.0f;
 
 	return S_OK;
-}
-
-void mapObject::objectUpdate()
-{
-//	_mainCamera.DefaultControl(_timeDelta, 1);
-//	_mainCamera.updateCamToDevice();
 }
 
 void mapObject::objectSet(int objectNumber, baseObject * tempObect, D3DXMATRIX matRotate, float m_fPickposX, float m_fPickposY, float m_fPickposZ, float mapScale, float mapRotation)
@@ -239,29 +228,36 @@ void mapObject::objectSet(int objectNumber, baseObject * tempObect, D3DXMATRIX m
 	if (objectNumber == 187) tempObect->setMesh(RM_XMESH->getResource(FILEPATH_MANAGER->GetFilepath("Xmesh_ob186"), &matRotate));
 	if (objectNumber == 188) tempObect->setMesh(RM_XMESH->getResource(FILEPATH_MANAGER->GetFilepath("Xmesh_ob187"), &matRotate));
 
-
-
+	if (objectNumber == 189) tempObect->setMesh(RM_XMESH->getResource(FILEPATH_MANAGER->GetFilepath("Xmesh_portal1"), &matRotate));
+	if (objectNumber == 190) tempObect->setMesh(RM_XMESH->getResource(FILEPATH_MANAGER->GetFilepath("Xmesh_portal2"), &matRotate));
+	if (objectNumber == 191) tempObect->setMesh(RM_XMESH->getResource(FILEPATH_MANAGER->GetFilepath("Xmesh_portal3"), &matRotate));
+	if (objectNumber == 192) tempObect->setMesh(RM_XMESH->getResource(FILEPATH_MANAGER->GetFilepath("Xmesh_portal4"), &matRotate));
 
 	tempObect->setActive(true);
 	tempObect->_transform->SetWorldPosition(m_fPickposX, m_fPickposY, m_fPickposZ);
 	tempObect->_transform->SetScale(mapScale, mapScale, mapScale);
 	tempObect->_transform->SetRotateWorld(0, mapRotation, 0);
 
+	//삭제를 위해서 사이즈를 맞추기위한 수단
+
+	switch (objectNumber)
+	{
+	case 189:
+	case 190:
+	case 191:
+	case 192:
+		Tportal* temp;
+		temp = new Tportal;
+		temp->portalSet(tempObect->_transform);
+		_tportal.push_back(temp);
+		tempObect->SetportalNumber(_tportal.size() - 1);
+		break;
+	}
 }
-//
-//void mapObject::objectRender(vector<baseObject>& object)
-//{
-//	for (int i = 0; i < object.size(); i++)
-//	{
-//		xMeshStatic::_staticMeshEffect->SetMatrixArray("matLights", &_directionLight->getLightMatrix(), 1);
-//		xMeshStatic::_staticMeshEffect->SetInt("LightNum", 1);
-//		xMeshStatic::setCamera(_mainCamera);
-//		object[i].render();
-//	}
-//}
 
 void mapObject::objectRenderTool(vector<baseObject*>& object, camera * _mainCamera, lightDirection* _directionLight)
 {
+
 	for (int i = 0; i < object.size(); i++)
 	{
 		xMeshStatic::_staticMeshEffect->SetMatrixArray("matLights", &_directionLight->getLightMatrix(), 1);
@@ -269,4 +265,59 @@ void mapObject::objectRenderTool(vector<baseObject*>& object, camera * _mainCame
 		xMeshStatic::setCamera(_mainCamera);
 		object[i]->render();
 	}
+
+
+	for (int j = 0; j < _tportal.size(); j++)
+	{
+		_tportal[j]->LinkCamera(*_mainCamera);
+		_tportal[j]->update();
+		_tportal[j]->renderPortal();
+	}
 }
+
+void mapObject::potralErase(int objectNumber, int number)
+{
+	switch (objectNumber)
+	{
+	case 189:
+	case 190:
+	case 191:
+	case 192:
+		SAFE_DELETE(_tportal[number]);
+		_tportal.erase(_tportal.begin() + number);
+		temp = true;
+		break;
+	}
+}
+
+void mapObject::deletePortal()
+{
+	for (int i = 0; i < _tportal.size(); i++)
+	{
+		SAFE_DELETE(_tportal[i]);
+	}
+	_tportal.clear();
+}
+
+void mapObject::portal(vector<baseObject*>& tempObect)
+{
+	int j = 0;
+	if (temp == true)
+	{
+		for (int i = 0; i < tempObect.size(); i++)
+		{
+			switch (tempObect[i]->getObjectNumber())
+			{
+			case 189:
+			case 190:
+			case 191:
+			case 192:
+				tempObect[i]->SetportalNumber(j++);
+
+			}
+		}
+		temp = false;
+	}
+
+}
+

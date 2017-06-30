@@ -1,7 +1,8 @@
 #pragma once
 #include "iGameNode.h"
 
-#define NUMBER 188  //오브젝트수
+#define NUMBER 192  //오브젝트수
+#define MONSNUM 14 //몬스터 수
 
 enum objectUi { OBJOFF = 0, OBJON };
 
@@ -16,6 +17,7 @@ class objectClass : public iGameNode
 {
 private:
 	vector<baseObject*> _object;
+	vector<baseObject*> _monsterObject;
 	lightDirection*			_sceneBaseDirectionLight;	//씬에 배치된 기본라이팅
 
 private:
@@ -29,7 +31,7 @@ public:
 	HRESULT init(void);
 	void release(void);
 	void update(void);
-	void render(void){}
+	void render(void) {}
 	void render(camera* camera);
 
 	void objectUp(POINT mouse, int arrayS, int arrayE);
@@ -57,6 +59,9 @@ public:
 	void piramid2();
 	void piramid3();
 	void piramid4();
+
+	void portal();
+	void monster(int number);
 
 
 	int getnumberObject(void) { return numberObject; }

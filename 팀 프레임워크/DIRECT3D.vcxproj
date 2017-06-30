@@ -349,6 +349,7 @@
     <ClInclude Include="terrainSc.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="timeManager.h" />
+    <ClInclude Include="Tportal.h" />
     <ClInclude Include="transform.h" />
     <ClInclude Include="treeNode.h" />
     <ClInclude Include="WaterTerrain.h" />
@@ -562,6 +563,7 @@
     <ClCompile Include="terrainSc.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="timeManager.cpp" />
+    <ClCompile Include="Tportal.cpp" />
     <ClCompile Include="transform.cpp" />
     <ClCompile Include="treeNode.cpp" />
     <ClCompile Include="WaterTerrain.cpp" />

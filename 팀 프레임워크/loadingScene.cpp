@@ -51,7 +51,8 @@ void loadingScene::render()
 
 	if (m_isChange /*&& m_pLoadingBar->IsFullBar()*/)
 	{
-		SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
+		g_eSelectMode = E_MAPTOOL;
+		SCENEMANAGER->changeScene("maptool");//gameSceneTwo
 	}
 
 	LeaveCriticalSection(&_cs);
@@ -716,6 +717,12 @@ void loadingScene::XMeshStaticLoading()
 	XMESH_MANAGER->AddXmeshStatic("ob185", RM_XMESH->getResource(FILEPATH_MANAGER->GetFilepath("Xmesh_ob185"), scale));
 	XMESH_MANAGER->AddXmeshStatic("ob186", RM_XMESH->getResource(FILEPATH_MANAGER->GetFilepath("Xmesh_ob186"), scale));
 	XMESH_MANAGER->AddXmeshStatic("ob187", RM_XMESH->getResource(FILEPATH_MANAGER->GetFilepath("Xmesh_ob187"), scale));
+
+	//Æ÷Å»--------------------------------------------------------------------------------------------------------------
+	XMESH_MANAGER->AddXmeshStatic("portal1", RM_XMESH->getResource(FILEPATH_MANAGER->GetFilepath("Xmesh_portal1"), scale));
+	XMESH_MANAGER->AddXmeshStatic("portal2", RM_XMESH->getResource(FILEPATH_MANAGER->GetFilepath("Xmesh_portal2"), scale));
+	XMESH_MANAGER->AddXmeshStatic("portal3", RM_XMESH->getResource(FILEPATH_MANAGER->GetFilepath("Xmesh_portal3"), scale));
+	XMESH_MANAGER->AddXmeshStatic("portal4", RM_XMESH->getResource(FILEPATH_MANAGER->GetFilepath("Xmesh_portal4"), scale));
 }
 
 void loadingScene::XMeshSkinnedLoading()

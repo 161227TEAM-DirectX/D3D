@@ -11,13 +11,13 @@ class rightSmallGrid;
 //상단 메뉴
 enum UISTAGE { UIOFF = 0, UION };
 //오브젝트 중단메뉴
-enum OBSTAGE { STORMTOWN1 =1, STROMTOWN2, RUINSTAGE, PIRAMID };
+enum OBSTAGE { STORMTOWN1 = 1, STROMTOWN2, RUINSTAGE, PIRAMID, PORTAL };
 //오브젝트 하단메뉴
 enum OBSTAGEDOWN { ONEOFF = 1, TWOOFF, THREEOFF };
 //환경 중단메뉴
-enum ENVSTAGE { WATERMIDDLE = 1, SKYMIDDLE ,NODEINSTAL,NODELINK,MONSTER };
+enum ENVSTAGE { WATERMIDDLE = 1, SKYMIDDLE, NODEINSTAL, NODELINK, MONSTER };
 //지형 중단메뉴
-enum TERSTAGE { TILEMAP1 =1, TILEMAP2,TILEMAP3,TILEMAP4,SPLAT,TERRAWMAP,TERHEIGHT };
+enum TERSTAGE { TILEMAP1 = 1, TILEMAP2, TILEMAP3, TILEMAP4, SPLAT, TERRAWMAP, TERHEIGHT };
 //UI컨트롤 메뉴
 enum CONTROL { CONTROLOFF = 0, CONTROLLEFT, CONTROLRIGHT };
 
@@ -32,7 +32,7 @@ struct UI
 class rightView : public iGameNode
 {
 private:
-	
+
 	//작은 그리드
 	rightSmallGrid* _rightSmallGrid;
 	//오브젝트
@@ -71,6 +71,7 @@ public:
 	UI _OBJstorm2Button[5];
 	UI _OBJruinButton[7];
 	UI _OBJpiramidButton[4];
+	UI _OBJportalButton;
 
 	//환경하단 메뉴
 	UI _ENVwaterButton[DEFENV];
@@ -106,7 +107,7 @@ private:
 	SYNTHESIZE(int, numberMonster, GSnumberMonster);
 	SYNTHESIZE(int, numberNodeInstal, GSnumberNodeInstal);
 	SYNTHESIZE(int, numberNodelink, GSnumberNodelink);
-	SYNTHESIZE(bool,boolTile1, GSboolTile1);
+	SYNTHESIZE(bool, boolTile1, GSboolTile1);
 	SYNTHESIZE(bool, boolTile2, GSboolTile2);
 	SYNTHESIZE(bool, boolTile3, GSboolTile3);
 	SYNTHESIZE(bool, boolTile4, GSboolTile4);
@@ -128,7 +129,7 @@ private:
 public:
 	rightView();
 	~rightView();
-	
+
 	HRESULT init(void);
 	void release(void);
 	void update(void);

@@ -388,6 +388,9 @@
     <Filter Include="팀 포트폴리오\01.맵툴\3.IO매니져\시네마">
       <UniqueIdentifier>{4efbfe96-a2e7-468e-a76c-5c8b5dc487c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="팀 포트폴리오\01.맵툴\2.레프트뷰\4.포탈">
+      <UniqueIdentifier>{9c0c12a0-5165-4320-b568-c130727dce3f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainGame.cpp">
@@ -1032,6 +1035,9 @@
     <ClCompile Include="ioSaveNameManager.cpp">
       <Filter>팀 포트폴리오\01.맵툴\3.IO매니져\이름</Filter>
     </ClCompile>
+    <ClCompile Include="Tportal.cpp">
+      <Filter>팀 포트폴리오\01.맵툴\2.레프트뷰\4.포탈</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainGame.h">
@@ -1675,6 +1681,9 @@
     </ClInclude>
     <ClInclude Include="ioSaveNameManager.h">
       <Filter>팀 포트폴리오\01.맵툴\3.IO매니져\이름</Filter>
+    </ClInclude>
+    <ClInclude Include="Tportal.h">
+      <Filter>팀 포트폴리오\01.맵툴\2.레프트뷰\4.포탈</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
