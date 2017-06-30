@@ -270,7 +270,7 @@ void leftViewHead::terrainUpdate()
 				_mainCamera->computeRay(&ray, &_screenPos, 1);
 
 				m_eHeightType = eHeightType::E_DOWN;
-				_terrain->_nHeightSign = -20;
+				_terrain->_nHeightSign = -3;
 			}
 		}
 	}
@@ -661,7 +661,7 @@ void leftViewHead::save()
 			InfoObjectTemp.clear();
 			_mapObject->deletePortal();
 
-			IOSAVEOBJECTMANAGER->loadFile("1오브젝트");
+			IOSAVEOBJECTMANAGER->loadFile("지형오브젝트");
 			for (int i = 0; i < IOSAVEOBJECTMANAGER->getCount(); i++)
 			{
 				object = IOSAVEOBJECTMANAGER->findTag("넘버" + to_string(i + 1));
@@ -673,20 +673,20 @@ void leftViewHead::save()
 				m_vecObject.push_back(temp2);
 			}
 
-			/*	_terrain->setTile0(IOMAPMANAGER->loadMapInfo("성밖지형").tile0);
-			_terrain->setTile1(IOMAPMANAGER->loadMapInfo("성밖지형").tile1);
-			_terrain->setTile2(IOMAPMANAGER->loadMapInfo("성밖지형").tile2);
-			_terrain->setTile3(IOMAPMANAGER->loadMapInfo("성밖지형").tile3);
-			_terrain->setSlat(IOMAPMANAGER->loadMapInfo("성밖지형").splat);
-			_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("성밖지형").vecPos);
+			_terrain->setTile0(IOMAPMANAGER->loadMapInfo("지형0").tile0);
+			_terrain->setTile1(IOMAPMANAGER->loadMapInfo("지형0").tile1);
+			_terrain->setTile2(IOMAPMANAGER->loadMapInfo("지형0").tile2);
+			_terrain->setTile3(IOMAPMANAGER->loadMapInfo("지형0").tile3);
+			_terrain->setSlat(IOMAPMANAGER->loadMapInfo("지형0").splat);
+			_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("지형0").vecPos);
 			_terrain->setting();
-			_terrain->changeHeightTerrain();*/
+			_terrain->changeHeightTerrain();
 
 
 			tagSaveMap _envTemp;
 			tagSaveMap _waterTemp;
 
-			IOSAVEMANAGER->loadFile("1세이브맵");
+			IOSAVEMANAGER->loadFile("지형세이브맵");
 
 			_envTemp = IOSAVEMANAGER->findTag("환경맵");
 			_waterTemp = IOSAVEMANAGER->findTag("물결맵");
@@ -719,7 +719,7 @@ void leftViewHead::save()
 			temp.mapHeight = 0;
 			InfoTemp.push_back(temp);
 
-			IOSAVEMANAGER->saveFile("1세이브맵", InfoTemp);
+			IOSAVEMANAGER->saveFile("지형세이브맵", InfoTemp);
 
 			//지우고 나서 문제가 생겨서 이름을 다시 1번부터 저장시켜준다
 			for (int i = 0; i < InfoObjectTemp.size(); i++)
@@ -727,7 +727,7 @@ void leftViewHead::save()
 				InfoObjectTemp[i].infoName = "넘버" + to_string(i + 1);
 			}
 
-			IOSAVEOBJECTMANAGER->saveFile("1오브젝트", InfoObjectTemp);
+			IOSAVEOBJECTMANAGER->saveFile("지형오브젝트", InfoObjectTemp);
 
 			//ST_MAP temp0;
 
