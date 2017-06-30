@@ -72,6 +72,11 @@ void cDxImgBar::moveBar(int nCurX)
 	m_pMove->SetCurX(m_pMove->GetCurX() + nCurX);
 }
 
+void cDxImgBar::moveBar(float fCurX)
+{
+	m_pMove->SetCurX(m_pMove->GetSize().fWidth * (fCurX / 100.0f));
+}
+
 
 void cDxImgBar::movePos(int cx, int cy)
 {
