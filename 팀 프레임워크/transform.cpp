@@ -7,6 +7,7 @@ namespace dx {
 		, m_fAngleY(0.0f)
 		, m_fAngleZ(0.0f)
 		, m_fMove(10.0f)
+		, _linkTrans(nullptr)
 	{
 		this->pParent = NULL;
 		this->pFirstChild = NULL;
@@ -1363,8 +1364,11 @@ namespace dx {
 					prevM_PosX = GetMousePos().x;
 				}
 			}
-			this->LookPosition(_linkTrans->GetWorldPosition() + _linkTrans->GetForward());
-			this->SetWorldPosition(_linkTrans->GetWorldPosition() + _relativeCamPos);
+			if (_linkTrans != nullptr)
+			{
+				this->LookPosition(_linkTrans->GetWorldPosition() + _linkTrans->GetForward());
+				this->SetWorldPosition(_linkTrans->GetWorldPosition() + _relativeCamPos);
+			}
 		}
 		else
 		{

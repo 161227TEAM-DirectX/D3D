@@ -25,14 +25,14 @@ mainGame::mainGame()
 {
 	REGIST_SGT->Init();
 
-	SCENEMANAGER->addScene("loading", new loadingScene, true);	
+	SCENEMANAGER->addScene("loading", new loadingScene, false);	
 
 
 	//SCENEMANAGER->addScene("test", new cMinimapTest, false);
 	//SCENEMANAGER->addScene("start", new startScene, false);
 	//SCENEMANAGER->addScene("maptool", new mapToolScene, false);
 	//SCENEMANAGER->addScene("particleTest5", new particleTest05, false);
-	SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
+	SCENEMANAGER->addScene("particleTest13", new particleTest13, true);
 
 	SCENEMANAGER->addScene("test", new cUserInterfaceTest2, false);
 	//SCENEMANAGER->addScene("start", new startScene, false);
