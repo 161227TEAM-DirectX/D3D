@@ -239,7 +239,6 @@ void mapObject::objectSet(int objectNumber, baseObject * tempObect, D3DXMATRIX m
 	tempObect->_transform->SetRotateWorld(0, mapRotation, 0);
 
 	//삭제를 위해서 사이즈를 맞추기위한 수단
-
 	switch (objectNumber)
 	{
 	case 189:
