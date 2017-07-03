@@ -233,10 +233,20 @@ void playerItem::updatePlayerInfo()
 		PLAYERMANAGER->SetWeapon((PL_WEAPON)_playerWeaponItem.back().number);
 		PLAYERMANAGER->Setatt(PLAYERMANAGER->GetorgAtt() + (PL_WEAPON)_playerWeaponItem.back().attack);
 	}
+	else if(_playerWeaponItem.size() == 0)
+	{
+		PLAYERMANAGER->SetWeapon(W_NONE);
+		PLAYERMANAGER->Setatt(PLAYERMANAGER->GetorgAtt());
+	}
 
 	if (_playerArmorItem.size() == 1)
 	{
 		PLAYERMANAGER->SetShield((PL_SHIELD)_playerArmorItem.back().number);
 		PLAYERMANAGER->SetDef(PLAYERMANAGER->Get_orgDef() + (PL_SHIELD)_playerArmorItem.back().attack);
+	}
+	else if (_playerArmorItem.size() == 0)
+	{
+		PLAYERMANAGER->SetShield(SH_NONE);
+		PLAYERMANAGER->SetDef(PLAYERMANAGER->Get_orgDef());
 	}
 }	

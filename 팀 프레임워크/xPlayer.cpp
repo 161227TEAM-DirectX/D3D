@@ -159,10 +159,13 @@ HRESULT xPlayer::init()
 	switch (PLAYERMANAGER->GetWeapon())
 	{
 	case W_NONE:
+		D3DXMatrixRotationY(&matRotate2, D3DXToRadian(270));
+		D3DXMatrixScaling(&matScale2, 0.5, 0.5, 0.5);
+		matCorrection2 = matRotate2*matScale2;
 		pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon01/weapon01.X", &matCorrection2);
 		_weaponObject->setActive(false);
 		_renderObjects.push_back(_weaponObject);
-		_BladeLength = 10.0f;
+		_BladeLength = 0.0f;
 		break;
 	case W_BLACK_WING:
 		D3DXMatrixRotationY(&matRotate2, D3DXToRadian(270));
@@ -1697,9 +1700,11 @@ void xPlayer::updateEquipments()
 		switch (PLAYERMANAGER->GetWeapon())
 		{
 		case W_NONE:
+			D3DXMatrixRotationY(&matRotate2, D3DXToRadian(270));
+			D3DXMatrixScaling(&matScale2, 0.5, 0.5, 0.5);
+			matCorrection2 = matRotate2*matScale2;
 			pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon01/weapon01.X", &matCorrection2);
 			_weaponObject->setActive(false);
-			
 			_BladeLength = 0.0f;
 			break;
 		case W_BLACK_WING:
