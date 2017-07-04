@@ -14,9 +14,6 @@
 #include "cMinimapTest.h"
 #include "cMinimapTest2.h"
 #include "cCameraTest.h"
-#include "cUITestChatting.h"
-#include "cUserInterfaceTest.h"
-#include "cUserInterfaceTest2.h"
 #include "cAniTest.h"
 mainGame::mainGame()
 {
