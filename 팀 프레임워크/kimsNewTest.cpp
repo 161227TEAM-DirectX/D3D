@@ -49,7 +49,7 @@ HRESULT kimsNewTest::init()
 	_terrain->setTile1(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_2"));
 	_terrain->setTile2(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_3"));
 	_terrain->setTile3(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_4"));
-	_terrain->setSlat(FILEPATH_MANAGER->GetFilepath("½ºÇÃ·§_1"));
+	_terrain->setSplat(FILEPATH_MANAGER->GetFilepath("½ºÇÃ·§_1"));
 	_terrain->setting();
 
 	_terrainShadow = new terrain;
@@ -58,7 +58,7 @@ HRESULT kimsNewTest::init()
 	_terrainShadow->setTile1(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_2"));
 	_terrainShadow->setTile2(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_3"));
 	_terrainShadow->setTile3(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_4"));
-	_terrainShadow->setSlat(FILEPATH_MANAGER->GetFilepath("½ºÇÃ·§_1"));
+	_terrainShadow->setSplat(FILEPATH_MANAGER->GetFilepath("½ºÇÃ·§_1"));
 	_terrainShadow->setting();
 
 //	_player = new xPlayer();

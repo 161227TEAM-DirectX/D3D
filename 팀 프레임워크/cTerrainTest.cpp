@@ -29,7 +29,7 @@ HRESULT cTerrainTest::init()
 	_terrain->setTile1(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_2"));
 	_terrain->setTile2(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_3"));
 	_terrain->setTile3(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_4"));
-	_terrain->setSlat(FILEPATH_MANAGER->GetFilepath("½ºÇÃ·§_1"));
+	_terrain->setSplat(FILEPATH_MANAGER->GetFilepath("½ºÇÃ·§_1"));
 	_terrain->setHeightscale(100.0f);
 	_terrain->setBrushmap(FILEPATH_MANAGER->GetFilepath("ºê·¯½¬_brush01"));
 	_terrain->setBrushScale(1.0f);

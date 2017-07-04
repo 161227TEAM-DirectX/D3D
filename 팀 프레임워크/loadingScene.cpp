@@ -52,7 +52,7 @@ void loadingScene::render()
 	if (m_isChange /*&& m_pLoadingBar->IsFullBar()*/)
 	{
 		//g_eSelectMode = E_MAPTOOL;
-		SCENEMANAGER->changeScene("gameSceneOne");//gameSceneTwo
+		SCENEMANAGER->changeScene("test");//gameSceneTwo
 	}
 
 	LeaveCriticalSection(&_cs);
@@ -60,10 +60,12 @@ void loadingScene::render()
 
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
-	SoundLoading();
-	XMeshStaticLoading();
-	XMeshSkinnedLoading();
+	//SoundLoading();
+	//XMeshStaticLoading();
+	//XMeshSkinnedLoading();
+	//PtcLoading();
 	UILoading();
+	UiTestLoading();
 	AniLoading();
 
 	m_isChange = true;
@@ -113,11 +115,14 @@ void loadingScene::UILoading()
 	DXIMG_MANAGER->AddDxImg("numbox_money", new cDxImg(FILEPATH_MANAGER->GetFilepath("numbox_money")));
 	DXIMG_MANAGER->AddDxImg("numbox_soul", new cDxImg(FILEPATH_MANAGER->GetFilepath("numbox_soul")));
 
+	DXIMG_MANAGER->AddDxImg("이벤트씬_위", new cDxImg(FILEPATH_MANAGER->GetFilepath("이벤트씬")));
+	DXIMG_MANAGER->AddDxImg("이벤트씬_아래", new cDxImg(FILEPATH_MANAGER->GetFilepath("이벤트씬")));
+}
 
-
-
+void loadingScene::UiTestLoading()
+{
 	//=======================================================================
-	//test
+	// DXIMG
 	//=======================================================================
 	DXIMG_MANAGER->AddDxImg("minimap", new cDxImg(FILEPATH_MANAGER->GetFilepath("minimap")));
 	DXIMG_MANAGER->AddDxImg("minimap2", new cDxImg(FILEPATH_MANAGER->GetFilepath("minimap")));
@@ -128,11 +133,47 @@ void loadingScene::UILoading()
 	DXIMG_MANAGER->AddDxImg("tileTest1", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest1")));
 	DXIMG_MANAGER->AddDxImg("tileTest2", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest2")));
 	DXIMG_MANAGER->AddDxImg("tileTest3", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest3")));
+	DXIMG_MANAGER->AddDxImg("tileTest4", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest4")));
+	DXIMG_MANAGER->AddDxImg("tileTest5", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest5")));
+	DXIMG_MANAGER->AddDxImg("tileTest6", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest6")));
+	DXIMG_MANAGER->AddDxImg("tileTest7", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest7")));
+	DXIMG_MANAGER->AddDxImg("tileTest8", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest8")));
+	DXIMG_MANAGER->AddDxImg("tileTest9", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest9")));
+	DXIMG_MANAGER->AddDxImg("tileTest10", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest10")));
+	DXIMG_MANAGER->AddDxImg("tileTest11", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest11")));
+	DXIMG_MANAGER->AddDxImg("tileTest12", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest12")));
+
+
+	DXIMG_MANAGER->AddDxImg("tileTest0_mapTool", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest0_mapTool")));
+	DXIMG_MANAGER->AddDxImg("tileTest1_mapTool", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest1_mapTool")));
+	DXIMG_MANAGER->AddDxImg("tileTest2_mapTool", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest2_mapTool")));
+	DXIMG_MANAGER->AddDxImg("tileTest3_mapTool", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest3_mapTool")));
+	DXIMG_MANAGER->AddDxImg("tileTest4_mapTool", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest4_mapTool")));
+	DXIMG_MANAGER->AddDxImg("tileTest5_mapTool", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest5_mapTool")));
+	DXIMG_MANAGER->AddDxImg("tileTest6_mapTool", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest6_mapTool")));
+	DXIMG_MANAGER->AddDxImg("tileTest7_mapTool", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest7_mapTool")));
+	DXIMG_MANAGER->AddDxImg("tileTest8_mapTool", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest8_mapTool")));
+	DXIMG_MANAGER->AddDxImg("tileTest9_mapTool", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest9_mapTool")));
+	DXIMG_MANAGER->AddDxImg("tileTest10_mapTool", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest10_mapTool")));
+
+
+	DXIMG_MANAGER->AddDxImg("tileTestBase", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTestBase")));
+	DXIMG_MANAGER->AddDxImg("splat_test0", new cDxImg(FILEPATH_MANAGER->GetFilepath("splat_test0")));
+	DXIMG_MANAGER->AddDxImg("splat_test1", new cDxImg(FILEPATH_MANAGER->GetFilepath("splat_test1")));
+	DXIMG_MANAGER->AddDxImg("splat_test2", new cDxImg(FILEPATH_MANAGER->GetFilepath("splat_test2")));
+	DXIMG_MANAGER->AddDxImg("splat_test3", new cDxImg(FILEPATH_MANAGER->GetFilepath("splat_test3")));
+
+
 
 	DXIMG_MANAGER->AddDxImg("splat_red_base", new cDxImg(FILEPATH_MANAGER->GetFilepath("splat_red_base")));
 	DXIMG_MANAGER->AddDxImg("splat_green_base", new cDxImg(FILEPATH_MANAGER->GetFilepath("splat_green_base")));
 	DXIMG_MANAGER->AddDxImg("splat_blue_base", new cDxImg(FILEPATH_MANAGER->GetFilepath("splat_blue_base")));
 	DXIMG_MANAGER->AddDxImg("splat_black_base", new cDxImg(FILEPATH_MANAGER->GetFilepath("splat_black_base")));
+	DXIMG_MANAGER->AddDxImg("splat_base", new cDxImg(FILEPATH_MANAGER->GetFilepath("splat_base")));
+
+
+	DXIMG_MANAGER->AddDxImg("tileTest_Select", new cDxImg(FILEPATH_MANAGER->GetFilepath("tileTest_Select")));
+
 
 	DXIMG_MANAGER->AddDxImg("Test_Inven", new cDxImg(FILEPATH_MANAGER->GetFilepath("Test_Inven")));
 	DXIMG_MANAGER->AddDxImg("Test_Inven2", new cDxImg(FILEPATH_MANAGER->GetFilepath("Test_Inven2")));
@@ -145,6 +186,39 @@ void loadingScene::UILoading()
 	DXIMG_MANAGER->AddDxImg("물약상점아이콘", new cDxImg(FILEPATH_MANAGER->GetFilepath("물약상점아이콘")));
 	DXIMG_MANAGER->AddDxImg("강화상점아이콘", new cDxImg(FILEPATH_MANAGER->GetFilepath("강화상점아이콘")));
 	DXIMG_MANAGER->AddDxImg("인벤토리아이콘", new cDxImg(FILEPATH_MANAGER->GetFilepath("인벤토리아이콘")));
+
+	DXIMG_MANAGER->AddDxImg("GrieverCursor", new cDxImg(FILEPATH_MANAGER->GetFilepath("GrieverCursor")));
+	DXIMG_MANAGER->AddDxImg("rangeTest00", new cDxImg(FILEPATH_MANAGER->GetFilepath("rangeTest00")));
+	DXIMG_MANAGER->AddDxImg("rangeTest01", new cDxImg(FILEPATH_MANAGER->GetFilepath("rangeTest01")));
+	DXIMG_MANAGER->AddDxImg("rangeTest02", new cDxImg(FILEPATH_MANAGER->GetFilepath("rangeTest02")));
+	DXIMG_MANAGER->AddDxImg("rangeTest03", new cDxImg(FILEPATH_MANAGER->GetFilepath("rangeTest03")));
+	DXIMG_MANAGER->AddDxImg("rangeTest04", new cDxImg(FILEPATH_MANAGER->GetFilepath("rangeTest04")));
+	DXIMG_MANAGER->AddDxImg("checkTest00", new cDxImg(FILEPATH_MANAGER->GetFilepath("checkTest00")));
+
+	DXIMG_MANAGER->AddDxImg("worldmapTest", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmapTest")));
+
+	DXIMG_MANAGER->AddDxImg("markCenter", new cDxImg(FILEPATH_MANAGER->GetFilepath("markCenter")));
+	DXIMG_MANAGER->AddDxImg("markEast", new cDxImg(FILEPATH_MANAGER->GetFilepath("markEast")));
+	DXIMG_MANAGER->AddDxImg("markNorth", new cDxImg(FILEPATH_MANAGER->GetFilepath("markNorth")));
+	DXIMG_MANAGER->AddDxImg("markSouth", new cDxImg(FILEPATH_MANAGER->GetFilepath("markSouth")));
+	DXIMG_MANAGER->AddDxImg("markWest", new cDxImg(FILEPATH_MANAGER->GetFilepath("markWest")));
+
+	DXIMG_MANAGER->AddDxImg("gamemapTest", new cDxImg(FILEPATH_MANAGER->GetFilepath("gamemapTest")));
+
+
+	//=======================================================================
+	//텍스쳐를 저장하자.
+	//=======================================================================
+	TEXTURE_MANAGER->GetTexture(FILEPATH_MANAGER->GetFilepath("splat_base"));
+
+
+
+
+
+	//=======================================================================
+	//스테틱메쉬를 저장하자.
+	//=======================================================================
+	//MESHSTATIC_MANAGER->AddMeshStatic("GunShip", RM_XMESH->getResource(FILEPATH_MANAGER->GetFilepath("GunShip")));
 
 }
 
@@ -504,6 +578,14 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_30", temp, ST_DXIMGANI(4));
+}
+
+void loadingScene::PtcLoading()
+{
+	PTM->LoadImgInit();					//파티클텍스쳐_매니져 초기화(순서1)
+	PSM->ParticleSystemSetInit();		//파티클시스템_매니져 초기화(순서2)
+	SKM->skillSetting();				//스킬 매니저 초기화(순서3)
+	EFFECT->EffectSetting();			//이펙트 매니저 초기화(똑같이 순서3)
 }
 
 void loadingScene::XMeshStaticLoading()

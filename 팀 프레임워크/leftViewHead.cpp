@@ -54,7 +54,7 @@ HRESULT leftViewHead::init()
 	_terrain->setTile1(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_10"));
 	_terrain->setTile2(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_13"));
 	_terrain->setTile3(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_23"));
-	_terrain->setSlat(FILEPATH_MANAGER->GetFilepath("½ºÇÃ·§_1"));
+	_terrain->setSplat(FILEPATH_MANAGER->GetFilepath("½ºÇÃ·§_1"));
 	_terrain->setHeightscale(10.0f);
 	_terrain->setBrushmap(FILEPATH_MANAGER->GetFilepath("ºê·¯½¬_brush01"));
 	_terrain->setBrushScale(1.0f);
@@ -428,27 +428,27 @@ void leftViewHead::terrainTextureUpate()
 	{
 	case 1:
 		splat = "½ºÇÃ·§_1";
-		_terrain->setSlat(FILEPATH_MANAGER->GetFilepath(splat));
+		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat));
 		break;
 	case 2:
 		splat = "½ºÇÃ·§_2";
-		_terrain->setSlat(FILEPATH_MANAGER->GetFilepath(splat));
+		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat));
 		break;
 	case 3:
 		splat = "½ºÇÃ·§_3";
-		_terrain->setSlat(FILEPATH_MANAGER->GetFilepath(splat));
+		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat));
 		break;
 	case 4:
 		splat = "½ºÇÃ·§_4";
-		_terrain->setSlat(FILEPATH_MANAGER->GetFilepath(splat));
+		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat));
 		break;
 	case 5:
 		splat = "½ºÇÃ·§_5";
-		_terrain->setSlat(FILEPATH_MANAGER->GetFilepath(splat));
+		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat));
 		break;
 	case 6:
 		splat = "½ºÇÃ·§_6";
-		_terrain->setSlat(FILEPATH_MANAGER->GetFilepath(splat));
+		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat));
 		break;
 	}
 
@@ -677,7 +677,7 @@ void leftViewHead::save()
 			_terrain->setTile1(IOMAPMANAGER->loadMapInfo("ÁöÇü0").tile1);
 			_terrain->setTile2(IOMAPMANAGER->loadMapInfo("ÁöÇü0").tile2);
 			_terrain->setTile3(IOMAPMANAGER->loadMapInfo("ÁöÇü0").tile3);
-			_terrain->setSlat(IOMAPMANAGER->loadMapInfo("ÁöÇü0").splat);
+			_terrain->setSplat(IOMAPMANAGER->loadMapInfo("ÁöÇü0").splat);
 			_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("ÁöÇü0").vecPos);
 			_terrain->setting();
 			_terrain->changeHeightTerrain();

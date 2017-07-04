@@ -202,7 +202,10 @@
     <ClInclude Include="cObject.h" />
     <ClInclude Include="cObjectManager.h" />
     <ClInclude Include="cPicking.h" />
+    <ClInclude Include="cStaticMeshManager.h" />
     <ClInclude Include="cTerrainTest.h" />
+    <ClInclude Include="cTerrainTest2.h" />
+    <ClInclude Include="cTerrainTest3.h" />
     <ClInclude Include="cTextureManager.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="cubeLight.h" />
@@ -418,7 +421,10 @@
     <ClCompile Include="cObject.cpp" />
     <ClCompile Include="cObjectManager.cpp" />
     <ClCompile Include="cPicking.cpp" />
+    <ClCompile Include="cStaticMeshManager.cpp" />
     <ClCompile Include="cTerrainTest.cpp" />
+    <ClCompile Include="cTerrainTest2.cpp" />
+    <ClCompile Include="cTerrainTest3.cpp" />
     <ClCompile Include="cTextureManager.cpp" />
     <ClCompile Include="cube.cpp" />
     <ClCompile Include="cubeLight.cpp" />
