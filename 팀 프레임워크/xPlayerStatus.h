@@ -69,9 +69,13 @@ class xPlayerStatus : public singletonBase<xPlayerStatus>
 private:
 	SYNTHESIZE(int, _lv, Lv);
 	SYNTHESIZE(int, _att, att);
+	SYNTHESIZE(int, _orgAtt, orgAtt);
 	SYNTHESIZE(int, _mAtt, mAtt);
+	SYNTHESIZE(int, _orgMAtt, orgMAtt);
 	SYNTHESIZE(int, _def, Def);
+	SYNTHESIZE(int, _orgDef, _orgDef);
 	SYNTHESIZE(int, _mDef, mDef);
+	SYNTHESIZE(int, _orgMDef, orgMDef);
 	SYNTHESIZE(float, _crit, Crit);
 	SYNTHESIZE(int, _hp, Hp);
 	SYNTHESIZE(int, _MaxHp, MaxHp);

@@ -239,7 +239,6 @@ void mapObject::objectSet(int objectNumber, baseObject * tempObect, D3DXMATRIX m
 	tempObect->_transform->SetRotateWorld(0, mapRotation, 0);
 
 	//삭제를 위해서 사이즈를 맞추기위한 수단
-
 	switch (objectNumber)
 	{
 	case 189:
@@ -297,6 +296,16 @@ void mapObject::deletePortal()
 		SAFE_DELETE(_tportal[i]);
 	}
 	_tportal.clear();
+}
+
+void mapObject::portalRender(camera * _mainCamera)
+{
+	for (int j = 0; j < _tportal.size(); j++)
+	{
+		_tportal[j]->LinkCamera(*_mainCamera);
+		_tportal[j]->update();
+		_tportal[j]->renderPortal();
+	}
 }
 
 void mapObject::portal(vector<baseObject*>& tempObect)

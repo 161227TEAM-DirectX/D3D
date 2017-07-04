@@ -18,7 +18,7 @@ HRESULT skPlayer_Shield::init()
 
 	for (int i = 0; i < _pvFinishPS[0].size(); i++)
 	{
-		_pvFinishPS[0][i]->SetLimitTime(10.0f);
+		_pvFinishPS[0][i]->SetLimitTime(3.0f);
 	}
 
 	//_OneActionSettingOn = true;

@@ -24,6 +24,7 @@ void playerItem::release(void)
 
 void playerItem::update(void)
 {
+	updatePlayerInfo();
 	if (_playerWeaponItemRender.size() != 0)
 	{
 		for (int i = 0; i < _playerWeaponItemRender.size(); i++)
@@ -48,6 +49,7 @@ void playerItem::update(void)
 					//½ºÅÈÃ¢
 					_statItemWeapon.check = true;
 
+					
 				}
 			}
 			else
@@ -90,6 +92,7 @@ void playerItem::update(void)
 			}
 		}
 	}
+
 
 }
 
@@ -222,3 +225,28 @@ void playerItem::removePlaterInformation(ITEMINFOMATION temp)
 		playerArmor = playerArmor - _playerInfomation.armorAbility;
 	}
 }
+
+void playerItem::updatePlayerInfo()
+{
+	if (_playerWeaponItem.size() == 1)
+	{
+		PLAYERMANAGER->SetWeapon((PL_WEAPON)_playerWeaponItem.back().number);
+		PLAYERMANAGER->Setatt(PLAYERMANAGER->GetorgAtt() + (PL_WEAPON)_playerWeaponItem.back().attack);
+	}
+	else if(_playerWeaponItem.size() == 0)
+	{
+		PLAYERMANAGER->SetWeapon(W_NONE);
+		PLAYERMANAGER->Setatt(PLAYERMANAGER->GetorgAtt());
+	}
+
+	if (_playerArmorItem.size() == 1)
+	{
+		PLAYERMANAGER->SetShield((PL_SHIELD)_playerArmorItem.back().number);
+		PLAYERMANAGER->SetDef(PLAYERMANAGER->Get_orgDef() + (PL_SHIELD)_playerArmorItem.back().attack);
+	}
+	else if (_playerArmorItem.size() == 0)
+	{
+		PLAYERMANAGER->SetShield(SH_NONE);
+		PLAYERMANAGER->SetDef(PLAYERMANAGER->Get_orgDef());
+	}
+}	
