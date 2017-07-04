@@ -98,7 +98,7 @@ HRESULT xPlayer::init()
 
 	case A_PLATE:
 		pSkinned =
-			RM_SKINNED->getResource("Resource/Player/FHUMAN_PLATE/FHUMAN.X", &matCorrection);
+			RM_SKINNED->getResource("Resource/Player/FHUMAN_NEW/FHUMAN.X", &matCorrection);
 		break;
 
 	default:
