@@ -38,6 +38,7 @@ public:
 	void updateFrustum();
 	//카메라 기본 업데이트
 	void updateBase();
+	void updateBase(bool isKMW);
 	//프러스텀 기즈모 그리기.
 	void renderFrustumGizmo();
 

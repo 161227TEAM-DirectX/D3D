@@ -4,6 +4,33 @@
 
 HRESULT force::init(void)
 {
+	for (int i = 0; i < DXIMGANI_MANAGER->GetDxImgAni("Ani_Sword1").size(); i++)
+	{
+		DXIMGANI_MANAGER->GetDxImgAni("Ani_Sword1")[i]->SetPosition(D3DXVECTOR3(380, 290, 0));
+		DXIMGANI_MANAGER->GetDxImgAni("Ani_Sword1")[i]->SetCenterDraw(false);
+	}
+	for (int i = 0; i < DXIMGANI_MANAGER->GetDxImgAni("Ani_Sword2").size(); i++)
+	{
+		DXIMGANI_MANAGER->GetDxImgAni("Ani_Sword2")[i]->SetPosition(D3DXVECTOR3(380, 290, 0));
+		DXIMGANI_MANAGER->GetDxImgAni("Ani_Sword2")[i]->SetCenterDraw(false);
+	}
+	for (int i = 0; i < DXIMGANI_MANAGER->GetDxImgAni("Ani_Sword3").size(); i++)
+	{
+		DXIMGANI_MANAGER->GetDxImgAni("Ani_Sword3")[i]->SetPosition(D3DXVECTOR3(380, 290, 0));
+		DXIMGANI_MANAGER->GetDxImgAni("Ani_Sword3")[i]->SetCenterDraw(false);
+	}
+	for (int i = 0; i < DXIMGANI_MANAGER->GetDxImgAni("Ani_Sword4").size(); i++)
+	{
+		DXIMGANI_MANAGER->GetDxImgAni("Ani_Sword4")[i]->SetPosition(D3DXVECTOR3(380, 290, 0));
+		DXIMGANI_MANAGER->GetDxImgAni("Ani_Sword4")[i]->SetCenterDraw(false);
+	}
+	for (int i = 0; i < DXIMGANI_MANAGER->GetDxImgAni("Ani_Sword5").size(); i++)
+	{
+		DXIMGANI_MANAGER->GetDxImgAni("Ani_Sword5")[i]->SetPosition(D3DXVECTOR3(380, 290, 0));
+		DXIMGANI_MANAGER->GetDxImgAni("Ani_Sword5")[i]->SetCenterDraw(false);
+	}
+
+	_forceV.tex = RM_TEXTURE->getResource("Resource/Maptool/sword/소드1/1.png");
 	_forceShop.tex = RM_TEXTURE->getResource("ResourceUI/inven/shop/실험용.png");
 	_foceGage.tex = RM_TEXTURE->getResource("ResourceUI/inven/shop/강화게이지.png");
 	_forcePlus.tex = RM_TEXTURE->getResource("ResourceUI/inven/shop/강화게이지.png");
@@ -22,6 +49,7 @@ HRESULT force::init(void)
 
 	_forceMoney = 1000;
 	_forceGaege = 0;
+	forceNumber = 0;
 	
 	return S_OK;
 }
@@ -70,8 +98,8 @@ void force::update(void)
 				_forceRender.erase(_forceRender.begin());
 				_forceInformation.erase(_forceInformation.begin());
 
-				//std포함된 변수
-				forceViewNumber = 0;
+				forceNumber = 0;
+
 			}
 
 			_forceButton[1].check = false;
@@ -106,8 +134,7 @@ void force::update(void)
 					//인벤렌더 정보 삭제
 					_inven->removeInvenItem(_inven->getTempItem());
 
-					//std포함된 변수
-					forceViewNumber = _inven->getTempInformation().number;
+					forceNumber = _inven->getTempInformation().number;
 				}
 
 				_forceButton[2].check = false;
@@ -247,38 +274,60 @@ void force::render(void)
 
 		FONTMANAGER->fontOut(to_string(_forceMoney * _forceInformation[0].force), _forceShop.rc2.left + 110, _forceShop.rc2.top + 430, D3DCOLOR_XRGB(255, 255, 255));
 	}
+
+	switch (forceNumber)
+	{
+	case 0:
+		SPRITEMANAGER->renderRectTexture(_forceV.tex, &_forceV.rc1, &_forceV.rc2, 0, 0, 512, 512, 380, 290);
+		break;
+	case 1:
+		DXIMGANI_MANAGER->render("Ani_Sword1");
+		break;
+	case 2:
+		DXIMGANI_MANAGER->render("Ani_Sword2");
+		break;
+	case 3:
+		DXIMGANI_MANAGER->render("Ani_Sword3");
+		break;
+	case 4:
+		DXIMGANI_MANAGER->render("Ani_Sword4");
+		break;
+	case 5:
+		DXIMGANI_MANAGER->render("Ani_Sword5");
+		break;
+	}
+
 	
 	//성공
 	if (_forceS.check == true)
 	{
-		SPRITEMANAGER->renderRectTexture(_forceS.tex, &_forceS.rc1, &_forceS.rc2, 0, 0, 512, 89, _forceShop.rc2.left + 400, _forceShop.rc2.top + 150);
+		SPRITEMANAGER->renderRectTexture(_forceS.tex, &_forceS.rc1, &_forceS.rc2, 0, 0, 512, 89, _forceShop.rc2.left + 330, _forceShop.rc2.top + 150);
 
-		_forceB.rc2 = { _forceShop.rc2.left + 470, _forceShop.rc2.top + 200 ,_forceB.rc2.left + 96 , _forceB.rc2.top + 37 };
+		_forceB.rc2 = { _forceShop.rc2.left + 400, _forceShop.rc2.top + 200 ,_forceB.rc2.left + 96 , _forceB.rc2.top + 37 };
 
 		if (_forceB.check == true)
 		{
-			SPRITEMANAGER->renderRectTexture(_forceB.tex, &_forceB.rc1, &_forceB.rc2, 0, 0, 256, 37, _forceShop.rc2.left + 470, _forceShop.rc2.top + 200);
+			SPRITEMANAGER->renderRectTexture(_forceB.tex, &_forceB.rc1, &_forceB.rc2, 0, 0, 256, 37, _forceShop.rc2.left + 400, _forceShop.rc2.top + 200);
 		}
 		else
 		{
-			SPRITEMANAGER->renderRectTexture(_forceB.tex, &_forceB.rc1, &_forceB.rc2, 0, 37, 256, 74, _forceShop.rc2.left + 470, _forceShop.rc2.top + 200);
+			SPRITEMANAGER->renderRectTexture(_forceB.tex, &_forceB.rc1, &_forceB.rc2, 0, 37, 256, 74, _forceShop.rc2.left + 400, _forceShop.rc2.top + 200);
 		}
 	}
 	//실패
 	if (_forceF.check == true)
 	{
-		SPRITEMANAGER->renderRectTexture(_forceF.tex, &_forceF.rc1, &_forceF.rc2, 0, 89, 512, 178, _forceShop.rc2.left + 400, _forceShop.rc2.top + 150);
+		SPRITEMANAGER->renderRectTexture(_forceF.tex, &_forceF.rc1, &_forceF.rc2, 0, 89, 512, 178, _forceShop.rc2.left + 330, _forceShop.rc2.top + 150);
 
-		_forceB.rc2 = { _forceShop.rc2.left + 470, _forceShop.rc2.top + 200 ,_forceB.rc2.left + 96 , _forceB.rc2.top + 37 };
+		_forceB.rc2 = { _forceShop.rc2.left + 400, _forceShop.rc2.top + 200 ,_forceB.rc2.left + 96 , _forceB.rc2.top + 37 };
 
 		if (_forceB.check == true)
 		{
-			SPRITEMANAGER->renderRectTexture(_forceB.tex, &_forceB.rc1, &_forceB.rc2, 0, 0, 256, 37, _forceShop.rc2.left + 470, _forceShop.rc2.top + 200);
+			SPRITEMANAGER->renderRectTexture(_forceB.tex, &_forceB.rc1, &_forceB.rc2, 0, 0, 256, 37, _forceShop.rc2.left + 400, _forceShop.rc2.top + 200);
 		}
 		else
 		{
-			SPRITEMANAGER->renderRectTexture(_forceB.tex, &_forceB.rc1, &_forceB.rc2, 0, 37, 256, 74, _forceShop.rc2.left + 470, _forceShop.rc2.top + 200);
+			SPRITEMANAGER->renderRectTexture(_forceB.tex, &_forceB.rc1, &_forceB.rc2, 0, 37, 256, 74, _forceShop.rc2.left + 400, _forceShop.rc2.top + 200);
 		}
 	}
-
 }

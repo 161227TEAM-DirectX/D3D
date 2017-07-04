@@ -14,6 +14,8 @@ HRESULT xPlayer::init()
 	_handTrans = new dx::transform;
 	_edgeTrans = new dx::transform;
 
+
+
 	//테스트용 라이트 스킬
 	//_lightSkill = new SK_Boss00;
 	//_skillTrans = new dx::transform;
@@ -97,14 +99,14 @@ HRESULT xPlayer::init()
 		break;
 
 	case A_PLATE:
-		pSkinned =
-			RM_SKINNED->getResource("Resource/Player/FHUMAN_PLATE/FHUMAN.X", &matCorrection);
+		pSkinned = 
+			RM_SKINNED->getResource("Resource/Player/FHUMAN_NEW/FHUMAN.X", &matCorrection);
 		break;
-
 	default:
 		return E_FAIL;
 		break;
 	}
+
 
 	_playerObject = new baseObject;
 	_playerObject->setMesh(pSkinned);
@@ -282,7 +284,7 @@ HRESULT xPlayer::init()
 		D3DXMatrixScaling(&matScale3, 0.25f, 0.25f, 0.25f);
 		matCorrection3 = matRotate3 * matScale3;
 
-		pSkinned3 = RM_XMESH->getResource("Resource/item/Shield/shield05/shield05.X", &matCorrection3);
+		pSkinned3 = RM_XMESH->getResource("Resource/Player/FHUMAN_NEW/Shoulder.X", &matCorrection3);//Resource/Player/FHUMAN_NEW/Shoulder.X
 		_shieldObject->setActive(true);
 		_renderObjects.push_back(_shieldObject);
 		break;
@@ -294,6 +296,31 @@ HRESULT xPlayer::init()
 
 	_shieldObject->setMesh(pSkinned3);
 	
+
+
+	D3DXMATRIX matCorrectionL;
+	D3DXMATRIX matCorrectionR;
+
+	D3DXMatrixRotationY(&matCorrectionL, D3DXToRadian(270));
+	D3DXMatrixRotationY(&matCorrectionR, D3DXToRadian(90));
+
+	xMeshStatic* xShoulderL;
+	xMeshStatic* xShoulderR;
+
+
+	xShoulderL = RM_XMESH->getResource("Resource/Player/FHUMAN_NEW/ShoulderL.X", &matCorrectionL);
+	_shoulderL = new baseObject;
+	_shoulderL->setMesh(xShoulderL);
+	_shoulderL->setActive(true);
+
+	xShoulderR = RM_XMESH->getResource("Resource/Player/FHUMAN_NEW/ShoulderR.X", &matCorrectionR);
+	_shoulderR = new baseObject;
+	_shoulderR->setMesh(xShoulderR);
+	_shoulderR->setActive(true);
+
+	_playerObject->_skinnedAnim->AddBoneTransform("humanfemale_Bone99", _shoulderL->_transform);
+
+	_playerObject->_skinnedAnim->AddBoneTransform("humanfemale_Bone98", _shoulderR->_transform);
 
 	_playerObject->_skinnedAnim->Play("S", 0.3F);
 
@@ -307,7 +334,8 @@ HRESULT xPlayer::init()
 
 	targetMonster = NULL;
 
-	
+	_renderObjects.push_back(_shoulderL);
+	_renderObjects.push_back(_shoulderR);
 
 	return S_OK;
 }
@@ -1510,7 +1538,7 @@ void xPlayer::BladePosInit()
 //씬에서 호출해준다.
 void xPlayer::out_setTargetByMouse(camera* mainCamera)
 {
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	if (_monsterPool != nullptr && KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
 		targetMonster = NULL;//타겟을 강제로 비운다.
 		for (int i = 0; i < _monsterPool->size(); i++)
@@ -1829,7 +1857,7 @@ void xPlayer::updateEquipments()
 			D3DXMatrixScaling(&matScale3, 0.25f, 0.25f, 0.25f);
 			matCorrection3 = matRotate3 * matScale3;
 
-			pSkinned3 = RM_XMESH->getResource("Resource/item/Shield/shield05/shield05.X", &matCorrection3);
+			pSkinned3 = RM_XMESH->getResource("Resource/Player/FHUMAN_NEW/Shoulder.X", &matCorrection3);// //Resource/item/Shield/shield05/shield05.X
 			_shieldObject->setActive(true);
 			
 			break;

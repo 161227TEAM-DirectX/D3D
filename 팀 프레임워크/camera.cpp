@@ -67,6 +67,14 @@ void camera::updateBase()
 	updateFrustum();
 }
 
+void camera::updateBase(bool isKMW)
+{
+	DefaultControl(_timeDelta, true);
+	updateMatrix();
+	updateCamToDevice();
+	updateFrustum();
+}
+
 void camera::renderFrustumGizmo()
 {
 	_frustum.renderGizmo();

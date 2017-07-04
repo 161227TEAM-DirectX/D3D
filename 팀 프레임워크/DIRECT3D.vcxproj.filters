@@ -1041,6 +1041,9 @@
     <ClCompile Include="skPlayer_ShootingStar.cpp">
       <Filter>Z테스트\이현총\!스킬 및 파티클 모음\1. 스킬모음\2. 플레이어 스킬</Filter>
     </ClCompile>
+    <ClCompile Include="skBoss_EnergyBullet.cpp">
+      <Filter>Z테스트\이현총\!스킬 및 파티클 모음\1. 스킬모음\1. 보스 스킬</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainGame.h">
@@ -1690,6 +1693,9 @@
     </ClInclude>
     <ClInclude Include="skPlayer_ShootingStar.h">
       <Filter>Z테스트\이현총\!스킬 및 파티클 모음\1. 스킬모음\2. 플레이어 스킬</Filter>
+    </ClInclude>
+    <ClInclude Include="skBoss_EnergyBullet.h">
+      <Filter>Z테스트\이현총\!스킬 및 파티클 모음\1. 스킬모음\1. 보스 스킬</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

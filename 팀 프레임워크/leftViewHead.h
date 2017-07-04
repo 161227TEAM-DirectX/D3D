@@ -41,7 +41,7 @@ private:
 	vector<baseObject*>	m_vecObject;//오브젝트 push_back 해줄 변수
 	float matScaleNumber;           //크기를 받을 변수
 	float mapRotation;
-
+	int   NumberCount;
 	//맵바탕
 	LEFTVIEWUI _leftView;
 	LEFTVIEWUI _SaveButton;
@@ -65,6 +65,7 @@ private:
 	int sour;
 	int dest;
 	bool first;
+
 //LOAD부분
 private:
 	tagSaveObject object;

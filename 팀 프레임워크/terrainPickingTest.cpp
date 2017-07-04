@@ -45,7 +45,7 @@ HRESULT terrainPickingTest::init(void)
 	_terrain->setTile1(IOMAPMANAGER->loadMapInfo("지형1").tile1);
 	_terrain->setTile2(IOMAPMANAGER->loadMapInfo("지형1").tile2);
 	_terrain->setTile3(IOMAPMANAGER->loadMapInfo("지형1").tile3);
-	_terrain->setSlat(FILEPATH_MANAGER->GetFilepath("스플랫_1"));
+	_terrain->setSplat(FILEPATH_MANAGER->GetFilepath("스플랫_1"));
 	_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("지형1").vecPos);
 	_terrain->setting();
 	_terrain->changeHeightTerrain();
@@ -56,7 +56,7 @@ HRESULT terrainPickingTest::init(void)
 	_terrainShadow->setTile1(IOMAPMANAGER->loadMapInfo("지형1").tile1);
 	_terrainShadow->setTile2(IOMAPMANAGER->loadMapInfo("지형1").tile2);
 	_terrainShadow->setTile3(IOMAPMANAGER->loadMapInfo("지형1").tile3);
-	_terrainShadow->setSlat(FILEPATH_MANAGER->GetFilepath("스플랫_1"));
+	_terrainShadow->setSplat(FILEPATH_MANAGER->GetFilepath("스플랫_1"));
 	_terrainShadow->setMapPosition(IOMAPMANAGER->loadMapInfo("지형1").vecPos);
 	_terrainShadow->setting();
 	_terrainShadow->changeHeightTerrain();

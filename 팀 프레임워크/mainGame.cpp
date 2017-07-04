@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "mainGame.h"
-
-#include "cLoadingBarTest.h"	
-#include "cLoadingTest.h"		
-#include "startScene.h"
+//
 #include "loadingScene.h"
+#include "cTerrainTest2.h"
+#include "cTerrainTest3.h"
+
 #include "mapToolScene.h"
 #include "cTerrainTest.h"
 #include "cImageTest.h"
@@ -15,17 +15,17 @@
 #include "cMinimapTest2.h"
 #include "cCameraTest.h"
 #include "cUITestChatting.h"
-#include "cInvenTest.h"
 #include "cUserInterfaceTest.h"
 #include "cUserInterfaceTest2.h"
-
-
-
+#include "cAniTest.h"
 mainGame::mainGame()
 {
 	REGIST_SGT->Init();
 
+	SCENEMANAGER->addScene("test", new cTerrainTest2, false);
+
 	SCENEMANAGER->addScene("loading", new loadingScene, true);	
+	
 
 
 	//SCENEMANAGER->addScene("test", new cMinimapTest, false);
@@ -35,15 +35,9 @@ mainGame::mainGame()
 	//SCENEMANAGER->addScene("particleTest6", new particleTest06, true);
 	SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
 
-	SCENEMANAGER->addScene("test", new cUserInterfaceTest2, false);
-	//SCENEMANAGER->addScene("start", new startScene, false);
-	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
-	//SCENEMANAGER->addScene("particleTest5", new particleTest05, false);
-	//SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
-
-	SCENEMANAGER->addScene("gameSceneOne", new stageOne, false);
-	SCENEMANAGER->addScene("gameSceneTwo", new stageTwo, false);
-	SCENEMANAGER->addScene("gameSceneThree", new stageThree, false);
+	//SCENEMANAGER->addScene("gameSceneOne", new stageOne, false);
+	//SCENEMANAGER->addScene("gameSceneTwo", new stageTwo, false);
+	//SCENEMANAGER->addScene("gameSceneThree", new stageThree, false);
 
 	//SCENEMANAGER->addScene("test", new cGameUITest, false);
 	//SCENEMANAGER->addScene("test", new cMinimapTest, false);

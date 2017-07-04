@@ -49,12 +49,12 @@ HRESULT leftViewHead::init()
 
 	//지형
 	_terrain = new terrain;
-	_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath("높이맵_4"));
+	_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath("높이맵_3"));
 	_terrain->setTile0(FILEPATH_MANAGER->GetFilepath("타일맵_4"));
 	_terrain->setTile1(FILEPATH_MANAGER->GetFilepath("타일맵_10"));
 	_terrain->setTile2(FILEPATH_MANAGER->GetFilepath("타일맵_13"));
 	_terrain->setTile3(FILEPATH_MANAGER->GetFilepath("타일맵_23"));
-	_terrain->setSlat(FILEPATH_MANAGER->GetFilepath("스플랫_1"));
+	_terrain->setSplat(FILEPATH_MANAGER->GetFilepath("스플랫_1"));
 	_terrain->setHeightscale(10.0f);
 	_terrain->setBrushmap(FILEPATH_MANAGER->GetFilepath("브러쉬_brush01"));
 	_terrain->setBrushScale(1.0f);
@@ -73,7 +73,7 @@ HRESULT leftViewHead::init()
 	first = false;
 
 	mapRotation = D3DXToRadian(180);
-
+	
 	return S_OK;
 }
 
@@ -120,6 +120,9 @@ void leftViewHead::PickUdate()
 	//왼쪽사이즈뷰만큼일떄만 업데이트가 된다.
 	if (_ptMousePos.x < leftViewPort.X + leftViewPort.Width && _ptMousePos.x >= 0)
 	{
+		D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
+		_mainCamera->computeRay(&ray, &_screenPos, 1);
+
 		if (_rightView->getnumberObject() != 0)
 		{
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
@@ -127,9 +130,6 @@ void leftViewHead::PickUdate()
 				float scale;
 				baseObject* temp = new baseObject;
 				D3DXMATRIX mapRotate;
-				D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
-
-				_mainCamera->computeRay(&ray, &_screenPos, 1);
 
 				_terrain->isIntersectRay(&_hitPos, &ray);
 
@@ -169,13 +169,9 @@ void leftViewHead::PickUdate()
 			}
 		}
 
-
 		//오브젝트 삭제
 		if (KEYMANAGER->isOnceKeyDown('H'))
 		{
-			D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
-			_mainCamera->computeRay(&ray, &_screenPos, 1);
-
 			for (int i = 0; i < m_vecObject.size(); i++)
 			{
 				if (PHYSICSMANAGER->isRayHitStaticMeshObject(&ray, m_vecObject[i], &_hitPos, NULL))
@@ -201,27 +197,53 @@ void leftViewHead::PickUdate()
 	}
 
 	//각도 조절하는 키입력
-	if (KEYMANAGER->isOnceKeyDown('C'))
+	if (KEYMANAGER->isStayKeyDown('C'))
 	{
-		if (mapRotation >= D3DXToRadian(360))
+		for (int i = 0; i < m_vecObject.size(); i++)
 		{
-			mapRotation = D3DXToRadian(0);
-		}
-		else
-		{
-			mapRotation += D3DXToRadian(45);
+			if (PHYSICSMANAGER->isRayHitStaticMeshObject(&ray, m_vecObject[i], &_hitPos, NULL))
+			{
+				tagSaveObject ObjecTemp;
+
+				if (mapRotation >= D3DXToRadian(360))
+				{
+					mapRotation = D3DXToRadian(0);
+					m_vecObject[i]->_transform->SetRotateWorld(mapRotation, mapRotation, mapRotation);
+
+					InfoObjectTemp[i].objectRotate = mapRotation;
+				}
+				else
+				{
+					mapRotation += D3DXToRadian(5);
+					m_vecObject[i]->_transform->SetRotateWorld(0, mapRotation, 0);
+
+					InfoObjectTemp[i].objectRotate = mapRotation;
+				}
+			}
 		}
 	}
 
-	if (KEYMANAGER->isOnceKeyDown('V'))
+	if (KEYMANAGER->isStayKeyDown('V'))
 	{
-		if (mapRotation <= D3DXToRadian(0))
+		for (int i = 0; i < m_vecObject.size(); i++)
 		{
-			mapRotation = D3DXToRadian(360);
-		}
-		else
-		{
-			mapRotation -= D3DXToRadian(45);
+			if (PHYSICSMANAGER->isRayHitStaticMeshObject(&ray, m_vecObject[i], &_hitPos, NULL))
+			{
+				if (mapRotation <= D3DXToRadian(0))
+				{
+					mapRotation = D3DXToRadian(360);
+					m_vecObject[i]->_transform->SetRotateWorld(mapRotation, mapRotation, mapRotation);
+
+					InfoObjectTemp[i].objectRotate = mapRotation;
+				}
+				else
+				{
+					mapRotation -= D3DXToRadian(5);
+					m_vecObject[i]->_transform->SetRotateWorld(0, mapRotation, 0);
+
+					InfoObjectTemp[i].objectRotate = mapRotation;
+				}
+			}
 		}
 	}
 }
@@ -255,9 +277,6 @@ void leftViewHead::terrainUpdate()
 		{
 			if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
 			{
-				D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
-				_mainCamera->computeRay(&ray, &_screenPos, 1);
-
 				m_eHeightType = eHeightType::E_UP;
 				_terrain->_nHeightSign = 3;
 			}
@@ -266,9 +285,6 @@ void leftViewHead::terrainUpdate()
 		{
 			if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
 			{
-				D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
-				_mainCamera->computeRay(&ray, &_screenPos, 1);
-
 				m_eHeightType = eHeightType::E_DOWN;
 				_terrain->_nHeightSign = -3;
 			}
@@ -428,27 +444,27 @@ void leftViewHead::terrainTextureUpate()
 	{
 	case 1:
 		splat = "스플랫_1";
-		_terrain->setSlat(FILEPATH_MANAGER->GetFilepath(splat));
+		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat));
 		break;
 	case 2:
 		splat = "스플랫_2";
-		_terrain->setSlat(FILEPATH_MANAGER->GetFilepath(splat));
+		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat));
 		break;
 	case 3:
 		splat = "스플랫_3";
-		_terrain->setSlat(FILEPATH_MANAGER->GetFilepath(splat));
+		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat));
 		break;
 	case 4:
 		splat = "스플랫_4";
-		_terrain->setSlat(FILEPATH_MANAGER->GetFilepath(splat));
+		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat));
 		break;
 	case 5:
 		splat = "스플랫_5";
-		_terrain->setSlat(FILEPATH_MANAGER->GetFilepath(splat));
+		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat));
 		break;
 	case 6:
 		splat = "스플랫_6";
-		_terrain->setSlat(FILEPATH_MANAGER->GetFilepath(splat));
+		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat));
 		break;
 	}
 
@@ -661,7 +677,7 @@ void leftViewHead::save()
 			InfoObjectTemp.clear();
 			_mapObject->deletePortal();
 
-			IOSAVEOBJECTMANAGER->loadFile("지형오브젝트");
+			IOSAVEOBJECTMANAGER->loadFile("오브젝트");
 			for (int i = 0; i < IOSAVEOBJECTMANAGER->getCount(); i++)
 			{
 				object = IOSAVEOBJECTMANAGER->findTag("넘버" + to_string(i + 1));
@@ -673,20 +689,20 @@ void leftViewHead::save()
 				m_vecObject.push_back(temp2);
 			}
 
-			_terrain->setTile0(IOMAPMANAGER->loadMapInfo("지형0").tile0);
+	/*		_terrain->setTile0(IOMAPMANAGER->loadMapInfo("지형0").tile0);
 			_terrain->setTile1(IOMAPMANAGER->loadMapInfo("지형0").tile1);
 			_terrain->setTile2(IOMAPMANAGER->loadMapInfo("지형0").tile2);
 			_terrain->setTile3(IOMAPMANAGER->loadMapInfo("지형0").tile3);
-			_terrain->setSlat(IOMAPMANAGER->loadMapInfo("지형0").splat);
+			_terrain->setSplat(IOMAPMANAGER->loadMapInfo("지형0").splat);
 			_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("지형0").vecPos);
 			_terrain->setting();
-			_terrain->changeHeightTerrain();
+			_terrain->changeHeightTerrain();*/
 
 
 			tagSaveMap _envTemp;
 			tagSaveMap _waterTemp;
 
-			IOSAVEMANAGER->loadFile("지형세이브맵");
+			IOSAVEMANAGER->loadFile("환경");
 
 			_envTemp = IOSAVEMANAGER->findTag("환경맵");
 			_waterTemp = IOSAVEMANAGER->findTag("물결맵");
@@ -719,7 +735,7 @@ void leftViewHead::save()
 			temp.mapHeight = 0;
 			InfoTemp.push_back(temp);
 
-			IOSAVEMANAGER->saveFile("지형세이브맵", InfoTemp);
+			IOSAVEMANAGER->saveFile("환경", InfoTemp);
 
 			//지우고 나서 문제가 생겨서 이름을 다시 1번부터 저장시켜준다
 			for (int i = 0; i < InfoObjectTemp.size(); i++)
@@ -727,7 +743,7 @@ void leftViewHead::save()
 				InfoObjectTemp[i].infoName = "넘버" + to_string(i + 1);
 			}
 
-			IOSAVEOBJECTMANAGER->saveFile("지형오브젝트", InfoObjectTemp);
+			IOSAVEOBJECTMANAGER->saveFile("오브젝트", InfoObjectTemp);
 
 			//ST_MAP temp0;
 

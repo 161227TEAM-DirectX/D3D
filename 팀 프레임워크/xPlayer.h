@@ -102,6 +102,9 @@ private:
 	baseObject* _playerObject;
 	baseObject* _weaponObject;
 	baseObject* _shieldObject;
+	baseObject* _shoulderR;
+	baseObject* _shoulderL;
+
 
 	dx::transform _attackTrans;
 	boundBox _attackBound;
@@ -244,6 +247,6 @@ public:
 	void out_setMonsterRegion(vector<monster*>* monsters) { this->_monsterPool = monsters; }
 
 
-	xPlayer() {};
+	xPlayer(): _monsterPool(nullptr) {};
 	~xPlayer() {};
 };
