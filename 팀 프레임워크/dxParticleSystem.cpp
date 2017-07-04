@@ -172,7 +172,7 @@ bool dxParticleSystem::autoTimeReset(bool ResetFunOn)
 {
 	if (_limitTime <= _currentTime)
 	{
-		_currentTime = 0.0f;
+		//_currentTime = 0.0f;
 		if (ResetFunOn) { this->reset(); this->_isActive = FALSE; }
 		return TRUE;
 	}

@@ -9,6 +9,7 @@
 #include "skPlayer_Shield.h"
 #include "skPlayer_FireMagic.h"
 #include "skPlayer_Lightning.h"
+#include "skPlayer_ShootingStar.h"
 
 // ## [ 보스 스킬 ] ## ==================================================
 #include "skBoss_Breath.h"
@@ -26,6 +27,7 @@ void dxSkillManager::skillSetting()
 	this->addSK("매직쉴드", new skPlayer_Shield);
 	this->addSK("파이어매직", new skPlayer_FireMagic);
 	this->addSK("라이트닝", new skPlayer_Lightning);
+	this->addSK("샛별_떨구기", new skPlayer_ShootingStar);
 
 	//보스 스킬 등록
 	this->addSK("브레스", new skBoss_Breath);

@@ -336,6 +336,7 @@
     <ClInclude Include="skPlayer_Lightning.h" />
     <ClInclude Include="skPlayer_MagicShoot.h" />
     <ClInclude Include="skPlayer_Shield.h" />
+    <ClInclude Include="skPlayer_ShootingStar.h" />
     <ClInclude Include="SK_Effect00.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="spriteManager.h" />
@@ -551,6 +552,7 @@
     <ClCompile Include="skPlayer_Lightning.cpp" />
     <ClCompile Include="skPlayer_MagicShoot.cpp" />
     <ClCompile Include="skPlayer_Shield.cpp" />
+    <ClCompile Include="skPlayer_ShootingStar.cpp" />
     <ClCompile Include="SK_Effect00.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="spriteManager.cpp" />

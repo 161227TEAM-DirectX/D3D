@@ -18,7 +18,7 @@ HRESULT particleTest13::init()
 	_mainCamera = new camera;
 	
 
-	_target->SetWorldPosition(RandomFloatRange(-5.0f, 5.0f), RandomFloatRange(0.0f, 3.0f), RandomFloatRange(5.0f, 8.0f));
+	_target->SetWorldPosition(RandomFloatRange(-5.0f, 5.0f), RandomFloatRange(0.0f, 0.0f), RandomFloatRange(5.0f, 8.0f));
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -76,24 +76,7 @@ void particleTest13::update()
 		SKM->findSK("¶óÀÌÆ®´×")->setOneTargetTrans(_target);
 		SKM->findSK("¶óÀÌÆ®´×")->Start();
 
-		/*SKM->findSK("ÀÌÆåÆ®")->setSkillPosTrans(_player);
-		SKM->findSK("ÀÌÆåÆ®")->setSkillDirTrans(_player);
-		SKM->findSK("ÀÌÆåÆ®")->SetManyTargetTrans(_manyTarget, 10);
-		SKM->findSK("ÀÌÆåÆ®")->Start();*/
-
-
-		//testSkill00->SetManyTargetTrans(_target,0);
-		//testSkill00->setOneTargetTrans(_target);
-		//testSkill00->Start();
-
-
-		/*EFFECT->findEffect("½ºÅÏ")->setLimitTime(5.0f);
-		EFFECT->findEffect("½ºÅÏ")->setPositoin(&_player->GetWorldPosition());
-		EFFECT->findEffect("½ºÅÏ")->setPositoin(&_target->GetWorldPosition());
-		EFFECT->findEffect("½ºÅÏ")->Start();*/
-		//EFFECT->findEffect("½ºÅÏ")->setLimitTime(2.0f);
-		//EFFECT->findEffect("½ºÅÏ")->Start(_player);
-		//EFFECT->findEffect("½ºÅÏ")->Start(_target);
+	
 	}
 	if (KEYMANAGER->isOnceKeyDown('3'))
 	{
@@ -136,30 +119,41 @@ void particleTest13::update()
 		SKM->findSK("Èú")->setOneTargetTrans(_target);
 		SKM->findSK("Èú")->Start();
 
-		/*SKM->findSK("ÀÌÆåÆ®")->setSkillPosTrans(_player);
-		SKM->findSK("ÀÌÆåÆ®")->setSkillDirTrans(_player);
-		SKM->findSK("ÀÌÆåÆ®")->SetManyTargetTrans(_manyTarget, 10);
-		SKM->findSK("ÀÌÆåÆ®")->Start();*/
+	}
+	if (KEYMANAGER->isOnceKeyDown('6'))
+	{
+		SKM->findSK("»ûº°_¶³±¸±â")->setSkillPosTrans(_player);
+		SKM->findSK("»ûº°_¶³±¸±â")->setSkillDirTrans(_player);
+		SKM->findSK("»ûº°_¶³±¸±â")->setOneTargetTrans(_target);
+		SKM->findSK("»ûº°_¶³±¸±â")->Start();
+	}
+	if (KEYMANAGER->isOnceKeyDown('7'))
+	{
+		SKM->findSK("Èú")->setSkillPosTrans(_player);
+		SKM->findSK("Èú")->setSkillDirTrans(_player);
+		SKM->findSK("Èú")->setOneTargetTrans(_target);
+		SKM->findSK("Èú")->Start();
 
+	}
+	if (KEYMANAGER->isOnceKeyDown('8'))
+	{
+		SKM->findSK("Èú")->setSkillPosTrans(_player);
+		SKM->findSK("Èú")->setSkillDirTrans(_player);
+		SKM->findSK("Èú")->setOneTargetTrans(_target);
+		SKM->findSK("Èú")->Start();
 
-		//testSkill00->SetManyTargetTrans(_target,0);
-		//testSkill00->setOneTargetTrans(_target);
-		//testSkill00->Start();
+	}
 
-
-		/*EFFECT->findEffect("½ºÅÏ")->setLimitTime(5.0f);
-		EFFECT->findEffect("½ºÅÏ")->setPositoin(&_player->GetWorldPosition());
-		EFFECT->findEffect("½ºÅÏ")->setPositoin(&_target->GetWorldPosition());
-		EFFECT->findEffect("½ºÅÏ")->Start();*/
+	if (KEYMANAGER->isOnceKeyDown('9'))
+	{
+		EFFECT->findEffect("³¯±â_¸ÕÁö")->setLimitTime(5.0f);
+		
+		EFFECT->findEffect("³¯±â_¸ÕÁö")->Start(_player);
 		//EFFECT->findEffect("½ºÅÏ")->setLimitTime(2.0f);
 		//EFFECT->findEffect("½ºÅÏ")->Start(_player);
 		//EFFECT->findEffect("½ºÅÏ")->Start(_target);
+
 	}
-	
-
-
-
-	//testSkill00->update();
 
 }
 

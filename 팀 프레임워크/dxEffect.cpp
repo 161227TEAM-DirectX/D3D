@@ -88,47 +88,47 @@ void dxEffect::render()
 	}*/
 
 }
-
-void dxEffect::setPositoin(D3DXVECTOR3* pos)
-{
-	this->_vPos.push_back(pos);
-	dxParticleSystem* _ps;
-	_ps = NULL;
-	_ps = new dxParticleSystem;
-	*_ps = *PSM->findPS(_psName);
-	_ps->init();
-	//_ps->Transform()->SetWorldPosition(pos);
-	//_ps->SetActive();
-	//PSM->initPS(_ps,_psName);
-	//포지션 세팅
-	this->_vPS.push_back(_ps);
-}
-
-void dxEffect::setPosTrans(dx::transform * posTrans)
-{
-	this->_vPosTrans.push_back(posTrans);
-
-}
-
-void dxEffect::Start(D3DXVECTOR3 * pos, D3DXVECTOR3 * dir)
-{
-	_startOn = true;
-	//위치 넣기
-	//this->_vPos.push_back(pos);
-	//방향 넣기
-	this->_vDir.push_back(dir);
-	dxParticleSystem* _ps;
-	_ps = NULL;
-	_ps = new dxParticleSystem;
-	*_ps = *PSM->findPS(_psName);
-	_ps->init();
-	//_ps->Transform()->SetWorldPosition(pos);
-	//_ps->SetActive();
-	//PSM->initPS(_ps,_psName);
-	//포지션 세팅
-	this->_vPS.push_back(_ps);
-
-}
+//
+//void dxEffect::setPositoin(D3DXVECTOR3* pos)
+//{
+//	this->_vPos.push_back(pos);
+//	dxParticleSystem* _ps;
+//	_ps = NULL;
+//	_ps = new dxParticleSystem;
+//	*_ps = *PSM->findPS(_psName);
+//	_ps->init();
+//	//_ps->Transform()->SetWorldPosition(pos);
+//	//_ps->SetActive();
+//	//PSM->initPS(_ps,_psName);
+//	//포지션 세팅
+//	this->_vPS.push_back(_ps);
+//}
+//
+//void dxEffect::setPosTrans(dx::transform * posTrans)
+//{
+//	this->_vPosTrans.push_back(posTrans);
+//
+//}
+//
+//void dxEffect::Start(D3DXVECTOR3 * pos, D3DXVECTOR3 * dir)
+//{
+//	_startOn = true;
+//	//위치 넣기
+//	//this->_vPos.push_back(pos);
+//	//방향 넣기
+//	this->_vDir.push_back(dir);
+//	dxParticleSystem* _ps;
+//	_ps = NULL;
+//	_ps = new dxParticleSystem;
+//	*_ps = *PSM->findPS(_psName);
+//	_ps->init();
+//	//_ps->Transform()->SetWorldPosition(pos);
+//	//_ps->SetActive();
+//	//PSM->initPS(_ps,_psName);
+//	//포지션 세팅
+//	this->_vPS.push_back(_ps);
+//
+//}
 
 void dxEffect::Start(dx::transform * posTrans, dx::transform * dirTrans)
 {

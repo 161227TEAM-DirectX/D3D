@@ -14,6 +14,9 @@ private:
 	void EffectSet01(string psName);
 	void EffectSet02(string psName);
 
+	void EffectSet03(string psName);
+	void EffectSet04(string psName);
+
 public:
 	psEffectSet00() {};
 	~psEffectSet00() {};

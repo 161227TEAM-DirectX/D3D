@@ -4,6 +4,8 @@
 
 HRESULT particleTest06::init(void)
 {
+	_mainCamera = new camera;
+
 	_player = new dx::transform;
 	_target = new dx::transform;
 
@@ -44,6 +46,10 @@ void particleTest06::release(void)
 
 void particleTest06::update(void)
 {
+	_mainCamera->DefaultControl(_timeDelta);
+	_mainCamera->updateCamToDevice();
+
+
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 	{
 		_testSkill03->Start();

@@ -26,6 +26,8 @@ _actionSphereCollision->setBound(&_actionPS->Transform()->GetWorldPosition(), &D
 _targetSphereCollision = new boundSphere;
 _targetSphereCollision->setBound(&_targetTrans->GetWorldPosition(), &D3DXVECTOR3(0.1f, 0.1f, 0.1f));*/
 
+	_SkillRenderType = SR_Array;
+
 	_oneSettingOn = true;
 
 	this->setArrayActionPS("±¸½½2", 100);
