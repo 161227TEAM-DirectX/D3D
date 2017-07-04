@@ -182,6 +182,7 @@
     <ClInclude Include="cAniTest.h" />
     <ClInclude Include="cBarTest.h" />
     <ClInclude Include="cCameraTest.h" />
+    <ClInclude Include="cCutsceneTest.h" />
     <ClInclude Include="cDxImg.h" />
     <ClInclude Include="cDxImgAniManager.h" />
     <ClInclude Include="cDxImgBar.h" />
@@ -220,6 +221,9 @@
     <ClInclude Include="cUIPlayer.h" />
     <ClInclude Include="cUIShopSlot.h" />
     <ClInclude Include="cUIStart.h" />
+    <ClInclude Include="cUITestChatting.h" />
+    <ClInclude Include="cUserInterfaceTest.h" />
+    <ClInclude Include="cUserInterfaceTest2.h" />
     <ClInclude Include="cXmeshManager.h" />
     <ClInclude Include="damageText.h" />
     <ClInclude Include="dijkstra.h" />
@@ -400,6 +404,7 @@
     <ClCompile Include="cAniTest.cpp" />
     <ClCompile Include="cBarTest.cpp" />
     <ClCompile Include="cCameraTest.cpp" />
+    <ClCompile Include="cCutsceneTest.cpp" />
     <ClCompile Include="cDxImg.cpp" />
     <ClCompile Include="cDxImgAniManager.cpp" />
     <ClCompile Include="cDxImgBar.cpp" />
@@ -438,6 +443,9 @@
     <ClCompile Include="cUIPlayer.cpp" />
     <ClCompile Include="cUIShopSlot.cpp" />
     <ClCompile Include="cUIStart.cpp" />
+    <ClCompile Include="cUITestChatting.cpp" />
+    <ClCompile Include="cUserInterfaceTest.cpp" />
+    <ClCompile Include="cUserInterfaceTest2.cpp" />
     <ClCompile Include="cXmeshManager.cpp" />
     <ClCompile Include="damageText.cpp" />
     <ClCompile Include="dijkstra.cpp" />

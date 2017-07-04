@@ -59,7 +59,7 @@ HRESULT stageFour::init()
 	_terrain->setTile1(IOMAPMANAGER->loadMapInfo("己观瘤屈").tile1);
 	_terrain->setTile2(IOMAPMANAGER->loadMapInfo("己观瘤屈").tile2);
 	_terrain->setTile3(IOMAPMANAGER->loadMapInfo("己观瘤屈").tile3);
-	_terrain->setSlat(IOMAPMANAGER->loadMapInfo("己观瘤屈").splat);
+	_terrain->setSplat(IOMAPMANAGER->loadMapInfo("己观瘤屈").splat);
 	_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("己观瘤屈").vecPos);
 	_terrain->setting();
 	_terrain->changeHeightTerrain();
@@ -70,7 +70,7 @@ HRESULT stageFour::init()
 	_terrainShadow->setTile1(IOMAPMANAGER->loadMapInfo("己观瘤屈").tile1);
 	_terrainShadow->setTile2(IOMAPMANAGER->loadMapInfo("己观瘤屈").tile2);
 	_terrainShadow->setTile3(IOMAPMANAGER->loadMapInfo("己观瘤屈").tile3);
-	_terrainShadow->setSlat(IOMAPMANAGER->loadMapInfo("己观瘤屈").splat);
+	_terrainShadow->setSplat(IOMAPMANAGER->loadMapInfo("己观瘤屈").splat);
 	_terrainShadow->setMapPosition(IOMAPMANAGER->loadMapInfo("己观瘤屈").vecPos);
 	_terrainShadow->setting();
 	_terrainShadow->changeHeightTerrain();

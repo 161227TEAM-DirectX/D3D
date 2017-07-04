@@ -190,9 +190,6 @@
     <Filter Include="GameFramework3D\DxImg">
       <UniqueIdentifier>{d8cec934-c656-4c0b-92a6-a9a991486b4f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="RegistBase">
-      <UniqueIdentifier>{8bf2e84c-32dc-475e-b887-6ba650b555ea}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Z테스트\김만웅\04.GameUI">
       <UniqueIdentifier>{b789bd82-fa71-4ce3-a6cb-c1372efd626a}</UniqueIdentifier>
     </Filter>
@@ -319,9 +316,6 @@
     <Filter Include="Z테스트\이현총\!스킬 및 파티클 모음\1. 스킬모음\3. 이펙트 모음">
       <UniqueIdentifier>{3d561301-11f5-4d12-a129-4eff48b0798f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Z테스트\김만웅\08.카메라 제어">
-      <UniqueIdentifier>{5d9cc346-1420-43b7-8db7-a005a769912a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Z테스트\이현총\dx이펙트 매니저">
       <UniqueIdentifier>{cf0eefd3-e026-4b74-a66c-9cd8e441a67e}</UniqueIdentifier>
     </Filter>
@@ -393,6 +387,12 @@
     </Filter>
     <Filter Include="팀 포트폴리오\00.Scene\06.Stage4">
       <UniqueIdentifier>{372a101d-ecb4-4db4-85fa-a4affd71b8e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\김만웅\08.카메라 테스트">
+      <UniqueIdentifier>{5d9cc346-1420-43b7-8db7-a005a769912a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\김만웅\10.컷씬">
+      <UniqueIdentifier>{b9fdb7d9-adf5-471a-8835-e3e2369ac70a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -780,9 +780,6 @@
     <ClCompile Include="startScene.cpp">
       <Filter>팀 포트폴리오\00.Scene\01.Start</Filter>
     </ClCompile>
-    <ClCompile Include="loadingScene.cpp">
-      <Filter>팀 포트폴리오\00.Scene\00.Loading</Filter>
-    </ClCompile>
     <ClCompile Include="mapToolScene.cpp">
       <Filter>팀 포트폴리오\00.Scene\02.Maptool</Filter>
     </ClCompile>
@@ -830,9 +827,6 @@
     </ClCompile>
     <ClCompile Include="cXmeshManager.cpp">
       <Filter>GameManager%28매크로%29\Xmesh</Filter>
-    </ClCompile>
-    <ClCompile Include="cRegistBase.cpp">
-      <Filter>RegistBase</Filter>
     </ClCompile>
     <ClCompile Include="SK_Effect00.cpp">
       <Filter>Z테스트\이현총\!스킬 및 파티클 모음\1. 스킬모음\3. 이펙트 모음</Filter>
@@ -934,7 +928,7 @@
       <Filter>Z테스트\김만웅\07.미니맵</Filter>
     </ClCompile>
     <ClCompile Include="cCameraTest.cpp">
-      <Filter>Z테스트\김만웅\08.카메라 제어</Filter>
+      <Filter>Z테스트\김만웅\08.카메라 테스트</Filter>
     </ClCompile>
     <ClCompile Include="damageText.cpp">
       <Filter>Z테스트\이현수</Filter>
@@ -1046,6 +1040,24 @@
     </ClCompile>
     <ClCompile Include="stageFour.cpp">
       <Filter>팀 포트폴리오\00.Scene\06.Stage4</Filter>
+    </ClCompile>
+    <ClCompile Include="cRegistBase.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="loadingScene.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="cUITestChatting.cpp">
+      <Filter>Z테스트\김만웅\09.UI적용 및 테스트</Filter>
+    </ClCompile>
+    <ClCompile Include="cUserInterfaceTest.cpp">
+      <Filter>Z테스트\김만웅\09.UI적용 및 테스트</Filter>
+    </ClCompile>
+    <ClCompile Include="cUserInterfaceTest2.cpp">
+      <Filter>Z테스트\김만웅\09.UI적용 및 테스트</Filter>
+    </ClCompile>
+    <ClCompile Include="cCutsceneTest.cpp">
+      <Filter>Z테스트\김만웅\10.컷씬</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1433,9 +1445,6 @@
     <ClInclude Include="startScene.h">
       <Filter>팀 포트폴리오\00.Scene\01.Start</Filter>
     </ClInclude>
-    <ClInclude Include="loadingScene.h">
-      <Filter>팀 포트폴리오\00.Scene\00.Loading</Filter>
-    </ClInclude>
     <ClInclude Include="mapToolScene.h">
       <Filter>팀 포트폴리오\00.Scene\02.Maptool</Filter>
     </ClInclude>
@@ -1483,9 +1492,6 @@
     </ClInclude>
     <ClInclude Include="cXmeshManager.h">
       <Filter>GameManager%28매크로%29\Xmesh</Filter>
-    </ClInclude>
-    <ClInclude Include="cRegistBase.h">
-      <Filter>RegistBase</Filter>
     </ClInclude>
     <ClInclude Include="SK_Effect00.h">
       <Filter>Z테스트\이현총\!스킬 및 파티클 모음\1. 스킬모음\3. 이펙트 모음</Filter>
@@ -1587,7 +1593,7 @@
       <Filter>Z테스트\김만웅\07.미니맵</Filter>
     </ClInclude>
     <ClInclude Include="cCameraTest.h">
-      <Filter>Z테스트\김만웅\08.카메라 제어</Filter>
+      <Filter>Z테스트\김만웅\08.카메라 테스트</Filter>
     </ClInclude>
     <ClInclude Include="damageText.h">
       <Filter>Z테스트\이현수</Filter>
@@ -1699,6 +1705,24 @@
     </ClInclude>
     <ClInclude Include="stageFour.h">
       <Filter>팀 포트폴리오\00.Scene\06.Stage4</Filter>
+    </ClInclude>
+    <ClInclude Include="cRegistBase.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="loadingScene.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="cUITestChatting.h">
+      <Filter>Z테스트\김만웅\09.UI적용 및 테스트</Filter>
+    </ClInclude>
+    <ClInclude Include="cUserInterfaceTest.h">
+      <Filter>Z테스트\김만웅\09.UI적용 및 테스트</Filter>
+    </ClInclude>
+    <ClInclude Include="cUserInterfaceTest2.h">
+      <Filter>Z테스트\김만웅\09.UI적용 및 테스트</Filter>
+    </ClInclude>
+    <ClInclude Include="cCutsceneTest.h">
+      <Filter>Z테스트\김만웅\10.컷씬</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

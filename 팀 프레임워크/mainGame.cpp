@@ -1,25 +1,21 @@
 #include "stdafx.h"
 #include "mainGame.h"
-//
-#include "loadingScene.h"
-#include "cTerrainTest2.h"
-#include "cTerrainTest3.h"
+
 #include "startScene.h"
 #include "mapToolScene.h"
-#include "cTerrainTest.h"
-#include "cImageTest.h"
-#include "cButtonTest.h"
-#include "cBarTest.h"
-#include "cGameUITest.h"
-#include "cMinimapTest.h"
-#include "cMinimapTest2.h"
+//
+#include "loadingScene.h"
+//
+#include "cTerrainTest2.h"
+#include "cTerrainTest3.h"
 #include "cCameraTest.h"
-#include "cAniTest.h"
+#include "cCutsceneTest.h"
+
 mainGame::mainGame()
 {
 	REGIST_SGT->Init();
 
-	SCENEMANAGER->addScene("test", new cTerrainTest2, false);
+	SCENEMANAGER->addScene("test", new cCutsceneTest, false);
 
 	SCENEMANAGER->addScene("loading", new loadingScene, true);	
 
