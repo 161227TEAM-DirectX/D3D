@@ -95,4 +95,3 @@ http://naver.me/5vA4hOI1
 플레이어 리소스 추가
 resource - player에 압축풀기
 http://naver.me/FCi4cC8a
-
