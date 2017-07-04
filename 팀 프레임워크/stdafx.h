@@ -520,5 +520,4 @@ extern CRITICAL_SECTION _cs;
 extern D3DVIEWPORT9		leftViewPort;	//왼쪽 뷰포트
 extern D3DVIEWPORT9		rightViewPort;  //오른쪽 뷰포트
 extern eSelectMode		g_eSelectMode;	//게임모드인지 맵툴모드인지
-extern bool				ViewTrue;
-extern int				forceViewNumber;
+extern int forceNumber;
