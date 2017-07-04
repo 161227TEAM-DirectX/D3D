@@ -1,11 +1,11 @@
 #pragma once
-#include "gameNode.h"
+#include "iGameNode.h"
 #include "dxParticleSystem.h"
 #include "dxPointEmitter.h"
 #include "skill00.h"
 #include "skill00_03.h"
 
-class particleTest06 :	public gameNode
+class particleTest06 :	public iGameNode
 {
 private:
 	dx::transform* _player;
@@ -16,6 +16,8 @@ private:
 	skill00* _testSkill;
 	
 	skill00_03* _testSkill03;
+
+	camera* _mainCamera;
 
 public:
 	HRESULT init(void);

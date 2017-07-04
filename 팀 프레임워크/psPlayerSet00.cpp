@@ -24,6 +24,13 @@ HRESULT psPlayerSet00::init()
 	this->LightningSet00("¹ø°³");
 	this->LightningSet01("¹ø°³ÁØºñ");
 
+	//»ûº° ¶³±¸±â
+	this->ShootingStarSet00("»ûº°ÁØºñ1");
+	this->ShootingStarSet01("»ûº°ÁØºñ2");
+	this->ShootingStarSet02("»ûº°¸¶¹ýÁø");
+	this->ShootingStarSet03("»ûº°");
+	this->ShootingStarSet04("»ûº°_ÅÍÁü");
+
 	return S_OK;
 }
 
@@ -825,6 +832,7 @@ void psPlayerSet00::LightningSet00(string psName)
 void psPlayerSet00::LightningSet01(string psName)
 {
 	dxParticleSystemSet::init();
+
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
 	_boardEMT->init("ParticleResources/Texture/LightningSphere_f38x1.png", 1, 0.3f, 20);
@@ -913,5 +921,379 @@ void psPlayerSet00::LightningSet01(string psName)
 	_PS->addEmitter(_planeEMT);
 
 
+	PSM->addPS(psName, _PS, true);
+}
+
+void psPlayerSet00::ShootingStarSet00(string psName)
+{
+	dxParticleSystemSet::init();
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/Light01_5x5.png", 1, 0.6f, 1);
+	_boardEMT->InitRandomLifeTime(0.6f, 0.6f);
+	
+	_boardEMT->InitRandomSize(2.0f, 2.0f);
+	_boardEMT->addSizeGraph(0.5f,3.5f,3.5f);
+	_boardEMT->addSizeGraph(1.0f, 2.0f, 2.0f);
+	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
+	
+	_boardEMT->InitAnimation(5,5);
+	_boardEMT->InitAniPlaySection(5,9);
+
+	_boardEMT->InitRandomAlpha(0.8f, 0.8f);
+	_boardEMT->addAlphaGraph(0.5, 1.0f, 1.0f);
+	_boardEMT->addAlphaGraph(1.0, 0.8f, 0.8f);
+	
+
+
+	_PS->addEmitter(_boardEMT);
+
+	PSM->addPS(psName, _PS, true);
+
+}
+
+void psPlayerSet00::ShootingStarSet01(string psName)
+{
+	dxParticleSystemSet::init();
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/Light01_5x5.png", 1, 1.2f, 2);
+	_boardEMT->InitRandomLifeTime(1.2f, 1.2f);
+
+	_boardEMT->InitRandomSize(2.0f, 2.0f);
+	_boardEMT->addSizeGraph(0.5f, 7.0f, 7.0f);
+	_boardEMT->addSizeGraph(1.0f, 2.5f, 2.5f);
+	//_boardEMT->InitRandomSizeEnd(4.0f, 4.0f);
+
+	_boardEMT->InitAnimation(5, 5);
+	//_boardEMT->InitAniPlaySection(0, 0);
+
+	_boardEMT->InitRandomAlpha(0.8f, 0.8f);
+	_boardEMT->addAlphaGraph(0.5, 1.0f, 1.0f);
+	_boardEMT->addAlphaGraph(1.0, 0.8f, 0.8f);
+
+	_boardEMT->SetActiveLimitTime(1.2f);
+
+	_PS->addEmitter(_boardEMT);
+
+	PSM->addPS(psName, _PS, true);
+}
+
+void psPlayerSet00::ShootingStarSet02(string psName)
+{
+	dxParticleSystemSet::init();
+
+	_planeEMT = NULL;
+	_planeEMT = new dxPlaneEmitter;
+	_planeEMT->init("ParticleResources/Texture/magicCircle.png", 1, 1.2f, 2);
+	_planeEMT->InitRandomLifeTime(1.2f, 1.2f);
+
+	_planeEMT->InitRandomSize(0.5f, 0.5f);
+	//_planeEMT->addSizeGraph(0.5f, 4.0f, 4.0f);
+	//_planeEMT->addSizeGraph(1.0f, 2.5f, 2.5f);
+	_planeEMT->InitRandomSizeEnd(12.0f, 12.0f);
+
+
+	_planeEMT->InitRotateStartAngleX(90.0f, 90.0f);
+	//_planeEMT->InitAnimation(5, 5);
+	//_planeEMT->InitAniPlaySection(0, 0);
+
+	_planeEMT->InitRandomAlpha(0.8f, 0.8f);
+	_planeEMT->addAlphaGraph(0.5, 1.0f, 1.0f);
+	_planeEMT->addAlphaGraph(1.0, 0.8f, 0.8f);
+
+	_planeEMT->SetStartLimitTime(0.8f);
+	_planeEMT->SetActiveLimitTime(1.2f);
+
+	_PS->addEmitter(_planeEMT);
+
+	_planeEMT = NULL;
+	_planeEMT = new dxPlaneEmitter;
+	_planeEMT->init("ParticleResources/Texture/magicCircle.png", 1, 1.2f, 2);
+	_planeEMT->InitRandomLifeTime(1.2f, 1.2f);
+
+	_planeEMT->InitRandomSize(0.5f, 0.5f);
+	//_planeEMT->addSizeGraph(0.5f, 4.0f, 4.0f);
+	//_planeEMT->addSizeGraph(1.0f, 2.5f, 2.5f);
+	_planeEMT->InitRandomSizeEnd(6.0f, 6.0f);
+
+	_planeEMT->InitRandomPositionZ(-2.0f, -2.0f);
+
+	_planeEMT->InitRotateStartAngleX(90.0f, 90.0f);
+	//_planeEMT->InitAnimation(5, 5);
+	//_planeEMT->InitAniPlaySection(0, 0);
+
+	_planeEMT->InitRandomAlpha(0.8f, 0.8f);
+	_planeEMT->addAlphaGraph(0.5, 1.0f, 1.0f);
+	_planeEMT->addAlphaGraph(1.0, 0.8f, 0.8f);
+
+	_planeEMT->SetStartLimitTime(0.8f);
+	_planeEMT->SetActiveLimitTime(1.2f);
+
+	_PS->addEmitter(_planeEMT);
+
+
+
+	_planeEMT = NULL;
+	_planeEMT = new dxPlaneEmitter;
+	_planeEMT->init("ParticleResources/Texture/magicCircle.png", 1, 0.6f, 2);
+	_planeEMT->InitRandomLifeTime(0.6f, 0.6f);
+
+	_planeEMT->InitRandomSize(12.0f, 12.0f);
+	_planeEMT->addSizeGraph(0.5f, 8.0f, 8.0f);
+	_planeEMT->addSizeGraph(1.0f, 12.0f, 12.0f);
+	
+	_planeEMT->InitRotateStartAngleX(90.0f, 90.0f);
+	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
+
+	//_planeEMT->InitAnimation(5, 5);
+	//_planeEMT->InitAniPlaySection(0, 0);
+
+
+
+	_planeEMT->InitRandomAlpha(0.8f, 0.8f);
+	_planeEMT->addAlphaGraph(0.5, 1.0f, 1.0f);
+	_planeEMT->addAlphaGraph(1.0, 0.8f, 0.8f);
+
+	_planeEMT->SetStartLimitTime(2.0f);
+	//_planeEMT->SetActiveLimitTime(1.2f);
+
+	_PS->addEmitter(_planeEMT);
+
+
+	_planeEMT = NULL;
+	_planeEMT = new dxPlaneEmitter;
+	_planeEMT->init("ParticleResources/Texture/magicCircle.png", 1, 0.6f, 2);
+	_planeEMT->InitRandomLifeTime(0.6f, 0.6f);
+
+	_planeEMT->InitRandomSize(6.0f, 6.0f);
+	_planeEMT->addSizeGraph(0.5f, 4.0f, 4.0f);
+	_planeEMT->addSizeGraph(1.0f, 6.0f, 6.0f);
+
+	_planeEMT->InitRotateStartAngleX(90.0f, 90.0f);
+	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
+
+	//_planeEMT->InitAnimation(5, 5);
+	//_planeEMT->InitAniPlaySection(0, 0);
+	_planeEMT->InitRandomPositionZ(-2.0f, -2.0f);
+
+
+	_planeEMT->InitRandomAlpha(0.8f, 0.8f);
+	_planeEMT->addAlphaGraph(0.5, 1.0f, 1.0f);
+	_planeEMT->addAlphaGraph(1.0, 0.8f, 0.8f);
+
+	_planeEMT->SetStartLimitTime(2.0f);
+	//_planeEMT->SetActiveLimitTime(1.2f);
+
+	_PS->addEmitter(_planeEMT);
+
+
+
+	PSM->addPS(psName, _PS, true);
+}
+
+void psPlayerSet00::ShootingStarSet03(string psName)
+{
+	dxParticleSystemSet::init();
+
+	_pointEMT = NULL;
+	_pointEMT = new dxPointEmitter;
+	_pointEMT->init("ParticleResources/Texture/Light.png", 1, 0.1f, 200);
+	//_pointEMT->InitConstSize(1.0f);
+
+	//_pointEMT->InitRandomPositionX(-1.0f, -1.0f);
+	//_pointEMT->InitRandomPositionY(-0.5f, 0.5f);
+	//_pointEMT->InitRandomPositionZ(-1.0f, 1.0f);
+
+	//_pointEMT->InitRandomVelocityX(-1.5f, -1.5f);
+	_pointEMT->InitRandomVelocityZ(-1.5f, -1.5f);
+	_pointEMT->InitRandomVelocityX(-0.1f, 0.1f);
+	_pointEMT->InitRandomVelocityY(-0.1f, 0.1f);
+	//_pointEMT->InitRandomVelocityZ(-3.0f, 3.0f);
+
+	//_pointEMT->InitRandomVelocityX(0.0f, 0.0f);
+	//_pointEMT->InitRandomVelocityY(1.0f, 2.0f);
+	//_pointEMT->InitRandomVelocityZ(0.0f, 0.0f);
+
+	_pointEMT->InitRandomAccelerationZ(-1.0f, -1.0f);
+	//_pointEMT->InitRandomAccelerationY(50.0f, 80.0f);
+	//_pointEMT->InitRandomAccelerationZ(0.0f,0.0f);
+
+
+	_pointEMT->InitRandomAlpha(1.0f, 1.0f);
+	_pointEMT->InitRandomAlphaFade(0.0f, 0.0f);
+
+	_pointEMT->InitRandomLifeTime(3.0f, 3.0f);
+
+	_PS->addEmitter(_pointEMT);
+
+	_pointEMT = NULL;
+	_pointEMT = new dxPointEmitter;
+	_pointEMT->init("ParticleResources/Texture/Light05.png", 1, 0.1f, 200);
+	_pointEMT->InitConstSize(1.2f);
+	/*_pointEMT->InitRandomPositionX(-1.0f, 1.0f);
+	_pointEMT->InitRandomPositionY(-0.5f, 0.5f);
+	_pointEMT->InitRandomPositionZ(-1.0f, 1.0f);*/
+
+	//_pointEMT->InitRandomVelocityY(-0.2f, 0.2f);
+	//_pointEMT->InitRandomVelocityY(-1.0f, -1.0f);
+
+	_pointEMT->InitRandomVelocityZ(-1.0f, -1.0f);
+	_pointEMT->InitRandomVelocityX(-0.1f, 0.1f);
+	_pointEMT->InitRandomVelocityY(-0.1f, 0.1f);
+	//_pointEMT->InitRandomVelocityZ(-3.0f, 3.0f);
+
+	//_pointEMT->InitRandomVelocityX(0.0f, 0.0f);
+	//_pointEMT->InitRandomVelocityY(1.0f, 2.0f);
+	//_pointEMT->InitRandomVelocityZ(0.0f, 0.0f);
+
+	_pointEMT->InitRandomAccelerationZ(-2.0f, -2.0f);
+
+	_pointEMT->InitRandomAlpha(1.0f, 1.0f);
+	_pointEMT->InitRandomAlphaFade(0.0f, 0.0f);
+
+	_pointEMT->InitRandomLifeTime(1.5f, 1.5f);
+
+	_PS->addEmitter(_pointEMT);
+
+
+	_pointEMT = NULL;
+	_pointEMT = new dxPointEmitter;
+	_pointEMT->init("ParticleResources/Texture/explosion.png", 1, 1.0f, 1);
+	//_pointEMT->InitConstSize(2.4f);
+
+	_pointEMT->InitRandomSize(3.0f, 3.0f);
+	_pointEMT->addSizeGraph(0.5f, 4.2f, 4.2f);
+	_pointEMT->addSizeGraph(1.0f, 3.0f, 3.0f);
+
+	/*_pointEMT->InitRandomPositionX(-1.0f, 1.0f);
+	_pointEMT->InitRandomPositionY(-0.5f, 0.5f);
+	_pointEMT->InitRandomPositionZ(-1.0f, 1.0f);*/
+
+	//_pointEMT->InitRandomVelocityX(-3.0f, 3.0f);
+	_pointEMT->InitRandomVelocityY(0.0f, 0.0f);
+	//_pointEMT->InitRandomVelocityZ(-3.0f, 3.0f);
+
+	//_pointEMT->InitRandomVelocityX(0.0f, 0.0f);
+	//_pointEMT->InitRandomVelocityY(1.0f, 2.0f);
+	//_pointEMT->InitRandomVelocityZ(0.0f, 0.0f);
+
+	//_pointEMT->InitRandomAccelerationX(0.0f,0.0f);
+	//_pointEMT->InitRandomAccelerationY(200.0f, 200.0f);
+	//_pointEMT->InitRandomAccelerationZ(0.0f,0.0f);
+
+	/*_pointEMT->InitRandomColorR(0.0f, 0.0f);
+	_pointEMT->InitRandomColorG(0.6f, 0.6f);
+	_pointEMT->InitRandomColorB(0.6f, 0.6f);*/
+
+	/*_pointEMT->InitRandomColorFadeR(0.1f, 1.0f);
+	_pointEMT->InitRandomColorFadeG(0.1f, 1.0f);
+	_pointEMT->InitRandomColorFadeB(0.0f, 0.0f);*/
+
+	/*_pointEMT->InitRandomAlpha(1.0f, 1.0f);
+	_pointEMT->InitRandomAlphaFade(0.1f, 0.1f);*/
+
+	_pointEMT->InitRandomLifeTime(1.0f, 1.0f);
+
+	_PS->addEmitter(_pointEMT);
+
+	_pointEMT = NULL;
+	_pointEMT = new dxPointEmitter;
+	_pointEMT->init("ParticleResources/Texture/Light02.png", 1, 0.5f, 1);
+	//_pointEMT->InitConstSize(3.5f);
+	_pointEMT->InitRandomSize(3.5f, 3.5f);
+	_pointEMT->addSizeGraph(0.5f, 5.5f, 5.5f);
+	_pointEMT->addSizeGraph(1.0f, 3.5f, 3.5f);
+	//	_pointEMT->addSizeGraph();
+	//_pointEMT->addSizeGraph(2.);
+
+	/*_pointEMT->InitRandomPositionX(-1.0f, 1.0f);
+	_pointEMT->InitRandomPositionY(-0.5f, 0.5f);
+	_pointEMT->InitRandomPositionZ(-1.0f, 1.0f);*/
+
+	//_pointEMT->InitRandomVelocityX(-3.0f, 3.0f);
+	_pointEMT->InitRandomVelocityY(0.0f, 0.0f);
+	//_pointEMT->InitRandomVelocityZ(-3.0f, 3.0f);
+
+	_pointEMT->InitRandomVelocityX(0.0f, 0.0f);
+	_pointEMT->InitRandomVelocityY(0.0f, 0.0f);
+	_pointEMT->InitRandomVelocityZ(0.0f, 0.0f);
+
+	//_pointEMT->InitRandomAccelerationX(0.0f,0.0f);
+	//_pointEMT->InitRandomAccelerationY(200.0f, 200.0f);
+	//_pointEMT->InitRandomAccelerationZ(0.0f,0.0f);
+
+	/*_pointEMT->InitRandomColorR(0.0f, 0.0f);
+	_pointEMT->InitRandomColorG(0.6f, 0.6f);
+	_pointEMT->InitRandomColorB(0.6f, 0.6f);*/
+
+	/*_pointEMT->InitRandomColorFadeR(0.1f, 1.0f);
+	_pointEMT->InitRandomColorFadeG(0.1f, 1.0f);
+	_pointEMT->InitRandomColorFadeB(0.0f, 0.0f);*/
+
+	_pointEMT->InitRandomAlpha(0.8f, 0.8f);
+	_pointEMT->addAlphaGraph(0.5, 1.0f, 1.0f);
+	_pointEMT->addAlphaGraph(1.0, 0.8f, 0.8f);
+
+	//_pointEMT->InitRandomAlphaFade(0.3f, 0.3f);
+
+	_pointEMT->InitRandomLifeTime(0.5f, 0.5f);
+
+	/*_pointEMT->InitRandomLifeTime(1.0f, 1.0f);
+	_pointEMT->InitRandomLifeTime(0.5f, 0.5f);*/
+
+	_PS->addEmitter(_pointEMT);
+
+	PSM->addPS(psName, _PS, true);
+}
+
+void psPlayerSet00::ShootingStarSet04(string psName)
+{
+	dxParticleSystemSet::init();
+
+	_pointEMT = NULL;
+	_pointEMT = new dxPointEmitter;
+	_pointEMT->init("ParticleResources/Texture/Light08.png", 1, 1.0f, 2);
+	_pointEMT->InitRandomLifeTime(0.2f, 0.2f);
+
+	_pointEMT->InitRandomSize(3.5f, 3.5f);
+	_pointEMT->InitRandomSizeEnd(12.0f, 12.0f);
+
+	_pointEMT->InitRandomAlpha(0.6f, 0.6f);
+	_pointEMT->addAlphaGraph(0.8, 1.0f, 1.0f);
+	_pointEMT->addAlphaGraph(1.0, 0.8f, 0.8f);
+
+	_PS->addEmitter(_pointEMT);
+
+	_pointEMT = NULL;
+	_pointEMT = new dxPointEmitter;
+	_pointEMT->init("ParticleResources/Texture/explosion.png", 1, 1.0f, 1);
+	_pointEMT->InitRandomLifeTime(0.2f, 0.2f);
+	_pointEMT->InitRandomSize(2.2f, 2.2f);
+	_pointEMT->addSizeGraph(0.5f, 5.5f, 5.5f);
+	_pointEMT->addSizeGraph(1.0f, 1.5f, 1.5f);
+	_pointEMT->InitRandomAlpha(1.0f, 1.0f);
+	_pointEMT->addAlphaGraph(0.6, 1.0f, 1.0f);
+	_pointEMT->addAlphaGraph(1.0, 0.3f, 0.3f);
+
+	_PS->addEmitter(_pointEMT);
+
+	_pointEMT = NULL;
+	_pointEMT = new dxPointEmitter;
+	_pointEMT->init("ParticleResources/Texture/Light02.png", 1, 1.0f, 1);
+	_pointEMT->InitRandomLifeTime(0.2f, 0.2f);
+	_pointEMT->InitRandomSize(3.0f, 3.0f);
+	_pointEMT->addSizeGraph(0.7f, 4.5f, 4.5f);
+	_pointEMT->addSizeGraph(1.0f, 9.5f, 9.5f);
+	_pointEMT->InitRandomAlpha(0.2f, 0.2f);
+
+	_pointEMT->addAlphaGraph(0.7, 1.0f, 1.0f);
+	_pointEMT->addAlphaGraph(1.0, 0.8f, 0.8f);
+
+	_PS->addEmitter(_pointEMT);
+	
+	
 	PSM->addPS(psName, _PS, true);
 }

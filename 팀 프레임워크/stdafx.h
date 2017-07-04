@@ -39,7 +39,7 @@ using namespace std;
 
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
-#pragma comment(linker,"/entry:WinMainCRTStartup /subsystem:console")
+//#pragma comment(linker,"/entry:WinMainCRTStartup /subsystem:console")
 
 
 
@@ -402,7 +402,7 @@ using namespace myUtil;
 #include "cDxImgAniManager.h"
 #include "cXmeshManager.h"
 #include "cUIManager.h"
-
+#include "cStaticMeshManager.h"
 
 
 
@@ -529,5 +529,4 @@ extern CRITICAL_SECTION _cs;
 extern D3DVIEWPORT9		leftViewPort;	//왼쪽 뷰포트
 extern D3DVIEWPORT9		rightViewPort;  //오른쪽 뷰포트
 extern eSelectMode		g_eSelectMode;	//게임모드인지 맵툴모드인지
-extern bool				ViewTrue;
-extern int				forceViewNumber;
+extern int forceNumber;

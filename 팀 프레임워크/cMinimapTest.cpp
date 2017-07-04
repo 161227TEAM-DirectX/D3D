@@ -69,7 +69,7 @@ HRESULT cMinimapTest::init()
 	_terrain->setTile1(FILEPATH_MANAGER->GetFilepath("tileTest1"));
 	_terrain->setTile2(FILEPATH_MANAGER->GetFilepath("tileTest2"));
 	_terrain->setTile3(FILEPATH_MANAGER->GetFilepath("tileTest3"));
-	_terrain->setSlat(FILEPATH_MANAGER->GetFilepath("splat_red_base"));
+	_terrain->setSplat(FILEPATH_MANAGER->GetFilepath("splat_red_base"));
 	_terrain->setTileNum(1);
 	//_terrain->setHeightscale(100.0f);
 	//_terrain->setBrushmap(FILEPATH_MANAGER->GetFilepath("ºê·¯½¬_brush01"));

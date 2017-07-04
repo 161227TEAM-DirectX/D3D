@@ -19,6 +19,12 @@ private:
 	void LightningSet00(string psName);
 	void LightningSet01(string psName);
 
+	void ShootingStarSet00(string psName);
+	void ShootingStarSet01(string psName);
+	void ShootingStarSet02(string psName);
+	void ShootingStarSet03(string psName);
+	void ShootingStarSet04(string psName);
+
 public:
 	psPlayerSet00() {};
 	~psPlayerSet00() {};

@@ -3,27 +3,33 @@
 #include "quadTree.h"
 
 terrain::terrain()
-	: _cellScale(1.0f)
-	, _heightScale(200)
-	, _smoothLevel(3)
-	, _tileNum(100)
-	, _brushScale(10)
-	, _nHeightSign(1)
+	: _quadTree(NULL)			//쿼드 트리
+	, _isQuad(false)			//쿼드 실행 여부
+	, _cellScale(1.0f)			//셀 간격
+	, _heightScale(200)			//높이 스케일(픽셀컬러가 255일때 높이)
+	, _smoothLevel(3)			//스무싱 처리 횟수
+	, _tileNum(100)				//타일링 갯수
+	, _verNumX(0)				//가로 정점수(실제 그림 사이즈 보다 1개 더 많다.이해가 안되면 그림을 그려볼 것.)
+	, _verNumZ(0)				//세로 정점수(실제 그림 사이즈 보다 1개 더 많다.이해가 안되면 그림을 그려볼 것.)
+	, _totalVerNum(0)			//전체 정점수(가로 정점수 * 세로 정점수)
+	, _cellNumX(0)				//가로 셀수(실제 그림 사이즈)
+	, _cellNumZ(0)				//세로 셀수(실제 그림 사이즈)
+	, _totalCellNum(0)			//전체 셀수
+	, _totalTriangle(0)			//전체 삼각형수		
+	, _terrainSizeX(0.f)		//지형 가로 사이즈(128,256,같은)
+	, _terrainSizeZ(0.f)		//지형 세로 사이즈(128,256,같은)
+	, _terrainStartX(0.f)		//지형 시작 위치X
+	, _terrainStartZ(0.f)		//지형 시작 위치Z
+	, _terrainEndX(0.f)			//지형 종료 위치X
+	, _terrainEndZ(0.f)			//지형 종료 위치Z
+	, _isVertexDraw(false)		//버텍스 지형을 그릴건지
+	, _nHtChangeRange(3)		//높이값을 바꿀 범위(영역)
+	, _fHtChangeValue(0.1f)		//높이값을 바꿀 값(얼마만큼 올리고 내릴건지)
+	, _nHtChangeSign(1)			//높이값을 증가시킬지 감소시킬지 부호
+	, _isSmoothing(true)		//스무싱을 할건지
 {
 	//지형 셰이더이펙트 로딩
 	_terrainEffect = RM_SHADERFX->getResource(FILEPATH_MANAGER->GetFilepath("FX_지형기본"));
-}
-
-terrain::terrain(string terrainEffect)
-	: _cellScale(1.0f)
-	, _heightScale(200)
-	, _smoothLevel(3)
-	, _tileNum(100)
-	, _brushScale(10)
-	, _nHeightSign(1)
-{
-	//지형 셰이더이펙트 로딩
-	_terrainEffect = RM_SHADERFX->getResource(terrainEffect);
 }
 
 terrain::~terrain()
@@ -34,6 +40,8 @@ terrain::~terrain()
 	SAFE_DELETE_ARRAY(_terrainVertices);
 	SAFE_DELETE(_quadTree);
 }
+
+
 
 HRESULT terrain::init(char * heightMapName, char * tile_0, char * tile_1, char * tile_2, char * tile_3, char * tileSplat, float cellSize, float heightScale, int smoothLevel, int tileNum)
 {
@@ -56,7 +64,7 @@ HRESULT terrain::init(char * heightMapName, char * tile_0, char * tile_1, char *
 	_verNumZ = sd.Height + 1;	//세로 정점잿수는 높이 맵에 세로 해상도 + 1 과 같다. (이유는 쿼드트리쓰려면 정점갯수가 2의N승 + 1 이여야 하기 때문에)
 	_totalVerNum = _verNumX * _verNumZ;	//총 정점 갯수
 
-	//가로세로 셀수
+										//가로세로 셀수
 	_cellNumX = _verNumX - 1;
 	_cellNumZ = _verNumZ - 1;
 	_totalCellNum = _cellNumX * _cellNumZ;
@@ -67,7 +75,7 @@ HRESULT terrain::init(char * heightMapName, char * tile_0, char * tile_1, char *
 	//터레인을 만든다.
 	//스무싱 레벨 (이값이 클수록 지형이 부드러워진다)
 	//타일 Texture 가 몇개로 나누어질건지 갯수
-	if (FAILED(createTerrain(smoothLevel, tileNum)))
+	if (FAILED(createTerrain(tileNum)))
 	{
 		return E_FAIL;
 	}
@@ -94,11 +102,12 @@ HRESULT terrain::init(char * heightMapName, char * tile_0, char * tile_1, char *
 	_texSlat = RM_TEXTURE->getResource(tileSplat);
 
 	//지형 셰이더이펙트 로딩
-	//_terrainEffect = RM_SHADERFX->getResource("Resource/Maptool/Shaders/TerrainBase.fx");
-	_terrainEffect = RM_SHADERFX->getResource("ResourceUI/test/fx/TerrainBase.fx");
+	_terrainEffect = RM_SHADERFX->getResource("Resource/Maptool/Shaders/TerrainBase.fx");
 
 	dijk = new dijkstra;
 }
+
+
 
 void terrain::setting()
 {
@@ -122,7 +131,7 @@ void terrain::setting()
 
 	//터레인을 만든다.
 	//스무싱 레벨
-	createTerrain(_smoothLevel, _tileNum);
+	createTerrain(_tileNum);
 
 
 	//터레인 크기
@@ -138,9 +147,24 @@ void terrain::setting()
 	//쿼드트리를 만든다.
 	_quadTree = new quadTree;
 	_quadTree->init(_terrainVertices, _verNumX);
-
-	dijk = new dijkstra;
 }
+
+
+
+void terrain::changeHeight(int terrainX, int terrainZ)
+{
+	changeTerrainHt(terrainX, terrainZ);
+
+	//쿼드트리를 생성해야할 경우만 생성하도록 처리.
+	if (_isQuad)
+	{
+		//쿼트트리가 널이 아닐 경우 
+		if (_quadTree != NULL) SAFE_DELETE(_quadTree);
+		_quadTree = new quadTree;
+		_quadTree->init(_terrainVertices, _verNumX);
+	}
+}
+
 
 
 void terrain::render(camera * cam, lightDirection * directionLight)
@@ -148,16 +172,20 @@ void terrain::render(camera * cam, lightDirection * directionLight)
 	//월드 행렬세팅
 	D3DXMATRIXA16 matWorld;
 	D3DXMatrixIdentity(&matWorld);
+
 	//셰이더이펙트 월드행렬 세팅
 	_terrainEffect->SetMatrix("matWorld", &matWorld);
+
 	//셰이더이펙트 뷰행렬 세팅
 	_terrainEffect->SetMatrix("matViewProjection", &cam->getViewProjectionMatrix());
+
 	//셰이더이펙트 텍스쳐 세팅
 	_terrainEffect->SetTexture("Terrain0_Tex", _texTile_0);
 	_terrainEffect->SetTexture("Terrain1_Tex", _texTile_1);
 	_terrainEffect->SetTexture("Terrain2_Tex", _texTile_2);
 	_terrainEffect->SetTexture("Terrain3_Tex", _texTile_3);
 	_terrainEffect->SetTexture("TerrainControl_Tex", _texSlat);
+
 	//셰이더이펙트 광원 세팅
 	D3DXVECTOR3 dirLight = -directionLight->_transform->GetUp();
 	_terrainEffect->SetVector("worldLightDir", &D3DXVECTOR4(dirLight, 1));
@@ -176,16 +204,20 @@ void terrain::render(camera * cam, lightDirection * directionLight)
 	}
 	_terrainEffect->End();
 
-	/*
+
 	//정점렌더
-	_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-	_device->SetStreamSource(0, _terrainVb, 0, sizeof(TERRAINVERTEX));
-	_device->SetIndices(_terrainIb);
-	_device->SetVertexDeclaration(_terrainDecl);
-	_device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, _totalVerNum, 0, _totalTriangle);
-	_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-	*/
+	if (_isVertexDraw)
+	{
+		_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+		_device->SetStreamSource(0, _terrainVb, 0, sizeof(TERRAINVERTEX));
+		_device->SetIndices(_terrainIb);
+		_device->SetVertexDeclaration(_terrainDecl);
+		_device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, _totalVerNum, 0, _totalTriangle);
+		_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+	}
 }
+
+
 
 void terrain::render(camera * cam, lightDirection * directionLight, camera * directionLightCamera)
 {
@@ -233,6 +265,8 @@ void terrain::render(camera * cam, lightDirection * directionLight, camera * dir
 	_terrainEffect->End();
 }
 
+
+
 void terrain::renderShadow(camera * directionLightCam)
 {
 	//월드 행렬셋팅
@@ -258,6 +292,8 @@ void terrain::renderShadow(camera * directionLightCam)
 	}
 	_terrainEffect->End();
 }
+
+
 
 //Ray 히트 위치를 얻는다.
 bool terrain::isIntersectRay(D3DXVECTOR3 * pOut, LPRay ray)
@@ -292,6 +328,8 @@ bool terrain::isIntersectRay(D3DXVECTOR3 * pOut, LPRay ray)
 
 	return true;
 }
+
+
 
 //해당 X, Z 위치의 지형의 높이를 얻는다.
 float terrain::getHeight(float x, float z)
@@ -361,17 +399,18 @@ float terrain::getHeight(float x, float z)
 		height = rb.y + (deltaU * dX) + (deltaV * dZ);
 	}
 
-
 	return height;
 }
 
-pair<int, int> terrain::getIdx(float x, float z)
+
+
+D3DXVECTOR2 terrain::getIdx(float x, float z)
 {
 	//터레인 범위을 넘어가면 0.0 값을 리턴한다
 	if (x < _terrainStartX || x > _terrainEndX ||
 		z > _terrainStartZ || z < _terrainEndZ)
 	{
-		return  pair<int, int>(0.0f, 0.0f);
+		return  D3DXVECTOR2(0.0f, 0.0f);
 	}
 
 	//Terrain 의 좌상단 0 을 기준으로 월드 Terrain 의 상태적 위치를 찾자
@@ -387,8 +426,10 @@ pair<int, int> terrain::getIdx(float x, float z)
 	int idxX = static_cast<int>(pX);
 	int idxZ = static_cast<int>(pZ);
 
-	return pair<int, int>(idxX, idxZ);
+	return D3DXVECTOR2(idxX, idxZ);
 }
+
+
 
 //해당 X, Z 위치의 경사 벡터를 얻는다.
 bool terrain::getSlant(D3DXVECTOR3 * pOut, float gravityPower, float x, float z)
@@ -474,105 +515,10 @@ bool terrain::getSlant(D3DXVECTOR3 * pOut, float gravityPower, float x, float z)
 	return true;
 }
 
-void terrain::setHeightmap(string heightMapName)
-{
-	_heightMap = RM_TEXTURE->getResource(heightMapName);
-}
 
-void terrain::setTile0(string tile_0)
-{
-	_texTile_0 = RM_TEXTURE->getResource(tile_0);
-}
-
-void terrain::setTile1(string tile_1)
-{
-	_texTile_1= RM_TEXTURE->getResource(tile_1);
-}
-
-void terrain::setTile2(string tile_2)
-{
-	_texTile_2 = RM_TEXTURE->getResource(tile_2);
-}
-
-void terrain::setTile3(string tile_3)
-{
-	_texTile_3 = RM_TEXTURE->getResource(tile_3);
-}
-
-void terrain::setSlat(string tileSplat)
-{
-	_texSlat = RM_TEXTURE->getResource(tileSplat);
-}
-
-void terrain::setCellsize(float cellSize)
-{
-	_cellScale = cellSize;
-}
-
-void terrain::setHeightscale(float heightScale)
-{
-	_heightScale = heightScale;
-}
-
-void terrain::setSmoothlevel(int smoothLevel)
-{
-	_smoothLevel = smoothLevel;
-}
-
-void terrain::setTileNum(int tileNum)
-{
-	_tileNum = tileNum;
-}
-
-void terrain::setBrushmap(string brushMapName)
-{
-	_brushMap = RM_TEXTURE->getResource(brushMapName);
-	
-	D3DSURFACE_DESC sd;
-	_brushMap->GetLevelDesc(0, &sd);
-
-	brush_verNumX = sd.Width + 1;	//가로 정점갯수는 높이 맵에 가로 해상도 + 1 과 같다. (이유는 쿼드트리쓰려면 정점갯수가 2의N승 + 1 이여야 하기 때문에)
-	brush_verNumZ = sd.Height + 1;	//세로 정점잿수는 높이 맵에 세로 해상도 + 1 과 같다. (이유는 쿼드트리쓰려면 정점갯수가 2의N승 + 1 이여야 하기 때문에)
-	brush_totalotalVerNum = brush_verNumX * brush_verNumZ;	//총 정점 갯수
-
-															//가로세로 셀수
-	brush_cellNumX = brush_verNumX - 1;
-	brush_cellNumZ = brush_verNumZ - 1;
-	brush_totalCellNum = brush_cellNumX * brush_cellNumZ;
-
-	//터레인 크기
-	brush_terrainSizeX = brush_cellNumX * _cellScale;
-	brush_terrainSizeZ = brush_cellNumZ * _cellScale;
-
-	D3DLOCKED_RECT lockRect;
-	_brushMap->LockRect(0, &lockRect, 0, 0);
-
-	for (int z = 0; z < brush_verNumZ; z++)
-	{
-		for (int x = 0; x < brush_verNumX; x++)
-		{
-			DWORD* pStart = (DWORD*)lockRect.pBits;	//(DWORD 형으로 형변환된 lock 된 이미지지의 시작 주소
-			DWORD dwColor = *(pStart + (z * (lockRect.Pitch / 4) + x));
-
-			float inv = 1.0f / 255.0f;
-			float r = ((dwColor & 0x00ff0000) >> 16) * inv;
-			float g = ((dwColor & 0x0000ff00) >> 8) * inv;
-			float b = ((dwColor & 0x000000ff)) * inv;
-
-			float factor = (r + g + b) / 3.0f;
-
-			_vecBrush.push_back(factor * 0.1f);
-		}
-	}
-}
-
-void terrain::setBrushScale(float scale)
-{
-	_nHeightSign = scale;
-}
 
 //지형 정점 만들기
-HRESULT terrain::createTerrain(int smooth, int tileNum)
+HRESULT terrain::createTerrain(int tileNum)
 {
 	// 정점 위치 구한다.
 
@@ -592,7 +538,8 @@ HRESULT terrain::createTerrain(int smooth, int tileNum)
 		0					//lock 플레그 일단 0
 	);
 
-	//lockRect->Pitch	lock 을 한 영역 이미지의 가로 byte 크기 (얻어온 바이트크기는 다음을 성립한다 pitch % 4 == 0 ) < 3byte 컬러시 pitch byte 구하는 공식 ( 가로 픽셀수 * 3 + 3 ) & ~3 = pitch  >
+	//lockRect->Pitch	lock 을 한 영역 이미지의 가로 byte 크기 
+	//(얻어온 바이트크기는 다음을 성립한다 pitch % 4 == 0 ) < 3byte 컬러시 pitch byte 구하는 공식 ( 가로 픽셀수 * 3 + 3 ) & ~3 = pitch  >
 	//lockRect->pBits	이미지데이터가 시작되는 포인터 주소
 
 	//정정위치와 정점 UV 를 계산하기
@@ -666,8 +613,10 @@ HRESULT terrain::createTerrain(int smooth, int tileNum)
 	_heightMap->UnlockRect(0);
 
 	//지형 스무싱 
-	this->smoothTerrain(smooth);
-
+	if (_isSmoothing)
+	{
+		this->smoothTerrain();
+	}
 
 	// 정점 인덱스를 구한다
 	LPTERRAINTRI pIndices = new tagTERRAINTRI[_totalTriangle];
@@ -849,6 +798,335 @@ HRESULT terrain::createTerrain(int smooth, int tileNum)
 	return S_OK;
 }
 
+HRESULT terrain::changeTerrainHt(int terrainX, int terrainZ)
+{
+	for (int z = terrainZ - _nHtChangeRange; z <= terrainZ + _nHtChangeRange; z++)
+	{
+		for (int x = terrainX - _nHtChangeRange; x <= terrainX + _nHtChangeRange; x++)
+		{
+			if (x >= 0 && x < _verNumX && z >= 0 && z < _verNumZ)
+			{
+				int vidx = z * _verNumX + x;
+
+				if (vidx >= 0 && vidx < _vecPos.size())
+				{
+					D3DXVECTOR3 pos = _vecPos[vidx];
+					pos.y = _vecPos[vidx].y + _fHtChangeValue * _nHtChangeSign;
+					_terrainVertices[vidx].pos = pos;
+					_vecPos[vidx] = pos;
+				}
+			}
+		}
+	}
+
+	//지형 스무싱
+	if (_isSmoothing)
+	{
+		smoothChangeTerrainHt(terrainX, terrainZ);
+	}
+
+	//버퍼에 쓸 void형 함수 선언.
+	void* pVertices = NULL;
+
+	//버텍스 버퍼를 락을 하면서 받을 함수를 정한다.
+	_terrainVb->Lock(0, _totalVerNum * sizeof(TERRAINVERTEX), &pVertices, 0);
+
+	TERRAINVERTEX* pv = (TERRAINVERTEX*)pVertices;
+
+	for (int z = terrainZ - _nHtChangeRange; z <= terrainZ + _nHtChangeRange; z++)
+	{
+		for (int x = terrainX - _nHtChangeRange; x <= terrainX + _nHtChangeRange; x++)
+		{
+			if (x >= 0 && x < _verNumX && z >= 0 && z < _verNumZ)
+			{
+				int vidx = z * _verNumX + x;
+
+				if (vidx >= 0 && vidx < _vecPos.size())
+				{
+					pv[vidx] = _terrainVertices[vidx];
+				}
+			}
+		}
+	}
+	_terrainVb->Unlock();
+
+	return S_OK;
+}
+
+
+
+//지형 스무싱
+void terrain::smoothTerrain()
+{
+	int tempSmoothLevel = _smoothLevel;
+	if (tempSmoothLevel <= 0) return;
+
+	float* smooth = new float[_totalVerNum];
+
+	while (tempSmoothLevel > 0)
+	{
+		tempSmoothLevel--;
+		for (int z = 0; z < _verNumZ; z++)
+		{
+			for (int x = 0; x < _verNumX; x++)
+			{
+				int adjacentSections = 0;		//몇개의 정점과 평균값을 내니?
+				float totalSections = 0.0f;		//주변의 정점 높이 총합은 얼마니?
+
+												//왼쪽체크
+				if ((x - 1) > 0)
+				{
+					totalSections += _terrainVertices[(z * _verNumX) + (x - 1)].pos.y;
+					adjacentSections++;
+					//왼쪽 상단
+					if ((z - 1) > 0)
+					{
+						totalSections += _terrainVertices[((z - 1) * _verNumX) + (x - 1)].pos.y;
+						adjacentSections++;
+					}
+					//왼쪽 하단
+					if ((z + 1) < _verNumZ)
+					{
+						totalSections += _terrainVertices[((z + 1) * _verNumX) + (x - 1)].pos.y;
+						adjacentSections++;
+					}
+				}
+				//오른쪽 체크
+				if ((x + 1) < _verNumX)
+				{
+					totalSections += _terrainVertices[(z * _verNumX) + (x + 1)].pos.y;
+					adjacentSections++;
+
+					//오른쪽 상단
+					if ((z - 1) > 0)
+					{
+						totalSections += _terrainVertices[((z - 1) * _verNumX) + (x + 1)].pos.y;
+						adjacentSections++;
+					}
+					//오른쪽 하단 
+					if ((z + 1) < _verNumZ) {
+						totalSections += _terrainVertices[((z + 1) * _verNumX) + (x + 1)].pos.y;
+						adjacentSections++;
+					}
+				}
+				//상단
+				if ((z - 1) > 0)
+				{
+					totalSections += _terrainVertices[((z - 1) * _verNumX) + x].pos.y;
+					adjacentSections++;
+				}
+				//하단
+				if ((z + 1) < _verNumZ)
+				{
+					totalSections += _terrainVertices[((z + 1) * _verNumX) + x].pos.y;
+					adjacentSections++;
+				}
+				smooth[(z * _verNumX) + x] = (
+					_terrainVertices[(z * _verNumX) + x].pos.y +
+					(totalSections / adjacentSections)) * 0.5f;
+			}
+		}
+
+		//위에서 계산된 y 스무싱 적용
+		for (int i = 0; i < _totalVerNum; i++)
+		{
+			_terrainVertices[i].pos.y = smooth[i];
+		}
+	}
+
+	SAFE_DELETE_ARRAY(smooth);
+}
+
+
+
+void terrain::smoothChangeTerrainHt(int terrainX, int terrainZ)
+{
+	int tempSmoothLevel = _smoothLevel;
+	if (tempSmoothLevel <= 0) return;
+
+	float* smooth = new float[_totalVerNum];
+
+	while (tempSmoothLevel > 0)
+	{
+		tempSmoothLevel--;
+		for (int z = terrainZ - _nHtChangeRange; z <= terrainZ + _nHtChangeRange; z++)
+		{
+			for (int x = terrainX - _nHtChangeRange; x <= terrainX + _nHtChangeRange; x++)
+			{
+				int adjacentSections = 0;		//몇개의 정점과 평균값을 내니?
+				float totalSections = 0.0f;		//주변의 정점 높이 총합은 얼마니?
+
+				if (x >= 0 && x < _verNumX && z >= 0 && z < _verNumZ)
+				{
+					//왼쪽체크
+					if ((x - 1) > 0)
+					{
+						totalSections += _terrainVertices[(z * _verNumX) + (x - 1)].pos.y;
+						adjacentSections++;
+						//왼쪽 상단
+						if ((z - 1) > 0)
+						{
+							totalSections += _terrainVertices[((z - 1) * _verNumX) + (x - 1)].pos.y;
+							adjacentSections++;
+						}
+						//왼쪽 하단
+						if ((z + 1) < _verNumZ)
+						{
+							totalSections += _terrainVertices[((z + 1) * _verNumX) + (x - 1)].pos.y;
+							adjacentSections++;
+						}
+					}
+					//오른쪽 체크
+					if ((x + 1) < _verNumX)
+					{
+						totalSections += _terrainVertices[(z * _verNumX) + (x + 1)].pos.y;
+						adjacentSections++;
+
+						//오른쪽 상단
+						if ((z - 1) > 0)
+						{
+							totalSections += _terrainVertices[((z - 1) * _verNumX) + (x + 1)].pos.y;
+							adjacentSections++;
+						}
+						//오른쪽 하단 
+						if ((z + 1) < _verNumZ) {
+							totalSections += _terrainVertices[((z + 1) * _verNumX) + (x + 1)].pos.y;
+							adjacentSections++;
+						}
+					}
+					//상단
+					if ((z - 1) > 0)
+					{
+						totalSections += _terrainVertices[((z - 1) * _verNumX) + x].pos.y;
+						adjacentSections++;
+					}
+					//하단
+					if ((z + 1) < _verNumZ)
+					{
+						totalSections += _terrainVertices[((z + 1) * _verNumX) + x].pos.y;
+						adjacentSections++;
+					}
+					smooth[(z * _verNumX) + x] = (
+						_terrainVertices[(z * _verNumX) + x].pos.y +
+						(totalSections / adjacentSections)) * 0.5f;
+				}
+			}
+		}
+
+
+		for (int z = terrainZ - _nHtChangeRange; z <= terrainZ + _nHtChangeRange; z++)
+		{
+			for (int x = terrainX - _nHtChangeRange; x <= terrainX + _nHtChangeRange; x++)
+			{
+				if (x >= 0 && x < _verNumX && z >= 0 && z < _verNumZ)
+				{
+					int vidx = z * _verNumX + x;
+
+					if (vidx >= 0 && vidx < _vecPos.size())
+					{
+						_terrainVertices[vidx].pos.y = smooth[vidx];
+					}
+				}
+			}
+		}
+	}
+
+	SAFE_DELETE_ARRAY(smooth);
+}
+
+
+
+D3DXVECTOR3 terrain::selectSplatColor(string splatName, int x, int z)
+{
+	LPDIRECT3DTEXTURE9 tempSplat;
+	tempSplat = TEXTURE_MANAGER->GetTexture(splatName);
+
+	//텍스쳐의 pixel 정보를 얻기 위해 Texture 를 lock 한다.
+	D3DLOCKED_RECT lockRect;
+	tempSplat->LockRect(0, &lockRect, 0, 0);
+
+	//해당 픽셀의 컬러 값을 얻는다.
+
+	//(DWORD 형으로 형변환된 lock 된 이미지지의 시작 주소
+	DWORD* pStart = (DWORD*)lockRect.pBits;
+	DWORD dwColor = *(pStart + (z * (lockRect.Pitch / 4) + x));
+
+	float r = (dwColor & 0x00ff0000) >> 16;
+	float g = (dwColor & 0x0000ff00) >> 8;
+	float b = (dwColor & 0x000000ff);
+
+	//텍스쳐의 pixel 정보 Unlock
+	tempSplat->UnlockRect(0);
+
+	return D3DXVECTOR3(r, g, b);
+}
+
+
+
+
+void terrain::setHeightmap(string heightMapName)
+{
+	_heightMap = RM_TEXTURE->getResource(FILEPATH_MANAGER->GetFilepath(heightMapName));
+}
+
+void terrain::setTile0(string tile_0)
+{
+	_texTile_0 = RM_TEXTURE->getResource(FILEPATH_MANAGER->GetFilepath(tile_0));
+}
+
+void terrain::setTile1(string tile_1)
+{
+	_texTile_1= RM_TEXTURE->getResource(FILEPATH_MANAGER->GetFilepath(tile_1));
+}
+
+void terrain::setTile2(string tile_2)
+{
+	_texTile_2 = RM_TEXTURE->getResource(FILEPATH_MANAGER->GetFilepath(tile_2));
+}
+
+void terrain::setTile3(string tile_3)
+{
+	_texTile_3 = RM_TEXTURE->getResource(FILEPATH_MANAGER->GetFilepath(tile_3));
+}
+
+void terrain::setSplat(string tileSplat)
+{
+	_texSlat = RM_TEXTURE->getResource(FILEPATH_MANAGER->GetFilepath(tileSplat));
+}
+
+void terrain::setSplat(LPDIRECT3DTEXTURE9 texSlat)
+{
+	_texSlat = texSlat;
+}
+
+void terrain::setCellsize(float cellSize)
+{
+	_cellScale = cellSize;
+}
+
+void terrain::setHeightscale(float heightScale)
+{
+	_heightScale = heightScale;
+}
+
+void terrain::setSmoothlevel(int smoothLevel)
+{
+	_smoothLevel = smoothLevel;
+}
+
+void terrain::setTileNum(int tileNum)
+{
+	_tileNum = tileNum;
+}
+
+
+
+
+
+//=========================================================================
+//지형 높이값 실시간 변경 브러쉬 방법 -> 프레임 드랍과 더불어 온갖 버그...
+//=========================================================================
+
 HRESULT terrain::changeHeightTerrain()
 {
 	// 정점 위치 구한다.
@@ -896,7 +1174,7 @@ HRESULT terrain::changeHeightTerrain()
 			tileUV.x = x * tileIntervalX;
 			tileUV.y = z * tileIntervalY;
 
-		
+
 			_terrainVertices[idx].pos = pos;
 			_terrainVertices[idx].normal = D3DXVECTOR3(0, 0, 0);	//아래에서 정점 노말 구할때 더해지니 일단 0 벡터로 초기화
 			_terrainVertices[idx].baseUV = baseUV;
@@ -910,7 +1188,7 @@ HRESULT terrain::changeHeightTerrain()
 	_heightMap->UnlockRect(0);
 
 	//지형 스무싱 
-	this->smoothTerrain(_smoothLevel);
+	this->smoothTerrain();
 
 
 	// 정점 인덱스를 구한다
@@ -1100,12 +1378,12 @@ HRESULT terrain::changeHeightTerrain(float cursorX, float cursorZ)
 	int brushIdxZ = brush_verNumZ / 2;
 
 	//브러쉬맵의 좌상단의 인덱스를 찾자
-	int idxX = getIdx(cursorX, cursorZ).first - brushIdxX;
-	int idxZ = getIdx(cursorX, cursorZ).second - brushIdxZ;
+	int idxX = getIdx(cursorX, cursorZ).x - brushIdxX;
+	int idxZ = getIdx(cursorX, cursorZ).y - brushIdxZ;
 
 	//브러쉬맵의 우하단의 인덱스를 찾자
-	int idxX2 = getIdx(cursorX, cursorZ).first + brushIdxX;
-	int idxZ2 = getIdx(cursorX, cursorZ).second + brushIdxZ;
+	int idxX2 = getIdx(cursorX, cursorZ).x + brushIdxX;
+	int idxZ2 = getIdx(cursorX, cursorZ).y + brushIdxZ;
 
 	//정정위치와 정점 UV 를 계산하기
 	for (int z = 0; z < _verNumZ; z++)
@@ -1126,7 +1404,7 @@ HRESULT terrain::changeHeightTerrain(float cursorX, float cursorZ)
 	}
 
 	////지형 스무싱 
-	this->smoothTerrain(_smoothLevel);
+	this->smoothTerrain();
 
 
 	// 정점 인덱스를 구한다
@@ -1210,13 +1488,13 @@ HRESULT terrain::changeHeightTerrain(float cursorX, float cursorZ)
 		sizeof(TERRAINVERTEX) * _totalVerNum,
 		D3DUSAGE_WRITEONLY,
 		0,
-		D3DPOOL_DEFAULT,
+		D3DPOOL_MANAGED,
 		&_terrainVb,
 		0);
 
 	//만들어진 정점 버퍼를 Lock 하여 지형 정점 값을 쓴다.
 	void* p = NULL;
-	_terrainVb->Lock(0, 0, &p, D3DLOCK_DISCARD);
+	_terrainVb->Lock(0, 0, &p, 0);
 	memcpy(p, _terrainVertices, sizeof(TERRAINVERTEX) * _totalVerNum);
 	_terrainVb->Unlock();
 
@@ -1313,84 +1591,49 @@ HRESULT terrain::changeHeightTerrain(float cursorX, float cursorZ)
 	return S_OK;
 }
 
-
-//지형 스무싱
-void terrain::smoothTerrain(int passed)
+void terrain::setBrushmap(string brushMapName)
 {
-	if (passed <= 0) return;
+	_brushMap = RM_TEXTURE->getResource(FILEPATH_MANAGER->GetFilepath(brushMapName));
 
-	float* smooth = new float[_totalVerNum];
+	D3DSURFACE_DESC sd;
+	_brushMap->GetLevelDesc(0, &sd);
 
-	while (passed > 0)
+	brush_verNumX = sd.Width + 1;	//가로 정점갯수는 높이 맵에 가로 해상도 + 1 과 같다. (이유는 쿼드트리쓰려면 정점갯수가 2의N승 + 1 이여야 하기 때문에)
+	brush_verNumZ = sd.Height + 1;	//세로 정점잿수는 높이 맵에 세로 해상도 + 1 과 같다. (이유는 쿼드트리쓰려면 정점갯수가 2의N승 + 1 이여야 하기 때문에)
+	brush_totalotalVerNum = brush_verNumX * brush_verNumZ;	//총 정점 갯수
+
+															//가로세로 셀수
+	brush_cellNumX = brush_verNumX - 1;
+	brush_cellNumZ = brush_verNumZ - 1;
+	brush_totalCellNum = brush_cellNumX * brush_cellNumZ;
+
+	//터레인 크기
+	brush_terrainSizeX = brush_cellNumX * _cellScale;
+	brush_terrainSizeZ = brush_cellNumZ * _cellScale;
+
+	D3DLOCKED_RECT lockRect;
+	_brushMap->LockRect(0, &lockRect, 0, 0);
+
+	for (int z = 0; z < brush_verNumZ; z++)
 	{
-		passed--;
-		for (int z = 0; z < _verNumZ; z++)
+		for (int x = 0; x < brush_verNumX; x++)
 		{
-			for (int x = 0; x < _verNumX; x++)
-			{
-				int adjacentSections = 0;		//몇개의 정점과 평균값을 내니?
-				float totalSections = 0.0f;		//주변의 정점 높이 총합은 얼마니?
+			DWORD* pStart = (DWORD*)lockRect.pBits;	//(DWORD 형으로 형변환된 lock 된 이미지지의 시작 주소
+			DWORD dwColor = *(pStart + (z * (lockRect.Pitch / 4) + x));
 
-												//왼쪽체크
-				if ((x - 1) > 0)
-				{
-					totalSections += _terrainVertices[(z * _verNumX) + (x - 1)].pos.y;
-					adjacentSections++;
-					//왼쪽 상단
-					if ((z - 1) > 0)
-					{
-						totalSections += _terrainVertices[((z - 1) * _verNumX) + (x - 1)].pos.y;
-						adjacentSections++;
-					}
-					//왼쪽 하단
-					if ((z + 1) < _verNumZ)
-					{
-						totalSections += _terrainVertices[((z + 1) * _verNumX) + (x - 1)].pos.y;
-						adjacentSections++;
-					}
-				}
-				//오른쪽 체크
-				if ((x + 1) < _verNumX)
-				{
-					totalSections += _terrainVertices[(z * _verNumX) + (x + 1)].pos.y;
-					adjacentSections++;
+			float inv = 1.0f / 255.0f;
+			float r = ((dwColor & 0x00ff0000) >> 16) * inv;
+			float g = ((dwColor & 0x0000ff00) >> 8) * inv;
+			float b = ((dwColor & 0x000000ff)) * inv;
 
-					//오른쪽 상단
-					if ((z - 1) > 0)
-					{
-						totalSections += _terrainVertices[((z - 1) * _verNumX) + (x + 1)].pos.y;
-						adjacentSections++;
-					}
-					//오른쪽 하단 
-					if ((z + 1) < _verNumZ) {
-						totalSections += _terrainVertices[((z + 1) * _verNumX) + (x + 1)].pos.y;
-						adjacentSections++;
-					}
-				}
-				//상단
-				if ((z - 1) > 0)
-				{
-					totalSections += _terrainVertices[((z - 1) * _verNumX) + x].pos.y;
-					adjacentSections++;
-				}
-				//하단
-				if ((z + 1) < _verNumZ)
-				{
-					totalSections += _terrainVertices[((z + 1) * _verNumX) + x].pos.y;
-					adjacentSections++;
-				}
-				smooth[(z * _verNumX) + x] = (
-					_terrainVertices[(z * _verNumX) + x].pos.y +
-					(totalSections / adjacentSections)) * 0.5f;
-			}
-		}
+			float factor = (r + g + b) / 3.0f;
 
-		//위에서 계산된 y 스무싱 적용
-		for (int i = 0; i < _totalVerNum; i++)
-		{
-			_terrainVertices[i].pos.y = smooth[i];
+			_vecBrush.push_back(factor * 0.1f);
 		}
 	}
+}
 
-	SAFE_DELETE_ARRAY(smooth);
+void terrain::setBrushScale(float scale)
+{
+	_nHeightSign = scale;
 }

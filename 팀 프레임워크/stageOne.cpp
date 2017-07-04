@@ -29,7 +29,7 @@ HRESULT stageOne::init()
 	_terrain->setTile1(IOMAPMANAGER->loadMapInfo("마을지형").tile1);
 	_terrain->setTile2(IOMAPMANAGER->loadMapInfo("마을지형").tile2);
 	_terrain->setTile3(IOMAPMANAGER->loadMapInfo("마을지형").tile3);
-	_terrain->setSlat(IOMAPMANAGER->loadMapInfo("마을지형").splat);
+	_terrain->setSplat(IOMAPMANAGER->loadMapInfo("마을지형").splat);
 	_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("마을지형").vecPos);
 	_terrain->setting();
 	_terrain->changeHeightTerrain();
@@ -40,7 +40,7 @@ HRESULT stageOne::init()
 	_terrainShadow->setTile1(IOMAPMANAGER->loadMapInfo("마을지형").tile1);
 	_terrainShadow->setTile2(IOMAPMANAGER->loadMapInfo("마을지형").tile2);
 	_terrainShadow->setTile3(IOMAPMANAGER->loadMapInfo("마을지형").tile3);
-	_terrainShadow->setSlat(IOMAPMANAGER->loadMapInfo("마을지형").splat);
+	_terrainShadow->setSplat(IOMAPMANAGER->loadMapInfo("마을지형").splat);
 	_terrainShadow->setMapPosition(IOMAPMANAGER->loadMapInfo("마을지형").vecPos);
 	_terrainShadow->setting();
 	_terrainShadow->changeHeightTerrain();
@@ -65,7 +65,6 @@ HRESULT stageOne::init()
 
 		_renderObject.push_back(temp);
 	}
-
 
 	//환경맵 / 물결맵 불러오기
 	IOSAVEMANAGER->loadFile("마을세이브맵");

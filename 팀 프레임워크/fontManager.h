@@ -24,6 +24,37 @@ public:
 	//디폴트폰트로 출력
 	void fontOut(LPD3DXSPRITE sprite, string str);
 	void fontOut(string str, int x, int y, DWORD color);
+	
+	template<class T>
+	inline void fontOut(string str, T t1, int x, int y, DWORD color)
+	{
+		char strStr[STR_LEN];
+		sprintf(strStr, str.c_str(), t1);
+
+		RECT rcTextArea ={ x, y, 0, 0 };	//출력영역 (윈도우 좌표계)
+		_font->DrawText(NULL, strStr, -1, &rcTextArea, DT_LEFT | DT_NOCLIP, color);
+	}
+
+	template<class T>
+	inline void fontOut(string str, T t1, T t2, int x, int y, DWORD color)
+	{
+		char strStr[STR_LEN];
+		sprintf(strStr, str.c_str(), t1, t2);
+
+		RECT rcTextArea ={ x, y, 0, 0 };	//출력영역 (윈도우 좌표계)
+		_font->DrawText(NULL, strStr, -1, &rcTextArea, DT_LEFT | DT_NOCLIP, color);
+	}
+
+	template<class T>
+	inline void fontOut(string str, T t1, T t2, T t3, int x, int y, DWORD color)
+	{
+		char strStr[STR_LEN];
+		sprintf(strStr, str.c_str(), t1, t2, t3);
+
+		RECT rcTextArea ={ x, y, 0, 0 };	//출력영역 (윈도우 좌표계)
+		_font->DrawText(NULL, strStr, -1, &rcTextArea, DT_LEFT | DT_NOCLIP, color);
+	}
+
 	void fontOutShadow(string str, int x, int y, DWORD color, DWORD shadowColor = 0xff000000);
 	void fontOutLine(string str, int x, int y, DWORD color, DWORD outLineColor = 0xff000000);
 

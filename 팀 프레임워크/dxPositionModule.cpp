@@ -69,10 +69,13 @@ void dxPositionModule::InitUpdate(vector<tagDxAttribute>::iterator iter)
 	{
 		//방향만 뽑기
 		//D3DXVECTOR3 posDirtion;
-		//D3DXVec3Normalize(&iter->posDirection, &iter->position);
+		D3DXVec3Normalize(&iter->posDirection, &iter->position);
 		//속도
 		iter->posDirectSpeed = RandomFloatRange(_radPtc.posExprosionVel.Min, _radPtc.posExprosionVel.Max);
-		//iter->posDirectVel = iter->posDirection* iter->posDirectSpeed;
+		iter->posDirectVel = iter->posDirection* iter->posDirectSpeed;
+
+//		iter->posDirectVel = iter->posDirection* iter->posDirectSpeed;
+
 
 		if (_grpPosExprosionVelOn) { _grpPosExprosionVel[0]->value = iter->posDirectSpeed; }
 
@@ -148,6 +151,10 @@ void dxPositionModule::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 	{
 		this->GraphVelocityUpdate(_grpPosExprosionVel, iter, iter->posDirectSpeed);
 		iter->posDirectVel = iter->posDirection*iter->posDirectSpeed;
+	}
+	if (_radPtc.radPosExprosionVelOn)
+	{
+		iter->posDirectVel = iter->posDirection* iter->posDirectSpeed;
 	}
 
 

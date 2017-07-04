@@ -50,10 +50,6 @@ void cRegistBase::Init()
 	RM_SKINNED->init();					//RM스킨드X메쉬 초기화
 	PHYSICSMANAGER->init();				//피직스매니져 초기화
 	SPRITEMANAGER->init();				//스프라이트매니져 초기화
-	PTM->LoadImgInit();					//파티클텍스쳐_매니져 초기화(순서1)
-	PSM->ParticleSystemSetInit();		//파티클시스템_매니져 초기화(순서2)
-	SKM->skillSetting();				//스킬 매니저 초기화(순서3)
-	EFFECT->EffectSetting();			//이펙트 매니저 초기화(똑같이 순서3)
 	SOUNDMANAGER->init();				//사운드매니저초기화
 
 	
@@ -118,6 +114,7 @@ void cRegistBase::Destroy()
 void cRegistBase::FxRegist()
 {
 	//FILEPATH_MANAGER->AddFilepath("FX_지형기본", "Resource/Maptool/Shaders/TerrainBase.fx");
+	FILEPATH_MANAGER->AddFilepath("FX_지형기본", "ResourceUI/test/TerrainBase.fx");
 }
 
 
@@ -130,6 +127,15 @@ void cRegistBase::HeightRegist()
 	FILEPATH_MANAGER->AddFilepath("높이맵_4", "Resource/Maptool/Textures/RAW/4.png");
 	FILEPATH_MANAGER->AddFilepath("높이맵_5", "Resource/Maptool/Textures/RAW/5.png");
 	FILEPATH_MANAGER->AddFilepath("높이맵_6", "Resource/Maptool/Textures/RAW/6.png");
+
+	FILEPATH_MANAGER->AddFilepath("height_base", "ResourceUI/test/height_base.png");
+	FILEPATH_MANAGER->AddFilepath("height_base16", "ResourceUI/test/height_base16.png");
+	FILEPATH_MANAGER->AddFilepath("height_base32", "ResourceUI/test/height_base32.png");
+	FILEPATH_MANAGER->AddFilepath("height_base64", "ResourceUI/test/height_base64.png");
+	FILEPATH_MANAGER->AddFilepath("height_base128", "ResourceUI/test/height_base128.png");
+	FILEPATH_MANAGER->AddFilepath("height_base256", "ResourceUI/test/height_base256.png");
+	FILEPATH_MANAGER->AddFilepath("height_base512", "ResourceUI/test/height_base512.png");
+	FILEPATH_MANAGER->AddFilepath("height_base1024", "ResourceUI/test/height_base1024.png");
 }
 
 
@@ -274,15 +280,51 @@ void cRegistBase::UIRegist()
 	FILEPATH_MANAGER->AddFilepath("minimap3", "ResourceUI/test/minimap3.png");
 	FILEPATH_MANAGER->AddFilepath("minimapTest", "ResourceUI/test/minimapTest.png");
 
+
 	FILEPATH_MANAGER->AddFilepath("tileTest0", "ResourceUI/test/tileTest0.png");
 	FILEPATH_MANAGER->AddFilepath("tileTest1", "ResourceUI/test/tileTest1.png");
 	FILEPATH_MANAGER->AddFilepath("tileTest2", "ResourceUI/test/tileTest2.png");
 	FILEPATH_MANAGER->AddFilepath("tileTest3", "ResourceUI/test/tileTest3.png");
+	FILEPATH_MANAGER->AddFilepath("tileTest4", "ResourceUI/test/tileTest4.png");
+	FILEPATH_MANAGER->AddFilepath("tileTest5", "ResourceUI/test/tileTest5.png");
+	FILEPATH_MANAGER->AddFilepath("tileTest6", "ResourceUI/test/tileTest6.png");
+	FILEPATH_MANAGER->AddFilepath("tileTest7", "ResourceUI/test/tileTest7.png");
+	FILEPATH_MANAGER->AddFilepath("tileTest8", "ResourceUI/test/tileTest8.png");
+	FILEPATH_MANAGER->AddFilepath("tileTest9", "ResourceUI/test/tileTest9.png");
+	FILEPATH_MANAGER->AddFilepath("tileTest10", "ResourceUI/test/tileTest10.png");
+	FILEPATH_MANAGER->AddFilepath("tileTest11", "ResourceUI/test/tileTest11.png");
+	FILEPATH_MANAGER->AddFilepath("tileTest12", "ResourceUI/test/tileTest12.png");
+
+
+	FILEPATH_MANAGER->AddFilepath("tileTest0_mapTool", "ResourceUI/test/tileTest0_mapTool.png");
+	FILEPATH_MANAGER->AddFilepath("tileTest1_mapTool", "ResourceUI/test/tileTest1_mapTool.png");
+	FILEPATH_MANAGER->AddFilepath("tileTest2_mapTool", "ResourceUI/test/tileTest2_mapTool.png");
+	FILEPATH_MANAGER->AddFilepath("tileTest3_mapTool", "ResourceUI/test/tileTest3_mapTool.png");
+	FILEPATH_MANAGER->AddFilepath("tileTest4_mapTool", "ResourceUI/test/tileTest4_mapTool.png");
+	FILEPATH_MANAGER->AddFilepath("tileTest5_mapTool", "ResourceUI/test/tileTest5_mapTool.png");
+	FILEPATH_MANAGER->AddFilepath("tileTest6_mapTool", "ResourceUI/test/tileTest6_mapTool.png");
+	FILEPATH_MANAGER->AddFilepath("tileTest7_mapTool", "ResourceUI/test/tileTest7_mapTool.png");
+	FILEPATH_MANAGER->AddFilepath("tileTest8_mapTool", "ResourceUI/test/tileTest8_mapTool.png");
+	FILEPATH_MANAGER->AddFilepath("tileTest9_mapTool", "ResourceUI/test/tileTest9_mapTool.png");
+	FILEPATH_MANAGER->AddFilepath("tileTest10_mapTool", "ResourceUI/test/tileTest10_mapTool.png");
+
+
+	FILEPATH_MANAGER->AddFilepath("tileTestBase", "ResourceUI/test/tileTestBase.png");
+	FILEPATH_MANAGER->AddFilepath("splat_test0", "ResourceUI/test/splat_test0.png");
+	FILEPATH_MANAGER->AddFilepath("splat_test1", "ResourceUI/test/splat_test1.png");
+	FILEPATH_MANAGER->AddFilepath("splat_test2", "ResourceUI/test/splat_test2.png");
+	FILEPATH_MANAGER->AddFilepath("splat_test3", "ResourceUI/test/splat_test3.png");
+
+
 
 	FILEPATH_MANAGER->AddFilepath("splat_red_base", "ResourceUI/test/splat_red_base.png");
 	FILEPATH_MANAGER->AddFilepath("splat_green_base", "ResourceUI/test/splat_green_base.png");
 	FILEPATH_MANAGER->AddFilepath("splat_blue_base", "ResourceUI/test/splat_blue_base.png");
 	FILEPATH_MANAGER->AddFilepath("splat_black_base", "ResourceUI/test/splat_black_base.png");
+	FILEPATH_MANAGER->AddFilepath("splat_base", "ResourceUI/test/splat_base.png");
+
+	FILEPATH_MANAGER->AddFilepath("tileTest_Select", "ResourceUI/test/tileTest_Select.png");
+
 
 	FILEPATH_MANAGER->AddFilepath("Test_Inven", "ResourceUI/test/Test_Inven.png");
 	FILEPATH_MANAGER->AddFilepath("Test_Inven2", "ResourceUI/test/Test_Inven2.png");
@@ -290,22 +332,31 @@ void cRegistBase::UIRegist()
 	FILEPATH_MANAGER->AddFilepath("miniPlayer", "ResourceUI/test/miniPlayer.png");
 	FILEPATH_MANAGER->AddFilepath("radar", "ResourceUI/test/radar.png");
 
-	FILEPATH_MANAGER->AddFilepath("height_base", "ResourceUI/test/height_base.png");
-
-	FILEPATH_MANAGER->AddFilepath("StaticMesh", "ResourceUI/test/fx/StaticMesh.fx");
-	FILEPATH_MANAGER->AddFilepath("diffuseDefault", "ResourceUI/test/meshTx/diffuseDefault.png");
-	FILEPATH_MANAGER->AddFilepath("normalDefault", "ResourceUI/test/meshTx/normalDefault.png");
-	FILEPATH_MANAGER->AddFilepath("specularDefault", "ResourceUI/test/meshTx/specularDefault.png");
-	FILEPATH_MANAGER->AddFilepath("emissionDefault", "ResourceUI/test/meshTx/emissionDefault.png");
-
-	FILEPATH_MANAGER->AddFilepath("FX_지형기본", "ResourceUI/test/fx/TerrainBase.fx");
-
 	FILEPATH_MANAGER->AddFilepath("상점슬롯", "ResourceUI/test/상점슬롯.png");
 	FILEPATH_MANAGER->AddFilepath("무기상점아이콘", "ResourceUI/test/무기상점아이콘.png");
 	FILEPATH_MANAGER->AddFilepath("물약상점아이콘", "ResourceUI/test/물약상점아이콘.png");
 	FILEPATH_MANAGER->AddFilepath("강화상점아이콘", "ResourceUI/test/강화상점아이콘.png");
 	FILEPATH_MANAGER->AddFilepath("인벤토리아이콘", "ResourceUI/test/인벤토리아이콘.png");
 
+	FILEPATH_MANAGER->AddFilepath("GrieverCursor", "ResourceUI/test/GrieverCursor.png");
+	FILEPATH_MANAGER->AddFilepath("rangeTest00", "ResourceUI/test/rangeTest00.png");
+	FILEPATH_MANAGER->AddFilepath("rangeTest01", "ResourceUI/test/rangeTest01.png");
+	FILEPATH_MANAGER->AddFilepath("rangeTest02", "ResourceUI/test/rangeTest02.png");
+	FILEPATH_MANAGER->AddFilepath("rangeTest03", "ResourceUI/test/rangeTest03.png");
+	FILEPATH_MANAGER->AddFilepath("rangeTest04", "ResourceUI/test/rangeTest04.png");
+	FILEPATH_MANAGER->AddFilepath("checkTest00", "ResourceUI/test/checkTest00.png");
+
+	FILEPATH_MANAGER->AddFilepath("worldmapTest", "ResourceUI/test/worldmapTest.png");
+
+	FILEPATH_MANAGER->AddFilepath("markCenter", "ResourceUI/test/markCenter.png");
+	FILEPATH_MANAGER->AddFilepath("markEast", "ResourceUI/test/markEast.png");
+	FILEPATH_MANAGER->AddFilepath("markWest", "ResourceUI/test/markWest.png");
+	FILEPATH_MANAGER->AddFilepath("markSouth", "ResourceUI/test/markSouth.png");
+	FILEPATH_MANAGER->AddFilepath("markNorth", "ResourceUI/test/markNorth.png");
+
+	FILEPATH_MANAGER->AddFilepath("gamemapTest", "ResourceUI/test/gamemapTest.png");
+
+	FILEPATH_MANAGER->AddFilepath("이벤트씬", "ResourceUI/test/이벤트씬.png");
 }
 
 
@@ -346,6 +397,117 @@ void cRegistBase::AniRegist()
 	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_30", "ResourceUI/animation/Fire01/output-30.png");
 	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_31", "ResourceUI/animation/Fire01/output-31.png");
 	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_32", "ResourceUI/animation/Fire01/output-32.png");
+	
+	
+	
+	//============================================================================================
+	//대장간 무기 
+	//============================================================================================
+	FILEPATH_MANAGER->AddFilepath("Sword1_01", "Resource/Maptool/sword/소드1/소드1 (1).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_02", "Resource/Maptool/sword/소드1/소드1 (2).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_03", "Resource/Maptool/sword/소드1/소드1 (3).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_04", "Resource/Maptool/sword/소드1/소드1 (4).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_05", "Resource/Maptool/sword/소드1/소드1 (5).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_06", "Resource/Maptool/sword/소드1/소드1 (6).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_07", "Resource/Maptool/sword/소드1/소드1 (7).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_08", "Resource/Maptool/sword/소드1/소드1 (8).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_09", "Resource/Maptool/sword/소드1/소드1 (9).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_10", "Resource/Maptool/sword/소드1/소드1 (10).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_11", "Resource/Maptool/sword/소드1/소드1 (11).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_12", "Resource/Maptool/sword/소드1/소드1 (12).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_13", "Resource/Maptool/sword/소드1/소드1 (13).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_14", "Resource/Maptool/sword/소드1/소드1 (14).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_15", "Resource/Maptool/sword/소드1/소드1 (15).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_16", "Resource/Maptool/sword/소드1/소드1 (16).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_17", "Resource/Maptool/sword/소드1/소드1 (17).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_18", "Resource/Maptool/sword/소드1/소드1 (18).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_19", "Resource/Maptool/sword/소드1/소드1 (19).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_20", "Resource/Maptool/sword/소드1/소드1 (20).jpg");
+
+	FILEPATH_MANAGER->AddFilepath("Sword2_01", "Resource/Maptool/sword/소드2/소드2 (1).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_02", "Resource/Maptool/sword/소드2/소드2 (2).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_03", "Resource/Maptool/sword/소드2/소드2 (3).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_04", "Resource/Maptool/sword/소드2/소드2 (4).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_05", "Resource/Maptool/sword/소드2/소드2 (5).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_06", "Resource/Maptool/sword/소드2/소드2 (6).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_07", "Resource/Maptool/sword/소드2/소드2 (7).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_08", "Resource/Maptool/sword/소드2/소드2 (8).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_09", "Resource/Maptool/sword/소드2/소드2 (9).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_10", "Resource/Maptool/sword/소드2/소드2 (10).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_11", "Resource/Maptool/sword/소드2/소드2 (11).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_12", "Resource/Maptool/sword/소드2/소드2 (12).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_13", "Resource/Maptool/sword/소드2/소드2 (13).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_14", "Resource/Maptool/sword/소드2/소드2 (14).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_15", "Resource/Maptool/sword/소드2/소드2 (15).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_16", "Resource/Maptool/sword/소드2/소드2 (16).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_17", "Resource/Maptool/sword/소드2/소드2 (17).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_18", "Resource/Maptool/sword/소드2/소드2 (18).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_19", "Resource/Maptool/sword/소드2/소드2 (19).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_20", "Resource/Maptool/sword/소드2/소드2 (20).jpg");
+
+	FILEPATH_MANAGER->AddFilepath("Sword3_01", "Resource/Maptool/sword/소드3/소드3 (1).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_02", "Resource/Maptool/sword/소드3/소드3 (2).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_03", "Resource/Maptool/sword/소드3/소드3 (3).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_04", "Resource/Maptool/sword/소드3/소드3 (4).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_05", "Resource/Maptool/sword/소드3/소드3 (5).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_06", "Resource/Maptool/sword/소드3/소드3 (6).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_07", "Resource/Maptool/sword/소드3/소드3 (7).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_08", "Resource/Maptool/sword/소드3/소드3 (8).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_09", "Resource/Maptool/sword/소드3/소드3 (9).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_10", "Resource/Maptool/sword/소드3/소드3 (10).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_11", "Resource/Maptool/sword/소드3/소드3 (11).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_12", "Resource/Maptool/sword/소드3/소드3 (12).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_13", "Resource/Maptool/sword/소드3/소드3 (13).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_14", "Resource/Maptool/sword/소드3/소드3 (14).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_15", "Resource/Maptool/sword/소드3/소드3 (15).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_16", "Resource/Maptool/sword/소드3/소드3 (16).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_17", "Resource/Maptool/sword/소드3/소드3 (17).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_18", "Resource/Maptool/sword/소드3/소드3 (18).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_19", "Resource/Maptool/sword/소드3/소드3 (19).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_20", "Resource/Maptool/sword/소드3/소드3 (20).jpg");
+
+	FILEPATH_MANAGER->AddFilepath("Sword4_01", "Resource/Maptool/sword/소드4/소드4 (1).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_02", "Resource/Maptool/sword/소드4/소드4 (2).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_03", "Resource/Maptool/sword/소드4/소드4 (3).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_04", "Resource/Maptool/sword/소드4/소드4 (4).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_05", "Resource/Maptool/sword/소드4/소드4 (5).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_06", "Resource/Maptool/sword/소드4/소드4 (6).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_07", "Resource/Maptool/sword/소드4/소드4 (7).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_08", "Resource/Maptool/sword/소드4/소드4 (8).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_09", "Resource/Maptool/sword/소드4/소드4 (9).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_10", "Resource/Maptool/sword/소드4/소드4 (10).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_11", "Resource/Maptool/sword/소드4/소드4 (11).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_12", "Resource/Maptool/sword/소드4/소드4 (12).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_13", "Resource/Maptool/sword/소드4/소드4 (13).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_14", "Resource/Maptool/sword/소드4/소드4 (14).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_15", "Resource/Maptool/sword/소드4/소드4 (15).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_16", "Resource/Maptool/sword/소드4/소드4 (16).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_17", "Resource/Maptool/sword/소드4/소드4 (17).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_18", "Resource/Maptool/sword/소드4/소드4 (18).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_19", "Resource/Maptool/sword/소드4/소드4 (19).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_20", "Resource/Maptool/sword/소드4/소드4 (20).jpg");
+
+	FILEPATH_MANAGER->AddFilepath("Sword5_01", "Resource/Maptool/sword/소드5/소드5 (1).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_02", "Resource/Maptool/sword/소드5/소드5 (2).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_03", "Resource/Maptool/sword/소드5/소드5 (3).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_04", "Resource/Maptool/sword/소드5/소드5 (4).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_05", "Resource/Maptool/sword/소드5/소드5 (5).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_06", "Resource/Maptool/sword/소드5/소드5 (6).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_07", "Resource/Maptool/sword/소드5/소드5 (7).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_08", "Resource/Maptool/sword/소드5/소드5 (8).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_09", "Resource/Maptool/sword/소드5/소드5 (9).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_10", "Resource/Maptool/sword/소드5/소드5 (10).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_11", "Resource/Maptool/sword/소드5/소드5 (11).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_12", "Resource/Maptool/sword/소드5/소드5 (12).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_13", "Resource/Maptool/sword/소드5/소드5 (13).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_14", "Resource/Maptool/sword/소드5/소드5 (14).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_15", "Resource/Maptool/sword/소드5/소드5 (15).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_16", "Resource/Maptool/sword/소드5/소드5 (16).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_17", "Resource/Maptool/sword/소드5/소드5 (17).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_18", "Resource/Maptool/sword/소드5/소드5 (18).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_19", "Resource/Maptool/sword/소드5/소드5 (19).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_20", "Resource/Maptool/sword/소드5/소드5 (20).jpg");
+
 }
 
 void cRegistBase::XMeshStaticRegist()

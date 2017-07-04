@@ -179,6 +179,7 @@
     <ClInclude Include="boundSphere.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="cameraManager.h" />
+    <ClInclude Include="cAniTest.h" />
     <ClInclude Include="cBarTest.h" />
     <ClInclude Include="cCameraTest.h" />
     <ClInclude Include="cDxImg.h" />
@@ -192,7 +193,6 @@
     <ClInclude Include="characterController.h" />
     <ClInclude Include="cImageTest.h" />
     <ClInclude Include="CinematicManger.h" />
-    <ClInclude Include="cInvenTest.h" />
     <ClInclude Include="cMinimapTest.h" />
     <ClInclude Include="cMinimapTest2.h" />
     <ClInclude Include="cRegistBase.h" />
@@ -202,7 +202,10 @@
     <ClInclude Include="cObject.h" />
     <ClInclude Include="cObjectManager.h" />
     <ClInclude Include="cPicking.h" />
+    <ClInclude Include="cStaticMeshManager.h" />
     <ClInclude Include="cTerrainTest.h" />
+    <ClInclude Include="cTerrainTest2.h" />
+    <ClInclude Include="cTerrainTest3.h" />
     <ClInclude Include="cTextureManager.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="cubeLight.h" />
@@ -217,9 +220,6 @@
     <ClInclude Include="cUIPlayer.h" />
     <ClInclude Include="cUIShopSlot.h" />
     <ClInclude Include="cUIStart.h" />
-    <ClInclude Include="cUITestChatting.h" />
-    <ClInclude Include="cUserInterfaceTest.h" />
-    <ClInclude Include="cUserInterfaceTest2.h" />
     <ClInclude Include="cXmeshManager.h" />
     <ClInclude Include="damageText.h" />
     <ClInclude Include="dijkstra.h" />
@@ -255,7 +255,6 @@
     <ClInclude Include="Environment.h" />
     <ClInclude Include="fontManager.h" />
     <ClInclude Include="force.h" />
-    <ClInclude Include="forceView.h" />
     <ClInclude Include="frustum.h" />
     <ClInclude Include="gameNode.h" />
     <ClInclude Include="gameObject.h" />
@@ -324,6 +323,7 @@
     <ClInclude Include="singletonBase.h" />
     <ClInclude Include="SK00.h" />
     <ClInclude Include="skBoss_Breath.h" />
+    <ClInclude Include="skBoss_EnergyBullet.h" />
     <ClInclude Include="skBoss_GrandMagic.h" />
     <ClInclude Include="skBoss_Shouting.h" />
     <ClInclude Include="skill00.h" />
@@ -336,6 +336,7 @@
     <ClInclude Include="skPlayer_Lightning.h" />
     <ClInclude Include="skPlayer_MagicShoot.h" />
     <ClInclude Include="skPlayer_Shield.h" />
+    <ClInclude Include="skPlayer_ShootingStar.h" />
     <ClInclude Include="SK_Effect00.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="spriteManager.h" />
@@ -396,6 +397,7 @@
     <ClCompile Include="boundSphere.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="cameraManager.cpp" />
+    <ClCompile Include="cAniTest.cpp" />
     <ClCompile Include="cBarTest.cpp" />
     <ClCompile Include="cCameraTest.cpp" />
     <ClCompile Include="cDxImg.cpp" />
@@ -409,7 +411,6 @@
     <ClCompile Include="characterController.cpp" />
     <ClCompile Include="cImageTest.cpp" />
     <ClCompile Include="CinematicManger.cpp" />
-    <ClCompile Include="cInvenTest.cpp" />
     <ClCompile Include="cMinimapTest.cpp" />
     <ClCompile Include="cMinimapTest2.cpp" />
     <ClCompile Include="cRegistBase.cpp" />
@@ -419,7 +420,10 @@
     <ClCompile Include="cObject.cpp" />
     <ClCompile Include="cObjectManager.cpp" />
     <ClCompile Include="cPicking.cpp" />
+    <ClCompile Include="cStaticMeshManager.cpp" />
     <ClCompile Include="cTerrainTest.cpp" />
+    <ClCompile Include="cTerrainTest2.cpp" />
+    <ClCompile Include="cTerrainTest3.cpp" />
     <ClCompile Include="cTextureManager.cpp" />
     <ClCompile Include="cube.cpp" />
     <ClCompile Include="cubeLight.cpp" />
@@ -434,9 +438,6 @@
     <ClCompile Include="cUIPlayer.cpp" />
     <ClCompile Include="cUIShopSlot.cpp" />
     <ClCompile Include="cUIStart.cpp" />
-    <ClCompile Include="cUITestChatting.cpp" />
-    <ClCompile Include="cUserInterfaceTest.cpp" />
-    <ClCompile Include="cUserInterfaceTest2.cpp" />
     <ClCompile Include="cXmeshManager.cpp" />
     <ClCompile Include="damageText.cpp" />
     <ClCompile Include="dijkstra.cpp" />
@@ -472,7 +473,6 @@
     <ClCompile Include="Environment.cpp" />
     <ClCompile Include="fontManager.cpp" />
     <ClCompile Include="force.cpp" />
-    <ClCompile Include="forceView.cpp" />
     <ClCompile Include="frustum.cpp" />
     <ClCompile Include="gameNode.cpp" />
     <ClCompile Include="gameObject.cpp" />
@@ -540,6 +540,7 @@
     <ClCompile Include="shopHead.cpp" />
     <ClCompile Include="SK00.cpp" />
     <ClCompile Include="skBoss_Breath.cpp" />
+    <ClCompile Include="skBoss_EnergyBullet.cpp" />
     <ClCompile Include="skBoss_GrandMagic.cpp" />
     <ClCompile Include="skBoss_Shouting.cpp" />
     <ClCompile Include="skill00.cpp" />
@@ -552,6 +553,7 @@
     <ClCompile Include="skPlayer_Lightning.cpp" />
     <ClCompile Include="skPlayer_MagicShoot.cpp" />
     <ClCompile Include="skPlayer_Shield.cpp" />
+    <ClCompile Include="skPlayer_ShootingStar.cpp" />
     <ClCompile Include="SK_Effect00.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="spriteManager.cpp" />

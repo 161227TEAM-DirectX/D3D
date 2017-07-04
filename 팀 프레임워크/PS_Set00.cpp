@@ -320,6 +320,8 @@ void PS_Set00::set01_00(string psName)
 
 void PS_Set00::set01_01(string psName)
 {
+	dxParticleSystemSet::init();
+
 	_pointEMT = NULL;
 	_pointEMT = new dxPointEmitter;
 	_pointEMT->init("ParticleResources/Texture/Light08.png", 1, 1.0f , 2);

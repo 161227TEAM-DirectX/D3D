@@ -102,6 +102,9 @@ private:
 	baseObject* _playerObject;
 	baseObject* _weaponObject;
 	baseObject* _shieldObject;
+	baseObject* _shoulderR;
+	baseObject* _shoulderL;
+
 
 	dx::transform _attackTrans;
 	boundBox _attackBound;

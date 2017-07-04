@@ -50,7 +50,6 @@ void dxSkillContainer::update()
 		//스킬 리셋
 		if (_skillResetOn)
 		{
-			this->Reset();
 
 			if (_skillPrepareOn)
 			{
@@ -64,6 +63,8 @@ void dxSkillContainer::update()
 			{
 				if (_vFinishPS.empty() == FALSE) { for (int i = 0; i < _vFinishPS.size(); i++) { _vFinishPS[i]->reset(); } }
 			}
+
+			this->Reset();
 
 			//동작 초기화
 			_skillResetOn = false;
@@ -84,8 +85,6 @@ void dxSkillContainer::update()
 		//스킬 리셋
 		if (_skillResetOn)
 		{
-			this->Reset();
-
 			//기본 리셋
 			for (int num = 0; num < _pvPrepaerMaxNum; num++)
 			{
@@ -99,6 +98,8 @@ void dxSkillContainer::update()
 			{
 				if (_pvFinishPS[num].empty() == FALSE) { for (int i = 0; i < _pvFinishPS[num].size(); i++) { _pvFinishPS[num][i]->reset(); } }
 			}
+
+			this->Reset();
 
 			//동작 초기화
 			_skillResetOn = false;

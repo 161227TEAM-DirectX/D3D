@@ -50,11 +50,6 @@ namespace dx
 		//위치값  ( 부모가 있으면 부모에대한 상태적인 로컬위치 없으면 월드 위치 )
 		D3DXVECTOR3		position;
 
-		SYNTHESIZE(float, m_fAngleX, AngleX);
-		SYNTHESIZE(float, m_fAngleY, AngleY);
-		SYNTHESIZE(float, m_fAngleZ, AngleZ);
-		SYNTHESIZE(float, m_fMove, Move);
-
 		//스케일 값 
 		D3DXVECTOR3		scale;
 
@@ -74,6 +69,44 @@ namespace dx
 
 		//transform 변화시 자동으로 업데이트가 될꺼니? ( 만약 이게 false 이면 사용자가 직접 UpdateTransform 변화후 호출 해주어야 한다 )
 		bool			bAutoUpdate;
+
+
+
+		//
+		// 카메라 관련
+		//
+		//디폴트 컨트롤을 위한 카메라 Angle 값
+		static float nowAngleH;				//수평앵글
+		static float nowAngleV;				//수직앵글
+		static float maxAngleV;				//수직 최대 앵글
+		static float minAngleV;				//수직 최저 앵글
+		static float sensitivityH;			//가로 민감도
+		static float sensitivityV;			//세로 민감도 ( 이값이 음수면 Invert Mouse )
+		static D3DXVECTOR3 nowVelocity;		//현재 방향과 속도를 가진 벡터
+
+		static float accelate;				//초당 이동 증가값
+		static float nowSpeed;				//현재 속도
+		static float maxSpeed;				//최고 속도 
+
+		SYNTHESIZE(float, m_fAngleX, AngleX);			//x축 회전각도
+		SYNTHESIZE(float, m_fAngleY, AngleY);			//y축 회전각도
+		SYNTHESIZE(float, m_fAngleZ, AngleZ);			//z축 회전각도
+		SYNTHESIZE(float, m_fMove, Move);				//이동량
+
+		SYNTHESIZE(float, m_fNowAngleH, NowAngleH);		//수평앵글
+		SYNTHESIZE(float, m_fNowAngleV, NowAngleV);		//수직앵글
+		SYNTHESIZE(float, m_fMaxAngleV, MaxAngleV);		//수직 최대 앵글
+		SYNTHESIZE(float, m_fMinAngleV, MinAngleV);		//수직 최저 앵글
+		SYNTHESIZE(float, m_fSensitivityH, SensitivityH);		//가로 민감도
+		SYNTHESIZE(float, m_fSensitivityV, SensitivityV);		//세로 민감도 ( 이값이 음수면 Invert Mouse )
+		SYNTHESIZE(D3DXVECTOR3, m_vNowVelocity, NowVelocity);	//현재 방향과 속도를 가진 벡터
+		SYNTHESIZE(float, m_fAccelate, Accelate);		//초당 이동 증가값
+		SYNTHESIZE(float, m_fNowSpeed, NowSpeed);		//현재 속도
+		SYNTHESIZE(float, m_fMaxSpeed, MaxSpeed);		//최고 속도 
+
+		inline void linkNowAngleH(int angleH) { nowAngleH = angleH; }
+		inline void linkNowAngleV(int angleV) { nowAngleV = angleV; }
+
 
 
 		//
@@ -232,6 +265,7 @@ namespace dx
 
 		//디폴트 컨트롤 을해준다.
 		void DefaultControl(float _timeDelta);
+		void DefaultControl(float _timeDelta, bool isKMW);
 		void DefaultControl(float _timeDelta, int number);
 		void DefaultMyControl(float _timeDelta);
 
