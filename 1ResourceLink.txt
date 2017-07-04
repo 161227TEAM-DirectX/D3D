@@ -89,3 +89,9 @@ http://naver.me/G5CQqlEn
 <파티클 리소스만>
 http://naver.me/5vA4hOI1
 
+
+========================================================
+[ 17.07.04 오후 08:04 - 김태훈 ]
+플레이어 리소스 추가
+resource - player에 압축풀기
+http://naver.me/FCi4cC8a

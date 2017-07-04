@@ -397,6 +397,117 @@ void cRegistBase::AniRegist()
 	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_30", "ResourceUI/animation/Fire01/output-30.png");
 	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_31", "ResourceUI/animation/Fire01/output-31.png");
 	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_32", "ResourceUI/animation/Fire01/output-32.png");
+	
+	
+	
+	//============================================================================================
+	//措厘埃 公扁 
+	//============================================================================================
+	FILEPATH_MANAGER->AddFilepath("Sword1_01", "Resource/Maptool/sword/家靛1/家靛1 (1).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_02", "Resource/Maptool/sword/家靛1/家靛1 (2).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_03", "Resource/Maptool/sword/家靛1/家靛1 (3).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_04", "Resource/Maptool/sword/家靛1/家靛1 (4).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_05", "Resource/Maptool/sword/家靛1/家靛1 (5).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_06", "Resource/Maptool/sword/家靛1/家靛1 (6).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_07", "Resource/Maptool/sword/家靛1/家靛1 (7).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_08", "Resource/Maptool/sword/家靛1/家靛1 (8).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_09", "Resource/Maptool/sword/家靛1/家靛1 (9).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_10", "Resource/Maptool/sword/家靛1/家靛1 (10).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_11", "Resource/Maptool/sword/家靛1/家靛1 (11).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_12", "Resource/Maptool/sword/家靛1/家靛1 (12).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_13", "Resource/Maptool/sword/家靛1/家靛1 (13).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_14", "Resource/Maptool/sword/家靛1/家靛1 (14).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_15", "Resource/Maptool/sword/家靛1/家靛1 (15).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_16", "Resource/Maptool/sword/家靛1/家靛1 (16).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_17", "Resource/Maptool/sword/家靛1/家靛1 (17).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_18", "Resource/Maptool/sword/家靛1/家靛1 (18).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_19", "Resource/Maptool/sword/家靛1/家靛1 (19).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword1_20", "Resource/Maptool/sword/家靛1/家靛1 (20).jpg");
+
+	FILEPATH_MANAGER->AddFilepath("Sword2_01", "Resource/Maptool/sword/家靛2/家靛2 (1).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_02", "Resource/Maptool/sword/家靛2/家靛2 (2).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_03", "Resource/Maptool/sword/家靛2/家靛2 (3).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_04", "Resource/Maptool/sword/家靛2/家靛2 (4).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_05", "Resource/Maptool/sword/家靛2/家靛2 (5).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_06", "Resource/Maptool/sword/家靛2/家靛2 (6).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_07", "Resource/Maptool/sword/家靛2/家靛2 (7).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_08", "Resource/Maptool/sword/家靛2/家靛2 (8).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_09", "Resource/Maptool/sword/家靛2/家靛2 (9).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_10", "Resource/Maptool/sword/家靛2/家靛2 (10).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_11", "Resource/Maptool/sword/家靛2/家靛2 (11).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_12", "Resource/Maptool/sword/家靛2/家靛2 (12).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_13", "Resource/Maptool/sword/家靛2/家靛2 (13).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_14", "Resource/Maptool/sword/家靛2/家靛2 (14).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_15", "Resource/Maptool/sword/家靛2/家靛2 (15).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_16", "Resource/Maptool/sword/家靛2/家靛2 (16).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_17", "Resource/Maptool/sword/家靛2/家靛2 (17).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_18", "Resource/Maptool/sword/家靛2/家靛2 (18).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_19", "Resource/Maptool/sword/家靛2/家靛2 (19).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword2_20", "Resource/Maptool/sword/家靛2/家靛2 (20).jpg");
+
+	FILEPATH_MANAGER->AddFilepath("Sword3_01", "Resource/Maptool/sword/家靛3/家靛3 (1).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_02", "Resource/Maptool/sword/家靛3/家靛3 (2).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_03", "Resource/Maptool/sword/家靛3/家靛3 (3).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_04", "Resource/Maptool/sword/家靛3/家靛3 (4).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_05", "Resource/Maptool/sword/家靛3/家靛3 (5).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_06", "Resource/Maptool/sword/家靛3/家靛3 (6).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_07", "Resource/Maptool/sword/家靛3/家靛3 (7).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_08", "Resource/Maptool/sword/家靛3/家靛3 (8).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_09", "Resource/Maptool/sword/家靛3/家靛3 (9).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_10", "Resource/Maptool/sword/家靛3/家靛3 (10).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_11", "Resource/Maptool/sword/家靛3/家靛3 (11).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_12", "Resource/Maptool/sword/家靛3/家靛3 (12).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_13", "Resource/Maptool/sword/家靛3/家靛3 (13).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_14", "Resource/Maptool/sword/家靛3/家靛3 (14).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_15", "Resource/Maptool/sword/家靛3/家靛3 (15).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_16", "Resource/Maptool/sword/家靛3/家靛3 (16).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_17", "Resource/Maptool/sword/家靛3/家靛3 (17).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_18", "Resource/Maptool/sword/家靛3/家靛3 (18).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_19", "Resource/Maptool/sword/家靛3/家靛3 (19).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword3_20", "Resource/Maptool/sword/家靛3/家靛3 (20).jpg");
+
+	FILEPATH_MANAGER->AddFilepath("Sword4_01", "Resource/Maptool/sword/家靛4/家靛4 (1).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_02", "Resource/Maptool/sword/家靛4/家靛4 (2).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_03", "Resource/Maptool/sword/家靛4/家靛4 (3).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_04", "Resource/Maptool/sword/家靛4/家靛4 (4).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_05", "Resource/Maptool/sword/家靛4/家靛4 (5).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_06", "Resource/Maptool/sword/家靛4/家靛4 (6).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_07", "Resource/Maptool/sword/家靛4/家靛4 (7).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_08", "Resource/Maptool/sword/家靛4/家靛4 (8).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_09", "Resource/Maptool/sword/家靛4/家靛4 (9).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_10", "Resource/Maptool/sword/家靛4/家靛4 (10).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_11", "Resource/Maptool/sword/家靛4/家靛4 (11).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_12", "Resource/Maptool/sword/家靛4/家靛4 (12).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_13", "Resource/Maptool/sword/家靛4/家靛4 (13).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_14", "Resource/Maptool/sword/家靛4/家靛4 (14).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_15", "Resource/Maptool/sword/家靛4/家靛4 (15).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_16", "Resource/Maptool/sword/家靛4/家靛4 (16).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_17", "Resource/Maptool/sword/家靛4/家靛4 (17).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_18", "Resource/Maptool/sword/家靛4/家靛4 (18).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_19", "Resource/Maptool/sword/家靛4/家靛4 (19).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword4_20", "Resource/Maptool/sword/家靛4/家靛4 (20).jpg");
+
+	FILEPATH_MANAGER->AddFilepath("Sword5_01", "Resource/Maptool/sword/家靛5/家靛5 (1).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_02", "Resource/Maptool/sword/家靛5/家靛5 (2).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_03", "Resource/Maptool/sword/家靛5/家靛5 (3).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_04", "Resource/Maptool/sword/家靛5/家靛5 (4).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_05", "Resource/Maptool/sword/家靛5/家靛5 (5).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_06", "Resource/Maptool/sword/家靛5/家靛5 (6).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_07", "Resource/Maptool/sword/家靛5/家靛5 (7).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_08", "Resource/Maptool/sword/家靛5/家靛5 (8).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_09", "Resource/Maptool/sword/家靛5/家靛5 (9).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_10", "Resource/Maptool/sword/家靛5/家靛5 (10).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_11", "Resource/Maptool/sword/家靛5/家靛5 (11).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_12", "Resource/Maptool/sword/家靛5/家靛5 (12).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_13", "Resource/Maptool/sword/家靛5/家靛5 (13).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_14", "Resource/Maptool/sword/家靛5/家靛5 (14).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_15", "Resource/Maptool/sword/家靛5/家靛5 (15).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_16", "Resource/Maptool/sword/家靛5/家靛5 (16).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_17", "Resource/Maptool/sword/家靛5/家靛5 (17).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_18", "Resource/Maptool/sword/家靛5/家靛5 (18).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_19", "Resource/Maptool/sword/家靛5/家靛5 (19).jpg");
+	FILEPATH_MANAGER->AddFilepath("Sword5_20", "Resource/Maptool/sword/家靛5/家靛5 (20).jpg");
+
 }
 
 void cRegistBase::XMeshStaticRegist()

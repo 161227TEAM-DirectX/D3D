@@ -2,6 +2,7 @@
 #include "mainGame.h"
 //
 #include "loadingScene.h"
+<<<<<<< HEAD
 //
 //#include "cLoadingBarTest.h"	
 //#include "cLoadingTest.h"		
@@ -22,6 +23,21 @@
 #include "cTerrainTest2.h"
 #include "cTerrainTest3.h"
 
+=======
+#include "mapToolScene.h"
+#include "cTerrainTest.h"
+#include "cImageTest.h"
+#include "cButtonTest.h"
+#include "cBarTest.h"
+#include "cGameUITest.h"
+#include "cMinimapTest.h"
+#include "cMinimapTest2.h"
+#include "cCameraTest.h"
+#include "cUITestChatting.h"
+#include "cUserInterfaceTest.h"
+#include "cUserInterfaceTest2.h"
+#include "cAniTest.h"""
+>>>>>>> f8a61e38bf9423d56384dba860d7ceaac5d657ea
 
 mainGame::mainGame()
 {
@@ -39,6 +55,10 @@ mainGame::mainGame()
 	//SCENEMANAGER->addScene("particleTest5", new particleTest05, false);
 	//SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
 
+<<<<<<< HEAD
+=======
+	//SCENEMANAGER->addScene("test", new shopHead, false);
+>>>>>>> f8a61e38bf9423d56384dba860d7ceaac5d657ea
 	//SCENEMANAGER->addScene("start", new startScene, false);
 	//SCENEMANAGER->addScene("maptool", new mapToolScene, false);
 	//SCENEMANAGER->addScene("particleTest5", new particleTest05, false);

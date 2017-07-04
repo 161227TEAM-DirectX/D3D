@@ -179,6 +179,7 @@
     <ClInclude Include="boundSphere.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="cameraManager.h" />
+    <ClInclude Include="cAniTest.h" />
     <ClInclude Include="cBarTest.h" />
     <ClInclude Include="cCameraTest.h" />
     <ClInclude Include="cDxImg.h" />
@@ -192,7 +193,6 @@
     <ClInclude Include="characterController.h" />
     <ClInclude Include="cImageTest.h" />
     <ClInclude Include="CinematicManger.h" />
-    <ClInclude Include="cInvenTest.h" />
     <ClInclude Include="cMinimapTest.h" />
     <ClInclude Include="cMinimapTest2.h" />
     <ClInclude Include="cRegistBase.h" />
@@ -258,7 +258,6 @@
     <ClInclude Include="Environment.h" />
     <ClInclude Include="fontManager.h" />
     <ClInclude Include="force.h" />
-    <ClInclude Include="forceView.h" />
     <ClInclude Include="frustum.h" />
     <ClInclude Include="gameNode.h" />
     <ClInclude Include="gameObject.h" />
@@ -398,6 +397,7 @@
     <ClCompile Include="boundSphere.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="cameraManager.cpp" />
+    <ClCompile Include="cAniTest.cpp" />
     <ClCompile Include="cBarTest.cpp" />
     <ClCompile Include="cCameraTest.cpp" />
     <ClCompile Include="cDxImg.cpp" />
@@ -411,7 +411,6 @@
     <ClCompile Include="characterController.cpp" />
     <ClCompile Include="cImageTest.cpp" />
     <ClCompile Include="CinematicManger.cpp" />
-    <ClCompile Include="cInvenTest.cpp" />
     <ClCompile Include="cMinimapTest.cpp" />
     <ClCompile Include="cMinimapTest2.cpp" />
     <ClCompile Include="cRegistBase.cpp" />
@@ -477,7 +476,6 @@
     <ClCompile Include="Environment.cpp" />
     <ClCompile Include="fontManager.cpp" />
     <ClCompile Include="force.cpp" />
-    <ClCompile Include="forceView.cpp" />
     <ClCompile Include="frustum.cpp" />
     <ClCompile Include="gameNode.cpp" />
     <ClCompile Include="gameObject.cpp" />
