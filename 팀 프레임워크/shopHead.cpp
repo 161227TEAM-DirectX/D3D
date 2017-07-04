@@ -55,13 +55,11 @@ void shopHead::update(void)
 {
 	if (KEYMANAGER->isToggleKey(VK_RIGHT))
 	{
-		ViewTrue = TRUE;
 		_force->update();
 	}
 	_medicineShop->update();
 	if (KEYMANAGER->isToggleKey(VK_LEFT))
 	{
-		ViewTrue = FALSE;
 		_shop->update();
 	}
 	_inven->update();

@@ -51,8 +51,8 @@ void loadingScene::render()
 
 	if (m_isChange /*&& m_pLoadingBar->IsFullBar()*/)
 	{
-		//g_eSelectMode = E_MAPTOOL;
-		SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo, maptool
+		g_eSelectMode = E_MAPTOOL;
+		SCENEMANAGER->changeScene("maptool");//gameSceneTwo
 	}
 
 	LeaveCriticalSection(&_cs);
@@ -151,6 +151,93 @@ void loadingScene::UILoading()
 void loadingScene::AniLoading()
 {
 	vector<cDxImg*> temp;
+
+	//======================================================================================================
+	//  Sword1
+	//======================================================================================================
+	temp.clear();
+	for (int i = 1; i <=20; i++)
+	{
+		if (i < 10)
+		{
+			temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Sword1_0" + to_string(i))));
+		}
+		else	//11~99까지
+		{
+			temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Sword1_" + to_string(i))));
+		}
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Sword1", temp, ST_DXIMGANI(2));
+
+	//======================================================================================================
+	//  Sword2
+	//======================================================================================================
+	temp.clear();
+	for (int i = 1; i <= 20; i++)
+	{
+		if (i < 10)
+		{
+			temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Sword2_0" + to_string(i))));
+		}
+		else	//11~99까지
+		{
+			temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Sword2_" + to_string(i))));
+		}
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Sword2", temp, ST_DXIMGANI(2));
+
+	//======================================================================================================
+	//  Sword3
+	//======================================================================================================
+	temp.clear();
+	for (int i = 1; i <= 20; i++)
+	{
+		if (i < 10)
+		{
+			temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Sword3_0" + to_string(i))));
+		}
+		else	//11~99까지
+		{
+			temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Sword3_" + to_string(i))));
+		}
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Sword3", temp, ST_DXIMGANI(2));
+
+	//======================================================================================================
+	//  Sword4
+	//======================================================================================================
+	temp.clear();
+	for (int i = 1; i <= 20; i++)
+	{
+		if (i < 10)
+		{
+			temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Sword4_0" + to_string(i))));
+		}
+		else	//11~99까지
+		{
+			temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Sword4_" + to_string(i))));
+		}
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Sword4", temp, ST_DXIMGANI(2));
+
+	//======================================================================================================
+	//  Sword5
+	//======================================================================================================
+	temp.clear();
+	for (int i = 1; i <= 20; i++)
+	{
+		if (i < 10)
+		{
+			temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Sword5_0" + to_string(i))));
+		}
+		else	//11~99까지
+		{
+			temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Sword5_" + to_string(i))));
+		}
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("Ani_Sword5", temp, ST_DXIMGANI(2));
+
+
 
 	//======================================================================================================
 	//  Fire01

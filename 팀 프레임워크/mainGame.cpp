@@ -15,11 +15,9 @@
 #include "cMinimapTest2.h"
 #include "cCameraTest.h"
 #include "cUITestChatting.h"
-#include "cInvenTest.h"
 #include "cUserInterfaceTest.h"
 #include "cUserInterfaceTest2.h"
-
-
+#include "cAniTest.h"""
 
 mainGame::mainGame()
 {
@@ -34,7 +32,7 @@ mainGame::mainGame()
 	//SCENEMANAGER->addScene("particleTest5", new particleTest05, false);
 	SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
 
-	SCENEMANAGER->addScene("test", new cUserInterfaceTest2, false);
+	//SCENEMANAGER->addScene("test", new shopHead, false);
 	//SCENEMANAGER->addScene("start", new startScene, false);
 	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
 	//SCENEMANAGER->addScene("particleTest5", new particleTest05, false);

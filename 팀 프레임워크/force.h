@@ -14,6 +14,7 @@ private:
 	ITEMIMAGE _foceGage;
 	ITEMIMAGE _forceS;
 	ITEMIMAGE _forceF;
+	ITEMIMAGE _forceV;
 
 	//변화가 있는 UI
 	ITEMIMAGE _forceButton[3];

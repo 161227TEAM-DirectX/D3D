@@ -83,7 +83,6 @@ HRESULT stageOne::init()
 		_renderObject.push_back(temp);
 	}
 
-
 	//È¯°æ¸Ê / ¹°°á¸Ê ºÒ·¯¿À±â
 	IOSAVEMANAGER->loadFile("¸¶À»¼¼ÀÌºê¸Ê");
 
@@ -164,7 +163,7 @@ void stageOne::render()
 			this->_cullObject.push_back(_renderObject[i]);
 		}
 	}
-
+	objectSet->portalRender(_mainCamera);
 	_terrain->render(_mainCamera, sceneBaseDirectionLight, _directionLightCamera);
 
 
