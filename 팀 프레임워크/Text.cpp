@@ -13,7 +13,7 @@ Text::~Text()
 {
 }
 
-void Text::init(string str)
+void Text::init(string str, D3DXCOLOR color)
 {
 	nameStr = str;
 	strLength = str.length();
@@ -73,7 +73,7 @@ void Text::init(string str)
 	
 	for (int i = 0; i < pMesh->GetNumVertices(); ++i)
 	{
-		pV2[i].color = D3DCOLOR_XRGB(0, 255, 0);
+		pV2[i].color = color;
 	}
 	
 	this->str->UnlockVertexBuffer();

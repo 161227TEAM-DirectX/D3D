@@ -16,7 +16,7 @@ public:
 
 	inline string& getName(void) { return nameStr; }
 
-	void init(string str);
+	void init(string str, D3DXCOLOR color);
 	void update(void);
 	void render(void);
 };

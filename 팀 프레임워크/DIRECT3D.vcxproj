@@ -339,6 +339,7 @@
     <ClInclude Include="SK_Effect00.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="spriteManager.h" />
+    <ClInclude Include="stageFour.h" />
     <ClInclude Include="stageOne.h" />
     <ClInclude Include="stageThree.h" />
     <ClInclude Include="stageTwo.h" />
@@ -554,6 +555,7 @@
     <ClCompile Include="SK_Effect00.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="spriteManager.cpp" />
+    <ClCompile Include="stageFour.cpp" />
     <ClCompile Include="stageOne.cpp" />
     <ClCompile Include="stageThree.cpp" />
     <ClCompile Include="stageTwo.cpp" />

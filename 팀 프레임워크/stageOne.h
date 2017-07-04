@@ -3,6 +3,7 @@
 class Environment;
 class WaterTerrain;
 class mapObject;
+class cUIPlayer;
 
 class stageOne : public iGameNode
 {
@@ -27,16 +28,22 @@ private:
 	float _shadowDistance;
 	float currTime;
 	int angleZ;
+
 	tagSaveMap envTemp;
 	tagSaveMap waterTemp;
+private:
+	cUIPlayer* m_pUIPlayer;
 public:
-	stageOne();
-	~stageOne();
+	stageOne() { clear(); }
+	~stageOne() { destroy(); }
 
 	HRESULT init();
 	void release();
 	void update();
 	void render();
+
+	HRESULT clear(void);
+	void destroy(void);
 
 	//그림자를 위한 초기화 작업 공간
 	void shadowInit(void);

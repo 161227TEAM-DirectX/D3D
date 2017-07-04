@@ -1,54 +1,51 @@
 #pragma once
 #include "iGameNode.h"
-//class terrain;
-class bossMonster;
+
 class Environment;
 class WaterTerrain;
-class cUIPlayer;
+class mapObject;
 
-class stageThree : public iGameNode
+class stageFour : public iGameNode
 {
 private:
-	bossMonster* boss;
 	xPlayer* player;
 	camera* _mainCamera;
 	camera* _directionLightCamera;
 	lightDirection* sceneBaseDirectionLight;
 
-	terrain*			_terrain;			//지형클래스
-	terrain*			_terrainShadow;		//지형 그림자
+	terrain*			_terrain;				//지형클래스
+	terrain*			_terrainShadow;			//지형 그림자
+	mapObject* objectSet;						//지형오브젝트 셋팅 클래스
 
-	Environment*		env;
-	WaterTerrain*		water;
+	Environment*		env;					//환경맵
+	WaterTerrain*		water;					//물지형 맵
+	dx::transform*		toRotate;				//태양 보정값용
 private:
 	vector<baseObject*> _renderObject;
 	vector<baseObject*>	_cullObject;
-
+	D3DXMATRIX matRotate;
 private:
 	float _shadowDistance;
-	bool start;
+	float currTime;
+	int angleZ;
 	tagSaveMap envTemp;
 	tagSaveMap waterTemp;
-private:
-	cUIPlayer* m_pUIPlayer;
 public:
-	stageThree() { clear(); }
-	~stageThree() { destroy(); }
+	stageFour() { clear(); }
+	~stageFour() { destroy(); }
 
 	HRESULT clear(void);
 	void destroy(void);
 
-	HRESULT init();
-	void release();
-	void update();
-	void render();
+	HRESULT init() override;
+	void release() override;
+	void update() override;
+	void render() override;
 
 	//그림자를 위한 초기화 작업 공간
 	void shadowInit(void);
 	//그림자 업데이트
 	void shadowUpdate(void);
-	//그림자 렌더
-	void shadowRender(void);
 
 	void readyShadowMap(vector<baseObject*>* renderObjects, terrain* pTerrain = NULL);
 };

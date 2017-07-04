@@ -6,22 +6,35 @@
 #include "mapObject.h"
 #include "Environment.h"
 #include "WaterTerrain.h"
+#include "cUIPlayer.h"
 
-stageThree::stageThree()
-	:_shadowDistance(0.0f)
+HRESULT stageThree::clear(void)
 {
-	boss = new bossMonster;
-	player = new xPlayer;
-	_mainCamera = new camera;
-	_directionLightCamera = new camera;
-	sceneBaseDirectionLight = new lightDirection;
-	env = new Environment;
-	water = new WaterTerrain;
-	water->linkCamera(*_mainCamera);
+	_shadowDistance = 0.0f;
+
+	boss = nullptr;
+	player = nullptr;
+	_mainCamera = nullptr;
+	_directionLightCamera = nullptr;
+	sceneBaseDirectionLight = nullptr;
+	_terrain = nullptr;
+	_terrainShadow = nullptr;
+	env = nullptr;
+	water = nullptr;
+	m_pUIPlayer = nullptr;
+
+	_renderObject.clear();
+	_cullObject.clear();
+
+	start = false;
+
+	memset(&envTemp, 0, sizeof(tagSaveMap));
+	memset(&waterTemp, 0, sizeof(tagSaveMap));
+
+	return S_OK;
 }
 
-
-stageThree::~stageThree()
+void stageThree::destroy(void)
 {
 	for (int i = 0; i < _renderObject.size(); i++)
 	{
@@ -35,11 +48,24 @@ stageThree::~stageThree()
 	SAFE_DELETE(_terrainShadow);
 	SAFE_DELETE(env);
 	SAFE_DELETE(water);
+	SAFE_DELETE(m_pUIPlayer);
 }
 
 HRESULT stageThree::init()
 {
+	boss = new bossMonster;
+	player = new xPlayer;
+	_mainCamera = new camera;
+	_directionLightCamera = new camera;
+	sceneBaseDirectionLight = new lightDirection;
+	env = new Environment;
+	water = new WaterTerrain;
+	water->linkCamera(*_mainCamera);
+	m_pUIPlayer = new cUIPlayer;
+
 	this->shadowInit();
+
+	m_pUIPlayer->init();
 
 	//지형 초기화
 	_terrain = new terrain;
@@ -98,6 +124,9 @@ HRESULT stageThree::init()
 	boss->setActive(true);
 	_renderObject.push_back(boss);
 
+	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
+	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, 5));
+
 	CINEMATICMANAGER->cinematicInit(true);
 	
 	start = false;
@@ -123,6 +152,8 @@ void stageThree::update()
 	for (int i = 0; i < _renderObject.size(); i++) _renderObject[i]->update();
 
 	water->update(waterTemp.number);
+
+	m_pUIPlayer->update();
 }
 
 void stageThree::render()
@@ -169,6 +200,8 @@ void stageThree::render()
 		}
 	}
 	player->render();
+
+	m_pUIPlayer->render();
 }
 
 void stageThree::shadowInit(void)

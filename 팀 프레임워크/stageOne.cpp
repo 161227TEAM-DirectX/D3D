@@ -4,10 +4,9 @@
 #include "Environment.h"
 #include "WaterTerrain.h"
 #include "mapObject.h"
+#include "cUIPlayer.h"
 
-
-stageOne::stageOne()
-	:_shadowDistance(0.0f), angleZ(90), currTime(0.0f)
+HRESULT stageOne::init()
 {
 	_mainCamera = new camera;
 	_directionLightCamera = new camera;
@@ -17,28 +16,12 @@ stageOne::stageOne()
 	water = new WaterTerrain;
 	water->linkCamera(*_mainCamera);
 	toRotate = new dx::transform;
-}
+	objectSet = new mapObject;
+	m_pUIPlayer = new cUIPlayer;
 
-
-stageOne::~stageOne()
-{
-	for (int i = 0; i < _renderObject.size(); i++)
-	{
-		SAFE_DELETE(_renderObject[i]);
-	}
-	SAFE_DELETE(_mainCamera);
-	SAFE_DELETE(_directionLightCamera);
-	SAFE_DELETE(sceneBaseDirectionLight);
-	SAFE_DELETE(_terrain);
-	SAFE_DELETE(_terrainShadow);
-	water->release();
-	SAFE_DELETE(water);
-	SAFE_DELETE(toRotate);
-}
-
-HRESULT stageOne::init()
-{
 	this->shadowInit();
+
+	m_pUIPlayer->init();
 
 	_terrain = new terrain;
 	_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath("³ôÀÌ¸Ê_1"));
@@ -78,7 +61,7 @@ HRESULT stageOne::init()
 		object = IOSAVEOBJECTMANAGER->findTag("³Ñ¹ö" + to_string(i + 1));
 		baseObject* temp = new baseObject;
 		D3DXMATRIX matRotate;
-		objectSet->objectSet(object.objectNumber, temp, matRotate, object.objectX, object.objectY, object.objectZ, 0.6f, object.objectRotate);
+		objectSet->objectSet(object.objectNumber, temp, matRotate, object.objectX, object.objectY, object.objectZ, object.objectScale, object.objectRotate);
 
 		_renderObject.push_back(temp);
 	}
@@ -148,6 +131,8 @@ void stageOne::update()
 	for (int i = 0; i < _renderObject.size(); i++) _renderObject[i]->update();
 
 	water->update(waterTemp.number);
+
+	m_pUIPlayer->update();
 }
 
 void stageOne::render()
@@ -164,6 +149,7 @@ void stageOne::render()
 			this->_cullObject.push_back(_renderObject[i]);
 		}
 	}
+	objectSet->portalRender(_mainCamera);
 
 	_terrain->render(_mainCamera, sceneBaseDirectionLight, _directionLightCamera);
 
@@ -195,6 +181,55 @@ void stageOne::render()
 		}
 	}
 	player->render();
+
+	m_pUIPlayer->render();
+}
+
+HRESULT stageOne::clear(void)
+{
+	_shadowDistance = 0.0f;
+	angleZ = 89;
+	currTime = 0.0f;
+
+	_mainCamera = nullptr;
+	_directionLightCamera = nullptr;
+	sceneBaseDirectionLight = nullptr;
+	player = nullptr;
+	env = nullptr;
+	water = nullptr;
+	toRotate = nullptr;
+	objectSet = nullptr;
+	_terrain = nullptr;
+	_terrainShadow = nullptr;
+	m_pUIPlayer = nullptr;
+	
+
+	_renderObject.clear();
+	_cullObject.clear();
+
+	memset(&envTemp, 0, sizeof(tagSaveMap));
+	memset(&waterTemp, 0, sizeof(tagSaveMap));
+
+	D3DXMatrixIdentity(&matRotate);
+	return S_OK;
+}
+
+void stageOne::destroy(void)
+{
+	for (int i = 0; i < _renderObject.size(); i++)
+	{
+		SAFE_DELETE(_renderObject[i]);
+	}
+	SAFE_DELETE(_mainCamera);
+	SAFE_DELETE(_directionLightCamera);
+	SAFE_DELETE(sceneBaseDirectionLight);
+	SAFE_DELETE(_terrain);
+	SAFE_DELETE(_terrainShadow);
+	water->release();
+	SAFE_DELETE(water);
+	SAFE_DELETE(toRotate);
+	SAFE_DELETE(objectSet);
+	SAFE_DELETE(m_pUIPlayer);
 }
 
 void stageOne::shadowInit(void)

@@ -64,12 +64,21 @@ int ActionStanding::Update()
 	if (playerObject == nullptr) return LHS::ACTIONRESULT::ACTION_STAND;
 
 	//몬스터의 범위 박스에 케릭터가 오면 케릭터의 위치로 이동 - enemy설정이 필요함.
-	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
+	float tempdistance = 0;
+	tempdistance = D3DXVec3Length(&(temp->getRegenPosition() - playerObject->_transform->GetWorldPosition()));
+	if (tempdistance - Gap <= PLAYERDISTANCE)
 	{
 		if (deleGate) deleGate->OnActionFinish(this, true);
-//		owner->getSkinnedAnim().Stop();
+
+		owner->getSkinnedAnim().Stop();
 		return LHS::ACTIONRESULT::ACTION_MOVE;
 	}
+//	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
+//	{
+//		if (deleGate) deleGate->OnActionFinish(this, true);
+////		owner->getSkinnedAnim().Stop();
+//		return LHS::ACTIONRESULT::ACTION_MOVE;
+//	}
 
 	//내가 공격을 받았나?
 	/*if(PLAYERMANAGER->get)

@@ -20,16 +20,15 @@
 #include "cUserInterfaceTest2.h"
 
 
-
 mainGame::mainGame()
 {
 	REGIST_SGT->Init();
 
-	SCENEMANAGER->addScene("loading", new loadingScene, true);	
+	SCENEMANAGER->addScene("loading", new loadingScene, true);
 
 
 	//SCENEMANAGER->addScene("test", new cMinimapTest, false);
-	//SCENEMANAGER->addScene("start", new startScene, false);
+	SCENEMANAGER->addScene("start", new startScene, false);
 	//SCENEMANAGER->addScene("maptool", new mapToolScene, false);
 	//SCENEMANAGER->addScene("particleTest5", new particleTest05, false);
 	SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
@@ -40,9 +39,10 @@ mainGame::mainGame()
 	//SCENEMANAGER->addScene("particleTest5", new particleTest05, false);
 	//SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
 
-	SCENEMANAGER->addScene("gameSceneOne", new stageOne, false);
-	SCENEMANAGER->addScene("gameSceneTwo", new stageTwo, false);
-	SCENEMANAGER->addScene("gameSceneThree", new stageThree, false);
+	SCENEMANAGER->addScene("gameSceneOne", new stageOne);
+	SCENEMANAGER->addScene("gameSceneTwo", new stageTwo);
+	SCENEMANAGER->addScene("gameSceneThree", new stageThree);
+	SCENEMANAGER->addScene("gameSceneFour", new stageFour);
 
 	//SCENEMANAGER->addScene("test", new cGameUITest, false);
 	//SCENEMANAGER->addScene("test", new cMinimapTest, false);

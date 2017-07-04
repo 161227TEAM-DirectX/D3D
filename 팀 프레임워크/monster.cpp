@@ -13,7 +13,8 @@ monster::monster(string Name)
 	: baseObject(), CurrAction(nullptr), NextAction(nullptr), dieCount(60)
 {
 	name = new Text;
-	name->init(Name);
+	prefixName = "";
+	lastName = Name;
 }
 
 
@@ -39,9 +40,15 @@ void monster::baseObjectEnable()
 	mana = myUtil::RandomIntRange(MINHM, MAXHM);
 	gold = myUtil::RandomIntRange(MINGS, MAXGS);
 	soul = myUtil::RandomIntRange(MINGS, MAXGS);
-	att = DEFAULTATT;
-	def = DEFAULTDEF;
+	att = myUtil::RandomIntRange(MINATT, MAXATT);
+	def = myUtil::RandomIntRange(MINDEF, MAXDEF);
 	CurrAction = ACMANAGER->getAction("일반대기", *this);
+
+	authorizeName();
+
+	string tempName = prefixName + lastName;
+
+	name->init(tempName, nameColor);
 
 	result = (LHS::ACTIONRESULT)CurrAction->Start();
 }
@@ -144,5 +151,295 @@ void monster::stateSwitch(void)
 		this->setActive(false);
 		startTime = TIMEMANAGER->getWorldTime();
 		break;
+	}
+}
+
+void monster::authorizeName(void)
+{
+	int checkArray[3] = { 0, 0, 0 };
+	int normalGapHP = 3500;
+	int eliteGapHP = 1500;
+	int normalGapAtt = 35;
+	int eliteGapAtt = 15;
+	int normalGapDef = 35;
+	int eliteGapDef = 15;
+
+	//피
+	if (HP >= MAXHM - normalGapHP)
+	{
+		if (HP >= MAXHM - eliteGapHP) checkArray[0] = 2;
+		else checkArray[0] = 1;
+	}
+	else if (HP < MINHM + normalGapHP)
+	{
+		if (HP < MINHM + eliteGapHP) checkArray[0] = -2;
+		else checkArray[0] = -1;
+	}
+	//공격
+	if (att >= MAXATT - normalGapAtt)
+	{
+		if (att >= MAXATT - eliteGapAtt) checkArray[1] = 2;
+		else checkArray[1] = 1;
+	}
+	else if (att < MINATT + normalGapAtt)
+	{
+		if (att < MINATT + eliteGapAtt) checkArray[1] = -2;
+		else checkArray[1] = -1;
+	}
+	//방어
+	if (def >= MAXDEF - normalGapDef)
+	{
+		if (def >= MAXDEF - eliteGapDef) checkArray[2] = 2;
+		else checkArray[2] = 1;
+	}
+	else if (def < MINDEF + normalGapDef)
+	{
+		if (def < MINDEF + eliteGapDef) checkArray[2] = -2;
+		else checkArray[2] = -1;
+	}
+//=============================================================================================================
+
+	//모든 숫자가 동일한 경우를 최우선 적으로 처리한다.
+	if (checkArray[0] == 1 && checkArray[1] == 1 && checkArray[2] == 1)
+	{
+		prefixName = "강인한 ";
+		nameColor = NAMERED;
+		return;
+	}
+	if (checkArray[0] == 2 && checkArray[1] == 2 && checkArray[2] == 2)
+	{
+		HP *= 2;
+		att *= 2;
+		def *= 2;
+		prefixName = "엘리트 ";
+		nameColor = NAMEPURPLE;
+		return;
+	}
+	if (checkArray[0] == -1 && checkArray[1] == -1 && checkArray[2] == -1)
+	{
+		prefixName = "주눅이든 ";
+		nameColor = NAMEGRAY;
+		return;
+	}
+	if (checkArray[0] == -2 && checkArray[1] == -2 && checkArray[2] == -2)
+	{
+		prefixName = "제일약한 ";
+		nameColor = NAMEGRAY;
+		return;
+	}
+	
+	if (checkArray[0] == 0 && checkArray[1] == 0 && checkArray[2] == 0)
+	{
+		prefixName = "";
+		nameColor = GREEN;
+		return;
+	}
+//==================================================================================================
+
+	//먼저 2를 가진 경우부터 처리한다.
+	if (checkArray[0] == 2 || checkArray[1] == 2 || checkArray[2] == 2)
+	{
+		int count = 0;
+		int index[2];
+		int j = 0;
+		//2가 2개 일 경우는 랜덤하게 1개의 특성에만 특수성을 부여.
+		for (int i = 0; i < 3; i++)
+		{
+			if (checkArray[i] == 2)
+			{
+				count++;
+				index[j++] = i;
+			}
+		}
+		//2개일 경우 랜덤하게 1개는 0으로 만들어 버린다.
+		if (count == 2)
+		{
+			int random = myUtil::RandomIntRange(1, 2);
+			switch (random)
+			{
+			case 1:
+				checkArray[index[0]] = 0;
+				break;
+			case 2:
+				checkArray[index[1]] = 0;
+				break;
+			}
+		}
+
+		if (checkArray[0] == 2)
+		{
+			HP *= 2;
+			prefixName = "맷집이 아주 좋은 ";
+			nameColor = ORANGE;
+			return;
+		}
+		else if (checkArray[1] == 2)
+		{
+			att *= 2;
+			prefixName = "한방에 죽이는 ";
+			nameColor = ORANGE;
+			return;
+		}
+		else if (checkArray[2] == 2)
+		{
+			def *= 2;
+			prefixName = "철벽같은 ";
+			nameColor = ORANGE;
+			return;
+		}
+	}
+	//2의 경우 종료
+
+//=============================================================================================
+	//1의 경우 시작
+	if (checkArray[0] == 1 || checkArray[1] == 1 || checkArray[2] == 1)
+	{
+		int count = 0;
+		int index[2];
+		int j = 0;
+		//2가 2개 일 경우는 랜덤하게 1개의 특성에만 특수성을 부여.
+		for (int i = 0; i < 3; i++)
+		{
+			if (checkArray[i] == 1)
+			{
+				count++;
+				index[j++] = i;
+			}
+		}
+		//2개일 경우 랜덤하게 1개는 0으로 만들어 버린다.
+		if (count == 2)
+		{
+			int random = myUtil::RandomIntRange(1, 2);
+			switch (random)
+			{
+			case 1:
+				checkArray[index[0]] = 0;
+				break;
+			case 2:
+				checkArray[index[1]] = 0;
+				break;
+			}
+		}
+
+		if (checkArray[0] == 1)
+		{
+			prefixName = "맷집이 좋은 ";
+			nameColor = ORANGE;
+			return;
+		}
+		else if (checkArray[1] == 1)
+		{
+			prefixName = "한방이 아픈 ";
+			nameColor = ORANGE;
+			return;
+		}
+		else if (checkArray[2] == 1)
+		{
+			prefixName = "튼튼한 ";
+			nameColor = ORANGE;
+			return;
+		}
+	}
+
+	//=============================================================================================
+	//-2의 경우 시작
+	if (checkArray[0] == -2 || checkArray[1] == -2 || checkArray[2] == -2)
+	{
+		int count = 0;
+		int index[2];
+		int j = 0;
+		//2가 2개 일 경우는 랜덤하게 1개의 특성에만 특수성을 부여.
+		for (int i = 0; i < 3; i++)
+		{
+			if (checkArray[i] == -2)
+			{
+				count++;
+				index[j++] = i;
+			}
+		}
+		//2개일 경우 랜덤하게 1개는 0으로 만들어 버린다.
+		if (count == 2)
+		{
+			int random = myUtil::RandomIntRange(1, 2);
+			switch (random)
+			{
+			case 1:
+				checkArray[index[0]] = 0;
+				break;
+			case 2:
+				checkArray[index[1]] = 0;
+				break;
+			}
+		}
+
+		if (checkArray[0] == -2)
+		{
+			prefixName = "아주 허약한 ";
+			nameColor = NAMEWHITE;
+			return;
+		}
+		else if (checkArray[1] == -2)
+		{
+			prefixName = "솜털같은 ";
+			nameColor = NAMEWHITE;
+			return;
+		}
+		else if (checkArray[2] == -2)
+		{
+			prefixName = "누더기를 입은 ";
+			nameColor = NAMEWHITE;
+			return;
+		}
+	}
+
+	//=============================================================================================
+	//-1의 경우 시작
+	if (checkArray[0] == -1 || checkArray[1] == -1 || checkArray[2] == -1)
+	{
+		int count = 0;
+		int index[2];
+		int j = 0;
+		//2가 2개 일 경우는 랜덤하게 1개의 특성에만 특수성을 부여.
+		for (int i = 0; i < 3; i++)
+		{
+			if (checkArray[i] == -1)
+			{
+				count++;
+				index[j++] = i;
+			}
+		}
+		//2개일 경우 랜덤하게 1개는 0으로 만들어 버린다.
+		if (count == 2)
+		{
+			int random = myUtil::RandomIntRange(1, 2);
+			switch (random)
+			{
+			case 1:
+				checkArray[index[0]] = 0;
+				break;
+			case 2:
+				checkArray[index[1]] = 0;
+				break;
+			}
+		}
+
+		if (checkArray[0] == -1)
+		{
+			prefixName = "허약한 ";
+			nameColor = NAMEWHITE;
+			return;
+		}
+		else if (checkArray[1] == -1)
+		{
+			prefixName = "힘이 없는 ";
+			nameColor = NAMEWHITE;
+			return;
+		}
+		else if (checkArray[2] == -1)
+		{
+			prefixName = "허름한 ";
+			nameColor = NAMEWHITE;
+			return;
+		}
 	}
 }

@@ -6,8 +6,10 @@ const int MAXHM = 40000;
 const int MINHM = 10000;
 const int MAXGS = 10000;
 const int MINGS = 500;
-const int DEFAULTATT = 200;
-const int DEFAULTDEF = 50;
+const int MAXATT = 300;
+const int MINATT = 50;
+const int MAXDEF = 200;
+const int MINDEF = 50;
 const float RANGE = 5.0f;
 const float BOSSRANGE = 2.5f;
 
@@ -28,6 +30,9 @@ protected:
 	boundBox hitBox;							//공격용탐색박스
 	LHS::ACTIONRESULT result;					//액션을 위한 입력값
 	Text*	name;								//몬스터의 이름
+	string	prefixName;							//몬스터 접두사
+	string	lastName;							//몬스터 이름
+	D3DXCOLOR nameColor;						//몬스터 이름 컬러
 
 protected:
 	Action*					CurrAction;				//현재 활성화된 행동 클래스
@@ -73,6 +78,9 @@ public:
 	virtual void baseObjectNoActiveUpdate() override;	//BaseObject가 비활성화시 업데이트 실행
 	virtual void baseObjectRender() override;			//BaseObject를 그릴때 실행
 
+	//상태 분류 함수
 	void stateSwitch(void);
+	// 특수 명칭 부여 함수
+	void authorizeName(void);
 };
 

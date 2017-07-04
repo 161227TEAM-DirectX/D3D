@@ -5,6 +5,7 @@ class Environment;
 class WaterTerrain;
 class monster;
 class cUIPlayer;
+
 class stageTwo :	public iGameNode
 {
 private:
@@ -36,8 +37,11 @@ private:
 	cUIPlayer* m_pUIPlayer;
 
 public:
-	stageTwo();
-	~stageTwo();
+	stageTwo() { clear(); }
+	~stageTwo() { destroy(); }
+
+	HRESULT clear(void);
+	void destroy(void);
 
 	HRESULT init();
 	void release();

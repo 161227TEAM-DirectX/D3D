@@ -26,6 +26,7 @@ protected:
 	float _oldTimeDelta;
 	const float Gap;
 	const float LENGTHGAP;
+	const float PLAYERDISTANCE;
 public:
 	Action();
 	virtual ~Action();

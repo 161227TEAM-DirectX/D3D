@@ -65,11 +65,18 @@ int ActionMove::Update()
 		//owner->_transform->SetWorldPosition(to);
 
 		//플레이어가 내 탐색 범위를 벗어나게 되면 스탠딩 상태로 돌아간다.
-		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
+		float tempDistance = 0;
+		tempDistance = D3DXVec3Length(&(temp->getRegenPosition() - temp->_transform->GetWorldPosition()));
+		if (tempDistance - Gap >= PLAYERDISTANCE)
 		{
-			if (deleGate) deleGate->OnActionFinish(this, true);
+			if (deleGate)deleGate->OnActionFinish(this, true);
 			return LHS::ACTIONRESULT::ACTION_REMOVE;
 		}
+		//if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
+		//{
+		//	if (deleGate) deleGate->OnActionFinish(this, true);
+		//	return LHS::ACTIONRESULT::ACTION_REMOVE;
+		//}
 
 		//deleGate변수가 nullptr이 아니라면 함수 호출
 		if (deleGate)deleGate->OnActionFinish(this);

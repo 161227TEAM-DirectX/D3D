@@ -391,6 +391,9 @@
     <Filter Include="팀 포트폴리오\01.맵툴\2.레프트뷰\4.포탈">
       <UniqueIdentifier>{9c0c12a0-5165-4320-b568-c130727dce3f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="팀 포트폴리오\00.Scene\06.Stage4">
+      <UniqueIdentifier>{c57ec613-faa7-4679-bcf8-c1340073464c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainGame.cpp">
@@ -1038,6 +1041,9 @@
     <ClCompile Include="Tportal.cpp">
       <Filter>팀 포트폴리오\01.맵툴\2.레프트뷰\4.포탈</Filter>
     </ClCompile>
+    <ClCompile Include="stageFour.cpp">
+      <Filter>팀 포트폴리오\00.Scene\06.Stage4</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainGame.h">
@@ -1684,6 +1690,9 @@
     </ClInclude>
     <ClInclude Include="Tportal.h">
       <Filter>팀 포트폴리오\01.맵툴\2.레프트뷰\4.포탈</Filter>
+    </ClInclude>
+    <ClInclude Include="stageFour.h">
+      <Filter>팀 포트폴리오\00.Scene\06.Stage4</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
