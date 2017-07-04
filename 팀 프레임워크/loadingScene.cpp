@@ -51,8 +51,8 @@ void loadingScene::render()
 
 	if (m_isChange /*&& m_pLoadingBar->IsFullBar()*/)
 	{
-		g_eSelectMode = E_MAPTOOL;
-		SCENEMANAGER->changeScene("maptool");//gameSceneTwo
+		//g_eSelectMode = E_MAPTOOL;
+		SCENEMANAGER->changeScene("gameSceneOne");//gameSceneTwo
 	}
 
 	LeaveCriticalSection(&_cs);

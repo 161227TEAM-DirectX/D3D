@@ -1483,7 +1483,7 @@ void xPlayer::BladePosInit()
 //씬에서 호출해준다.
 void xPlayer::out_setTargetByMouse(camera* mainCamera)
 {
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	if (_monsterPool != nullptr && KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
 		targetMonster = NULL;//타겟을 강제로 비운다.
 		for (int i = 0; i < _monsterPool->size(); i++)
