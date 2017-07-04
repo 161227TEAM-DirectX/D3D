@@ -32,6 +32,7 @@ mainGame::mainGame()
 	//SCENEMANAGER->addScene("start", new startScene, false);
 	//SCENEMANAGER->addScene("maptool", new mapToolScene, false);
 	//SCENEMANAGER->addScene("particleTest5", new particleTest05, false);
+	//SCENEMANAGER->addScene("particleTest6", new particleTest06, true);
 	SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
 
 	SCENEMANAGER->addScene("test", new cUserInterfaceTest2, false);
