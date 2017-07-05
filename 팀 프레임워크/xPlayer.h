@@ -247,6 +247,6 @@ public:
 	void out_setMonsterRegion(vector<monster*>* monsters) { this->_monsterPool = monsters; }
 
 
-	xPlayer(): _monsterPool(nullptr) {};
+	xPlayer(): _monsterPool(nullptr), linkTerrain(nullptr) {};
 	~xPlayer() {};
 };

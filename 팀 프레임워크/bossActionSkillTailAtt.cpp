@@ -112,5 +112,6 @@ int bossActionSkillTailAtt::Update()
 
 void bossActionSkillTailAtt::Render()
 {
-	damage->render();
+
+	if(damage->getStrLength() > 1) damage->render();
 }

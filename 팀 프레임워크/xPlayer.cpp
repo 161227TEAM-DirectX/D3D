@@ -1316,7 +1316,7 @@ void xPlayer::playerDamaged(int damage, float damagedTime, float delayRate, floa
 void xPlayer::setHeight()
 {
 	D3DXVECTOR3 pos = _playerObject->_transform->GetWorldPosition();
-	_baseHeight = linkTerrain->getHeight(pos.x, pos.z);
+	if(linkTerrain != nullptr) _baseHeight = linkTerrain->getHeight(pos.x, pos.z);
 }
 
 void xPlayer::out_ItemUpdate()

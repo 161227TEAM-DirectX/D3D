@@ -45,12 +45,14 @@ void bossMonster::baseObjectDisable()
 
 void bossMonster::baseObjectUpdate()
 {
-	switchState();
+	//switchState();
+	testKeyAI();
 
 	if (NextAction != nullptr)
 	{
 		SAFE_DELETE(CurrAction);
 		CurrAction = NextAction;
+		_skinnedAnim->Stop();
 		result = (LHS::ACTIONRESULT)CurrAction->Start();
 		NextAction = nullptr;
 	}
@@ -115,5 +117,45 @@ void bossMonster::switchState(void)
 	case LHS::ACTIONRESULT::ACTION_FLY:
 		NextAction = ACMANAGER->getAction("날기", *this);
 		break;
+	}
+}
+
+void bossMonster::testKeyAI(void)
+{
+	if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD0))
+	{
+		NextAction = ACMANAGER->getAction("보스공격", *this);
+	}
+	else if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD1))
+	{
+		NextAction = ACMANAGER->getAction("보스죽음", *this);
+	}
+	else if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD2))
+	{
+		NextAction = ACMANAGER->getAction("보스이동", *this);
+	}
+	else if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD3))
+	{
+		NextAction = ACMANAGER->getAction("꼬리공격", *this);
+	}
+	else if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD4))
+	{
+		NextAction = ACMANAGER->getAction("보스브레스", *this);
+	}
+	else if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD5))
+	{
+		NextAction = ACMANAGER->getAction("배틀로어", *this);
+	}
+	else if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD6))
+	{
+		NextAction = ACMANAGER->getAction("날기", *this);
+	}
+	else if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD7))
+	{
+		NextAction = ACMANAGER->getAction("날기죽음", *this);
+	}
+	else if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD8))
+	{
+		NextAction = ACMANAGER->getAction("날기이동", *this);
 	}
 }

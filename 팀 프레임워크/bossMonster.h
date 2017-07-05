@@ -16,5 +16,6 @@ public:
 	void baseObjectRender() override;			//BaseObject를 그릴때 실행
 
 	void switchState(void);
+	void testKeyAI(void);
 };
 

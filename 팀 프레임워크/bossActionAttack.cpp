@@ -154,5 +154,5 @@ int bossActionAttack::Update()
 
 void bossActionAttack::Render()
 {
-	text->render();
+	if (text->getStrLength() > 1)text->render();
 }

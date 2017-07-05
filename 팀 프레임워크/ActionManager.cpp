@@ -17,6 +17,8 @@
 #include "bossActionSkillFire.h"
 #include "bossActionSkillTailAtt.h"
 #include "bossActionFly.h"
+#include "bossActionFlyDie.h"
+#include "bossActionFlyMove.h"
 
 ActionManager::ActionManager()
 {
@@ -33,6 +35,8 @@ ActionManager::ActionManager()
 	actionName.push_back("보스브레스");
 	actionName.push_back("꼬리공격");
 	actionName.push_back("날기");
+	actionName.push_back("날기죽음");
+	actionName.push_back("날기이동");
 }
 
 
@@ -66,6 +70,8 @@ Action * ActionManager::getAction(string Name, baseObject& who)
 	else if (!actionName[10].compare(Name)) temp = new bossActionSkillFire;
 	else if (!actionName[11].compare(Name)) temp = new bossActionSkillTailAtt;
 	else if (!actionName[12].compare(Name)) temp = new bossActionFly;
+	else if (!actionName[13].compare(Name)) temp = new bossActionFlyDie;
+	else if (!actionName[14].compare(Name)) temp = new bossActionFlyMove;
 
 	if (player != nullptr) temp->setEnemy(*player);
 	if (player != nullptr) temp->setPlayerObject(*player->getPlayerObject());
