@@ -15,6 +15,7 @@
 #include "skBoss_Breath.h"
 #include "skBoss_GrandMagic.h"
 #include "skBoss_Shouting.h"
+#include "skBoss_EnergyBullet.h"
 
 // ## [ 보스 스킬 ] ## ==================================================
 #include "SK_Effect00.h"
@@ -33,9 +34,10 @@ void dxSkillManager::skillSetting()
 	this->addSK("브레스", new skBoss_Breath);
 	this->addSK("대마법", new skBoss_GrandMagic);
 	this->addSK("샤우팅", new skBoss_Shouting);
+	this->addSK("에너지탄", new skBoss_EnergyBullet);
 
 	//이펙트 등록
-	this->addSK("이펙트", new SK_Effect00);
+	//this->addSK("이펙트", new SK_Effect00);
 
 
 	//this->skillInit();

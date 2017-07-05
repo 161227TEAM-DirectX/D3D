@@ -143,3 +143,11 @@ void psBossSet00::GrandMagic00(string psName)
 void psBossSet00::GrandMagic01(string psName)
 {
 }
+
+void psBossSet00::EnergyBullet00(string psName)
+{
+}
+
+void psBossSet00::EnergyBullet01(string psName)
+{
+}

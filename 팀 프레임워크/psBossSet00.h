@@ -14,6 +14,10 @@ private:
 	void GrandMagic00(string psName);
 	void GrandMagic01(string psName);
 
+
+	void EnergyBullet00(string psName);
+	void EnergyBullet01(string psName);
+
 public:
 	psBossSet00() {};
 	~psBossSet00() {};
