@@ -162,7 +162,7 @@ void dxModuleKit::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 
 	//평면용
 	iter->posCenter += iter->FinalDir;
-
+	iter->FinalPos += iter->FinalDir;
 
 	//실패
 	//D3DXMATRIXA16 matCurrentPos;

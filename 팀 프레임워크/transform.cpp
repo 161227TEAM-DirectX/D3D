@@ -1297,7 +1297,7 @@ namespace dx {
 	//디폴트 컨트롤 을해준다.
 	void transform::DefaultControl(float _timeDelta)
 	{
-		if (!KEYMANAGER->isToggleKey(VK_CAPITAL))
+		if (!KEYMANAGER->isToggleKey(VK_OEM_3))
 		{
 			static float prevM_PosX = GetMousePos().x;
 			//static float prevM_PosY = GetMousePos().y;

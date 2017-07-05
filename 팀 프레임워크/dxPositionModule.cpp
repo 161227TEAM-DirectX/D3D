@@ -143,7 +143,7 @@ void dxPositionModule::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 		D3DXMatrixIdentity(&matRot);
 		D3DXMatrixIdentity(&matFin);
 
-		D3DXVECTOR3 newPos = iter->FinalPos;
+		D3DXVECTOR3 newPos = iter->FinalPos - (iter->psTransPos + iter->position);
 
 		D3DXMatrixTranslation(&matPos, newPos.x, newPos.y, newPos.z);
 		//D3DXMatrixTranslation(&matPos, iter->position.x, iter->position.y, iter->position.z);
@@ -162,9 +162,11 @@ void dxPositionModule::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 
 		matFin = matPos*matRot;
 
-		iter->position = D3DXVECTOR3(matFin._41, matFin._42, matFin._43);
 
-		iter->InitPos = iter->psTransPos + iter->position;
+
+		D3DXVECTOR3 finalRotPos = D3DXVECTOR3(matFin._41, matFin._42, matFin._43);
+
+		iter->InitPos = finalRotPos + iter->psTransPos + iter->position;
 		iter->posCenter = iter->InitPos;
 		iter->FinalPos = iter->InitPos;
 
