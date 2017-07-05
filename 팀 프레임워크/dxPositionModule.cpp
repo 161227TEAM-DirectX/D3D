@@ -105,11 +105,13 @@ void dxPositionModule::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 
 	float DeltaTime = _timeDelta*iter->emitterNum;
 
+	D3DXVECTOR3 newPos = iter->FinalPos - iter->psTransPos;
+
 	//폭발
 	if (_grpPosExprosionVelOn)
 	{
 		//방향만 뽑기
-		//D3DXVec3Normalize(&iter->posDirection, &iter->position);
+		D3DXVec3Normalize(&iter->posDirection, &newPos);
 
 		this->GraphVelocityUpdate(_grpPosExprosionVel, iter, iter->posDirectSpeed);
 		iter->posDirectVel = iter->posDirection*iter->posDirectSpeed;
@@ -118,7 +120,7 @@ void dxPositionModule::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 
 	else if (_radPtc.radPosExprosionVelOn)
 	{
-		//D3DXVec3Normalize(&iter->posDirection, &iter->position);
+		D3DXVec3Normalize(&iter->posDirection, &newPos);
 		iter->posDirectVel = iter->posDirection* iter->posDirectSpeed;
 		//iter->position += iter->posDirectVel*DeltaTime;
 	}
@@ -126,8 +128,6 @@ void dxPositionModule::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 	if (_radPtc.posRotateOn)
 	{
 		//최종계산
-
-		
 
 		//iter->vectorDir = iter->attractPos*DeltaTime*_timeDelta;
 
@@ -143,7 +143,7 @@ void dxPositionModule::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 		D3DXMatrixIdentity(&matRot);
 		D3DXMatrixIdentity(&matFin);
 
-		D3DXVECTOR3 newPos = iter->FinalPos - (iter->psTransPos + iter->position);
+		
 
 		D3DXMatrixTranslation(&matPos, newPos.x, newPos.y, newPos.z);
 		//D3DXMatrixTranslation(&matPos, iter->position.x, iter->position.y, iter->position.z);
@@ -162,11 +162,9 @@ void dxPositionModule::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 
 		matFin = matPos*matRot;
 
-
-
 		D3DXVECTOR3 finalRotPos = D3DXVECTOR3(matFin._41, matFin._42, matFin._43);
 
-		iter->InitPos = finalRotPos + iter->psTransPos + iter->position;
+		iter->InitPos = finalRotPos + iter->psTransPos;
 		iter->posCenter = iter->InitPos;
 		iter->FinalPos = iter->InitPos;
 

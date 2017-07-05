@@ -16,7 +16,7 @@ HRESULT skBoss_EnergyBullet::init()
 
 	_pvPrepaerPS[0][0]->SetLimitTime(3.0f);
 	//_pvActionPS[0][0]->SetLimitTime(6.0f);
-	_pvFinishPS[0][0]->SetLimitTime(6.0f);
+	_pvFinishPS[0][0]->SetLimitTime(5.4f);
 	
 
 	//setArrayPreparePS("Å×½ºÆ®",7);
@@ -33,17 +33,17 @@ void skBoss_EnergyBullet::release()
 bool skBoss_EnergyBullet::Prepare()
 {
 	
-	_skillActionOn = true;
-	_skillFinshOn = true;
+	/*_skillActionOn = true;
+	_skillFinshOn = true;*/
 
-	//_pvPrepaerPS[0][0]->Transform()->SetWorldPosition(_skillPosTrans->GetWorldPosition());
-	//_pvPrepaerPS[0][0]->update();
+	_pvPrepaerPS[0][0]->Transform()->SetWorldPosition(_skillPosTrans->GetWorldPosition());
+	_pvPrepaerPS[0][0]->update();
 
-	//if (_pvPrepaerPS[0][0]->autoTimeReset(false))
-	//{
-	//	_skillPrepareOn = false;
-	//	_skillActionOn = true;
-	//}
+	if (_pvPrepaerPS[0][0]->autoTimeReset(false))
+	{
+		_skillPrepareOn = false;
+		_skillActionOn = true;
+	}
 
 	return false;
 }
@@ -51,7 +51,7 @@ bool skBoss_EnergyBullet::Prepare()
 bool skBoss_EnergyBullet::Action()
 {
 
-	/*if (_oneSettingOn)
+	if (_oneSettingOn)
 	{
 		_pvActionPS[0][0]->Transform()->SetWorldPosition(_pvPrepaerPS[0][0]->Transform()->GetWorldPosition());
 		_pvActionPS[0][0]->Transform()->LookPosition(_oneTargetTrans->GetWorldPosition());
@@ -61,7 +61,7 @@ bool skBoss_EnergyBullet::Action()
 
 	
 
-	_pvActionPS[0][0]->Transform()->MovePositionSelf(0.0f,0.0f,12.0f*_timeDelta);
+	_pvActionPS[0][0]->Transform()->MovePositionSelf(0.0f,0.0f,32.0f*_timeDelta);
 	_pvActionPS[0][0]->update();
 	
 
@@ -71,15 +71,15 @@ bool skBoss_EnergyBullet::Action()
 		_skillActionOn = false;
 		_skillFinshOn = true;
 	}
-*/
+
 	return false;
 }
 
 void skBoss_EnergyBullet::Finsh()
 {
 
-	//_pvFinishPS[0][0]->Transform()->SetWorldPosition(_pvActionPS[0][0]->Transform()->GetWorldPosition());
-	_pvFinishPS[0][0]->Transform()->SetWorldPosition(_skillPosTrans->GetWorldPosition());
+	_pvFinishPS[0][0]->Transform()->SetWorldPosition(_pvActionPS[0][0]->Transform()->GetWorldPosition());
+	//_pvFinishPS[0][0]->Transform()->SetWorldPosition(_skillPosTrans->GetWorldPosition());
 	_pvFinishPS[0][0]->update();
 
 	if (_pvFinishPS[0][0]->autoTimeReset(false))

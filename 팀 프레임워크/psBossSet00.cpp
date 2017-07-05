@@ -203,11 +203,11 @@ void psBossSet00::EnergyBullet02(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("ParticleResources/Texture/Light02.png", 1, 2.0f, 1);
+	_boardEMT->init("ParticleResources/Texture/Light02.png", 1, 1.2f, 1);
 
-	_boardEMT->InitRandomLifeTime(1.2f, 1.2f);
+	_boardEMT->InitRandomLifeTime(0.8f, 0.8f);
 
-	_boardEMT->SetActiveLimitTime(1.2f, 1.2f);
+	_boardEMT->SetActiveLimitTime(0.8f, 0.8f);
 
 	_boardEMT->InitRandomSize(2.0f, 2.0f);
 	_boardEMT->addSizeGraph(0.6f, 100.0f, 100.0f);
@@ -227,25 +227,29 @@ void psBossSet00::EnergyBullet02(string psName)
 	_boardEMT = new dxBoardEmitter;
 	_boardEMT->init("ParticleResources/Texture/fireballEffect_f38x1.png", 1, 1.2f, 1);
 
-	_boardEMT->InitRandomLifeTime(0.8f, 0.8f);
+	_boardEMT->InitRandomLifeTime(0.6f, 0.6f);
 	_boardEMT->InitAnimation(38, 1);
 
-	_boardEMT->SetActiveLimitTime(1.2f, 1.2f);
+	_boardEMT->SetActiveLimitTime(0.6f, 0.6f);
 	_boardEMT->InitRandomSize(8.0f, 8.0f);
 	_boardEMT->addSizeGraph(0.4f, 24.0f, 24.0f);
-	_boardEMT->addSizeGraph(1.0f, 4.0f, 4.0f);
+	_boardEMT->addSizeGraph(1.0f, 1.0f, 1.0f);
+
+	_boardEMT->InitRandomAlpha(1.0f, 1.0f);
+	_boardEMT->addAlphaGraph(0.85f, 1.0f, 1.0f);
+	_boardEMT->addAlphaGraph(1.0f, 0.0f, 0.0f);
 
 	_PS->addEmitter(_boardEMT);
 
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("ParticleResources/Texture/fire02_frame4x4.png", 10, 0.6f, 10);
+	_boardEMT->init("ParticleResources/Texture/fire02_frame4x4.png", 50, 0.6f, 150);
 	//_pointEMT->InitConstSize(2.4f);
 
-	_boardEMT->InitRandomLifeTime(6.0f, 6.0f);
-	_boardEMT->SetStartLimitTime(0.8f);
-	_boardEMT->SetActiveLimitTime(6.2f);
+	_boardEMT->InitRandomLifeTime(4.6f, 4.6f);
+	_boardEMT->SetStartLimitTime(0.6f);
+	_boardEMT->SetActiveLimitTime(5.4f);
 
 	_boardEMT->InitRandomSize(4.0f, 6.0f);
 	_boardEMT->addSizeGraph(0.3f, 12.0f, 18.0f);
@@ -256,21 +260,22 @@ void psBossSet00::EnergyBullet02(string psName)
 	_boardEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
 
 	//테스트용
-	_boardEMT->InitRandomPosSphereRadius(10.5f, 10.5f);
+	//_boardEMT->InitRandomPosSphereRadius(10.5f, 10.5f);
 
-	//_boardEMT->InitRandomPosSphereRadius(0.5f, 3.5f);
-	_boardEMT->InitRandomPosExplosionVel(10.0f, 10.0f);
-	/*_boardEMT->addPosExplosionVelGraph(0.3f, 6.0f, 10.0f);
-	_boardEMT->addPosExplosionVelGraph(0.5f, -10.0f, -14.0f);
-	_boardEMT->addPosExplosionVelGraph(1.0f,0.0f,0.0f);*/
+	_boardEMT->InitRandomPosSphereRadius(0.5f, 3.5f);
+	//_boardEMT->InitRandomPosExplosionVel(10.0f, 10.0f);
+	_boardEMT->InitRandomPosExplosionVel(0.0f, 0.0f);
+	_boardEMT->addPosExplosionVelGraph(0.3f, 8.0f, 12.0f);
+	_boardEMT->addPosExplosionVelGraph(0.5f, -12.0f, -16.0f);
+	_boardEMT->addPosExplosionVelGraph(1.0f,0.0f,0.0f);
 
-	_boardEMT->InitRandomPosRotAngleSpeedY(100.0f,100.0f);
+	_boardEMT->InitRandomPosRotAngleSpeedY(100.0f,200.0f);
 
 //	_boardEMT->InitAllRotateSpeed(0.0f,50.0f,0.0f);
 
 	_boardEMT->InitRandomVelocityY(0.0f, 0.0f);
-	/*_boardEMT->addVelocityGraphY(0.5f, 0.0f, 0.0f);
-	_boardEMT->addVelocityGraphY(1.0f, 5.0f, 10.0f);*/
+	_boardEMT->addVelocityGraphY(0.5f, 0.0f, 0.0f);
+	_boardEMT->addVelocityGraphY(1.0f, 5.0f, 10.0f);
 
 
 	//_boardEMT->InitRandomPositionX(-1.0f, 1.0f);
