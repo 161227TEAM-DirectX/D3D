@@ -1059,6 +1059,7 @@
     <ClCompile Include="loadingScene.cpp">
       <Filter>팀 포트폴리오\00.Scene\00.Loading</Filter>
     </ClCompile>
+    <ClCompile Include="bossMonsterAITestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainGame.h">
@@ -1724,6 +1725,7 @@
     <ClInclude Include="loadingScene.h">
       <Filter>팀 포트폴리오\00.Scene\00.Loading</Filter>
     </ClInclude>
+    <ClInclude Include="bossMonsterAITestScene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Texture_Gray.fx">

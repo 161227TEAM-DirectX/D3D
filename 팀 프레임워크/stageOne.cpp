@@ -24,23 +24,23 @@ HRESULT stageOne::init()
 	m_pUIPlayer->init();
 
 	_terrain = new terrain;
-	_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath("높이맵_1"));
-	_terrain->setTile0(IOMAPMANAGER->loadMapInfo("마을지형").tile0);
-	_terrain->setTile1(IOMAPMANAGER->loadMapInfo("마을지형").tile1);
-	_terrain->setTile2(IOMAPMANAGER->loadMapInfo("마을지형").tile2);
-	_terrain->setTile3(IOMAPMANAGER->loadMapInfo("마을지형").tile3);
-	_terrain->setSplat(IOMAPMANAGER->loadMapInfo("마을지형").splat);
+	_terrain->setHeightmap("높이맵_1");
+	_terrain->setTile0(IOMAPMANAGER->loadMapInfo("마을지형").tile0, true);
+	_terrain->setTile1(IOMAPMANAGER->loadMapInfo("마을지형").tile1, true);
+	_terrain->setTile2(IOMAPMANAGER->loadMapInfo("마을지형").tile2, true);
+	_terrain->setTile3(IOMAPMANAGER->loadMapInfo("마을지형").tile3, true);
+	_terrain->setSplat(IOMAPMANAGER->loadMapInfo("마을지형").splat, true);
 	_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("마을지형").vecPos);
 	_terrain->setting();
 	_terrain->changeHeightTerrain();
 
 	_terrainShadow = new terrain;
-	_terrainShadow->setHeightmap(FILEPATH_MANAGER->GetFilepath("높이맵_1"));
-	_terrainShadow->setTile0(IOMAPMANAGER->loadMapInfo("마을지형").tile0);
-	_terrainShadow->setTile1(IOMAPMANAGER->loadMapInfo("마을지형").tile1);
-	_terrainShadow->setTile2(IOMAPMANAGER->loadMapInfo("마을지형").tile2);
-	_terrainShadow->setTile3(IOMAPMANAGER->loadMapInfo("마을지형").tile3);
-	_terrainShadow->setSplat(IOMAPMANAGER->loadMapInfo("마을지형").splat);
+	_terrainShadow->setHeightmap("높이맵_1");
+	_terrainShadow->setTile0(IOMAPMANAGER->loadMapInfo("마을지형").tile0, true);
+	_terrainShadow->setTile1(IOMAPMANAGER->loadMapInfo("마을지형").tile1, true);
+	_terrainShadow->setTile2(IOMAPMANAGER->loadMapInfo("마을지형").tile2, true);
+	_terrainShadow->setTile3(IOMAPMANAGER->loadMapInfo("마을지형").tile3, true);
+	_terrainShadow->setSplat(IOMAPMANAGER->loadMapInfo("마을지형").splat, true);
 	_terrainShadow->setMapPosition(IOMAPMANAGER->loadMapInfo("마을지형").vecPos);
 	_terrainShadow->setting();
 	_terrainShadow->changeHeightTerrain();

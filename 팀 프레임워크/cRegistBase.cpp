@@ -115,6 +115,11 @@ void cRegistBase::FxRegist()
 {
 	//FILEPATH_MANAGER->AddFilepath("FX_지형기본", "Resource/Maptool/Shaders/TerrainBase.fx");
 	FILEPATH_MANAGER->AddFilepath("FX_지형기본", "ResourceUI/test/TerrainBase.fx");
+	FILEPATH_MANAGER->AddFilepath("StaticMesh", "Resource/Shaders/StaticMesh.fx");
+	FILEPATH_MANAGER->AddFilepath("diffuseDefault", "Resource/Meshes/diffuseDefault.png");
+	FILEPATH_MANAGER->AddFilepath("normalDefault", "Resource/Meshes/normalDefault.png");
+	FILEPATH_MANAGER->AddFilepath("specularDefault", "Resource/Meshes/specularDefault.png");
+	FILEPATH_MANAGER->AddFilepath("emissionDefault", "Resource/Meshes/emissionDefault.png");
 }
 
 
