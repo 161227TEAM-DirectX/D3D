@@ -24,13 +24,6 @@ HRESULT skPlayer_Lightning::init()
 
 	//_OneActionSettingOn = true;
 
-	_BP = new tagBezierPoint[6];
-
-	for (int i = 0; i < 6; i++)
-	{
-		_bpTime[i] = 0.0f;
-	}
-
 	_actionAtiveNum = 0;
 
 	_limitShootTime = 0.3f;
@@ -95,13 +88,6 @@ void skPlayer_Lightning::Finsh()
 void skPlayer_Lightning::Reset()
 {
 	_OneActionSettingOn = true;
-
-	_BP = new tagBezierPoint[6];
-
-	for (int i = 0; i < 6; i++)
-	{
-		_bpTime[i] = 0.0f;
-	}
 
 	_actionAtiveNum = 0;
 

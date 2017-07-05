@@ -102,11 +102,32 @@ void dxPositionModule::InitUpdate(vector<tagDxAttribute>::iterator iter)
 
 void dxPositionModule::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 {
+
+	float DeltaTime = _timeDelta*iter->emitterNum;
+
+	//Æø¹ß
+	if (_grpPosExprosionVelOn)
+	{
+		//¹æÇâ¸¸ »Ì±â
+		//D3DXVec3Normalize(&iter->posDirection, &iter->position);
+
+		this->GraphVelocityUpdate(_grpPosExprosionVel, iter, iter->posDirectSpeed);
+		iter->posDirectVel = iter->posDirection*iter->posDirectSpeed;
+		//iter->position += iter->posDirectVel*DeltaTime;
+	}
+
+	else if (_radPtc.radPosExprosionVelOn)
+	{
+		//D3DXVec3Normalize(&iter->posDirection, &iter->position);
+		iter->posDirectVel = iter->posDirection* iter->posDirectSpeed;
+		//iter->position += iter->posDirectVel*DeltaTime;
+	}
+
 	if (_radPtc.posRotateOn)
 	{
 		//ÃÖÁ¾°è»ê
 
-		float DeltaTime = _timeDelta*iter->emitterNum;
+		
 
 		//iter->vectorDir = iter->attractPos*DeltaTime*_timeDelta;
 
@@ -122,7 +143,10 @@ void dxPositionModule::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 		D3DXMatrixIdentity(&matRot);
 		D3DXMatrixIdentity(&matFin);
 
-		D3DXMatrixTranslation(&matPos, iter->position.x, iter->position.y, iter->position.z);
+		D3DXVECTOR3 newPos = iter->FinalPos;
+
+		D3DXMatrixTranslation(&matPos, newPos.x, newPos.y, newPos.z);
+		//D3DXMatrixTranslation(&matPos, iter->position.x, iter->position.y, iter->position.z);
 
 		//iter->allRotAngle.x = 60.0f;
 
@@ -146,17 +170,7 @@ void dxPositionModule::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 
 	}
 
-	//Æø¹ß
-	if (_grpPosExprosionVelOn)
-	{
-		this->GraphVelocityUpdate(_grpPosExprosionVel, iter, iter->posDirectSpeed);
-		iter->posDirectVel = iter->posDirection*iter->posDirectSpeed;
-	}
-	if (_radPtc.radPosExprosionVelOn)
-	{
-		iter->posDirectVel = iter->posDirection* iter->posDirectSpeed;
-	}
-
+	
 
 
 

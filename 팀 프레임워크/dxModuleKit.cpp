@@ -131,10 +131,12 @@ void dxModuleKit::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 	//방향 돌리기 계산
 	D3DXMATRIXA16 matPos;
 	D3DXMATRIXA16 matRot;
+	
 	D3DXMATRIXA16 matFin;
 
 	D3DXMatrixIdentity(&matPos);
 	D3DXMatrixIdentity(&matRot);
+	
 	D3DXMatrixIdentity(&matFin);
 
 	D3DXMatrixTranslation(&matPos, iter->vectorDir.x, iter->vectorDir.y, iter->vectorDir.z);
@@ -151,13 +153,45 @@ void dxModuleKit::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 	//역행렬 방향을 바꾸기 위해 일부러
 	D3DXMatrixInverse(&matRot, NULL, &matRot);
 
+	
+
+	//matFin = matPos*matRot*matPosRot*(iter->matPsRot);
 	matFin = matPos*matRot*(iter->matPsRot);
 
 	iter->FinalDir = D3DXVECTOR3(matFin._41, matFin._42, matFin._43);
 
-
 	//평면용
 	iter->posCenter += iter->FinalDir;
+
+
+	//실패
+	//D3DXMATRIXA16 matCurrentPos;
+	//D3DXMATRIXA16 matPosRot;
+
+	//D3DXMATRIXA16 matRotFin;
+
+	//D3DXMatrixIdentity(&matCurrentPos);
+	//D3DXMatrixIdentity(&matPosRot);
+	//D3DXMatrixIdentity(&matRotFin);
+
+	//D3DXMatrixTranslation(&matCurrentPos, iter->posCenter.x, iter->posCenter.y, iter->posCenter.z);
+
+
+	////사원수 준비 - 위치 중심 회전
+	//D3DXQUATERNION quatPosRot;
+	//D3DXQuaternionRotationYawPitchRoll(&quatPosRot, D3DXToRadian(iter->posRotateAngle.y), D3DXToRadian(iter->posRotateAngle.x), D3DXToRadian(iter->posRotateAngle.z));
+
+	////사원수에 의한 회전값으로 회전행렬로 만듬
+	//D3DXMatrixRotationQuaternion(&matPosRot, &quatPosRot);
+
+	////역행렬 방향을 바꾸기 위해 일부러
+	//D3DXMatrixInverse(&matPosRot, NULL, &matPosRot);
+
+	//matRotFin = matCurrentPos*matPos;
+
+	//iter->posCenter = D3DXVECTOR3(matRotFin._41, matRotFin._42, matRotFin._43);
+
+	//iter->FinalPos += iter->FinalDir;
 
 	////실시간 추적 사용시
 	//if (_realTimeTrackingOn)

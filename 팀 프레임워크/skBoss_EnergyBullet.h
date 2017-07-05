@@ -2,6 +2,9 @@
 #include "dxSkill.h"
 class skBoss_EnergyBullet :	public dxSkill
 {
+private:
+	bool _oneSettingOn;
+
 public:
 	virtual HRESULT init();
 	virtual void release();

@@ -341,7 +341,7 @@ void dxPointEmitter::render()
 	_device->SetRenderState(D3DRS_POINTSCALEENABLE, TRUE);
 	//_device->SetRenderState(D3DRS_POINTSIZE, FtoDw(1.0f));
 	_device->SetRenderState(D3DRS_POINTSIZE_MIN, FtoDw(0.1f));
-	//_device->SetRenderState(D3DRS_POINTSIZE_MAX, (DWORD)10000.0f);
+	//_device->SetRenderState(D3DRS_POINTSIZE_MAX, FtoDw(1000.0f));
 
 	//거리에 따른 비율?
 	_device->SetRenderState(D3DRS_POINTSCALE_A, FtoDw(1.0f));
