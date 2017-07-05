@@ -33,6 +33,11 @@ public:
 		linkPlayer(player);
 	}
 
+	void Init(xPlayer& player)
+	{
+		linkPlayer(player);
+	}
+
 	void linkTerrain(terrain& temp) { this->land = &temp; }
 	void linkObjectVector(vector<baseObject*>& temp) { objectVector = &temp; }
 	void linkPlayer(xPlayer& temp) { this->player = &temp; }
