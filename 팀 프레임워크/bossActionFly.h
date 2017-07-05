@@ -2,6 +2,8 @@
 #include "Action.h"
 class bossActionFly : public Action
 {
+private:
+	D3DXMATRIX matTranslation;
 public:
 	bossActionFly();
 	~bossActionFly();

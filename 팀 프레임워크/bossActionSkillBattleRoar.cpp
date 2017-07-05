@@ -11,6 +11,7 @@ bossActionSkillBattleRoar::bossActionSkillBattleRoar()
 
 bossActionSkillBattleRoar::~bossActionSkillBattleRoar()
 {
+	SAFE_DELETE(damage);
 }
 
 int bossActionSkillBattleRoar::Start()

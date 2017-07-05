@@ -27,7 +27,7 @@ int bossActionFlyDie::Update()
 	string temp = owner->getSkinnedAnim().getAnimationSet()->GetName();
 	if (!strcmp("Animation_31", temp.c_str()))
 	{
-		if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
+		if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.95f)
 		{
 			owner->getSkinnedAnim().Play("Animation_27");
 		}
@@ -36,6 +36,7 @@ int bossActionFlyDie::Update()
 	if (!strcmp("Animation_27", temp.c_str()))
 	{
 		float tempY = rand->getHeight(owner->_transform->GetWorldPosition().x, owner->_transform->GetWorldPosition().z);
+		owner->_transform->MovePositionSelf(0.0f, -0.5f, 0.0f);
 		if (owner->_transform->GetWorldPosition().y < tempY + 5.0f)
 		{
 			owner->getSkinnedAnim().Play("Animation_30");
