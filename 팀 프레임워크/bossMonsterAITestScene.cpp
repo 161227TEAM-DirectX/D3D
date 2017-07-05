@@ -4,15 +4,6 @@
 #include "xPlayer.h"
 
 
-bossMonsterAITestScene::bossMonsterAITestScene()
-{
-}
-
-
-bossMonsterAITestScene::~bossMonsterAITestScene()
-{
-}
-
 HRESULT bossMonsterAITestScene::clear(void)
 {
 	boss = nullptr;

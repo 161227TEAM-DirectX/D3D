@@ -52,7 +52,7 @@ void loadingScene::render()
 	if (m_isChange /*&& m_pLoadingBar->IsFullBar()*/)
 	{
 		//g_eSelectMode = E_MAPTOOL;
-		SCENEMANAGER->changeScene("gameSceneFour");//gameSceneTwo
+		SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
 	}
 	LeaveCriticalSection(&_cs);
 }
@@ -62,7 +62,7 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 	SoundLoading();
 	XMeshStaticLoading();
 	XMeshSkinnedLoading();
-	PtcLoading();
+	//PtcLoading();
 	UILoading();
 	UiTestLoading();
 	AniLoading();

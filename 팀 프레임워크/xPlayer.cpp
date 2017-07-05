@@ -76,7 +76,7 @@ HRESULT xPlayer::init()
 	D3DXMATRIXA16 matCorrection;
 	D3DXMATRIXA16 matScale;
 	D3DXMATRIXA16 matRotate;
-	D3DXMatrixScaling(&matScale, 1, 1, 1);
+	D3DXMatrixScaling(&matScale, 0.5, 0.5, 0.5);
 	D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
 	matCorrection = matRotate*matScale;
 
@@ -225,7 +225,7 @@ HRESULT xPlayer::init()
 	}
 
 	_weaponObject->setMesh(pSkinned2);
-
+	//_playerObject->_skinnedAnim->AddBoneTransform("humanfemale_Bone121_CSR", _weaponObject->_transform);
 
 	D3DXMATRIXA16 matCorrection3, matScale3, matRotate3;
 	D3DXMatrixIdentity(&matCorrection3);
@@ -295,17 +295,22 @@ HRESULT xPlayer::init()
 	}
 
 	_shieldObject->setMesh(pSkinned3);
-	
+	//_playerObject->_skinnedAnim->AddBoneTransform("humanfemale_Bone110", _shieldObject->_transform);
 
 
-	D3DXMATRIX matCorrectionL;
-	D3DXMATRIX matCorrectionR;
+	D3DXMATRIX matCorrectionL, matRotateL, matScaleL;
+	D3DXMATRIX matCorrectionR, matRotateR, matScaleR;
 
-	D3DXMatrixRotationY(&matCorrectionL, D3DXToRadian(270));
-	D3DXMatrixRotationY(&matCorrectionR, D3DXToRadian(90));
+	D3DXMatrixRotationY(&matRotateL, D3DXToRadian(270));
+	D3DXMatrixRotationY(&matRotateR, D3DXToRadian(90));
+	D3DXMatrixScaling(&matScaleL, 0.5, 0.5, 0.5);
+	D3DXMatrixScaling(&matScaleR, 0.5, 0.5, 0.5);
+	matCorrectionL = matRotateL * matScaleL;
+	matCorrectionR = matRotateR * matScaleR;
 
 	xMeshStatic* xShoulderL;
 	xMeshStatic* xShoulderR;
+
 
 
 	xShoulderL = RM_XMESH->getResource("Resource/Player/FHUMAN_NEW/ShoulderL.X", &matCorrectionL);
@@ -317,6 +322,10 @@ HRESULT xPlayer::init()
 	_shoulderR = new baseObject;
 	_shoulderR->setMesh(xShoulderR);
 	_shoulderR->setActive(true);
+
+
+	//_shoulderL->_transform->SetWorldMatrix(_EquipSocket.find("LSHOULDER")->second->CombinedTransformationMatrix);
+	//_shoulderR->_transform->SetWorldMatrix(_EquipSocket.find("RSHOULDER")->second->CombinedTransformationMatrix);
 
 	_playerObject->_skinnedAnim->AddBoneTransform("humanfemale_Bone99", _shoulderL->_transform);
 
@@ -560,8 +569,12 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 	case P_MOUNT:
 		break;
 	case P_WALKBACK:
+		rotateControl();
 		moveControl();
-		actionControl();
+		attackControl();
+		jumpControl();
+
+		//actionControl();
 		if (!KEYMANAGER->isStayKeyDown('S'))
 		{
 			if (_isOnBattle)
@@ -993,8 +1006,8 @@ void xPlayer::playerStateManager()
 //플레이어의 상태에 따른 애니메이션의 처리
 void xPlayer::playerAnimationManager()
 {
-	dx::transform* _testTrans = new dx::transform;
-	_testTrans->SetWorldPosition(RandomFloatRange(-5.0f, 5.0f), RandomFloatRange(0.0f, 3.0f), RandomFloatRange(5.0f, 8.0f));
+	//dx::transform* _testTrans = new dx::transform;
+	//_testTrans->SetWorldPosition(RandomFloatRange(-5.0f, 5.0f), RandomFloatRange(0.0f, 3.0f), RandomFloatRange(5.0f, 8.0f));
 
 	if (_prevState == _state) return;
 	switch (_state)
