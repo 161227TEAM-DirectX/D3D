@@ -91,7 +91,7 @@ http://naver.me/5vA4hOI1
 [ 17.07.04 오후 08:04 - 김태훈 ]
 플레이어 리소스 추가
 resource - player에 압축풀기
-http://naver.me/FCi4cC8af
+http://naver.me/FCi4cC8a
 
 ========================================================
 오후 9:28 2017-07-04 - 이현수
