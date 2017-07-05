@@ -147,6 +147,8 @@ void terrain::setting()
 	//쿼드트리를 만든다.
 	_quadTree = new quadTree;
 	_quadTree->init(_terrainVertices, _verNumX);
+
+	dijk = new dijkstra;
 }
 
 
@@ -1069,10 +1071,16 @@ void terrain::setHeightmap(string heightMapName)
 	_heightMap = RM_TEXTURE->getResource(FILEPATH_MANAGER->GetFilepath(heightMapName));
 }
 
+void terrain::setHeightmap(string heightMapName, bool isOver)
+{
+	_heightMap = RM_TEXTURE->getResource(heightMapName);
+}
+
 void terrain::setTile0(string tile_0)
 {
 	_texTile_0 = RM_TEXTURE->getResource(FILEPATH_MANAGER->GetFilepath(tile_0));
 }
+
 
 void terrain::setTile1(string tile_1)
 {
@@ -1089,9 +1097,34 @@ void terrain::setTile3(string tile_3)
 	_texTile_3 = RM_TEXTURE->getResource(FILEPATH_MANAGER->GetFilepath(tile_3));
 }
 
+void terrain::setTile0(string tile_0, bool isOver)
+{
+	_texTile_0 = RM_TEXTURE->getResource(tile_0);
+}
+
+void terrain::setTile1(string tile_1, bool isOver)
+{
+	_texTile_1 = RM_TEXTURE->getResource(tile_1);
+}
+
+void terrain::setTile2(string tile_2, bool isOver)
+{
+	_texTile_2 = RM_TEXTURE->getResource(tile_2);
+}
+
+void terrain::setTile3(string tile_3, bool isOver)
+{
+	_texTile_3 = RM_TEXTURE->getResource(tile_3);
+}
+
 void terrain::setSplat(string tileSplat)
 {
 	_texSlat = RM_TEXTURE->getResource(FILEPATH_MANAGER->GetFilepath(tileSplat));
+}
+
+void terrain::setSplat(string tileSplat, bool isOver)
+{
+	_texSlat = RM_TEXTURE->getResource(tileSplat);
 }
 
 void terrain::setSplat(LPDIRECT3DTEXTURE9 texSlat)

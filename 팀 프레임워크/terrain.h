@@ -104,13 +104,20 @@ public:
 	D3DXVECTOR3 selectSplatColor(string splatName, int x, int z);
 
 	void setHeightmap(string heightMapName);	//높이맵 셋팅
+	void setHeightmap(string heightMapName, bool isOver);	//높이맵 셋팅
 
 	void setTile0(string tile_0);				//타일0 셋팅
 	void setTile1(string tile_1);				//타일1 셋팅
 	void setTile2(string tile_2);				//타일2 셋팅
 	void setTile3(string tile_3);				//타일3 셋팅
 
+	void setTile0(string tile_0, bool isOver);				//타일0 셋팅
+	void setTile1(string tile_1, bool isOver);				//타일1 셋팅
+	void setTile2(string tile_2, bool isOver);				//타일2 셋팅
+	void setTile3(string tile_3, bool isOver);				//타일3 셋팅
+
 	void setSplat(string tileSplat);			//타일 이미지 컨트롤 셋팅
+	void setSplat(string tileSplat, bool isOver);			//타일 이미지 컨트롤 셋팅
 	void setSplat(LPDIRECT3DTEXTURE9 texSlat);	//타일 이미지 컨트롤 셋팅
 
 	void setCellsize(float cellSize);			//하나의 셀크기 셋팅
