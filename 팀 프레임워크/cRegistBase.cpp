@@ -36,6 +36,7 @@ void cRegistBase::Init()
 
 
 
+
 	//========================================================================
 	//¸Å´ÏÁ® ÃÊ±âÈ­
 	//========================================================================
@@ -151,14 +152,14 @@ void cRegistBase::TileRegist()
 	FILEPATH_MANAGER->AddFilepath("Å¸ÀÏ¸Ê_2", "Resource/Maptool/Textures/Tile/2.png");
 	FILEPATH_MANAGER->AddFilepath("Å¸ÀÏ¸Ê_3", "Resource/Maptool/Textures/Tile/3.png");
 	FILEPATH_MANAGER->AddFilepath("Å¸ÀÏ¸Ê_4", "Resource/Maptool/Textures/Tile/4.png");
-	FILEPATH_MANAGER->AddFilepath("Å¸ÀÏ¸Ê_5", "Resource/Maptool/Textures/Tile/5.png");
+	FILEPATH_MANAGER->AddFilepath("Å¸ÀÏ¸Ê_5", "Resource/Maptool/Textures/Tile/26.png");
 	FILEPATH_MANAGER->AddFilepath("Å¸ÀÏ¸Ê_6", "Resource/Maptool/Textures/Tile/6.png");
 	FILEPATH_MANAGER->AddFilepath("Å¸ÀÏ¸Ê_7", "Resource/Maptool/Textures/Tile/13.png");
 	FILEPATH_MANAGER->AddFilepath("Å¸ÀÏ¸Ê_8", "Resource/Maptool/Textures/Tile/12.png");
 	FILEPATH_MANAGER->AddFilepath("Å¸ÀÏ¸Ê_9", "Resource/Maptool/Textures/Tile/21.png");
 	FILEPATH_MANAGER->AddFilepath("Å¸ÀÏ¸Ê_10", "Resource/Maptool/Textures/Tile/10.png");
 	FILEPATH_MANAGER->AddFilepath("Å¸ÀÏ¸Ê_11", "Resource/Maptool/Textures/Tile/11.png");
-	FILEPATH_MANAGER->AddFilepath("Å¸ÀÏ¸Ê_12", "Resource/Maptool/Textures/Tile/12.png");
+	FILEPATH_MANAGER->AddFilepath("Å¸ÀÏ¸Ê_12", "Resource/Maptool/Textures/Tile/27.png");
 	FILEPATH_MANAGER->AddFilepath("Å¸ÀÏ¸Ê_13", "Resource/Maptool/Textures/Tile/13.png");
 	FILEPATH_MANAGER->AddFilepath("Å¸ÀÏ¸Ê_14", "Resource/Maptool/Textures/Tile/14.png");
 	FILEPATH_MANAGER->AddFilepath("Å¸ÀÏ¸Ê_15", "Resource/Maptool/Textures/Tile/15.png");
@@ -747,4 +748,20 @@ void cRegistBase::XMeshSkinnedRegist()
 	FILEPATH_MANAGER->AddFilepath("¸ó½ºÅÍ_Àü°¥", "Resource/Meshes/monster/scorpion_ok/x/scorpion.x");
 	FILEPATH_MANAGER->AddFilepath("¸ó½ºÅÍ_µµ¸¶¹ì", "Resource/Meshes/monster/thunderlizard_ok/x/thunderlizard.x");
 	FILEPATH_MANAGER->AddFilepath("¸ó½ºÅÍ_µ¥½ºÀ®", "Resource/Meshes/BossMonster/deathwing_ok/x/deathWing.x");
+
+	//===========================================================================================================
+	//NPC
+	//===========================================================================================================
+	FILEPATH_MANAGER->AddFilepath("NPC_1", "Resource/Meshes/NPC/1/bandbloodelfmale.x");
+	FILEPATH_MANAGER->AddFilepath("NPC_2", "Resource/Meshes/NPC/2/bandorcmale.x");
+	FILEPATH_MANAGER->AddFilepath("NPC_3", "Resource/Meshes/NPC/3/bandtaurenmale.x");
+	FILEPATH_MANAGER->AddFilepath("NPC_4", "Resource/Meshes/NPC/4/bandtrollmale.x");
+	FILEPATH_MANAGER->AddFilepath("NPC_5", "Resource/Meshes/NPC/5/bandundeadmale.x");
+	FILEPATH_MANAGER->AddFilepath("NPC_6", "Resource/Meshes/NPC/6/6.x");
+	FILEPATH_MANAGER->AddFilepath("NPC_7", "Resource/Meshes/NPC/7/snowman.x");
+	FILEPATH_MANAGER->AddFilepath("NPC_8", "Resource/Meshes/NPC/8/8.x");
+	FILEPATH_MANAGER->AddFilepath("NPC_9", "Resource/Meshes/NPC/9/tauren_mountedcanoe.x");
+	FILEPATH_MANAGER->AddFilepath("NPC_10","Resource/Meshes/NPC/10/arthas.x");
+
+
 }

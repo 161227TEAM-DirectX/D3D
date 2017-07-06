@@ -17,6 +17,7 @@ public:
 
 	void objectSet(int objectNumber, baseObject * tempObect, D3DXMATRIX	matRotate, float m_fPickposX, float m_fPickposY, float m_fPickposZ, float mapScale, float mapRotation);
 
+	void objectRenderTool2(vector<baseObject*>& object, camera* _mainCamera, lightDirection* _directionLight);
 	void objectRenderTool(vector<baseObject*>& object, camera* _mainCamera, lightDirection* _directionLight);
 
 	void potralErase(int objectNumber, int number);

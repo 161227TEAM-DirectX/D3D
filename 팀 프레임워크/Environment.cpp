@@ -17,7 +17,7 @@ HRESULT Environment::init(void)
 	D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/freeskymatter.dds", &_temp);
 	_environmentTexture.push_back(_temp);
 
-	D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/ZORL.dds", &_temp);
+	D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/space.dds", &_temp);
 	_environmentTexture.push_back(_temp);
 
 	D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/desert.dds", &_temp);

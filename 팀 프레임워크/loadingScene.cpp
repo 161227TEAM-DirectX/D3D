@@ -52,7 +52,7 @@ void loadingScene::render()
 	if (m_isChange /*&& m_pLoadingBar->IsFullBar()*/)
 	{
 		//g_eSelectMode = E_MAPTOOL;
-		SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
+		SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
 	}
 	LeaveCriticalSection(&_cs);
 }
@@ -911,8 +911,18 @@ void loadingScene::XMeshSkinnedLoading()
 	XMESH_MANAGER->AddXmeshSkinned("하피", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("몬스터_하피"), matRotate));
 	XMESH_MANAGER->AddXmeshSkinned("랩터", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("몬스터_랩터"), matRotate));
 	XMESH_MANAGER->AddXmeshSkinned("전갈", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("몬스터_전갈"), matRotate));
-	XMESH_MANAGER->AddXmeshSkinned("도마뱀", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("몬스터_도마뱀"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("도마뱀", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("몬스터_도마뱀"),matRotate));
 	XMESH_MANAGER->AddXmeshSkinned("데스윙", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("몬스터_데스윙"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("npc1", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("NPC_1"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("npc2", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("NPC_2"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("npc3", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("NPC_3"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("npc4", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("NPC_4"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("npc5", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("NPC_5"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("npc6", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("NPC_6"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("npc7", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("NPC_7"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("npc8", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("NPC_8"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("npc9", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("NPC_9"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("npc10", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("NPC_10"), matRotate));
 }
 
 void loadingScene::SoundLoading()

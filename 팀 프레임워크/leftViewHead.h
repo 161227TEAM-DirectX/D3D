@@ -51,6 +51,9 @@ private:
 	vector<tagSaveObject> InfoObjectTemp;
 	tagSaveObject ObjecTemp;
 
+	//높낮이 변수
+	D3DXVECTOR2		m_vSelectIdx;
+
 private:
 	enum eHeightType { E_NONE, E_UP, E_DOWN };
 	eHeightType m_eHeightType;			//높이값을 올릴건지 내릴건지의 정보를 들고있다.

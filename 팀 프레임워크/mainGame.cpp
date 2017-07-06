@@ -10,6 +10,7 @@
 #include "cTerrainTest3.h"
 #include "cCameraTest.h"
 #include "cCutsceneTest.h"
+#include "EndingScene.h"
 
 mainGame::mainGame()
 {
@@ -21,13 +22,13 @@ mainGame::mainGame()
 
 	//SCENEMANAGER->addScene("test", new cMinimapTest, false);
 	SCENEMANAGER->addScene("start", new startScene, false);
-	//SCENEMANAGER->addScene("maptool", new mapToolScene, false);
+	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
 	//SCENEMANAGER->addScene("particleTest5", new particleTest05, false);
 	//SCENEMANAGER->addScene("particleTest6", new particleTest06, true);
 	SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
 
 	//SCENEMANAGER->addScene("start", new startScene, false);
-	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
+	SCENEMANAGER->addScene("EndingScene", new EndingScene, false);
 	//SCENEMANAGER->addScene("particleTest5", new particleTest05, false);
 	//SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
 

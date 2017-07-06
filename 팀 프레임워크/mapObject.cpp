@@ -254,6 +254,18 @@ void mapObject::objectSet(int objectNumber, baseObject * tempObect, D3DXMATRIX m
 	}
 }
 
+void mapObject::objectRenderTool2(vector<baseObject*>& object, camera * _mainCamera, lightDirection* _directionLight)
+{
+
+	for (int i = 0; i < object.size(); i++)
+	{
+		xMeshStatic::_staticMeshEffect->SetMatrixArray("matLights", &_directionLight->getLightMatrix(), 1);
+		xMeshStatic::_staticMeshEffect->SetInt("LightNum", 1);
+		xMeshStatic::setCamera(_mainCamera);
+		object[i]->render();
+	}
+}
+
 void mapObject::objectRenderTool(vector<baseObject*>& object, camera * _mainCamera, lightDirection* _directionLight)
 {
 
@@ -264,7 +276,6 @@ void mapObject::objectRenderTool(vector<baseObject*>& object, camera * _mainCame
 		xMeshStatic::setCamera(_mainCamera);
 		object[i]->render();
 	}
-
 
 	for (int j = 0; j < _tportal.size(); j++)
 	{

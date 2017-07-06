@@ -49,14 +49,14 @@ HRESULT leftViewHead::init()
 
 	//지형
 	_terrain = new terrain;
-	_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath("높이맵_3"));
-	_terrain->setTile0(FILEPATH_MANAGER->GetFilepath("타일맵_4"));
-	_terrain->setTile1(FILEPATH_MANAGER->GetFilepath("타일맵_10"));
-	_terrain->setTile2(FILEPATH_MANAGER->GetFilepath("타일맵_13"));
-	_terrain->setTile3(FILEPATH_MANAGER->GetFilepath("타일맵_23"));
-	_terrain->setSplat(FILEPATH_MANAGER->GetFilepath("스플랫_1"));
+	_terrain->setHeightmap("높이맵_5");
+	_terrain->setTile0(FILEPATH_MANAGER->GetFilepath("타일맵_4"),false);
+	_terrain->setTile1(FILEPATH_MANAGER->GetFilepath("타일맵_10"), false);
+	_terrain->setTile2(FILEPATH_MANAGER->GetFilepath("타일맵_13"), false);
+	_terrain->setTile3(FILEPATH_MANAGER->GetFilepath("타일맵_23"), false);
+	_terrain->setSplat(FILEPATH_MANAGER->GetFilepath("스플랫_1"), false);
 	_terrain->setHeightscale(10.0f);
-	_terrain->setBrushmap(FILEPATH_MANAGER->GetFilepath("브러쉬_brush01"));
+	_terrain->setBrushmap("브러쉬_brush01");
 	_terrain->setBrushScale(1.0f);
 	_terrain->setting();
 
@@ -254,39 +254,43 @@ void leftViewHead::terrainUpdate()
 
 	if (_ptMousePos.x < leftViewPort.X + leftViewPort.Width && _ptMousePos.x >= 0)
 	{
-
-
-		//높이값 변경하는 상태면...
-		if (m_eHeightType != eHeightType::E_NONE)
-		{
-			if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
-			{
-				_terrain->isIntersectRay(&_hitPos, &ray);
-				_terrain->changeHeightTerrain(_hitPos.x, _hitPos.z);
-			}
-			if (KEYMANAGER->isStayKeyDown(VK_RBUTTON))
-			{
-				m_eHeightType = eHeightType::E_NONE;
-				_terrain->_nHeightSign = 0;
-			}
-		}
-
-
 		//지형맵 높이 업데이트
 		if (_rightView->getNumberHeight() == 1)
 		{
 			if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
 			{
-				m_eHeightType = eHeightType::E_UP;
-				_terrain->_nHeightSign = 3;
+				_terrain->SetHtChangeSign(1);
+
+				_terrain->isIntersectRay(&_hitPos, &ray);
+
+				//Terrain에서 피킹한 곳의 인덱스를 가져온다.
+				m_vSelectIdx = _terrain->getIdx(_hitPos.x, _hitPos.z);
+
+				//Terrain에서 피킹한 인덱스 부분을 올린다.
+				//현재 상태는 쿼드트리 할당 트루상태이므로 한번 세팅할 때는 쿼드가 적용된다.
+				_terrain->changeHeight(m_vSelectIdx.x, m_vSelectIdx.y);
+
+				//키를 누르고 있을 때는 쿼드트리 할당을 하지 않는다.
+				_terrain->SetIsQuad(false);
 			}
 		}
 		if (_rightView->getNumberHeight() == 2)
 		{
 			if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
 			{
-				m_eHeightType = eHeightType::E_DOWN;
-				_terrain->_nHeightSign = -3;
+				_terrain->SetHtChangeSign(-1);
+
+				_terrain->isIntersectRay(&_hitPos, &ray);
+
+				//Terrain에서 피킹한 곳의 인덱스를 가져온다.
+				m_vSelectIdx = _terrain->getIdx(_hitPos.x, _hitPos.z);
+
+				//Terrain에서 피킹한 인덱스 부분을 올린다.
+				//현재 상태는 쿼드트리 할당 트루상태이므로 한번 세팅할 때는 쿼드가 적용된다.
+				_terrain->changeHeight(m_vSelectIdx.x, m_vSelectIdx.y);
+
+				//키를 누르고 있을 때는 쿼드트리 할당을 하지 않는다.
+				_terrain->SetIsQuad(false);
 			}
 		}
 	}
@@ -304,27 +308,27 @@ void leftViewHead::terrainTextureUpate()
 	{
 	case 1:
 		tile1 = "타일맵_1";
-		_terrain->setTile0(FILEPATH_MANAGER->GetFilepath(tile1));
+		_terrain->setTile0(FILEPATH_MANAGER->GetFilepath(tile1),false);
 		break;
 	case 2:
 		tile1 = "타일맵_2";
-		_terrain->setTile0(FILEPATH_MANAGER->GetFilepath(tile1));
+		_terrain->setTile0(FILEPATH_MANAGER->GetFilepath(tile1), false);
 		break;
 	case 3:
 		tile1 = "타일맵_3";
-		_terrain->setTile0(FILEPATH_MANAGER->GetFilepath(tile1));
+		_terrain->setTile0(FILEPATH_MANAGER->GetFilepath(tile1), false);
 		break;
 	case 4:
 		tile1 = "타일맵_4";
-		_terrain->setTile0(FILEPATH_MANAGER->GetFilepath(tile1));
+		_terrain->setTile0(FILEPATH_MANAGER->GetFilepath(tile1), false);
 		break;
 	case 5:
 		tile1 = "타일맵_5";
-		_terrain->setTile0(FILEPATH_MANAGER->GetFilepath(tile1));
+		_terrain->setTile0(FILEPATH_MANAGER->GetFilepath(tile1), false);
 		break;
 	case 6:
 		tile1 = "타일맵_6";
-		_terrain->setTile0(FILEPATH_MANAGER->GetFilepath(tile1));
+		_terrain->setTile0(FILEPATH_MANAGER->GetFilepath(tile1), false);
 		break;
 	}
 
@@ -339,27 +343,27 @@ void leftViewHead::terrainTextureUpate()
 	{
 	case 1:
 		tile2 = "타일맵_7";
-		_terrain->setTile1(FILEPATH_MANAGER->GetFilepath(tile2));
+		_terrain->setTile1(FILEPATH_MANAGER->GetFilepath(tile2), false);
 		break;
 	case 2:
 		tile2 = "타일맵_8";
-		_terrain->setTile1(FILEPATH_MANAGER->GetFilepath(tile2));
+		_terrain->setTile1(FILEPATH_MANAGER->GetFilepath(tile2), false);
 		break;
 	case 3:
 		tile2 = "타일맵_9";
-		_terrain->setTile1(FILEPATH_MANAGER->GetFilepath(tile2));
+		_terrain->setTile1(FILEPATH_MANAGER->GetFilepath(tile2), false);
 		break;
 	case 4:
 		tile2 = "타일맵_10";
-		_terrain->setTile1(FILEPATH_MANAGER->GetFilepath(tile2));
+		_terrain->setTile1(FILEPATH_MANAGER->GetFilepath(tile2), false);
 		break;
 	case 5:
 		tile2 = "타일맵_11";
-		_terrain->setTile1(FILEPATH_MANAGER->GetFilepath(tile2));
+		_terrain->setTile1(FILEPATH_MANAGER->GetFilepath(tile2), false);
 		break;
 	case 6:
 		tile2 = "타일맵_12";
-		_terrain->setTile1(FILEPATH_MANAGER->GetFilepath(tile2));
+		_terrain->setTile1(FILEPATH_MANAGER->GetFilepath(tile2), false);
 		break;
 	}
 
@@ -374,27 +378,27 @@ void leftViewHead::terrainTextureUpate()
 	{
 	case 1:
 		tile3 = "타일맵_13";
-		_terrain->setTile2(FILEPATH_MANAGER->GetFilepath(tile3));
+		_terrain->setTile2(FILEPATH_MANAGER->GetFilepath(tile3), false);
 		break;
 	case 2:
 		tile3 = "타일맵_14";
-		_terrain->setTile2(FILEPATH_MANAGER->GetFilepath(tile3));
+		_terrain->setTile2(FILEPATH_MANAGER->GetFilepath(tile3), false);
 		break;
 	case 3:
 		tile3 = "타일맵_15";
-		_terrain->setTile2(FILEPATH_MANAGER->GetFilepath(tile3));
+		_terrain->setTile2(FILEPATH_MANAGER->GetFilepath(tile3), false);
 		break;
 	case 4:
 		tile3 = "타일맵_16";
-		_terrain->setTile2(FILEPATH_MANAGER->GetFilepath(tile3));
+		_terrain->setTile2(FILEPATH_MANAGER->GetFilepath(tile3), false);
 		break;
 	case 5:
 		tile3 = "타일맵_17";
-		_terrain->setTile2(FILEPATH_MANAGER->GetFilepath(tile3));
+		_terrain->setTile2(FILEPATH_MANAGER->GetFilepath(tile3), false);
 		break;
 	case 6:
 		tile3 = "타일맵_18";
-		_terrain->setTile2(FILEPATH_MANAGER->GetFilepath(tile3));
+		_terrain->setTile2(FILEPATH_MANAGER->GetFilepath(tile3), false);
 		break;
 	}
 
@@ -409,27 +413,27 @@ void leftViewHead::terrainTextureUpate()
 	{
 	case 1:
 		tile4 = "타일맵_19";
-		_terrain->setTile3(FILEPATH_MANAGER->GetFilepath(tile4));
+		_terrain->setTile3(FILEPATH_MANAGER->GetFilepath(tile4), false);
 		break;
 	case 2:
 		tile4 = "타일맵_20";
-		_terrain->setTile3(FILEPATH_MANAGER->GetFilepath(tile4));
+		_terrain->setTile3(FILEPATH_MANAGER->GetFilepath(tile4), false);
 		break;
 	case 3:
 		tile4 = "타일맵_21";
-		_terrain->setTile3(FILEPATH_MANAGER->GetFilepath(tile4));
+		_terrain->setTile3(FILEPATH_MANAGER->GetFilepath(tile4), false);
 		break;
 	case 4:
 		tile4 = "타일맵_22";
-		_terrain->setTile3(FILEPATH_MANAGER->GetFilepath(tile4));
+		_terrain->setTile3(FILEPATH_MANAGER->GetFilepath(tile4), false);
 		break;
 	case 5:
 		tile4 = "타일맵_23";
-		_terrain->setTile3(FILEPATH_MANAGER->GetFilepath(tile4));
+		_terrain->setTile3(FILEPATH_MANAGER->GetFilepath(tile4), false);
 		break;
 	case 6:
 		tile4 = "타일맵_24";
-		_terrain->setTile3(FILEPATH_MANAGER->GetFilepath(tile4));
+		_terrain->setTile3(FILEPATH_MANAGER->GetFilepath(tile4), false);
 		break;
 	}
 
@@ -444,27 +448,27 @@ void leftViewHead::terrainTextureUpate()
 	{
 	case 1:
 		splat = "스플랫_1";
-		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat));
+		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat), false);
 		break;
 	case 2:
 		splat = "스플랫_2";
-		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat));
+		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat), false);
 		break;
 	case 3:
 		splat = "스플랫_3";
-		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat));
+		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat), false);
 		break;
 	case 4:
 		splat = "스플랫_4";
-		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat));
+		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat), false);
 		break;
 	case 5:
 		splat = "스플랫_5";
-		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat));
+		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat), false);
 		break;
 	case 6:
 		splat = "스플랫_6";
-		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat));
+		_terrain->setSplat(FILEPATH_MANAGER->GetFilepath(splat), false);
 		break;
 	}
 
@@ -482,7 +486,7 @@ void leftViewHead::terrainTextureUpate()
 				}
 			}
 		}
-		_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath(raw));
+		_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath(raw), false);
 		break;
 	case 2:
 		raw = "높이맵_2";
@@ -495,7 +499,7 @@ void leftViewHead::terrainTextureUpate()
 				}
 			}
 		}
-		_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath(raw));
+		_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath(raw), false);
 		break;
 	case 3:
 		raw = "높이맵_3";
@@ -508,7 +512,7 @@ void leftViewHead::terrainTextureUpate()
 				}
 			}
 		}
-		_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath(raw));
+		_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath(raw), false);
 		break;
 	case 4:
 		raw = "높이맵_4";
@@ -521,7 +525,7 @@ void leftViewHead::terrainTextureUpate()
 				}
 			}
 		}
-		_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath(raw));
+		_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath(raw), false);
 		break;
 	case 5:
 		raw = "높이맵_5";
@@ -534,7 +538,7 @@ void leftViewHead::terrainTextureUpate()
 				}
 			}
 		}
-		_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath(raw));
+		_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath(raw), false);
 		break;
 	case 6:
 		raw = "높이맵_6";
@@ -547,7 +551,7 @@ void leftViewHead::terrainTextureUpate()
 				}
 			}
 		}
-		_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath(raw));
+		_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath(raw), false);
 		break;
 	}
 
@@ -677,7 +681,7 @@ void leftViewHead::save()
 			InfoObjectTemp.clear();
 			_mapObject->deletePortal();
 
-			IOSAVEOBJECTMANAGER->loadFile("오브젝트");
+			IOSAVEOBJECTMANAGER->loadFile("ㅇㅇ");
 			for (int i = 0; i < IOSAVEOBJECTMANAGER->getCount(); i++)
 			{
 				object = IOSAVEOBJECTMANAGER->findTag("넘버" + to_string(i + 1));
@@ -689,20 +693,21 @@ void leftViewHead::save()
 				m_vecObject.push_back(temp2);
 			}
 
-	/*		_terrain->setTile0(IOMAPMANAGER->loadMapInfo("지형0").tile0);
-			_terrain->setTile1(IOMAPMANAGER->loadMapInfo("지형0").tile1);
-			_terrain->setTile2(IOMAPMANAGER->loadMapInfo("지형0").tile2);
-			_terrain->setTile3(IOMAPMANAGER->loadMapInfo("지형0").tile3);
-			_terrain->setSplat(IOMAPMANAGER->loadMapInfo("지형0").splat);
-			_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("지형0").vecPos);
+		    _terrain->setHeightmap(IOMAPMANAGER->loadMapInfo("ㅇㅇ").heightMap, false);
+			_terrain->setTile0(IOMAPMANAGER->loadMapInfo("ㅇㅇ").tile0, false);
+			_terrain->setTile1(IOMAPMANAGER->loadMapInfo("ㅇㅇ").tile1,false);
+			_terrain->setTile2(IOMAPMANAGER->loadMapInfo("ㅇㅇ").tile2,false);
+			_terrain->setTile3(IOMAPMANAGER->loadMapInfo("ㅇㅇ").tile3,false);
+			_terrain->setSplat(IOMAPMANAGER->loadMapInfo("ㅇㅇ").splat,false);
+			_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("ㅇㅇ").vecPos);
 			_terrain->setting();
-			_terrain->changeHeightTerrain();*/
+			_terrain->changeHeightTerrain();
 
 
 			tagSaveMap _envTemp;
 			tagSaveMap _waterTemp;
 
-			IOSAVEMANAGER->loadFile("환경");
+			IOSAVEMANAGER->loadFile("ㅇㅇ");
 
 			_envTemp = IOSAVEMANAGER->findTag("환경맵");
 			_waterTemp = IOSAVEMANAGER->findTag("물결맵");
@@ -735,7 +740,7 @@ void leftViewHead::save()
 			temp.mapHeight = 0;
 			InfoTemp.push_back(temp);
 
-			IOSAVEMANAGER->saveFile("환경", InfoTemp);
+			IOSAVEMANAGER->saveFile("ㅇㅇ", InfoTemp);
 
 			//지우고 나서 문제가 생겨서 이름을 다시 1번부터 저장시켜준다
 			for (int i = 0; i < InfoObjectTemp.size(); i++)
@@ -743,20 +748,20 @@ void leftViewHead::save()
 				InfoObjectTemp[i].infoName = "넘버" + to_string(i + 1);
 			}
 
-			IOSAVEOBJECTMANAGER->saveFile("오브젝트", InfoObjectTemp);
+			IOSAVEOBJECTMANAGER->saveFile("ㅇㅇ", InfoObjectTemp);
 
-			//ST_MAP temp0;
+			ST_MAP temp0;
 
-			//temp0.heightMap = FILEPATH_MANAGER->GetFilepath(raw);
-			//temp0.splat = FILEPATH_MANAGER->GetFilepath(splat);
-			//temp0.tile0 = FILEPATH_MANAGER->GetFilepath(tile1);
-			//temp0.tile1 = FILEPATH_MANAGER->GetFilepath(tile2);
-			//temp0.tile2 = FILEPATH_MANAGER->GetFilepath(tile3);
-			//temp0.tile3 = FILEPATH_MANAGER->GetFilepath(tile4);
+			temp0.heightMap = FILEPATH_MANAGER->GetFilepath(raw);
+			temp0.splat = FILEPATH_MANAGER->GetFilepath(splat);
+			temp0.tile0 = FILEPATH_MANAGER->GetFilepath(tile1);
+			temp0.tile1 = FILEPATH_MANAGER->GetFilepath(tile2);
+			temp0.tile2 = FILEPATH_MANAGER->GetFilepath(tile3);
+			temp0.tile3 = FILEPATH_MANAGER->GetFilepath(tile4);
 
-			//temp0.vecPos = _terrain->getMapPosition();
+			temp0.vecPos = _terrain->getMapPosition();
 
-			//IOMAPMANAGER->saveFile("마을지형", temp0);
+			IOMAPMANAGER->saveFile("ㅇㅇ", temp0);
 
 			////몬스터 위치 ,값 저장/////////////////////////////////
 			//vector<tagSaveMonster> monsterTemp;

@@ -257,6 +257,7 @@
     <ClInclude Include="dxSkillManager.h" />
     <ClInclude Include="dxUVModule.h" />
     <ClInclude Include="dxVelocityModule.h" />
+    <ClInclude Include="EndingScene.h" />
     <ClInclude Include="Environment.h" />
     <ClInclude Include="fontManager.h" />
     <ClInclude Include="force.h" />
@@ -480,6 +481,7 @@
     <ClCompile Include="dxSkillManager.cpp" />
     <ClCompile Include="dxUVModule.cpp" />
     <ClCompile Include="dxVelocityModule.cpp" />
+    <ClCompile Include="EndingScene.cpp" />
     <ClCompile Include="Environment.cpp" />
     <ClCompile Include="fontManager.cpp" />
     <ClCompile Include="force.cpp" />
