@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "particleTest11.h"
 
-void particleTest11::Setup()
+HRESULT particleTest11::init()
 {
 	_player = new dx::transform;
 	_target = new dx::transform;
@@ -66,17 +66,29 @@ void particleTest11::Setup()
 	//_testEmitter->init("ParticleResources/Texture/Light02.png", 1, 1.5f);
 
 	rotateY = 0.0f;
+
+	return S_OK;
 }
 
-void particleTest11::Update()
+void particleTest11::release(void)
 {
-	
-	_testEmitter->update();
+}
+
+void particleTest11::update()
+{
+
+	if (KEYMANAGER->isToggleKey(VK_SPACE))
+	{
+		_testEmitter->update();
+	}
+
 	_mainCamera->DefaultControl(_timeDelta);
 	_mainCamera->updateCamToDevice();
+
+
 }
 
-void particleTest11::Render()
+void particleTest11::render()
 {
 	_testEmitter->render();
 }

@@ -164,6 +164,8 @@ void dxModuleKit::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 	iter->posCenter += iter->FinalDir;
 	iter->FinalPos += iter->FinalDir;
 
+
+
 	//½ÇÆÐ
 	//D3DXMATRIXA16 matCurrentPos;
 	//D3DXMATRIXA16 matPosRot;

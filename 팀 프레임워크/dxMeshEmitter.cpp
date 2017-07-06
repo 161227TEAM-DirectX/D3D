@@ -100,6 +100,13 @@ HRESULT dxMeshEmitter::init(string xFileName, int OneTimePaticleNum, float spawn
 			//tex 파일경로는 Mesh 파일경로 + texture 파일이름
 			texFilePath = path + pMaterials[i].pTextureFilename;
 
+			//파일 이름과 확장자 위치
+			int dotIndex = texFilePath.find_last_of(".");
+
+			//파일 명과 확장자를 나눈다.
+			texFile = texFilePath.substr(0, dotIndex);
+			texExp = texFilePath.substr(dotIndex + 1, xFileName.length());
+
 			HRESULT hr = NULL;
 
 			hr = D3DXCreateTextureFromFile(_device, texFilePath.c_str(), &_meshTexture[i]);

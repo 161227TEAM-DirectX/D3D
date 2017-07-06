@@ -68,6 +68,7 @@ bool skBoss_EnergyBullet::Action()
 
 	if (_pvActionPS[0][0]->Transform()->GetWorldPosition().y <= 0.1f)
 	{
+
 		_skillActionOn = false;
 		_skillFinshOn = true;
 	}
@@ -77,8 +78,12 @@ bool skBoss_EnergyBullet::Action()
 
 void skBoss_EnergyBullet::Finsh()
 {
+	D3DXVECTOR3 actionPos = _pvActionPS[0][0]->Transform()->GetWorldPosition();
 
-	_pvFinishPS[0][0]->Transform()->SetWorldPosition(_pvActionPS[0][0]->Transform()->GetWorldPosition());
+	actionPos.y = 0.1f;
+	//actionPos = D3DXVECTOR3(0.0f,0.0f,0.0f);
+
+	_pvFinishPS[0][0]->Transform()->SetWorldPosition(actionPos);
 	//_pvFinishPS[0][0]->Transform()->SetWorldPosition(_skillPosTrans->GetWorldPosition());
 	_pvFinishPS[0][0]->update();
 

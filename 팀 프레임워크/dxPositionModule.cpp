@@ -125,50 +125,51 @@ void dxPositionModule::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 		//iter->position += iter->posDirectVel*DeltaTime;
 	}
 
-	if (_radPtc.posRotateOn)
-	{
-		//최종계산
+	//if (_radPtc.posRotateOn)
+	//{
+	//	//최종계산
 
-		//iter->vectorDir = iter->attractPos*DeltaTime*_timeDelta;
+	//	//iter->vectorDir = iter->attractPos*DeltaTime*_timeDelta;
 
 
-		iter->posRotateAngle = iter->posRotAngleSpeed*DeltaTime;
+	//	iter->posRotateAngle = iter->posRotAngleSpeed*DeltaTime;
 
-		//방향 돌리기 계산
-		D3DXMATRIXA16 matPos;
-		D3DXMATRIXA16 matRot;
-		D3DXMATRIXA16 matFin;
+	//	//방향 돌리기 계산
+	//	D3DXMATRIXA16 matPos;
+	//	D3DXMATRIXA16 matRot;
+	//	D3DXMATRIXA16 matFin;
 
-		D3DXMatrixIdentity(&matPos);
-		D3DXMatrixIdentity(&matRot);
-		D3DXMatrixIdentity(&matFin);
+	//	D3DXMatrixIdentity(&matPos);
+	//	D3DXMatrixIdentity(&matRot);
+	//	D3DXMatrixIdentity(&matFin);
 
-		
+	//	
 
-		D3DXMatrixTranslation(&matPos, newPos.x, newPos.y, newPos.z);
-		//D3DXMatrixTranslation(&matPos, iter->position.x, iter->position.y, iter->position.z);
+	//	D3DXMatrixTranslation(&matPos, newPos.x, newPos.y, newPos.z);
+	//	//D3DXMatrixTranslation(&matPos, iter->position.x, iter->position.y, iter->position.z);
 
-		//iter->allRotAngle.x = 60.0f;
+	//	//iter->allRotAngle.x = 60.0f;
 
-		//사원수 준비
-		D3DXQUATERNION quatRot;
-		D3DXQuaternionRotationYawPitchRoll(&quatRot, D3DXToRadian(iter->posRotateAngle.y), D3DXToRadian(iter->posRotateAngle.x), D3DXToRadian(iter->posRotateAngle.z));
+	//	//사원수 준비
+	//	D3DXQUATERNION quatRot;
+	//	D3DXQuaternionRotationYawPitchRoll(&quatRot, D3DXToRadian(iter->posRotateAngle.y), D3DXToRadian(iter->posRotateAngle.x), D3DXToRadian(iter->posRotateAngle.z));
 
-		//사원수에 의한 회전값으로 회전행렬로 만듬
-		D3DXMatrixRotationQuaternion(&matRot, &quatRot);
+	//	//사원수에 의한 회전값으로 회전행렬로 만듬
+	//	D3DXMatrixRotationQuaternion(&matRot, &quatRot);
 
-		//역행렬 방향을 바꾸기 위해 일부러
-		D3DXMatrixInverse(&matRot, NULL, &matRot);
+	//	//역행렬 방향을 바꾸기 위해 일부러
+	//	D3DXMatrixInverse(&matRot, NULL, &matRot);
 
-		matFin = matPos*matRot;
+	//	matFin = matPos*matRot;
 
-		D3DXVECTOR3 finalRotPos = D3DXVECTOR3(matFin._41, matFin._42, matFin._43);
+	//	D3DXVECTOR3 finalRotPos = D3DXVECTOR3(matFin._41, matFin._42, matFin._43);
 
-		iter->InitPos = finalRotPos + iter->psTransPos;
-		iter->posCenter = iter->InitPos;
-		iter->FinalPos = iter->InitPos;
 
-	}
+	//	iter->InitPos = iter->psTransPos + finalRotPos;
+	//	iter->posCenter = iter->InitPos;
+	//	iter->FinalPos = iter->InitPos;
+
+	//}
 
 	
 

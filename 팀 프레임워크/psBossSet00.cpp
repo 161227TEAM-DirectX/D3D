@@ -8,7 +8,7 @@ HRESULT psBossSet00::init()
 	this->ShoutingSet00("샤우팅");
 
 	this->GrandMagic00("대마법진");
-	this->GrandMagic01("대규모");
+	this->GrandMagic01("대규모마법");
 
 	this->EnergyBullet00("에너지탄_준비");
 	this->EnergyBullet01("에너지탄");
@@ -147,8 +147,35 @@ void psBossSet00::GrandMagic00(string psName)
 
 void psBossSet00::GrandMagic01(string psName)
 {
+	dxParticleSystemSet::init();
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/fireballEffect_f38x1.png", 50, 1.0f, 50);
+
+	_boardEMT->InitRandomLifeTime(10.0f, 10.0f);
+	_boardEMT->InitAnimation(38, 1);
+	_boardEMT->InitRandomSize(2.0f, 2.0f);
+	_boardEMT->InitRandomSizeEnd(4.0f, 4.0f);
+	//_boardEMT->addSizeGraph(0.5f, 12.0f, 12.0f);
+	//_boardEMT->addSizeGraph(1.0f, 5.0f, 5.0f);
+	_boardEMT->InitRandomAccelerationY(-980.0f, -980.0f);
+	_boardEMT->InitRandomVelocityY(4.0f,4.0f);
+
+
+	_boardEMT->SetPositionType(PTC_SPHERE);
+	_boardEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
+	_boardEMT->InitRandomPosExplosionVel(5.0f, 5.0f);
+	_boardEMT->addPosExplosionVelGraph(1.0f, 5.0f, 5.0f);
+
+
+	_PS->addEmitter(_boardEMT);
+
+
+	PSM->addPS(psName, _PS);
 }
 
+//////////////////////////////////
 void psBossSet00::EnergyBullet00(string psName)
 {
 	dxParticleSystemSet::init();
@@ -168,11 +195,14 @@ void psBossSet00::EnergyBullet00(string psName)
 	//_boardEMT->addSizeGraph(1.0f, 5.0f, 5.0f);
 
 
+
 	_PS->addEmitter(_boardEMT);
 
 	PSM->addPS(psName, _PS, true);
 }
 
+
+///////////////////////////
 void psBossSet00::EnergyBullet01(string psName)
 {
 	dxParticleSystemSet::init();
@@ -186,6 +216,8 @@ void psBossSet00::EnergyBullet01(string psName)
 	_boardEMT->InitRandomSize(8.0f, 8.0f);
 	//_boardEMT->addSizeGraph(0.5f, 12.0f, 12.0f);
 	//_boardEMT->addSizeGraph(1.0f, 5.0f, 5.0f);
+
+	
 
 
 	_PS->addEmitter(_boardEMT);
@@ -265,7 +297,7 @@ void psBossSet00::EnergyBullet02(string psName)
 	_boardEMT->InitRandomPosSphereRadius(0.5f, 3.5f);
 	//_boardEMT->InitRandomPosExplosionVel(10.0f, 10.0f);
 	_boardEMT->InitRandomPosExplosionVel(0.0f, 0.0f);
-	_boardEMT->addPosExplosionVelGraph(0.3f, 8.0f, 12.0f);
+	_boardEMT->addPosExplosionVelGraph(0.3f, 8.0f, 2.0f);
 	_boardEMT->addPosExplosionVelGraph(0.5f, -12.0f, -16.0f);
 	_boardEMT->addPosExplosionVelGraph(1.0f,0.0f,0.0f);
 

@@ -10,9 +10,10 @@ HRESULT skBoss_GrandMagic::init()
 	setMaxNumPreparePS(2);
 	setMaxNumActionPS(2);
 	setPvPreparePS(0, "대마법진", 1);
-	//setPvActionPS(0, "대규모_마법진", 1);
+	setPvActionPS(0, "대규모마법", 1);
 
-	_pvPrepaerPS[0][0]->SetLimitTime(100.0f);
+	_pvPrepaerPS[0][0]->SetLimitTime(8.0f);
+	_pvActionPS[0][0]->SetLimitTime(8.0f);
 
 	return S_OK;
 
@@ -48,7 +49,12 @@ bool skBoss_GrandMagic::Prepare()
 bool skBoss_GrandMagic::Action()
 {
 
-//	_pvActionPS[0][0]->update();
+	_pvActionPS[0][0]->update();
+
+	if (_pvActionPS[0][0]->autoTimeReset(false))
+	{
+		_skillResetOn = true;
+	}
 
 	return false;
 }
