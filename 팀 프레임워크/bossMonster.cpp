@@ -158,4 +158,8 @@ void bossMonster::testKeyAI(void)
 	{
 		NextAction = ACMANAGER->getAction("날기이동", *this);
 	}
+	else if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD9))
+	{
+		NextAction = ACMANAGER->getAction("착지", *this);
+	}
 }
