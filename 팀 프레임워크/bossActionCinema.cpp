@@ -26,44 +26,57 @@ int bossActionCinema::Start()
 int bossActionCinema::Update()
 {
 	passedTime += 0.01f;
+	//¼ö¸é Á¾·á
 	if (actionTime < passedTime)
 	{
-		if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.8f)
-		{
+		/*if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.8f)
+		{*/
 			string temp = owner->getSkinnedAnim().getAnimationSet()->GetName();
 			if (!strcmp("Animation_13", temp.c_str()))
 			{
-				if (deleGate) deleGate->OnActionFinish(this, true);
-				SOUNDMANAGER->stop("»þ¿ìÆÃ4");
-				return LHS::ACTIONRESULT::ACTION_MOVE;
+				if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.95f)
+				{
+					if (deleGate) deleGate->OnActionFinish(this, true);
+					SOUNDMANAGER->stop("»þ¿ìÆÃ4");
+					return LHS::ACTIONRESULT::ACTION_MOVE;
+				}
 			}
 
 			if (!strcmp("Animation_61", temp.c_str()))
 			{
-				owner->getSkinnedAnim().Play("Animation_13", 1.0f);
-//				owner->getSkinnedAnim().SetPlaySpeed(0.5f);
-				//SOUNDMANAGER->play("»þ¿ìÆÃ4");
-				SOUNDMANAGER->stop("°È±â");
+				if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.8f)
+				{
+					owner->getSkinnedAnim().getAnimContorller()->
+					owner->getSkinnedAnim().Stop();
+					owner->getSkinnedAnim().Play("Animation_13", 1.0f);
+					SOUNDMANAGER->stop("°È±â");
+					SOUNDMANAGER->play("»þ¿ìÆÃ4");
+				}
+				
 			}
 
 			if (!strcmp("Animation_62", temp.c_str()))
 			{
-				owner->getSkinnedAnim().Play("Animation_61", 1.0f);
-				SOUNDMANAGER->stop("º¸½º¼û¼Ò¸®2");
-				SOUNDMANAGER->play("°È±â");
-				SOUNDMANAGER->setMusicSpeed("°È±â", 0.8F);
+				if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.8f)
+				{
+					owner->getSkinnedAnim().Play("Animation_61", 1.0f);
+					SOUNDMANAGER->stop("º¸½º¼û¼Ò¸®2");
+					SOUNDMANAGER->play("°È±â");
+					SOUNDMANAGER->setMusicSpeed("°È±â", 0.8F);
+				}
+				
 			}
-		}
+		//}
 
 		
-		if (!strcmp("Animation_13", owner->getSkinnedAnim().getAnimationSet()->GetName()))
+		/*if (!strcmp("Animation_13", owner->getSkinnedAnim().getAnimationSet()->GetName()))
 		{
 			if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.5f && isShout)
 			{
 				SOUNDMANAGER->play("»þ¿ìÆÃ4");
 				isShout = false;
 			}
-		}
+		}*/
 	}
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;

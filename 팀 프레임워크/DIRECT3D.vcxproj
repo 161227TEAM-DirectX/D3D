@@ -166,6 +166,7 @@
     <ClInclude Include="bossActionFlyMove.h" />
     <ClInclude Include="bossActionLanding.h" />
     <ClInclude Include="bossActionMove.h" />
+    <ClInclude Include="bossActionOXPattern.h" />
     <ClInclude Include="bossActionSkill.h" />
     <ClInclude Include="bossActionSkillBattleRoar.h" />
     <ClInclude Include="bossActionSkillFire.h" />
@@ -389,6 +390,7 @@
     <ClCompile Include="bossActionFlyMove.cpp" />
     <ClCompile Include="bossActionLanding.cpp" />
     <ClCompile Include="bossActionMove.cpp" />
+    <ClCompile Include="bossActionOXPattern.cpp" />
     <ClCompile Include="bossActionSkill.cpp" />
     <ClCompile Include="bossActionSkillBattleRoar.cpp" />
     <ClCompile Include="bossActionSkillFire.cpp" />

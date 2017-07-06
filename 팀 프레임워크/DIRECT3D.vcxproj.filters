@@ -1060,6 +1060,7 @@
       <Filter>팀 포트폴리오\00.Scene\00.Loading</Filter>
     </ClCompile>
     <ClCompile Include="bossMonsterAITestScene.cpp" />
+    <ClCompile Include="bossActionOXPattern.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainGame.h">
@@ -1726,6 +1727,7 @@
       <Filter>팀 포트폴리오\00.Scene\00.Loading</Filter>
     </ClInclude>
     <ClInclude Include="bossMonsterAITestScene.h" />
+    <ClInclude Include="bossActionOXPattern.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Texture_Gray.fx">

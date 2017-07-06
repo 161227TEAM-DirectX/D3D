@@ -6,7 +6,8 @@ private:
 	enum FLYSTATE
 	{
 		straight = 0,
-		round
+		round,
+		landing
 	};
 private:
 	D3DXMATRIX matRotateY;

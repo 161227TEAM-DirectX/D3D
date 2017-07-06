@@ -3,7 +3,9 @@
 
 
 bossActionLanding::bossActionLanding()
+	:Action()
 {
+	D3DXMatrixIdentity(&matPosition);
 }
 
 
@@ -27,8 +29,8 @@ int bossActionLanding::Update()
 	string temp = owner->getSkinnedAnim().getAnimationSet()->GetName();
 	if (!strcmp("Animation_48", temp.c_str()))
 	{
-		owner->_transform->MovePositionSelf(0.0f, -0.4f, 0.0f);
-		float tempY = rand->getHeight(owner->_transform->GetWorldPosition().x, owner->_transform->GetWorldPosition().z) + 5.2f;
+		owner->_transform->MovePositionSelf(0.0f, -0.3f, 0.0f);
+		float tempY = rand->getHeight(owner->_transform->GetWorldPosition().x, owner->_transform->GetWorldPosition().z) + 13.3f;
 
 		if (owner->_transform->GetWorldPosition().y <= tempY)
 		{
@@ -37,9 +39,10 @@ int bossActionLanding::Update()
 		}
 	}
 
-	temp = owner->getSkinnedAnim().getAnimationSet()->GetName();
+	//내려올때의 애니메이션
 	if (!strcmp("Animation_43", temp.c_str()))
 	{
+		matPosition = owner->getSkinnedAnim().getSkinnedMesh()->GetFineBONE("Deathwing_Bone03")->CombinedTransformationMatrix;
 		//지형의 높이값.
 		float tempY = rand->getHeight(owner->_transform->GetWorldPosition().x, owner->_transform->GetWorldPosition().z);
 
@@ -58,7 +61,7 @@ int bossActionLanding::Update()
 		}
 		else
 		{
-			owner->_transform->MovePositionSelf(0.0f, -0.4f, 0.0f);
+			owner->_transform->MovePositionSelf(0.0f, -0.3f, 0.0f);
 		}
 	}
 

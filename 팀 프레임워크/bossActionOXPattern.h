@@ -1,12 +1,10 @@
 #pragma once
 #include "Action.h"
-class bossActionLanding : public Action
+class bossActionOXPattern : public Action
 {
-private:
-	D3DXMATRIX matPosition;
 public:
-	bossActionLanding();
-	~bossActionLanding();
+	bossActionOXPattern();
+	~bossActionOXPattern();
 
 	//액션의 시작을 정의하는 함수 - 순수가상함수
 	int Start() override;
