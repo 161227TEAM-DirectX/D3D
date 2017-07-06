@@ -10,10 +10,13 @@
 #include "cTerrainTest3.h"
 #include "cCameraTest.h"
 #include "cCutsceneTest.h"
+#include "kimsNewTest.h"
 
 mainGame::mainGame()
 {
 	REGIST_SGT->Init();
+
+	SCENEMANAGER->addScene("kims", new kimsNewTest, false);
 
 	SCENEMANAGER->addScene("test", new cCutsceneTest, false);
 

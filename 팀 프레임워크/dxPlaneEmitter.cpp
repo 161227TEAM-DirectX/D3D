@@ -222,6 +222,7 @@ void dxPlaneEmitter::ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcI
 	D3DXVECTOR2 uv2 = iter->UV2;
 	D3DXVECTOR2 uv3 = iter->UV3;
 
+
 	//D3DXVECTOR3 center = _transform.GetWorldPosition();
 
 	//iter->circleSpeed + iter->velocity*_timeDelta + (iter->acceleration*(iter->age*_timeDelta)*(iter->age*_timeDelta) / 2.0f) + iter->posDirectVel*_timeDelta;

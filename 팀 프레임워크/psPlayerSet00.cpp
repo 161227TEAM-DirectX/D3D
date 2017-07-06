@@ -540,6 +540,31 @@ void psPlayerSet00::MagicShieldSet00(string psName)
 {
 	dxParticleSystemSet::init();
 
+
+	
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/sheildEffect_f30x1.png", 1, 1.0f, 1);
+	//_boardEMT->SetStartLimitTime(0.05f);
+	//_boardEMT->SetActiveLimitTime(1.0f);
+
+	_boardEMT->InitRandomSize(1.4f, 1.4f);
+	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
+
+	_boardEMT->InitRandomPositionY(2.4f, 2.4f);
+
+	//_boardEMT->InitRandomPositionX(1.0f, 1.0f);
+
+	_boardEMT->InitRandomLifeTime(2.0f, 2.0f);
+
+
+	_boardEMT->InitAnimation(30, 1);
+	_boardEMT->InitConstAniReactivateNum(3);
+
+	_PS->addEmitter(_boardEMT);
+
+
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
 	_boardEMT->init("ParticleResources/Texture/sheild_f4x4.png", 1, 2.0f, 1);
@@ -572,7 +597,7 @@ void psPlayerSet00::MagicShieldSet00(string psName)
 
 	_boardEMT->InitRandomSize(2.0f, 2.0f);
 
-	_boardEMT->InitRandomPositionY(1.3f, 1.3f);
+	_boardEMT->InitRandomPositionY(1.2f, 1.2f);
 
 	_boardEMT->InitRandomPositionX(-1.0f, -1.0f);
 
@@ -596,7 +621,7 @@ void psPlayerSet00::MagicShieldSet00(string psName)
 
 	_boardEMT->InitRandomSize(3.0f, 3.0f);
 
-	_boardEMT->InitRandomPositionY(1.3f, 1.3f);
+	_boardEMT->InitRandomPositionY(1.2f, 1.2f);
 
 	_boardEMT->InitRandomPositionZ(1.0f, 1.0f);
 
@@ -620,7 +645,7 @@ void psPlayerSet00::MagicShieldSet00(string psName)
 
 	_boardEMT->InitRandomSize(2.0f, 2.0f);
 
-	_boardEMT->InitRandomPositionY(1.3f, 1.3f);
+	_boardEMT->InitRandomPositionY(1.2f, 1.2f);
 
 	_boardEMT->InitRandomPositionZ(-1.0f, -1.0f);
 
