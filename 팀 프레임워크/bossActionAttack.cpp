@@ -52,7 +52,7 @@ int bossActionAttack::Update()
 	text->update();
 
 	//애니메이션이 끝나갈때쯤이면
-	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.9f)
+	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.95f)
 	{
 		//적이 나의 hit박스 안에 없다면 다른 패턴으로 간다.
 		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
@@ -63,7 +63,7 @@ int bossActionAttack::Update()
 				resultValue = myUtil::RandomFloatRange(0.1f, 1.0f);
 
 				//이동
-				if (resultValue >= 0.1f && resultValue <= 0.98f)
+				if (resultValue >= 0.1f && resultValue <= 0.97f)
 				{
 					if (SOUNDMANAGER->isPlaySound("보스공격1")) SOUNDMANAGER->stop("보스공격1");
 					if (SOUNDMANAGER->isPlaySound("보스공격2")) SOUNDMANAGER->stop("보스공격2");
@@ -89,10 +89,15 @@ int bossActionAttack::Update()
 					if (SOUNDMANAGER->isPlaySound("보스공격4")) SOUNDMANAGER->stop("보스공격4");
 					return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
 				}
+
+				if (resultValue - Gap >= 0.97f && resultValue - Gap <= 0.975f) return LHS::ACTIONRESULT::ACTION_FLY;
 			}
 			//range안에 없다면 이동이다.
 			else
 			{
+				//range박스 밖에 있고 확률적으로 날기패턴으로 이동
+				if (resultValue - Gap >= 0.97f && resultValue - Gap <= 0.975f) return LHS::ACTIONRESULT::ACTION_FLY;
+
 				if (SOUNDMANAGER->isPlaySound("보스공격1")) SOUNDMANAGER->stop("보스공격1");
 				if (SOUNDMANAGER->isPlaySound("보스공격2")) SOUNDMANAGER->stop("보스공격2");
 				if (SOUNDMANAGER->isPlaySound("보스공격3")) SOUNDMANAGER->stop("보스공격3");
@@ -100,6 +105,8 @@ int bossActionAttack::Update()
 				return LHS::ACTIONRESULT::ACTION_MOVE;
 			}
 		}
+
+		if (resultValue - Gap >= 0.97f && resultValue - Gap <= 0.975f) return LHS::ACTIONRESULT::ACTION_FLY;
 
 		//위의 조건들이 모두 틀렸다면 ATTACK을 시작하자.
 		int random = myUtil::RandomIntRange(1, 5);
@@ -154,5 +161,5 @@ int bossActionAttack::Update()
 
 void bossActionAttack::Render()
 {
-	text->render();
+	if (text->getStrLength() > 1)text->render();
 }

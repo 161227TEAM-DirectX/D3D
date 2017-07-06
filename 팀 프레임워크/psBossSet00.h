@@ -17,6 +17,7 @@ private:
 
 	void EnergyBullet00(string psName);
 	void EnergyBullet01(string psName);
+	void EnergyBullet02(string psName);
 
 public:
 	psBossSet00() {};

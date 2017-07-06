@@ -102,61 +102,76 @@ void dxPositionModule::InitUpdate(vector<tagDxAttribute>::iterator iter)
 
 void dxPositionModule::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 {
-	if (_radPtc.posRotateOn)
-	{
-		//최종계산
 
-		float DeltaTime = _timeDelta*iter->emitterNum;
+	float DeltaTime = _timeDelta*iter->emitterNum;
 
-		//iter->vectorDir = iter->attractPos*DeltaTime*_timeDelta;
-
-
-		iter->posRotateAngle = iter->posRotAngleSpeed*DeltaTime;
-
-		//방향 돌리기 계산
-		D3DXMATRIXA16 matPos;
-		D3DXMATRIXA16 matRot;
-		D3DXMATRIXA16 matFin;
-
-		D3DXMatrixIdentity(&matPos);
-		D3DXMatrixIdentity(&matRot);
-		D3DXMatrixIdentity(&matFin);
-
-		D3DXMatrixTranslation(&matPos, iter->position.x, iter->position.y, iter->position.z);
-
-		//iter->allRotAngle.x = 60.0f;
-
-		//사원수 준비
-		D3DXQUATERNION quatRot;
-		D3DXQuaternionRotationYawPitchRoll(&quatRot, D3DXToRadian(iter->posRotateAngle.y), D3DXToRadian(iter->posRotateAngle.x), D3DXToRadian(iter->posRotateAngle.z));
-
-		//사원수에 의한 회전값으로 회전행렬로 만듬
-		D3DXMatrixRotationQuaternion(&matRot, &quatRot);
-
-		//역행렬 방향을 바꾸기 위해 일부러
-		D3DXMatrixInverse(&matRot, NULL, &matRot);
-
-		matFin = matPos*matRot;
-
-		iter->position = D3DXVECTOR3(matFin._41, matFin._42, matFin._43);
-
-		iter->InitPos = iter->psTransPos + iter->position;
-		iter->posCenter = iter->InitPos;
-		iter->FinalPos = iter->InitPos;
-
-	}
+	D3DXVECTOR3 newPos = iter->FinalPos - iter->psTransPos;
 
 	//폭발
 	if (_grpPosExprosionVelOn)
 	{
+		//방향만 뽑기
+		D3DXVec3Normalize(&iter->posDirection, &newPos);
+
 		this->GraphVelocityUpdate(_grpPosExprosionVel, iter, iter->posDirectSpeed);
 		iter->posDirectVel = iter->posDirection*iter->posDirectSpeed;
-	}
-	if (_radPtc.radPosExprosionVelOn)
-	{
-		iter->posDirectVel = iter->posDirection* iter->posDirectSpeed;
+		//iter->position += iter->posDirectVel*DeltaTime;
 	}
 
+	else if (_radPtc.radPosExprosionVelOn)
+	{
+		D3DXVec3Normalize(&iter->posDirection, &newPos);
+		iter->posDirectVel = iter->posDirection* iter->posDirectSpeed;
+		//iter->position += iter->posDirectVel*DeltaTime;
+	}
+
+	//if (_radPtc.posRotateOn)
+	//{
+	//	//최종계산
+
+	//	//iter->vectorDir = iter->attractPos*DeltaTime*_timeDelta;
+
+
+	//	iter->posRotateAngle = iter->posRotAngleSpeed*DeltaTime;
+
+	//	//방향 돌리기 계산
+	//	D3DXMATRIXA16 matPos;
+	//	D3DXMATRIXA16 matRot;
+	//	D3DXMATRIXA16 matFin;
+
+	//	D3DXMatrixIdentity(&matPos);
+	//	D3DXMatrixIdentity(&matRot);
+	//	D3DXMatrixIdentity(&matFin);
+
+	//	
+
+	//	D3DXMatrixTranslation(&matPos, newPos.x, newPos.y, newPos.z);
+	//	//D3DXMatrixTranslation(&matPos, iter->position.x, iter->position.y, iter->position.z);
+
+	//	//iter->allRotAngle.x = 60.0f;
+
+	//	//사원수 준비
+	//	D3DXQUATERNION quatRot;
+	//	D3DXQuaternionRotationYawPitchRoll(&quatRot, D3DXToRadian(iter->posRotateAngle.y), D3DXToRadian(iter->posRotateAngle.x), D3DXToRadian(iter->posRotateAngle.z));
+
+	//	//사원수에 의한 회전값으로 회전행렬로 만듬
+	//	D3DXMatrixRotationQuaternion(&matRot, &quatRot);
+
+	//	//역행렬 방향을 바꾸기 위해 일부러
+	//	D3DXMatrixInverse(&matRot, NULL, &matRot);
+
+	//	matFin = matPos*matRot;
+
+	//	D3DXVECTOR3 finalRotPos = D3DXVECTOR3(matFin._41, matFin._42, matFin._43);
+
+
+	//	iter->InitPos = iter->psTransPos + finalRotPos;
+	//	iter->posCenter = iter->InitPos;
+	//	iter->FinalPos = iter->InitPos;
+
+	//}
+
+	
 
 
 

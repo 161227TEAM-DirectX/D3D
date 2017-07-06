@@ -158,6 +158,8 @@ HRESULT xPlayer::init()
 	//웨폰 오브젝트 초기화 디폴트로 블랙윙을 가져오고 w_none이면 액티브 하지 않는다.
 	_weaponObject = new baseObject;
 
+	PLAYERMANAGER->SetWeapon(W_BLACK_WING);
+
 	switch (PLAYERMANAGER->GetWeapon())
 	{
 	case W_NONE:
@@ -367,26 +369,20 @@ void xPlayer::update()
 
 	_playerObject->_skinnedAnim->SetPlaySpeed(_playSpeed);
 
-	if (!KEYMANAGER->isToggleKey(VK_CAPITAL))
+	if (!KEYMANAGER->isToggleKey(VK_OEM_3))
 	{
-		userPlayerControl();
+		PlayerInputControl();
 	}
 	playerStateManager();
 	playerAnimationManager();
-
-	testControl();
-
+	
 	skilltrigger();
 
 	useNowSkill();
 
 	skillProcesser();
 
-	_prevState = _state;
-
-	//updateBladeLight();
-
-	
+	_prevState = _state;	
 }
 
 void xPlayer::render()
@@ -421,7 +417,7 @@ void xPlayer::render()
 
 		FONTMANAGER->fontOut("Height : " + to_string(_jumpHeight), 600, 75, 0xffffffff);
 
-		RM_SKINNED->getResource("Resource/Player/FHUMAN_PLATE/FHUMAN.X")->ShowAnimationName(0, 0);
+		RM_SKINNED->getResource("Resource/Player/FHUMAN_NEW/FHUMAN.X")->ShowAnimationName(0, 0);
 	}
 
 
@@ -448,18 +444,25 @@ void xPlayer::release(void)
 void xPlayer::LoadData()
 {
 	//플레이어 데이터 싱글톤 함수에 데이터를 초기화 시킨다. 이게 꼭 플레이어 클래스여야 할까?
-	
 	PLAYERMANAGER->SetWeapon(W_NONE);
 	PLAYERMANAGER->SetShield(SH_NONE);
 
 	_weaponCurrent = W_NONE;
 	_shieldCurrent = SH_NONE;
-
 }
 
 
-void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
+void xPlayer::PlayerInputControl()//이 친구가 상태값에 종속 적이라면?
 {
+	if (KEYMANAGER->isStayKeyDown(VK_LSHIFT))
+	{
+		_moveSpeed = 3;
+	}
+	else
+	{
+		_moveSpeed = 1.5;
+	}
+
 	switch (_state)
 	{
 	case P_STAND:
@@ -471,6 +474,7 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 			moveControl();
 			jumpControl();
 			attackControl();
+			skillControl();
 			if (KEYMANAGER->isStayKeyDown('W'))
 			{
 				_state = P_RUN;
@@ -489,9 +493,9 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 		rotateControl();
 		moveControl();
 		attackControl();
+		skillControl();
 		jumpControl();
 		skilltrigger();
-
 
 		if (!KEYMANAGER->isStayKeyDown('W'))
 		{
@@ -516,6 +520,7 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 		{
 			moveControl();
 			attackControl();
+			skillControl();
 			jumpControl();
 			if (KEYMANAGER->isStayKeyDown('W'))
 			{
@@ -541,6 +546,24 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 		break;
 	case P_ATTACK5:
 		break;
+	case P_ATTACK6:
+		break;
+	case P_SLAM:
+		break;
+	case P_WHIRLWIND:
+		moveControl();
+		if (KEYMANAGER->isOnceKeyUp(VK_RBUTTON))
+		{
+			if (_isOnBattle)
+			{
+				this->_state = P_READYTOATTACK;
+			}
+			else
+			{
+				this->_state = P_STAND;
+			}
+		}
+		break;
 	case P_READYSPELL:
 		break;
 	case P_CASTSPELL:
@@ -553,12 +576,14 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 		rotateControl();
 		moveControl();
 		attackControl();
+		skillControl();
 		break;
 	case P_JUMP:
 
 		rotateControl();
 		moveControl();
 		attackControl();
+		skillControl();
 		break;
 	case P_JUMPDOWN:
 		break;
@@ -573,6 +598,7 @@ void xPlayer::userPlayerControl()//이 친구가 상태값에 종속 적이라면?
 		moveControl();
 		attackControl();
 		jumpControl();
+		skillControl();
 
 		//actionControl();
 		if (!KEYMANAGER->isStayKeyDown('S'))
@@ -659,7 +685,6 @@ void xPlayer::playerStateManager()
 
 		break;
 	case P_ATTACK:
-
 		if (animName == "AT1H")
 		{
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.6)//애니메이션 다 재생했으면
@@ -688,20 +713,7 @@ void xPlayer::playerStateManager()
 		}
 		break;
 	case P_ATTACK2:
-
-		if (!SOUNDMANAGER->isPlaySound("공격1"))
-		{
-			if (animName == "AT2H")
-			{
-				if (_playerObject->_skinnedAnim->getAnimFactor() > 0.1 &&  _playerObject->_skinnedAnim->getAnimFactor() < 0.3)//애니메이션 다 재생했으면
-				{
-					SOUNDMANAGER->play("공격1", 0.7f);
-					SOUNDMANAGER->setMusicSpeed("걸음소리1", _moveSpeed);
-				}
-			}
-		}
-
-		if (animName == "AT2H")
+				if (animName == "AT2H")
 		{
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.80)//애니메이션 다 재생했으면
 			{
@@ -825,6 +837,105 @@ void xPlayer::playerStateManager()
 			}
 		}
 		break;
+	case P_ATTACK6:
+		if (animName == "AT1H2")
+		{
+			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.5 && _playerObject->_skinnedAnim->getAnimFactor() < 0.8)//애니메이션 다 재생했으면
+			{
+				//if (PHYSICSMANAGER->isOverlap(_playerObject->_transform, &_attackBound, targetMonster->_transform, &targetMonster->_boundBox))
+				//{
+				//	//exit(0);
+				//}
+				_playSpeed = 1.0f;
+			}
+			else if (_playerObject->_skinnedAnim->getAnimFactor() > 0.8)
+			{
+				normalAttackDamageProcessing();
+				if (!_isJump)
+				{
+					if (_isOnBattle)
+					{
+						_state = P_READYTOATTACK;
+					}
+					else
+					{
+						_state = P_STAND;
+					}
+				}
+				else
+				{
+					_state = P_JUMPDOWN;
+				}
+			}
+		}
+		break;
+	case P_SLAM:
+		if (animName == "SLAM")
+		{
+			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.5 && _playerObject->_skinnedAnim->getAnimFactor() < 0.8)//애니메이션 다 재생했으면
+			{
+				_playSpeed = 1.0f;
+			}
+			else if (_playerObject->_skinnedAnim->getAnimFactor() > 0.8)
+			{
+				normalAttackDamageProcessing();
+				if (!_isJump)
+				{
+					if (_isOnBattle)
+					{
+						_state = P_READYTOATTACK;
+					}
+					else
+					{
+						_state = P_STAND;
+					}
+				}
+				else
+				{
+					_state = P_JUMPDOWN;
+				}
+			}
+		}
+		break;
+	case P_WHIRLWIND:
+		if (animName == "WW")
+		{
+			
+			if (_playerObject->_skinnedAnim->getAnimFactor() > 1.0)
+			{
+				normalAttackDamageProcessing();
+				_playerObject->_skinnedAnim->Play("WW");
+			}
+			_playSpeed = 1.7;
+		}
+		break;
+	case P_BATTLEROAR:
+		if (animName == "BR")
+		{
+			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.80)//애니메이션 다 재생했으면
+			{
+				normalAttackDamageProcessing();
+				normalAttackDamageProcessing();
+				normalAttackDamageProcessing();
+
+				if (!_isJump)
+				{
+					if (_isOnBattle)
+					{
+						_state = P_READYTOATTACK;
+					}
+					else
+					{
+						_state = P_STAND;
+					}
+				}
+				else
+				{
+					_state = P_JUMPDOWN;
+				}
+			}
+		}
+		break;
 	case P_READYSPELL:
 		if (_castingTime < 0)
 		{
@@ -836,8 +947,6 @@ void xPlayer::playerStateManager()
 	case P_CASTSPELL:
 		if (animName == "SPCD")
 		{
-
-
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
 			{
 				//_skillTrans->SetWorldMatrix(_EquipSocket.find("LHAND")->second->CombinedTransformationMatrix);
@@ -1055,12 +1164,26 @@ void xPlayer::playerAnimationManager()
 		_playerObject->_skinnedAnim->Play("AT2HL2", 0.3f);
 
 		break;
+	case P_ATTACK6:
+		SOUNDMANAGER->play("공격1", 0.7f);
+		_playerObject->_skinnedAnim->Play("AT1H2", 0.3f);
+		break;
+	case P_SLAM:
+		SOUNDMANAGER->play("공격1", 0.7f);
+		_playerObject->_skinnedAnim->Play("SLAM", 0.3f);
+		break;
+	case P_WHIRLWIND:
+		SOUNDMANAGER->play("공격1", 0.7f);
+		_playerObject->_skinnedAnim->Play("WW", 0.3f);
+		break;
+	case P_BATTLEROAR:
+		//SOUNDMANAGER->play("푸스로다!");
+		_playerObject->_skinnedAnim->Play("BR", 0.3f);
+		break;
 	case P_READYSPELL:
 		_playerObject->_skinnedAnim->Play("RDSD", 0.2f);
 		break;
 	case P_CASTSPELL:
-
-
 		//SKM->findSK("매직슈터")->setSkillPosTrans(this->_playerObject->_transform);
 		////		SKM->findSK("매직슈터")->setSkillDirTrans(_testTrans);
 		//SKM->findSK("매직슈터")->setOneTargetTrans(_testTrans);
@@ -1157,10 +1280,8 @@ void xPlayer::jumpControl()
 	}
 }
 
-void xPlayer::testControl()
+void xPlayer::skillControl()
 {
-
-
 	if (KEYMANAGER->isOnceKeyDown(VK_TAB))
 	{
 		if (_isOnBattle == true)
@@ -1181,8 +1302,6 @@ void xPlayer::testControl()
 		//playerDamaged(1, 0.5, 100.0, 0.0, 0.0);
 		//playerSkillOmni(1.0f);
 		_nowSelectedSkill = SKILL_HEAL;
-
-
 	}
 
 	if (KEYMANAGER->isOnceKeyDown('2'))
@@ -1197,11 +1316,20 @@ void xPlayer::testControl()
 		_nowSelectedSkill = SKILL_LIGHTNING;
 	}
 
-	//if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
-	//{
+	if (KEYMANAGER->isOnceKeyDown('4'))
+	{
+		_nowSelectedSkill = SKILL_ROAR;
+	}
 
-	//	//playerSkillDirect(1.0f);
-	//}
+	if (KEYMANAGER->isOnceKeyDown('5'))
+	{
+		_nowSelectedSkill = SKILL_WHIRLWIND;
+	}
+
+	if (KEYMANAGER->isOnceKeyDown('6'))
+	{
+		_nowSelectedSkill = SKILL_SLAM;
+	}
 }
 
 void xPlayer::actionControl()
@@ -1214,7 +1342,7 @@ void xPlayer::actionControl()
 
 	jumpControl();
 
-	testControl();
+	skillControl();
 }
 
 //플레이어 공격을 제어
@@ -1232,38 +1360,40 @@ void xPlayer::playerAttack()
 	{
 		_state = P_ATTACK4;//AT2H2 //크리티컬 어택!
 		_playSpeed = 1.5f;
-
 		return;
 	}
 	else//일반공격
 	{
 		rand = RandomFloatRange(0, 100);
-		if (rand > 75.0f)
+		if (rand > 80.0f)
 		{
 			_state = P_ATTACK;//AT1H
 			_playSpeed = 1.5f;
 
 		}
-		else if (rand > 50.0f)
+		else if (rand > 60.0f)
 		{
 			_state = P_ATTACK2;//AT2H
 			_playSpeed = 1.5f;
 		}
-		else if (rand > 25.0f)
+		else if (rand > 40.0f)
 		{
 			_state = P_ATTACK3;//AT2HL
 			_playSpeed = 2.0f;
 		}
-		else
+		else if(rand > 20.f)
 		{
 			_state = P_ATTACK5;//AT2HL2
 			_playSpeed = 2.5f;
 		}
+		else
+		{
+			_state = P_ATTACK6;
+			_playSpeed = 2.0f;
+		}
 	}
 
 }
-
-
 
 void xPlayer::playerSkillDirect(float castingTime)
 {
@@ -1316,7 +1446,7 @@ void xPlayer::playerDamaged(int damage, float damagedTime, float delayRate, floa
 void xPlayer::setHeight()
 {
 	D3DXVECTOR3 pos = _playerObject->_transform->GetWorldPosition();
-	_baseHeight = linkTerrain->getHeight(pos.x, pos.z);
+	if(linkTerrain != nullptr) _baseHeight = linkTerrain->getHeight(pos.x, pos.z);
 }
 
 void xPlayer::out_ItemUpdate()
@@ -1614,12 +1744,22 @@ void xPlayer::skilltrigger()
 			}
 			//_state = P_READYOMNI;
 			break;
+		case SKILL_ROAR:
+			_state = P_BATTLEROAR;
+			break;
+		case SKILL_WHIRLWIND:
+			_state = P_WHIRLWIND;
+			break;
+		case SKILL_SLAM:
+			_state = P_SLAM;
+			break;
 		case SKILL_END:
 			break;
 		default:
 			break;
 		}
 	}
+	//_nowSelectedSkill = SKILL_NONE;
 }
 
 void xPlayer::useNowSkill()
@@ -1659,8 +1799,6 @@ void xPlayer::useNowSkill()
 }
 
 void xPlayer::skillProcesser() {
-
-
 	switch (_nowSelectedSkill)
 	{
 	case SKILL_NONE:

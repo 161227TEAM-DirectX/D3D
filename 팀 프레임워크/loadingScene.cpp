@@ -52,7 +52,9 @@ void loadingScene::render()
 	if (m_isChange /*&& m_pLoadingBar->IsFullBar()*/)
 	{
 		//g_eSelectMode = E_MAPTOOL;
-		SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
+		//SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
+		SCENEMANAGER->changeScene("gameSceneThree");//gameSceneTwo
+		//SCENEMANAGER->changeScene("kims");//AItest////
 	}
 	LeaveCriticalSection(&_cs);
 }
@@ -60,8 +62,8 @@ void loadingScene::render()
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
 	SoundLoading();
-	XMeshStaticLoading();
-	XMeshSkinnedLoading();
+	//XMeshStaticLoading();
+	//XMeshSkinnedLoading();
 	//PtcLoading();
 	UILoading();
 	UiTestLoading();

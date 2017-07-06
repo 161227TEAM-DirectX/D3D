@@ -71,5 +71,8 @@ int bossActionMove::Update()
 		else if (index >= 0.99f && index <= 1.0f) return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
 	}
 
+	//확률적으로 날기패턴으로 이동
+	if (index - Gap >= 0.97f && index - Gap <= 0.975f) return LHS::ACTIONRESULT::ACTION_FLY;
+
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }

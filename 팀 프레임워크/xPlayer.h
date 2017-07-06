@@ -27,6 +27,9 @@ enum SkillType
 	SKILL_HEAL,
 	SKILL_MAGICMISSILE,
 	SKILL_LIGHTNING,
+	SKILL_ROAR,
+	SKILL_WHIRLWIND,
+	SKILL_SLAM,
 	SKILL_END
 };
 
@@ -174,7 +177,7 @@ public:
 	void jumpControl();
 
 	//테스트를 위한 임시적인 기능설정
-	void testControl();
+	void skillControl();
 
 	//플레이어 행동 종합선물세트
 	void actionControl();
@@ -183,7 +186,7 @@ public:
 	baseObject* getPlayerObject() { return _playerObject; }
 
 	//외부의 입력에 대해 플레이어의 이동과 상태값, 애니메이션 등을 제어한다.
-	void userPlayerControl();
+	void PlayerInputControl();
 
 	//플레이어의 상태를 관리한다.
 	//이 부분에서 플레이어의 애니메이션을 변화시키지 않아야 함. -> 과연 그럴까?
@@ -247,6 +250,6 @@ public:
 	void out_setMonsterRegion(vector<monster*>* monsters) { this->_monsterPool = monsters; }
 
 
-	xPlayer(): _monsterPool(nullptr) {};
+	xPlayer(): _monsterPool(nullptr), linkTerrain(nullptr) {};
 	~xPlayer() {};
 };

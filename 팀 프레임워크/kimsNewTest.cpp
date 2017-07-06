@@ -12,7 +12,7 @@ HRESULT kimsNewTest::init()
 	temp->GetUI()->SetCenterDraw(true);
 	UI_MANAGER->AddUI("quickSlotUI_back", temp);
 
-	SOUNDMANAGER->play("¸¶À»1");
+	//SOUNDMANAGER->play("¸¶À»1");
 	_mainCamera = new camera;
 
 	_directionLightCamera = new camera;
@@ -23,7 +23,7 @@ HRESULT kimsNewTest::init()
 
 	_sceneBaseDirectionLight->_color = D3DXCOLOR(1, 1, 1, 1);
 	_sceneBaseDirectionLight->_intensity = 1.0f;
-
+	
 	_shadowDistance = 10.0f;
 
 	//Ä«¸Ş¶óÀÇ Åõ¿µ¹æ½ÄÀ» ¹Ù²Û´Ù...
@@ -44,21 +44,21 @@ HRESULT kimsNewTest::init()
 	_playerDirectionLightCamera->readyShadowTexture(4096);
 
 	_terrain = new terrain;
-	_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath("³ôÀÌ¸Ê_3"));
-	_terrain->setTile0(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_1"));
-	_terrain->setTile1(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_2"));
-	_terrain->setTile2(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_3"));
-	_terrain->setTile3(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_4"));
-	_terrain->setSplat(FILEPATH_MANAGER->GetFilepath("½ºÇÃ·§_1"));
+	_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath("³ôÀÌ¸Ê_3"), true);
+	_terrain->setTile0(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_1"), true);
+	_terrain->setTile1(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_2"), true);
+	_terrain->setTile2(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_3"), true);
+	_terrain->setTile3(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_4"), true);
+	_terrain->setSplat(FILEPATH_MANAGER->GetFilepath("½ºÇÃ·§_1"), true);
 	_terrain->setting();
 
 	_terrainShadow = new terrain;
-	_terrainShadow->setHeightmap(FILEPATH_MANAGER->GetFilepath("³ôÀÌ¸Ê_3"));
-	_terrainShadow->setTile0(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_1"));
-	_terrainShadow->setTile1(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_2"));
-	_terrainShadow->setTile2(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_3"));
-	_terrainShadow->setTile3(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_4"));
-	_terrainShadow->setSplat(FILEPATH_MANAGER->GetFilepath("½ºÇÃ·§_1"));
+	_terrainShadow->setHeightmap(FILEPATH_MANAGER->GetFilepath("³ôÀÌ¸Ê_3"), true);
+	_terrainShadow->setTile0(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_1"), true);
+	_terrainShadow->setTile1(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_2"), true);
+	_terrainShadow->setTile2(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_3"), true);
+	_terrainShadow->setTile3(FILEPATH_MANAGER->GetFilepath("Å¸ÀÏ¸Ê_4"), true);
+	_terrainShadow->setSplat(FILEPATH_MANAGER->GetFilepath("½ºÇÃ·§_1"), true);
 	_terrainShadow->setting();
 
 //	_player = new xPlayer();
@@ -99,7 +99,8 @@ HRESULT kimsNewTest::init()
 
 	sour = -1;
 	dest = -1;*/
-
+	_mainCamera->out_SetLinkTrans(_player->getPlayerObject()->_transform);
+	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, 5));
 
 	return S_OK;
 }
@@ -211,11 +212,10 @@ void kimsNewTest::render()
 	
 	this->readyShadowMap(&this->_cullObjects, this->_terrainShadow);
 
-
 	_directionLightCamera->_frustum.renderGizmo();
 	_mainCamera->_frustum.renderGizmo();
-
-	UI_MANAGER->render();
+	
+	//UI_MANAGER->render();
 }
 
 

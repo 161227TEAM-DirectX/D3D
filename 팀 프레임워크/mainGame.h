@@ -11,6 +11,7 @@
 #include "particleTest08.h"
 #include "particleTest09.h"
 #include "particleTest10.h"
+#include "particleTest11.h"
 #include "particleTest13.h"
 
 
@@ -18,7 +19,7 @@
 //이현수 씬 테스트 헤더파일
 //===================================================================================
 #include "terrainPickingTest.h"
-
+#include "bossMonsterAITestScene.h"
 
 //===================================================================================
 //김만웅 씬 테스트 헤더파일

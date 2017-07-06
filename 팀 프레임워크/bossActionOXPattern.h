@@ -1,12 +1,10 @@
 #pragma once
 #include "Action.h"
-class bossActionFly : public Action
+class bossActionOXPattern : public Action
 {
-private:
-	D3DXMATRIX matTranslation;
 public:
-	bossActionFly();
-	~bossActionFly();
+	bossActionOXPattern();
+	~bossActionOXPattern();
 
 	//액션의 시작을 정의하는 함수 - 순수가상함수
 	int Start() override;

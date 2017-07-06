@@ -11,10 +11,13 @@
 #include "cCameraTest.h"
 #include "cCutsceneTest.h"
 #include "EndingScene.h"
+#include "kimsNewTest.h"
 
 mainGame::mainGame()
 {
 	REGIST_SGT->Init();
+
+	SCENEMANAGER->addScene("kims", new kimsNewTest, false);
 
 	SCENEMANAGER->addScene("test", new cCutsceneTest, false);
 
@@ -39,6 +42,7 @@ mainGame::mainGame()
 
 	//SCENEMANAGER->addScene("test", new cGameUITest, false);
 	//SCENEMANAGER->addScene("test", new cMinimapTest, false);
+	SCENEMANAGER->addScene("AItest", new bossMonsterAITestScene);
 }
 
 mainGame::~mainGame()

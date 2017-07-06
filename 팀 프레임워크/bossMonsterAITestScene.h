@@ -8,8 +8,12 @@ class bossMonsterAITestScene : public iGameNode
 {
 private:
 	bossMonster* boss;
-	xPlayer*	player;
+	xPlayer* player;
 	camera* _mainCamera;
+	camera* _directionLightCamera;
+	lightDirection* sceneBaseDirectionLight;
+
+	terrain*			_terrain;			//지형클래스
 
 public:
 	bossMonsterAITestScene() { clear(); }
