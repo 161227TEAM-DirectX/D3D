@@ -3,13 +3,20 @@
 class bossActionFlyMove : public Action
 {
 private:
+	enum FLYSTATE
+	{
+		straight = 0,
+		round
+	};
+private:
 	D3DXMATRIX matRotateY;
 	D3DXMATRIX matTranslation;
 	D3DXVECTOR3 pos;
 	D3DXMATRIX matWorld;
+	dx::transform lerpTransform;
 private:
 	float angle;
-	bool isRound;
+	FLYSTATE isRound;
 public:
 	bossActionFlyMove();
 	~bossActionFlyMove();

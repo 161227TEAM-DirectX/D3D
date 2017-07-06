@@ -16,7 +16,7 @@ int bossActionLanding::Start()
 	if (!owner)return LHS::ACTIONRESULT::ACTION_FINISH;
 
 	owner->getSkinnedAnim().Play("Animation_48");
-	owner->_transform->SetWorldPosition(10.0f, 70.0f, 10.0f);
+	//owner->_transform->SetWorldPosition(10.0f, 70.0f, 10.0f);
 
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
 }
@@ -30,7 +30,7 @@ int bossActionLanding::Update()
 		owner->_transform->MovePositionSelf(0.0f, -0.4f, 0.0f);
 		float tempY = rand->getHeight(owner->_transform->GetWorldPosition().x, owner->_transform->GetWorldPosition().z) + 5.2f;
 
-		if (owner->_transform->GetWorldPosition().y < tempY)
+		if (owner->_transform->GetWorldPosition().y <= tempY)
 		{
 			owner->getSkinnedAnim().Play("Animation_43");
 			return LHS::ACTIONRESULT::ACTION_PLAY;
@@ -40,11 +40,14 @@ int bossActionLanding::Update()
 	temp = owner->getSkinnedAnim().getAnimationSet()->GetName();
 	if (!strcmp("Animation_43", temp.c_str()))
 	{
+		//지형의 높이값.
 		float tempY = rand->getHeight(owner->_transform->GetWorldPosition().x, owner->_transform->GetWorldPosition().z);
 
+		//지형보다 작다면
 		if (tempY >= owner->_transform->GetWorldPosition().y)
 		{
-			if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
+			//애니메이션이 끝나지 않았다면
+			if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.95f)
 			{
 				D3DXVECTOR3 temp = owner->_transform->GetWorldPosition();
 				temp.y = tempY;
