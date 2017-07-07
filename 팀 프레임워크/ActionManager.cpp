@@ -20,6 +20,7 @@
 #include "bossActionFlyDie.h"
 #include "bossActionFlyMove.h"
 #include "bossActionLanding.h"
+#include "bossActionOXPattern.h"
 
 ActionManager::ActionManager()
 {
@@ -39,6 +40,7 @@ ActionManager::ActionManager()
 	actionName.push_back("날기죽음");
 	actionName.push_back("날기이동");
 	actionName.push_back("착지");
+	actionName.push_back("OX패턴");
 }
 
 
@@ -74,7 +76,8 @@ Action * ActionManager::getAction(string Name, baseObject& who)
 	else if (!actionName[12].compare(Name)) temp = new bossActionFly;
 	else if (!actionName[13].compare(Name)) temp = new bossActionFlyDie;
 	else if (!actionName[14].compare(Name)) temp = new bossActionFlyMove;
-	else if (!actionName[15].compare(Name))temp = new bossActionLanding;
+	else if (!actionName[15].compare(Name))	temp = new bossActionLanding;
+	else if (!actionName[16].compare(Name)) temp = new bossActionOXPattern;
 
 	if (player != nullptr) temp->setEnemy(*player);
 	if (player != nullptr) temp->setPlayerObject(*player->getPlayerObject());

@@ -51,7 +51,6 @@ private:
 public:
 	LPD3DXEFFECT _terrainEffect;	//ÁöÇü Effect
 
-
 public:
 	terrain();
 	~terrain();
