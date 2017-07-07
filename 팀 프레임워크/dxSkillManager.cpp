@@ -10,6 +10,7 @@
 #include "skPlayer_FireMagic.h"
 #include "skPlayer_Lightning.h"
 #include "skPlayer_ShootingStar.h"
+#include "skPlayer_SkySword.h"
 
 // ## [ 보스 스킬 ] ## ==================================================
 #include "skBoss_Breath.h"
@@ -17,8 +18,6 @@
 #include "skBoss_Shouting.h"
 #include "skBoss_EnergyBullet.h"
 
-// ## [ 보스 스킬 ] ## ==================================================
-#include "SK_Effect00.h"
 
 void dxSkillManager::skillSetting()
 {
@@ -29,6 +28,7 @@ void dxSkillManager::skillSetting()
 	this->addSK("파이어매직", new skPlayer_FireMagic);
 	this->addSK("라이트닝", new skPlayer_Lightning);
 	this->addSK("샛별_떨구기", new skPlayer_ShootingStar);
+	this->addSK("하늘의_대검", new skPlayer_SkySword);
 
 	//보스 스킬 등록
 	this->addSK("브레스", new skBoss_Breath);
@@ -36,11 +36,7 @@ void dxSkillManager::skillSetting()
 	this->addSK("샤우팅", new skBoss_Shouting);
 	this->addSK("에너지탄", new skBoss_EnergyBullet);
 
-	//이펙트 등록
-	//this->addSK("이펙트", new SK_Effect00);
 
-
-	//this->skillInit();
 }
 
 void dxSkillManager::skillRelease()

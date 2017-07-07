@@ -3,7 +3,7 @@
 class dxMeshEmitter : public dxEmitter
 {
 private:
-	tagDxParticleEX*	 _ptcEx;
+	tagDxParticleEX*	_ptcEx;
 
 	tagDxParticleEX*	_ptcVertex;		//파티클 버텍스
 
@@ -35,6 +35,8 @@ public:
 
 	D3DXVECTOR3 _vtxPosMin;
 	D3DXVECTOR3 _vtxPosMax;
+
+public:
 
 
 public:
