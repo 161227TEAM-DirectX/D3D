@@ -78,6 +78,7 @@ int bossActionFlyMove::Update()
 			break;
 		}
 		case bossActionFlyMove::landing:
+		{
 			lerpTransform = *owner->_transform;
 			D3DXVECTOR3 tempPos(0.0f, 0.0f, 0.0f);
 			owner->_transform->LookPosition(tempPos);
@@ -85,6 +86,7 @@ int bossActionFlyMove::Update()
 			owner->_transform->MovePositionSelf(0.0f, 0.0f, 0.5f);
 			//if (D3DXVec3Length(&(owner->_transform->GetWorldPosition() - tempPos)) <= 0.7f)
 			break;
+		}
 		}
 	}
 

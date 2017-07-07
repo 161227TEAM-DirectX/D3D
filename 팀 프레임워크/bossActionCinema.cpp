@@ -46,7 +46,6 @@ int bossActionCinema::Update()
 			{
 				if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.8f)
 				{
-					owner->getSkinnedAnim().getAnimContorller()->
 					owner->getSkinnedAnim().Stop();
 					owner->getSkinnedAnim().Play("Animation_13", 1.0f);
 					SOUNDMANAGER->stop("°È±â");
