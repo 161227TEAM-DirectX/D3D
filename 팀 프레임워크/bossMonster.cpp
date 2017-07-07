@@ -45,8 +45,8 @@ void bossMonster::baseObjectDisable()
 
 void bossMonster::baseObjectUpdate()
 {
-	switchState();
-	//testKeyAI();
+	//switchState();
+	testKeyAI();
 
 	if (NextAction != nullptr)
 	{
@@ -171,5 +171,13 @@ void bossMonster::testKeyAI(void)
 	else if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD9))
 	{
 		NextAction = ACMANAGER->getAction("착지", *this);
+	}
+	else if (KEYMANAGER->isOnceKeyDown('L'))
+	{
+		NextAction = ACMANAGER->getAction("보스시네마", *this);
+	}
+	else if (KEYMANAGER->isOnceKeyDown('K'))
+	{
+		NextAction = ACMANAGER->getAction("OX패턴", *this);
 	}
 }

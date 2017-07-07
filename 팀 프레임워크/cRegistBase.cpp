@@ -277,7 +277,8 @@ void cRegistBase::UIRegist()
 	FILEPATH_MANAGER->AddFilepath("numbox_money", "ResourceUI/game/numbox_money.png");
 	FILEPATH_MANAGER->AddFilepath("numbox_soul", "ResourceUI/game/numbox_soul.png");
 
-
+	//À§Çè°æ°í¿ë ÅØ½ºÅÍ ÆÄÀÏ
+	FILEPATH_MANAGER->AddFilepath("emergency", "Resource/Meshes/emergency.png");
 
 	//=============================================================================
 	//test
@@ -513,6 +514,27 @@ void cRegistBase::AniRegist()
 	FILEPATH_MANAGER->AddFilepath("Sword5_18", "Resource/Maptool/sword/¼Òµå5/¼Òµå5 (18).jpg");
 	FILEPATH_MANAGER->AddFilepath("Sword5_19", "Resource/Maptool/sword/¼Òµå5/¼Òµå5 (19).jpg");
 	FILEPATH_MANAGER->AddFilepath("Sword5_20", "Resource/Maptool/sword/¼Òµå5/¼Òµå5 (20).jpg");
+	
+	//UI´ëÈ­Ã¢(1)
+	FILEPATH_MANAGER->AddFilepath("±èÅÂ½Â_1", "Resource/endingtexture/±èÅÂ½Â/1.png");
+	FILEPATH_MANAGER->AddFilepath("±èÅÂ½Â_2", "Resource/endingtexture/±èÅÂ½Â/2.png");
+	FILEPATH_MANAGER->AddFilepath("±èÅÂ½Â_3", "Resource/endingtexture/±èÅÂ½Â/3.png");
+	//UI´ëÈ­Ã¢(2)
+	FILEPATH_MANAGER->AddFilepath("ÀÌÇöÃÑ_1", "Resource/endingtexture/ÀÌÇöÃÑ/1.png");
+	FILEPATH_MANAGER->AddFilepath("ÀÌÇöÃÑ_2", "Resource/endingtexture/ÀÌÇöÃÑ/2.png");
+	FILEPATH_MANAGER->AddFilepath("ÀÌÇöÃÑ_3", "Resource/endingtexture/ÀÌÇöÃÑ/3.png");
+	//UI´ëÈ­Ã¢(3)
+	FILEPATH_MANAGER->AddFilepath("±è¸¸¿õ_1", "Resource/endingtexture/±è¸¸¿õ/1.png");
+	FILEPATH_MANAGER->AddFilepath("±è¸¸¿õ_2", "Resource/endingtexture/±è¸¸¿õ/2.png");
+	FILEPATH_MANAGER->AddFilepath("±è¸¸¿õ_3", "Resource/endingtexture/±è¸¸¿õ/3.png");
+	//UI´ëÈ­Ã¢(4)
+	FILEPATH_MANAGER->AddFilepath("ÀÌÇö¼ö_1", "Resource/endingtexture/ÀÌÇö¼ö/1.png");
+	FILEPATH_MANAGER->AddFilepath("ÀÌÇö¼ö_2", "Resource/endingtexture/ÀÌÇö¼ö/2.png");
+	FILEPATH_MANAGER->AddFilepath("ÀÌÇö¼ö_3", "Resource/endingtexture/ÀÌÇö¼ö/3.png");
+	//UI´ëÈ­Ã¢(5)
+	FILEPATH_MANAGER->AddFilepath("±èÅÂÈÆ_1", "Resource/endingtexture/±èÅÂÈÆ/1.png");
+	FILEPATH_MANAGER->AddFilepath("±èÅÂÈÆ_2", "Resource/endingtexture/±èÅÂÈÆ/2.png");
+	FILEPATH_MANAGER->AddFilepath("±èÅÂÈÆ_3", "Resource/endingtexture/±èÅÂÈÆ/3.png");
 
 }
 
