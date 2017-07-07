@@ -1,16 +1,16 @@
 #include "stdafx.h"
-#include "ioSaveCinemaManger.h"
+#include "ioSaveEndingManager.h"
 
-void ioSaveCinemaManger::loadFile(string filePath)
+void ioSaveEndingManager::loadFile(string filePath)
 {
-	tagSaveCinematic cinematic;
-	memset(&cinematic, 0, sizeof(cinematic));
+	tagSaveEndingCinematic Einematic;
+	memset(&Einematic, 0, sizeof(Einematic));
 
 	memset(ioString, 0, sizeof(ioString));
 
 	sprintf(ioString, "%s.txt", filePath.c_str());
 
-	char str[128] = "Resource/캐릭터시네마정보/";
+	char str[128] = "Resource/엔딩시네마정보/";
 	strcat_s(str, ioString);
 
 	ifstream inFile(str);
@@ -25,33 +25,42 @@ void ioSaveCinemaManger::loadFile(string filePath)
 	{
 		count++;
 		inFile.getline(str, 128, '/');	//한글이름(테이블 키)
-		cinematic.infoName = str;
+		Einematic.infoName = str;
 
 		inFile.getline(str, 128, '/');	//넘버값
-		cinematic.X = atof(str);
+		Einematic.X = atof(str);
 
 		inFile.getline(str, 128, '/');	//넘버값
-		cinematic.Y = atof(str);
+		Einematic.Y = atof(str);
 
 		inFile.getline(str, 128, '/');	//넘버값
-		cinematic.Z = atof(str);
+		Einematic.Z = atof(str);
 
 		inFile.getline(str, 128, '/');	//넘버값
-		cinematic.Height = atof(str);
+		Einematic.rotationX = atof(str);
 
-		_resourceTable.insert(make_pair(cinematic.infoName, cinematic));
+		inFile.getline(str, 128, '/');	//넘버값
+		Einematic.rotationY = atof(str);
+
+		inFile.getline(str, 128, '/');	//넘버값
+		Einematic.rotationZ = atof(str);
+
+		inFile.getline(str, 128, '/');	//넘버값
+		Einematic.EningNumber = atoi(str);
+
+		_resourceTable.insert(make_pair(Einematic.infoName, Einematic));
 	}
 	inFile.close();
 }
 
-void ioSaveCinemaManger::saveFile(string filePath, vector<tagSaveCinematic>& vecT)
+void ioSaveEndingManager::saveFile(string filePath, vector<tagSaveEndingCinematic>& vecT)
 {
 	memset(ioString, 0, sizeof(ioString));
 
 	sprintf(ioString, "%s.txt", filePath.c_str());
 
-	char str[128] = "Resource/캐릭터시네마정보/";
-	strcat_s(str, ioString);
+	char str[128] = "Resource/엔딩시네마정보/";
+	strcat(str, ioString);
 
 	ofstream outFile(str);
 	outFile << "한글이름" << '/' << "X" << '/' << "Y" << '/' << "Z" << endl << endl;
@@ -64,14 +73,20 @@ void ioSaveCinemaManger::saveFile(string filePath, vector<tagSaveCinematic>& vec
 			<< vecT[i].X << '/'
 			<< vecT[i].Y << '/'
 			<< vecT[i].Z << '/'
-			<< vecT[i].Height << endl;
+			<< vecT[i].rotationX << '/'
+			<< vecT[i].rotationY << '/'
+			<< vecT[i].rotationZ << '/'
+			<< vecT[i].EningNumber << endl;
 		else
 			outFile << '/'
 			<< vecT[i].infoName.c_str() << '/'
 			<< vecT[i].X << '/'
 			<< vecT[i].Y << '/'
 			<< vecT[i].Z << '/'
-			<< vecT[i].Height << endl;
+			<< vecT[i].rotationX << '/'
+			<< vecT[i].rotationY << '/'
+			<< vecT[i].rotationZ << '/'
+			<< vecT[i].EningNumber << endl;
 	}
 	outFile.close();
 }

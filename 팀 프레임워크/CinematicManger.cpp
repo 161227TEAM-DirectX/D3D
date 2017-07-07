@@ -1,13 +1,8 @@
 #include "stdafx.h"
 #include "CinematicManger.h"
 
-vector<tagSaveCinematic> vcinematic;
-tagSaveCinematic         cinematic;
 
-vector<tagSaveCinematic> vCTemp;
-tagSaveCinematic Ctemp;
-
-void CinematicManger::cinematicInit(bool save)
+void CinematicManger::init()
 {
 	cameraHeight = { 0, -5.0f, 0 };
 	RotateAngle = 0.0f;
@@ -16,18 +11,19 @@ void CinematicManger::cinematicInit(bool save)
 	cameraY = 2.0f;
 	cameraXZ = 5.0f;
 	iCount = 0;
+	ECount = 0;
 	time = 0;
+}
 
-	if (save == true)
+void CinematicManger::cinematicInit()
+{
+	IOCINEMATICMANAGER->loadFile("시네마틱");
+
+	for (int i = 0; i < IOCINEMATICMANAGER->getCount(); i++)
 	{
-		IOCINEMATICMANAGER->loadFile("시네마틱");
+		cinematic = IOCINEMATICMANAGER->findTag("카메라" + to_string(i));
 
-		for (int i = 0; i < IOCINEMATICMANAGER->getCount(); i++)
-		{
-			cinematic = IOCINEMATICMANAGER->findTag("카메라" + to_string(i));
-
-			vcinematic.push_back(cinematic);
-		}
+		vcinematic.push_back(cinematic);
 	}
 }
 
@@ -140,6 +136,66 @@ void CinematicManger::cinematicSave(D3DXVECTOR3 * position, camera * camera)
 	if (KEYMANAGER->isOnceKeyDown('N'))
 	{
 		IOCINEMATICMANAGER->saveFile("시네마틱", vCTemp);
+	}
+}
+
+void CinematicManger::cinematicEInit()
+{
+	IOSAVEENDING->loadFile("엔딩시네마틱");
+
+	for (int i = 0; i < IOSAVEENDING->getCount(); i++)
+	{
+		Einematic = IOSAVEENDING->findTag("카메라" + to_string(i));
+
+		Ecinematic.push_back(Einematic);
+	}
+}
+
+void CinematicManger::cinematicEndingLoad(camera * _camera)
+{
+	if (ECount < Ecinematic.size())
+	{
+		D3DXVECTOR3 temp = { Ecinematic[ECount].X, Ecinematic[ECount].Y, Ecinematic[ECount].Z };
+		D3DXVECTOR3 tempAngle = { Ecinematic[ECount].rotationX, Ecinematic[ECount].rotationY, Ecinematic[ECount].rotationZ };
+
+	    _camera->SetWorldPosition(temp.x, temp.y,temp.z);
+		_camera->SetRotateWorld(tempAngle.x, tempAngle.y, tempAngle.z);
+		number = Ecinematic[ECount].EningNumber;
+
+		ECount++;
+
+		_camera->updateCamToDevice();
+	}
+}
+
+void CinematicManger::cinematicEndingSave(camera * _camera)
+{
+	if (KEYMANAGER->isOnceKeyDown(VK_SPACE)) number = 0;
+	if (KEYMANAGER->isOnceKeyDown('1')) number = 1;
+	if (KEYMANAGER->isOnceKeyDown('2')) number = 2;
+	if (KEYMANAGER->isOnceKeyDown('3')) number = 3;
+	if (KEYMANAGER->isOnceKeyDown('4')) number = 4;
+	if (KEYMANAGER->isOnceKeyDown('5')) number = 5;
+
+	if (KEYMANAGER->isToggleKey('M'))
+	{
+		Etemp.infoName = "카메라" + to_string(ECount);
+		Etemp.X = _camera->getCameraPos().x;
+		Etemp.Y = _camera->getCameraPos().y;
+		Etemp.Z = _camera->getCameraPos().z;
+		Etemp.rotationX = D3DXToRadian(_camera->GetAngleX());
+		Etemp.rotationY = D3DXToRadian(_camera->GetAngleY());
+		Etemp.rotationZ = D3DXToRadian(_camera->GetAngleZ());
+		Etemp.EningNumber = number;
+
+		ECTemp.push_back(Etemp);
+
+		ECount++;
+	}
+
+	if (KEYMANAGER->isOnceKeyDown('N'))
+	{
+		IOSAVEENDING->saveFile("엔딩시네마틱", ECTemp);
 	}
 }
 

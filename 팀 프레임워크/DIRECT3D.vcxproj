@@ -272,6 +272,7 @@
     <ClInclude Include="ioHeightManager.h" />
     <ClInclude Include="ioMapManager.h" />
     <ClInclude Include="ioSaveCinemaManger.h" />
+    <ClInclude Include="ioSaveEndingManager.h" />
     <ClInclude Include="ioSaveManager.h" />
     <ClInclude Include="ioSaveMonsterManger.h" />
     <ClInclude Include="ioSaveNameManager.h" />
@@ -497,6 +498,7 @@
     <ClCompile Include="ioHeightManager.cpp" />
     <ClCompile Include="ioMapManager.cpp" />
     <ClCompile Include="ioSaveCinemaManger.cpp" />
+    <ClCompile Include="ioSaveEndingManager.cpp" />
     <ClCompile Include="ioSaveManager.cpp" />
     <ClCompile Include="ioSaveMonsterManger.cpp" />
     <ClCompile Include="ioSaveNameManager.cpp" />

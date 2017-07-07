@@ -52,8 +52,8 @@ void loadingScene::render()
 	if (m_isChange /*&& m_pLoadingBar->IsFullBar()*/)
 	{
 		//g_eSelectMode = E_MAPTOOL;
-		//SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
-		SCENEMANAGER->changeScene("gameSceneThree");//gameSceneTwo
+		SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
+		//SCENEMANAGER->changeScene("gameSceneThree");//gameSceneTwo
 		//SCENEMANAGER->changeScene("kims");//AItest////
 	}
 	LeaveCriticalSection(&_cs);
@@ -63,7 +63,7 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
 	SoundLoading();
 	//XMeshStaticLoading();
-	//XMeshSkinnedLoading();
+	XMeshSkinnedLoading();
 	//PtcLoading();
 	UILoading();
 	UiTestLoading();
@@ -311,6 +311,52 @@ void loadingScene::AniLoading()
 		}
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Sword5", temp, ST_DXIMGANI(2));
+
+	//======================================================================================================
+	//  NPC±èÅÂ½Â
+	//======================================================================================================
+	temp.clear();
+	for (int i = 1; i <= 3; i++)
+	{	
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("±èÅÂ½Â_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("±èÅÂ½Â", temp, ST_DXIMGANI(100));
+	//======================================================================================================
+	//  NPCÀÌÇöÃÑ
+	//======================================================================================================
+	temp.clear();
+	for (int i = 1; i <= 3; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÀÌÇöÃÑ_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("ÀÌÇöÃÑ", temp, ST_DXIMGANI(100));
+	//======================================================================================================
+	//  NPC±è¸¸¿õ1
+	//======================================================================================================
+	temp.clear();
+	for (int i = 1; i <= 3; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("±è¸¸¿õ_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("±è¸¸¿õ", temp, ST_DXIMGANI(100));
+	//======================================================================================================
+	//  NPCÀÌÇö¼ö
+	//======================================================================================================
+	temp.clear();
+	for (int i = 1; i <= 3; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("ÀÌÇö¼ö_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("ÀÌÇö¼ö", temp, ST_DXIMGANI(100));
+	//======================================================================================================
+	//  NPC±èÅÂ½Â
+	//======================================================================================================
+	temp.clear();
+	for (int i = 1; i <= 3; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("±èÅÂÈÆ_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("±èÅÂÈÆ", temp, ST_DXIMGANI(100));
 
 
 

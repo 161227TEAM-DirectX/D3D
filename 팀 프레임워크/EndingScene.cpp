@@ -61,6 +61,11 @@ HRESULT EndingScene::init()
 	env.init();
 	env.linkCamera(*_camera);
 
+	//시네마틱설정
+	CINEMATICMANAGER->init();
+	//로드된값 집어 넣기 
+	CINEMATICMANAGER->cinematicEInit();
+
 	return S_OK;
 }
 
@@ -71,10 +76,13 @@ void EndingScene::release()
 
 void EndingScene::update()
 {
+
 	//카메라 업데이트
 	_camera->updateBase(true);
-
-	npcVector[5]->_transform->DefaultControl(_timeDelta * 3.0f);
+	//시네마 로드 부분
+	CINEMATICMANAGER->cinematicEndingLoad(_camera);
+	//시네마 세이브 부분
+	//CINEMATICMANAGER->cinematicEndingSave(_camera);
 
 	//오브젝트 업데이트
 	for (int i = 0; i < _renderObject.size(); i++) _renderObject[i]->update();
@@ -109,8 +117,28 @@ void EndingScene::render()
 		npcVector[i]->render();
 	}
 
-	FONTMANAGER->fontOut(to_string(npcVector[5]->_transform->GetWorldPosition().x),0, 120, YELLOW);
-	FONTMANAGER->fontOut(to_string(npcVector[5]->_transform->GetWorldPosition().z), 0, 150, YELLOW);
+	switch (CINEMATICMANAGER->GetGSnumber())
+	{
+	case ENDINGNUMBER::EONE:
+		DXIMGANI_MANAGER->render("김태승");
+		break;
+
+	case ENDINGNUMBER::ETWO:
+		DXIMGANI_MANAGER->render("이현총");
+		break;
+
+	case ENDINGNUMBER::ETHREE:
+		DXIMGANI_MANAGER->render("김만웅");
+		break;
+
+	case ENDINGNUMBER::EFOUR:
+		DXIMGANI_MANAGER->render("김태훈");
+		break;
+
+	case ENDINGNUMBER::EFIVE:
+		DXIMGANI_MANAGER->render("이현수");
+		break;
+	}
 }
 
 void EndingScene::meshInit()
@@ -165,4 +193,39 @@ void EndingScene::meshInit()
 	npcVector[9]->setMesh(XMESH_MANAGER->GetXmeshSkinned("npc5"));
 	npcVector[9]->_transform->SetScale(2.5f, 2.5f, 2.5f);
 	npcVector[9]->_transform->SetRotateWorld(0, D3DXToRadian(130), 0);
+
+	for (int i = 0; i < DXIMGANI_MANAGER->GetDxImgAni("김태승").size(); i++)
+	{
+		DXIMGANI_MANAGER->GetDxImgAni("김태승")[i]->SetPosition(D3DXVECTOR3(WINSIZEX / 2, 820, 0));
+		DXIMGANI_MANAGER->GetDxImgAni("김태승")[i]->SetCenterDraw(true);
+	}
+	DXIMGANI_MANAGER->setDxAniIsOnce("김태승",true);
+
+	for (int i = 0; i < DXIMGANI_MANAGER->GetDxImgAni("이현총").size(); i++)
+	{
+		DXIMGANI_MANAGER->GetDxImgAni("이현총")[i]->SetPosition(D3DXVECTOR3(WINSIZEX / 2, 820, 0));
+		DXIMGANI_MANAGER->GetDxImgAni("이현총")[i]->SetCenterDraw(true);
+	}
+	DXIMGANI_MANAGER->setDxAniIsOnce("이현총", true);
+
+	for (int i = 0; i < DXIMGANI_MANAGER->GetDxImgAni("김만웅").size(); i++)
+	{
+		DXIMGANI_MANAGER->GetDxImgAni("김만웅")[i]->SetPosition(D3DXVECTOR3(WINSIZEX / 2, 820, 0));
+		DXIMGANI_MANAGER->GetDxImgAni("김만웅")[i]->SetCenterDraw(true);
+	}
+	DXIMGANI_MANAGER->setDxAniIsOnce("김만웅", true);
+
+	for (int i = 0; i < DXIMGANI_MANAGER->GetDxImgAni("이현수").size(); i++)
+	{
+		DXIMGANI_MANAGER->GetDxImgAni("이현수")[i]->SetPosition(D3DXVECTOR3(WINSIZEX / 2, 820, 0));
+		DXIMGANI_MANAGER->GetDxImgAni("이현수")[i]->SetCenterDraw(true);
+	}
+	DXIMGANI_MANAGER->setDxAniIsOnce("이현수", true);
+
+	for (int i = 0; i < DXIMGANI_MANAGER->GetDxImgAni("김태훈").size(); i++)
+	{
+		DXIMGANI_MANAGER->GetDxImgAni("김태훈")[i]->SetPosition(D3DXVECTOR3(WINSIZEX / 2, 820, 0));
+		DXIMGANI_MANAGER->GetDxImgAni("김태훈")[i]->SetCenterDraw(true);
+	}
+	DXIMGANI_MANAGER->setDxAniIsOnce("김태훈", true);
 }
