@@ -66,6 +66,8 @@ HRESULT kimsNewTest::init()
 
 //	_hitPos = D3DXVECTOR3(0, 0, 0);
 
+
+
 	D3DXMATRIX mat;
 	D3DXMATRIX matRotate;
 	D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
@@ -101,6 +103,21 @@ HRESULT kimsNewTest::init()
 	dest = -1;*/
 	_mainCamera->out_SetLinkTrans(_player->getPlayerObject()->_transform);
 	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, 5));
+
+	D3DXMATRIX matCUR;
+
+	D3DXMatrixIdentity(&matCUR);
+	D3DXMatrixScaling(&matCUR, 0.5, 0.5, 0.5);
+
+	xMeshSkinned* mountMesh = RM_SKINNED->getResource("Resource/Player/MOUNT/MOUNT.X", &matCUR);
+
+	_mount = new baseObject;
+	_mount->setMesh(mountMesh);
+	_mount->setActive(true);
+	_mount->_transform->SetWorldPosition(2, 0, 2);
+	_mount->_skinnedAnim->Play("S");
+
+	_renderObjects.push_back(_mount);
 
 	return S_OK;
 }
@@ -215,6 +232,7 @@ void kimsNewTest::render()
 	_directionLightCamera->_frustum.renderGizmo();
 	_mainCamera->_frustum.renderGizmo();
 	
+	_mount->_skinnedAnim->renderBoneName(_mainCamera, _mount->_transform);
 	//UI_MANAGER->render();
 }
 

@@ -40,7 +40,7 @@ HRESULT xPlayer::init()
 	PLAYERMANAGER->SetArmor(A_PLATE);
 	//PLAYERMANAGER->SetWeapon(W_BLACK_WING);
 	//PLAYERMANAGER->SetShield(SH_CROSS);
-	
+
 
 	PLAYERMANAGER->SetorgAtt(10000);
 	PLAYERMANAGER->Setatt(PLAYERMANAGER->GetorgAtt());
@@ -68,6 +68,7 @@ HRESULT xPlayer::init()
 	_isOnBattle = false;
 	_isJump = false;
 	_isBladePosInit = false;
+	_isMount = false;
 
 	//데이터를 로딩해 이전의 스테이터스와 장비상태를 초기화한다.
 	LoadData();
@@ -99,7 +100,7 @@ HRESULT xPlayer::init()
 		break;
 
 	case A_PLATE:
-		pSkinned = 
+		pSkinned =
 			RM_SKINNED->getResource("Resource/Player/FHUMAN_NEW/FHUMAN.X", &matCorrection);
 		break;
 	default:
@@ -127,7 +128,7 @@ HRESULT xPlayer::init()
 
 	_attackBound.setBound(&_attackTrans.GetWorldPosition(), &D3DXVECTOR3(0.5, 0.5, 0.5));
 
-	
+
 	//소켓 설정
 	BONE* handF = _playerObject->_skinnedAnim->getSkinnedMesh()->GetFineBONE("humanfemale_Bone121_CSR");
 	BONE* HEAD = _playerObject->_skinnedAnim->getSkinnedMesh()->GetFineBONE("humanfemale_Bone102");
@@ -348,6 +349,8 @@ HRESULT xPlayer::init()
 	_renderObjects.push_back(_shoulderL);
 	_renderObjects.push_back(_shoulderR);
 
+	initMount();
+
 	return S_OK;
 }
 
@@ -360,7 +363,8 @@ void xPlayer::update()
 	{
 		this->_renderObjects[i]->render();
 	}*/
-	setHeight();
+	
+	setHeight(getPlayerObject()->_transform);
 
 
 	PLAYERMANAGER->SetPos(_playerObject->_transform->GetWorldPosition());
@@ -375,20 +379,22 @@ void xPlayer::update()
 	}
 	playerStateManager();
 	playerAnimationManager();
-	
+
 	skilltrigger();
 
 	useNowSkill();
 
 	skillProcesser();
 
-	_prevState = _state;	
+	_prevState = _state;
 }
 
 void xPlayer::render()
 {
-	_handTrans->RenderGimozo();
-	_edgeTrans->RenderGimozo();
+	_sitPos->RenderGimozo();
+	//_handTrans->RenderGimozo();
+	//_edgeTrans->RenderGimozo();
+	_mountObject->_transform->RenderGimozo();
 	if (targetMonster != NULL)
 	{
 		FONTMANAGER->fontOut("몬스터HP : " + to_string(targetMonster->getHP()), 300, 300, 0xffffffff);
@@ -454,27 +460,21 @@ void xPlayer::LoadData()
 
 void xPlayer::PlayerInputControl()//이 친구가 상태값에 종속 적이라면?
 {
-	if (KEYMANAGER->isStayKeyDown(VK_LSHIFT))
-	{
-		_moveSpeed = 3;
-	}
-	else
-	{
-		_moveSpeed = 1.5;
-	}
+	
 
 	switch (_state)
 	{
 	case P_STAND:
 		skilltrigger();
-		rotateControl();
+		rotateControl(_playerObject->_transform);
 
 		if (!_isJump)
 		{
-			moveControl();
+			moveControl(_playerObject->_transform);
 			jumpControl();
 			attackControl();
 			skillControl();
+			summonControl();
 			if (KEYMANAGER->isStayKeyDown('W'))
 			{
 				_state = P_RUN;
@@ -490,11 +490,13 @@ void xPlayer::PlayerInputControl()//이 친구가 상태값에 종속 적이라면?
 		}
 		break;
 	case P_RUN:
-		rotateControl();
-		moveControl();
+		
+		rotateControl(_playerObject->_transform);
+		moveControl(_playerObject->_transform);
 		attackControl();
 		skillControl();
 		jumpControl();
+		summonControl();
 		skilltrigger();
 
 		if (!KEYMANAGER->isStayKeyDown('W'))
@@ -513,15 +515,16 @@ void xPlayer::PlayerInputControl()//이 친구가 상태값에 종속 적이라면?
 
 		break;
 	case P_READYTOATTACK:
-		rotateControl();
 		skilltrigger();
-
+		rotateControl(_playerObject->_transform);
+		
 		if (!_isJump)
 		{
-			moveControl();
+			moveControl(_playerObject->_transform);
 			attackControl();
 			skillControl();
 			jumpControl();
+			summonControl();
 			if (KEYMANAGER->isStayKeyDown('W'))
 			{
 				_state = P_RUN;
@@ -551,7 +554,7 @@ void xPlayer::PlayerInputControl()//이 친구가 상태값에 종속 적이라면?
 	case P_SLAM:
 		break;
 	case P_WHIRLWIND:
-		moveControl();
+		moveControl(_playerObject->_transform);
 		if (KEYMANAGER->isOnceKeyUp(VK_RBUTTON))
 		{
 			if (_isOnBattle)
@@ -573,15 +576,15 @@ void xPlayer::PlayerInputControl()//이 친구가 상태값에 종속 적이라면?
 	case P_CASTOMNI:
 		break;
 	case P_JUMPUP:
-		rotateControl();
-		moveControl();
+		rotateControl(_playerObject->_transform);
+		moveControl(_playerObject->_transform);
 		attackControl();
 		skillControl();
 		break;
 	case P_JUMP:
 
-		rotateControl();
-		moveControl();
+		rotateControl(_playerObject->_transform);
+		moveControl(_playerObject->_transform);
 		attackControl();
 		skillControl();
 		break;
@@ -591,14 +594,44 @@ void xPlayer::PlayerInputControl()//이 친구가 상태값에 종속 적이라면?
 		break;
 	case P_DEATH:
 		break;
-	case P_MOUNT:
+	case P_MOUNT_S:
+		moveControl(_mountObject->_transform);
+		rotateControl(_mountObject->_transform);
+		summonControl();
+		if (KEYMANAGER->isStayKeyDown('W'))
+		{
+			_state = P_MOUNT_R;
+		}
+		if (KEYMANAGER->isStayKeyDown('S'))
+		{
+			_state = P_MOUNT_WB;
+		}
+		break;
+	case P_MOUNT_R:
+		moveControl(_mountObject->_transform);
+		rotateControl(_mountObject->_transform);
+		summonControl();
+		if (!KEYMANAGER->isStayKeyDown('W'))
+		{
+			this->_state = P_MOUNT_S;
+		}
+		break;
+	case P_MOUNT_WB:
+		moveControl(_mountObject->_transform);
+		rotateControl(_mountObject->_transform);
+		summonControl();
+		if (!KEYMANAGER->isStayKeyDown('S'))
+		{
+			this->_state = P_MOUNT_S;
+		}
 		break;
 	case P_WALKBACK:
-		rotateControl();
-		moveControl();
+		rotateControl(_playerObject->_transform);
+		moveControl(_playerObject->_transform);
 		attackControl();
 		jumpControl();
 		skillControl();
+		summonControl();
 
 		//actionControl();
 		if (!KEYMANAGER->isStayKeyDown('S'))
@@ -655,7 +688,15 @@ void xPlayer::playerStateManager()
 	else
 	{
 		_degree = 0;
-		_playerObject->_transform->SetWorldPosition(pos.x, _baseHeight, pos.z);
+		if (!_isMount)
+		{
+			_playerObject->_transform->SetWorldPosition(pos.x, _baseHeight, pos.z);
+		}
+		else
+		{
+
+			_mountObject->_transform->SetWorldPosition(_mountObject->_transform->GetWorldPosition().x, _baseHeight, _mountObject->_transform->GetWorldPosition().z);
+		}
 	}
 
 
@@ -713,7 +754,7 @@ void xPlayer::playerStateManager()
 		}
 		break;
 	case P_ATTACK2:
-				if (animName == "AT2H")
+		if (animName == "AT2H")
 		{
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.80)//애니메이션 다 재생했으면
 			{
@@ -752,7 +793,7 @@ void xPlayer::playerStateManager()
 				//{
 				//	//exit(0);
 				//}
-				
+
 				if (!_isJump)
 				{
 					if (_isOnBattle)
@@ -775,7 +816,7 @@ void xPlayer::playerStateManager()
 
 		if (animName == "AT2H2")
 		{
-			
+
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.2  && _playerObject->_skinnedAnim->getAnimFactor() < 0.45)//애니메이션 다 재생했으면
 			{
 				//if (PHYSICSMANAGER->isOverlap(_playerObject->_transform, &_attackBound, targetMonster->_transform, &targetMonster->_boundBox))
@@ -788,7 +829,7 @@ void xPlayer::playerStateManager()
 			else if (_playerObject->_skinnedAnim->getAnimFactor() > 0.5)//애니메이션 다 재생했으면
 			{
 				normalAttackDamageProcessing();
-				
+
 				if (_isOnBattle)
 				{
 					_state = P_ATTACK;
@@ -900,7 +941,7 @@ void xPlayer::playerStateManager()
 	case P_WHIRLWIND:
 		if (animName == "WW")
 		{
-			
+
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 1.0)
 			{
 				normalAttackDamageProcessing();
@@ -1069,7 +1110,13 @@ void xPlayer::playerStateManager()
 	case P_DEATH:
 		if (PLAYERMANAGER->GetHp() > 0) _state = P_STAND;
 		break;
-	case P_MOUNT:
+	case P_MOUNT_S:
+
+		break;
+	case P_MOUNT_R:
+
+		break;
+	case P_MOUNT_WB:
 
 		break;
 	case P_WALKBACK:
@@ -1216,8 +1263,21 @@ void xPlayer::playerAnimationManager()
 	case P_DEATH:
 		_playerObject->_skinnedAnim->PlayOneShotAfterHold("D", 0.2f);
 		break;
-	case P_MOUNT:
-		_playerObject->_skinnedAnim->Play("M", 0.2f);
+	case P_MOUNT_S:
+		_mountObject->setActive(true);
+		_mountObject->_skinnedAnim->Play("S", 0.3f);
+		_playerObject->_skinnedAnim->Play("M");
+		_playerObject->_skinnedAnim->Stop();
+		break;
+	case P_MOUNT_R:
+		_mountObject->setActive(true);
+		_mountObject->_skinnedAnim->Play("R", 0.3f);
+		_playerObject->_skinnedAnim->Stop();
+		break;
+	case P_MOUNT_WB:
+		_mountObject->setActive(true);
+		_mountObject->_skinnedAnim->Play("WB", 0.3f);
+		_playerObject->_skinnedAnim->Stop();
 		break;
 	case P_WALKBACK:
 		_playSpeed = _moveSpeed * 0.5;
@@ -1227,36 +1287,37 @@ void xPlayer::playerAnimationManager()
 		_playerObject->_skinnedAnim->Play("DM", 0.2f);
 		break;
 	case P_END:
-
 		break;
 	default:
 		break;
 	}
 }
 
+
+
+
 //외부의 입력에 대해 플레이어의 이동을 제어.
-void xPlayer::moveControl()
+void xPlayer::moveControl(dx::transform * trans)
 {
 	if (KEYMANAGER->isStayKeyDown('W'))
 	{
-		_playerObject->_transform->MovePositionWorld(_playerObject->_transform->GetForward()*0.05*_moveSpeed);
+		trans->MovePositionWorld(trans->GetForward()*0.05*_moveSpeed);
 	}
 	if (KEYMANAGER->isStayKeyDown('S'))
 	{
-		_playerObject->_transform->MovePositionWorld(-_playerObject->_transform->GetForward()*0.02*_moveSpeed);
+		trans->MovePositionWorld(-trans->GetForward()*0.02*_moveSpeed);
 	}
-
 }
 
-void xPlayer::rotateControl()
+void xPlayer::rotateControl(dx::transform * trans)
 {
 	if (KEYMANAGER->isStayKeyDown('A'))
 	{
-		_playerObject->_transform->RotateSelf(0.0f, -D3DXToRadian(3), 0.0f);
+		trans->RotateSelf(0.0f, -D3DXToRadian(3), 0.0f);
 	}
 	if (KEYMANAGER->isStayKeyDown('D'))
 	{
-		_playerObject->_transform->RotateSelf(0.0f, D3DXToRadian(3), 0.0f);
+		trans->RotateSelf(0.0f, D3DXToRadian(3), 0.0f);
 	}
 }
 
@@ -1332,11 +1393,31 @@ void xPlayer::skillControl()
 	}
 }
 
+void xPlayer::summonControl()
+{
+	if (KEYMANAGER->isOnceKeyDown(VK_LSHIFT))
+	{
+		if (!_isMount)
+		{
+			summonMount();
+		}
+		else
+		{
+			unSummonMount();
+		}
+	}
+	if (_isMount)
+	{
+		_playerObject->_transform->SetWorldPosition(_sitPos->GetWorldPosition());
+	}
+}
+
+//폐기
 void xPlayer::actionControl()
 {
 	//moveControl();
 
-	rotateControl();
+	rotateControl(getPlayerObject()->_transform);
 
 	attackControl();
 
@@ -1381,7 +1462,7 @@ void xPlayer::playerAttack()
 			_state = P_ATTACK3;//AT2HL
 			_playSpeed = 2.0f;
 		}
-		else if(rand > 20.f)
+		else if (rand > 20.f)
 		{
 			_state = P_ATTACK5;//AT2HL2
 			_playSpeed = 2.5f;
@@ -1443,10 +1524,10 @@ void xPlayer::playerDamaged(int damage, float damagedTime, float delayRate, floa
 	}
 }
 
-void xPlayer::setHeight()
+void xPlayer::setHeight(dx::transform * trans)
 {
-	D3DXVECTOR3 pos = _playerObject->_transform->GetWorldPosition();
-	if(linkTerrain != nullptr) _baseHeight = linkTerrain->getHeight(pos.x, pos.z);
+	D3DXVECTOR3 pos = trans->GetWorldPosition();
+	if (linkTerrain != nullptr) _baseHeight = linkTerrain->getHeight(pos.x, pos.z);
 }
 
 void xPlayer::out_ItemUpdate()
@@ -1454,7 +1535,7 @@ void xPlayer::out_ItemUpdate()
 
 	if (_weaponCurrent != W_NONE)
 	{
-		
+
 
 		D3DXMATRIX matHand = _EquipSocket.find("RHAND")->second->CombinedTransformationMatrix;
 		_weaponObject->_transform->SetWorldMatrix(matHand);
@@ -1463,7 +1544,7 @@ void xPlayer::out_ItemUpdate()
 
 	if (_shieldCurrent != SH_NONE)
 	{
-	
+
 		D3DXMATRIX matShield = _EquipSocket.find("SHIELD")->second->CombinedTransformationMatrix;
 		_shieldObject->_transform->SetWorldMatrix(matShield);
 		//_shieldObject->update();
@@ -1717,10 +1798,46 @@ void xPlayer::out_setTargetByMouse(camera* mainCamera)
 	}
 }
 
+void xPlayer::initMount()
+{
+	D3DXMATRIX matCorrection, matScale, matRotate;
+	D3DXMatrixScaling(&matScale, 0.5, 0.5, 0.5);
+	D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
+	matCorrection = matScale*matRotate;
+	xMeshSkinned* mountMesh = RM_SKINNED->getResource("Resource/Player/MOUNT/MOUNT.X", &matCorrection);
+	_mountObject = new baseObject;
+	_mountObject->setMesh(mountMesh);
+	_mountObject->setActive(false);
+	_sitPos = new dx::transform;
+	_mountObject->_skinnedAnim->AddBoneTransform("mount_Bone53", _sitPos);
+	_renderObjects.push_back(_mountObject);
+}
+
+void xPlayer::summonMount()
+{
+	_isMount = true;
+	_mountObject->setActive(true);
+	_mountObject->_transform->SetWorldPosition(_playerObject->_transform->GetWorldPosition());//플레이어를 말엉덩이에 붙이기 전에 말을 플레이어의 위치에 소환하자.
+	_playerObject->_transform->SetWorldPosition(_sitPos->GetWorldPosition());
+	_mountObject->_transform->LookPosition(_playerObject->_transform->GetForward() + _mountObject->_transform->GetWorldPosition());
+	_sitPos->AddChild(_playerObject->_transform);
+	_state = P_MOUNT_S;
+}
+
+void xPlayer::unSummonMount()
+{
+	_isMount = false;
+	_mountObject->setActive(false);
+	_playerObject->_transform->ReleaseParent();
+	_state = P_JUMPDOWN;
+}
+
+
+
 //방아쇠
 void xPlayer::skilltrigger()
 {
-	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON,false))
+	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON, false))
 	{
 		switch (_nowSelectedSkill)
 		{
@@ -1892,7 +2009,7 @@ void xPlayer::updateEquipments()
 			matCorrection2 = matRotate2*matScale2;
 			pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon01/weapon01.X", &matCorrection2);
 			_weaponObject->setActive(true);
-			
+
 			_BladeLength = 1.0f;
 			break;
 		case W_BROAD:
@@ -1902,7 +2019,7 @@ void xPlayer::updateEquipments()
 
 			pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon02/weapon02.X", &matCorrection2);
 			_weaponObject->setActive(true);
-			
+
 			_BladeLength = 0.7f;
 			break;
 		case W_DEAMON:
@@ -1912,7 +2029,7 @@ void xPlayer::updateEquipments()
 
 			pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon03/weapon03.X", &matCorrection2);
 			_weaponObject->setActive(true);
-			
+
 			_BladeLength = 0.72f;
 			break;
 		case W_KATANA:
@@ -1922,7 +2039,7 @@ void xPlayer::updateEquipments()
 
 			pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon04/weapon04.X", &matCorrection2);
 			_weaponObject->setActive(true);
-			
+
 			_BladeLength = 0.5f;
 			break;
 		case W_WOOD:
@@ -1932,7 +2049,7 @@ void xPlayer::updateEquipments()
 
 			pSkinned2 = RM_XMESH->getResource("Resource/item/Sword/weapon05/weapon05.X", &matCorrection2);
 			_weaponObject->setActive(true);
-			
+
 			_BladeLength = 0.0f;
 			break;
 		case W_END:
@@ -1965,7 +2082,7 @@ void xPlayer::updateEquipments()
 		case SH_NONE:
 			pSkinned3 = RM_XMESH->getResource("Resource/item/Shield/shield01/shield01.X", &matCorrection3);
 			_shieldObject->setActive(false);
-			
+
 			break;
 		case SH_SPIKE:
 			D3DXMatrixRotationY(&matRotate3, D3DXToRadian(270));//실드 1, 2
@@ -1974,7 +2091,7 @@ void xPlayer::updateEquipments()
 
 			pSkinned3 = RM_XMESH->getResource("Resource/item/Shield/shield01/shield01.X", &matCorrection3);
 			_shieldObject->setActive(true);
-			
+
 			break;
 		case SH_BUCKLER:
 			D3DXMatrixRotationY(&matRotate3, D3DXToRadian(270));//실드 1, 2
@@ -1983,7 +2100,7 @@ void xPlayer::updateEquipments()
 
 			pSkinned3 = RM_XMESH->getResource("Resource/item/Shield/shield02/shield02.X", &matCorrection3);
 			_shieldObject->setActive(true);
-			
+
 			break;
 		case SH_BRONZE:
 			D3DXMatrixRotationZ(&matRotate3, D3DXToRadian(270));//실드 3, 4, 5
@@ -1992,7 +2109,7 @@ void xPlayer::updateEquipments()
 
 			pSkinned3 = RM_XMESH->getResource("Resource/item/Shield/shield03/shield03.X", &matCorrection3);
 			_shieldObject->setActive(true);
-			
+
 			break;
 		case SH_CROSS:
 			D3DXMatrixRotationZ(&matRotate3, D3DXToRadian(270));//실드 3, 4, 5
@@ -2001,7 +2118,7 @@ void xPlayer::updateEquipments()
 
 			pSkinned3 = RM_XMESH->getResource("Resource/item/Shield/shield04/shield04.X", &matCorrection3);
 			_shieldObject->setActive(true);
-			
+
 			break;
 		case SH_KITE:
 			D3DXMatrixRotationZ(&matRotate3, D3DXToRadian(270));//실드 3, 4, 5
@@ -2010,7 +2127,7 @@ void xPlayer::updateEquipments()
 
 			pSkinned3 = RM_XMESH->getResource("Resource/Player/FHUMAN_NEW/Shoulder.X", &matCorrection3);// //Resource/item/Shield/shield05/shield05.X
 			_shieldObject->setActive(true);
-			
+
 			break;
 		case SH_END:
 			break;

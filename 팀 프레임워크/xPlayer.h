@@ -59,6 +59,10 @@ class xPlayer :	public iGameNode
 private:
 	bool _isJump;
 	bool _isOnBattle;
+	bool _isMount;
+	//float _houlse
+	float _sitHeight;
+
 	PL_STATE _state;
 	PL_STATE _prevState;
 	SkillType _nowSelectedSkill;
@@ -101,19 +105,25 @@ private:
 
 	int sampleMax;
 
+
+
 private:
 	baseObject* _playerObject;
+	baseObject* _mountObject;
 	baseObject* _weaponObject;
 	baseObject* _shieldObject;
 	baseObject* _shoulderR;
 	baseObject* _shoulderL;
 
+	
 
 	dx::transform _attackTrans;
 	boundBox _attackBound;
 
 	dx::transform* _handTrans;
 	dx::transform* _edgeTrans;
+
+	dx::transform* _sitPos;//안장위치!
 
 	vector<baseObject*> _renderObjects;
 	vector<monster*>* _monsterPool;
@@ -134,6 +144,7 @@ private:
 
 	D3DXVECTOR3 _EStart;
 	D3DXVECTOR3 _Eend;
+
 
 	
 	//skinnedAnimation* CloneSkinned;
@@ -168,18 +179,19 @@ public:
 	vector<baseObject*>& getRenderObject() { return _renderObjects; }
 
 	//플레이어 무브 컨트롤 애니메이션 및 상태변화 미포함.
-	void moveControl();
+	void moveControl(dx::transform* trans);
 
-	void rotateControl();
+	void rotateControl(dx::transform* trans);
 
 	void attackControl();
 
 	void jumpControl();
 
-	//테스트를 위한 임시적인 기능설정
 	void skillControl();
 
-	//플레이어 행동 종합선물세트
+	void summonControl();
+
+	//플레이어 행동 종합선물세트 쓰지말자
 	void actionControl();
 
 	//외부에 렌더링할 오브젝트의 값을 전달한다.->구조상의 문제가 있음... 합리적이지 못함.
@@ -208,7 +220,7 @@ public:
 	//플레이어 피격 해당 함수 호출하여 피격 및 스턴 처리
 	void playerDamaged(int damage, float damagedTime = 0.0f,float delayRate = 0.0f, float StunRate = 0.0f, float StunedTime = 0.0f);
 
-	void setHeight();
+	void setHeight(dx::transform* trans);
 
 	void setPlaySpeed(float speed) { _playSpeed = speed; }
 
@@ -248,7 +260,12 @@ public:
 
 	//몬스터 리젼 연결
 	void out_setMonsterRegion(vector<monster*>* monsters) { this->_monsterPool = monsters; }
+	//-----------------------------------------마운트 관련--------------------------------------------------------//
+	void initMount();
 
+	void summonMount();
+
+	void unSummonMount();
 
 	xPlayer(): _monsterPool(nullptr), linkTerrain(nullptr) {};
 	~xPlayer() {};
