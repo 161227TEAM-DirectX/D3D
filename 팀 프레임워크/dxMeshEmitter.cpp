@@ -254,6 +254,7 @@ void dxMeshEmitter::update()
 				{
 					iter->psTransPos = _psTrans->GetWorldPosition();
 					iter->matPsRot = _psTrans->GetWorldRotateMatrix();
+					_psTrans->AddChild(&_trans[ActiveNum]);
 				}
 
 				_module->InitUpdate(iter);
@@ -283,6 +284,11 @@ void dxMeshEmitter::update()
 		//활성화
 		if (iter->isAlive)
 		{
+			if (_psTrans != NULL)
+			{
+				_psTrans->AddChild(&_trans[ActiveNum]);
+			}
+
 			_module->ActiveUpdate(iter);
 
 			//색상 세팅
@@ -292,6 +298,7 @@ void dxMeshEmitter::update()
 				_meshMaterial[i].Ambient = _meshMaterial[i].Diffuse = (D3DCOLORVALUE)iter->color;
 			}*/
 
+			
 			//트랜스폼 업데이트
 			_trans[ActiveNum].SetScale(iter->size, iter->size, iter->size);
 			_trans[ActiveNum].SetRotateLocal(iter->rotateAngle.x, iter->rotateAngle.y, iter->rotateAngle.z);
@@ -420,7 +427,17 @@ void dxMeshEmitter::render()
 		{
 			if (_ptcList[i].isAlive == TRUE)
 			{
-				_trans[i].SetDeviceWorld();
+				/*if (_psTrans != NULL)
+				{
+					D3DXMATRIXA16 matPS = _psTrans->GetFinalMatrix();
+					D3DXMATRIXA16 matEMT = _trans[i].GetFinalMatrix();
+					_device->SetTransform(D3DTS_WORLD, &(matEMT*matPS));
+				}
+				else
+				{*/
+					_trans[i].SetDeviceWorld();
+				//}
+
 				for (DWORD i = 0; i < _materialsNum; i++)
 				{
 

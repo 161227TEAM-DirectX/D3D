@@ -1335,65 +1335,52 @@ void psPlayerSet00::SkySwordSet00(string psName)
 {
 	dxParticleSystemSet::init();
 
-	//_meshEMT = NULL;
-	//_meshEMT = new dxMeshEmitter;
-	//_meshEMT->init("ParticleResources/Mesh/skySword.x",1, 7.0f,1);
+	
 
-	//_meshEMT->SetActiveLimitTime(7.0f);
+	_meshEMT = NULL;
+	_meshEMT = new dxMeshEmitter;
+	_meshEMT->init("ParticleResources/Mesh/skySword.x",1, 7.2f,1);
 
-	////_meshEMT->InitRandomSize(0.5f,0.5f);
-	////_meshEMT->InitRandomSize(0.8f,0.8f);
-	////_meshEMT->InitRandomLifeTime(4.2f, 4.2f);
-	////_meshEMT->InitRandomPositionY(100.0f,100.0f);
-	////_meshEMT->InitRandomVelocityY(0.0f,0.0f);
-	////_meshEMT->addVelocityGraphY(0.5f, -40.0f, -40.0f);
-	////_meshEMT->addVelocityGraphY(1.0f, 0.0f, 0.0f);
+	_meshEMT->SetActiveLimitTime(7.2f);
 
-	////_meshEMT->InitRandomAccelerationY(0.0f,0.0f);
-	////_meshEMT->addAccelGraphY(0.5f,-200.0f, -200.0f);
-	//////_meshEMT->addAccelGraphY(0.85f, -240.0f, -240.0f);
-	////_meshEMT->addAccelGraphY(1.0f, 0.0f, 0.0f);
+	//_meshEMT->InitRandomSize(0.5f,0.5f);
+	//_meshEMT->InitRandomSize(0.8f,0.8f);
+	//_meshEMT->InitRandomLifeTime(4.2f, 4.2f);
+	//_meshEMT->InitRandomPositionY(100.0f,100.0f);
+	//_meshEMT->InitRandomVelocityY(0.0f,0.0f);
+	//_meshEMT->addVelocityGraphY(0.5f, -40.0f, -40.0f);
+	//_meshEMT->addVelocityGraphY(1.0f, 0.0f, 0.0f);
 
-	////_meshEMT->addVelocityGraphY(0.3f,-10.0f, -10.0f);
-	////_meshEMT->addVelocityGraphY(0.8f, -20.0f, -20.0f);
-	////_meshEMT->addVelocityGraphY(1.0f, 0.0f, 0.0f);
-
-	//_PS->addEmitter(_meshEMT);
-
-	_pointEMT = NULL;
-	_pointEMT = new dxPointEmitter;
-	_pointEMT->init("ParticleResources/Texture/default.png", 20, 0.8f, 300.0f);
-	_pointEMT->InitRandomLifeTime(4.0f, 4.0f);
-
-
-	_pointEMT->InitRandomColorR(OneColorByte(255), OneColorByte(255));
-	_pointEMT->InitRandomColorFadeR(OneColorByte(240), OneColorByte(240));
-	//_pointEMT->InitRandomColorFadeG(OneColorByte(240), OneColorByte(240));
-
-	//_pointEMT->SetPositionType(PTC_SPHERE);
-	_pointEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
-	_pointEMT->InitRandomPosSphereRadius(0.0f, 2.0f);
-	_pointEMT->InitRandomPosExplosionVel(5.0f, 10.0f);
-
-
-	//_pointEMT->InitRandomSize(0.5f, 0.5f);
-	//_pointEMT->InitRandomSize(0.8f, 0.8f);
-	//_pointEMT->InitRandomLifeTime(4.2f, 4.2f);
-	//_pointEMT->InitRandomPositionY(100.0f, 100.0f);
-	//_pointEMT->InitRandomVelocityY(0.0f, 0.0f);
-	//_pointEMT->addVelocityGraphY(0.8f, -30.0f, -30.0f);
-	//_pointEMT->addVelocityGraphY(1.0f, 0.0f, 0.0f);
-
-	//_pointEMT->InitRandomAccelerationY(0.0f, 0.0f);
-	//_pointEMT->addAccelGraphY(0.75f, -116.0f, -116.0f);
+	//_meshEMT->InitRandomAccelerationY(0.0f,0.0f);
+	//_meshEMT->addAccelGraphY(0.5f,-200.0f, -200.0f);
 	////_meshEMT->addAccelGraphY(0.85f, -240.0f, -240.0f);
-	//_pointEMT->addAccelGraphY(1.0f, 0.0f, 0.0f);
+	//_meshEMT->addAccelGraphY(1.0f, 0.0f, 0.0f);
 
 	//_meshEMT->addVelocityGraphY(0.3f,-10.0f, -10.0f);
 	//_meshEMT->addVelocityGraphY(0.8f, -20.0f, -20.0f);
 	//_meshEMT->addVelocityGraphY(1.0f, 0.0f, 0.0f);
 
-	_PS->addEmitter(_pointEMT);
+	_PS->addEmitter(_meshEMT);
+
+	//_pointEMT = NULL;
+	//_pointEMT = new dxPointEmitter;
+	//_pointEMT->init("ParticleResources/Texture/default.png", 20, 0.8f, 300.0f);
+	//_pointEMT->InitRandomLifeTime(4.0f, 4.0f);
+	//
+	//_pointEMT->InitRandomPositionY(-10.0f,-10.0f);
+
+	////_pointEMT->InitRandomColorR(OneColorByte(255), OneColorByte(255));
+	////_pointEMT->InitRandomColorFadeR(OneColorByte(240), OneColorByte(240));
+	//////_pointEMT->InitRandomColorFadeG(OneColorByte(240), OneColorByte(240));
+
+	//////_pointEMT->SetPositionType(PTC_SPHERE);
+	////_pointEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
+	////_pointEMT->InitRandomPosSphereRadius(0.0f, 2.0f);
+	////_pointEMT->InitRandomPosExplosionVel(5.0f, 10.0f);
+
+
+
+	//_PS->addEmitter(_pointEMT);
 
 	PSM->addPS(psName, _PS, true);
 }
@@ -1404,29 +1391,33 @@ void psPlayerSet00::SkySwordSet01(string psName)
 
 	_pointEMT = NULL;
 	_pointEMT = new dxPointEmitter;
-	_pointEMT->init("ParticleResources/Texture/default.png", 20, 0.8f, 300.0f);
-	_pointEMT->InitRandomLifeTime(4.0f, 4.0f);
+	_pointEMT->init("ParticleResources/Texture/default.png", 70, 0.25f, 700.0f);
+	_pointEMT->InitRandomLifeTime(2.0f, 3.0f);
 
 
-	//_pointEMT->InitRandomColorR(OneColorByte(255), OneColorByte(255));
-	//_pointEMT->InitRandomColorFadeR(OneColorByte(240), OneColorByte(240));
-	//_pointEMT->InitRandomColorFadeG(OneColorByte(240), OneColorByte(240));
+	_pointEMT->InitRandomColorR(OneColorByte(250), OneColorByte(250));
+	_pointEMT->InitRandomColorG(OneColorByte(50), OneColorByte(50));
+	_pointEMT->InitRandomColorFadeR(OneColorByte(230), OneColorByte(230));
+	_pointEMT->InitRandomColorFadeG(OneColorByte(240), OneColorByte(240));
 
-	//_pointEMT->SetPositionType(PTC_SPHERE);
-	//_pointEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
-	//_pointEMT->InitRandomPosSphereRadius(0.0f, 2.0f);
-	//_pointEMT->InitRandomPosExplosionVel(5.0f, 10.0f);
+	_pointEMT->SetPositionType(PTC_SPHERE);
+	_pointEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
+	_pointEMT->InitRandomPosSphereRadius(0.0f, 2.0f);
+	_pointEMT->InitRandomPosExplosionVel(1.0f, 3.0f);
+	_pointEMT->InitRandomPosRotAngleSpeedY(100.0f, 200.0f);
 
+	_pointEMT->InitRandomSize(0.6f,0.6f);
+	_pointEMT->InitRandomSizeEnd(0.3f,0.3f);
 
 	//_pointEMT->InitRandomSize(0.5f, 0.5f);
 	//_pointEMT->InitRandomSize(0.8f, 0.8f);
 	//_pointEMT->InitRandomLifeTime(4.2f, 4.2f);
 	//_pointEMT->InitRandomPositionY(100.0f, 100.0f);
-	//_pointEMT->InitRandomVelocityY(0.0f, 0.0f);
+	_pointEMT->InitRandomVelocityY(4.0f, 8.0f);
 	//_pointEMT->addVelocityGraphY(0.8f, -30.0f, -30.0f);
 	//_pointEMT->addVelocityGraphY(1.0f, 0.0f, 0.0f);
 
-	//_pointEMT->InitRandomAccelerationY(0.0f, 0.0f);
+	_pointEMT->InitRandomAccelerationY(10.0f, 20.0f);
 	//_pointEMT->addAccelGraphY(0.75f, -116.0f, -116.0f);
 	////_meshEMT->addAccelGraphY(0.85f, -240.0f, -240.0f);
 	//_pointEMT->addAccelGraphY(1.0f, 0.0f, 0.0f);
@@ -1451,9 +1442,9 @@ void psPlayerSet00::SkySwordSet02(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("ParticleResources/Texture/smoke02_frame4x4.png", 100, 0.5f, 600);
+	_boardEMT->init("ParticleResources/Texture/smoke02_frame4x4.png", 70, 0.5f, 300);
 
-	_boardEMT->SetStartLimitTime(2.5f);
+	//_boardEMT->SetStartLimitTime(2.5f);
 
 	_boardEMT->InitRandomLifeTime(2.5f, 3.2f);
 
@@ -1464,6 +1455,7 @@ void psPlayerSet00::SkySwordSet02(string psName)
 	_boardEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
 	_boardEMT->InitRandomPosSphereRadius(1.0f, 2.0f);
 	_boardEMT->InitRandomPosExplosionVel(5.0f, 10.0f);
+	
 
 	_boardEMT->InitRandomAlpha(0.1f, 0.1f);
 	_boardEMT->addAlphaGraph(0.3f, 1.0f, 1.0f);
@@ -1477,11 +1469,13 @@ void psPlayerSet00::SkySwordSet02(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("ParticleResources/Texture/smoke02_frame4x4.png", 80, 0.4f, 800);
+	_boardEMT->init("ParticleResources/Texture/smoke02_frame4x4.png", 70, 0.5f, 300);
 
-	_boardEMT->SetStartLimitTime(3.6f);
+	_boardEMT->SetStartLimitTime(1.3f);
 
 	_boardEMT->InitRandomLifeTime(2.5f, 3.2f);
+
+	_boardEMT->InitRandomPositionY(-3.0f, -4.0f);
 
 	_boardEMT->InitRandomSize(0.0f, 0.2f);
 	_boardEMT->InitRandomSizeEnd(8.0f, 12.0f);
@@ -1494,7 +1488,7 @@ void psPlayerSet00::SkySwordSet02(string psName)
 	_boardEMT->InitCircleRadiusEndY(10.0f, 12.0f);
 
 	_boardEMT->InitRandomVelocityY(4.0f, 10.0f);
-
+	_boardEMT->InitRandomAccelerationY(5.0f,12.0f);
 
 	/*_boardEMT->InitRandomPosSphereRadius(1.0f, 2.0f);
 	_boardEMT->InitRandomPosExplosionVel(5.0f, 10.0f);*/
