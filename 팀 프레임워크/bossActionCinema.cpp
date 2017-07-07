@@ -29,53 +29,45 @@ int bossActionCinema::Update()
 	//¼ö¸é Á¾·á
 	if (actionTime < passedTime)
 	{
-		/*if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.8f)
-		{*/
-			string temp = owner->getSkinnedAnim().getAnimationSet()->GetName();
-			if (!strcmp("Animation_13", temp.c_str()))
-			{
-				if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.95f)
-				{
-					if (deleGate) deleGate->OnActionFinish(this, true);
-					SOUNDMANAGER->stop("»þ¿ìÆÃ4");
-					return LHS::ACTIONRESULT::ACTION_MOVE;
-				}
-			}
-
-			if (!strcmp("Animation_61", temp.c_str()))
-			{
-				if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.8f)
-				{
-					owner->getSkinnedAnim().Stop();
-					owner->getSkinnedAnim().Play("Animation_13", 1.0f);
-					SOUNDMANAGER->stop("°È±â");
-					SOUNDMANAGER->play("»þ¿ìÆÃ4");
-				}
-				
-			}
-
-			if (!strcmp("Animation_62", temp.c_str()))
-			{
-				if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.8f)
-				{
-					owner->getSkinnedAnim().Play("Animation_61", 1.0f);
-					SOUNDMANAGER->stop("º¸½º¼û¼Ò¸®2");
-					SOUNDMANAGER->play("°È±â");
-					SOUNDMANAGER->setMusicSpeed("°È±â", 0.8F);
-				}
-				
-			}
-		//}
-
-		
-		/*if (!strcmp("Animation_13", owner->getSkinnedAnim().getAnimationSet()->GetName()))
+		string temp = owner->getSkinnedAnim().getAnimationSet()->GetName();
+		if (!strcmp("Animation_13", temp.c_str()))
 		{
-			if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.5f && isShout)
+			if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.2f && isShout)
 			{
 				SOUNDMANAGER->play("»þ¿ìÆÃ4");
 				isShout = false;
 			}
-		}*/
+
+			if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.95f)
+			{
+				if (deleGate) deleGate->OnActionFinish(this, true);
+				SOUNDMANAGER->stop("»þ¿ìÆÃ4");
+				return LHS::ACTIONRESULT::ACTION_MOVE;
+			}
+		}
+
+		if (!strcmp("Animation_61", temp.c_str()))
+		{
+			if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.90f)
+			{
+				SOUNDMANAGER->stop("°È±â");
+				owner->getSkinnedAnim().Stop();
+				owner->getSkinnedAnim().Play("Animation_13", 0.3f);
+			}
+
+		}
+
+		if (!strcmp("Animation_62", temp.c_str()))
+		{
+			if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.8f)
+			{
+				owner->getSkinnedAnim().Play("Animation_61", 1.0f);
+				SOUNDMANAGER->stop("º¸½º¼û¼Ò¸®2");
+				SOUNDMANAGER->play("°È±â");
+				SOUNDMANAGER->setMusicSpeed("°È±â", 0.8F);
+			}
+
+		}
 	}
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;

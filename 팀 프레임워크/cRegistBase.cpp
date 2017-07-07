@@ -277,7 +277,8 @@ void cRegistBase::UIRegist()
 	FILEPATH_MANAGER->AddFilepath("numbox_money", "ResourceUI/game/numbox_money.png");
 	FILEPATH_MANAGER->AddFilepath("numbox_soul", "ResourceUI/game/numbox_soul.png");
 
-
+	//위험경고용 텍스터 파일
+	FILEPATH_MANAGER->AddFilepath("emergency", "Resource/Meshes/emergency.png");
 
 	//=============================================================================
 	//test

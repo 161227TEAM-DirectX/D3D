@@ -1069,7 +1069,9 @@
       <Filter>GameManager%28매크로%29\StaticMesh</Filter>
     </ClCompile>
     <ClCompile Include="bossMonsterAITestScene.cpp" />
-    <ClCompile Include="bossActionOXPattern.cpp" />
+    <ClCompile Include="bossActionOXPattern.cpp">
+      <Filter>GameFramework3D\ActionBoss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainGame.h">
@@ -1742,7 +1744,9 @@
       <Filter>GameManager%28매크로%29\StaticMesh</Filter>
     </ClInclude>
     <ClInclude Include="bossMonsterAITestScene.h" />
-    <ClInclude Include="bossActionOXPattern.h" />
+    <ClInclude Include="bossActionOXPattern.h">
+      <Filter>GameFramework3D\ActionBoss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Texture_Gray.fx">
