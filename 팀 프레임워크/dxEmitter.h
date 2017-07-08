@@ -207,7 +207,8 @@ public:	//======================================================================
 
 
 public:	//=======================================================================================================================
-		//원 회전 반지름 초기화
+
+	//원 회전 반지름 초기화
 	void InitCircleRadiusX(float min, float max) { _module->InitCircleRadiusX(min, max); }
 	void InitCircleRadiusY(float min, float max) { _module->InitCircleRadiusY(min, max); }
 	void InitCircleRadiusZ(float min, float max) { _module->InitCircleRadiusZ(min, max); }

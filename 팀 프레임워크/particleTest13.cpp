@@ -41,7 +41,7 @@ void particleTest13::update()
 	_mainCamera->DefaultControl(_timeDelta);
 	_mainCamera->updateCamToDevice();
 
-	_player->DefaultMyControl(_timeDelta);
+	_target->DefaultMyControl(_timeDelta);
 	
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
@@ -65,9 +65,11 @@ void particleTest13::update()
 		EFFECT->findEffect("스턴")->setPositoin(&_player->GetWorldPosition());
 		EFFECT->findEffect("스턴")->setPositoin(&_target->GetWorldPosition());
 		EFFECT->findEffect("스턴")->Start();*/
+
 		//EFFECT->findEffect("스턴")->setLimitTime(2.0f);
 		//EFFECT->findEffect("스턴")->Start(_player);
 		//EFFECT->findEffect("스턴")->Start(_target);
+
 	}
 	if (KEYMANAGER->isOnceKeyDown('2'))
 	{
