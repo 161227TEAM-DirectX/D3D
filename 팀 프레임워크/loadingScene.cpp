@@ -66,8 +66,8 @@ void loadingScene::render()
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
 	SoundLoading();
-    //XMeshStaticLoading();
-	//XMeshSkinnedLoading();
+    XMeshStaticLoading();
+	XMeshSkinnedLoading();
 	//PtcLoading();
 	UILoading();
 	UiTestLoading();

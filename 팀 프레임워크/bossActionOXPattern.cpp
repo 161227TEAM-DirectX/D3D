@@ -2,7 +2,7 @@
 #include "bossActionOXPattern.h"
 
 bossActionOXPattern::bossActionOXPattern()
-	:chargeTime(0.0f), randomOX(0), rangeC(1.0f)
+	:chargeTime(0.0f), randomOX(0), rangeC(0.2f)
 {
 	rangeX.first.first = 0.0f;
 	rangeX.first.second = 0.0f;
@@ -23,6 +23,7 @@ bossActionOXPattern::~bossActionOXPattern()
 int bossActionOXPattern::Start()
 {
 	randomOX = myUtil::RandomIntRange(1, 2);
+//	randomOX = 1;
 	owner->getSkinnedAnim().Play("Animation_48");
 	emergency = RM_TEXTURE->getResource(FILEPATH_MANAGER->GetFilepath("emergency"));
 
@@ -38,7 +39,6 @@ int bossActionOXPattern::Update()
 	string temp;
 	temp = owner->getSkinnedAnim().getAnimationSet()->GetName();
 	chargeTime += 0.01f;
-	rangeC += rangeX.second.first / 0.01f;
 	updateRangeC();
 
 	//애니메이션 변경점
@@ -53,7 +53,8 @@ int bossActionOXPattern::Update()
 	{
 		updateVertex();
 	}
-	return 0;
+
+	return LHS::ACTIONRESULT::ACTION_PLAY;
 }
 
 void bossActionOXPattern::Render()
@@ -65,23 +66,37 @@ void bossActionOXPattern::Render()
 	_device->SetRenderState(D3DRS_LIGHTING, false);
 	_device->SetTexture(0, emergency);
 
+	////텍스처 출력 환경 설정
+	//_device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+	//_device->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+	//_device->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+
+	_device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+	_device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	_device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+
 	_device->SetStreamSource(0, vb, 0, sizeof(SCENE_VERTEX));
 	_device->SetFVF(SCENE_VERTEX::FVF);
 	_device->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 2);
 
 	_device->SetRenderState(D3DRS_LIGHTING, true);
 	_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	_device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 	_device->SetFVF(FVF);
 }
 
 void bossActionOXPattern::updateRangeC(void)
 {
+	//x축 증가값
 	if ((rangeX.first.first + rangeC) > rangeX.second.first)rangeX.first.first = rangeX.second.first;
 	else rangeX.first.first += rangeC;
+	//x축 감소값
 	if ((rangeX.first.second - rangeC) < rangeX.second.second) rangeX.first.second = rangeX.second.second;
 	else rangeX.first.second -= rangeC;
+	//y축 증가값
 	if ((rangeZ.first.first + rangeC) > rangeZ.second.first) rangeZ.first.first = rangeZ.second.first;
 	else rangeZ.first.first += rangeC;
+	//y축 감소값
 	if ((rangeZ.first.second - rangeC) < rangeZ.second.second) rangeZ.first.second = rangeZ.second.second;
 	else rangeZ.first.second -= rangeC;
 }
