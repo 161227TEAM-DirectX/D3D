@@ -13,7 +13,10 @@ HRESULT psPlayerSet00::init()
 	//Èú
 	this->HealSet00("Èú_¸¶¹ýÁø");
 	//this->HealSet01("");
-	this->FireMagicSet00("È­¿°¸¶¹ý");
+	this->FireMagicSet00("È­¿°È¸¿À¸®");
+	this->FireMagicSet01("È­¿°±ËÀû");
+
+	
 	//this->set00_02("");
 
 
@@ -35,6 +38,8 @@ HRESULT psPlayerSet00::init()
 	this->SkySwordSet00("´ë°Ë");
 	this->SkySwordSet01("´ë°Ë_ÀÌÆåÆ®");
 	this->SkySwordSet02("´ë°Ë_¸ÕÁö");
+
+
 
 
 	return S_OK;
@@ -451,94 +456,87 @@ void psPlayerSet00::HealSet00(string psName)
 	PSM->addPS(psName, _PS);
 }
 
+
+//ÆÄÀÌ¾î ¸ÅÁ÷
 void psPlayerSet00::FireMagicSet00(string psName)
 {
 	dxParticleSystemSet::init();
 
-	_planeEMT = NULL;
-	_planeEMT = new dxPlaneEmitter;
-	_planeEMT->init("ParticleResources/Texture/cast_magiCircle_f5x4.png", 1, 2.0f, 1);
-	//_planeEMT->InitStartDelayTime(f);
-
-	//_planeEMT->SetActiveLimitTime(2.0f);
-	_planeEMT->SetStartLimitTime(2.0f);
-	_planeEMT->InitRandomSize(1.0f, 1.0f);
-	_planeEMT->InitRandomSizeEnd(20.0f, 20.0f);
-	_planeEMT->InitRandomPositionY(9.0f, 9.0f);
-	_planeEMT->InitRandomLifeTime(2.0f, 2.0f);
-
-	_planeEMT->InitAnimation(5, 4);
-
-
-	_PS->addEmitter(_planeEMT);
-
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("ParticleResources/Texture/fire01_frame5x4.png", 1, 1.0f, 1);
-	_boardEMT->SetStartLimitTime(0.05f);
-	_boardEMT->SetActiveLimitTime(1.0f);
+	_boardEMT->init("ParticleResources/Texture/fire04_frame5x4.png", 50, 0.16f, 800);
+	//_boardEMT->SetStartLimitTime(0.05f);
+	//_boardEMT->SetActiveLimitTime(1.0f);
 
-	_boardEMT->InitRandomSize(1.0f, 1.0f);
-	_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
+	_boardEMT->InitRandomSize(1.0f, 2.2f);
+	_boardEMT->InitRandomSizeEnd(3.2f, 4.2f);
 
-	_boardEMT->InitRandomPositionY(8.5f, 8.5f);
+	_boardEMT->InitRandomLifeTime(2.4f, 3.2f);
 
-	_boardEMT->InitRandomLifeTime(0.8f, 0.8f);
+	//_boardEMT->InitRandomPositionY(8.5f, 8.5f);
 
-	_boardEMT->InitAnimation(5, 4);
+	_boardEMT->InitRandomPositionY(0.0f, 3.0f);
+	_boardEMT->InitRandomVelocityY(4.0f,8.0f);
+	_boardEMT->InitRandomAccelerationY(16.0f, 28.0f);
 
-	_PS->addEmitter(_boardEMT);
+	_boardEMT->InitCircleStartAngleY(0.0f, 360.0f);
+	_boardEMT->InitCircleRadiusY(1.0f,1.0f);
+	_boardEMT->InitCircleRadiusEndY(6.2f, 8.0f);
+	_boardEMT->InitCircleAngleSpeedY(180.0f,280.0f);
 
-	_boardEMT = NULL;
-	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("ParticleResources/Texture/fire01_frame5x4.png", 1, 1.0f, 1);
-	_boardEMT->SetStartLimitTime(0.1f);
-
-	_boardEMT->InitRandomSize(1.0f, 1.0f);
-	_boardEMT->InitRandomSizeEnd(10.0f, 10.0f);
-
-	_boardEMT->InitRandomPositionY(6.5f, 6.5f);
-
-	_boardEMT->InitRandomLifeTime(0.8f, 0.8f);
+	_boardEMT->InitRandomPosRotAngleSpeedZ(10.0f,20.0f);
 
 	_boardEMT->InitAnimation(5, 4);
+	_boardEMT->InitConstAniReactivateNum(8);
 
-	_PS->addEmitter(_boardEMT);
+	_boardEMT->InitRandomAlpha(0.8f,0.8f);
+	_boardEMT->addAlphaGraph(0.8,1.0f, 1.0f);
+	_boardEMT->addAlphaGraph(1.0f, 0.1f, 0.1f);
 
-	_boardEMT = NULL;
-	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("ParticleResources/Texture/fire01_frame5x4.png", 1, 1.0f, 1);
-	_boardEMT->SetStartLimitTime(0.15f);
-
-	_boardEMT->InitRandomSize(2.0f, 2.0f);
-	_boardEMT->InitRandomSizeEnd(12.0f, 12.0f);
-
-	_boardEMT->InitRandomPositionY(4.5f, 4.5f);
-
-	_boardEMT->InitRandomLifeTime(1.0f, 1.0f);
-
-	_boardEMT->InitAnimation(5, 4);
-
-	_PS->addEmitter(_boardEMT);
-
-	_boardEMT = NULL;
-	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("ParticleResources/Texture/fire01_frame5x4.png", 1, 1.0f, 1);
-	_boardEMT->SetStartLimitTime(0.20f);
-
-
-	_boardEMT->InitRandomSize(3.0f, 3.0f);
-	_boardEMT->InitRandomSizeEnd(14.0f, 14.0f);
-
-	_boardEMT->InitRandomPositionY(2.5f, 2.5f);
-
-	_boardEMT->InitRandomLifeTime(1.0f, 1.0f);
-
-	_boardEMT->InitAnimation(5, 4);
 
 	_PS->addEmitter(_boardEMT);
 
 
+	PSM->addPS(psName, _PS, true);
+
+}
+
+void psPlayerSet00::FireMagicSet01(string psName)
+{
+	dxParticleSystemSet::init();
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/fire06_frame4x4.png", 3, 0.02f, 300);
+	//_boardEMT->SetStartLimitTime(0.05f);
+	//_boardEMT->SetActiveLimitTime(1.0f);
+
+	_boardEMT->InitRandomSize(0.6f, 1.0f);
+	_boardEMT->InitRandomSizeEnd(2.4f, 3.2f);
+
+	_boardEMT->InitRandomLifeTime(1.4f, 2.0f);
+
+	_boardEMT->InitRandomPositionZ(-1.0f, 1.0f);
+
+	//_boardEMT->InitRandomVelocityZ(-0.5f, -0.5f);
+
+	/*_boardEMT->InitCircleStartAngleY(0.0f, 360.0f);
+	_boardEMT->InitCircleRadiusY(0.2f, 0.2f);
+	_boardEMT->InitCircleRadiusEndY(4.2f, 5.0f);
+	_boardEMT->InitCircleAngleSpeedY(120.0f, 220.0f);*/
+
+	_boardEMT->InitAnimation(4, 4);
+	_boardEMT->InitConstAniReactivateNum(3);
+
+	_boardEMT->InitRandomAlpha(0.8f, 0.8f);
+	_boardEMT->addAlphaGraph(0.8, 1.0f, 1.0f);
+	_boardEMT->addAlphaGraph(1.0f, 0.1f, 0.1f);
+
+
+	_PS->addEmitter(_boardEMT);
+
+
+	PSM->addPS(psName, _PS);
 }
 
 
@@ -1391,7 +1389,7 @@ void psPlayerSet00::SkySwordSet01(string psName)
 
 	_pointEMT = NULL;
 	_pointEMT = new dxPointEmitter;
-	_pointEMT->init("ParticleResources/Texture/default.png", 70, 0.25f, 700.0f);
+	_pointEMT->init("ParticleResources/Texture/default.png", 70, 0.2f, 700.0f);
 	_pointEMT->InitRandomLifeTime(2.0f, 3.0f);
 
 
@@ -1403,7 +1401,7 @@ void psPlayerSet00::SkySwordSet01(string psName)
 	_pointEMT->SetPositionType(PTC_SPHERE);
 	_pointEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
 	_pointEMT->InitRandomPosSphereRadius(0.0f, 2.0f);
-	_pointEMT->InitRandomPosExplosionVel(1.0f, 3.0f);
+	_pointEMT->InitRandomPosExplosionVel(2.0f, 4.0f);
 	_pointEMT->InitRandomPosRotAngleSpeedY(100.0f, 200.0f);
 
 	_pointEMT->InitRandomSize(0.6f,0.6f);
@@ -1471,7 +1469,7 @@ void psPlayerSet00::SkySwordSet02(string psName)
 	_boardEMT = new dxBoardEmitter;
 	_boardEMT->init("ParticleResources/Texture/smoke02_frame4x4.png", 70, 0.5f, 300);
 
-	_boardEMT->SetStartLimitTime(1.3f);
+	_boardEMT->SetStartLimitTime(0.2f);
 
 	_boardEMT->InitRandomLifeTime(2.5f, 3.2f);
 

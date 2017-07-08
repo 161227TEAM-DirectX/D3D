@@ -111,20 +111,20 @@ bool skPlayer_SkySword::Action()
 		_pvActionPS[2][0]->Transform()->SetWorldPosition(tagetPos);
 
 		//대검 초기 위치
-		tagetPos.y = 100.0f;
+		tagetPos.y = 130.0f;
 		_pvActionPS[0][0]->Transform()->SetWorldPosition(tagetPos);
 		
 		_oneSettingOn = false;
 	}
 
-	_accel += -0.06f;
+	_accel += -1.2f;
 	//D3DXVECTOR3 currentPos = _pvActionPS[0][0]->Transform()->GetWorldPosition();
 	//D3DXVECTOR3 movePos = D3DXVECTOR3(0.0f, (-1.0f),0.0f);
 
 	//_pvActionPS[0][0]->Transform()->SetWorldPosition(currentPos+movePos);
 	if (_pvActionPS[0][0]->Transform()->GetWorldPosition().y >= -10.0f)
 	{
-		_pvActionPS[0][0]->Transform()->MovePositionLocal(0.0f, (-22.0f + _accel)*_timeDelta, 0.0f);
+		_pvActionPS[0][0]->Transform()->MovePositionLocal(0.0f, (-20.0f + _accel)*_timeDelta, 0.0f);
 	}
 	//_pvActionPS[0][0]->update();
 
@@ -134,7 +134,7 @@ bool skPlayer_SkySword::Action()
 	}
 
 	//먼지여 작동하라
-	if (_pvActionPS[0][0]->Transform()->GetWorldPosition().y <= 60.0f)
+	if (_pvActionPS[0][0]->Transform()->GetWorldPosition().y <= 90.0f)
 	{
 		_pvActionPS[2][0]->SetActive(TRUE);
 		
