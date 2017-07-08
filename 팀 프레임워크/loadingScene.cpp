@@ -57,10 +57,8 @@ void loadingScene::render()
 		//SCENEMANAGER->changeScene("gameSceneThree");//gameSceneTwo
 		//SCENEMANAGER->changeScene("kims");//AItest////
 		SCENEMANAGER->changeScene("AItest");
-//		SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
-		//SCENEMANAGER->changeScene("gameSceneThree");//gameSceneTwo
+		//SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
 		//SCENEMANAGER->changeScene("kims");//AItest////
-
 	}
 	LeaveCriticalSection(&_cs);
 }
@@ -68,8 +66,8 @@ void loadingScene::render()
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
 	SoundLoading();
-    XMeshStaticLoading();
-	XMeshSkinnedLoading();
+    //XMeshStaticLoading();
+	//XMeshSkinnedLoading();
 	//PtcLoading();
 	UILoading();
 	UiTestLoading();
@@ -981,6 +979,19 @@ void loadingScene::XMeshSkinnedLoading()
 
 void loadingScene::SoundLoading()
 {
+	//플레이어/마을
+	SOUNDMANAGER->addSound("마을1", FILEPATH_MANAGER->GetFilepath("마을"), true, true);
+	SOUNDMANAGER->addSound("필드1", FILEPATH_MANAGER->GetFilepath("필드"), true, true);
+	SOUNDMANAGER->addSound("보스1", FILEPATH_MANAGER->GetFilepath("보스"), true, true);
+	SOUNDMANAGER->addSound("공격1", FILEPATH_MANAGER->GetFilepath("공격"), false, false);
+	SOUNDMANAGER->addSound("베기1", FILEPATH_MANAGER->GetFilepath("베기"), false, false);
+	SOUNDMANAGER->addSound("걸음소리1", FILEPATH_MANAGER->GetFilepath("걸음소리"), false, true);
+	SOUNDMANAGER->addSound("걸음소리1one", FILEPATH_MANAGER->GetFilepath("걸음소리"), false, false);
+	SOUNDMANAGER->addSound("말발굽소리1", FILEPATH_MANAGER->GetFilepath("말발굽소리"), false, true);
+	SOUNDMANAGER->addSound("푸스로다!", FILEPATH_MANAGER->GetFilepath("푸스로다"), false, false);
+	SOUNDMANAGER->addSound("휠윈드", FILEPATH_MANAGER->GetFilepath("휠윈드"), false, false);
+
+	//몬스터/보스
 	SOUNDMANAGER->addSound("샤우팅", FILEPATH_MANAGER->GetFilepath("보스울음소리"), false, false);
 	SOUNDMANAGER->addSound("샤우팅2", FILEPATH_MANAGER->GetFilepath("보스울음소리2"), false, false);
 	SOUNDMANAGER->addSound("샤우팅3", FILEPATH_MANAGER->GetFilepath("보스울음소리3"), false, false);

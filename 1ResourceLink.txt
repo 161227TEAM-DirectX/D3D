@@ -139,3 +139,9 @@ https://drive.google.com/open?id=0BzBsJiLsaAW9anhUcU9ZTGtxWkU
 7월 7일 김태훈 player에 마운트 폴터 생성 통합
 7월 8일 이현수 파티클 리소스 통합
 
+=========================================================
+
+2017/07/08 - 17:41
+<사운드 리소스 추가>
+http://naver.me/FE0U5HPY
+Resource\Sound에 압축해제
