@@ -272,6 +272,7 @@
     <ClInclude Include="ioHeightManager.h" />
     <ClInclude Include="ioMapManager.h" />
     <ClInclude Include="ioSaveCinemaManger.h" />
+    <ClInclude Include="ioSaveEndingManager.h" />
     <ClInclude Include="ioSaveManager.h" />
     <ClInclude Include="ioSaveMonsterManger.h" />
     <ClInclude Include="ioSaveNameManager.h" />
@@ -344,7 +345,7 @@
     <ClInclude Include="skPlayer_MagicShoot.h" />
     <ClInclude Include="skPlayer_Shield.h" />
     <ClInclude Include="skPlayer_ShootingStar.h" />
-    <ClInclude Include="SK_Effect00.h" />
+    <ClInclude Include="skPlayer_SkySword.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="spriteManager.h" />
     <ClInclude Include="stageFour.h" />
@@ -497,6 +498,7 @@
     <ClCompile Include="ioHeightManager.cpp" />
     <ClCompile Include="ioMapManager.cpp" />
     <ClCompile Include="ioSaveCinemaManger.cpp" />
+    <ClCompile Include="ioSaveEndingManager.cpp" />
     <ClCompile Include="ioSaveManager.cpp" />
     <ClCompile Include="ioSaveMonsterManger.cpp" />
     <ClCompile Include="ioSaveNameManager.cpp" />
@@ -568,7 +570,7 @@
     <ClCompile Include="skPlayer_MagicShoot.cpp" />
     <ClCompile Include="skPlayer_Shield.cpp" />
     <ClCompile Include="skPlayer_ShootingStar.cpp" />
-    <ClCompile Include="SK_Effect00.cpp" />
+    <ClCompile Include="skPlayer_SkySword.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="spriteManager.cpp" />
     <ClCompile Include="stageFour.cpp" />

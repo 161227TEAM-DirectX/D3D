@@ -52,7 +52,7 @@ HRESULT dxMeshEmitter::init(string xFileName, int OneTimePaticleNum, float spawn
 
 		return E_FAIL;
 	}
-	
+
 
 
 	//로딩 경로에서 파일명만 제거하고 경로만 받는다.
@@ -100,12 +100,12 @@ HRESULT dxMeshEmitter::init(string xFileName, int OneTimePaticleNum, float spawn
 			//tex 파일경로는 Mesh 파일경로 + texture 파일이름
 			texFilePath = path + pMaterials[i].pTextureFilename;
 
-			//파일 이름과 확장자 위치
-			int dotIndex = texFilePath.find_last_of(".");
+			////파일 이름과 확장자 위치
+			//int dotIndex = texFilePath.find_last_of(".");
 
-			//파일 명과 확장자를 나눈다.
-			texFile = texFilePath.substr(0, dotIndex);
-			texExp = texFilePath.substr(dotIndex + 1, xFileName.length());
+			////파일 명과 확장자를 나눈다.
+			//texFile = texFilePath.substr(0, dotIndex);
+			//texExp = texFilePath.substr(dotIndex + 1, xFileName.length());
 
 			HRESULT hr = NULL;
 
@@ -180,14 +180,14 @@ HRESULT dxMeshEmitter::init(string xFileName, int OneTimePaticleNum, float spawn
 
 
 
-	_vMesh.resize(_totalPtcNum,_mesh);
+	_vMesh.resize(_totalPtcNum, _mesh);
 
 
 	//파티클 사이즈 정함.
 	_ptcList.resize(_totalPtcNum);
 
 
-	
+
 
 	/*lightDirection* lightDir = new lightDirection;
 	lightDir->_color = D3DXCOLOR(1, 1, 1, 1);
@@ -254,15 +254,22 @@ void dxMeshEmitter::update()
 				{
 					iter->psTransPos = _psTrans->GetWorldPosition();
 					iter->matPsRot = _psTrans->GetWorldRotateMatrix();
+					_psTrans->AddChild(&_trans[ActiveNum]);
 				}
 
 				_module->InitUpdate(iter);
 
+				//색상세팅
+				/*for (DWORD i = 0; i < _materialsNum; i++)
+				{
+					iter->color.a = 0.0f;
+					_meshMaterial[i].Ambient = _meshMaterial[i].Diffuse = (D3DCOLORVALUE)iter->color;
+				}*/
 				//this->InitCreatePlane(&_ptcVertex[InitNum * 4], &_ptcIndex[InitNum * 6], iter, InitNum);
 
-				//_trans[InitNum].SetScale(iter->size, iter->size, iter->size);
-				//_trans[InitNum].SetRotateLocal(iter->rotateAngle.x, iter->rotateAngle.y, iter->rotateAngle.z);
-				//_trans[InitNum].SetWorldPosition(iter->position);
+				_trans[InitNum].SetScale(iter->size, iter->size, iter->size);
+				_trans[InitNum].SetRotateLocal(iter->rotateAngle.x, iter->rotateAngle.y, iter->rotateAngle.z);
+				_trans[InitNum].SetWorldPosition(iter->FinalPos);
 
 				checkNum++;
 				//if (checkNum >= _onePtcNum) break;
@@ -277,13 +284,26 @@ void dxMeshEmitter::update()
 		//활성화
 		if (iter->isAlive)
 		{
+			if (_psTrans != NULL)
+			{
+				_psTrans->AddChild(&_trans[ActiveNum]);
+			}
+
 			_module->ActiveUpdate(iter);
-		
+
+			//색상 세팅
+			/*for (DWORD i = 0; i < _materialsNum; i++)
+			{
+				iter->color.a = 0.0f;
+				_meshMaterial[i].Ambient = _meshMaterial[i].Diffuse = (D3DCOLORVALUE)iter->color;
+			}*/
+
+			
 			//트랜스폼 업데이트
 			_trans[ActiveNum].SetScale(iter->size, iter->size, iter->size);
 			_trans[ActiveNum].SetRotateLocal(iter->rotateAngle.x, iter->rotateAngle.y, iter->rotateAngle.z);
-			_trans[ActiveNum].SetWorldPosition(_trans[ActiveNum].GetWorldPosition()+(iter->FinalDir));
-			
+			_trans[ActiveNum].SetWorldPosition(_trans[ActiveNum].GetWorldPosition() + (iter->FinalDir));
+
 			iter->age += DeltaTime;
 			//_drawVtx[_drawPtcNum] = _ptcVtx[ActiveNum];
 			_drawPtcNum++;
@@ -301,7 +321,7 @@ void dxMeshEmitter::update()
 	//스폰 시간 업
 	_spawnCurrentTime += DeltaTime;
 
-	
+
 }
 
 void dxMeshEmitter::render()
@@ -309,7 +329,7 @@ void dxMeshEmitter::render()
 	//시작시간 과 동작시간에 따른 렌더
 	if (_startRenderOn == FALSE) return;
 	if (_activeRenderOn == FALSE) return;
-	
+
 
 	//D3DXMATRIXA16 getView;
 	//_device->GetTransform(D3DTS_VIEW, &getView);
@@ -325,8 +345,9 @@ void dxMeshEmitter::render()
 
 	_device->SetRenderState(D3DRS_LIGHTING, false);		//라이팅을 끈다.
 	//_device->SetRenderState(D3DRS_ZWRITEENABLE, false);	//z 버퍼의 쓰기를 막는다.
+	//_device->SetRenderState(D3DRS_ZWRITEENABLE, true);	//z 버퍼의 쓰기를 막는다.
 
-	//_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	////알파 블렌딩 셋팅
 	//_device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
@@ -336,10 +357,10 @@ void dxMeshEmitter::render()
 	//_device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	//_device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
-	////Texture 의 값과 Diffuse 여기서는 정점컬러의 알파값 을 섞어 최종 출력을 한다.
-	//_device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
-	//_device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_DIFFUSE);
-	//_device->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_TEXTURE);
+	//Texture 의 값과 Diffuse 여기서는 정점컬러의 알파값 을 섞어 최종 출력을 한다.
+	/*_device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+	_device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_DIFFUSE);
+	_device->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_TEXTURE);*/
 
 
 	////카메라 행렬 가져오기
@@ -396,28 +417,49 @@ void dxMeshEmitter::render()
 	//_device->SetRenderState(D3DRS_ZWRITEENABLE, true);
 
 	//_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-
 	//_device->SetTexture(0, NULL);
+
+	//_device->SetFVF(ParticleExFVF);
+
 	if (_vMesh.empty() == FALSE)
 	{
 		for (int i = 0; i < _vMesh.size(); i++)
 		{
 			if (_ptcList[i].isAlive == TRUE)
 			{
-				_trans[i].SetDeviceWorld();
+				/*if (_psTrans != NULL)
+				{
+					D3DXMATRIXA16 matPS = _psTrans->GetFinalMatrix();
+					D3DXMATRIXA16 matEMT = _trans[i].GetFinalMatrix();
+					_device->SetTransform(D3DTS_WORLD, &(matEMT*matPS));
+				}
+				else
+				{*/
+					_trans[i].SetDeviceWorld();
+				//}
+
 				for (DWORD i = 0; i < _materialsNum; i++)
 				{
+
 					_device->SetMaterial(&_meshMaterial[i]);
 					_device->SetTexture(0, _meshTexture[i]);
+
+					//_mesh->QueryInterface(기모찌!!!!)
 
 					//메쉬 출력
 					_mesh->DrawSubset(i);
 				}
 			}
 		}
+
 	}
 
+	_device->SetTexture(0, NULL);
 	_device->SetRenderState(D3DRS_LIGHTING, TRUE);
+	_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	_device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
+
 
 }
+
 

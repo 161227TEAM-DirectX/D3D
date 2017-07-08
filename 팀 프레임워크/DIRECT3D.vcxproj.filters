@@ -831,9 +831,6 @@
     <ClCompile Include="cXmeshManager.cpp">
       <Filter>GameManager%28매크로%29\Xmesh</Filter>
     </ClCompile>
-    <ClCompile Include="SK_Effect00.cpp">
-      <Filter>Z테스트\이현총\!스킬 및 파티클 모음\1. 스킬모음\3. 이펙트 모음</Filter>
-    </ClCompile>
     <ClCompile Include="skBoss_Breath.cpp">
       <Filter>Z테스트\이현총\!스킬 및 파티클 모음\1. 스킬모음\1. 보스 스킬</Filter>
     </ClCompile>
@@ -1070,6 +1067,10 @@
     </ClCompile>
     <ClCompile Include="bossMonsterAITestScene.cpp" />
     <ClCompile Include="bossActionOXPattern.cpp" />
+    <ClCompile Include="skPlayer_SkySword.cpp">
+      <Filter>Z테스트\이현총\!스킬 및 파티클 모음\1. 스킬모음\2. 플레이어 스킬</Filter>
+    </ClCompile>
+    <ClCompile Include="ioSaveEndingManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainGame.h">
@@ -1504,9 +1505,6 @@
     <ClInclude Include="cXmeshManager.h">
       <Filter>GameManager%28매크로%29\Xmesh</Filter>
     </ClInclude>
-    <ClInclude Include="SK_Effect00.h">
-      <Filter>Z테스트\이현총\!스킬 및 파티클 모음\1. 스킬모음\3. 이펙트 모음</Filter>
-    </ClInclude>
     <ClInclude Include="skBoss_Breath.h">
       <Filter>Z테스트\이현총\!스킬 및 파티클 모음\1. 스킬모음\1. 보스 스킬</Filter>
     </ClInclude>
@@ -1743,6 +1741,10 @@
     </ClInclude>
     <ClInclude Include="bossMonsterAITestScene.h" />
     <ClInclude Include="bossActionOXPattern.h" />
+    <ClInclude Include="skPlayer_SkySword.h">
+      <Filter>Z테스트\이현총\!스킬 및 파티클 모음\1. 스킬모음\2. 플레이어 스킬</Filter>
+    </ClInclude>
+    <ClInclude Include="ioSaveEndingManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Texture_Gray.fx">

@@ -124,6 +124,11 @@ void dxParticleSystem::update()
 			{
 				_vEmitter[_EmitterCountNum]->setPsBoardTrans(_trans);
 			}
+			//실시간 추적이면 빌보드를 위해 행렬용 트랜스폼 세팅
+			if (_vEmitter[_EmitterCountNum]->GetType() == ET_MESH)
+			{
+				_vEmitter[_EmitterCountNum]->setParticleSystemTrans(_trans);
+			}
 		}
 
 		//사이즈 세팅->시간 맞추기용
@@ -151,7 +156,7 @@ void dxParticleSystem::render()
 		for (int i = 0; i < _vEmitter.size(); i++)
 		{
 			//트렌스폼 업데이트->트루일 때
-			if (_vEmitter[i]->getRealtimeTrackingPosOn() || _AllRealTimeTrackingOn)
+			if ((_vEmitter[i]->getRealtimeTrackingPosOn() || _AllRealTimeTrackingOn))
 			{
 				_trans->SetDeviceWorld();
 			}

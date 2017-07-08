@@ -174,7 +174,7 @@ void skPlayer_MagicShoot::Reset()
 {
 	_OneActionSettingOn = true;
 
-	_BP = new tagBezierPoint[6];
+	//_BP = new tagBezierPoint[6];
 
 	for (int i = 0; i < 6; i++)
 	{

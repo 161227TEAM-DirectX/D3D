@@ -9,8 +9,6 @@
 
 #include "skPlayer_MagicShoot.h"
 
-#include "SK_Effect00.h"
-
 #include "skPlayer_Heal.h"
 
 #include "skBoss_Shouting.h"

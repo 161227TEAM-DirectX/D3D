@@ -5,6 +5,8 @@
 #include "Environment.h"
 #include "WaterTerrain.h"
 
+enum ENDINGNUMBER {EONE = 1,ETWO,ETHREE,EFOUR,EFIVE};
+
 class EndingScene : public iGameNode
 {
 private:
@@ -20,7 +22,6 @@ private:
 	tagSaveMap waterTemp;
 
 	vector<baseObject*> npcVector;
-
 public:
 	virtual HRESULT init();
 	virtual void release();

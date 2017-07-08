@@ -297,6 +297,18 @@ struct tagSaveCinematic
 	float Height;
 };
 
+struct tagSaveEndingCinematic
+{
+	string infoName;	//정보이름
+	float X;
+	float Y;
+	float Z;
+	float rotationX;
+	float rotationY;
+	float rotationZ;
+	int EningNumber;
+};
+
 struct tagSaveMonster
 {
 	string infoName;
@@ -390,6 +402,7 @@ using namespace myUtil;
 #include "ioMapManager.h"
 #include "CinematicManger.h"
 #include "ioSaveCinemaManger.h"
+#include "ioSaveEndingManager.h"
 #include "ioSaveNameManager.h"
 
 
@@ -436,6 +449,7 @@ using namespace myUtil;
 #define IOSAVENODEMANAGER ioSaveNodeManager::getSingleton()
 #define IOMAPMANAGER ioMapManager::getSingleton()
 #define IOSAVENAMEMANAGER ioSaveNameManager::getSingleton()
+#define IOSAVEENDING ioSaveEndingManager::getSingleton()
 #define CINEMATICMANAGER  CinematicManger::getSingleton()
 #define IOCINEMATICMANAGER ioSaveCinemaManger::getSingleton()
 

@@ -163,10 +163,15 @@ public:  //=====================================================================
 	void addVelocityGraphZ(float point, float min, float max) { _module->addVelocityGraphZ(point, min, max); }
 
 public:  //=======================================================================================================================
-		 //가속도
+		//가속도
 	void InitRandomAccelerationX(float min, float max) { _module->InitRandomAccelerationX(min, max); }
 	void InitRandomAccelerationY(float min, float max) { _module->InitRandomAccelerationY(min, max); }
 	void InitRandomAccelerationZ(float min, float max) { _module->InitRandomAccelerationZ(min, max); }
+
+	//가속도 그래프
+	void addAccelGraphX(float point, float min, float max) { _module->addAccelGraphX(point, min, max); }
+	void addAccelGraphY(float point, float min, float max) { _module->addAccelGraphY(point, min, max); }
+	void addAccelGraphZ(float point, float min, float max) { _module->addAccelGraphZ(point, min, max); }
 
 public:  //=======================================================================================================================
 		 //색

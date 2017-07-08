@@ -94,6 +94,11 @@ public:	//======================================================================
 	void InitRandomAccelerationY(float min, float max) { _accelMD->InitRandomAccelerationY(min, max); }
 	void InitRandomAccelerationZ(float min, float max) { _accelMD->InitRandomAccelerationZ(min, max); }
 
+	//가속도 그래프
+	void addAccelGraphX(float point, float min, float max) { _accelMD->addAccelGraphX(point, min, max); }
+	void addAccelGraphY(float point, float min, float max) { _accelMD->addAccelGraphY(point, min, max); }
+	void addAccelGraphZ(float point, float min, float max) { _accelMD->addAccelGraphZ(point, min, max); }
+
 
 public:	//=======================================================================================================================
 	//초기색

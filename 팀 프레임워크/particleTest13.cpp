@@ -18,7 +18,7 @@ HRESULT particleTest13::init()
 	_mainCamera = new camera;
 	
 
-	_target->SetWorldPosition(RandomFloatRange(-5.0f, 5.0f), RandomFloatRange(0.0f, 0.0f), RandomFloatRange(5.0f, 8.0f));
+	_target->SetWorldPosition(RandomFloatRange(-8.0f, 8.0f), RandomFloatRange(0.0f, 0.0f), RandomFloatRange(5.0f, 15.0f));
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -149,6 +149,18 @@ void particleTest13::update()
 		EFFECT->findEffect("날기_먼지")->setLimitTime(5.0f);
 		
 		EFFECT->findEffect("날기_먼지")->Start(_player);
+		//EFFECT->findEffect("스턴")->setLimitTime(2.0f);
+		//EFFECT->findEffect("스턴")->Start(_player);
+		//EFFECT->findEffect("스턴")->Start(_target);
+
+	}
+
+	if (KEYMANAGER->isOnceKeyDown('0'))
+	{
+		SKM->findSK("하늘의_대검")->setSkillPosTrans(_player);
+		SKM->findSK("하늘의_대검")->setSkillDirTrans(_player);
+		SKM->findSK("하늘의_대검")->setOneTargetTrans(_target);
+		SKM->findSK("하늘의_대검")->Start();
 		//EFFECT->findEffect("스턴")->setLimitTime(2.0f);
 		//EFFECT->findEffect("스턴")->Start(_player);
 		//EFFECT->findEffect("스턴")->Start(_target);

@@ -125,7 +125,7 @@ void dxModuleKit::ActiveUpdate(vector<tagDxAttribute>::iterator iter)
 	//최종계산
 	float DeltaTime = _timeDelta*iter->emitterNum;
 
-	iter->vectorDir = (-iter->preCircleSpeed) + iter->circleSpeed + iter->velocity*DeltaTime + (iter->acceleration*(iter->age*DeltaTime)*(iter->age*DeltaTime) / 2.0f) + iter->posDirectVel*DeltaTime + iter->attractPos*DeltaTime;
+	iter->vectorDir = (-iter->preCircleSpeed) + iter->circleSpeed + iter->velocity*DeltaTime + (iter->acceleration*(iter->age*DeltaTime)*(iter->age*DeltaTime)*0.5f) + iter->posDirectVel*DeltaTime + iter->attractPos*DeltaTime;
 	//iter->vectorDir = iter->attractPos*DeltaTime*_timeDelta;
 
 	//방향 돌리기 계산

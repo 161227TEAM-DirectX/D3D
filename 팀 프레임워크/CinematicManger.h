@@ -19,6 +19,7 @@ private:
 	D3DXVECTOR3 cameraHeight;
 
 	int iCount;
+	int ECount;
 	float time;
 
 	float cameraPositionX, cameraPositionY, cameraPositionZ;
@@ -27,11 +28,29 @@ private:
 
 	CINEMA texture;
 
+private:
+	vector<tagSaveCinematic> vcinematic;
+	tagSaveCinematic         cinematic;
+	vector<tagSaveCinematic> vCTemp;
+	tagSaveCinematic Ctemp;
 
+	vector<tagSaveEndingCinematic> Ecinematic;
+	tagSaveEndingCinematic         Einematic;
+	vector<tagSaveEndingCinematic> ECTemp;
+	tagSaveEndingCinematic         Etemp;
+
+	SYNTHESIZE(int, number, GSnumber);
 public:
-	void cinematicInit(bool save);
+	void init();
+
+	void cinematicInit();
 	void cinematicLoad(D3DXVECTOR3* position, camera* camera, dx::transform* transform);
 	void cinematicSave(D3DXVECTOR3* position, camera* camera);
+
+	void cinematicEInit();
+	void cinematicEndingLoad(camera * _camera);
+	void cinematicEndingSave(camera * _camera);
+
 	void cinemaRender(camera* camera);
 
 

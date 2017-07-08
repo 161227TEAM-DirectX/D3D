@@ -127,7 +127,7 @@ HRESULT stageThree::init()
 	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
 	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, 5));
 
-	CINEMATICMANAGER->cinematicInit(true);
+	CINEMATICMANAGER->cinematicInit();
 	
 	start = false;
 
