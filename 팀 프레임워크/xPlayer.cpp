@@ -372,6 +372,10 @@ void xPlayer::update()
 	//_lightSkill->update();
 
 	_playerObject->_skinnedAnim->SetPlaySpeed(_playSpeed);
+	if (_isMount)
+	{
+		_mountObject->_skinnedAnim->SetPlaySpeed(_playSpeed);
+	}
 
 	if (!KEYMANAGER->isToggleKey(VK_OEM_3))
 	{
@@ -427,7 +431,10 @@ void xPlayer::render()
 	}
 
 
-	drawBladeLight();
+	if (!_isMount)
+	{
+		drawBladeLight();
+	}
 
 	if (NULL != targetMonster)
 	{
@@ -555,6 +562,7 @@ void xPlayer::PlayerInputControl()//이 친구가 상태값에 종속 적이라면?
 		break;
 	case P_WHIRLWIND:
 		moveControl(_playerObject->_transform);
+		rotateControl(_playerObject->_transform);
 		if (KEYMANAGER->isOnceKeyUp(VK_RBUTTON))
 		{
 			if (_isOnBattle)
@@ -664,8 +672,18 @@ void xPlayer::PlayerInputControl()//이 친구가 상태값에 종속 적이라면?
 void xPlayer::playerStateManager()
 {
 
+	if (_state != P_WHIRLWIND)
+	{
+		SOUNDMANAGER->stop("휠윈드");
+	}
+
 	if (_state != P_RUN && _state != P_WALKBACK)
 		SOUNDMANAGER->stop("걸음소리1");
+
+	if (_state != P_MOUNT_R && _state != P_MOUNT_WB)
+	{
+		SOUNDMANAGER->stop("말발굽소리1");
+	}
 
 	if (PLAYERMANAGER->GetHp() <= 0) _state = P_DEATH;
 	string animName = _playerObject->_skinnedAnim->getAnimationSet()->GetName();
@@ -690,12 +708,14 @@ void xPlayer::playerStateManager()
 		_degree = 0;
 		if (!_isMount)
 		{
+
 			_playerObject->_transform->SetWorldPosition(pos.x, _baseHeight, pos.z);
 		}
 		else
 		{
-
+			
 			_mountObject->_transform->SetWorldPosition(_mountObject->_transform->GetWorldPosition().x, _baseHeight, _mountObject->_transform->GetWorldPosition().z);
+			_playerObject->_transform->LookDirection(_sitPos->GetRight());
 		}
 	}
 
@@ -756,6 +776,14 @@ void xPlayer::playerStateManager()
 	case P_ATTACK2:
 		if (animName == "AT2H")
 		{
+			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.2 && _playerObject->_skinnedAnim->getAnimFactor() < 0.3)
+			{
+				if (!SOUNDMANAGER->isPlaySound("공격1"))
+				{
+					SOUNDMANAGER->play("공격1", 0.7f);
+				}
+			}
+
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.80)//애니메이션 다 재생했으면
 			{
 				normalAttackDamageProcessing();
@@ -941,13 +969,17 @@ void xPlayer::playerStateManager()
 	case P_WHIRLWIND:
 		if (animName == "WW")
 		{
+			if (!SOUNDMANAGER->isPlaySound("휠윈드"))
+			{
+				SOUNDMANAGER->play("휠윈드", 0.7f);
+			}
 
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 1.0)
 			{
 				normalAttackDamageProcessing();
 				_playerObject->_skinnedAnim->Play("WW");
 			}
-			_playSpeed = 1.7;
+			_playSpeed = 2;
 		}
 		break;
 	case P_BATTLEROAR:
@@ -1114,10 +1146,19 @@ void xPlayer::playerStateManager()
 
 		break;
 	case P_MOUNT_R:
+		if (!SOUNDMANAGER->isPlaySound("말발굽소리1"))
+		{
+			SOUNDMANAGER->play("말발굽소리1",0.3f);
+			SOUNDMANAGER->setMusicSpeed("말발굽소리", _moveSpeed);
+		}
 
 		break;
 	case P_MOUNT_WB:
-
+		if (!SOUNDMANAGER->isPlaySound("말발굽소리1"))
+		{
+			SOUNDMANAGER->play("말발굽소리1", 0.1f);
+			SOUNDMANAGER->setMusicSpeed("말발굽소리", _moveSpeed * 0.5);
+		}
 		break;
 	case P_WALKBACK:
 
@@ -1220,11 +1261,12 @@ void xPlayer::playerAnimationManager()
 		_playerObject->_skinnedAnim->Play("SLAM", 0.3f);
 		break;
 	case P_WHIRLWIND:
-		SOUNDMANAGER->play("공격1", 0.7f);
+		
 		_playerObject->_skinnedAnim->Play("WW", 0.3f);
 		break;
 	case P_BATTLEROAR:
-		//SOUNDMANAGER->play("푸스로다!");
+		SOUNDMANAGER->play("푸스로다!");
+		_playSpeed = 0.4;
 		_playerObject->_skinnedAnim->Play("BR", 0.3f);
 		break;
 	case P_READYSPELL:
@@ -1258,6 +1300,7 @@ void xPlayer::playerAnimationManager()
 		_playerObject->_skinnedAnim->Play("JUMPED", 0.2f);
 		break;
 	case P_STUN:
+		_isMount = false;
 		_playerObject->_skinnedAnim->Play("STUN");
 		break;
 	case P_DEATH:
@@ -1270,13 +1313,15 @@ void xPlayer::playerAnimationManager()
 		_playerObject->_skinnedAnim->Stop();
 		break;
 	case P_MOUNT_R:
+		_playSpeed = _moveSpeed * 0.66;
 		_mountObject->setActive(true);
 		_mountObject->_skinnedAnim->Play("R", 0.3f);
 		_playerObject->_skinnedAnim->Stop();
 		break;
 	case P_MOUNT_WB:
+		_playSpeed = _moveSpeed * 0.5;
 		_mountObject->setActive(true);
-		_mountObject->_skinnedAnim->Play("WB", 0.3f);
+		_mountObject->_skinnedAnim->Play("WB");
 		_playerObject->_skinnedAnim->Stop();
 		break;
 	case P_WALKBACK:
@@ -1284,6 +1329,7 @@ void xPlayer::playerAnimationManager()
 		_playerObject->_skinnedAnim->Play("WB", 0.2f);
 		break;
 	case P_DAMAGED:
+		_isMount = false;
 		_playerObject->_skinnedAnim->Play("DM", 0.2f);
 		break;
 	case P_END:
@@ -1811,6 +1857,7 @@ void xPlayer::initMount()
 	_sitPos = new dx::transform;
 	_mountObject->_skinnedAnim->AddBoneTransform("mount_Bone53", _sitPos);
 	_renderObjects.push_back(_mountObject);
+	
 }
 
 void xPlayer::summonMount()
@@ -1821,7 +1868,11 @@ void xPlayer::summonMount()
 	_playerObject->_transform->SetWorldPosition(_sitPos->GetWorldPosition());
 	_mountObject->_transform->LookPosition(_playerObject->_transform->GetForward() + _mountObject->_transform->GetWorldPosition());
 	_sitPos->AddChild(_playerObject->_transform);
+	//문제점. 초기화 된 시점에 안장이 올바른 방향값을 가지고 있지 않음.
+	//따라서 안장의 위치가 적절하게 초기화된 시점에서 플레이어가 방향값을 수정받아야 함.
+	//_playerObject->_transform->look
 	_state = P_MOUNT_S;
+	_moveSpeed = 3.0f;
 }
 
 void xPlayer::unSummonMount()
@@ -1830,6 +1881,7 @@ void xPlayer::unSummonMount()
 	_mountObject->setActive(false);
 	_playerObject->_transform->ReleaseParent();
 	_state = P_JUMPDOWN;
+	_moveSpeed = 1.5f;
 }
 
 
