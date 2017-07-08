@@ -205,6 +205,10 @@ void cRegistBase::SoundRegist()
 	FILEPATH_MANAGER->AddFilepath("공격", "Resource/Sound/공격1.mp3");
 	FILEPATH_MANAGER->AddFilepath("베기", "Resource/Sound/베기1.mp3");
 	FILEPATH_MANAGER->AddFilepath("걸음소리", "Resource/Sound/걸음소리1.mp3");
+	FILEPATH_MANAGER->AddFilepath("말발굽소리", "Resource/Sound/말발굽소리1.mp3");
+	FILEPATH_MANAGER->AddFilepath("푸스로다", "Resource/Sound/푸스로다.mp3");
+	FILEPATH_MANAGER->AddFilepath("휠윈드", "Resource/Sound/휠윈드.mp3");
+
 	FILEPATH_MANAGER->AddFilepath("보스울음소리", "Resource/Sound/deathWing/deathwing_shouting_good.mp3");
 	FILEPATH_MANAGER->AddFilepath("보스울음소리2", "Resource/Sound/deathWing/event_deathwingattacks_roar_01.ogg");
 	FILEPATH_MANAGER->AddFilepath("보스울음소리3", "Resource/Sound/deathWing/event_deathwingattacks_roar_03.ogg");
