@@ -34,7 +34,7 @@ int bossActionSkillFire::Update()
 
 	if (!strcmp(owner->getSkinnedAnim().getAnimationSet()->GetName(), "Animation_65"))
 	{
-		if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
+		if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.95f)
 		{
 			owner->getSkinnedAnim().Play("Animation_14");
 			owner->getSkinnedAnim().SetPlaySpeed(0.6f);
@@ -53,7 +53,7 @@ int bossActionSkillFire::Update()
 	if (!strcmp(owner->getSkinnedAnim().getAnimationSet()->GetName(), "Animation_14"))
 	{
 		//액션 종료 조건이 필요.
-		if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
+		if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.95f)
 		{
 			SOUNDMANAGER->stop("브레스2");
 

@@ -7,17 +7,24 @@ private:
 	{
 		straight = 0,
 		round,
-		landing
+		landing,
+		oxpattern
 	};
 private:
 	D3DXMATRIX matRotateY;
 	D3DXMATRIX matTranslation;
 	D3DXVECTOR3 pos;
 	D3DXMATRIX matWorld;
+	D3DXVECTOR3 playerPos;
+	boundBox fireballBox;
+private:
 	dx::transform lerpTransform;
+	dx::transform fireBall;
 private:
 	float angle;
 	FLYSTATE isRound;
+	int ch;
+	bool isAttack;
 public:
 	bossActionFlyMove();
 	~bossActionFlyMove();
@@ -26,5 +33,9 @@ public:
 	int Start() override;
 	//액션을 실행하는 함수 - 순수가상함수
 	int Update() override;
+
+	void Render() override;
+
+	void attackFireBall(void);
 };
 

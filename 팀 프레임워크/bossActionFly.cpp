@@ -3,6 +3,7 @@
 
 
 bossActionFly::bossActionFly()
+	:random(0.0f)
 {
 }
 
@@ -56,7 +57,8 @@ int bossActionFly::Update()
 			}
 			//owner->_transform->SetWorldMatrix(matTranslation);
 			//임시로 play로 돌린다.
-			return LHS::ACTIONRESULT::ACTION_PLAY;
+			random = myUtil::RandomFloatRange(0.0f, 1.0f);
+			return LHS::ACTIONRESULT::ACTION_FLY_MOVE_ATT;
 		}
 
 		//임시적으로 높이값을 제한한다.

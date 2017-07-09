@@ -45,14 +45,14 @@ void bossMonster::baseObjectDisable()
 
 void bossMonster::baseObjectUpdate()
 {
-	//switchState();
-	testKeyAI();
+	switchState();
+	//testKeyAI();
 
 	if (NextAction != nullptr)
 	{
 		SAFE_DELETE(CurrAction);
 		CurrAction = NextAction;
-		_skinnedAnim->Stop();
+		//_skinnedAnim->Stop();
 		result = (LHS::ACTIONRESULT)CurrAction->Start();
 		NextAction = nullptr;
 	}
@@ -126,6 +126,7 @@ void bossMonster::switchState(void)
 	case LHS::ACTIONRESULT::ACTION_LANDING:
 		NextAction = ACMANAGER->getAction("¬¯¡ˆ", *this);
 	case LHS::ACTIONRESULT::ACTION_PA_OX:
+		NextAction = ACMANAGER->getAction("OX∆–≈œ", *this);
 		break;
 	}
 }

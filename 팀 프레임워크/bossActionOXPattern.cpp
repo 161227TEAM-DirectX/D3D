@@ -23,7 +23,7 @@ bossActionOXPattern::~bossActionOXPattern()
 int bossActionOXPattern::Start()
 {
 	randomOX = myUtil::RandomIntRange(1, 2);
-//	randomOX = 1;
+
 	owner->getSkinnedAnim().Play("Animation_48");
 	emergency = RM_TEXTURE->getResource(FILEPATH_MANAGER->GetFilepath("emergency"));
 
@@ -65,11 +65,6 @@ void bossActionOXPattern::Render()
 	_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	_device->SetRenderState(D3DRS_LIGHTING, false);
 	_device->SetTexture(0, emergency);
-
-	////텍스처 출력 환경 설정
-	//_device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
-	//_device->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-	//_device->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
 
 	_device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
 	_device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);

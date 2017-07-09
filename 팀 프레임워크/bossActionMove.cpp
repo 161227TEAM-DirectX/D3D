@@ -72,7 +72,10 @@ int bossActionMove::Update()
 	}
 
 	//확률적으로 날기패턴으로 이동
-	if (index - Gap >= 0.97f && index - Gap <= 0.975f) return LHS::ACTIONRESULT::ACTION_FLY;
+	if (index - Gap >= 0.97f && index - Gap <= 0.975f)
+	{
+		return LHS::ACTIONRESULT::ACTION_FLY;
+	}
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }

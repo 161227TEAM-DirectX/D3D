@@ -3,7 +3,7 @@
 
 
 bossActionFlyMove::bossActionFlyMove()
-	:Action(), angle(0.0f), isRound(FLYSTATE::straight)
+	:Action(), angle(0.0f), isRound(FLYSTATE::straight), isAttack(false)
 {
 }
 
@@ -21,6 +21,9 @@ int bossActionFlyMove::Start()
 	angle += D3DXToRadian(30)*_timeDelta;
 	D3DXMatrixRotationY(&matRotateY, angle);
 	D3DXVec3TransformCoord(&pos, &playerObject->_transform->GetWorldPosition(), &matRotateY);
+
+	ch = myUtil::RandomIntRange(0, 1);
+
 	pos.x *= 25.0f;
 	pos.z *= 25.0f;
 
@@ -53,13 +56,26 @@ int bossActionFlyMove::Update()
 			owner->_transform->LookPosition(tempPos);
 			owner->_transform->RotateSlerp(lerpTransform, *owner->_transform, _timeDelta * 2);
 			owner->_transform->MovePositionSelf(0.0f, 0.0f, 0.5f);
-			if (D3DXVec3Length(&(owner->_transform->GetWorldPosition() - tempPos)) <= 0.7f) isRound = FLYSTATE::round;
+			
+			if (D3DXVec3Length(&(owner->_transform->GetWorldPosition() - tempPos)) <= 0.7f)
+			{
+				if (ch == 1)
+				{
+					isRound = bossActionFlyMove::FLYSTATE::round;
+				}
+				else if (ch == 2)
+				{
+					isRound = FLYSTATE::oxpattern;
+				}
+			}
 			break;
 		}
 		case bossActionFlyMove::round:	//회전하는 위치까지 왔을 경우
 		{
 			lerpTransform = *owner->_transform;
 			angle += D3DXToRadian(30)*_timeDelta;
+			if (angle > D3DX_PI * 2) angle = 0.0f;
+
 			D3DXMatrixRotationY(&matRotateY, angle);
 			D3DXVec3TransformCoord(&pos, &playerObject->_transform->GetWorldPosition(), &matRotateY);
 
@@ -72,6 +88,13 @@ int bossActionFlyMove::Update()
 			owner->_transform->SetWorldPosition(tempPos);
 
 			//공격코드 필요.
+			if (isAttack)
+			{
+				playerPos = D3DXVECTOR3(playerObject->_transform->GetWorldPosition() - owner->_transform->GetWorldPosition());
+				fireBall.LookPosition(playerPos);
+				fireballBox.setBound(&playerPos, &D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+				isAttack = true;
+			}
 
 			//공격 후 일정 위치로 다시 이동이 필요.
 
@@ -84,11 +107,43 @@ int bossActionFlyMove::Update()
 			owner->_transform->LookPosition(tempPos);
 			owner->_transform->RotateSlerp(lerpTransform, *owner->_transform, _timeDelta * 2);
 			owner->_transform->MovePositionSelf(0.0f, 0.0f, 0.5f);
-			//if (D3DXVec3Length(&(owner->_transform->GetWorldPosition() - tempPos)) <= 0.7f)
+			if (D3DXVec3Length(&(owner->_transform->GetWorldPosition() - tempPos)) <= 0.7f) return LHS::ACTIONRESULT::ACTION_LANDING;
 			break;
 		}
+		case bossActionFlyMove::oxpattern:
+		{
+			lerpTransform = *owner->_transform;
+			angle += D3DXToRadian(30)*_timeDelta;
+			if (angle > D3DX_PI * 2) angle = 0.0f;
+
+			D3DXMatrixRotationY(&matRotateY, angle);
+			D3DXVec3TransformCoord(&pos, &playerObject->_transform->GetWorldPosition(), &matRotateY);
+
+			D3DXVECTOR3 tempPos(pos.x * 25.0f, owner->_transform->GetWorldPosition().y, pos.z * 25.0f);
+			D3DXVECTOR3 tempUp(D3DXVECTOR3(playerObject->_transform->GetWorldPosition() - owner->_transform->GetWorldPosition()));
+			D3DXVec3Normalize(&tempUp, &tempUp);
+
+			owner->_transform->LookPosition(tempPos, tempUp);
+			owner->_transform->RotateSlerp(lerpTransform, *owner->_transform, _timeDelta * 2);
+			owner->_transform->SetWorldPosition(tempPos);
+			break;
+		}
+
 		}
 	}
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
+}
+
+void bossActionFlyMove::Render()
+{
+
+}
+
+void bossActionFlyMove::attackFireBall(void)
+{
+	
+	
+
+
 }

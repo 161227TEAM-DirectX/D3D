@@ -43,14 +43,14 @@ int bossActionSkillBattleRoar::Update()
 	float angle = D3DXVec3Dot(&temp->_transform->GetForward(), &enemyNormal);
 
 	//배틀로어 모션에 맞춰 샤우팅
-	if (isShout && owner->getSkinnedAnim().getAnimationPlayFactor() > 0.3f)
+	if (isShout && owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.3f)
 	{
 		SOUNDMANAGER->play("샤우팅3");
 		isShout = false;
 	}
 
 	//배틀로어 애니메이션이 끝나면 ->일반공격 또는 꼬리치기
-	if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
+	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.95f)
 	{
 		SOUNDMANAGER->stop("샤우팅3");
 
