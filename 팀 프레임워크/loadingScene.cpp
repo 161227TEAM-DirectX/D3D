@@ -54,9 +54,11 @@ void loadingScene::render()
 		//g_eSelectMode = E_MAPTOOL;
 
 		//SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
-		//SCENEMANAGER->changeScene("gameSceneThree");//gameSceneTwo
+
+		SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
 		//SCENEMANAGER->changeScene("kims");//AItest////
-		SCENEMANAGER->changeScene("AItest");
+
+//		SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
 		//SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
 		//SCENEMANAGER->changeScene("kims");//AItest////
 	}
@@ -68,9 +70,12 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 	SoundLoading();
     XMeshStaticLoading();
 	XMeshSkinnedLoading();
+
+	//이거 주석 풀면 됨!!!
 	//PtcLoading();
+
 	UILoading();
-	UiTestLoading();
+	//UiTestLoading();
 	AniLoading();
 
 	m_isChange = true;
@@ -724,6 +729,7 @@ void loadingScene::PtcLoading()
 	PSM->ParticleSystemSetInit();		//파티클시스템_매니져 초기화(순서2)
 	SKM->skillSetting();				//스킬 매니저 초기화(순서3)
 	EFFECT->EffectSetting();			//이펙트 매니저 초기화(똑같이 순서3)
+
 }
 
 void loadingScene::XMeshStaticLoading()
@@ -964,7 +970,7 @@ void loadingScene::XMeshSkinnedLoading()
 	XMESH_MANAGER->AddXmeshSkinned("랩터", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("몬스터_랩터"), matRotate));
 	XMESH_MANAGER->AddXmeshSkinned("전갈", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("몬스터_전갈"), matRotate));
 	XMESH_MANAGER->AddXmeshSkinned("도마뱀", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("몬스터_도마뱀"),matRotate));
-	XMESH_MANAGER->AddXmeshSkinned("데스윙", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("몬스터_데스윙"), matRotate));
+	//XMESH_MANAGER->AddXmeshSkinned("데스윙", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("몬스터_데스윙"), matRotate));
 	XMESH_MANAGER->AddXmeshSkinned("npc1", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("NPC_1"), matRotate));
 	XMESH_MANAGER->AddXmeshSkinned("npc2", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("NPC_2"), matRotate));
 	XMESH_MANAGER->AddXmeshSkinned("npc3", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("NPC_3"), matRotate));

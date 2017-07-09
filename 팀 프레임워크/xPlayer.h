@@ -165,12 +165,18 @@ private:
 
 	damageText* _dmText;
 
+	//baseObject* _forwardGate;
+	//baseObject* _backGate;
+
 public:
 
 	HRESULT init();
 	void update();
 	void render();//플레이어 렌더는 씬에서 오브젝트 렌더 후 따로 호출해줘야함.
 	void release(void);
+
+	//void setFGate(baseObject* FG) { _forwardGate = FG; }
+	//void setBGate(baseObject* BG) { _backGate = BG; }
 
 	//초기화 부분에서 호출되어 이전 데이터를 가져온다.
 	void LoadData();
@@ -256,7 +262,7 @@ public:
 	void out_setTargetByMouse(camera* mainCamera);
 
 	//지형 연결
-	void out_setlinkTerrain(terrain& rand) { this->linkTerrain = &rand; }
+	void out_setlinkTerrain(terrain& land) { this->linkTerrain = &land; }
 
 	//몬스터 리젼 연결
 	void out_setMonsterRegion(vector<monster*>* monsters) { this->_monsterPool = monsters; }

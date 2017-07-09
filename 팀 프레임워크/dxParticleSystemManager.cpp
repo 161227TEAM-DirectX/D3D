@@ -23,6 +23,8 @@ void dxParticleSystemManager::ParticleSystemSetRelease()
 	SAFE_DELETE(_set00);
 	_set01->release();
 	SAFE_DELETE(_set01);
+	_playerSet00->release();
+	SAFE_DELETE(_playerSet00);
 	_bossSet00->release();
 	SAFE_DELETE(_bossSet00);
 	_effectSet00->release();

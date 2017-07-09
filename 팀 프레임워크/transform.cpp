@@ -1316,20 +1316,19 @@ namespace dx {
 				D3DXVec3TransformCoord(&_relativeCamPos, &_relativeCamPos, &matRotate);
 			}
 
-			if (KEYMANAGER->isStayKeyDown('R'))
+			if (KEYMANAGER->isStayKeyDown('F'))
 			{
 
 				D3DXMatrixRotationX(&matRotate, 15 * D3DXToRadian(1) * _timeDelta);
 				D3DXVec3TransformCoord(&_relativeCamPos, &_relativeCamPos, &matRotate);
 			}
 
-			if (KEYMANAGER->isStayKeyDown('F'))
+			if (KEYMANAGER->isStayKeyDown('R'))
 			{
 
 				D3DXMatrixRotationX(&matRotate, -15 * D3DXToRadian(1) * _timeDelta);
 				D3DXVec3TransformCoord(&_relativeCamPos, &_relativeCamPos, &matRotate);
 			}
-
 
 			D3DXVec3TransformCoord(&_relativeCamPos, &_relativeCamPos, &matRotate);
 

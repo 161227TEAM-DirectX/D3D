@@ -58,6 +58,14 @@ protected:
 
 	int		_drawPtcNum;				//그릴 파티클 개수	
 
+
+
+	bool _InitActiveStop;
+	bool _initActiveTimeOn;
+
+	float _initActiveLimitTime;
+	float _initActiveCurrentTime;
+
 protected:
 	//활성시간 정도
 	bool	_activeTimeCheckOn;
@@ -86,6 +94,9 @@ protected:
 
 	bool _preUpdateOn;
 	bool _preOneSettingOn;
+protected:
+	//빌보드 관련
+	bool _billBoardY_On;
 
 public:		//함수
 
@@ -278,6 +289,9 @@ public:
 		_activeRenderOn = true;
 		_activeRenderControlOn = true;
 
+		_InitActiveStop = FALSE;
+		_initActiveCurrentTime = 0.0f;
+
 
 		_ptcList.clear();
 		_ptcList.resize(_totalPtcNum);
@@ -320,6 +334,7 @@ public:
 
 	void setEmitterNum(int num) { _emitterNum = num; };
 
+	void setInitActiveLimitTime(float inTime) { _initActiveLimitTime = inTime; _initActiveTimeOn = TRUE; };
 
 public:
 	void EmitterInit(void)
@@ -369,6 +384,17 @@ public:
 		_preOneSettingOn = true;
 
 		_realtimeTrackingPosOn = false;
+
+		_InitActiveStop = FALSE;
+
+		_initActiveTimeOn = FALSE;
+
+		_initActiveLimitTime = 0.0f;
+		_initActiveCurrentTime = 0.0f;
+
+
+		_billBoardY_On = FALSE;
+
 	}
 	dxEmitter() {};
 	~dxEmitter() {};

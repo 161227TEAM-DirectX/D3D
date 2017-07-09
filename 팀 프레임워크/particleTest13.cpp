@@ -26,7 +26,6 @@ HRESULT particleTest13::init()
 	}
 
 
-
 	return S_OK;
 
 }
@@ -41,8 +40,15 @@ void particleTest13::update()
 	_mainCamera->DefaultControl(_timeDelta);
 	_mainCamera->updateCamToDevice();
 
-	_target->DefaultMyControl(_timeDelta);
-	
+
+	if (KEYMANAGER->isToggleKey(VK_SPACE))
+	{
+		_target->DefaultMyControl(_timeDelta);
+	}
+	else
+	{
+		_player->DefaultMyControl(_timeDelta);
+	}
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
 		SKM->findSK("¸ÅÁ÷½¯µå")->setSkillPosTrans(_player);

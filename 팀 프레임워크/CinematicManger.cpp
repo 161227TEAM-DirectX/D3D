@@ -17,14 +17,14 @@ void CinematicManger::init()
 
 void CinematicManger::cinematicInit()
 {
-	IOCINEMATICMANAGER->loadFile("시네마틱");
+	//IOCINEMATICMANAGER->loadFile("시네마틱");
 
-	for (int i = 0; i < IOCINEMATICMANAGER->getCount(); i++)
-	{
-		cinematic = IOCINEMATICMANAGER->findTag("카메라" + to_string(i));
+	//for (int i = 0; i < IOCINEMATICMANAGER->getCount(); i++)
+	//{
+	//	cinematic = IOCINEMATICMANAGER->findTag("카메라" + to_string(i));
 
-		vcinematic.push_back(cinematic);
-	}
+	//	vcinematic.push_back(cinematic);
+	//}
 }
 
 void CinematicManger::cinematicLoad(D3DXVECTOR3 * position, camera * camera, dx::transform * transform)

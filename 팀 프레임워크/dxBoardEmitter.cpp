@@ -35,6 +35,8 @@ HRESULT dxBoardEmitter::init(string textureFileName, int OneTimePaticleNum, floa
 	}*/
 	_activeCurrentTime = 0.0f;
 
+	//_InitActiveStop == TRUE;
+
 	return S_OK;
 }
 
@@ -85,7 +87,7 @@ void dxBoardEmitter::update()
 
 		if (_spawnTime <= _spawnCurrentTime)
 		{
-			if (iter->isAlive == false && checkNum < _onePtcNum)
+			if (iter->isAlive == false && checkNum < _onePtcNum && _InitActiveStop == FALSE)
 			{
 
 				//재활성화
@@ -150,6 +152,19 @@ void dxBoardEmitter::update()
 	//스폰 시간 업
 	_spawnCurrentTime += DeltaTime;
 
+	//초기화 업데이트 부분 활성화 시간 설정(자연스럽게 사라지게 하기)
+	if (_initActiveTimeOn)
+	{
+		_initActiveCurrentTime += DeltaTime;
+		if (_initActiveLimitTime <= _initActiveCurrentTime)
+		{
+			_InitActiveStop == TRUE;
+		}
+	}
+	else
+	{
+		_InitActiveStop == FALSE;
+	}
 }
 
 void dxBoardEmitter::render()
@@ -252,6 +267,10 @@ void dxBoardEmitter::ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcI
 	D3DXMATRIXA16 getView;
 	D3DXMATRIXA16 getViewInverse;
 	_device->GetTransform(D3DTS_VIEW, &getView);
+
+
+	if (_billBoardY_On) {}
+
 	D3DXMatrixInverse(&getViewInverse, NULL, &getView);
 	//D3DXVECTOR3 cameraPos = D3DXVECTOR3(getView._41, getView._42, getView._43);
 
