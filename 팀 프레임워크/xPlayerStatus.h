@@ -105,6 +105,16 @@ private:
 	int _totalmDef;//기본 + 방어구 합산 마법 방어력
 
 public:
-	xPlayerStatus() {};
+	xPlayerStatus() { 
+		_pos = { 0,0,0 };
+		_armor = A_PLATE;
+		_orgAtt = 10000;
+		_att = _orgAtt;
+		_MaxHp = 100000;
+		_hp = _MaxHp;
+		_crit = 20.0f;
+	};
 	~xPlayerStatus() {};
+
+
 };

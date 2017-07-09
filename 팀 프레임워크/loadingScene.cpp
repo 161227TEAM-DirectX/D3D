@@ -54,8 +54,8 @@ void loadingScene::render()
 		//g_eSelectMode = E_MAPTOOL;
 
 		//SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
-		//SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
-		SCENEMANAGER->changeScene("kims");//AItest////
+		SCENEMANAGER->changeScene("gameSceneOne");//gameSceneTwo
+		//SCENEMANAGER->changeScene("kims");//AItest////
 
 //		SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
 		//SCENEMANAGER->changeScene("gameSceneThree");//gameSceneTwo
@@ -68,9 +68,9 @@ void loadingScene::render()
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
 	SoundLoading();
-    //XMeshStaticLoading();
-	//XMeshSkinnedLoading();
-	//PtcLoading();
+    XMeshStaticLoading();
+	XMeshSkinnedLoading();
+	PtcLoading();
 	UILoading();
 	UiTestLoading();
 	AniLoading();

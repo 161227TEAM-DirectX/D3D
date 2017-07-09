@@ -249,6 +249,7 @@ void mapObject::objectSet(int objectNumber, baseObject * tempObect, D3DXMATRIX m
 		temp = new Tportal;
 		temp->portalSet(tempObect->_transform);
 		_tportal.push_back(temp);
+		tempObect->SetObjectNumber(objectNumber);
 		tempObect->SetportalNumber(_tportal.size() - 1);
 		break;
 	}
