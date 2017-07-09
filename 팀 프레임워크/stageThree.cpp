@@ -100,12 +100,12 @@ HRESULT stageThree::init()
 	envTemp = IOSAVEMANAGER->findTag("환경맵");
 	waterTemp = IOSAVEMANAGER->findTag("물결맵");
 
-	float tempY = _terrain->getHeight(5.0f, 5.0f); 
+	float tempY = _terrain->getHeight(5.0f, 5.0f);
 
 	//플레이어 초기화
 	player->out_setlinkTerrain(*_terrain);
 	player->init();
-	player->getPlayerObject()->_transform->SetWorldPosition(5.0f, tempY, 5.0f);
+	//player->getPlayerObject()->_transform->SetWorldPosition(5.0f, tempY, 5.0f);
 	player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	for (int i = 0; i < player->getRenderObject().size(); i++)

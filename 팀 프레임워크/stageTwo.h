@@ -21,6 +21,9 @@ private:
 	Environment*		env;					//환경맵 정보
 	WaterTerrain*		water;					//물지형 정보
 	dx::transform*		toRotate;			//태양 보정값용
+
+	baseObject*			_gate1;
+	baseObject*			_gate2;
 private:
 	vector<baseObject*> _renderObject;			//출력할 오브젝트 벡터
 	vector<baseObject*>	_cullObject;			//프러스텀 컬링된 오브젝트 벡터
@@ -62,5 +65,7 @@ public:
 	string findMonsterName(int&);
 
 	void readyShadowMap(vector<baseObject*>* renderObjects, terrain* pTerrain = NULL);
+
+	void sceneChange();
 };
 

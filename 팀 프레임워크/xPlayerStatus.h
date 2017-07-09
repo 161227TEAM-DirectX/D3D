@@ -106,11 +106,11 @@ private:
 
 public:
 	xPlayerStatus() { 
-		_pos = { 0,0,0 };
+		_pos = { 0 ,0, 0 };
 		_armor = A_PLATE;
-		_orgAtt = 10000;
+		_orgAtt = 1000000;
 		_att = _orgAtt;
-		_MaxHp = 100000;
+		_MaxHp = 1000000;
 		_hp = _MaxHp;
 		_crit = 20.0f;
 	};

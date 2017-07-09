@@ -55,7 +55,7 @@ void loadingScene::render()
 
 		//SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
 
-		SCENEMANAGER->changeScene("gameSceneOne");//gameSceneTwo
+		SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
 		//SCENEMANAGER->changeScene("kims");//AItest////
 
 //		SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
