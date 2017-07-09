@@ -147,6 +147,8 @@ void dxParticleSystem::render()
 	//파티클 시스템 활성화 여부 판단
 	if (_isActive == FALSE) return;
 
+	//_device->SetTexture(0, NULL);
+
 	D3DXMATRIXA16 matInitWorld;
 	D3DXMatrixIdentity(&matInitWorld);
 
@@ -171,6 +173,9 @@ void dxParticleSystem::render()
 
 	}
 	_device->SetTransform(D3DTS_WORLD, &matInitWorld);
+
+	//_device->SetTexture(0, NULL);
+
 }
 
 bool dxParticleSystem::autoTimeReset(bool ResetFunOn)

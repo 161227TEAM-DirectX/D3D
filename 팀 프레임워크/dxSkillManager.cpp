@@ -25,7 +25,7 @@ void dxSkillManager::skillSetting()
 	this->addSK("매직슈터", new skPlayer_MagicShoot);
 	this->addSK("힐", new skPlayer_Heal);
 	this->addSK("매직쉴드", new skPlayer_Shield);
-	this->addSK("파이어매직", new skPlayer_FireMagic);
+	//this->addSK("파이어매직", new skPlayer_FireMagic);
 	this->addSK("라이트닝", new skPlayer_Lightning);
 	this->addSK("샛별_떨구기", new skPlayer_ShootingStar);
 	this->addSK("하늘의_대검", new skPlayer_SkySword);
