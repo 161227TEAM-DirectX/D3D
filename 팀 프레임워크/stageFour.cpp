@@ -19,6 +19,7 @@ HRESULT stageFour::clear(void)
 	toRotate = nullptr;
 	objectSet = nullptr;
 
+
 	return S_OK;
 }
 
@@ -124,6 +125,17 @@ HRESULT stageFour::init()
 	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
 	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, 5));
 
+	for (int i = 0; i < _renderObject.size(); i++)
+	{
+		if ((192 == _renderObject[i]->getObjectNumber()) || (190 == _renderObject[i]->getObjectNumber()))
+		{
+			//이게 앞문
+			if (_renderObject[i]->getportalNumber() == 0)
+			{
+				_gate1 = _renderObject[i];
+			}
+		}
+	}
 
 	return S_OK;
 }
@@ -134,6 +146,8 @@ void stageFour::release()
 
 void stageFour::update()
 {
+	sceneChange();
+
 	shadowUpdate();
 
 	currTime += _timeDelta;
@@ -303,4 +317,13 @@ void stageFour::readyShadowMap(vector<baseObject*>* renderObjects, terrain * pTe
 	}
 
 	_directionLightCamera->renderTextureEnd();
+}
+
+void stageFour::sceneChange()
+{
+	if (PHYSICSMANAGER->isOverlap(player->getPlayerObject(), _gate1))
+	{
+		SCENEMANAGER->changeScene("gameSceneOne");
+		PLAYERMANAGER->SetPos(D3DXVECTOR3(5.5f, 0, 114.0f));
+	}
 }

@@ -21,7 +21,7 @@ mainGame::mainGame()
 
 	SCENEMANAGER->addScene("test", new cCutsceneTest, false);
 
-	SCENEMANAGER->addScene("loading", new loadingScene, true);	
+	SCENEMANAGER->addScene("loading", new loadingScene, true);
 
 	//SCENEMANAGER->addScene("test", new cMinimapTest, false);
 	SCENEMANAGER->addScene("start", new startScene, false);

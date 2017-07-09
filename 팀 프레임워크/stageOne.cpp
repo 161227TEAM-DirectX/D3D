@@ -78,7 +78,7 @@ HRESULT stageOne::init()
 	//플레이어 초기화
 	player->out_setlinkTerrain(*_terrain);
 	player->init();
-	player->getPlayerObject()->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+	//player->getPlayerObject()->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
 	player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	for (int i = 0; i < player->getRenderObject().size(); i++)
@@ -93,6 +93,26 @@ HRESULT stageOne::init()
 	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
 	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, 5));
 
+
+	for (int i = 0; i < _renderObject.size(); i++)
+	{
+		if ((192 == _renderObject[i]->getObjectNumber()) || (190 == _renderObject[i]->getObjectNumber()) )
+		{
+			//이게 앞문
+			if(_renderObject[i]->getportalNumber() == 0)
+			{
+				_gate1 = _renderObject[i];
+			}
+
+			if (_renderObject[i]->getportalNumber() == 1)
+			{
+				_gate2 = _renderObject[i];
+			}
+		}
+	}
+
+	//player->setBGate();
+
 	return S_OK;
 }
 
@@ -102,6 +122,8 @@ void stageOne::release()
 
 void stageOne::update()
 {
+	sceneChange();
+
 	shadowUpdate();
 
 	currTime += _timeDelta;
@@ -179,9 +201,11 @@ void stageOne::render()
 			player->out_updateBladeLight();
 		}
 	}
+
 	player->render();
 
 	m_pUIPlayer->render();
+
 }
 
 HRESULT stageOne::clear(void)
@@ -323,3 +347,19 @@ void stageOne::readyShadowMap(vector<baseObject*>* renderObjects, terrain * pTer
 
 	_directionLightCamera->renderTextureEnd();
 }
+
+void stageOne::sceneChange()
+{
+	if (PHYSICSMANAGER->isOverlap(player->getPlayerObject(), _gate1))
+	{
+		SCENEMANAGER->changeScene("gameSceneTwo");
+		PLAYERMANAGER->SetPos(D3DXVECTOR3(-37, 0, -110));
+	}
+
+	if (PHYSICSMANAGER->isOverlap(player->getPlayerObject(), _gate2))
+	{
+		SCENEMANAGER->changeScene("gameSceneFour");
+		PLAYERMANAGER->SetPos(D3DXVECTOR3(0, 0, 0));
+	}
+}
+

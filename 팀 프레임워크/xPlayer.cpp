@@ -6,49 +6,15 @@
 HRESULT xPlayer::init()
 {
 	_dmText = new damageText;
-
-	//스킬 루틴을 플레이어 내부에 작성해야겠다.
-	//필요한 루틴 : 파티클온, 애니메이션 바꾸기, 
-	//우선 맵에 스킬 정보를 저장한다...
-
+	
 	_handTrans = new dx::transform;
 	_edgeTrans = new dx::transform;
 
-
-
-	//테스트용 라이트 스킬
-	//_lightSkill = new SK_Boss00;
-	//_skillTrans = new dx::transform;
-	//_lightSkill->init();
-	//_lightSkill->Reset();
-
-	//D3DXVECTOR3 pos4[4] = { D3DXVECTOR3(-1,-1,-2),D3DXVECTOR3(1,1,1),D3DXVECTOR3(2,2,2),D3DXVECTOR3(3,3,3) };
-
-	//D3DXVECTOR3 pos1 = { 0,0,0 };
-
-	//D3DXVec3CatmullRom(&pos1, &pos4[0], &pos4[1], &pos4[2], &pos4[3], -1.0f);
-
-	//-1.0~2.0
-
 	_nowSelectedSkill = SKILL_NONE;
-
-
 
 	//메시 로딩
 	_state = P_STAND;
 	_prevState = P_STAND;
-	PLAYERMANAGER->SetArmor(A_PLATE);
-	//PLAYERMANAGER->SetWeapon(W_BLACK_WING);
-	//PLAYERMANAGER->SetShield(SH_CROSS);
-
-
-	PLAYERMANAGER->SetorgAtt(10000);
-	PLAYERMANAGER->Setatt(PLAYERMANAGER->GetorgAtt());
-
-	PLAYERMANAGER->SetMaxHp(10000);
-	PLAYERMANAGER->SetHp(PLAYERMANAGER->GetMaxHp());
-
-	PLAYERMANAGER->SetCrit(20.0f);
 
 	_damagedTime = 0.0f;
 	_stunnedTime = 0.0f;
@@ -113,18 +79,19 @@ HRESULT xPlayer::init()
 	_playerObject->setMesh(pSkinned);
 	_playerObject->setActive(true);
 
-	//float tempY = linkTerrain->getHeight(_playerObject->_transform->GetWorldPosition().x, _playerObject->_transform->GetWorldPosition().z);
-
-	//_playerObject->_transform->SetWorldPosition(D3DXVECTOR3(_playerObject->_transform->GetWorldPosition().x, tempY, _playerObject->_transform->GetWorldPosition().z));
+	//저장된 위치를 불러온다
+	
 
 	_renderObjects.push_back(_playerObject);
 
-	dx::transform* playerTrans = _playerObject->_transform;
-	D3DXVECTOR3 pos = playerTrans->GetWorldPosition();
+	//dx::transform* playerTrans = _playerObject->_transform;
+	D3DXVECTOR3 pos = PLAYERMANAGER->GetPos();
 
-	_playerObject->_boundBox.setBound(&D3DXVECTOR3(pos.x, pos.y + 0.5f, pos.z), &D3DXVECTOR3(0.3, 0.5, 0.3));
+	_playerObject->_transform->SetWorldPosition(pos);
 
-	_attackTrans.SetWorldPosition(pos.x, pos.y + 0.5f, pos.z + 0.8);
+	_playerObject->_boundBox.setBound(&D3DXVECTOR3(0, 0.5f, 0), &D3DXVECTOR3(0.3, 0.5, 0.3));
+
+	_attackTrans.SetWorldPosition(0, 0.5f, 0.8);
 
 	_attackBound.setBound(&_attackTrans.GetWorldPosition(), &D3DXVECTOR3(0.5, 0.5, 0.5));
 
@@ -159,7 +126,7 @@ HRESULT xPlayer::init()
 	//웨폰 오브젝트 초기화 디폴트로 블랙윙을 가져오고 w_none이면 액티브 하지 않는다.
 	_weaponObject = new baseObject;
 
-	PLAYERMANAGER->SetWeapon(W_BLACK_WING);
+	//PLAYERMANAGER->SetWeapon(W_BLACK_WING);
 
 	switch (PLAYERMANAGER->GetWeapon())
 	{
@@ -457,6 +424,7 @@ void xPlayer::release(void)
 void xPlayer::LoadData()
 {
 	//플레이어 데이터 싱글톤 함수에 데이터를 초기화 시킨다. 이게 꼭 플레이어 클래스여야 할까?
+	//PLAYERMANAGER->SetArmor(A_PLATE);
 	PLAYERMANAGER->SetWeapon(W_NONE);
 	PLAYERMANAGER->SetShield(SH_NONE);
 

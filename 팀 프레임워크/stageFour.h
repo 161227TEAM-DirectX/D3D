@@ -20,6 +20,8 @@ private:
 	Environment*		env;					//환경맵
 	WaterTerrain*		water;					//물지형 맵
 	dx::transform*		toRotate;				//태양 보정값용
+
+	baseObject*			_gate1;
 private:
 	vector<baseObject*> _renderObject;
 	vector<baseObject*>	_cullObject;
@@ -48,5 +50,7 @@ public:
 	void shadowUpdate(void);
 
 	void readyShadowMap(vector<baseObject*>* renderObjects, terrain* pTerrain = NULL);
+
+	void sceneChange();
 };
 
