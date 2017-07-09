@@ -94,6 +94,9 @@ protected:
 
 	bool _preUpdateOn;
 	bool _preOneSettingOn;
+protected:
+	//빌보드 관련
+	bool _billBoardY_On;
 
 public:		//함수
 
@@ -388,6 +391,9 @@ public:
 
 		_initActiveLimitTime = 0.0f;
 		_initActiveCurrentTime = 0.0f;
+
+
+		_billBoardY_On = FALSE;
 
 	}
 	dxEmitter() {};

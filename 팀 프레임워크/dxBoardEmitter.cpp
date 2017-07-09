@@ -267,6 +267,10 @@ void dxBoardEmitter::ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcI
 	D3DXMATRIXA16 getView;
 	D3DXMATRIXA16 getViewInverse;
 	_device->GetTransform(D3DTS_VIEW, &getView);
+
+
+	if (_billBoardY_On) {}
+
 	D3DXMatrixInverse(&getViewInverse, NULL, &getView);
 	//D3DXVECTOR3 cameraPos = D3DXVECTOR3(getView._41, getView._42, getView._43);
 
