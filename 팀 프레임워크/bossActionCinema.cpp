@@ -64,7 +64,7 @@ int bossActionCinema::Update()
 				owner->getSkinnedAnim().Play("Animation_61", 1.0f);
 				SOUNDMANAGER->stop("º¸½º¼û¼Ò¸®2");
 				SOUNDMANAGER->play("°È±â");
-				SOUNDMANAGER->setMusicSpeed("°È±â", 0.8F);
+				SOUNDMANAGER->setMusicSpeed("°È±â", 0.7f);
 			}
 
 		}

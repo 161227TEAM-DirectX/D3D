@@ -3,8 +3,6 @@
 class skPlayer_FireMagic : public dxSkill
 {
 private:
-	tagBezierPoint* _BP;
-	float _bpTime[6];
 
 	bool _tagetSettingOn;
 
@@ -12,6 +10,10 @@ private:
 	float _currentShootTime;
 
 	int _actionAtiveNum;
+
+	bool _oneSettingOn;
+
+	boundSphere _collisonSphere[2];
 
 public:
 	virtual HRESULT init();

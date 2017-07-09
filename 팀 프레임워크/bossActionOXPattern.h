@@ -8,7 +8,15 @@ private:
 	LPDIRECT3DVERTEXBUFFER9 vb;
 	LPDIRECT3DINDEXBUFFER9 ib;
 private:
+	int randomOX;
+	pair<pair<float, float>, pair<float, float>> rangeX;
+	pair<pair<float, float>, pair<float, float>> rangeZ;
+	float rangeC;
 	float chargeTime;
+private:
+	void updateRangeC(void);
+	void updateVertex(void);
+	void vertexInit(void);
 public:
 	bossActionOXPattern();
 	~bossActionOXPattern();
@@ -17,5 +25,7 @@ public:
 	int Start() override;
 	//액션을 실행하는 함수 - 순수가상함수
 	int Update() override;
+
+	void Render() override;
 };
 
