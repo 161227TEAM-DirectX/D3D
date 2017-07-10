@@ -184,6 +184,30 @@ void dxSkillContainer::render()
 	}
 }
 
+void dxSkillContainer::ReleaseSkillPS()
+{
+	for (int num = 0; num < _pvPrepaerMaxNum; num++)
+	{
+		if (_pvPrepaerPS[num].empty() == FALSE)
+		{
+			for (int i = 0; i < _pvPrepaerPS[num].size(); i++)
+			{
+				_pvPrepaerPS[num][i]->release();
+				_pvPrepaerPS[num].erase(_pvPrepaerPS[num].begin() + i);
+			}
+			_pvPrepaerPS[num].clear();
+		}
+	}
+	/*for (int num = 0; num < _pvActionMaxNum; num++)
+	{
+		if (_pvActionPS[num].empty() == FALSE) { for (int i = 0; i < _pvActionPS[num].size(); i++) { _pvActionPS[num][i]->render(); } }
+	}
+	for (int num = 0; num < _pvFinishMaxNum; num++)
+	{
+		if (_pvFinishPS[num].empty() == FALSE) { for (int i = 0; i < _pvFinishPS[num].size(); i++) { _pvFinishPS[num][i]->render(); } }
+	}*/
+}
+
 bool dxSkillContainer::AutoResetTime(float inTime)
 {
 	{

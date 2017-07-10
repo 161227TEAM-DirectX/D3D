@@ -113,6 +113,8 @@ public:
 	virtual void setTarget(dx::transform* inTargetTrans) { _targetTrans = inTargetTrans; };
 	//virtual void setAction(transform* inTargetTrans) { _actionTrans = inTargetTrans; };
 
+public:
+	virtual void ReleaseSkillPS();
 
 public:
 	//¿œπ›

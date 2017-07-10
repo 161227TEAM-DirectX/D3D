@@ -16,8 +16,8 @@ private:
 	map<string, dxParticleSystem*>::iterator _iter;
 
 private:
-	PS_Set00* _set00;
-	PS_Set01* _set01;
+	//PS_Set00* _set00;
+	//PS_Set01* _set01;
 	psBossSet00* _bossSet00;
 	psEffectSet00* _effectSet00;
 	psPlayerSet00* _playerSet00;

@@ -422,8 +422,8 @@ void xMeshStatic::setCamera(camera * camera)
 	_staticMeshEffect->SetMatrix("matViewProjection", &matViewProj);
 	D3DXVECTOR3 vEyePos = camera->GetWorldPosition();
 	_staticMeshEffect->SetVector("vEyePos", &D3DXVECTOR4(vEyePos, 1));
-	_staticMeshEffect->SetFloat("camFar", camera->_camFar);
-	_staticMeshEffect->SetFloat("camNear", camera->_camNear);
+	_staticMeshEffect->SetFloat("camFar", camera->_camNear);
+	_staticMeshEffect->SetFloat("camNear", camera->_camFar);
 }
 
 void xMeshStatic::setBaseLight(lightDirection * pDirLight)

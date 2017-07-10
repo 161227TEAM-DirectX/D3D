@@ -154,12 +154,12 @@ HRESULT dxPointEmitter::init(string textureFileName,int OneTimePaticleNum, float
 	return S_OK;
 }
 
-void dxPointEmitter::relese()
+void dxPointEmitter::release()
 {
 	//dxEmitter::release();
 	//if (_psTrans != NULL)	SAFE_DELETE(_psTrans);
 	SAFE_DELETE(_module);
-	//SAFE_DELETE(_trans);
+	SAFE_DELETE(_trans);
 }
 
 

@@ -103,6 +103,7 @@ HRESULT stageTwo::init()
 	IOSAVEOBJECTMANAGER->loadFile("사냥터오브젝트");
 	for (int i = 0; i < IOSAVEOBJECTMANAGER->getCount(); i++)
 	{
+		int x = IOSAVEOBJECTMANAGER->getCount();
 		tagSaveObject object;
 		memset(&object, 0, sizeof(tagSaveObject));
 
@@ -110,6 +111,10 @@ HRESULT stageTwo::init()
 		baseObject* temp = new baseObject;
 		D3DXMATRIX matRotate;
 		objectSet->objectSet(object.objectNumber, temp, matRotate, object.objectX, object.objectY, object.objectZ, object.objectScale, object.objectRotate);
+
+
+		int a = object.objectNumber;
+		
 
 		_renderObject.push_back(temp);
 	}
@@ -147,10 +152,9 @@ HRESULT stageTwo::init()
 	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
 	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3( 0, 5, 5));
 
-
 	for (int i = 0; i < _renderObject.size(); i++)
 	{
-		if (192 == _renderObject[i]->getObjectNumber())
+		if (192 == _renderObject[i]->getObjectNumber() || 190 == _renderObject[i]->getObjectNumber())
 		{
 			//이게 앞문
 			if (_renderObject[i]->getportalNumber() == 0)
@@ -174,7 +178,7 @@ void stageTwo::release()
 
 void stageTwo::update()
 {
-	sceneChange();
+	
 
 	shadowUpdate();
 
@@ -206,6 +210,7 @@ void stageTwo::update()
 
 	m_pUIPlayer->update();
 
+	sceneChange();
 }
 
 void stageTwo::render()
@@ -270,30 +275,52 @@ void stageTwo::render()
 void stageTwo::shadowInit(void)
 {
 	//배경씬 기본 빛 초기화
+	//sceneBaseDirectionLight->_color = D3DXCOLOR(1, 1, 1, 1);
+	//sceneBaseDirectionLight->_intensity = 1.0f;
+
+	////그림자를 만들 카메라 박스 크기 조절용 변수 초기화
+	//_shadowDistance = 100.0f;
+
+	////그림자 카메라의 투영 방식 변경 및 근접 / 원거리 크기 조절
+	//_directionLightCamera->_isOrtho = true;	//직교투영
+	//_directionLightCamera->_camNear = 0.1f;	//근거리
+	//_directionLightCamera->_camFar = _shadowDistance * 2.0f;
+	//_directionLightCamera->_aspect = 1;
+	//_directionLightCamera->_orthoSize = _shadowDistance * 1.5f;	//투영크기
+
+	////텍스처 준비
+	//_directionLightCamera->readyShadowTexture(4096);
+
+	//_mainCamera->readyRenderToTexture(WINSIZEX, WINSIZEY);
+
+	//sceneBaseDirectionLight->_transform->SetWorldPosition(0, 20, 0);
+	//sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(89), 0, 0);
+
+	//배경씬 기본 빛 초기화
 	sceneBaseDirectionLight->_color = D3DXCOLOR(1, 1, 1, 1);
 	sceneBaseDirectionLight->_intensity = 1.0f;
 
 	//그림자를 만들 카메라 박스 크기 조절용 변수 초기화
-	_shadowDistance = 100.0f;
+	_shadowDistance = 10.0f;
 
 	//그림자 카메라의 투영 방식 변경 및 근접 / 원거리 크기 조절
-	_directionLightCamera->_isOrtho = true;	//직교투영
-	_directionLightCamera->_camNear = 0.1f;	//근거리
-	_directionLightCamera->_camFar = _shadowDistance * 2.0f;
+	_directionLightCamera->_isOrtho = true;
+	_directionLightCamera->_camNear = 0.01f;
+	_directionLightCamera->_camFar = 30;
 	_directionLightCamera->_aspect = 1;
-	_directionLightCamera->_orthoSize = _shadowDistance * 1.5f;	//투영크기
-
-	//텍스처 준비
+	_directionLightCamera->_orthoSize = 60;	//투영크기는 그림자크기로
 	_directionLightCamera->readyShadowTexture(4096);
 
 	_mainCamera->readyRenderToTexture(WINSIZEX, WINSIZEY);
 
 	sceneBaseDirectionLight->_transform->SetWorldPosition(0, 20, 0);
 	sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(89), 0, 0);
+
 }
 
 void stageTwo::shadowUpdate(void)
 {
+	/*
 	_mainCamera->updateBase();
 	//sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
 
@@ -307,6 +334,19 @@ void stageTwo::shadowUpdate(void)
 		(-lightDir * _shadowDistance);
 
 	_directionLightCamera->SetWorldPosition(lightPos.x, lightPos.y, lightPos.z);
+	_directionLightCamera->LookDirection(lightDir);
+
+	//쉐도우맵 준비
+	this->readyShadowMap(&this->_renderObject, this->_terrainShadow);*/
+	//===========================================================================
+
+	_mainCamera->updateBase();
+
+	D3DXVECTOR3 camPos = player->getPlayerObject()->_transform->GetWorldPosition();	//메인카메라의 위치
+
+	D3DXVECTOR3 lightDir = sceneBaseDirectionLight->_transform->GetForward();			//방향성 광원의 방향
+
+	_directionLightCamera->SetWorldPosition(camPos.x, camPos.y + 5, camPos.z);
 	_directionLightCamera->LookDirection(lightDir);
 
 	//쉐도우맵 준비
@@ -505,7 +545,7 @@ void stageTwo::readyShadowMap(vector<baseObject*>* renderObjects, terrain * pTer
 	//만약 Terrain 도 쉐도우 맵을 그려야한다면...
 	if (pTerrain != NULL)
 	{
-		pTerrain->renderShadow(_mainCamera);
+		//pTerrain->renderShadow(_mainCamera);
 	}
 
 	_directionLightCamera->renderTextureEnd();
@@ -513,15 +553,30 @@ void stageTwo::readyShadowMap(vector<baseObject*>* renderObjects, terrain * pTer
 
 void stageTwo::sceneChange()
 {
+
 	if (PHYSICSMANAGER->isOverlap(player->getPlayerObject(), _gate1))
 	{
-		SCENEMANAGER->changeScene("gameSceneOne");
+
+		for (int i = 0; i < _renderObject.size(); i++)
+		{
+			SAFE_DELETE(_renderObject[i]);
+		}
+
 		PLAYERMANAGER->SetPos(D3DXVECTOR3(0, 0, -110));
+		SCENEMANAGER->changeScene("gameSceneOne");
+
+
+
 	}
 
 	if (PHYSICSMANAGER->isOverlap(player->getPlayerObject(), _gate2))
 	{
-		SCENEMANAGER->changeScene("gameSceneThree");
+		for (int i = 0; i < _renderObject.size(); i++)
+		{
+			SAFE_DELETE(_renderObject[i]);
+		}
+
 		PLAYERMANAGER->SetPos(D3DXVECTOR3(0, 0, 33));
+		SCENEMANAGER->changeScene("gameSceneThree");
 	}
 }

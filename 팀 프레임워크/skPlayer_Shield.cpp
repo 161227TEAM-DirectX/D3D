@@ -21,9 +21,6 @@ HRESULT skPlayer_Shield::init()
 		_pvFinishPS[0][i]->SetLimitTime(3.0f);
 	}
 
-	//_OneActionSettingOn = true;
-
-	_BP = new tagBezierPoint[6];
 
 	for (int i = 0; i < 6; i++)
 	{
@@ -89,13 +86,6 @@ void skPlayer_Shield::Finsh()
 void skPlayer_Shield::Reset()
 {
 	_OneActionSettingOn = true;
-
-	_BP = new tagBezierPoint[6];
-
-	for (int i = 0; i < 6; i++)
-	{
-		_bpTime[i] = 0.0f;
-	}
 
 	_actionAtiveNum = 0;
 

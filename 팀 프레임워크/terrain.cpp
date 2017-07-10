@@ -207,16 +207,16 @@ void terrain::render(camera * cam, lightDirection * directionLight)
 	_terrainEffect->End();
 
 
-	//Á¤Á¡·»´õ
-	if (_isVertexDraw)
-	{
-		_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-		_device->SetStreamSource(0, _terrainVb, 0, sizeof(TERRAINVERTEX));
-		_device->SetIndices(_terrainIb);
-		_device->SetVertexDeclaration(_terrainDecl);
-		_device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, _totalVerNum, 0, _totalTriangle);
-		_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-	}
+	////Á¤Á¡·»´õ
+	//if (_isVertexDraw)
+	//{
+	//	_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+	//	_device->SetStreamSource(0, _terrainVb, 0, sizeof(TERRAINVERTEX));
+	//	_device->SetIndices(_terrainIb);
+	//	_device->SetVertexDeclaration(_terrainDecl);
+	//	_device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, _totalVerNum, 0, _totalTriangle);
+	//	_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+	//}
 }
 
 

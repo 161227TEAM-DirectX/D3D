@@ -62,17 +62,16 @@ HRESULT dxParticleSystem::init()
 		}
 	}
 
-
 	return S_OK;
 }
 
 void dxParticleSystem::release()
 {
-	SAFE_DELETE(_trans);
 	for (int i = 0; i < _vEmitter.size(); i++)
 	{
 		_vEmitter[i]->release();
 	}
+	SAFE_DELETE(_trans);
 }
 
 

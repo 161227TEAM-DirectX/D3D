@@ -575,10 +575,10 @@ void xMeshSkinned::setCamera(camera * camera)
 	D3DXVECTOR3 vEyePos = camera->GetWorldPosition();
 	_sSkinnedMeshEffect->SetVector("vEyePos", &D3DXVECTOR4(vEyePos, 1));
 
-	_sSkinnedMeshEffect->SetVector("vEyePos", &D3DXVECTOR4(vEyePos, 1));
 	_sSkinnedMeshEffect->SetFloat("camFar", camera->_camFar);
 	_sSkinnedMeshEffect->SetFloat("camNear", camera->_camNear);
 }
+
 //베이스 라이팅 설정
 void xMeshSkinned::setBaseLight(lightDirection * pDirLight)
 {

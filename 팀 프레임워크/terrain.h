@@ -78,6 +78,7 @@ public:
 	void render(camera* cam, lightDirection* directionLight);
 	void render(camera* cam, lightDirection* directionLight, camera* directionLightCamera);
 	void renderShadow(camera* directionLightCam);
+	
 
 	//Ray 히트 위치를 얻는다.
 	bool isIntersectRay(D3DXVECTOR3* pOut, LPRay ray);

@@ -126,7 +126,7 @@ HRESULT xPlayer::init()
 	//웨폰 오브젝트 초기화 디폴트로 블랙윙을 가져오고 w_none이면 액티브 하지 않는다.
 	_weaponObject = new baseObject;
 
-	//PLAYERMANAGER->SetWeapon(W_BLACK_WING);
+	PLAYERMANAGER->SetWeapon(W_BLACK_WING);
 
 	switch (PLAYERMANAGER->GetWeapon())
 	{
@@ -659,6 +659,8 @@ void xPlayer::playerStateManager()
 
 
 	//이렇게 하면 높은 곳에서 뛰어 내릴 수 없음.
+	//나중에 중력 적용방식으로 변경하자. 됬지?
+	//근데 그러나 저러나 똑 같을텐데...
 	if (_isJump)//점프중인가?
 	{
 		_degree += _jumpSpeed * _timeDelta;

@@ -109,7 +109,7 @@ public:		//함수
 	//virtual void reset() = 0;
 
 public:	//해제
-	virtual void release();
+	virtual void release() = 0;
 	//virtual void CopyInit() = 0;
 
 public:

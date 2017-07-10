@@ -20,17 +20,8 @@ HRESULT skPlayer_Heal::init()
 	{
 		_pvFinishPS[0][i]->SetLimitTime(0.4f);
 	}
-	
-
 
 	_OneActionSettingOn = true;
-
-	_BP = new tagBezierPoint[6];
-
-	for (int i = 0; i < 6; i++)
-	{
-		_bpTime[i] = 0.0f;
-	}
 
 	_actionAtiveNum = 0;
 
@@ -91,13 +82,6 @@ void skPlayer_Heal::Finsh()
 void skPlayer_Heal::Reset()
 {
 	_OneActionSettingOn = true;
-
-	_BP = new tagBezierPoint[6];
-
-	for (int i = 0; i < 6; i++)
-	{
-		_bpTime[i] = 0.0f;
-	}
 
 	_actionAtiveNum = 0;
 
