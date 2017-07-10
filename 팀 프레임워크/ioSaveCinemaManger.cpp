@@ -21,6 +21,7 @@ void ioSaveCinemaManger::loadFile(string filePath)
 	inFile.getline(str, 128);
 
 	count = 0;
+	_resourceTable.clear();
 	while (!inFile.eof())
 	{
 		count++;

@@ -74,7 +74,7 @@ iGameNode * sceneManager::addScene(string sceneName, iGameNode * scene, bool isS
 		return scene;
 }
 
-HRESULT sceneManager::changeScene(string sceneName)
+HRESULT sceneManager::changeScene(string sceneName, bool isFirst)
 {
 	miSceneList find = _mSceneList.find(sceneName);
 
@@ -84,11 +84,15 @@ HRESULT sceneManager::changeScene(string sceneName)
 	//바꾸려는 씬과 현재씬이 같냐?
 	if (find->second == _currentScene) return E_FAIL;
 
+	if (isFirst == false)
+	{
+		_currentScene->release();
+	}
+
 	//여기까지 왔으면 문제 없으니 씬 초기화 하고 변경해준다
 	if (SUCCEEDED(find->second->init()))
 	{
 		_currentScene = find->second;
-
 		return S_OK;
 	}
 

@@ -174,6 +174,21 @@ HRESULT stageTwo::init()
 
 void stageTwo::release()
 {
+	for (int i = 0; i < _renderObject.size(); i++)
+	{
+		SAFE_DELETE(_renderObject[i]);
+	}
+	SAFE_DELETE(_mainCamera);
+	SAFE_DELETE(_directionLightCamera);
+	SAFE_DELETE(sceneBaseDirectionLight);
+	SAFE_DELETE(_terrain);
+	SAFE_DELETE(_terrainShadow);
+	SAFE_DELETE(env);
+	SAFE_DELETE(water);
+	SAFE_DELETE(toRotate);
+	SAFE_DELETE(m_pUIPlayer);
+	SAFE_DELETE(player);
+	SAFE_DELETE(objectSet);
 }
 
 void stageTwo::update()
@@ -576,6 +591,6 @@ void stageTwo::sceneChange()
 		}
 
 		PLAYERMANAGER->SetPos(D3DXVECTOR3(0, 0, 33));
-		SCENEMANAGER->changeScene("gameSceneThree");
+		SCENEMANAGER->changeScene("gameSceneThree", false);
 	}
 }

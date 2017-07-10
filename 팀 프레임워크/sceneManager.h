@@ -24,7 +24,7 @@ public:
 	iGameNode* addScene(string sceneName, iGameNode* scene, bool isSceneChange = false);
 
 	//¾Àº¯°æ
-	HRESULT changeScene(string sceneName);
+	HRESULT changeScene(string sceneName, bool isFirst = true);
 
 	sceneManager() : _currentScene(NULL) {}
 	~sceneManager() {}

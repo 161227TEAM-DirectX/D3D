@@ -55,6 +55,7 @@ void loadingScene::render()
 		SCENEMANAGER->changeScene("gameSceneOne");//gameSceneOne
 		//SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
 		//SCENEMANAGER->changeScene("gameSceneThree");//gameSceneThree
+		//SCENEMANAGER->changeScene("gameSceneFour");//gameSceneFour
 		//SCENEMANAGER->changeScene("EndingScene");//EndingScene
 		//SCENEMANAGER->changeScene("kims");//kims
 		//SCENEMANAGER->changeScene("AItest");//AItest
@@ -1030,3 +1031,4 @@ void loadingScene::SoundLoading()
 	SOUNDMANAGER->addSound("몬스터공격", FILEPATH_MANAGER->GetFilepath("몬스터공격"));
 	SOUNDMANAGER->addSound("몬스터죽음", FILEPATH_MANAGER->GetFilepath("몬스터죽음"));
 }
+
