@@ -274,6 +274,7 @@
     <ClInclude Include="ioSaveCinemaManger.h" />
     <ClInclude Include="ioSaveEndingManager.h" />
     <ClInclude Include="ioSaveManager.h" />
+    <ClInclude Include="ioSaveMonsterBoxManager.h" />
     <ClInclude Include="ioSaveMonsterManger.h" />
     <ClInclude Include="ioSaveNameManager.h" />
     <ClInclude Include="ioSaveNodeManager.h" />
@@ -501,6 +502,7 @@
     <ClCompile Include="ioSaveCinemaManger.cpp" />
     <ClCompile Include="ioSaveEndingManager.cpp" />
     <ClCompile Include="ioSaveManager.cpp" />
+    <ClCompile Include="ioSaveMonsterBoxManager.cpp" />
     <ClCompile Include="ioSaveMonsterManger.cpp" />
     <ClCompile Include="ioSaveNameManager.cpp" />
     <ClCompile Include="ioSaveNodeManager.cpp" />

@@ -55,12 +55,12 @@ void loadingScene::render()
 		//SCENEMANAGER->changeScene("gameSceneFour");
 		//SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
 
-		//SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
+		SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
 		//SCENEMANAGER->changeScene("kims");//AItest////
 
-		SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
+		//SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
 		//SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
-		//SCENEMANAGER->changeScene("kims");//AItest////
+		//SCENEMANAGER->changeScene("AItest");//AItest////
 	}
 	LeaveCriticalSection(&_cs);
 }
@@ -72,7 +72,7 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 	XMeshSkinnedLoading();
 
 	//이거 주석 풀면 됨!!!
-	//PtcLoading();
+	PtcLoading();
 
 	UILoading();
 	UiTestLoading();

@@ -337,7 +337,15 @@ struct tagSaveName
 	string password;
 };
 
-
+struct tagSaveMonsterBoundBox
+{
+	string Name;
+	D3DXVECTOR3 localCenter;
+	D3DXVECTOR3 localMaxPos;
+	D3DXVECTOR3	localMinPos;
+	D3DXVECTOR3 halfSize;
+	float radius;
+};
 
 
 
@@ -404,7 +412,7 @@ using namespace myUtil;
 #include "ioSaveCinemaManger.h"
 #include "ioSaveEndingManager.h"
 #include "ioSaveNameManager.h"
-
+#include "ioSaveMonsterBoxManager.h"
 
 
 #include "cObjectManager.h"
@@ -452,8 +460,7 @@ using namespace myUtil;
 #define IOSAVEENDING ioSaveEndingManager::getSingleton()
 #define CINEMATICMANAGER  CinematicManger::getSingleton()
 #define IOCINEMATICMANAGER ioSaveCinemaManger::getSingleton()
-
-
+#define IOSAVEMONSTERBOX ioSaveMonsterBoxManager::getSingleton()
 
 
 
