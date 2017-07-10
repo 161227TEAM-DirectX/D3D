@@ -13,6 +13,7 @@ void dxParticleTextureManager::ImgRelease(void)
 	for (_iter; _iter != _mapTex.end(); ++_iter)
 	{
 		SAFE_DELETE(_iter->second);
+		//_iter.
 	}
 	_mapTex.clear();
 }

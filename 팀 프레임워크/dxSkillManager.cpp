@@ -25,7 +25,7 @@ void dxSkillManager::skillSetting()
 	this->addSK("매직슈터", new skPlayer_MagicShoot);
 	this->addSK("힐", new skPlayer_Heal);
 	this->addSK("매직쉴드", new skPlayer_Shield);
-	//this->addSK("파이어매직", new skPlayer_FireMagic);
+	this->addSK("파이어매직", new skPlayer_FireMagic);
 	this->addSK("라이트닝", new skPlayer_Lightning);
 	this->addSK("샛별_떨구기", new skPlayer_ShootingStar);
 	this->addSK("하늘의_대검", new skPlayer_SkySword);
@@ -33,7 +33,7 @@ void dxSkillManager::skillSetting()
 	//보스 스킬 등록
 	this->addSK("브레스", new skBoss_Breath);
 	this->addSK("대마법", new skBoss_GrandMagic);
-	this->addSK("샤우팅", new skBoss_Shouting);
+	//this->addSK("샤우팅", new skBoss_Shouting);//터짐 하지마~
 	this->addSK("에너지탄", new skBoss_EnergyBullet);
 
 
@@ -46,6 +46,7 @@ void dxSkillManager::skillRelease()
 	_iter = _mapSK.begin();
 	for (_iter; _iter != _mapSK.end(); ++_iter)
 	{
+		//_iter->second->ReleaseSkillPS();
 		SAFE_DELETE(_iter->second);
 	}
 	_mapSK.clear();

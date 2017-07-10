@@ -11,5 +11,6 @@ HRESULT dxParticleSystemSet::init()
 
 void dxParticleSystemSet::release()
 {
-	//SAFE_DELETE(_PS);
+	_PS->release();
+	SAFE_DELETE(_PS);
 }

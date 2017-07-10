@@ -29,7 +29,7 @@ private:
 public:
 	virtual HRESULT init(string textureFileName, int OneTimePaticleNum = 10, float spawnTime = 1.0f, int totalPaticleNum = 0);
 	//vietual HRESULT init(string textureFileName, int OneTimePaticleNum = 10, float spawnTime = 1.0f, int allPaticleNum = 200);
-	virtual void relese();
+	virtual void release();
 	virtual void update();
 	virtual void render();
 
