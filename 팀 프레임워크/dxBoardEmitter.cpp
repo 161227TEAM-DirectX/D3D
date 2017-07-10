@@ -43,10 +43,11 @@ HRESULT dxBoardEmitter::init(string textureFileName, int OneTimePaticleNum, floa
 void dxBoardEmitter::release()
 {
 	//dxEmitter::release();
+	SAFE_DELETE(_module);
 	SAFE_DELETE_ARRAY(_ptcVertex);
 	SAFE_DELETE_ARRAY(_ptcIndex);
 	//SAFE_DELETE_ARRAY(_trans);
-	SAFE_DELETE(_module);
+
 }
 
 
@@ -85,9 +86,9 @@ void dxBoardEmitter::update()
 			//iter->isInit = false;
 		}
 
-		if (_spawnTime <= _spawnCurrentTime)
+		if ((_spawnTime <= _spawnCurrentTime) && _InitActiveStop == FALSE)
 		{
-			if (iter->isAlive == false && checkNum < _onePtcNum && _InitActiveStop == FALSE)
+			if (iter->isAlive == false && checkNum < _onePtcNum)
 			{
 
 				//재활성화
@@ -156,14 +157,16 @@ void dxBoardEmitter::update()
 	if (_initActiveTimeOn)
 	{
 		_initActiveCurrentTime += DeltaTime;
+
+
 		if (_initActiveLimitTime <= _initActiveCurrentTime)
 		{
-			_InitActiveStop == TRUE;
+			_InitActiveStop = TRUE;
 		}
 	}
 	else
 	{
-		_InitActiveStop == FALSE;
+		_InitActiveStop = FALSE;
 	}
 }
 
@@ -265,23 +268,16 @@ void dxBoardEmitter::ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcI
 
 	//카메라 행렬 가져오기
 	D3DXMATRIXA16 getView;
-	D3DXMATRIXA16 getViewInverse;
 	_device->GetTransform(D3DTS_VIEW, &getView);
-
-
-	if (_billBoardY_On) {}
-
-	D3DXMatrixInverse(&getViewInverse, NULL, &getView);
+	
 	//D3DXVECTOR3 cameraPos = D3DXVECTOR3(getView._41, getView._42, getView._43);
 
 	D3DXMATRIXA16 matInit;
 	D3DXMatrixIsIdentity(&matInit);
-
 	//_device->SetTransform(D3DTS_WORLD, &matInit);
 
-	getViewInverse._41 = getView._41;
-	getViewInverse._42 = getView._42;
-	getViewInverse._43 = getView._43;
+	
+
 	//vectorReverse
 
 	//Y축 빌보드
@@ -297,13 +293,59 @@ void dxBoardEmitter::ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcI
 	//빌보드 세팅
 	if (_psTrans == NULL)
 	{
-		D3DXMATRIXA16 psTransInverse;
-		D3DXMatrixInverse(&psTransInverse, NULL, &(_psBoardTrans->GetFinalMatrix()*getView));
-		ptcTrans.SetWorldMatrix(psTransInverse);
+
+		if (_billBoardY_On)
+		{
+			D3DXMATRIXA16 psTransInverseY;
+
+			D3DXMATRIXA16 matbillboardY;
+			D3DXMatrixIdentity(&matbillboardY);
+
+			matbillboardY._11 = getView._11;
+			matbillboardY._13 = getView._13;
+			matbillboardY._31 = getView._31;
+			matbillboardY._33 = getView._33;
+
+			D3DXMatrixInverse(&psTransInverseY, NULL, &(_psBoardTrans->GetFinalMatrix()*matbillboardY));
+
+			ptcTrans.SetWorldMatrix(psTransInverseY);
+		}
+		else
+		{
+			D3DXMATRIXA16 psTransInverse;
+			D3DXMatrixInverse(&psTransInverse, NULL, &(_psBoardTrans->GetFinalMatrix()*getView));
+			ptcTrans.SetWorldMatrix(psTransInverse);
+		}
+
 	}
 	else
 	{
-		ptcTrans.SetWorldMatrix(getViewInverse);
+		if (_billBoardY_On)
+		{
+			D3DXMATRIXA16 matbillboardY;
+			D3DXMatrixIdentity(&matbillboardY);
+
+			matbillboardY._11 = getView._11;
+			matbillboardY._13 = getView._13;
+			matbillboardY._31 = getView._31;
+			matbillboardY._33 = getView._33;
+
+			D3DXMatrixInverse(&matbillboardY, NULL, &matbillboardY);
+
+			ptcTrans.SetWorldMatrix(matbillboardY);
+			//D3DXMatrixInverse(&getViewInverse, NULL, &getViewInverse);
+		}
+		else
+		{
+			D3DXMATRIXA16 getViewInverse;
+			D3DXMatrixInverse(&getViewInverse, NULL, &getView);
+
+			getViewInverse._41 = getView._41;
+			getViewInverse._42 = getView._42;
+			getViewInverse._43 = getView._43;
+
+			ptcTrans.SetWorldMatrix(getViewInverse);
+		}
 	}
 
 	//회전 적용

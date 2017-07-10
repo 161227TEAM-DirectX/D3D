@@ -96,12 +96,12 @@ void cRegistBase::Destroy()
 	//파티클시스템매니져 싱글톤 해제(역순2)
 	PSM->ParticleSystemSetRelease();
 	PSM->releaseSingleton();
+	//파티클시스템이펙터매니져 싱글톤 해제(같이 역순3)
+	EFFECT->EffectRelease();
+	EFFECT->releaseSingleton();
 	//파티클시스템텍스쳐매니져 싱글톤 해제(역순3)
 	PTM->ImgRelease();
 	PTM->releaseSingleton();
-	//파티클시스템텍스쳐매니져 싱글톤 해제(같이 역순3)
-	EFFECT->EffectRelease();
-	EFFECT->releaseSingleton();
 	
 	SOUNDMANAGER->release();
 	SOUNDMANAGER->releaseSingleton();

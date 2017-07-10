@@ -59,11 +59,11 @@ int bossActionFlyMove::Update()
 			
 			if (D3DXVec3Length(&(owner->_transform->GetWorldPosition() - tempPos)) <= 0.7f)
 			{
-				if (ch == 1)
-				{
-					isRound = bossActionFlyMove::FLYSTATE::round;
-				}
-				else if (ch == 2)
+				//if (ch == 1)
+				//{
+				//	isRound = bossActionFlyMove::FLYSTATE::round;
+				//}
+				//else if (ch == 2)
 				{
 					isRound = FLYSTATE::oxpattern;
 				}
@@ -114,7 +114,13 @@ int bossActionFlyMove::Update()
 		{
 			lerpTransform = *owner->_transform;
 			angle += D3DXToRadian(30)*_timeDelta;
-			if (angle > D3DX_PI * 2) angle = 0.0f;
+			if (angle >= D3DX_PI)
+			{
+				angle = D3DX_PI;
+				owner->_transform->LookPosition(playerObject->_transform->GetWorldPosition());
+				owner->_transform->RotateSlerp(lerpTransform, *owner->_transform, _timeDelta * 2);
+				break;
+			}
 
 			D3DXMatrixRotationY(&matRotateY, angle);
 			D3DXVec3TransformCoord(&pos, &playerObject->_transform->GetWorldPosition(), &matRotateY);
@@ -143,7 +149,4 @@ void bossActionFlyMove::Render()
 void bossActionFlyMove::attackFireBall(void)
 {
 	
-	
-
-
 }

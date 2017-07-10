@@ -302,6 +302,8 @@ void psEffectSet00::EffectSet03(string psName)
 	_boardEMT->init("ParticleResources/Texture/smoke02_frame4x4.png", 70, 0.5f, 500);
 	//_pointEMT->InitConstSize(2.4f);
 
+	_boardEMT->setInitActiveLimitTime(2.0f);
+
 	_boardEMT->InitRandomLifeTime(2.5f, 3.2f);
 
 	_boardEMT->InitRandomSize(0.0f, 0.2f);

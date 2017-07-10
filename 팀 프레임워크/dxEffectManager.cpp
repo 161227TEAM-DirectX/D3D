@@ -21,8 +21,8 @@ void dxEffectManager::EffectRelease()
 		_iter = _mapEff.begin();
 		while (_iter != _mapEff.end())
 		{
-			SAFE_DELETE(_iter->second);
-			//_mapEff.erase(_iter);
+			//SAFE_DELETE(_iter->second);
+			_mapEff.erase(_iter);
 		}
 	}
 	_mapEff.clear();

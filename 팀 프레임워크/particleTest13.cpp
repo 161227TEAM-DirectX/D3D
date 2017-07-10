@@ -10,10 +10,10 @@ HRESULT particleTest13::init()
 	//testSkill00 = new skPlayer_Heal;
 	//testSkill00 = new skPlayer_MagicShoot;
 	//testSkill00 = new skBoss_Shouting;
-	testSkill00 = new skBoss_GrandMagic;
+	/*testSkill00 = new skBoss_GrandMagic;
 	testSkill00->setSkillPosTrans(_player);
 	testSkill00->setSkillDirTrans(_player);
-	testSkill00->init();
+	testSkill00->init();*/
 
 	_mainCamera = new camera;
 	
@@ -155,7 +155,6 @@ void particleTest13::update()
 	if (KEYMANAGER->isOnceKeyDown('9'))
 	{
 		EFFECT->findEffect("날기_먼지")->setLimitTime(5.0f);
-		
 		EFFECT->findEffect("날기_먼지")->Start(_player);
 		//EFFECT->findEffect("스턴")->setLimitTime(2.0f);
 		//EFFECT->findEffect("스턴")->Start(_player);
@@ -175,14 +174,14 @@ void particleTest13::update()
 
 	}
 
-	if (KEYMANAGER->isOnceKeyDown('P'))
-	{
-		SCENEMANAGER->changeScene("gameSceneOne");//gameSceneTwo
-	}
-	if (KEYMANAGER->isOnceKeyDown('L'))
-	{
-		SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
-	}
+	//if (KEYMANAGER->isOnceKeyDown('P'))
+	//{
+	//	SCENEMANAGER->changeScene("gameSceneOne");//gameSceneTwo
+	//}
+	//if (KEYMANAGER->isOnceKeyDown('L'))
+	//{
+	//	SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
+	//}
 
 }
 

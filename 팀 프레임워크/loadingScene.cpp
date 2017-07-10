@@ -52,13 +52,15 @@ void loadingScene::render()
 	if (m_isChange /*&& m_pLoadingBar->IsFullBar()*/)
 	{
 		//g_eSelectMode = E_MAPTOOL;
-		SCENEMANAGER->changeScene("gameSceneOne");
+		//SCENEMANAGER->changeScene("gameSceneFour");
+		//SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
+
 		//SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
-		//SCENEMANAGER->changeScene("gameSceneThree");//gameSceneThree
-		//SCENEMANAGER->changeScene("gameSceneFour");//gameSceneFour
-		//SCENEMANAGER->changeScene("EndingScene");//EndingScene
-		//SCENEMANAGER->changeScene("kims");//kims
-		//SCENEMANAGER->changeScene("AItest");//AItest
+		//SCENEMANAGER->changeScene("kims");//AItest////
+
+		//SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
+		//SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
+		SCENEMANAGER->changeScene("AItest");//AItest////
 	}
 	LeaveCriticalSection(&_cs);
 }
@@ -66,7 +68,7 @@ void loadingScene::render()
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
 	SoundLoading();
-    XMeshStaticLoading();
+	XMeshStaticLoading();
 	XMeshSkinnedLoading();
 
 	//이거 주석 풀면 됨!!!
