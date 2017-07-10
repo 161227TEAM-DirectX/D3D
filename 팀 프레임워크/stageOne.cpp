@@ -118,11 +118,28 @@ HRESULT stageOne::init()
 
 void stageOne::release()
 {
+	for (int i = 0; i < _renderObject.size(); i++)
+	{
+		SAFE_DELETE(_renderObject[i]);
+	}
+	SAFE_DELETE(_mainCamera);
+	SAFE_DELETE(_directionLightCamera);
+	SAFE_DELETE(sceneBaseDirectionLight);
+	player->release();
+	SAFE_DELETE(player);
+	SAFE_DELETE(env);
+	water->release();
+	SAFE_DELETE(water);
+	SAFE_DELETE(toRotate);
+	SAFE_DELETE(objectSet);
+	SAFE_DELETE(m_pUIPlayer);
+	SAFE_DELETE(_terrain);
+	SAFE_DELETE(_terrainShadow);
 }
 
 void stageOne::update()
 {
-	sceneChange();
+
 
 	shadowUpdate();
 
@@ -154,6 +171,8 @@ void stageOne::update()
 	water->update(waterTemp.number);
 
 	m_pUIPlayer->update();
+
+	sceneChange();
 }
 
 void stageOne::render()
@@ -262,16 +281,14 @@ void stageOne::shadowInit(void)
 	sceneBaseDirectionLight->_intensity = 1.0f;
 
 	//그림자를 만들 카메라 박스 크기 조절용 변수 초기화
-	_shadowDistance = 100.0f;
+	_shadowDistance = 10.0f;
 
 	//그림자 카메라의 투영 방식 변경 및 근접 / 원거리 크기 조절
-	_directionLightCamera->_isOrtho = true;	//직교투영
-	_directionLightCamera->_camNear = 0.1f;	//근거리
-	_directionLightCamera->_camFar = _shadowDistance * 2.0f;
+	_directionLightCamera->_isOrtho = true;
+	_directionLightCamera->_camNear = 0.01f;
+	_directionLightCamera->_camFar = 30;
 	_directionLightCamera->_aspect = 1;
-	_directionLightCamera->_orthoSize = _shadowDistance * 1.5f;	//투영크기
-
-																//텍스처 준비
+	_directionLightCamera->_orthoSize = 60;	//투영크기는 그림자크기로
 	_directionLightCamera->readyShadowTexture(4096);
 
 	_mainCamera->readyRenderToTexture(WINSIZEX, WINSIZEY);
@@ -282,19 +299,30 @@ void stageOne::shadowInit(void)
 
 void stageOne::shadowUpdate(void)
 {
-	_mainCamera->updateBase();
+	
 	//sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
 
 	//광원 위치
-	D3DXVECTOR3 camPos = _mainCamera->GetWorldPosition();	//메인카메라의 위치
-	D3DXVECTOR3 camFront = _mainCamera->GetForward();		//메인카메리의 정면
-	D3DXVECTOR3 lightDir = sceneBaseDirectionLight->_transform->GetForward();	//방향성 빛의 방향
+	//D3DXVECTOR3 camPos = _mainCamera->GetWorldPosition();	//메인카메라의 위치
+	//D3DXVECTOR3 camFront = _mainCamera->GetForward();		//메인카메리의 정면
+	//D3DXVECTOR3 lightDir = sceneBaseDirectionLight->_transform->GetForward();	//방향성 빛의 방향
 
-	D3DXVECTOR3 lightPos = camPos +
-		(camFront * (_shadowDistance * 0.5f)) +
-		(-lightDir * _shadowDistance);
+	//D3DXVECTOR3 lightPos = camPos +
+	//	(camFront * (_shadowDistance * 0.5f)) +
+	//	(-lightDir * _shadowDistance);
 
-	_directionLightCamera->SetWorldPosition(lightPos.x, lightPos.y, lightPos.z);
+
+	//_directionLightCamera->SetWorldPosition(lightPos.x, lightPos.y, lightPos.z);
+	//_directionLightCamera->LookDirection(lightDir);
+
+
+	_mainCamera->updateBase();
+
+	D3DXVECTOR3 camPos = player->getPlayerObject()->_transform->GetWorldPosition();	//메인카메라의 위치
+
+	D3DXVECTOR3 lightDir = sceneBaseDirectionLight->_transform->GetForward();			//방향성 광원의 방향
+
+	_directionLightCamera->SetWorldPosition(camPos.x, camPos.y + 5, camPos.z);
 	_directionLightCamera->LookDirection(lightDir);
 
 	//쉐도우맵 준비
@@ -342,7 +370,7 @@ void stageOne::readyShadowMap(vector<baseObject*>* renderObjects, terrain * pTer
 	//만약 Terrain 도 쉐도우 맵을 그려야한다면...
 	if (pTerrain != NULL)
 	{
-		pTerrain->renderShadow(_mainCamera);
+		//pTerrain->renderShadow(this->_mainCamera);
 	}
 
 	_directionLightCamera->renderTextureEnd();
@@ -352,14 +380,14 @@ void stageOne::sceneChange()
 {
 	if (PHYSICSMANAGER->isOverlap(player->getPlayerObject(), _gate1))
 	{
-		SCENEMANAGER->changeScene("gameSceneTwo");
 		PLAYERMANAGER->SetPos(D3DXVECTOR3(-37, 0, -110));
+		SCENEMANAGER->changeScene("gameSceneTwo");
 	}
 
 	if (PHYSICSMANAGER->isOverlap(player->getPlayerObject(), _gate2))
 	{
-		SCENEMANAGER->changeScene("gameSceneFour");
 		PLAYERMANAGER->SetPos(D3DXVECTOR3(0, 0, 0));
+		SCENEMANAGER->changeScene("gameSceneFour");
 	}
 }
 

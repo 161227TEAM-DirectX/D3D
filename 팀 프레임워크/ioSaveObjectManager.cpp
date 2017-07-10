@@ -3,6 +3,8 @@
 
 void ioSaveObjectManager::loadFile(string filePath)
 {
+
+
 	tagSaveObject object;
 	memset(&object, 0, sizeof(object));
 
@@ -19,8 +21,10 @@ void ioSaveObjectManager::loadFile(string filePath)
 
 	inFile.getline(str, 128);
 	inFile.getline(str, 128);
-
+	
+	_resourceTable.clear();
 	count = 0;
+
 	while(!inFile.eof())
 	{
 		count++;

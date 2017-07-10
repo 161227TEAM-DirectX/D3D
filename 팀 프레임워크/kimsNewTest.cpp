@@ -12,12 +12,11 @@ HRESULT kimsNewTest::init()
 	temp->GetUI()->SetCenterDraw(true);
 	UI_MANAGER->AddUI("quickSlotUI_back", temp);
 
+
 	//SOUNDMANAGER->play("마을1");
 	_mainCamera = new camera;
 
 	_directionLightCamera = new camera;
-
-	_playerDirectionLightCamera = new camera;
 
 	_sceneBaseDirectionLight = new lightDirection;
 
@@ -28,20 +27,11 @@ HRESULT kimsNewTest::init()
 
 	//카메라의 투영방식을 바꾼다...
 	_directionLightCamera->_isOrtho = true;
-	_directionLightCamera->_camNear = 0.1f;
-	_directionLightCamera->_camFar = _shadowDistance *2.0;
+	_directionLightCamera->_camNear = 0.01f;
+	_directionLightCamera->_camFar = 25;
 	_directionLightCamera->_aspect = 1;
-	_directionLightCamera->_orthoSize = _shadowDistance * 1.5;	//투영크기는 그림자크기로
+	_directionLightCamera->_orthoSize = 50;	//투영크기는 그림자크기로
 	_directionLightCamera->readyShadowTexture(4096);
-
-	
-
-	_playerDirectionLightCamera->_isOrtho = true;
-	_playerDirectionLightCamera->_camNear = 0.1f;
-	_playerDirectionLightCamera->_camFar = 15;
-	_playerDirectionLightCamera->_aspect = 1;
-	_playerDirectionLightCamera->_orthoSize = 15;	//투영크기는 그림자크기로
-	_playerDirectionLightCamera->readyShadowTexture(4096);
 
 	_terrain = new terrain;
 	_terrain->setHeightmap(FILEPATH_MANAGER->GetFilepath("높이맵_3"), true);
@@ -131,33 +121,12 @@ void kimsNewTest::update()
 {
 	UI_MANAGER->update();
 
-	if (KEYMANAGER->isToggleKey(VK_CAPITAL))
-	{
-		//플레이어 3인칭 시점 카메라
-		//_mainCamera->LookPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-		
-	}
-	else
-	{
-		//자유시점 카메라
-		_mainCamera->updateBase();
-	}
+	_mainCamera->updateBase();	
 
 	_sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
 
-
-	//D3DXVECTOR3 camPos = _mainCamera->GetWorldPosition();		//메인카메라의 위치
-	//D3DXVECTOR3 camFront = _mainCamera->GetForward();			//메인카메라의 정면
-	//D3DXVECTOR3 lightDir = _sceneBaseDirectionLight->_transform->GetForward();	//방향성 광원의 방향
-
-	//D3DXVECTOR3 lightPos = camPos +
-	//	(camFront * (_shadowDistance * 0.5f)) +
-	//	(-lightDir * _shadowDistance);
-
-	//D3DXVECTOR3 camPos = _mainCamera->GetWorldPosition();		//메인카메라의 위치
-
 	D3DXVECTOR3 camPos = _player->getPlayerObject()->_transform->GetWorldPosition();	//메인카메라의 위치
-	//D3DXVECTOR3 camFront = _mainCamera->GetForward();									//메인카메라의 정면
+
 	D3DXVECTOR3 lightDir = _sceneBaseDirectionLight->_transform->GetForward();			//방향성 광원의 방향
 
 	_directionLightCamera->SetWorldPosition(camPos.x, 5, camPos.z);
@@ -173,15 +142,11 @@ void kimsNewTest::update()
 	this->_cullObjects.clear();
 	for (int i = 0; i < this->_renderObjects.size(); i++)
 	{
-		//프러스텀 안에 있니?
 		if (_mainCamera->_frustum.isInFrustum(_renderObjects[i]))
 		{
 			this->_cullObjects.push_back(_renderObjects[i]);
 		}
 	}
-
-	//쉐도우맵 준비
-	
 }
 
 void kimsNewTest::render()
@@ -224,13 +189,15 @@ void kimsNewTest::render()
 			_player->out_updateBladeLight();
 		}
 	}
-	_terrain->render(_mainCamera, _sceneBaseDirectionLight, _directionLightCamera);
+
+
+	_terrain->render(_mainCamera, _sceneBaseDirectionLight, _directionLightCamera);//
 	_player->render();
 	
 	this->readyShadowMap(&this->_cullObjects, this->_terrainShadow);
 
 	_directionLightCamera->_frustum.renderGizmo();
-	_mainCamera->_frustum.renderGizmo();
+	//_mainCamera->_frustum.renderGizmo();
 	
 	_mount->_skinnedAnim->renderBoneName(_mainCamera, _mount->_transform);
 	//UI_MANAGER->render();
@@ -249,11 +216,10 @@ void kimsNewTest::readyShadowMap(vector<baseObject*>* renderObjects, terrain * p
 
 	//for (int i = 0; i < renderObjects->size(); i++)
 	//{
-		//프러스텀 안에 있니?
+	//	//프러스텀 안에 있니?
 	//	if (this->_mainCamera->_frustum.isInFrustum((*renderObjects)[i]))
 	//	{
 	//		shadowCullObject.push_back((*renderObjects)[i]);
-
 	//	}
 	//}
 
@@ -274,11 +240,12 @@ void kimsNewTest::readyShadowMap(vector<baseObject*>* renderObjects, terrain * p
 			(*renderObjects)[i]->render();
 		}
 	}
-
+	
 	//만약 Terrain 도 쉐도우 맵을 그려야한다면...
 	if (pTerrain != NULL)
 	{
-		//pTerrain->renderShadow(_directionLightCamera);
+		//지형에 의한 그림자.
+		//pTerrain->renderShadow(_mainCamera);//_directionLightCamera
 	}
 
 	_directionLightCamera->renderTextureEnd();
@@ -287,9 +254,11 @@ void kimsNewTest::readyShadowMap(vector<baseObject*>* renderObjects, terrain * p
 	//만약 Terrain 도 쉐도우 맵을 셋팅한다면
 	if (pTerrain != NULL)
 	{
-		pTerrain->_terrainEffect->SetTexture("Shadow_Tex", _directionLightCamera->getRenderTexture());
-		pTerrain->_terrainEffect->SetMatrix("matLightViewProjection", &_directionLightCamera->getViewProjectionMatrix());
+		//pTerrain->_terrainEffect->SetTexture("Shadow_Tex", _directionLightCamera->getRenderTexture());
+		//pTerrain->_terrainEffect->SetMatrix("matLightViewProjection", &_directionLightCamera->getViewProjectionMatrix());
 	}
+
+	//이건 지네끼리 리시브 쉐도우 할때 필요한건데 왜 여기있나...
 
 	//쉐도우 텍스쳐
 	xMeshStatic::_staticMeshEffect->SetTexture("Shadow_Tex", _directionLightCamera->getRenderTexture());

@@ -146,8 +146,6 @@ void stageFour::release()
 
 void stageFour::update()
 {
-	sceneChange();
-
 	shadowUpdate();
 
 	currTime += _timeDelta;
@@ -176,6 +174,8 @@ void stageFour::update()
 	for (int i = 0; i < _renderObject.size(); i++) _renderObject[i]->update();
 
 	water->update(waterTemp.number);
+
+	sceneChange();
 }
 
 void stageFour::render()
@@ -323,7 +323,7 @@ void stageFour::sceneChange()
 {
 	if (PHYSICSMANAGER->isOverlap(player->getPlayerObject(), _gate1))
 	{
-		SCENEMANAGER->changeScene("gameSceneOne");
 		PLAYERMANAGER->SetPos(D3DXVECTOR3(5.5f, 0, 114.0f));
+		SCENEMANAGER->changeScene("gameSceneOne");
 	}
 }
