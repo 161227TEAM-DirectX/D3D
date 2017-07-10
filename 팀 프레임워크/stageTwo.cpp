@@ -374,6 +374,7 @@ void stageTwo::shadowRender(void)
 
 void stageTwo::loadMonster(void)
 {
+	IOSAVEMONSTERBOX->loadFile("test");
 	IOSAVEMONSTERMANAGER->loadFile("¸ó½ºÅÍ");
 	vector<tagSaveMonster> temp;
 	tagSaveMonster tagMTemp;
@@ -477,7 +478,7 @@ string stageTwo::findMonsterName(int & index)
 		temp = "¾ÆÅ©·¹°ñ·½";
 		return temp;
 	case 2:
-		temp = "ÀÌÇöÃÑ";
+		temp = "¾Ç¸¶°³";
 		return temp;
 	case 3:
 		temp = "¸äµÅÁö";

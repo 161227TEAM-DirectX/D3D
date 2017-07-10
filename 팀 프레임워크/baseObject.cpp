@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "baseObject.h"
+#include "monster.h"
 
 baseObject::baseObject() : _isActive(FALSE), _mesh(NULL), _skinnedAnim(NULL)
 {
@@ -111,33 +112,42 @@ void baseObject::computeBoundBox()
 			D3DXMatrixScaling(&matScaling, _mesh->getScale()/2, _mesh->getScale()/2, _mesh->getScale()/2);
 			D3DXMatrixRotationY(&matRotate, D3DXToRadian(180));
 			mat = matScaling * matRotate;
-			xMesh* mesh = RM_XMESH->getResource(_mesh->getFilePath(), mat);
-			xMeshStatic* staticMesh = dynamic_cast<xMeshStatic*>(mesh);
-			
-			_boundBox._localCenter = staticMesh->_boundCenter;
-			_boundBox._halfSize = staticMesh->_boundHalfSize;
-			_boundBox._localMinPos = staticMesh->_boundMin;
-			_boundBox._localMaxPos = staticMesh->_boundMax;
-			_boundBox._radius = staticMesh->_boundRadius;
+			tagSaveMonsterBoundBox temp;
+		//	xMesh* mesh = RM_XMESH->getResource(_mesh->getFilePath(), mat);
+		//	xMeshStatic* staticMesh = dynamic_cast<xMeshStatic*>(mesh);
+			monster* tempMonster = dynamic_cast<monster*>(this);
+			if (tempMonster == nullptr) return;
+			temp = IOSAVEMONSTERBOX->findTag(tempMonster->getLastName());
+		//
+			_boundBox._localCenter = temp.localCenter;
+			_boundBox._localMinPos = temp.localMinPos;
+			_boundBox._localMaxPos = temp.localMaxPos;
+			_boundBox._halfSize = temp.halfSize;
+			_boundBox._radius = temp.radius;
+		//	_boundBox._localCenter = staticMesh->_boundCenter;
+		//	_boundBox._halfSize = staticMesh->_boundHalfSize;
+		//	_boundBox._localMinPos = staticMesh->_boundMin;
+		//	_boundBox._localMaxPos = staticMesh->_boundMax;
+		//	_boundBox._radius = staticMesh->_boundRadius;
 
-			string temp = _mesh->getFilePath();
-
-			if (!strcmp("Resource/Meshes/BossMonster/deathwing_ok/x/deathWing.x", temp.c_str()))
-			{
-				//보스의 바운드 박스를 재설정.
-				_boundBox._localMaxPos = _boundBox._localMaxPos / 2;
-				_boundBox._localCenter = (_boundBox._localMinPos + _boundBox._localMaxPos)*0.5f;
-				_boundBox._halfSize = D3DXVECTOR3(
-					_boundBox._localMaxPos.x - _boundBox._localMinPos.x,
-					_boundBox._localMaxPos.y - _boundBox._localMinPos.y,
-					_boundBox._localMaxPos.z - _boundBox._localMinPos.z)*0.5f;
-
-				_boundBox._radius = D3DXVec3Length(&(_boundBox._localCenter - _boundBox._localMinPos));
-			}
-
-			//_boundBox.setBound(&D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(10.0f, 10.0f, 10.0f));
-
-			RM_XMESH->removeResource(mesh->getFilePath());
+		//	string temp = _mesh->getFilePath();
+		//
+		//	if (!strcmp("Resource/Meshes/BossMonster/deathwing_ok/x/deathWing.x", temp.c_str()))
+		//	{
+		//		//보스의 바운드 박스를 재설정.
+		//		_boundBox._localMaxPos = _boundBox._localMaxPos / 2;
+		//		_boundBox._localCenter = (_boundBox._localMinPos + _boundBox._localMaxPos)*0.5f;
+		//		_boundBox._halfSize = D3DXVECTOR3(
+		//			_boundBox._localMaxPos.x - _boundBox._localMinPos.x,
+		//			_boundBox._localMaxPos.y - _boundBox._localMinPos.y,
+		//			_boundBox._localMaxPos.z - _boundBox._localMinPos.z)*0.5f;
+		//
+		//		_boundBox._radius = D3DXVec3Length(&(_boundBox._localCenter - _boundBox._localMinPos));
+		//	}
+		//
+		//	//_boundBox.setBound(&D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+		//
+		//	RM_XMESH->removeResource(mesh->getFilePath());
 		}
 	}
 }

@@ -406,6 +406,9 @@
     <Filter Include="팀 포트폴리오\00.Scene\07.ending">
       <UniqueIdentifier>{02a8de51-107b-4168-8057-40b3a3208872}</UniqueIdentifier>
     </Filter>
+    <Filter Include="팀 포트폴리오\01.맵툴\3.IO매니져\몬스터박스">
+      <UniqueIdentifier>{fd02f866-3c43-4843-b4ee-49f3121259ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainGame.cpp">
@@ -1085,6 +1088,7 @@
     <ClCompile Include="EndingScene.cpp">
       <Filter>팀 포트폴리오\00.Scene\07.ending</Filter>
     </ClCompile>
+    <ClCompile Include="ioSaveMonsterBoxManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainGame.h">
@@ -1764,6 +1768,7 @@
     <ClInclude Include="EndingScene.h">
       <Filter>팀 포트폴리오\00.Scene\07.ending</Filter>
     </ClInclude>
+    <ClInclude Include="ioSaveMonsterBoxManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Texture_Gray.fx">

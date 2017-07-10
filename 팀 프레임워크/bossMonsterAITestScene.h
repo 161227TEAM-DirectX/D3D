@@ -3,11 +3,13 @@
 
 class bossMonster;
 class xPlayer;
+class monster;
 
 class bossMonsterAITestScene : public iGameNode
 {
 private:
 	bossMonster* boss;
+	vector<monster*> mon;
 	xPlayer* player;
 	camera* _mainCamera;
 	camera* _directionLightCamera;
@@ -21,6 +23,11 @@ public:
 
 	HRESULT clear(void);
 	void destroy(void);
+
+	void InitMonster(void);
+	
+	string findMonsterName(int & Name);
+	xMesh* findMonster(int & index);
 
 	HRESULT init();
 	void release();

@@ -17,5 +17,4 @@ public:
 
 	void loadFile(string filePath) override;
 	void saveFile(string filePath, vector<tagSaveMonster>& vecT) override;
-
 };

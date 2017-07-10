@@ -52,7 +52,7 @@ void loadingScene::render()
 	if (m_isChange /*&& m_pLoadingBar->IsFullBar()*/)
 	{
 		//g_eSelectMode = E_MAPTOOL;
-		SCENEMANAGER->changeScene("gameSceneOne");//gameSceneOne
+		SCENEMANAGER->changeScene("gameSceneOne");
 		//SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
 		//SCENEMANAGER->changeScene("gameSceneThree");//gameSceneThree
 		//SCENEMANAGER->changeScene("gameSceneFour");//gameSceneFour
@@ -70,7 +70,7 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 	XMeshSkinnedLoading();
 
 	//이거 주석 풀면 됨!!!
-	//PtcLoading();
+	PtcLoading();
 
 	UILoading();
 	UiTestLoading();
