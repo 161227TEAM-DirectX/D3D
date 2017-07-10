@@ -72,7 +72,7 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 	XMeshSkinnedLoading();
 
 	//ÀÌ°Å ÁÖ¼® Ç®¸é µÊ!!!
-	//PtcLoading();
+	PtcLoading();
 
 	UILoading();
 	//UiTestLoading();
@@ -970,7 +970,7 @@ void loadingScene::XMeshSkinnedLoading()
 	XMESH_MANAGER->AddXmeshSkinned("·¦ÅÍ", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("¸ó½ºÅÍ_·¦ÅÍ"), matRotate));
 	XMESH_MANAGER->AddXmeshSkinned("Àü°¥", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("¸ó½ºÅÍ_Àü°¥"), matRotate));
 	XMESH_MANAGER->AddXmeshSkinned("µµ¸¶¹ì", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("¸ó½ºÅÍ_µµ¸¶¹ì"),matRotate));
-	//XMESH_MANAGER->AddXmeshSkinned("µ¥½ºÀ®", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("¸ó½ºÅÍ_µ¥½ºÀ®"), matRotate));
+	XMESH_MANAGER->AddXmeshSkinned("µ¥½ºÀ®", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("¸ó½ºÅÍ_µ¥½ºÀ®"), matRotate));
 	XMESH_MANAGER->AddXmeshSkinned("npc1", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("NPC_1"), matRotate));
 	XMESH_MANAGER->AddXmeshSkinned("npc2", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("NPC_2"), matRotate));
 	XMESH_MANAGER->AddXmeshSkinned("npc3", RM_SKINNED->getResource(FILEPATH_MANAGER->GetFilepath("NPC_3"), matRotate));

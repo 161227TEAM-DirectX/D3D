@@ -101,6 +101,7 @@ void baseObject::computeBoundBox()
 			_boundBox._localMinPos = staticMesh->_boundMin;
 			_boundBox._localMaxPos = staticMesh->_boundMax;
 			_boundBox._radius = staticMesh->_boundRadius;
+			return;
 		}
 		else//세팅된 메쉬가 xMeshSkinned 라면 임시로 바운드 박스만들기
 		{
@@ -135,6 +136,8 @@ void baseObject::computeBoundBox()
 			}
 
 			//_boundBox.setBound(&D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+
+			RM_XMESH->removeResource(mesh->getFilePath());
 		}
 	}
 }
