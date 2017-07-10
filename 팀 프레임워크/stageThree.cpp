@@ -266,24 +266,6 @@ void stageThree::shadowInit(void)
 
 void stageThree::shadowUpdate(void)
 {
-	if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
-	{
-		start = true;
-	}
-	if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
-	{
-		start = false;
-	}
-
-	if (start == true)
-	{
-		CINEMATICMANAGER->cinematicLoad(&boss->_transform->GetWorldPosition(), _mainCamera, boss->_transform);
-	}
-	else
-	{
-		_mainCamera->updateBase();
-	}
-
 	//sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
 	////광원 위치
 	//D3DXVECTOR3 camPos = _mainCamera->GetWorldPosition();	//메인카메라의 위치

@@ -56,7 +56,7 @@ void loadingScene::render()
 		//SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
 		//SCENEMANAGER->changeScene("gameSceneThree");//gameSceneThree
 		//SCENEMANAGER->changeScene("EndingScene");//EndingScene
-		//SCENEMANAGER->changeScene("kims");//AItest
+		//SCENEMANAGER->changeScene("kims");//kims
 		//SCENEMANAGER->changeScene("AItest");//AItest
 	}
 	LeaveCriticalSection(&_cs);

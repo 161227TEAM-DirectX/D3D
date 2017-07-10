@@ -78,7 +78,6 @@ HRESULT sceneManager::changeScene(string sceneName)
 {
 	miSceneList find = _mSceneList.find(sceneName);
 
-	iGameNode* temp;
 	//못찾았다면
 	if (find == _mSceneList.end()) return E_FAIL;
 
@@ -88,11 +87,7 @@ HRESULT sceneManager::changeScene(string sceneName)
 	//여기까지 왔으면 문제 없으니 씬 초기화 하고 변경해준다
 	if (SUCCEEDED(find->second->init()))
 	{
-		temp = _currentScene;
-
 		_currentScene = find->second;
-
-		temp->release();
 
 		return S_OK;
 	}

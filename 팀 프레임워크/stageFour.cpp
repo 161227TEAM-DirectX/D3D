@@ -122,6 +122,17 @@ HRESULT stageFour::init()
 
 	SOUNDMANAGER->play("필드1", 0.1f);
 	
+	for (int i = 0; i < _renderObject.size(); i++)
+	{
+		if ((192 == _renderObject[i]->getObjectNumber()) || (190 == _renderObject[i]->getObjectNumber()))
+		{
+			//이게 앞문
+			if (_renderObject[i]->getportalNumber() == 0)
+			{
+				_gate1 = _renderObject[i];
+			}
+		}
+	}
 
 	//초기화
 	CINEMATICMANAGER->init();
