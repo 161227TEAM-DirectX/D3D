@@ -3,7 +3,7 @@
 
 
 bossActionFlyMove::bossActionFlyMove()
-	:Action(), angle(0.0f), isRound(FLYSTATE::straight), isAttack(false)
+	:Action(), angle(0.0f), isRound(FLYSTATE::straight), isAttack(false), tempRadian(0.0f)
 {
 }
 
@@ -59,11 +59,11 @@ int bossActionFlyMove::Update()
 			
 			if (D3DXVec3Length(&(owner->_transform->GetWorldPosition() - tempPos)) <= 0.7f)
 			{
-				//if (ch == 1)
+				//if (ch == 0)
 				//{
 				//	isRound = bossActionFlyMove::FLYSTATE::round;
 				//}
-				//else if (ch == 2)
+				//else if (ch == 1)
 				{
 					isRound = FLYSTATE::oxpattern;
 				}
@@ -114,11 +114,19 @@ int bossActionFlyMove::Update()
 		{
 			lerpTransform = *owner->_transform;
 			angle += D3DXToRadian(30)*_timeDelta;
-			if (angle >= D3DX_PI)
+			D3DXVECTOR3 temp = owner->_transform->GetWorldPosition();
+			temp.y = 0.0f;
+			D3DXVec3Normalize(&temp, &temp);
+			tempRadian = D3DXVec3Dot(&temp, &D3DXVECTOR3(0.0f, 0.0f, 1.0f));
+			if (tempRadian <= 1.0f && tempRadian >= (1.0f - Gap))
 			{
 				angle = D3DX_PI;
 				owner->_transform->LookPosition(playerObject->_transform->GetWorldPosition());
 				owner->_transform->RotateSlerp(lerpTransform, *owner->_transform, _timeDelta * 2);
+				D3DXVECTOR3 tempOld = lerpTransform.GetForward();
+				D3DXVECTOR3 curTemp = owner->_transform->GetForward();
+				float tempLenge = D3DXVec3Length(&(tempOld - curTemp));
+				if (tempLenge == 0.0f) return LHS::ACTIONRESULT::ACTION_PA_OX;
 				break;
 			}
 
@@ -143,7 +151,9 @@ int bossActionFlyMove::Update()
 
 void bossActionFlyMove::Render()
 {
-
+	char temp[128];
+	sprintf_s(temp, "%f", tempRadian);
+	FONTMANAGER->fontOut(temp, 500, 500, WHITE);
 }
 
 void bossActionFlyMove::attackFireBall(void)

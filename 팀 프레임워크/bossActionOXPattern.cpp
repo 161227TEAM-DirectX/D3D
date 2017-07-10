@@ -2,7 +2,7 @@
 #include "bossActionOXPattern.h"
 
 bossActionOXPattern::bossActionOXPattern()
-	:chargeTime(0.0f), randomOX(0), rangeC(0.2f)
+	:Action(), chargeTime(0.0f), randomOX(0), rangeC(0.2f)
 {
 	rangeX.first.first = 0.0f;
 	rangeX.first.second = 0.0f;
@@ -24,7 +24,7 @@ int bossActionOXPattern::Start()
 {
 	randomOX = myUtil::RandomIntRange(1, 2);
 
-	owner->getSkinnedAnim().Play("Animation_48");
+	owner->getSkinnedAnim().Play("Animation_48",0.5f);
 	emergency = RM_TEXTURE->getResource(FILEPATH_MANAGER->GetFilepath("emergency"));
 
 	_device->CreateVertexBuffer(6 * sizeof(SCENE_VERTEX), 0, SCENE_VERTEX::FVF, D3DPOOL_MANAGED, &vb, nullptr);

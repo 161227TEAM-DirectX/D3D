@@ -45,8 +45,8 @@ void bossMonster::baseObjectDisable()
 
 void bossMonster::baseObjectUpdate()
 {
-	switchState();
-	//testKeyAI();
+//	switchState();
+	testKeyAI();
 
 	if (NextAction != nullptr)
 	{
