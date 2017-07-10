@@ -411,10 +411,11 @@ void xPlayer::render()
 
 void xPlayer::release(void)
 {
+	/*
 	for (int i = 0; i < this->_renderObjects.size(); i++)
 	{
 		SAFE_DELETE(this->_renderObjects[i]);
-	}
+	}*/
 
 	SAFE_RELEASE(_myVertexbuffer);
 	SAFE_RELEASE(_myIndexBuffer);

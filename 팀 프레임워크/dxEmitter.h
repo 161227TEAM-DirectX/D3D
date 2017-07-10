@@ -59,7 +59,7 @@ protected:
 	int		_drawPtcNum;				//그릴 파티클 개수	
 
 
-
+protected:
 	bool _InitActiveStop;
 	bool _initActiveTimeOn;
 
@@ -94,6 +94,7 @@ protected:
 
 	bool _preUpdateOn;
 	bool _preOneSettingOn;
+
 protected:
 	//빌보드 관련
 	bool _billBoardY_On;
@@ -336,6 +337,8 @@ public:
 
 	void setInitActiveLimitTime(float inTime) { _initActiveLimitTime = inTime; _initActiveTimeOn = TRUE; };
 
+	void SettingBillBoardY(void) { _billBoardY_On = TRUE; };
+	
 public:
 	void EmitterInit(void)
 	{

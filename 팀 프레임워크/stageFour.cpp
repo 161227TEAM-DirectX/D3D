@@ -34,7 +34,7 @@ void stageFour::destroy(void)
 	SAFE_DELETE(sceneBaseDirectionLight);
 	SAFE_DELETE(_terrain);
 	SAFE_DELETE(_terrainShadow);
-	water->release();
+	//water->release();
 	SAFE_DELETE(water);
 	SAFE_DELETE(toRotate);
 	SAFE_DELETE(objectSet);
@@ -110,7 +110,7 @@ HRESULT stageFour::init()
 	//플레이어 초기화
 	player->out_setlinkTerrain(*_terrain);
 	player->init();
-	player->getPlayerObject()->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+	//player->getPlayerObject()->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
 	player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	for (int i = 0; i < player->getRenderObject().size(); i++)
@@ -345,7 +345,7 @@ void stageFour::sceneChange()
 {
 	if (PHYSICSMANAGER->isOverlap(player->getPlayerObject(), _gate1))
 	{
-		PLAYERMANAGER->SetPos(D3DXVECTOR3(5.5f, 0, 114.0f));
-		SCENEMANAGER->changeScene("gameSceneOne");
+		PLAYERMANAGER->SetPos(D3DXVECTOR3(5.5f, 0, 110.0f));
+		SCENEMANAGER->changeScene("gameSceneOne", false);
 	}
 }

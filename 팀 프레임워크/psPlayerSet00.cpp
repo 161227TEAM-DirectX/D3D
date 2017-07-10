@@ -717,6 +717,7 @@ void psPlayerSet00::LightningSet00(string psName)
 	_boardEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
 	_boardEMT->InitRandomPosSphereRadius(0.0f, 2.0f);
 
+	_boardEMT->SettingBillBoardY();
 
 	//_boardEMT->Rot
 	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
@@ -751,6 +752,8 @@ void psPlayerSet00::LightningSet00(string psName)
 	_boardEMT->InitDirSphere(1.0f,0.0f, 1.0f);
 	_boardEMT->InitRandomPosSphereRadius(0.0f, 1.5f);
 
+
+
 	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
 
 	_boardEMT->InitRandomPositionY(5.0f, 5.0f);
@@ -763,11 +766,14 @@ void psPlayerSet00::LightningSet00(string psName)
 
 	_boardEMT->InitCenterPointHV(0.5f, 0.0f);
 
+	_boardEMT->SettingBillBoardY();
+
 	//_boardEMT->uvReverseImgU();
 
 	_boardEMT->InitConstHV(0.5f, 3.0f);
 
 	_PS->addEmitter(_boardEMT);
+
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
@@ -793,6 +799,8 @@ void psPlayerSet00::LightningSet00(string psName)
 	_boardEMT->InitCenterPointHV(0.5f, 0.0f);
 
 	_boardEMT->uvReverseImgU();
+
+	_boardEMT->SettingBillBoardY();
 
 	_boardEMT->InitConstHV(0.3f, 3.0f);
 

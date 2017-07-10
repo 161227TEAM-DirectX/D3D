@@ -125,10 +125,10 @@ void stageOne::release()
 	SAFE_DELETE(_mainCamera);
 	SAFE_DELETE(_directionLightCamera);
 	SAFE_DELETE(sceneBaseDirectionLight);
-	player->release();
+	//player->release();
 	SAFE_DELETE(player);
 	SAFE_DELETE(env);
-	water->release();
+	//water->release();
 	SAFE_DELETE(water);
 	SAFE_DELETE(toRotate);
 	SAFE_DELETE(objectSet);
@@ -381,13 +381,15 @@ void stageOne::sceneChange()
 	if (PHYSICSMANAGER->isOverlap(player->getPlayerObject(), _gate1))
 	{
 		PLAYERMANAGER->SetPos(D3DXVECTOR3(-37, 0, -110));
-		SCENEMANAGER->changeScene("gameSceneTwo");
+		SCENEMANAGER->changeScene("gameSceneTwo", false);
 	}
 
-	if (PHYSICSMANAGER->isOverlap(player->getPlayerObject(), _gate2))
+	if (player != nullptr)
 	{
-		PLAYERMANAGER->SetPos(D3DXVECTOR3(0, 0, 0));
-		SCENEMANAGER->changeScene("gameSceneFour");
+		if (PHYSICSMANAGER->isOverlap(player->getPlayerObject(), _gate2))
+		{
+			PLAYERMANAGER->SetPos(D3DXVECTOR3(-110, 0, 18));
+			SCENEMANAGER->changeScene("gameSceneFour", false);
+		}
 	}
 }
-

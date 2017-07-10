@@ -1033,3 +1033,4 @@ void loadingScene::SoundLoading()
 	SOUNDMANAGER->addSound("몬스터공격", FILEPATH_MANAGER->GetFilepath("몬스터공격"));
 	SOUNDMANAGER->addSound("몬스터죽음", FILEPATH_MANAGER->GetFilepath("몬스터죽음"));
 }
+

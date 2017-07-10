@@ -41,10 +41,9 @@ void dxEffect::update()
 			_vPS[i]->SetLimitTime(_limitTime);
 			if (_vPS[i]->autoTimeReset())
 			{
-				_vPS[i]->release();
+				//_vPS[i]->release();
 				_vPS.erase(_vPS.begin() + i);
 			}
-
 		}
 	}
 
