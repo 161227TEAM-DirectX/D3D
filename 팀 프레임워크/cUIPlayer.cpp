@@ -8,6 +8,7 @@
 #include "playerItem.h"
 #include "medicineShop.h"
 #include "force.h"
+#include "medicinePlayer.h"
 
 cUIPlayer::cUIPlayer()
 {
@@ -137,6 +138,9 @@ HRESULT cUIPlayer::init()
 	_force = new force;
 	_force->init();
 
+	_medicinePlayer = new medicinePlayer;
+	_medicinePlayer->init();
+
 	_shop->setInvenLink(_inven);
 	_shop->setPlayerItemLink(_playerItem);
 
@@ -144,11 +148,14 @@ HRESULT cUIPlayer::init()
 	_inven->setPlayerItemLink(_playerItem);
 	_inven->setmedicineShopLink(_medicineShop);
 	_inven->setForceLink(_force);
+	_inven->setMedicinePlayerLink(_medicinePlayer);
 
 	_playerItem->setInvenLink(_inven);
 	_playerItem->setShopLink(_shop);
 
 	_medicineShop->setmedicineShopLink(_inven);
+
+	_medicinePlayer->setInvenLink(_inven);
 
 	_force->setForceLink(_inven);
 
@@ -283,6 +290,10 @@ void cUIPlayer::update()
 		_playerItem->update();
 	}
 
+	//================================================================================
+	// 물약장착하면 생기게하는 update
+	//================================================================================
+	_medicinePlayer->update();
 
 
 
@@ -374,6 +385,8 @@ void cUIPlayer::render()
 		_inven->render();
 		_playerItem->render();
 	}
+
+	_medicinePlayer->render();
 }
 
 void cUIPlayer::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

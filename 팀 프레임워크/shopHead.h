@@ -5,6 +5,7 @@
 #include "playerItem.h"
 #include "medicineShop.h"
 #include "force.h"
+#include "medicinePlayer.h"
 
 class shopHead : public iGameNode
 {
@@ -14,6 +15,7 @@ private:
 	medicineShop* _medicineShop;
 	playerItem* _playerItem;
 	force* _force;
+	medicinePlayer* _medicinePlayer;
 
 public:
 

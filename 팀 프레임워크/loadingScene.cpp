@@ -52,13 +52,13 @@ void loadingScene::render()
 	if (m_isChange /*&& m_pLoadingBar->IsFullBar()*/)
 	{
 		//g_eSelectMode = E_MAPTOOL;
-
+		//SCENEMANAGER->changeScene("gameSceneFour");
 		//SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
 
-		SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
+		//SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
 		//SCENEMANAGER->changeScene("kims");//AItest////
 
-//		SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
+		SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
 		//SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
 		//SCENEMANAGER->changeScene("kims");//AItest////
 	}
@@ -72,10 +72,10 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 	XMeshSkinnedLoading();
 
 	//이거 주석 풀면 됨!!!
-	PtcLoading();
+	//PtcLoading();
 
 	UILoading();
-	//UiTestLoading();
+	UiTestLoading();
 	AniLoading();
 
 	m_isChange = true;
@@ -235,7 +235,22 @@ void loadingScene::UiTestLoading()
 void loadingScene::AniLoading()
 {
 	vector<cDxImg*> temp;
+	//======================================================================================================
+	//  force
+	//======================================================================================================
+	temp.clear();
+	for (int i = 1; i <= 53; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("force_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("force", temp, ST_DXIMGANI(2));
 
+	temp.clear();
+	for (int i = 1; i <= 53; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("force2_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("force2", temp, ST_DXIMGANI(2));
 	//======================================================================================================
 	//  Sword1
 	//======================================================================================================
