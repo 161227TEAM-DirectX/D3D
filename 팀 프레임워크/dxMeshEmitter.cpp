@@ -200,7 +200,7 @@ HRESULT dxMeshEmitter::init(string xFileName, int OneTimePaticleNum, float spawn
 	return S_OK;
 }
 
-void dxMeshEmitter::relese()
+void dxMeshEmitter::release()
 {
 	//dxEmitter::release();
 

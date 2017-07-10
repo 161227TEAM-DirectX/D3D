@@ -26,7 +26,7 @@ private:
 
 private:
 	float _shadowDistance;
-	bool start;
+	bool cinematicBool;
 	tagSaveMap envTemp;
 	tagSaveMap waterTemp;
 private:

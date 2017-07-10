@@ -30,6 +30,20 @@ HRESULT force::init(void)
 		DXIMGANI_MANAGER->GetDxImgAni("Ani_Sword5")[i]->SetCenterDraw(false);
 	}
 
+	for (int i = 0; i < DXIMGANI_MANAGER->GetDxImgAni("force").size(); i++)
+	{
+		DXIMGANI_MANAGER->GetDxImgAni("force")[i]->SetPosition(D3DXVECTOR3(390, 310, 0));
+		DXIMGANI_MANAGER->GetDxImgAni("force")[i]->SetCenterDraw(false);
+	}
+
+	for (int i = 0; i < DXIMGANI_MANAGER->GetDxImgAni("force2").size(); i++)
+	{
+		DXIMGANI_MANAGER->GetDxImgAni("force2")[i]->SetPosition(D3DXVECTOR3(600, 310, 0));
+		DXIMGANI_MANAGER->GetDxImgAni("force2")[i]->SetCenterDraw(false);
+	}
+
+
+
 	_forceV.tex = RM_TEXTURE->getResource("Resource/Maptool/sword/소드1/1.png");
 	_forceShop.tex = RM_TEXTURE->getResource("ResourceUI/inven/shop/실험용.png");
 	_foceGage.tex = RM_TEXTURE->getResource("ResourceUI/inven/shop/강화게이지.png");
@@ -50,13 +64,13 @@ HRESULT force::init(void)
 	_forceMoney = 1000;
 	_forceGaege = 0;
 	forceNumber = 0;
-	
+
 	return S_OK;
 }
 
 void force::release(void)
 {
-	
+
 }
 
 void force::update(void)
@@ -150,7 +164,7 @@ void force::update(void)
 			_forceButton[2].check = false;
 		}
 	}
-	
+
 	//랜덤으로 값돌리기
 	_rand = RandomFloatRange(1, 3);
 
@@ -177,14 +191,14 @@ void force::update(void)
 			_forceGaege++;
 		}
 	}
-	
+
 	//성공할떄 버튼
 	if (_forceS.check == true)
 	{
 		if (PtInRect(&_forceB.rc2, GetMousePos()))
 		{
 			_forceB.check = true;
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON,false))
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON, false))
 			{
 				_forceS.check = false;
 				_forceB.check = false;
@@ -202,7 +216,7 @@ void force::update(void)
 		if (PtInRect(&_forceB.rc2, GetMousePos()))
 		{
 			_forceB.check = true;
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON,false))
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON, false))
 			{
 				_forceF.check = false;
 				_forceB.check = false;
@@ -220,15 +234,19 @@ void force::render(void)
 	//대장간바탕UI
 	_forceShop.rc2 = { 350,150,862,662 };
 	SPRITEMANAGER->renderRectTexture(_forceShop.tex, &_forceShop.rc1, &_forceShop.rc2, 0, 0, 1024, 1024, 350, 150);
-	
+
 	if (_forcePlus.check == true)
 	{
 		SPRITEMANAGER->renderRectTexture(_forcePlus.tex, &_forcePlus.rc1, &_forcePlus.rc2, 0, 31, _forceGaege, 64, _forceShop.rc2.left + 86, _forceShop.rc2.top + 321);
 	}
 
-	SPRITEMANAGER->renderRectTexture(_foceGage.tex, &_foceGage.rc1, &_foceGage.rc2, 0, 0, 512,31, _forceShop.rc2.left + 86, _forceShop.rc2.top + 321);
+	SPRITEMANAGER->renderRectTexture(_foceGage.tex, &_foceGage.rc1, &_foceGage.rc2, 0, 0, 512, 31, _forceShop.rc2.left + 86, _forceShop.rc2.top + 321);
 
-	if (_forcePlus.check == true) FONTMANAGER->fontOut("강 화 중", _forceShop.rc2.left + 200, _forceShop.rc2.top + 326, D3DCOLOR_XRGB(255, 255, 255));
+	if (_forcePlus.check == true)
+	{
+		FONTMANAGER->fontOut("강 화 중", _forceShop.rc2.left + 200, _forceShop.rc2.top + 326, D3DCOLOR_XRGB(255, 255, 255));
+		DXIMGANI_MANAGER->render("force");
+	}
 
 	_forceButton[0].rc2 = { _forceShop.rc2.left + 280,_forceShop.rc2.top + 365 ,_forceButton[0].rc2.left + 96,_forceButton[0].rc2.top + 37 };
 	_forceButton[1].rc2 = { _forceShop.rc2.left + 280,_forceShop.rc2.top + 400 ,_forceButton[1].rc2.left + 96,_forceButton[1].rc2.top + 37 };
@@ -270,7 +288,7 @@ void force::render(void)
 
 	if (_forceInformation.size() != 0)
 	{
-		FONTMANAGER->fontOut("+"+to_string(_forceInformation[0].force), _forceShop.rc2.left + 120, _forceShop.rc2.top + 375, D3DCOLOR_XRGB(255, 255, 255));
+		FONTMANAGER->fontOut("+" + to_string(_forceInformation[0].force), _forceShop.rc2.left + 120, _forceShop.rc2.top + 375, D3DCOLOR_XRGB(255, 255, 255));
 
 		FONTMANAGER->fontOut(to_string(_forceMoney * _forceInformation[0].force), _forceShop.rc2.left + 110, _forceShop.rc2.top + 430, D3DCOLOR_XRGB(255, 255, 255));
 	}
@@ -297,7 +315,13 @@ void force::render(void)
 		break;
 	}
 
-	
+	if (_forcePlus.check == true)
+	{
+		DXIMGANI_MANAGER->render("force");
+		DXIMGANI_MANAGER->render("force2");
+	}
+
+
 	//성공
 	if (_forceS.check == true)
 	{

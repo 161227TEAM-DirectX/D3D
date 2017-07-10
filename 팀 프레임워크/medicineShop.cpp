@@ -40,7 +40,7 @@ HRESULT medicineShop::init(void)
 	{
 		_vmidicine.push_back(_medicine->getVmedicene()[i]);
 	}
-	
+
 	_countStrart = false;
 	_pick.first = false;
 	_tempTemp = false;
@@ -110,7 +110,7 @@ void medicineShop::update(void)
 		if (PtInRect(&_medicineButton[0].rc2, GetMousePos()))
 		{
 			_medicineButton[0].check = true;
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON,false))
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON, false))
 			{
 				_inven->setVinvenItemRender(_medicineTemp);
 				_inven->setVinvenItem(_tempInfomation);
@@ -126,8 +126,8 @@ void medicineShop::update(void)
 		}
 	}
 
-	
-		//ÆÈ±â¹öÆ°
+
+	//ÆÈ±â¹öÆ°
 	if (PtInRect(&_medicineButton[1].rc2, GetMousePos()))
 	{
 		_medicineButton[1].check = true;
@@ -197,7 +197,7 @@ void medicineShop::update(void)
 					_tempTemp = true;
 					_inven->setTempInformation(_countTemp);
 				}
-				
+
 				_medicineSellMenu.check = false;
 				_medicineButton[1].check = false;
 				_countStrart = false;
@@ -227,7 +227,7 @@ void medicineShop::update(void)
 				temp.first = false;
 				_inven->setPick(temp);
 			}
-	    }
+		}
 		else
 		{
 			_medicineSellButton[1].check = false;
@@ -285,7 +285,7 @@ void medicineShop::render(void)
 	}
 
 	//»óÁ¡¹ÙÅÁUI
-	SPRITEMANAGER->renderRectTexture(_medicinePMbutton[2].tex, &_medicinePMbutton[2].rc1, &_medicinePMbutton[2].rc2, 0, 74, 74, 109, _medicineShop.rc2.left + 63, _medicineShop.rc2.top +445);
+	SPRITEMANAGER->renderRectTexture(_medicinePMbutton[2].tex, &_medicinePMbutton[2].rc1, &_medicinePMbutton[2].rc2, 0, 74, 74, 109, _medicineShop.rc2.left + 63, _medicineShop.rc2.top + 445);
 
 
 	if (_pick.first == true)
@@ -373,5 +373,5 @@ void medicineShop::render(void)
 	}
 
 
-	
+
 }

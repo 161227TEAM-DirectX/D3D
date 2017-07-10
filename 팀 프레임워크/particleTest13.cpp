@@ -175,6 +175,15 @@ void particleTest13::update()
 
 	}
 
+	if (KEYMANAGER->isOnceKeyDown('P'))
+	{
+		SCENEMANAGER->changeScene("gameSceneOne");//gameSceneTwo
+	}
+	if (KEYMANAGER->isOnceKeyDown('L'))
+	{
+		SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
+	}
+
 }
 
 void particleTest13::render()

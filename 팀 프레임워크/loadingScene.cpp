@@ -72,7 +72,7 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 	//PtcLoading();
 
 	UILoading();
-	//UiTestLoading();
+	UiTestLoading();
 	AniLoading();
 
 	m_isChange = true;
@@ -232,7 +232,22 @@ void loadingScene::UiTestLoading()
 void loadingScene::AniLoading()
 {
 	vector<cDxImg*> temp;
+	//======================================================================================================
+	//  force
+	//======================================================================================================
+	temp.clear();
+	for (int i = 1; i <= 53; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("force_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("force", temp, ST_DXIMGANI(2));
 
+	temp.clear();
+	for (int i = 1; i <= 53; i++)
+	{
+		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("force2_" + to_string(i))));
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("force2", temp, ST_DXIMGANI(2));
 	//======================================================================================================
 	//  Sword1
 	//======================================================================================================

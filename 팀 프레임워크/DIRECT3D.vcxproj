@@ -291,6 +291,7 @@
     <ClInclude Include="mapObject.h" />
     <ClInclude Include="mapToolScene.h" />
     <ClInclude Include="medicine.h" />
+    <ClInclude Include="medicinePlayer.h" />
     <ClInclude Include="medicineShop.h" />
     <ClInclude Include="monster.h" />
     <ClInclude Include="myUtil.h" />
@@ -517,6 +518,7 @@
     <ClCompile Include="mapObject.cpp" />
     <ClCompile Include="mapToolScene.cpp" />
     <ClCompile Include="medicine.cpp" />
+    <ClCompile Include="medicinePlayer.cpp" />
     <ClCompile Include="medicineShop.cpp" />
     <ClCompile Include="monster.cpp" />
     <ClCompile Include="myUtil.cpp" />

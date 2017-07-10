@@ -8,6 +8,7 @@ class shop;
 class playerItem;
 class medicineShop;
 class force;
+class medicinePlayer;
 
 
 class cUIPlayer : public iGameNode
@@ -49,6 +50,7 @@ private:
 	medicineShop* _medicineShop;
 	playerItem*	  _playerItem;
 	force*		  _force;
+	medicinePlayer* _medicinePlayer;
 
 	enum eShopType
 	{

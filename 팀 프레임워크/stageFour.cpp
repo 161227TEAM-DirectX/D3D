@@ -18,7 +18,7 @@ HRESULT stageFour::clear(void)
 	water = nullptr;
 	toRotate = nullptr;
 	objectSet = nullptr;
-
+	cinematicBool = false;
 
 	return S_OK;
 }
@@ -121,21 +121,12 @@ HRESULT stageFour::init()
 	ACMANAGER->Init(*_terrain, *player);
 
 	SOUNDMANAGER->play("필드1", 0.1f);
+	
 
-	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
-	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, 5));
-
-	for (int i = 0; i < _renderObject.size(); i++)
-	{
-		if ((192 == _renderObject[i]->getObjectNumber()) || (190 == _renderObject[i]->getObjectNumber()))
-		{
-			//이게 앞문
-			if (_renderObject[i]->getportalNumber() == 0)
-			{
-				_gate1 = _renderObject[i];
-			}
-		}
-	}
+	//초기화
+	CINEMATICMANAGER->init();
+	//로드된값 집어 넣기 
+	CINEMATICMANAGER->cinematicE4Init();
 
 	return S_OK;
 }
@@ -146,6 +137,24 @@ void stageFour::release()
 
 void stageFour::update()
 {
+
+	//시네마틱 이벤트씬 로드 
+	CINEMATICMANAGER->cinematicE4Load(_mainCamera, CINEMATICMANAGER->GetGScineMticE4Bool());
+
+	if (CINEMATICMANAGER->GetGScineMticE4Bool() == true)
+	{
+		if (cinematicBool == false)
+		{
+			_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
+			_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, 5));
+			cinematicBool = true;
+		}
+		else
+		{
+			_mainCamera->updateBase();
+		}
+	}
+
 	shadowUpdate();
 
 	currTime += _timeDelta;
@@ -224,6 +233,8 @@ void stageFour::render()
 		}
 	}
 	player->render();
+
+	CINEMATICMANAGER->cinematicE4Render(_mainCamera);
 }
 
 void stageFour::shadowInit(void)
@@ -253,7 +264,6 @@ void stageFour::shadowInit(void)
 
 void stageFour::shadowUpdate(void)
 {
-	_mainCamera->updateBase();
 	//sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
 
 	//광원 위치
@@ -318,6 +328,7 @@ void stageFour::readyShadowMap(vector<baseObject*>* renderObjects, terrain * pTe
 
 	_directionLightCamera->renderTextureEnd();
 }
+
 
 void stageFour::sceneChange()
 {

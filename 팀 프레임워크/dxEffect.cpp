@@ -22,6 +22,14 @@ HRESULT dxEffect::init()
 	return S_OK;
 }
 
+void dxEffect::release()
+{
+	/*if (_vPS.empty() == FALSE)
+	{
+		_vPos
+	}*/
+}
+
 void dxEffect::update()
 {
 	//if (_startOn == FALSE) return;

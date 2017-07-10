@@ -26,7 +26,7 @@ HRESULT stageThree::clear(void)
 	_renderObject.clear();
 	_cullObject.clear();
 
-	start = false;
+	cinematicBool = false;
 
 	memset(&envTemp, 0, sizeof(tagSaveMap));
 	memset(&waterTemp, 0, sizeof(tagSaveMap));
@@ -100,12 +100,12 @@ HRESULT stageThree::init()
 	envTemp = IOSAVEMANAGER->findTag("환경맵");
 	waterTemp = IOSAVEMANAGER->findTag("물결맵");
 
-	float tempY = _terrain->getHeight(5.0f, 5.0f);
+	float tempY = _terrain->getHeight(5.0f, 5.0f); 
 
 	//플레이어 초기화
 	player->out_setlinkTerrain(*_terrain);
 	player->init();
-	//player->getPlayerObject()->_transform->SetWorldPosition(5.0f, tempY, 5.0f);
+	player->getPlayerObject()->_transform->SetWorldPosition(5.0f, tempY, 5.0f);
 	player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	for (int i = 0; i < player->getRenderObject().size(); i++)
@@ -124,14 +124,12 @@ HRESULT stageThree::init()
 	boss->setActive(true);
 	_renderObject.push_back(boss);
 
-	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
-	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, 5));
-
-	CINEMATICMANAGER->cinematicInit();
-	
-	start = false;
-
 	SOUNDMANAGER->play("보스1", 0.1f);
+
+	//초기화
+	CINEMATICMANAGER->init();
+	//로드된값 집어 넣기 
+	CINEMATICMANAGER->cinematicBossInit();
 
 	return S_OK;
 }
@@ -142,6 +140,22 @@ void stageThree::release()
 
 void stageThree::update()
 {
+	CINEMATICMANAGER->cinematicBossLoad(&boss->_transform->GetWorldPosition(), _mainCamera, boss->_transform);
+
+	if (CINEMATICMANAGER->GetGScineMticBossBool() == true)
+	{
+		if (cinematicBool == false)
+		{
+			_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
+			_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, 5));
+			cinematicBool = true;
+		}
+		else
+		{
+			_mainCamera->updateBase();
+		}
+	}
+
 	shadowUpdate();
 
 	player->update();
@@ -201,7 +215,13 @@ void stageThree::render()
 	}
 	player->render();
 
-	m_pUIPlayer->render();
+	CINEMATICMANAGER->cinematicBossRender();
+
+	if (CINEMATICMANAGER->GetGScineMticBossBool() == true)
+	{
+		m_pUIPlayer->render();
+	}
+
 }
 
 void stageThree::shadowInit(void)

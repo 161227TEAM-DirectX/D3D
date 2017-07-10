@@ -18,7 +18,7 @@ struct LEFTVIEWUI
 class leftViewHead : public iGameNode
 {
 private:
-	
+
 	rightView*			_rightView;		//라이트뷰클래스
 	terrainSc*			_terrainSc;		//지형클래스
 	terrain*			_terrain;			//지형클래스
@@ -27,6 +27,7 @@ private:
 	mapObject*			_mapObject;		//맵오브젝트
 	WaterTerrain*		_waterTerrain;    //물결 오브젝트
 	camera*				_mainCamera;		//그래
+
 	vector<baseObject*>	_monster;
 
 	lightDirection*			_sceneBaseDirectionLight;	//씬에 배치된 기본라이팅
@@ -68,10 +69,32 @@ private:
 	int sour;
 	int dest;
 	bool first;
-
-//LOAD부분
+	//LOAD부분
 private:
 	tagSaveObject object;
+	//텍스쳐칠하는부분
+private:
+	D3DXVECTOR3		m_vCSelectRangePos;
+	string			m_sCCurTex;
+	D3DXVECTOR3		m_vCSelectPos;
+	D3DXVECTOR3		m_vCSelectColor;
+	D3DXVECTOR2		m_vCSelectIdx;
+	LPDIRECT3DTEXTURE9 m_pCSplatBase;
+
+	int m_nSplatRange;		//색칠 범위
+
+	LEFTVIEWUI _textureColorBack;   //뒷배경
+	LEFTVIEWUI _textureColorMix[4];    //섞는 버튼
+	LEFTVIEWUI _textureColorMixSize[4];//섞는 사이즈
+
+	pair <bool, POINT> _pick1;
+	pair <bool, POINT> _pick2;
+
+	enum MOVETYPE { BackRight = 1, BackLeft = 2, RightSTOP = 3, LeftSTOP = 4 };
+	int MoveX, MAXX;
+	int MoveY, MAXY;
+
+
 public:
 	leftViewHead();
 	~leftViewHead();
@@ -87,13 +110,20 @@ public:
 	void monsterMaptul();
 	void save();
 
+	//칠하는 부분 함수
+	void textureColorInit();
+	void textureColorUpdate();
+	void textureColorRender();
+
 	void render();
 	void setLink(rightView* rightView) { _rightView = rightView; }
 
 	void monsterSelect(string str, int monsterNumber);
 	void loadMonster(void);
+
 	xMesh* findMonster(int&);
 	string findMonsterName(int&);
+
 	void loadNode(void);
 };
 
