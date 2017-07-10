@@ -141,6 +141,10 @@ void rightView::update(void)
 		this->buttonENvUdate();
 		this->buttonTerUdate();
 	}
+	else
+	{
+		MoveBack = tempN;
+	}
 
 
 	if (_TOPbutton[0].uiNumber == UISTAGE::UION)
@@ -312,6 +316,8 @@ void rightView::buttonTopUdate()
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			MoveBack = 2;
+			tempN = MoveBack;
 			for (int i = 0; i < 2; i++)
 			{
 				//false시켜버리기
@@ -337,6 +343,8 @@ void rightView::buttonTopUdate()
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			MoveBack = 1;
+			tempN = MoveBack;
 			for (int i = 0; i < 2; i++)
 			{
 				//false시켜버리기
@@ -362,6 +370,8 @@ void rightView::buttonTopUdate()
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			MoveBack = 2;
+			tempN = MoveBack;
 			for (int i = 0; i < 2; i++)
 			{
 				//false시켜버리기

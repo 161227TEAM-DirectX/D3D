@@ -57,24 +57,24 @@ void medicine::settingItemRender()
 {
 	//빨간물약렌더-------------------- -
 	//빨간(1)
-	_medicineRender.tex = RM_TEXTURE->getResource("ResourceUI/inven/shop/방어구1.png");
+	_medicineRender.tex = RM_TEXTURE->getResource("ResourceUI/inven/shop/물약1.png");
 	_medicineRender.kind = ITEMKIND::HPMEDICINE;
 	_vMedicineRender.push_back(_medicineRender);
 
 	//빨간(2)
-	_medicineRender.tex = RM_TEXTURE->getResource("ResourceUI/inven/shop/방어구2.png");
+	_medicineRender.tex = RM_TEXTURE->getResource("ResourceUI/inven/shop/물약2.png");
 	_medicineRender.kind = ITEMKIND::HPMEDICINE;
 	_vMedicineRender.push_back(_medicineRender);
 
 
 	//파란물약렌더-------------------- -
 	//파란(3)
-	_medicineRender.tex = RM_TEXTURE->getResource("ResourceUI/inven/shop/방어구3.png");
+	_medicineRender.tex = RM_TEXTURE->getResource("ResourceUI/inven/shop/물약3.png");
 	_medicineRender.kind = ITEMKIND::MPMEDICINE;
 	_vMedicineRender.push_back(_medicineRender);
 
 	//파란(4)
-	_medicineRender.tex = RM_TEXTURE->getResource("ResourceUI/inven/shop/방어구4.png");
+	_medicineRender.tex = RM_TEXTURE->getResource("ResourceUI/inven/shop/물약4.png");
 	_medicineRender.kind = ITEMKIND::MPMEDICINE;
 	_vMedicineRender.push_back(_medicineRender);
 

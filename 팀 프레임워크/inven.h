@@ -6,6 +6,7 @@ class force;
 class shop;
 class playerItem;
 class medicineShop;
+class medicinePlayer;
 
 class inven : public iGameNode
 {
@@ -14,6 +15,7 @@ private:
 	shop* _shop;
 	playerItem* _playerItem;
 	medicineShop* _medicineShop;
+	medicinePlayer* _medicinePlayer;
 private:
 	//¿Œ∫•πŸ≈¡
 	ITEMIMAGE _inven;
@@ -33,7 +35,7 @@ private:
 
 	pair <bool, POINT> _pick;
 	int _tempItem;                                   //∆»ãö « ø‰«— ∫Øºˆ
-	
+
 public:
 
 	HRESULT init(void);
@@ -43,10 +45,11 @@ public:
 
 	void invenPickUpdate();
 	void invenButtonUpdate();
-    
+
 	void removeInvenItem(int num);
 	void removeInvenItemInformation(int num);
 
+	void setMedicinePlayerLink(medicinePlayer* medicinePlayer) { _medicinePlayer = medicinePlayer; }
 	void setShopLink(shop* shop) { _shop = shop; }
 	void setForceLink(force* force) { _force = force; }
 	void setPlayerItemLink(playerItem* playerItem) { _playerItem = playerItem; }

@@ -8,12 +8,12 @@ class inven;
 
 class medicineShop : public iGameNode
 {
-//클래스들
+	//클래스들
 private:
 	medicine* _medicine;
 	inven* _inven;
 
-//보여지는 변수들
+	//보여지는 변수들
 private:
 	ITEMIMAGE _medicineShop;
 	ITEMIMAGE _medicineTemp;
@@ -29,7 +29,7 @@ private:
 	ITEMINFOMATION _countTemp;
 	ITEMINFOMATION _count2Temp;
 
-//상세 정보 변수들
+	//상세 정보 변수들
 private:
 	ITEMIMAGE _medicineRender[4];
 

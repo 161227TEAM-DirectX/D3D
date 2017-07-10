@@ -31,6 +31,7 @@ leftViewHead::~leftViewHead()
 
 HRESULT leftViewHead::init()
 {
+	//카메라
 	_mainCamera = new camera;
 	_mainCamera->SetWorldPosition(0.0f, 0.0f, 0.0f);
 
@@ -50,7 +51,7 @@ HRESULT leftViewHead::init()
 	//지형
 	_terrain = new terrain;
 	_terrain->setHeightmap("높이맵_5");
-	_terrain->setTile0(FILEPATH_MANAGER->GetFilepath("타일맵_4"),false);
+	_terrain->setTile0(FILEPATH_MANAGER->GetFilepath("타일맵_4"), false);
 	_terrain->setTile1(FILEPATH_MANAGER->GetFilepath("타일맵_10"), false);
 	_terrain->setTile2(FILEPATH_MANAGER->GetFilepath("타일맵_13"), false);
 	_terrain->setTile3(FILEPATH_MANAGER->GetFilepath("타일맵_23"), false);
@@ -59,6 +60,9 @@ HRESULT leftViewHead::init()
 	_terrain->setBrushmap("브러쉬_brush01");
 	_terrain->setBrushScale(1.0f);
 	_terrain->setting();
+
+	//색칠하는 init함수
+	this->textureColorInit();
 
 	tile1 = "타일맵_4";
 	tile2 = "타일맵_10";
@@ -73,7 +77,9 @@ HRESULT leftViewHead::init()
 	first = false;
 
 	mapRotation = D3DXToRadian(180);
-	
+
+	DXIMG_MANAGER->GetDxImg("tileTest0")->SetPosition(D3DXVECTOR3(leftViewPort.X / 2, leftViewPort.Y, 0));
+
 	return S_OK;
 }
 
@@ -104,6 +110,7 @@ void leftViewHead::update()
 	this->save();				//데이터 로드
 	this->terrainUpdate();
 	this->PickUdate();
+	this->textureColorUpdate();
 	this->monsterMaptul();
 
 	//몬스터 업데이트 부분
@@ -308,7 +315,7 @@ void leftViewHead::terrainTextureUpate()
 	{
 	case 1:
 		tile1 = "타일맵_1";
-		_terrain->setTile0(FILEPATH_MANAGER->GetFilepath(tile1),false);
+		_terrain->setTile0(FILEPATH_MANAGER->GetFilepath(tile1), false);
 		break;
 	case 2:
 		tile1 = "타일맵_2";
@@ -693,12 +700,12 @@ void leftViewHead::save()
 				m_vecObject.push_back(temp2);
 			}
 
-		    _terrain->setHeightmap(IOMAPMANAGER->loadMapInfo("ㅇㅇ").heightMap, false);
+			_terrain->setHeightmap(IOMAPMANAGER->loadMapInfo("ㅇㅇ").heightMap, false);
 			_terrain->setTile0(IOMAPMANAGER->loadMapInfo("ㅇㅇ").tile0, false);
-			_terrain->setTile1(IOMAPMANAGER->loadMapInfo("ㅇㅇ").tile1,false);
-			_terrain->setTile2(IOMAPMANAGER->loadMapInfo("ㅇㅇ").tile2,false);
-			_terrain->setTile3(IOMAPMANAGER->loadMapInfo("ㅇㅇ").tile3,false);
-			_terrain->setSplat(IOMAPMANAGER->loadMapInfo("ㅇㅇ").splat,false);
+			_terrain->setTile1(IOMAPMANAGER->loadMapInfo("ㅇㅇ").tile1, false);
+			_terrain->setTile2(IOMAPMANAGER->loadMapInfo("ㅇㅇ").tile2, false);
+			_terrain->setTile3(IOMAPMANAGER->loadMapInfo("ㅇㅇ").tile3, false);
+			_terrain->setSplat(IOMAPMANAGER->loadMapInfo("ㅇㅇ").splat, false);
 			_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("ㅇㅇ").vecPos);
 			_terrain->setting();
 			_terrain->changeHeightTerrain();
@@ -817,9 +824,255 @@ void leftViewHead::save()
 	}
 }
 
+void leftViewHead::textureColorInit()
+{
+	ZeroMemory(&m_pCSplatBase, sizeof(m_pCSplatBase));
+
+	m_pCSplatBase = TEXTURE_MANAGER->GetTexture("splat_base");
+	m_pCSplatBase = TEXTURE_MANAGER->GetTexture("splat_test0");
+	m_pCSplatBase = TEXTURE_MANAGER->GetTexture("splat_test1");
+	m_pCSplatBase = TEXTURE_MANAGER->GetTexture("splat_test2");
+	m_pCSplatBase = TEXTURE_MANAGER->GetTexture("splat_test3");
+	_terrain->setSplat(m_pCSplatBase);
+
+	//============================================================================================//
+	_textureColorBack.tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/믹스배경.png");
+
+	for (int i = 0; i < 4; i++)
+	{
+		_textureColorMix[i].FT = false;
+		_textureColorMixSize[i].FT = false;
+
+		_textureColorMix[i].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/믹스1.png");
+		_textureColorMixSize[i].tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/믹스2.png");
+	}
+
+	MoveX = -202;
+	MoveY = 150;
+	MAXX = 19;
+	MAXY = 551;
+	_textureColorBack.rc2 = { (LONG)leftViewPort.X + MoveX , (LONG)leftViewPort.Y + MoveY, (LONG)leftViewPort.X + MAXX, (LONG)leftViewPort.Y + MAXY };
+
+	_textureColorMix[0].rc2 = { MoveX + 48 , MoveY + 74,MoveX + 152,MoveY + 96 };
+	_textureColorMix[1].rc2 = { MoveX + 48 , MoveY + 101,MoveX + 152,MoveY + 123 };
+	_textureColorMix[2].rc2 = { MoveX + 48 , MoveY + 128,MoveX + 152,MoveY + 150 };
+	_textureColorMix[3].rc2 = { MoveX + 48 , MoveY + 155,MoveX + 152,MoveY + 177 };
+
+	_textureColorMixSize[0].rc2 = { MoveX + 48 , MoveY + 229,MoveX + 152,MoveY + 251 };
+	_textureColorMixSize[1].rc2 = { MoveX + 48 , MoveY + 256,MoveX + 152,MoveY + 278 };
+	_textureColorMixSize[2].rc2 = { MoveX + 48 , MoveY + 283,MoveX + 152,MoveY + 305 };
+	_textureColorMixSize[3].rc2 = { MoveX + 48 , MoveY + 310,MoveX + 152,MoveY + 332 };
+
+	MoveBack = 0;
+
+	_pick1.first = false;
+	_pick1.second = { 0,0 };
+
+	_pick2.first = false;
+	_pick2.second = { 0,0 };
+}
+
+void leftViewHead::textureColorUpdate()
+{
+	//이부분은 이동이기떄문에 포함될필요없음(LEFT안에)
+	switch (MoveBack)
+	{
+	case MOVETYPE::BackRight:
+		if (leftViewPort.X + 19 >= MoveX)
+		{
+			MoveX = 19;
+			MAXX = 221;
+		}
+		else
+		{
+			MoveX++;
+			MAXX++;
+		}
+		break;
+
+	case MOVETYPE::BackLeft:
+		if (19 >= MAXX)
+		{
+			MoveX = -202;
+			MAXX = 19;
+		}
+		else
+		{
+			MoveX--;
+			MAXX--;
+		}
+		break;
+
+	case MOVETYPE::RightSTOP:
+		break;
+
+	case MOVETYPE::LeftSTOP:
+		break;
+	}
+	//==============================================================================/
+	if (_ptMousePos.x < leftViewPort.X + leftViewPort.Width && _ptMousePos.x >= 0)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			if (PtInRect(&_textureColorMix[i].rc2, GetMousePos()))
+			{
+				_textureColorMix[i].FT = true;
+
+				if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
+				{
+					_pick1.first = true;
+					_pick1.second = { _textureColorMix[i].rc2.left,_textureColorMix[i].rc2.top };
+					m_sCCurTex = "tileTest" + to_string(i) + "_mapTool";
+				}
+			}
+			else
+			{
+				_textureColorMix[i].FT = false;
+			}
+
+			if (PtInRect(&_textureColorMixSize[i].rc2, GetMousePos()))
+			{
+				_textureColorMixSize[i].FT = true;
+
+				if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
+				{
+					_pick2.first = true;
+					_pick2.second = { _textureColorMixSize[i].rc2.left,_textureColorMixSize[i].rc2.top };
+					m_nSplatRange = i;
+				}
+			}
+			else
+			{
+				_textureColorMixSize[i].FT = false;
+			}
+		}
+
+		if (_pick1.first == true && _pick2.first == true)
+		{
+			if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
+			{
+				//Terrain 이랑 Ray체크
+				_terrain->isIntersectRay(&_hitPos, &ray);
+
+				//Terrain에서 피킹한 곳의 인덱스를 가져온다.
+				m_vSelectIdx = _terrain->getIdx(_hitPos.x, _hitPos.z);
+
+				//현재 정점x,y에서 스플랫 색상을 가져온다.
+				m_vCSelectColor = _terrain->selectSplatColor("splat_base", m_vSelectIdx.x, m_vSelectIdx.y);
+
+				D3DLOCKED_RECT lockRect;
+				m_pCSplatBase->LockRect(0, &lockRect, 0, 0);
+
+				for (int z = m_vSelectIdx.y - m_nSplatRange; z <= m_vSelectIdx.y + m_nSplatRange; z++)
+				{
+					for (int x = m_vSelectIdx.x - m_nSplatRange; x <= m_vSelectIdx.x + m_nSplatRange; x++)
+					{
+						//해당 픽셀의 컬러 값을 얻는다.
+						DWORD* pStart = (DWORD*)lockRect.pBits;	//(DWORD 형으로 형변환된 lock 된 이미지지의 시작 주소
+						DWORD dwColor = *(pStart + (z * (lockRect.Pitch / 4) + x));
+
+						if (m_sCCurTex == "tileTest0_mapTool")
+						{
+							*(pStart + (z * (lockRect.Pitch / 4) + x)) = 255 << 16;		// R    
+						}
+						else if (m_sCCurTex == "tileTest1_mapTool")
+						{
+							*(pStart + (z * (lockRect.Pitch / 4) + x)) = 255 << 8;		// G  
+						}
+						else if (m_sCCurTex == "tileTest2_mapTool")
+						{
+							*(pStart + (z * (lockRect.Pitch / 4) + x)) = 255 << 4;		// B   
+						}
+						else if (m_sCCurTex == "tileTest3_mapTool")
+						{
+							*(pStart + (z * (lockRect.Pitch / 4) + x)) = 0;				// Bk  
+						}
+
+						//*(pStart + (z * (lockRect.Pitch / 4) + x)) = 255 << 16;		// R    
+						//*(pStart + (z * (lockRect.Pitch / 4) + x)) = 255 << 8;		// G    
+						//*(pStart + (z * (lockRect.Pitch / 4) + x)) = 255 << 4;		// B    
+						//*(pStart + (z * (lockRect.Pitch / 4) + x)) = 0;				// Bk 
+					}
+				}
+				m_pCSplatBase->UnlockRect(0);
+			}
+		}
+	}
+	else
+	{
+		_pick1.first = false;
+		_pick2.first = false;
+	}
+}
+
+void leftViewHead::textureColorRender()
+{
+	//이동뒤에 필요하기떄문에 추가 
+	_textureColorBack.rc2 = { MoveX ,MoveY, MAXX,MAXY };
+
+	_textureColorMix[0].rc2 = { MoveX + 48 , MoveY + 74,MoveX + 152,MoveY + 96 };
+	_textureColorMix[1].rc2 = { MoveX + 48 , MoveY + 101,MoveX + 152,MoveY + 123 };
+	_textureColorMix[2].rc2 = { MoveX + 48 , MoveY + 128,MoveX + 152,MoveY + 150 };
+	_textureColorMix[3].rc2 = { MoveX + 48 , MoveY + 155,MoveX + 152,MoveY + 177 };
+
+	_textureColorMixSize[0].rc2 = { MoveX + 48 , MoveY + 229,MoveX + 152,MoveY + 251 };
+	_textureColorMixSize[1].rc2 = { MoveX + 48 , MoveY + 256,MoveX + 152,MoveY + 278 };
+	_textureColorMixSize[2].rc2 = { MoveX + 48 , MoveY + 283,MoveX + 152,MoveY + 305 };
+	_textureColorMixSize[3].rc2 = { MoveX + 48 , MoveY + 310,MoveX + 152,MoveY + 332 };
+
+	SPRITEMANAGER->renderRectTexture(_textureColorBack.tex, &_textureColorBack.rc1, &_textureColorBack.rc2, 0, 0, 202, 361, MoveX, MoveY);
+
+	//MIX
+	if (_textureColorMix[0].FT == false) SPRITEMANAGER->renderRectTexture(_textureColorMix[0].tex, &_textureColorMix[0].rc1, &_textureColorMix[0].rc2, 0, 0, 104, 22, MoveX + 48, MoveY + 74);
+	else SPRITEMANAGER->renderRectTexture(_textureColorMix[0].tex, &_textureColorMix[0].rc1, &_textureColorMix[0].rc2, 0, 22, 104, 44, MoveX + 48, MoveY + 74);
+
+	if (_textureColorMix[1].FT == false) SPRITEMANAGER->renderRectTexture(_textureColorMix[1].tex, &_textureColorMix[1].rc1, &_textureColorMix[1].rc2, 0, 44, 104, 66, MoveX + 48, MoveY + 101);
+	else SPRITEMANAGER->renderRectTexture(_textureColorMix[1].tex, &_textureColorMix[1].rc1, &_textureColorMix[1].rc2, 0, 66, 104, 88, MoveX + 48, MoveY + 101);
+
+	if (_textureColorMix[2].FT == false) SPRITEMANAGER->renderRectTexture(_textureColorMix[2].tex, &_textureColorMix[2].rc1, &_textureColorMix[2].rc2, 0, 88, 104, 110, MoveX + 48, MoveY + 128);
+	else SPRITEMANAGER->renderRectTexture(_textureColorMix[2].tex, &_textureColorMix[2].rc1, &_textureColorMix[2].rc2, 0, 110, 104, 132, MoveX + 48, MoveY + 128);
+
+	if (_textureColorMix[3].FT == false) SPRITEMANAGER->renderRectTexture(_textureColorMix[3].tex, &_textureColorMix[3].rc1, &_textureColorMix[3].rc2, 0, 132, 104, 154, MoveX + 48, MoveY + 155);
+	else SPRITEMANAGER->renderRectTexture(_textureColorMix[3].tex, &_textureColorMix[3].rc1, &_textureColorMix[3].rc2, 0, 154, 104, 176, MoveX + 48, MoveY + 155);
+
+	//MIXSIZE
+	if (_textureColorMixSize[0].FT == false)  SPRITEMANAGER->renderRectTexture(_textureColorMixSize[0].tex, &_textureColorMixSize[0].rc1, &_textureColorMixSize[0].rc2, 0, 0, 104, 22, MoveX + 48, MoveY + 229);
+	else SPRITEMANAGER->renderRectTexture(_textureColorMixSize[0].tex, &_textureColorMixSize[0].rc1, &_textureColorMixSize[0].rc2, 0, 22, 104, 44, MoveX + 48, MoveY + 229);
+
+	if (_textureColorMixSize[1].FT == false)  SPRITEMANAGER->renderRectTexture(_textureColorMixSize[1].tex, &_textureColorMixSize[1].rc1, &_textureColorMixSize[1].rc2, 0, 44, 104, 66, MoveX + 48, MoveY + 256);
+	else SPRITEMANAGER->renderRectTexture(_textureColorMixSize[1].tex, &_textureColorMixSize[1].rc1, &_textureColorMixSize[1].rc2, 0, 66, 104, 88, MoveX + 48, MoveY + 256);
+
+	if (_textureColorMixSize[2].FT == false)  SPRITEMANAGER->renderRectTexture(_textureColorMixSize[2].tex, &_textureColorMixSize[2].rc1, &_textureColorMixSize[2].rc2, 0, 88, 104, 110, MoveX + 48, MoveY + 283);
+	else SPRITEMANAGER->renderRectTexture(_textureColorMixSize[2].tex, &_textureColorMixSize[2].rc1, &_textureColorMixSize[2].rc2, 0, 110, 104, 132, MoveX + 48, MoveY + 283);
+
+	if (_textureColorMixSize[3].FT == false)  SPRITEMANAGER->renderRectTexture(_textureColorMixSize[3].tex, &_textureColorMixSize[3].rc1, &_textureColorMixSize[3].rc2, 0, 132, 104, 154, MoveX + 48, MoveY + 310);
+	else SPRITEMANAGER->renderRectTexture(_textureColorMixSize[3].tex, &_textureColorMixSize[3].rc1, &_textureColorMixSize[3].rc2, 0, 154, 104, 176, MoveX + 48, MoveY + 310);
+
+	if (_pick1.first == true)
+	{
+		LPDIRECT3DTEXTURE9 temp = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/믹스픽.png");
+		for (int i = 0; i < 4; i++)
+		{
+			SPRITEMANAGER->renderRectTexture(temp, &_textureColorMix[i].rc1, &_textureColorMix[i].rc2, 0, 0, 128, 128, _pick1.second.x, _pick1.second.y);
+		}
+	}
+
+	if (_pick2.first == true)
+	{
+		LPDIRECT3DTEXTURE9 temp = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/믹스픽1.png");
+		for (int i = 0; i < 4; i++)
+		{
+			SPRITEMANAGER->renderRectTexture(temp, &_textureColorMixSize[i].rc1, &_textureColorMixSize[i].rc2, 0, 0, 128, 128, _pick2.second.x, _pick2.second.y);
+		}
+	}
+}
+
 void leftViewHead::render()
 {
-	//맵지형 맵바탕 UI
+	//텍스쳐칼라렌더 
+	this->textureColorRender();
+
+	//////맵지형 맵바탕 UI
 	_leftView.tex = RM_TEXTURE->getResource("Resource/Maptool/maptoolui/왼쪽맵툴.png");
 	SPRITEMANAGER->renderRectTexture(_leftView.tex, &_leftView.rc1, &_leftView.rc2, 0, 0, 2048, 1024, leftViewPort.X, leftViewPort.Y);
 

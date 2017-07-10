@@ -4,6 +4,7 @@
 #include "playerItem.h"
 #include "medicineShop.h"
 #include "force.h"
+#include "medicinePlayer.h"
 
 HRESULT inven::init(void)
 {
@@ -14,9 +15,9 @@ HRESULT inven::init(void)
 
 	_temp.kind = 0;                   //플레이어 아이템으로 넘길 변수 0초기화
 	_tempInformation.type = 0;        //유형 0 초기화
-	
 
-	//버튼초기화
+
+									  //버튼초기화
 	for (int i = 0; i < 2; i++)
 	{
 		_invenButton[i].check = false;
@@ -45,27 +46,27 @@ void inven::update(void)
 void inven::render(void)
 {
 	_inven.tex = RM_TEXTURE->getResource("ResourceUI/inven/shop/인벤바탕.png");
-	_inven.rc2 ={ 900,150,1412,662 };
+	_inven.rc2 = { 900,150,1412,662 };
 	SPRITEMANAGER->renderRectTexture(_inven.tex, &_inven.rc1, &_inven.rc2, 0, 0, 512, 512, 900, 150);
 
 	if (_vinvenItemRender.size() != 0)
 	{
 		for (int i = 0; i < _vinvenItemRender.size(); i++)
 		{
-				_vinvenItemRender[i].rc2 = { (_inven.rc2.left + 21) + (i % 6) * 52, _inven.rc2.top + 311 + (i / 6) * 52 ,_vinvenItemRender[i].rc2.left+53,_vinvenItemRender[i].rc2.top +51};
-				SPRITEMANAGER->renderRectTexture(_vinvenItemRender[i].tex, &_vinvenItemRender[i].rc1, &_vinvenItemRender[i].rc2, 0, 0, 64, 64, (_inven.rc2.left + 21) + (i% 6) * 52, _inven.rc2.top + 311+(i/6)*52);
+			_vinvenItemRender[i].rc2 = { (_inven.rc2.left + 21) + (i % 6) * 52, _inven.rc2.top + 311 + (i / 6) * 52 ,_vinvenItemRender[i].rc2.left + 53,_vinvenItemRender[i].rc2.top + 51 };
+			SPRITEMANAGER->renderRectTexture(_vinvenItemRender[i].tex, &_vinvenItemRender[i].rc1, &_vinvenItemRender[i].rc2, 0, 0, 64, 64, (_inven.rc2.left + 21) + (i % 6) * 52, _inven.rc2.top + 311 + (i / 6) * 52);
 
-				if (_vinvenItem[i].type == ITEMKIND::HPMEDICINE || _vinvenItem[i].type == ITEMKIND::MPMEDICINE)
+			if (_vinvenItem[i].type == ITEMKIND::HPMEDICINE || _vinvenItem[i].type == ITEMKIND::MPMEDICINE)
+			{
+				if (_vinvenItem[i].medicineCount < 10)
 				{
-					if (_vinvenItem[i].medicineCount < 10)
-					{
-						FONTMANAGER->fontOut(to_string(_vinvenItem[i].medicineCount), _vinvenItemRender[i].rc2.left + 36, _vinvenItemRender[i].rc2.top + 30, D3DCOLOR_XRGB(255, 255, 255));
-					}
-					else
-					{
-						FONTMANAGER->fontOut(to_string(_vinvenItem[i].medicineCount), _vinvenItemRender[i].rc2.left + 29, _vinvenItemRender[i].rc2.top + 30, D3DCOLOR_XRGB(255, 255, 255));
-					}
+					FONTMANAGER->fontOut(to_string(_vinvenItem[i].medicineCount), _vinvenItemRender[i].rc2.left + 36, _vinvenItemRender[i].rc2.top + 30, D3DCOLOR_XRGB(255, 255, 255));
 				}
+				else
+				{
+					FONTMANAGER->fontOut(to_string(_vinvenItem[i].medicineCount), _vinvenItemRender[i].rc2.left + 29, _vinvenItemRender[i].rc2.top + 30, D3DCOLOR_XRGB(255, 255, 255));
+				}
+			}
 		}
 
 		//선택버튼
@@ -79,8 +80,8 @@ void inven::render(void)
 		}
 	}
 
-	
-	_invenButton[0].tex =RM_TEXTURE->getResource("ResourceUI/inven/shop/장착해제.png");
+
+	_invenButton[0].tex = RM_TEXTURE->getResource("ResourceUI/inven/shop/장착해제.png");
 	_invenButton[1].tex = RM_TEXTURE->getResource("ResourceUI/inven/shop/장착해제.png");
 
 	_invenButton[0].rc2 = { _inven.rc2.left + 160,_inven.rc2.top + 472 ,_invenButton[0].rc2.left + 68,_invenButton[0].rc2.top + 29 };
@@ -135,7 +136,7 @@ void inven::render(void)
 				FONTMANAGER->fontOut("+" + to_string(_tempNumber.force), GetMousePos().x + 105, GetMousePos().y + 135, D3DCOLOR_XRGB(255, 255, 255));
 			}
 
-			if(_tempNumber.type == ITEMKIND::HPMEDICINE || _tempNumber.type == ITEMKIND::MPMEDICINE)
+			if (_tempNumber.type == ITEMKIND::HPMEDICINE || _tempNumber.type == ITEMKIND::MPMEDICINE)
 			{
 				_invenItemInformation.tex = RM_TEXTURE->getResource("ResourceUI/inven/shop/물약정보창.png");
 				SPRITEMANAGER->renderRectTexture(_invenItemInformation.tex, &_invenItemInformation.rc1, &_invenItemInformation.rc2, 0, 0, 256, 256, GetMousePos().x, GetMousePos().y);
@@ -189,7 +190,7 @@ void inven::invenPickUpdate()
 					temp.first = false;
 
 					_shop->setPick(temp);
-					_playerItem->setPick(temp);		
+					_playerItem->setPick(temp);
 					_medicineShop->setPick(temp);
 				}
 			}
@@ -206,7 +207,7 @@ void inven::invenPickUpdate()
 		_medicineShop->settempTemp(false);
 	}
 
-	
+
 }
 
 void inven::invenButtonUpdate()
@@ -217,13 +218,13 @@ void inven::invenButtonUpdate()
 
 		if (_pick.first == true)
 		{
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON,false))
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON, false))
 			{
 				if (_temp.kind == ITEMKIND::WEAPON)
 				{
 					if (_playerItem->getPlaterWeaponItemRender().size() < 1)
 					{
-			
+
 						_playerItem->setPlayerWeaponItem(_temp);
 						this->removeInvenItem(_tempItem);
 						_pick.first = false;
@@ -241,7 +242,6 @@ void inven::invenButtonUpdate()
 
 				if (_temp.kind == ITEMKIND::ARMOR)
 				{
-					
 					if (_playerItem->getplayerArmorItemRender().size() < 1)
 					{
 						_playerItem->setPlayerArmorItem(_temp);
@@ -256,6 +256,40 @@ void inven::invenButtonUpdate()
 						_playerItem->setPlayerArmor(_playerItem->getPlayerArmor() + _tempInformation.armorAbility);
 
 						this->removeInvenItemInformation(_tempItem);
+					}
+				}
+
+				if (_temp.kind == ITEMKIND::HPMEDICINE)
+				{
+					if (_medicinePlayer->getvHPMedicinePlayerRender().size() < 1)
+					{
+						_medicinePlayer->setvHPMedicinePlayerRender(_temp);
+						this->removeInvenItem(_tempItem);
+						_pick.first = false;
+					}
+
+					if (_medicinePlayer->getvHPMedicinePlayerInforMation().size() < 1)
+					{
+						_medicinePlayer->setvHPMedicinePlayerInforMation(_tempInformation);
+						this->removeInvenItemInformation(_tempItem);
+						_pick.first = false;
+					}
+				}
+
+				if (_temp.kind == ITEMKIND::MPMEDICINE)
+				{
+					if (_medicinePlayer->getvMPMedicinePlayerRender().size() < 1)
+					{
+						_medicinePlayer->setvMPMedicinePlayerRender(_temp);
+						this->removeInvenItem(_tempItem);
+						_pick.first = false;
+					}
+
+					if (_medicinePlayer->getvMPMedicinePlayerInforMation().size() < 1)
+					{
+						_medicinePlayer->setvMPMedicinePlayerInforMation(_tempInformation);
+						this->removeInvenItemInformation(_tempItem);
+						_pick.first = false;
 					}
 				}
 			}

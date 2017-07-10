@@ -21,12 +21,12 @@ private:
 	int iCount;
 	int ECount;
 	float time;
-
 	float cameraPositionX, cameraPositionY, cameraPositionZ;
 
 	D3DXVECTOR3 lookPos;
 
-	CINEMA texture;
+	CINEMA endingTexure;
+	CINEMA scene4Texure;
 
 private:
 	vector<tagSaveCinematic> vcinematic;
@@ -40,18 +40,26 @@ private:
 	tagSaveEndingCinematic         Etemp;
 
 	SYNTHESIZE(int, number, GSnumber);
+	SYNTHESIZE(bool, cineMticE4Bool, GScineMticE4Bool);
+	SYNTHESIZE(bool, cineMticBossBool, GScineMticBossBool);
+
 public:
 	void init();
 
-	void cinematicInit();
-	void cinematicLoad(D3DXVECTOR3* position, camera* camera, dx::transform* transform);
-	void cinematicSave(D3DXVECTOR3* position, camera* camera);
+	void cinematicBossInit();
+	void cinematicBossLoad(D3DXVECTOR3* position, camera* camera, dx::transform* transform);
+	void cinematicBossSave(D3DXVECTOR3* position, camera* camera);
+	void cinematicBossRender();
 
-	void cinematicEInit();
+	void cinematicE4Init();
+	void cinematicE4Load(camera * _camera , bool cinematic);
+	void cinematicE4Save(camera * _camera);
+	void cinematicE4Render(camera* camera);
+
+	void cinematicEndingInit();
 	void cinematicEndingLoad(camera * _camera);
 	void cinematicEndingSave(camera * _camera);
-
-	void cinemaRender(camera* camera);
+	void cinematicEndingRender();
 
 
 	CinematicManger() {}

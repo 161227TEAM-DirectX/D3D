@@ -13,40 +13,52 @@ void CinematicManger::init()
 	iCount = 0;
 	ECount = 0;
 	time = 0;
+
+	cineMticE4Bool = false;
+	cineMticBossBool = false;
 }
 
-void CinematicManger::cinematicInit()
+void CinematicManger::cinematicBossInit()
 {
-	//IOCINEMATICMANAGER->loadFile("시네마틱");
+	IOCINEMATICMANAGER->loadFile("보스시네마틱");
 
-	//for (int i = 0; i < IOCINEMATICMANAGER->getCount(); i++)
-	//{
-	//	cinematic = IOCINEMATICMANAGER->findTag("카메라" + to_string(i));
-
-	//	vcinematic.push_back(cinematic);
-	//}
-}
-
-void CinematicManger::cinematicLoad(D3DXVECTOR3 * position, camera * camera, dx::transform * transform)
-{
-	if (iCount < vcinematic.size())
+	for (int i = 0; i < IOCINEMATICMANAGER->getCount(); i++)
 	{
-		lookPos = *position;
+		cinematic = IOCINEMATICMANAGER->findTag("카메라" + to_string(i));
 
-		D3DXVECTOR3 temp = { vcinematic[iCount].X, vcinematic[iCount].Y, vcinematic[iCount].Z };
-
-		D3DXVec3TransformCoord(&temp, &temp, &transform->GetWorldRotateMatrix());
-
-		camera->LookPosition((lookPos + D3DXVECTOR3(0, vcinematic[iCount].Height, 0)));
-		camera->SetWorldPosition((position->x + temp.x), position->y + temp.y, (position->z + temp.z));
-
-		iCount++;
-
-		camera->updateCamToDevice();
+		vcinematic.push_back(cinematic);
 	}
 }
 
-void CinematicManger::cinematicSave(D3DXVECTOR3 * position, camera * camera)
+void CinematicManger::cinematicBossLoad(D3DXVECTOR3 * position, camera * camera, dx::transform * transform)
+{
+	if (cineMticBossBool == false)
+	{
+		if (iCount < vcinematic.size())
+		{
+			lookPos = *position;
+
+			D3DXVECTOR3 temp = { vcinematic[iCount].X, vcinematic[iCount].Y, vcinematic[iCount].Z };
+
+			D3DXVec3TransformCoord(&temp, &temp, &transform->GetWorldRotateMatrix());
+
+			camera->LookPosition((lookPos + D3DXVECTOR3(0, vcinematic[iCount].Height, 0)));
+			camera->SetWorldPosition((position->x + temp.x), position->y + temp.y, (position->z + temp.z));
+
+			iCount++;
+
+			camera->updateMatrix();
+			camera->updateCamToDevice();
+			camera->updateFrustum();
+		}
+		else
+		{
+			cineMticBossBool = true;
+		}
+	}
+}
+
+void CinematicManger::cinematicBossSave(D3DXVECTOR3 * position, camera * camera)
 {
 	lookPos = *position;
 
@@ -58,43 +70,37 @@ void CinematicManger::cinematicSave(D3DXVECTOR3 * position, camera * camera)
 
 	camera->LookPosition(lookPos + cameraHeight);
 	camera->SetWorldPosition(cameraPositionX, cameraPositionY, cameraPositionZ);
+
+	camera->updateMatrix();
 	camera->updateCamToDevice();
+	camera->updateFrustum();
 
 	//위로 올라가는거
-	if (KEYMANAGER->isStayKeyDown(VK_NUMPAD1))
+	if (KEYMANAGER->isStayKeyDown('Y'))
 	{
-		cameraHeight.y += 0.03f;
-		cameraY += 0.03f;
+		cameraHeight.y += 0.1f;
+		cameraY += 0.1f;
 	}
 	//아래로 내려가는거
-	if (KEYMANAGER->isStayKeyDown(VK_NUMPAD2))
+	if (KEYMANAGER->isStayKeyDown('U'))
 	{
-		cameraHeight.y -= 0.03f;
-		cameraY -= 0.03f;
+		cameraHeight.y -= 0.1f;
+		cameraY -= 0.1f;
 	}
 	//각도를 위로올리는거
-	if (KEYMANAGER->isStayKeyDown(VK_NUMPAD4))
+	if (KEYMANAGER->isStayKeyDown('H'))
 	{
-		cameraHeight.y += 0.03f;
+		cameraHeight.y += 0.1f;
 	}
 	//각도를 아래로내리는거
-	if (KEYMANAGER->isStayKeyDown(VK_NUMPAD5))
+	if (KEYMANAGER->isStayKeyDown('J'))
 	{
-		cameraHeight.y -= 0.03f;
-	}
-	//약간 위를 중심으로 위로돌리기,위를중심으로 아래로돌리기
-	if (KEYMANAGER->isStayKeyDown(VK_NUMPAD7))
-	{
-		cameraY += 0.03f;
-	}
-	if (KEYMANAGER->isStayKeyDown(VK_NUMPAD8))
-	{
-		cameraY -= 0.03f;
+		cameraHeight.y -= 0.1f;
 	}
 
 	//캠확대 , 축소
-	if (KEYMANAGER->isStayKeyDown('C')) 	cameraXZ += 0.05f;
-	if (KEYMANAGER->isStayKeyDown('V')) 	cameraXZ -= 0.05f;
+	if (KEYMANAGER->isStayKeyDown('I')) 	cameraXZ += 0.1f;
+	if (KEYMANAGER->isStayKeyDown('O')) 	cameraXZ -= 0.1f;
 
 	if (KEYMANAGER->isStayKeyDown('Z'))
 	{
@@ -133,15 +139,32 @@ void CinematicManger::cinematicSave(D3DXVECTOR3 * position, camera * camera)
 		iCount++;
 	}
 
+	if (KEYMANAGER->isOnceKeyDown('A'))
+	{
+		iCount = 0;
+		vCTemp.clear();
+	}
+
 	if (KEYMANAGER->isOnceKeyDown('N'))
 	{
-		IOCINEMATICMANAGER->saveFile("시네마틱", vCTemp);
+		IOCINEMATICMANAGER->saveFile("보스시네마틱", vCTemp);
 	}
 }
 
-void CinematicManger::cinematicEInit()
+void CinematicManger::cinematicBossRender()
 {
-	IOSAVEENDING->loadFile("엔딩시네마틱");
+	if(cineMticBossBool == false)
+	{
+		endingTexure.tex = RM_TEXTURE->getResource("Resource/Maptool/cinema/시네마.png");
+		SPRITEMANAGER->renderRectTexture(endingTexure.tex, &endingTexure.rc1, &endingTexure.rc2, 0, 0, 2048, 1024, 0, 0);
+	}
+}
+
+
+
+void CinematicManger::cinematicE4Init()
+{
+	IOSAVEENDING->loadFile("이벤트4시네마틱");
 
 	for (int i = 0; i < IOSAVEENDING->getCount(); i++)
 	{
@@ -151,24 +174,33 @@ void CinematicManger::cinematicEInit()
 	}
 }
 
-void CinematicManger::cinematicEndingLoad(camera * _camera)
+void CinematicManger::cinematicE4Load(camera * _camera, bool cinematic)
 {
-	if (ECount < Ecinematic.size())
+	if (cinematic == false)
 	{
-		D3DXVECTOR3 temp = { Ecinematic[ECount].X, Ecinematic[ECount].Y, Ecinematic[ECount].Z };
-		D3DXVECTOR3 tempAngle = { Ecinematic[ECount].rotationX, Ecinematic[ECount].rotationY, Ecinematic[ECount].rotationZ };
+		if (ECount < Ecinematic.size())
+		{
+			D3DXVECTOR3 temp = { Ecinematic[ECount].X, Ecinematic[ECount].Y, Ecinematic[ECount].Z };
+			D3DXVECTOR3 tempAngle = { Ecinematic[ECount].rotationX, Ecinematic[ECount].rotationY, Ecinematic[ECount].rotationZ };
 
-	    _camera->SetWorldPosition(temp.x, temp.y,temp.z);
-		_camera->SetRotateWorld(tempAngle.x, tempAngle.y, tempAngle.z);
-		number = Ecinematic[ECount].EningNumber;
+			_camera->SetWorldPosition(temp.x, temp.y, temp.z);
+			_camera->SetRotateWorld(tempAngle.x, tempAngle.y, tempAngle.z);
+			number = Ecinematic[ECount].EningNumber;
 
-		ECount++;
+			ECount++;
 
-		_camera->updateCamToDevice();
+			_camera->updateMatrix();
+			_camera->updateCamToDevice();
+			_camera->updateFrustum();
+		}
+		else
+		{
+			cineMticE4Bool = true;
+		}
 	}
 }
 
-void CinematicManger::cinematicEndingSave(camera * _camera)
+void CinematicManger::cinematicE4Save(camera * _camera)
 {
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE)) number = 0;
 	if (KEYMANAGER->isOnceKeyDown('1')) number = 1;
@@ -193,16 +225,100 @@ void CinematicManger::cinematicEndingSave(camera * _camera)
 		ECount++;
 	}
 
+	if (KEYMANAGER->isOnceKeyDown('B'))
+	{
+		ECTemp.clear();
+	}
+
+
+	if (KEYMANAGER->isOnceKeyDown('N'))
+	{
+		IOSAVEENDING->saveFile("이벤트4시네마틱", ECTemp);
+	}
+}
+
+void CinematicManger::cinematicE4Render(camera * camera)
+{
+	if (cineMticE4Bool == false)
+	{
+		scene4Texure.tex = RM_TEXTURE->getResource("Resource/Maptool/cinema/이벤트4.png");
+		SPRITEMANAGER->renderRectTexture(scene4Texure.tex, &scene4Texure.rc1, &scene4Texure.rc2, 0, 0, 2048, 1024, 0, 0);
+	}
+}
+
+
+
+void CinematicManger::cinematicEndingInit()
+{
+	IOSAVEENDING->loadFile("엔딩시네마틱");
+
+	for (int i = 0; i < IOSAVEENDING->getCount(); i++)
+	{
+		Einematic = IOSAVEENDING->findTag("카메라" + to_string(i));
+
+		Ecinematic.push_back(Einematic);
+	}
+}
+
+void CinematicManger::cinematicEndingLoad(camera * _camera)
+{
+	if (ECount < Ecinematic.size())
+	{
+		D3DXVECTOR3 temp = { Ecinematic[ECount].X, Ecinematic[ECount].Y, Ecinematic[ECount].Z };
+		D3DXVECTOR3 tempAngle = { Ecinematic[ECount].rotationX, Ecinematic[ECount].rotationY, Ecinematic[ECount].rotationZ };
+
+		_camera->SetWorldPosition(temp.x, temp.y, temp.z);
+		_camera->SetRotateWorld(tempAngle.x, tempAngle.y, tempAngle.z);
+		number = Ecinematic[ECount].EningNumber;
+
+		ECount++;
+
+		_camera->updateMatrix();
+		_camera->updateCamToDevice();
+		_camera->updateFrustum();
+	}
+}
+
+void CinematicManger::cinematicEndingSave(camera * _camera)
+{
+	if (KEYMANAGER->isOnceKeyDown(VK_SPACE)) number = 0;
+	if (KEYMANAGER->isOnceKeyDown('1')) number = 1;
+	if (KEYMANAGER->isOnceKeyDown('2')) number = 2;
+	if (KEYMANAGER->isOnceKeyDown('3')) number = 3;
+	if (KEYMANAGER->isOnceKeyDown('4')) number = 4;
+	if (KEYMANAGER->isOnceKeyDown('5')) number = 5;
+	if (KEYMANAGER->isOnceKeyDown('6')) number = 6;
+
+	if (KEYMANAGER->isToggleKey('M'))
+	{
+		Etemp.infoName = "카메라" + to_string(ECount);
+		Etemp.X = _camera->getCameraPos().x;
+		Etemp.Y = _camera->getCameraPos().y;
+		Etemp.Z = _camera->getCameraPos().z;
+		Etemp.rotationX = D3DXToRadian(_camera->GetAngleX());
+		Etemp.rotationY = D3DXToRadian(_camera->GetAngleY());
+		Etemp.rotationZ = D3DXToRadian(_camera->GetAngleZ());
+		Etemp.EningNumber = number;
+
+		ECTemp.push_back(Etemp);
+
+		ECount++;
+	}
+
+	if (KEYMANAGER->isOnceKeyDown('B'))
+	{
+		ECTemp.clear();
+	}
+
+
 	if (KEYMANAGER->isOnceKeyDown('N'))
 	{
 		IOSAVEENDING->saveFile("엔딩시네마틱", ECTemp);
 	}
 }
 
-void CinematicManger::cinemaRender(camera * camera)
+void CinematicManger::cinematicEndingRender()
 {
-	//texture.tex = RM_TEXTURE->getResource("Resources/maptoolui/시네마.png");
-	//SPRITEMANAGER->renderRectTexture(texture.tex, &texture.rc1, &texture.rc2, 0, 0, 2048, 1024, 0, 0);
-
-	//FONTMANAGER->fontOut(to_string(camera->GetWorldPosition().x), 100, 100, D3DCOLOR_XRGB(255, 255, 255));
+	endingTexure.tex = RM_TEXTURE->getResource("Resource/Maptool/cinema/엔딩.png");
+	SPRITEMANAGER->renderRectTexture(endingTexure.tex, &endingTexure.rc1, &endingTexure.rc2, 0, 0, 2048, 2048, 0, 0);
 }

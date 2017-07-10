@@ -64,7 +64,7 @@ HRESULT EndingScene::init()
 	//시네마틱설정
 	CINEMATICMANAGER->init();
 	//로드된값 집어 넣기 
-	CINEMATICMANAGER->cinematicEInit();
+	CINEMATICMANAGER->cinematicEndingInit();
 
 	return S_OK;
 }

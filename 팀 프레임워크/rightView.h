@@ -101,6 +101,7 @@ private:
 	int numberHeight;        //높이 넘버
 	int numberObject;        //오브젝트 넘버
 	float plusMinus;
+	int tempN;
 
 	//이렇게 만들면 get, set함수가 만들어진다.
 	//초기화는 멤버 이니셜 라이징에서 해준다
