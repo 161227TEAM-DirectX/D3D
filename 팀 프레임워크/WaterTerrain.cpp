@@ -13,11 +13,14 @@ WaterTerrain::~WaterTerrain()
 
 HRESULT WaterTerrain::init()
 {
+	m_pReflectionMap.clear();
 	return S_OK;
 }
 
 HRESULT WaterTerrain::init(float cellSize, int tileNum)
 {
+	m_pReflectionMap.clear();
+
 	_cellScale = cellSize;
 
 	//가로세로 정점 수를 구한다.
@@ -127,19 +130,21 @@ HRESULT WaterTerrain::init(float cellSize, int tileNum)
 	m_Effect_Water = NULL;
 	m_timer = 0.0f;
 
-	D3DXCreateTextureFromFile(_device, "Resource/Maptool/TextureCUBE/waves2.dds", &m_pWaterBump);
+	
 
-	D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/autumnday1.dds", &temp);
+	FAILED(D3DXCreateTextureFromFile(_device, "Resource/Maptool/TextureCUBE/waves2.dds", &m_pWaterBump));
+
+	FAILED(D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/autumnday1.dds", &temp));
 	m_pReflectionMap.push_back(temp);
-	D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/freeskymatter.dds", &temp);
+	FAILED(D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/freeskymatter.dds", &temp));
 	m_pReflectionMap.push_back(temp);
-	D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/deserted.dds", &temp);
+	FAILED(D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/deserted.dds", &temp));
 	m_pReflectionMap.push_back(temp);
-	D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/freeskymatter.dds", &temp);
+	FAILED(D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/freeskymatter.dds", &temp));
 	m_pReflectionMap.push_back(temp);
-	D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/ZORL.dds", &temp);
+	FAILED(D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/ZORL.dds", &temp));
 	m_pReflectionMap.push_back(temp);
-	D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/fire.dds", &temp);
+	FAILED(D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/fire.dds", &temp));
 	m_pReflectionMap.push_back(temp);
 
 	HRESULT hr;

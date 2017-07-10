@@ -3,6 +3,8 @@
 
 HRESULT Environment::init(void)
 {
+	_environmentTexture.clear();
+
 	_environmentEffect =  RM_SHADERFX->loadResource("Resource/Maptool/_Prev/FX/EnvironmentCUBE.fx");
 
 	D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/fire.dds", &_temp);

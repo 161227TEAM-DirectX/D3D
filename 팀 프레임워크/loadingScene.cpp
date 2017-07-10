@@ -70,7 +70,7 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 	XMeshSkinnedLoading();
 
 	//이거 주석 풀면 됨!!!
-	PtcLoading();
+	//PtcLoading();
 
 	UILoading();
 	UiTestLoading();
