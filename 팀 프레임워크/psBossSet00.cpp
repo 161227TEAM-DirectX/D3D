@@ -98,16 +98,43 @@ void psBossSet00::ShoutingSet00(string psName)
 {
 	dxParticleSystemSet::init();
 
-	_planeEMT = NULL;
-	_planeEMT = new dxPlaneEmitter;
-	_planeEMT->init("ParticleResources/Texture/shouting02.png", 1, 0.5f, 1);
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/OneSmoke00.png", 10, 0.1f, 50);
 	
-	_planeEMT->InitRandomSize(1.0f,1.0f);
+	_boardEMT->InitRandomSize(4.0f,4.0f);
+	_planeEMT->InitRandomSizeEnd(20.0f, 20.0f);
+
+	_boardEMT->SetPositionType();
+	_boardEMT->InitDirSphere(1.0f,1.0f,0.0f);
+	_boardEMT->InitRandomPosSphereRadius(1.0f,1.0f);
+	_boardEMT->InitRandomPosExplosionVel(5.0f,5.0f);
+
+	_boardEMT->InitRotateStartAngleZ(0.0f, 360.0f);
+
+	_boardEMT->InitRandomLifeTime(0.5f, 0.5f);
+
+	_PS->addEmitter(_boardEMT);
+
+	PSM->addPS(psName, _PS);
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/OneSmoke01.png", 10, 0.5f, 50);
+
+	_boardEMT->InitRandomSize(1.0f, 1.0f);
 	//_planeEMT->InitRandomSizeEnd(20.0f, 20.0f);
 
-	_planeEMT->InitRandomLifeTime(0.5f, 0.5f);
+	_boardEMT->SetPositionType();
+	_boardEMT->InitDirSphere(1.0f, 1.0f, 0.0f);
+	_boardEMT->InitRandomPosSphereRadius(1.0f, 1.0f);
+	_boardEMT->InitRandomPosExplosionVel(5.0f, 5.0f);
 
-	_PS->addEmitter(_planeEMT);
+	_boardEMT->InitRandomLifeTime(0.5f, 0.5f);
+
+	_boardEMT->InitRotateStartAngleZ(0.0f,360.0f);
+
+	_PS->addEmitter(_boardEMT);
 
 	PSM->addPS(psName, _PS);
 }

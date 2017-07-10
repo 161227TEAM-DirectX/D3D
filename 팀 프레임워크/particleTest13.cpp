@@ -174,6 +174,15 @@ void particleTest13::update()
 
 	}
 
+	if (KEYMANAGER->isOnceKeyDown('P'))
+	{
+		SKM->findSK("»þ¿ìÆÃ")->setSkillPosTrans(_player);
+		SKM->findSK("»þ¿ìÆÃ")->setSkillDirTrans(_player);
+		SKM->findSK("»þ¿ìÆÃ")->setOneTargetTrans(_target);
+		SKM->findSK("»þ¿ìÆÃ")->Start();
+	}
+
+
 	//if (KEYMANAGER->isOnceKeyDown('P'))
 	//{
 	//	SCENEMANAGER->changeScene("gameSceneOne");//gameSceneTwo

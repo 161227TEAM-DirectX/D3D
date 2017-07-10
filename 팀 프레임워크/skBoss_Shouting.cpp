@@ -3,9 +3,13 @@
 
 HRESULT skBoss_Shouting::init()
 {
-	_SkillRenderType = SR_Array;
+	_SkillRenderType = SR_Big;
 
-	setArrayPreparePS("테스트",7);
+	setMaxNumPreparePS(1);
+
+	setPvPreparePS(0, "샤우팅", 1);
+
+	_pvPrepaerPS[0][0]->SetLimitTime(5.0f);
 
 
 	return S_OK;
@@ -18,7 +22,14 @@ void skBoss_Shouting::release()
 bool skBoss_Shouting::Prepare()
 {
 
-	_vPrepaerPS[0]->update();
+	_pvPrepaerPS[0][0]->update();
+
+	if (_pvPrepaerPS[0][0]->autoTimeReset(false))
+	{
+		_skillResetOn = true;
+	}
+
+
 	return false;
 }
 

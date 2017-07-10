@@ -316,8 +316,6 @@
     <ClInclude Include="psBossSet00.h" />
     <ClInclude Include="psEffectSet00.h" />
     <ClInclude Include="psPlayerSet00.h" />
-    <ClInclude Include="PS_Set00.h" />
-    <ClInclude Include="PS_Set01.h" />
     <ClInclude Include="quadParticleEmitter.h" />
     <ClInclude Include="quadTree.h" />
     <ClInclude Include="resourceManager.h" />
@@ -544,8 +542,6 @@
     <ClCompile Include="psBossSet00.cpp" />
     <ClCompile Include="psEffectSet00.cpp" />
     <ClCompile Include="psPlayerSet00.cpp" />
-    <ClCompile Include="PS_Set00.cpp" />
-    <ClCompile Include="PS_Set01.cpp" />
     <ClCompile Include="quadParticleEmitter.cpp" />
     <ClCompile Include="quadTree.cpp" />
     <ClCompile Include="resourceManager.cpp" />
