@@ -122,6 +122,7 @@ void stageOne::release()
 	{
 		SAFE_DELETE(_renderObject[i]);
 	}
+	_renderObject.clear();
 	SAFE_DELETE(_mainCamera);
 	SAFE_DELETE(_directionLightCamera);
 	SAFE_DELETE(sceneBaseDirectionLight);

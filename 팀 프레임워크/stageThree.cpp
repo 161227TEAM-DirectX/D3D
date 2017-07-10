@@ -105,7 +105,7 @@ HRESULT stageThree::init()
 	//플레이어 초기화
 	player->out_setlinkTerrain(*_terrain);
 	player->init();
-	player->getPlayerObject()->_transform->SetWorldPosition(5.0f, tempY, 5.0f);
+	//player->getPlayerObject()->_transform->SetWorldPosition(5.0f, tempY, 5.0f);
 	player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	for (int i = 0; i < player->getRenderObject().size(); i++)

@@ -178,6 +178,7 @@ void stageTwo::release()
 	{
 		SAFE_DELETE(_renderObject[i]);
 	}
+	_renderObject.clear();
 	SAFE_DELETE(_mainCamera);
 	SAFE_DELETE(_directionLightCamera);
 	SAFE_DELETE(sceneBaseDirectionLight);
@@ -572,11 +573,7 @@ void stageTwo::sceneChange()
 	if (PHYSICSMANAGER->isOverlap(player->getPlayerObject(), _gate1))
 	{
 
-		for (int i = 0; i < _renderObject.size(); i++)
-		{
-			SAFE_DELETE(_renderObject[i]);
-		}
-
+		
 		PLAYERMANAGER->SetPos(D3DXVECTOR3(0, 0, -110));
 		SCENEMANAGER->changeScene("gameSceneOne");
 
@@ -584,14 +581,13 @@ void stageTwo::sceneChange()
 
 	}
 
-	if (PHYSICSMANAGER->isOverlap(player->getPlayerObject(), _gate2))
+	if (player != nullptr)
 	{
-		for (int i = 0; i < _renderObject.size(); i++)
+		if (PHYSICSMANAGER->isOverlap(player->getPlayerObject(), _gate2))
 		{
-			SAFE_DELETE(_renderObject[i]);
-		}
 
-		PLAYERMANAGER->SetPos(D3DXVECTOR3(0, 0, 33));
-		SCENEMANAGER->changeScene("gameSceneThree", false);
+			PLAYERMANAGER->SetPos(D3DXVECTOR3(0, 0, 33));
+			SCENEMANAGER->changeScene("gameSceneThree", false);
+		}
 	}
 }

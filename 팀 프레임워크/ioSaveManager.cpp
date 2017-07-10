@@ -20,6 +20,8 @@ void ioSaveManager::loadFile(string filePath)
 	inFile.getline(str, 128);
 	inFile.getline(str, 128);
 
+	_resourceTable.clear();
+
 	while(!inFile.eof())
 	{
 		inFile.getline(str, 128, '/');	//한글이름(테이블 키)

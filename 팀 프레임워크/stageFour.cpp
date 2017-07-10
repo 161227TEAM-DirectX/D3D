@@ -29,6 +29,7 @@ void stageFour::destroy(void)
 	{
 		SAFE_DELETE(_renderObject[i]);
 	}
+	_renderObject.clear();
 	SAFE_DELETE(_mainCamera);
 	SAFE_DELETE(_directionLightCamera);
 	SAFE_DELETE(sceneBaseDirectionLight);
@@ -255,16 +256,14 @@ void stageFour::shadowInit(void)
 	sceneBaseDirectionLight->_intensity = 1.0f;
 
 	//그림자를 만들 카메라 박스 크기 조절용 변수 초기화
-	_shadowDistance = 100.0f;
+	_shadowDistance = 10.0f;
 
 	//그림자 카메라의 투영 방식 변경 및 근접 / 원거리 크기 조절
-	_directionLightCamera->_isOrtho = true;	//직교투영
-	_directionLightCamera->_camNear = 0.1f;	//근거리
-	_directionLightCamera->_camFar = _shadowDistance * 2.0f;
+	_directionLightCamera->_isOrtho = true;
+	_directionLightCamera->_camNear = 0.01f;
+	_directionLightCamera->_camFar = 30;
 	_directionLightCamera->_aspect = 1;
-	_directionLightCamera->_orthoSize = _shadowDistance * 1.5f;	//투영크기
-
-																//텍스처 준비
+	_directionLightCamera->_orthoSize = 60;	//투영크기는 그림자크기로
 	_directionLightCamera->readyShadowTexture(4096);
 
 	_mainCamera->readyRenderToTexture(WINSIZEX, WINSIZEY);
@@ -275,18 +274,27 @@ void stageFour::shadowInit(void)
 
 void stageFour::shadowUpdate(void)
 {
-	//sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
+	////sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
 
-	//광원 위치
-	D3DXVECTOR3 camPos = _mainCamera->GetWorldPosition();	//메인카메라의 위치
-	D3DXVECTOR3 camFront = _mainCamera->GetForward();		//메인카메리의 정면
-	D3DXVECTOR3 lightDir = sceneBaseDirectionLight->_transform->GetForward();	//방향성 빛의 방향
+	////광원 위치
+	//D3DXVECTOR3 camPos = _mainCamera->GetWorldPosition();	//메인카메라의 위치
+	//D3DXVECTOR3 camFront = _mainCamera->GetForward();		//메인카메리의 정면
+	//D3DXVECTOR3 lightDir = sceneBaseDirectionLight->_transform->GetForward();	//방향성 빛의 방향
 
-	D3DXVECTOR3 lightPos = camPos +
-		(camFront * (_shadowDistance * 0.5f)) +
-		(-lightDir * _shadowDistance);
+	//D3DXVECTOR3 lightPos = camPos +
+	//	(camFront * (_shadowDistance * 0.5f)) +
+	//	(-lightDir * _shadowDistance);
 
-	_directionLightCamera->SetWorldPosition(lightPos.x, lightPos.y, lightPos.z);
+	//_directionLightCamera->SetWorldPosition(lightPos.x, lightPos.y, lightPos.z);
+	//_directionLightCamera->LookDirection(lightDir);
+
+	////쉐도우맵 준비
+	//this->readyShadowMap(&this->_renderObject, this->_terrainShadow);
+	D3DXVECTOR3 camPos = player->getPlayerObject()->_transform->GetWorldPosition();	//메인카메라의 위치
+
+	D3DXVECTOR3 lightDir = sceneBaseDirectionLight->_transform->GetForward();			//방향성 광원의 방향
+
+	_directionLightCamera->SetWorldPosition(camPos.x, camPos.y + 5, camPos.z);
 	_directionLightCamera->LookDirection(lightDir);
 
 	//쉐도우맵 준비
