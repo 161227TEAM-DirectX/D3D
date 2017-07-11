@@ -66,11 +66,11 @@ void loadingScene::render()
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
 	SoundLoading();
-	//XMeshStaticLoading();
+	XMeshStaticLoading();
 	XMeshSkinnedLoading();
 
 	//이거 주석 풀면 됨!!!
-	PtcLoading();
+	//PtcLoading();
 
 	UILoading();
 	UiTestLoading();
