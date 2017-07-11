@@ -20,10 +20,10 @@ int bossActionSkillFire::Start()
 	if (!owner)return LHS::ACTIONRESULT::ACTION_FINISH;
 
 	//보스몬스터의 공격모션 아무거나 시작.
-	owner->getSkinnedAnim().Play("Animation_65", 1.0f);
+	owner->getSkinnedAnim().Play("Animation_65");
 	owner->getSkinnedAnim().SetPlaySpeed(0.8f);
 
-	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
+	return LHS::ACTIONRESULT::ACTION_PLAY;
 }
 
 int bossActionSkillFire::Update()
@@ -34,7 +34,7 @@ int bossActionSkillFire::Update()
 
 	if (!strcmp(owner->getSkinnedAnim().getAnimationSet()->GetName(), "Animation_65"))
 	{
-		if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.95f)
+		if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 		{
 			owner->getSkinnedAnim().Play("Animation_14");
 			owner->getSkinnedAnim().SetPlaySpeed(0.6f);
@@ -52,7 +52,7 @@ int bossActionSkillFire::Update()
 	if (!strcmp(owner->getSkinnedAnim().getAnimationSet()->GetName(), "Animation_14"))
 	{
 		//액션 종료 조건이 필요.
-		if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.95f)
+		if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 		{
 			SOUNDMANAGER->stop("브레스2");
 
@@ -88,7 +88,7 @@ int bossActionSkillFire::Update()
 				float tempAtt = (float)temp->getAtt() * myUtil::RandomFloatRange(0.05f, 0.09f);
 				dotTime = 2.0f;
 				//PLAYERMANAGER->SetHp( PLAYERMANAGER->GetHp() - ((float)temp->getAtt() * myUtil::RandomFloatRange(0.05f, 0.09f)));
-				enemy->playerDamaged(tempAtt, 0.6f, 30.0f);
+				enemy->playerDamaged(tempAtt, 0.6f, 15.0f);
 				damage->init(tempAtt, LHS::FONTCOLOR::FONT_RED);
 				yPosition = playerObject->_boundBox._localMaxPos.y;
 				//cout << "mForword.x : " << temp->_transform->GetForward().x << "mForword.y : " << temp->_transform->GetForward().y << "mForword.z : " << temp->_transform->GetForward().z << endl;

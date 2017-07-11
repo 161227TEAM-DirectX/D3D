@@ -37,22 +37,26 @@ int ActionMove::Update()
 	//죽음조건
 	if (temp->getHP() < 0)return LHS::ACTIONRESULT::ACTION_DIE;
 
-	//장애물과 충돌하면 멈춘다. - 다시 이동??
-	for (int i = 0; i < object->size(); i++)
+	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 	{
-		if (PHYSICSMANAGER->isOverlap(owner->_transform, &owner->_boundBox, (*object)[i]->_transform, &(*object)[i]->_boundBox))
+		//장애물과 충돌하면 멈춘다. - 다시 이동??
+		for (int i = 0; i < object->size(); i++)
+		{
+			if (PHYSICSMANAGER->isOverlap(owner->_transform, &owner->_boundBox, (*object)[i]->_transform, &(*object)[i]->_boundBox))
+			{
+				if (deleGate) deleGate->OnActionFinish(this, true);
+				return LHS::ACTIONRESULT::ACTION_MOVE;
+			}
+		}
+
+		//적과 나의 바운드 박스가 충돌했는가?
+		if (PHYSICSMANAGER->isOverlap(owner->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
 		{
 			if (deleGate) deleGate->OnActionFinish(this, true);
-			return LHS::ACTIONRESULT::ACTION_MOVE;
+			return LHS::ACTIONRESULT::ACTION_ATT;
 		}
 	}
-
-	//적과 나의 바운드 박스가 충돌했는가?
-	if (PHYSICSMANAGER->isOverlap(owner->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
-	{
-		if (deleGate) deleGate->OnActionFinish(this, true);
-		return LHS::ACTIONRESULT::ACTION_ATT;
-	}
+	
 
 	m_fPassedTime += _timeDelta;
 	//경과시간이 액션시간보다 커지면 멈춰라?

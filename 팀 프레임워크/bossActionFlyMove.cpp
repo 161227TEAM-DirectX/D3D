@@ -3,7 +3,7 @@
 
 
 bossActionFlyMove::bossActionFlyMove()
-	:Action(), angle(0.0f), isRound(FLYSTATE::straight), isAttack(false), tempRadian(0.0f), tempLenge(0.0f), MOVESIZE(15.0f), count(0)
+	:Action(), angle(0.0f), isRound(FLYSTATE::straight), isAttack(false), tempRadian(0.0f), tempLenge(0.0f), MOVESIZE(5.0f), count(0), attackCount(0.0f)
 {
 }
 
@@ -41,7 +41,7 @@ int bossActionFlyMove::Update()
 
 	if (!strcmp("Animation_48", temp.c_str()))
 	{
-		if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.95f) owner->getSkinnedAnim().Play("Animation_39", 1.0f);
+		if (owner->getSkinnedAnim().getAnimationPlayFactor() > ANIMATIONENDTIME) owner->getSkinnedAnim().Play("Animation_39", 1.0f);
 	}
 
 	//애니메이션이 날며 이동하는 애니메이션으로 변경 되었을 경우.
@@ -72,6 +72,7 @@ int bossActionFlyMove::Update()
 		}
 		case bossActionFlyMove::round:	//회전하는 위치까지 왔을 경우
 		{
+			attackCount += _timeDelta;
 			lerpTransform = *owner->_transform;
 			angle += D3DXToRadian(30)*_timeDelta;
 			if (angle > D3DX_PI * 2) angle = 0.0f;
@@ -95,6 +96,8 @@ int bossActionFlyMove::Update()
 				fireballBox.setBound(&playerPos, &D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 				isAttack = true;
 			}
+
+			if (attackCount >= 5.0f) return LHS::ACTIONRESULT::ACTION_LANDING;
 
 			//공격 후 일정 위치로 다시 이동이 필요.
 
@@ -161,6 +164,9 @@ void bossActionFlyMove::Render()
 
 	sprintf_s(temp, "%f", tempLenge);
 	FONTMANAGER->fontOut(temp, 550, 550, WHITE);
+
+	sprintf_s(temp, "x: %f, y: %f, z: %f", owner->_transform->GetWorldPosition().x, owner->_transform->GetWorldPosition().y, owner->_transform->GetWorldPosition().z);
+	FONTMANAGER->fontOut(temp, 300, 300, WHITE);
 }
 
 void bossActionFlyMove::attackFireBall(void)

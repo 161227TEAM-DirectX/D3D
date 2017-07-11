@@ -27,6 +27,7 @@ protected:
 	const float Gap;
 	const float LENGTHGAP;
 	const float PLAYERDISTANCE;
+	const float ANIMATIONENDTIME;
 public:
 	Action();
 	virtual ~Action();

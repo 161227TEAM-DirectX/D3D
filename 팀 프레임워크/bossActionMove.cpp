@@ -17,7 +17,7 @@ int bossActionMove::Start()
 	if (!owner) return (int)LHS::ACTIONRESULT::ACTION_FAIL;
 
 	//baseObject의 transform을 호출하여 world위치를 from으로 변경
-	owner->getSkinnedAnim().Play("Animation_56", 0.5f);
+	owner->getSkinnedAnim().Play("Animation_56");
 //	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 	if (!SOUNDMANAGER->isPlaySound("걷기"))
 	{
@@ -57,7 +57,7 @@ int bossActionMove::Update()
 	//한번 생성해 놓아서 index가 초기화가 필요하다.
 	index = myUtil::RandomFloatRange(0.1f, 1.0f);
 
-	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.95f)
+	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 	{
 		//걷다가 hit박스에 플레이어가 있다면.
 		if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))

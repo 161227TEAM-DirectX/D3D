@@ -46,7 +46,7 @@ int bossActionSkillTailAtt::Update()
 	PHYSICSMANAGER->isBlocking(owner, playerObject);
 
 	//액션이 종료.
-	if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
+	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 	{
 		//owner->getSkinnedAnim().Stop();
 		//return LHS::ACTIONRESULT::ACTION_ATT;

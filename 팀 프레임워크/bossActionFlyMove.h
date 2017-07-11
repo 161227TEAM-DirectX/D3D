@@ -29,6 +29,7 @@ private:
 	float tempLenge;
 	bool isAttack;
 	float count;
+	float attackCount;
 public:
 	bossActionFlyMove();
 	~bossActionFlyMove();

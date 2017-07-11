@@ -58,7 +58,7 @@ int bossActionLanding::Update()
 		//if (tempY >= owner->_transform->GetWorldPosition().y)
 		//{
 			//애니메이션이 끝나지 않았다면
-			if (owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.95f)
+			if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 			{
 				//D3DXVECTOR3 temp = owner->_transform->GetWorldPosition();
 				//temp.y = tempY;

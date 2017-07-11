@@ -29,7 +29,7 @@ int bossActionFly::Update()
 	//날기 시작하는 부분
 	if (!strcmp("Animation_44", name.c_str()))
 	{
-		if (owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.95f)
+		if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 		{
 			//데스윙이 날 경우 TRANSFORM의 Y값은 0.0으로 고정이지만 애니메이션 상으로는 위로 뜨고 있는 상황이다.
 			//그렇기에 스키드메쉬에 직접 접근하여 본의 이름을 통해 BONE구조체를 가져와 최종 행렬을 가져온다.
@@ -46,7 +46,7 @@ int bossActionFly::Update()
 	if (!strcmp("Animation_48", name.c_str()))
 	{
 		//애니메이션이 종료 된다면.
-		if (owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.95f)
+		if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 		{
 			if (owner->_transform->GetWorldPosition().y >= 50.0f) return LHS::ACTIONRESULT::ACTION_FLY_MOVE_ATT;
 			//다른행동을 취해야 할 부분.

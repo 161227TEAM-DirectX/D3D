@@ -37,7 +37,7 @@ int bossActionAttack::Update()
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() < 0.05f)
 	{
 		yPosition = playerObject->_boundBox._localMaxPos.y;
-		enemy->playerDamaged(temp->getAtt(), 0.6f, 25.0f);
+		enemy->playerDamaged(temp->getAtt(), 0.6f, 10.0f);
 	}
 	
 
@@ -52,16 +52,16 @@ int bossActionAttack::Update()
 	text->update();
 
 	//애니메이션이 끝나갈때쯤이면
-	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.95f)
+	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 	{
+		resultValue = myUtil::RandomFloatRange(0.90f, 1.0f);
+
 		//적이 나의 hit박스 안에 없다면 다른 패턴으로 간다.
-		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
+		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox) || resultValue >= 0.97f)
 		{
 			//적이 나의 range박스 안에 있다면
 			if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 			{
-				resultValue = myUtil::RandomFloatRange(0.1f, 1.0f);
-
 				//이동
 				if (resultValue >= 0.1f && resultValue <= 0.97f)
 				{
@@ -162,4 +162,9 @@ int bossActionAttack::Update()
 void bossActionAttack::Render()
 {
 	if (text->getStrLength() > 1)text->render();
+
+	char test[256];
+	sprintf(test, "%f", resultValue);
+	FONTMANAGER->fontOut(test, 250, 250, WHITE);
+
 }
