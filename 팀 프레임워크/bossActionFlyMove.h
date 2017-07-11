@@ -10,6 +10,7 @@ private:
 		landing,
 		oxpattern
 	};
+	const float MOVESIZE;
 private:
 	D3DXMATRIX matRotateY;
 	D3DXMATRIX matTranslation;
@@ -25,7 +26,9 @@ private:
 	FLYSTATE isRound;
 	int ch;
 	float tempRadian;
+	float tempLenge;
 	bool isAttack;
+	float count;
 public:
 	bossActionFlyMove();
 	~bossActionFlyMove();

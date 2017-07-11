@@ -54,11 +54,6 @@ int bossActionAttack::Update()
 	//애니메이션이 끝나갈때쯤이면
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.95f)
 	{
-		//테스트 겸 몬스터와 플레이어가 겹쳐있으면 바로 날자.
-		if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getBoundBox(), playerObject->_transform, &playerObject->_boundBox))
-		{
-			return LHS::ACTIONRESULT::ACTION_FLY;
-		}
 		//적이 나의 hit박스 안에 없다면 다른 패턴으로 간다.
 		if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
 		{

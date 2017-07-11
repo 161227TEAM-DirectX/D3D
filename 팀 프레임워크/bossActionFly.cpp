@@ -3,7 +3,6 @@
 
 
 bossActionFly::bossActionFly()
-	:random(0.0f)
 {
 }
 
@@ -26,7 +25,7 @@ int bossActionFly::Start()
 int bossActionFly::Update()
 {
 	string name = owner->getSkinnedAnim().getAnimationSet()->GetName();
-
+	float a = owner->getSkinnedAnim().getAnimationPlayFactor();
 	//날기 시작하는 부분
 	if (!strcmp("Animation_44", name.c_str()))
 	{
@@ -49,16 +48,20 @@ int bossActionFly::Update()
 		//애니메이션이 종료 된다면.
 		if (owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.95f)
 		{
+			if (owner->_transform->GetWorldPosition().y >= 50.0f) return LHS::ACTIONRESULT::ACTION_FLY_MOVE_ATT;
 			//다른행동을 취해야 할 부분.
-			if (owner->_transform->GetWorldPosition().y < 50.0f)
-			{
-				matTranslation = owner->getSkinnedAnim().getSkinnedMesh()->GetFineBONE("Deathwing_Bone03")->CombinedTransformationMatrix;
-				owner->_transform->MovePositionSelf(0.0f, matTranslation._42, 0.0f);
-			}
+			//if (owner->_transform->GetWorldPosition().y < 50.0f)
+			//{
+			//	matTranslation = owner->getSkinnedAnim().getSkinnedMesh()->GetFineBONE("Deathwing_Bone03")->CombinedTransformationMatrix;
+			//	owner->_transform->MovePositionSelf(0.0f, matTranslation._42, 0.0f);
+			//}
+			//else
+			//{
+			//	return LHS::ACTIONRESULT::ACTION_FLY_MOVE_ATT;
+			//}
 			//owner->_transform->SetWorldMatrix(matTranslation);
 			//임시로 play로 돌린다.
-			random = myUtil::RandomFloatRange(0.0f, 1.0f);
-			return LHS::ACTIONRESULT::ACTION_FLY_MOVE_ATT;
+			
 		}
 
 		//임시적으로 높이값을 제한한다.

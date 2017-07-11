@@ -201,7 +201,7 @@ HRESULT bossMonsterAITestScene::init()
 	//플레이어 초기화
 	player->out_setlinkTerrain(*_terrain);
 	player->init();
-	player->getPlayerObject()->_transform->SetWorldPosition(5.0f, tempY, 5.0f);
+	player->getPlayerObject()->_transform->SetWorldPosition(10.0f, 0.0f, 10.0f);
 	player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);

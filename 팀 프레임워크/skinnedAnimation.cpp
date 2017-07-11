@@ -341,6 +341,7 @@ void skinnedAnimation::SetAnimation(LPD3DXANIMATIONSET animSet)
 
 		//현재 플레이 되고 있는 AnimationSet 갱신
 		this->_pNowPlayAnimationSet = animSet;
+		_AnimationPlayFactor = 0.0;
 	}
 	//크로스 페이드가 없다면
 	else
@@ -356,5 +357,6 @@ void skinnedAnimation::SetAnimation(LPD3DXANIMATIONSET animSet)
 
 		//현재 플레이 되고 있는 AnimationSet 갱신
 		this->_pNowPlayAnimationSet = animSet;
+		_AnimationPlayFactor = 0.0;
 	}
 }
