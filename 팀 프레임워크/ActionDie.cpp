@@ -24,7 +24,7 @@ int ActionDie::Start()
 
 int ActionDie::Update()
 {
-	if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
+	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 	{
 		SOUNDMANAGER->stop("몬스터죽음");
 		return LHS::ACTIONRESULT::ACTION_NONE;

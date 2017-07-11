@@ -45,8 +45,8 @@ void bossMonster::baseObjectDisable()
 
 void bossMonster::baseObjectUpdate()
 {
-//	switchState();
-	testKeyAI();
+	switchState();
+//	testKeyAI();
 
 	if (NextAction != nullptr)
 	{
@@ -125,6 +125,7 @@ void bossMonster::switchState(void)
 		break;
 	case LHS::ACTIONRESULT::ACTION_LANDING:
 		NextAction = ACMANAGER->getAction("¬¯¡ˆ", *this);
+		break;
 	case LHS::ACTIONRESULT::ACTION_PA_OX:
 		NextAction = ACMANAGER->getAction("OX∆–≈œ", *this);
 		break;

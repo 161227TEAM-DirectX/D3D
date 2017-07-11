@@ -27,7 +27,7 @@ int bossActionFlyDie::Update()
 	string temp = owner->getSkinnedAnim().getAnimationSet()->GetName();
 	if (!strcmp("Animation_31", temp.c_str()))
 	{
-		if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.95f)
+		if (owner->getSkinnedAnim().getAnimationPlayFactor() > ANIMATIONENDTIME)
 		{
 			owner->getSkinnedAnim().Play("Animation_27");
 		}

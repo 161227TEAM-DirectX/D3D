@@ -38,7 +38,7 @@ int bossActionCinema::Update()
 				isShout = false;
 			}
 
-			if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.95f)
+			if (owner->getSkinnedAnim().getAnimationPlayFactor() > ANIMATIONENDTIME)
 			{
 				if (deleGate) deleGate->OnActionFinish(this, true);
 				SOUNDMANAGER->stop("»þ¿ìÆÃ4");

@@ -3,7 +3,7 @@
 
 
 bossActionLanding::bossActionLanding()
-	:Action()
+	:Action(), isTrans(true)
 {
 	D3DXMatrixIdentity(&matPosition);
 }
@@ -17,7 +17,7 @@ int bossActionLanding::Start()
 {
 	if (!owner)return LHS::ACTIONRESULT::ACTION_FINISH;
 
-	owner->getSkinnedAnim().Play("Animation_48");
+	owner->getSkinnedAnim().Play("Animation_39");
 	//owner->_transform->SetWorldPosition(10.0f, 70.0f, 10.0f);
 
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
@@ -25,14 +25,15 @@ int bossActionLanding::Start()
 
 int bossActionLanding::Update()
 {
-	//제자리 날기 모션 일경우 내려오며 일정 거리가 성립되면 모션을 변경하는 코드
 	string temp = owner->getSkinnedAnim().getAnimationSet()->GetName();
-	if (!strcmp("Animation_48", temp.c_str()))
+	if (!strcmp("Animation_39", temp.c_str()))
 	{
-		owner->_transform->MovePositionSelf(0.0f, -0.3f, 0.0f);
-		float tempY = rand->getHeight(owner->_transform->GetWorldPosition().x, owner->_transform->GetWorldPosition().z) + 13.3f;
-
-		if (owner->_transform->GetWorldPosition().y <= tempY)
+		lerpTransform = *owner->_transform;
+		D3DXVECTOR3 tempPos(0.0f, 13.0f, 0.0f);
+		owner->_transform->LookPosition(tempPos);
+		owner->_transform->RotateSlerp(lerpTransform, *owner->_transform, _timeDelta * 2);
+		owner->_transform->MovePositionSelf(0.0f, 0.0f, 0.5f);
+		if (D3DXVec3Length(&(owner->_transform->GetWorldPosition() - tempPos)) <= 0.7f)
 		{
 			owner->getSkinnedAnim().Play("Animation_43");
 			return LHS::ACTIONRESULT::ACTION_PLAY;
@@ -42,27 +43,34 @@ int bossActionLanding::Update()
 	//내려올때의 애니메이션
 	if (!strcmp("Animation_43", temp.c_str()))
 	{
-		matPosition = owner->getSkinnedAnim().getSkinnedMesh()->GetFineBONE("Deathwing_Bone03")->CombinedTransformationMatrix;
-		//지형의 높이값.
-		float tempY = rand->getHeight(owner->_transform->GetWorldPosition().x, owner->_transform->GetWorldPosition().z);
+		if (isTrans)
+		{
+			owner->_transform->SetWorldPosition(
+				owner->_transform->GetWorldPosition().x,
+				0.0f, owner->_transform->GetWorldPosition().z);
+			isTrans = false;
+		}
+		//matPosition = owner->getSkinnedAnim().getSkinnedMesh()->GetFineBONE("Deathwing_Bone03")->CombinedTransformationMatrix;
+		////지형의 높이값.
+		//float tempY = rand->getHeight(owner->_transform->GetWorldPosition().x, owner->_transform->GetWorldPosition().z);
 
 		//지형보다 작다면
-		if (tempY >= owner->_transform->GetWorldPosition().y)
-		{
+		//if (tempY >= owner->_transform->GetWorldPosition().y)
+		//{
 			//애니메이션이 끝나지 않았다면
-			if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.95f)
+			if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 			{
-				D3DXVECTOR3 temp = owner->_transform->GetWorldPosition();
-				temp.y = tempY;
-				owner->_transform->SetWorldPosition(temp);
+				//D3DXVECTOR3 temp = owner->_transform->GetWorldPosition();
+				//temp.y = tempY;
+				//owner->_transform->SetWorldPosition(temp);
 
-				owner->getSkinnedAnim().Play("Animation_13", 1.0f);
+				return LHS::ACTIONRESULT::ACTION_MOVE;
 			}
-		}
-		else
-		{
-			owner->_transform->MovePositionSelf(0.0f, -0.3f, 0.0f);
-		}
+		//}
+		//else
+		//{
+		//	owner->_transform->MovePositionSelf(0.0f, -0.3f, 0.0f);
+		//}
 	}
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;

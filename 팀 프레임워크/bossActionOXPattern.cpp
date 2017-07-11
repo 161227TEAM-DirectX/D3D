@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "bossActionOXPattern.h"
+#include "xPlayer.h"
 
 bossActionOXPattern::bossActionOXPattern()
-	:Action(), chargeTime(0.0f), randomOX(0), rangeC(0.2f)
+	:Action(), chargeTime(0.0f), randomOX(0), rangeC(0.2f), damageTime(0.0f), ActionTime(0.0f)
 {
 	rangeX.first.first = 0.0f;
 	rangeX.first.second = 0.0f;
@@ -18,12 +19,23 @@ bossActionOXPattern::bossActionOXPattern()
 
 bossActionOXPattern::~bossActionOXPattern()
 {
+	RM_TEXTURE->removeResource(FILEPATH_MANAGER->GetFilepath("emergency"));
+	SAFE_RELEASE(emergency);
+	SAFE_RELEASE(vb);
 }
 
 int bossActionOXPattern::Start()
 {
 	randomOX = myUtil::RandomIntRange(1, 2);
-
+	switch (randomOX)
+	{
+	case 1:
+		damageBox.setBound(&D3DXVECTOR3(75.0f, 0.0f, 0.0), &D3DXVECTOR3(75.0f, 0.1f, 75.0f));
+		break;
+	case 2:
+		damageBox.setBound(&D3DXVECTOR3(-75.0f, 0.0f, 0.0), &D3DXVECTOR3(75.0f, 0.1f, 75.0f));
+		break;
+	}
 	owner->getSkinnedAnim().Play("Animation_48",0.5f);
 	emergency = RM_TEXTURE->getResource(FILEPATH_MANAGER->GetFilepath("emergency"));
 
@@ -48,6 +60,23 @@ int bossActionOXPattern::Update()
 		{
 			owner->getSkinnedAnim().Play("Animation_0", 0.5f);
 		}
+
+		if (!strcmp("Animation_0", temp.c_str()))
+		{
+			ActionTime += _timeDelta;
+			if (ActionTime >= 8.0f)
+			{
+				return LHS::ACTIONRESULT::ACTION_LANDING;
+			}
+			//브레스 출력
+			//데미지 적용.
+			damageTime += _timeDelta;
+			if (damageTime >= 1.0f)
+			{
+				enemy->playerDamaged(20000);
+				damageTime = 0.0f;
+			}
+		}
 	}
 	else
 	{
@@ -59,6 +88,7 @@ int bossActionOXPattern::Update()
 
 void bossActionOXPattern::Render()
 {
+	damageBox.renderGizmo(&boxTransform);
 	DWORD FVF;
 	_device->GetFVF(&FVF);
 
@@ -123,6 +153,8 @@ void bossActionOXPattern::updateVertex(void)
 
 		vertices[5].pos = D3DXVECTOR3(rangeX.first.first, 0.2f, rangeZ.first.second);
 		vertices[5].uv = D3DXVECTOR2(1.0f, 1.0f);
+
+		//-------------------------------------------------------------------
 		break;
 	case 2:
 		vertices[0].pos = D3DXVECTOR3(rangeX.first.second, 0.2f, rangeZ.first.second);

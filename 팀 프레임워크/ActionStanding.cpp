@@ -31,7 +31,7 @@ int ActionStanding::Update()
 	//Á×À½Á¶°Ç
 	if (temp->getHP() < 0)return LHS::ACTIONRESULT::ACTION_DIE;
 
-	if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f)
+	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 	{
 		int random = myUtil::RandomIntRange(0, 4);
 		switch (random)

@@ -4,6 +4,9 @@ class bossActionLanding : public Action
 {
 private:
 	D3DXMATRIX matPosition;
+	dx::transform lerpTransform;
+private:
+	bool isTrans;
 public:
 	bossActionLanding();
 	~bossActionLanding();

@@ -17,7 +17,7 @@ int bossActionMove::Start()
 	if (!owner) return (int)LHS::ACTIONRESULT::ACTION_FAIL;
 
 	//baseObject의 transform을 호출하여 world위치를 from으로 변경
-	owner->getSkinnedAnim().Play("Animation_56", 0.5f);
+	owner->getSkinnedAnim().Play("Animation_56");
 //	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 	if (!SOUNDMANAGER->isPlaySound("걷기"))
 	{
@@ -57,24 +57,27 @@ int bossActionMove::Update()
 	//한번 생성해 놓아서 index가 초기화가 필요하다.
 	index = myUtil::RandomFloatRange(0.1f, 1.0f);
 
-	//걷다가 hit박스에 플레이어가 있다면.
-	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
+	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 	{
-		SOUNDMANAGER->stop("걷기");
-		return LHS::ACTIONRESULT::ACTION_ATT;
-	}
-	//걷다가 range박스 안에 플레이어가 있다면.
-	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
-	{
-		SOUNDMANAGER->stop("걷기");
-		if (index >= 0.98f && index <= 0.99f) return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
-		else if (index >= 0.99f && index <= 1.0f) return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
-	}
+		//걷다가 hit박스에 플레이어가 있다면.
+		if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
+		{
+			SOUNDMANAGER->stop("걷기");
+			return LHS::ACTIONRESULT::ACTION_ATT;
+		}
+		//걷다가 range박스 안에 플레이어가 있다면.
+		if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
+		{
+			SOUNDMANAGER->stop("걷기");
+			if (index >= 0.98f && index <= 0.99f) return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
+			else if (index >= 0.99f && index <= 1.0f) return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
+		}
 
-	//확률적으로 날기패턴으로 이동
-	if (index - Gap >= 0.97f && index - Gap <= 0.975f)
-	{
-		return LHS::ACTIONRESULT::ACTION_FLY;
+		//확률적으로 날기패턴으로 이동
+		if (index - Gap >= 0.97f && index - Gap <= 0.975f)
+		{
+			return LHS::ACTIONRESULT::ACTION_FLY;
+		}
 	}
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;

@@ -50,7 +50,7 @@ int bossActionSkillBattleRoar::Update()
 	}
 
 	//배틀로어 애니메이션이 끝나면 ->일반공격 또는 꼬리치기
-	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= 0.95f)
+	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 	{
 		SOUNDMANAGER->stop("샤우팅3");
 
@@ -85,7 +85,7 @@ int bossActionSkillBattleRoar::Update()
 				float tempAtt = (float)temp->getAtt()*myUtil::RandomFloatRange(1.3f, 1.8f);
 				dotTime = 2.0f;
 				//PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - ((float)temp->getAtt()*myUtil::RandomFloatRange(1.3f, 1.8f)));
-				enemy->playerDamaged(tempAtt, 0.6f, 100.0f, 0.0f, 0.0f);
+				enemy->playerDamaged(tempAtt, 0.6f, 25.0f, 0.0f, 0.0f);
 				damage->init(tempAtt, LHS::FONTCOLOR::FONT_RED);
 				yPosition = playerObject->_boundBox._localMaxPos.y;
 			}

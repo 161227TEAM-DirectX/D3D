@@ -24,7 +24,7 @@ int bossActionDie::Start()
 
 int bossActionDie::Update()
 {
-	if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.9f) return LHS::ACTIONRESULT::ACTION_NONE;
+	if (owner->getSkinnedAnim().getAnimationPlayFactor() > ANIMATIONENDTIME) return LHS::ACTIONRESULT::ACTION_NONE;
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }
