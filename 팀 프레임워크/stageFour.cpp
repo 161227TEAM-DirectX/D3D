@@ -35,7 +35,7 @@ void stageFour::destroy(void)
 	SAFE_DELETE(sceneBaseDirectionLight);
 	SAFE_DELETE(_terrain);
 	SAFE_DELETE(_terrainShadow);
-	//water->release();
+	water->release();
 	SAFE_DELETE(water);
 	SAFE_DELETE(toRotate);
 	SAFE_DELETE(objectSet);

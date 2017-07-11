@@ -66,6 +66,7 @@ void loadingScene::render()
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
 	SoundLoading();
+
 	//XMeshStaticLoading();	//주석을 풀어도 의미없다.안에 다 주석처리함!
 	XMeshSkinnedLoading();
 

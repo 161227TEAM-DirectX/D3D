@@ -123,10 +123,11 @@ int bossActionFlyMove::Update()
 				angle = D3DX_PI;
 				owner->_transform->LookPosition(playerObject->_transform->GetWorldPosition());
 				owner->_transform->RotateSlerp(lerpTransform, *owner->_transform, _timeDelta * 2);
-				D3DXVECTOR3 tempOld = lerpTransform.GetForward();
-				D3DXVECTOR3 curTemp = owner->_transform->GetForward();
-				float tempLenge = D3DXVec3Length(&(tempOld - curTemp));
-				if (tempLenge == 0.0f) return LHS::ACTIONRESULT::ACTION_PA_OX;
+				D3DXVECTOR3 tempOld = owner->_transform->GetForward();
+				D3DXVECTOR3 curTemp = playerObject->_transform->GetWorldPosition() - owner->_transform->GetWorldPosition();
+				D3DXVec3Normalize(&curTemp, &curTemp);
+				float tempLenge = D3DXVec3Dot(&tempOld, &curTemp);
+				if (tempLenge >= 0.99f) return LHS::ACTIONRESULT::ACTION_PA_OX;
 				break;
 			}
 

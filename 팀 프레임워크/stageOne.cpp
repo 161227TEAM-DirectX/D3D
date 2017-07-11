@@ -132,7 +132,7 @@ void stageOne::release()
 	//player->release();
 	SAFE_DELETE(player);
 	SAFE_DELETE(env);
-	//water->release();
+	water->release();
 	SAFE_DELETE(water);
 	SAFE_DELETE(toRotate);
 	SAFE_DELETE(objectSet);
