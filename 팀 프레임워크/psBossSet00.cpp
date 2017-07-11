@@ -5,7 +5,7 @@ HRESULT psBossSet00::init()
 {
 	//파티클 이름이 잘 보이게 일부러 이름 넣는 인자값을 준다.
 	this->BreathSet00("브레스");
-	this->ShoutingSet00("샤우팅");
+	//this->ShoutingSet00("샤우팅");
 
 	this->GrandMagic00("대마법진");
 	this->GrandMagic01("대규모마법");
