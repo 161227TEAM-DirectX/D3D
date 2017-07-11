@@ -146,7 +146,7 @@ HRESULT WaterTerrain::init(float cellSize, int tileNum)
 	m_pReflectionMap.push_back(temp);
 	FAILED(D3DXCreateCubeTextureFromFile(_device, "Resource/Maptool/TextureCUBE/fire.dds", &temp));
 	m_pReflectionMap.push_back(temp);
-	
+
 	HRESULT hr;
 	LPD3DXBUFFER pBufferErrors = NULL;
 
@@ -163,6 +163,10 @@ HRESULT WaterTerrain::init(float cellSize, int tileNum)
 
 void WaterTerrain::release()
 {
+	for (int i = 0; i < m_pReflectionMap.size(); i++)
+	{
+		SAFE_RELEASE(m_pReflectionMap[i]);
+	}
 	SAFE_RELEASE(_terrainVb);
 	SAFE_RELEASE(_terrainIb);
 	SAFE_DELETE_ARRAY(_terrainVertices);

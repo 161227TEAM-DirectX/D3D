@@ -53,8 +53,8 @@ void loadingScene::render()
 	{
 		//g_eSelectMode = E_MAPTOOL;
 		//SCENEMANAGER->changeScene("gameSceneOne");//gameSceneOne
-		SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
-		//SCENEMANAGER->changeScene("gameSceneThree");//gameSceneThree
+		//SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
+		SCENEMANAGER->changeScene("gameSceneThree");//gameSceneThree
 		//SCENEMANAGER->changeScene("gameSceneFour");//gameSceneFour
 		//SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
 		//SCENEMANAGER->changeScene("kims");//kims
@@ -66,7 +66,6 @@ void loadingScene::render()
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
 	SoundLoading();
-
 	//XMeshStaticLoading();	//주석을 풀어도 의미없다.안에 다 주석처리함!
 	XMeshSkinnedLoading();
 
@@ -74,7 +73,7 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 	PtcLoading();
 
 	UILoading();
-	UiTestLoading();
+	//UiTestLoading();
 	AniLoading();
 
 	m_isChange = true;

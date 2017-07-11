@@ -5,6 +5,7 @@ class bossMonster;
 class Environment;
 class WaterTerrain;
 class cUIPlayer;
+class monster;
 
 class stageThree : public iGameNode
 {
@@ -21,6 +22,7 @@ private:
 	Environment*		env;
 	WaterTerrain*		water;
 private:
+	vector<monster*> _mon;
 	vector<baseObject*> _renderObject;
 	vector<baseObject*>	_cullObject;
 
