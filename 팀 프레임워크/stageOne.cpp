@@ -63,6 +63,7 @@ HRESULT stageOne::init()
 		object = IOSAVEOBJECTMANAGER->findTag("³Ñ¹ö" + to_string(i + 1));
 		baseObject* temp = new baseObject;
 		D3DXMATRIX matRotate;
+		
 		objectSet->objectSet(object.objectNumber, temp, matRotate, object.objectX, object.objectY, object.objectZ, object.objectScale, object.objectRotate);
 
 		_renderObject.push_back(temp);
@@ -227,6 +228,10 @@ void stageOne::render()
 	player->render();
 
 	m_pUIPlayer->render();
+
+	FONTMANAGER->fontOut("%.f",
+						 RM_XMESH->getResource(FILEPATH_MANAGER->GetFilepath("Xmesh_ob000"))->getScale()
+						 , 100, 100, WHITE);
 
 }
 
