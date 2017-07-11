@@ -6,7 +6,7 @@
 HRESULT xPlayer::init()
 {
 	_dmText = new damageText;
-	
+
 	_handTrans = new dx::transform;
 	_edgeTrans = new dx::transform;
 
@@ -80,7 +80,7 @@ HRESULT xPlayer::init()
 	_playerObject->setActive(true);
 
 	//저장된 위치를 불러온다
-	
+
 
 	_renderObjects.push_back(_playerObject);
 
@@ -330,7 +330,7 @@ void xPlayer::update()
 	{
 		this->_renderObjects[i]->render();
 	}*/
-	
+
 	setHeight(getPlayerObject()->_transform);
 
 
@@ -351,11 +351,7 @@ void xPlayer::update()
 	playerStateManager();
 	playerAnimationManager();
 
-	skilltrigger();
-
 	useNowSkill();
-
-	skillProcesser();
 
 	_prevState = _state;
 }
@@ -436,7 +432,7 @@ void xPlayer::LoadData()
 
 void xPlayer::PlayerInputControl()//이 친구가 상태값에 종속 적이라면?
 {
-	
+
 
 	switch (_state)
 	{
@@ -466,7 +462,7 @@ void xPlayer::PlayerInputControl()//이 친구가 상태값에 종속 적이라면?
 		}
 		break;
 	case P_RUN:
-		
+
 		rotateControl(_playerObject->_transform);
 		moveControl(_playerObject->_transform);
 		attackControl();
@@ -493,7 +489,7 @@ void xPlayer::PlayerInputControl()//이 친구가 상태값에 종속 적이라면?
 	case P_READYTOATTACK:
 		skilltrigger();
 		rotateControl(_playerObject->_transform);
-		
+
 		if (!_isJump)
 		{
 			moveControl(_playerObject->_transform);
@@ -684,7 +680,7 @@ void xPlayer::playerStateManager()
 		}
 		else
 		{
-			
+
 			_mountObject->_transform->SetWorldPosition(_mountObject->_transform->GetWorldPosition().x, _baseHeight, _mountObject->_transform->GetWorldPosition().z);
 			_playerObject->_transform->LookDirection(_sitPos->GetRight());
 		}
@@ -989,6 +985,7 @@ void xPlayer::playerStateManager()
 
 		break;
 	case P_CASTSPELL:
+		skillProcesser();
 		if (animName == "SPCD")
 		{
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
@@ -1017,6 +1014,7 @@ void xPlayer::playerStateManager()
 		_castingTime -= _timeDelta;
 		break;
 	case P_CASTOMNI:
+		skillProcesser();
 		if (animName == "SPCO")
 		{
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
@@ -1119,7 +1117,7 @@ void xPlayer::playerStateManager()
 	case P_MOUNT_R:
 		if (!SOUNDMANAGER->isPlaySound("말발굽소리1"))
 		{
-			SOUNDMANAGER->play("말발굽소리1",0.3f);
+			SOUNDMANAGER->play("말발굽소리1", 0.3f);
 			SOUNDMANAGER->setMusicSpeed("말발굽소리", _moveSpeed);
 		}
 
@@ -1232,12 +1230,12 @@ void xPlayer::playerAnimationManager()
 		_playerObject->_skinnedAnim->Play("SLAM", 0.3f);
 		break;
 	case P_WHIRLWIND:
-		
+
 		_playerObject->_skinnedAnim->Play("WW", 0.3f);
 		break;
 	case P_BATTLEROAR:
 		SOUNDMANAGER->play("푸스로다!");
-		_playSpeed = 0.4;
+		_playSpeed = 3.0;
 		_playerObject->_skinnedAnim->Play("BR", 0.3f);
 		break;
 	case P_READYSPELL:
@@ -1250,6 +1248,7 @@ void xPlayer::playerAnimationManager()
 		//SKM->findSK("매직슈터")->Start();
 		_playSpeed = 1.0f;
 		_playerObject->_skinnedAnim->PlayOneShotAfterHold("SPCD", 0.2f);
+		//_playerObject->_skinnedAnim->Play("SPCD", 0.2f);
 		break;
 	case P_READYOMNI:
 		_playerObject->_skinnedAnim->Play("RDSO", 0.2f);
@@ -1257,7 +1256,7 @@ void xPlayer::playerAnimationManager()
 	case P_CASTOMNI:
 		//SKM->findSK("힐")->setSkillPosTrans(this->_playerObject->_transform);
 		//SKM->findSK("힐")->Start();
-		_playerObject->_skinnedAnim->Play("SPCO", 0.2f);
+		_playerObject->_skinnedAnim->PlayOneShotAfterHold("SPCO", 0.2f);
 		break;
 	case P_JUMPUP:
 		SOUNDMANAGER->play("걸음소리1one", 1.0f);
@@ -1396,18 +1395,28 @@ void xPlayer::skillControl()
 
 	if (KEYMANAGER->isOnceKeyDown('4'))
 	{
-		_nowSelectedSkill = SKILL_ROAR;
+		//_nowSelectedSkill = SKILL_ROAR;
+		_nowSelectedSkill = SKILL_SKYSWD;
 	}
 
 	if (KEYMANAGER->isOnceKeyDown('5'))
 	{
-		_nowSelectedSkill = SKILL_WHIRLWIND;
+		//_nowSelectedSkill = SKILL_WHIRLWIND;
+		_nowSelectedSkill = SKILL_FIRE;
 	}
 
 	if (KEYMANAGER->isOnceKeyDown('6'))
 	{
-		_nowSelectedSkill = SKILL_SLAM;
+		//_nowSelectedSkill = SKILL_SLAM;
+		_nowSelectedSkill = SKILL_SHIELD;
 	}
+
+	if (KEYMANAGER->isOnceKeyDown('7'))
+	{
+		//_nowSelectedSkill = SKILL_SLAM;
+		_nowSelectedSkill = SKILL_METEOR;
+	}
+
 }
 
 void xPlayer::summonControl()
@@ -1828,7 +1837,7 @@ void xPlayer::initMount()
 	_sitPos = new dx::transform;
 	_mountObject->_skinnedAnim->AddBoneTransform("mount_Bone53", _sitPos);
 	_renderObjects.push_back(_mountObject);
-	
+
 }
 
 void xPlayer::summonMount()
@@ -1873,7 +1882,7 @@ void xPlayer::skilltrigger()
 		case SKILL_MAGICMISSILE:
 			if (targetMonster != NULL)
 			{
-				playerSkillDirect(1.0f);
+				playerSkillDirect(2.0f);
 			}
 			//_state = P_READYSPELL;
 			break;
@@ -1883,6 +1892,27 @@ void xPlayer::skilltrigger()
 				playerSkillOmni(2.0f);
 			}
 			//_state = P_READYOMNI;
+			break;
+		case SKILL_SKYSWD:
+			if (targetMonster != NULL)
+			{
+				playerSkillDirect(5.0F);
+			}
+			break;
+		case SKILL_FIRE:
+			if (targetMonster != NULL)
+			{
+				playerSkillDirect(5.0F);
+			}
+			break;
+		case SKILL_SHIELD:
+			playerSkillDirect(5.0F);
+			break;
+		case SKILL_METEOR:
+			if (targetMonster != NULL)
+			{
+				playerSkillDirect(5.0F);
+			}
 			break;
 		case SKILL_ROAR:
 			_state = P_BATTLEROAR;
@@ -1925,10 +1955,47 @@ void xPlayer::useNowSkill()
 			}
 			break;
 		case SKILL_LIGHTNING:
-			SKM->findSK("라이트닝")->setSkillPosTrans(this->_playerObject->_transform);
-			SKM->findSK("라이트닝")->setSkillDirTrans(this->_playerObject->_transform);
-			SKM->findSK("라이트닝")->setOneTargetTrans(targetMonster->_transform);
-			SKM->findSK("라이트닝")->Start();
+			if (targetMonster != NULL)
+			{
+				SKM->findSK("라이트닝")->setSkillPosTrans(this->_playerObject->_transform);
+				SKM->findSK("라이트닝")->setSkillDirTrans(this->_playerObject->_transform);
+				SKM->findSK("라이트닝")->setOneTargetTrans(targetMonster->_transform);
+				SKM->findSK("라이트닝")->Start();
+			}
+			break;
+		case SKILL_SKYSWD:
+			if (targetMonster != NULL)
+			{
+				SKM->findSK("하늘의_대검")->setSkillPosTrans(this->_playerObject->_transform);
+				SKM->findSK("하늘의_대검")->setSkillDirTrans(this->_playerObject->_transform);
+				SKM->findSK("하늘의_대검")->setOneTargetTrans(targetMonster->_transform);
+				SKM->findSK("하늘의_대검")->Start();
+			}
+			break;
+		case SKILL_FIRE:
+			if (targetMonster != NULL)
+			{
+				SKM->findSK("파이어매직")->setSkillPosTrans(this->_playerObject->_transform);
+				SKM->findSK("파이어매직")->setSkillDirTrans(this->_playerObject->_transform);
+				SKM->findSK("파이어매직")->setOneTargetTrans(targetMonster->_transform);
+				SKM->findSK("파이어매직")->Start();
+			}
+			break;
+		case SKILL_SHIELD:
+			if (targetMonster != NULL)
+			{
+				SKM->findSK("매직쉴드")->setSkillPosTrans(_playerObject->_transform);
+				SKM->findSK("매직쉴드")->Start();
+			}
+			break;
+		case SKILL_METEOR:
+			if (targetMonster != NULL)
+			{
+				SKM->findSK("샛별_떨구기")->setSkillPosTrans(this->_playerObject->_transform);
+				SKM->findSK("샛별_떨구기")->setSkillDirTrans(this->_playerObject->_transform);
+				SKM->findSK("샛별_떨구기")->setOneTargetTrans(targetMonster->_transform);
+				SKM->findSK("샛별_떨구기")->Start();
+			}
 			break;
 		case SKILL_END:
 			break;
@@ -1972,6 +2039,19 @@ void xPlayer::skillProcesser() {
 		}
 		/*SKM->findSK("실드")->setSkillPosTrans(_playerObject->_transform);
 		SKM->findSK("실드")->Start();*/
+		break;
+
+	case SKILL_SKYSWD:
+
+		break;
+	case SKILL_FIRE:
+
+		break;
+	case SKILL_SHIELD:
+
+		break;
+	case SKILL_METEOR:
+
 		break;
 	case SKILL_END:
 		break;

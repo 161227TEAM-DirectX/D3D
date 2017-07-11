@@ -1293,7 +1293,6 @@ namespace dx {
 		_device->SetTransform(D3DTS_VIEW, &matView);
 	}
 
-
 	//디폴트 컨트롤 을해준다.
 	void transform::DefaultControl(float _timeDelta)
 	{
@@ -1306,27 +1305,27 @@ namespace dx {
 			
 			if (KEYMANAGER->isStayKeyDown('E'))
 			{
-				D3DXMatrixRotationY(&matRotate, 15 * D3DXToRadian(1) * _timeDelta);
+				D3DXMatrixRotationY(&matRotate, 20 * D3DXToRadian(1) * _timeDelta);
 				D3DXVec3TransformCoord(&_relativeCamPos, &_relativeCamPos, &matRotate);
 			}
 
 			if (KEYMANAGER->isStayKeyDown('Q'))
 			{
-				D3DXMatrixRotationY(&matRotate, -15 * D3DXToRadian(1) * _timeDelta);
+				D3DXMatrixRotationY(&matRotate, -20 * D3DXToRadian(1) * _timeDelta);
 				D3DXVec3TransformCoord(&_relativeCamPos, &_relativeCamPos, &matRotate);
 			}
 
 			if (KEYMANAGER->isStayKeyDown('F'))
 			{
 
-				D3DXMatrixRotationX(&matRotate, 15 * D3DXToRadian(1) * _timeDelta);
+				D3DXMatrixRotationX(&matRotate, 20 * D3DXToRadian(1) * _timeDelta);
 				D3DXVec3TransformCoord(&_relativeCamPos, &_relativeCamPos, &matRotate);
 			}
 
 			if (KEYMANAGER->isStayKeyDown('R'))
 			{
 
-				D3DXMatrixRotationX(&matRotate, -15 * D3DXToRadian(1) * _timeDelta);
+				D3DXMatrixRotationX(&matRotate, -20 * D3DXToRadian(1) * _timeDelta);
 				D3DXVec3TransformCoord(&_relativeCamPos, &_relativeCamPos, &matRotate);
 			}
 
@@ -1347,13 +1346,12 @@ namespace dx {
 					if (deltaX > 0)
 					{
 						D3DXMatrixIdentity(&matRotate);
-						D3DXMatrixRotationY(&matRotate, -15 * D3DXToRadian(1) * _timeDelta);
+						D3DXMatrixRotationY(&matRotate, -50 * D3DXToRadian(1) * _timeDelta);
 					}
 					else if(deltaX < 0)
 					{
-
 						D3DXMatrixIdentity(&matRotate);
-						D3DXMatrixRotationY(&matRotate, 15 * D3DXToRadian(1) * _timeDelta);
+						D3DXMatrixRotationY(&matRotate, 50 * D3DXToRadian(1) * _timeDelta);
 					}
 /*
 					if (deltaY > 0)
@@ -1552,8 +1550,7 @@ namespace dx {
 		m_fAccelate = accelate;
 		m_fNowSpeed = nowSpeed;
 		m_fMaxSpeed = maxSpeed;
-
-
+		
 		//최초 누를때는 마우스 위치를 가운데로 놓고 시작
 		if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
 		{

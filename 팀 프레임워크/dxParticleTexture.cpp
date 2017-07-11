@@ -12,7 +12,8 @@ LPDIRECT3DTEXTURE9* dxParticleTexture::LoadImg(string inPath, bool grayScaleAlph
 		inPath.c_str(), 		//파일경로
 		D3DX_DEFAULT, 			//가로 크기(자동)
 		D3DX_DEFAULT, 			//세로 크기(자동)
-		D3DX_DEFAULT, 			//밉맵 설정(자동)->일부러 많이 사용했다.(메모리는 많이 차지하지만 파티클의 프레임 드랍을 많이 줄여줄 거라 예상)
+		1,
+		//D3DX_DEFAULT, 			//밉맵 설정(자동)->일부러 많이 사용했다.(메모리는 많이 차지하지만 파티클의 프레임 드랍을 많이 줄여줄 거라 예상)
 		NULL,
 		//D3DFMT_FROM_FILE,		//파일에서 포맷(자동)
 		D3DFMT_A8B8G8R8,		//파일 포맷 세팅

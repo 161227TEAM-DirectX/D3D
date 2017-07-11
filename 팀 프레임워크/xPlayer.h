@@ -2,6 +2,7 @@
 #include "iGameNode.h"
 #include "xPlayerStatus.h"
 #include "skPlayer_Heal.h"
+
 #include <list>
 
 //#include "skill00_03.h"
@@ -27,6 +28,10 @@ enum SkillType
 	SKILL_HEAL,
 	SKILL_MAGICMISSILE,
 	SKILL_LIGHTNING,
+	SKILL_SKYSWD,
+	SKILL_FIRE,
+	SKILL_SHIELD,
+	SKILL_METEOR,
 	SKILL_ROAR,
 	SKILL_WHIRLWIND,
 	SKILL_SLAM,

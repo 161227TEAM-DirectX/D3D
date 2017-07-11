@@ -10,6 +10,7 @@
 
 HRESULT stageThree::clear(void)
 {
+	_mon.clear();
 	_renderObject.clear();
 	_shadowDistance = 0.0f;
 
@@ -132,6 +133,8 @@ HRESULT stageThree::init()
 	CINEMATICMANAGER->init();
 	//로드된값 집어 넣기 
 	CINEMATICMANAGER->cinematicBossInit();
+	_mon.push_back(boss);
+	player->out_setMonsterRegion(&_mon);
 
 	return S_OK;
 }
