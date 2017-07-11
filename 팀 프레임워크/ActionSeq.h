@@ -18,6 +18,8 @@ public:
 	virtual int Start() override;
 	//Action클래스의 Update()함수 재정의
 	virtual int Update() override;
+
+	void Render() override;
 	
 	//iActionDelegate클래스의 OnActionFinish()재정의
 	virtual void OnActionFinish(Action* pSender) override;

@@ -11,6 +11,7 @@ ActionAttack::ActionAttack()
 
 ActionAttack::~ActionAttack()
 {
+	SAFE_DELETE(damage);
 }
 
 int ActionAttack::Start()

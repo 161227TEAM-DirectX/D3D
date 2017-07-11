@@ -4,7 +4,7 @@
 
 
 ActionMove::ActionMove()
-	:Action(), m_fPassedTime(0.0f)
+	:Action(), m_fPassedTime(0.0f), length(0.0f)
 {
 }
 
@@ -37,45 +37,55 @@ int ActionMove::Update()
 	//죽음조건
 	if (temp->getHP() < 0)return LHS::ACTIONRESULT::ACTION_DIE;
 
-	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
-	{
-		//장애물과 충돌하면 멈춘다. - 다시 이동??
-		for (int i = 0; i < object->size(); i++)
-		{
-			if (PHYSICSMANAGER->isOverlap(owner->_transform, &owner->_boundBox, (*object)[i]->_transform, &(*object)[i]->_boundBox))
-			{
-				if (deleGate) deleGate->OnActionFinish(this, true);
-				return LHS::ACTIONRESULT::ACTION_MOVE;
-			}
-		}
+	//이동 애니메이션이 끝날 경우.
 
-		//적과 나의 바운드 박스가 충돌했는가?
-		if (PHYSICSMANAGER->isOverlap(owner->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
+		//장애물과 충돌하면 멈춘다. - 다시 이동??
+	for (int i = 0; i < object->size(); i++)
+	{
+		if (PHYSICSMANAGER->isOverlap(owner->_transform, &owner->_boundBox, (*object)[i]->_transform, &(*object)[i]->_boundBox))
 		{
-			if (deleGate) deleGate->OnActionFinish(this, true);
-			return LHS::ACTIONRESULT::ACTION_ATT;
+			//if (deleGate) deleGate->OnActionFinish(this, true);
+			return LHS::ACTIONRESULT::ACTION_MOVE;
 		}
 	}
-	
+
+	//적과 나의 바운드 박스가 충돌했는가?
+	if (PHYSICSMANAGER->isOverlap(owner->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
+	{
+		//if (deleGate) deleGate->OnActionFinish(this, true);
+		return LHS::ACTIONRESULT::ACTION_ATT;
+	}
+
+	//플레이어가 내 탐색 범위를 벗어나게 되면 스탠딩 상태로 돌아간다.
+	float tempDistance = 0;
+	tempDistance = D3DXVec3Length(&(temp->getRegenPosition() - temp->_transform->GetWorldPosition()));
+	if (tempDistance - Gap >= PLAYERDISTANCE)
+	{
+		//if (deleGate)deleGate->OnActionFinish(this, true);
+		return LHS::ACTIONRESULT::ACTION_REMOVE;
+	}
 
 	m_fPassedTime += _timeDelta;
 	//경과시간이 액션시간보다 커지면 멈춰라?
 	//if (m_fPassedTime >= actionTime)
-	D3DXVECTOR3 distance = owner->_transform->GetWorldPosition() - to;
-	float length = D3DXVec3Length(&distance);
+	D3DXVECTOR3 hitBoxCenter;
+	float hitBoxRadius;
+	temp->getHitBox().getWorldCenterRadius(temp->_transform, &hitBoxCenter, &hitBoxRadius);
+
+	//현재 몬스터의 히트박스의 최저위치값을 저장.
+	hitBoxCenter.y = rand->getHeight(hitBoxCenter.x, hitBoxCenter.z);
+	//목적지와 현재 내 위치 사이의 거리, 방향 벡터를 구한다.(목적지에서 몬스터를 바라보는 방향)
+	//D3DXVECTOR3 distance = owner->_transform->GetWorldPosition() - to;
+	D3DXVECTOR3 distance = hitBoxCenter - to;
+	//사이 거리를 구한다.
+	length = D3DXVec3Length(&distance);
+	//사이 거리-0.001f 값이 0.5보다 작거나 0.7보다 작거나????
 	if(length - Gap <= LENGTHGAP || length - Gap <= LENGTHGAP + 0.2f)
 	{
 		//객체의 위치를 to위치로 변경
 		//owner->_transform->SetWorldPosition(to);
 
-		//플레이어가 내 탐색 범위를 벗어나게 되면 스탠딩 상태로 돌아간다.
-		float tempDistance = 0;
-		tempDistance = D3DXVec3Length(&(temp->getRegenPosition() - temp->_transform->GetWorldPosition()));
-		if (tempDistance - Gap >= PLAYERDISTANCE)
-		{
-			if (deleGate)deleGate->OnActionFinish(this, true);
-			return LHS::ACTIONRESULT::ACTION_REMOVE;
-		}
+		
 		//if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 		//{
 		//	if (deleGate) deleGate->OnActionFinish(this, true);
@@ -99,14 +109,19 @@ int ActionMove::Update()
 	//D3DXVec3Lerp(&p, &from, &to, t);
 	//p.y = rand->getHeight(p.x, p.z);
 	//D3DXVECTOR3 prev = owner->_transform->GetWorldPosition();		//개체의 월드위치값을 저장
+	
+	//방향에 따른 회전 시 필요한 트랜스폼을 현재 owner가 가지고 있는 transform을 저장한다.
 	rotateMonster = *owner->_transform;
 
 	//D3DXVECTOR3 result = prev - p;							//과거 위치에서 선형보간된 위치를 바라보는 방향벡터
 	D3DXVECTOR3 tempTo = to;
 	float tempY = 0;
+	//지형의 y값을 가져온다.
 	tempY = rand->getHeight(tempTo.x, tempTo.z);
 	tempTo.y = tempY;
+	//몬스터가 바라보는 방향을 변경.
 	owner->_transform->LookPosition(tempTo);						//방향벡터를 transform의 정면벡터에 저장
+	//몬스터의 회전을 보정값을 넣어서 회전시킨다.
 	owner->_transform->RotateSlerp(rotateMonster, *owner->_transform, _timeDelta*8);
 	//owner->_transform->SetWorldPosition(p);					//개채의 위치를 선형보간된 위치로 변경
 
@@ -115,11 +130,16 @@ int ActionMove::Update()
 	//cout << "목적지 위치값 x: " << to.x << " y: " << to.y << " z: " << to.z << endl;
 	//cout << "플레이어 위치값 x: " << playerObject->_transform->GetWorldPosition().x << " y: " << playerObject->_transform->GetWorldPosition().y << " z: " << playerObject->_transform->GetWorldPosition().z << endl;
 
+	//이동벡터값. z축으로 이동한다.
 	D3DXVECTOR3 look(0.0f, 0.0f, 0.07f);
 	tempY = 0;
+	//현재 자신의 축을 기준으로 이동한다. look벡터내부 값 만큼.
 	owner->_transform->MovePositionSelf(look);
+	//이동 후 현재 월드 포시션값을 가져온다.
 	look = owner->_transform->GetWorldPosition();
+	//지형 높이값을 가져온다.
 	tempY = rand->getHeight(look.x, look.z);
+	//높이값을 적용한다.
 	owner->_transform->SetWorldPosition(look.x, tempY, look.z);
 
 	//실시간 플레이어의 이동을 체크하고 경로를 다시 설정.
@@ -133,4 +153,11 @@ int ActionMove::Update()
 	*/
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
+}
+
+void ActionMove::Render()
+{
+	char temp[128];
+	sprintf_s(temp, "%f", length);
+	FONTMANAGER->fontOut(temp, 250, 250, WHITE);
 }

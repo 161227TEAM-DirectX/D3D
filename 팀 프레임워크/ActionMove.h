@@ -11,6 +11,7 @@ protected:
 	D3DXVECTOR3 from;					//시작 위치
 	D3DXVECTOR3 to;						//목표 위치
 	float actionTime;					//액션 시간
+	float length;
 public:
 	ActionMove();
 	virtual ~ActionMove();
@@ -28,4 +29,6 @@ public:
 	virtual int Start() override;
 	//Action클래스의 Update()함수 재정의
 	virtual int Update() override;
+
+	void Render() override;
 };
