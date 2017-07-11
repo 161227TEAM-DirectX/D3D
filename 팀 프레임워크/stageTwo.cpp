@@ -187,6 +187,7 @@ void stageTwo::release()
 	SAFE_DELETE(_terrain);
 	SAFE_DELETE(_terrainShadow);
 	SAFE_DELETE(env);
+	water->release();
 	SAFE_DELETE(water);
 	SAFE_DELETE(toRotate);
 	SAFE_DELETE(m_pUIPlayer);
