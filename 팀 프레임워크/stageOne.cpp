@@ -8,6 +8,8 @@
 
 HRESULT stageOne::init()
 {
+	_renderObject.clear();
+
 	_mainCamera = new camera;
 	_directionLightCamera = new camera;
 	sceneBaseDirectionLight = new lightDirection;
@@ -122,7 +124,7 @@ void stageOne::release()
 	{
 		SAFE_DELETE(_renderObject[i]);
 	}
-	_renderObject.clear();
+	
 	SAFE_DELETE(_mainCamera);
 	SAFE_DELETE(_directionLightCamera);
 	SAFE_DELETE(sceneBaseDirectionLight);

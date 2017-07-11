@@ -10,6 +10,7 @@
 
 HRESULT stageThree::clear(void)
 {
+	_renderObject.clear();
 	_shadowDistance = 0.0f;
 
 	boss = nullptr;

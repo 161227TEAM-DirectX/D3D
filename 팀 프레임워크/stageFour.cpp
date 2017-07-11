@@ -7,6 +7,7 @@
 
 HRESULT stageFour::clear(void)
 {
+	_renderObject.clear();
 	_shadowDistance = 0.0f;
 	angleZ = 89;
 	currTime = 0.0f;
@@ -29,7 +30,6 @@ void stageFour::destroy(void)
 	{
 		SAFE_DELETE(_renderObject[i]);
 	}
-	_renderObject.clear();
 	SAFE_DELETE(_mainCamera);
 	SAFE_DELETE(_directionLightCamera);
 	SAFE_DELETE(sceneBaseDirectionLight);

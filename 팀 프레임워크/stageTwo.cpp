@@ -9,6 +9,8 @@
 
 HRESULT stageTwo::clear(void)
 {
+	_renderObject.clear();
+
 	_shadowDistance = 0.0f;
 	currTime = 0.0f;
 	angleZ = 89;
