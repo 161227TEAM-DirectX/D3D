@@ -1532,6 +1532,12 @@ void xPlayer::playerDamaged(int damage, float damagedTime, float delayRate, floa
 {
 	if (_state == P_DEATH) return;
 
+	if (_isMount)
+	{
+		_isMount = false;
+		this->unSummonMount();
+	}
+
 	PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - damage);
 
 	//무거운 공격! 경직에 걸렸다.

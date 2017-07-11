@@ -1324,7 +1324,6 @@ namespace dx {
 
 			if (KEYMANAGER->isStayKeyDown('R'))
 			{
-
 				D3DXMatrixRotationX(&matRotate, -20 * D3DXToRadian(1) * _timeDelta);
 				D3DXVec3TransformCoord(&_relativeCamPos, &_relativeCamPos, &matRotate);
 			}
@@ -1346,12 +1345,12 @@ namespace dx {
 					if (deltaX > 0)
 					{
 						D3DXMatrixIdentity(&matRotate);
-						D3DXMatrixRotationY(&matRotate, -50 * D3DXToRadian(1) * _timeDelta);
+						D3DXMatrixRotationY(&matRotate, -90 * D3DXToRadian(1) * _timeDelta);
 					}
 					else if(deltaX < 0)
 					{
 						D3DXMatrixIdentity(&matRotate);
-						D3DXMatrixRotationY(&matRotate, 50 * D3DXToRadian(1) * _timeDelta);
+						D3DXMatrixRotationY(&matRotate, 90 * D3DXToRadian(1) * _timeDelta);
 					}
 /*
 					if (deltaY > 0)
@@ -1376,12 +1375,69 @@ namespace dx {
 			}
 			if (_linkTrans != nullptr)
 			{
-				this->LookPosition(_linkTrans->GetWorldPosition() + _linkTrans->GetForward());
+				this->LookPosition(_linkTrans->GetWorldPosition() + _linkTrans->GetForward()/3);
 				this->SetWorldPosition(_linkTrans->GetWorldPosition() + _relativeCamPos);
 			}
 		}
 		else
 		{
+			static float prevM_PosX = GetMousePos().x;
+			static float prevM_PosY = GetMousePos().y;
+			D3DXMATRIX matRotate;
+			D3DXMatrixIdentity(&matRotate);
+
+			//새롭게 구성해 보자.
+			float deltaX = prevM_PosX - GetMousePos().x;
+			float deltaY = prevM_PosY - GetMousePos().y;
+
+
+			if (KEYMANAGER->isStayKeyDown( VK_RBUTTON))
+			{
+				D3DXVECTOR3 forward = this->GetForward();
+
+				D3DXMATRIX mat1, mat2;
+
+				D3DXMatrixRotationY(&mat1, deltaX * D3DXToRadian(1) * 3 * _timeDelta);
+
+				D3DXMatrixRotationX(&mat2, deltaY * D3DXToRadian(1) * 3 * _timeDelta);
+
+				matRotate = mat1*mat2;
+
+				D3DXVec3TransformCoord(&forward, &forward, &matRotate);
+
+				this->LookDirection(forward);
+			}
+
+
+//			D3DXMatrixRotationY(&matRotate, -deltaX * D3DXToRadian(1) * _timeDelta);
+
+
+
+	
+
+
+			/*
+			if (deltaY > 0)
+			{
+			D3DXMatrixIdentity(&matRotate);
+			D3DXMatrixRotationX(&matRotate, -15 * D3DXToRadian(1) * _timeDelta);
+			}
+			else if (deltaY < 0)
+			{
+
+			D3DXMatrixIdentity(&matRotate);
+			D3DXMatrixRotationX(&matRotate, 15 * D3DXToRadian(1) * _timeDelta);
+			}*/
+
+
+
+			D3DXVec3TransformCoord(&_relativeCamPos, &_relativeCamPos, &matRotate);
+
+
+			prevM_PosX = GetMousePos().x;
+			prevM_PosY = GetMousePos().y;
+
+			/*
 			//디폴트 컨트롤을 위한 카메라 Angle 값
 			static float nowAngleH = 0.0f;						//수평앵글
 			static float nowAngleV = 0.0f;						//수직앵글
@@ -1453,47 +1509,47 @@ namespace dx {
 					D3DXVec3Normalize(&inputVector, &inputVector);
 				}
 
-				/*
+				
+				////
+				//// 가속개념 있는 이동
+				////
+
+				////타겟벡터
+				//D3DXVECTOR3 target = inputVector * maxSpeed;
+				//D3DXVec3TransformNormal( &target, &target, &this->matFinal );
+
+
+				////타겟벡터와 현제Velocity 크기차
+				//float targetLength = D3DXVec3Length( &target ); //D3DXVec3Length 벡터의 크기를 얻는다.
+				//float nowVelocityLength = D3DXVec3Length( &nowVelocity );
+				//float dist = abs( targetLength - nowVelocityLength );
+
+				////타겟과 차이가 존재한다면..
+				//if( FLOATZERO( dist ) == false )
+				//{
+				////변화 허용량
+				//float delta = accelate * _timeDelta;
+
+				////보간값
+				//float t = Clamp01( delta / dist );
+
+				////이번프레임에 타겟까지 변화 하는데 충분하다
+				//if( FLOATEQUAL( t, 1.0f ) )
+				//{
+				//nowVelocity = target;
+				//}
+
+				//else
+				//{
+				//nowVelocity = VecLerp( nowVelocity, target, t );
+				//}
+				//}
+
+				////이동 벡터는
+				//D3DXVECTOR3 moveDeltaVector = nowVelocity * _timeDelta;
+				////이동 해라
+				//this->MovePositionWorld( moveDeltaVector );
 				//
-				// 가속개념 있는 이동
-				//
-
-				//타겟벡터
-				D3DXVECTOR3 target = inputVector * maxSpeed;
-				D3DXVec3TransformNormal( &target, &target, &this->matFinal );
-
-
-				//타겟벡터와 현제Velocity 크기차
-				float targetLength = D3DXVec3Length( &target ); //D3DXVec3Length 벡터의 크기를 얻는다.
-				float nowVelocityLength = D3DXVec3Length( &nowVelocity );
-				float dist = abs( targetLength - nowVelocityLength );
-
-				//타겟과 차이가 존재한다면..
-				if( FLOATZERO( dist ) == false )
-				{
-				//변화 허용량
-				float delta = accelate * _timeDelta;
-
-				//보간값
-				float t = Clamp01( delta / dist );
-
-				//이번프레임에 타겟까지 변화 하는데 충분하다
-				if( FLOATEQUAL( t, 1.0f ) )
-				{
-				nowVelocity = target;
-				}
-
-				else
-				{
-				nowVelocity = VecLerp( nowVelocity, target, t );
-				}
-				}
-
-				//이동 벡터는
-				D3DXVECTOR3 moveDeltaVector = nowVelocity * _timeDelta;
-				//이동 해라
-				this->MovePositionWorld( moveDeltaVector );
-				*/
 
 				//
 				// 가속개념 없는 이동
@@ -1535,6 +1591,7 @@ namespace dx {
 
 				this->SetRotateWorld(nowAngleV * D3DXToRadian(1), nowAngleH * D3DXToRadian(1), 0.0f);
 			}
+			*/
 		}
 	}
 
