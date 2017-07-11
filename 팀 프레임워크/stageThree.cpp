@@ -117,6 +117,7 @@ HRESULT stageThree::init()
 	ACMANAGER->Init(*_terrain, *player);
 
 	tempY = _terrain->getHeight(0.0f, 0.0f);
+	IOSAVEMONSTERBOX->loadFile("test");
 	//보스몬스터 초기화
 	boss->setMesh(XMESH_MANAGER->GetXmeshSkinned("데스윙"));
 	boss->_transform->SetScale(2.0f, 2.0f, 2.0f);
