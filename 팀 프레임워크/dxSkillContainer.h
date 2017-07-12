@@ -78,6 +78,8 @@ protected:
 	//디폴트 렌더 여부
 	//bool _defualtRendrOn;
 
+	bool _endOn;
+
 	dx::transform* _actionTrans;
 	dx::transform* _targetTrans;
 
@@ -95,7 +97,23 @@ public:
 	{
 		if (_skillStartOn == FALSE) { _skillPrepareOn = true; };
 		_skillStartOn = true; 
+		_endOn = false;
 	}
+
+	virtual bool getEnd(void)
+	{
+		if (_skillStartOn)
+		{
+			if (_endOn)
+			{
+				_endOn = true;
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	//업데이트 동작
 	virtual bool Prepare() = 0;
 	virtual bool Action() = 0;
@@ -142,6 +160,9 @@ public:
 
 public:
 	bool getActive() { return _skillStartOn; }
+	//bool get
+
+	
 
 protected:
 	bool AutoResetTime(float inTime);
@@ -194,6 +215,8 @@ protected:
 	}
 
 
+
+
 protected:
 	void ContainerInit(void)
 	{
@@ -213,6 +236,8 @@ protected:
 		_finishPS = NULL;
 
 		_SkillRenderType = SR_One;
+
+		_endOn = true;
 	}
 
 	public:
