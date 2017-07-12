@@ -906,6 +906,7 @@ void xPlayer::playerStateManager()
 		}
 		break;
 	case P_SLAM:
+		skillProcesser();
 		if (animName == "SLAM")
 		{
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.5 && _playerObject->_skinnedAnim->getAnimFactor() < 0.8)//¾Ö´Ï¸ÞÀÌ¼Ç ´Ù Àç»ýÇßÀ¸¸é
@@ -934,6 +935,7 @@ void xPlayer::playerStateManager()
 		}
 		break;
 	case P_WHIRLWIND:
+		skillProcesser();
 		if (animName == "WW")
 		{
 			if (!SOUNDMANAGER->isPlaySound("ÈÙÀ©µå"))
@@ -1366,6 +1368,11 @@ void xPlayer::skillControl()
 			_isOnBattle = true;
 			_state = P_READYTOATTACK;
 		}
+	}
+
+	if (KEYMANAGER->isOnceKeyDown('8'))
+	{
+		_nowSelectedSkill = SKILL_WHIRLWIND;
 	}
 
 	if (KEYMANAGER->isOnceKeyDown('1'))
@@ -1890,7 +1897,7 @@ void xPlayer::skilltrigger()
 		case SKILL_LIGHTNING:
 			if (targetMonster != NULL)
 			{
-				playerSkillOmni(4.0f);
+				playerSkillOmni(6.0f);
 			}
 			//_state = P_READYOMNI;
 			break;
@@ -1983,11 +1990,8 @@ void xPlayer::useNowSkill()
 			}
 			break;
 		case SKILL_SHIELD:
-			if (targetMonster != NULL)
-			{
-				SKM->findSK("¸ÅÁ÷½¯µå")->setSkillPosTrans(_playerObject->_transform);
-				SKM->findSK("¸ÅÁ÷½¯µå")->Start();
-			}
+			SKM->findSK("¸ÅÁ÷½¯µå")->setSkillPosTrans(_playerObject->_transform);
+			SKM->findSK("¸ÅÁ÷½¯µå")->Start();
 			break;
 		case SKILL_METEOR:
 			if (targetMonster != NULL)
@@ -1997,6 +2001,9 @@ void xPlayer::useNowSkill()
 				SKM->findSK("»ûº°_¶³±¸±â")->setOneTargetTrans(targetMonster->_transform);
 				SKM->findSK("»ûº°_¶³±¸±â")->Start();
 			}
+			break;
+		case SKILL_WHIRLWIND:
+
 			break;
 		case SKILL_END:
 			break;
@@ -2016,6 +2023,19 @@ void xPlayer::skillProcesser() {
 		{
 			PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() + PLAYERMANAGER->Getatt());
 		}
+
+		if (SKM->findSK("Èú")->getEnd())
+		{
+			if (_isOnBattle)
+			{
+				this->_state = P_READYTOATTACK;
+			}
+			else
+			{
+				this->_state = P_STAND;
+			}
+			_nowSelectedSkill = SKILL_NONE;
+		}
 		break;
 	case SKILL_MAGICMISSILE:
 		if (SKM->findSK("¸ÅÁ÷½´ÅÍ")->getCollision())
@@ -2033,6 +2053,7 @@ void xPlayer::skillProcesser() {
 			{
 				this->_state = P_STAND;
 			}
+			_nowSelectedSkill = SKILL_NONE;
 		}
 
 		//if (targetMonster != NULL)
@@ -2061,6 +2082,7 @@ void xPlayer::skillProcesser() {
 			{
 				this->_state = P_STAND;
 			}
+			_nowSelectedSkill = SKILL_NONE;
 		}
 
 		//if (SKM->isEnd?)
@@ -2086,16 +2108,17 @@ void xPlayer::skillProcesser() {
 			{
 				this->_state = P_STAND;
 			}
+			_nowSelectedSkill = SKILL_NONE;
 		}
 
 		break;
 	case SKILL_FIRE:
-		if (SKM->findSK("ÆÄÀÌ¾î_¸ÅÁ÷")->getCollision())
+		if (SKM->findSK("ÆÄÀÌ¾î¸ÅÁ÷")->getCollision())
 		{
 			targetMonster->setHP(0);
 		}
 
-		if (SKM->findSK("ÆÄÀÌ¾î_¸ÅÁ÷")->getEnd())
+		if (SKM->findSK("ÆÄÀÌ¾î¸ÅÁ÷")->getEnd())
 		{
 			if (_isOnBattle)
 			{
@@ -2105,11 +2128,23 @@ void xPlayer::skillProcesser() {
 			{
 				this->_state = P_STAND;
 			}
+			_nowSelectedSkill = SKILL_NONE;
 		}
 
 		break;
 	case SKILL_SHIELD:
-		
+		if (SKM->findSK("¸ÅÁ÷½¯µå")->getEnd())
+		{
+			if (_isOnBattle)
+			{
+				this->_state = P_READYTOATTACK;
+			}
+			else
+			{
+				this->_state = P_STAND;
+			}
+			_nowSelectedSkill = SKILL_NONE;
+		}
 		break;
 	case SKILL_METEOR:
 		if (SKM->findSK("»ûº°_¶³±¸±â")->getCollision())
@@ -2127,6 +2162,26 @@ void xPlayer::skillProcesser() {
 			{
 				this->_state = P_STAND;
 			}
+			_nowSelectedSkill = SKILL_NONE;
+		}
+
+		break;
+	case SKILL_WHIRLWIND:
+		if (KEYMANAGER->isStayKeyDown(VK_RBUTTON))
+		{
+			normalAttackDamageProcessing();
+		}
+		else
+		{
+			if (_isOnBattle)
+			{
+				this->_state = P_READYTOATTACK;
+			}
+			else
+			{
+				this->_state = P_STAND;
+			}
+			_nowSelectedSkill = SKILL_NONE;
 		}
 
 		break;
