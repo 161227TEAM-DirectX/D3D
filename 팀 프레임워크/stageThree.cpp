@@ -289,7 +289,7 @@ void stageThree::shadowUpdate(void)
 
 	D3DXVECTOR3 lightDir = sceneBaseDirectionLight->_transform->GetForward();			//방향성 광원의 방향
 
-	_directionLightCamera->SetWorldPosition(camPos.x, camPos.y + 5, camPos.z);
+	_directionLightCamera->SetWorldPosition(camPos.x, camPos.y + 20, camPos.z);
 	_directionLightCamera->LookDirection(lightDir);
 
 	//쉐도우맵 준비
