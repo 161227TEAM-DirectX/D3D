@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "ActionStanding.h"
-
+#include "monster.h"
 
 ActionStanding::ActionStanding()
-	:Action(), PassedTime(0.0f)
+	:Action()
 {
 }
 
@@ -16,7 +16,6 @@ int ActionStanding::Start()
 {
 	if (!owner)return LHS::ACTIONRESULT::ACTION_FINISH;
 	owner->getSkinnedAnim().Play("Stand");
-	PassedTime = 0.0f;
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }
 
@@ -65,10 +64,8 @@ int ActionStanding::Update()
 	//몬스터의 범위 박스에 케릭터가 오면 케릭터의 위치로 이동 - enemy설정이 필요함.
 	float tempdistance = 0;
 	tempdistance = D3DXVec3Length(&(temp->getRegenPosition() - playerObject->_transform->GetWorldPosition()));
-	if (tempdistance - Gap <= PLAYERDISTANCE)
-	{
-		return LHS::ACTIONRESULT::ACTION_MOVE;
-	}
+	
+	if (tempdistance - Gap <= PLAYERDISTANCE) return LHS::ACTIONRESULT::ACTION_MOVE;
 //	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 //	{
 //		if (deleGate) deleGate->OnActionFinish(this, true);

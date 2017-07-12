@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <tchar.h>
+#include <crtdbg.h>
 
 // C++ 런타임 헤더 파일입니다.
 #include <iostream>
@@ -42,7 +43,11 @@ using namespace std;
 //#pragma comment(linker,"/entry:WinMainCRTStartup /subsystem:console")
 
 
+#ifndef _DEBUG
 
+#define new new(_CLIENT_BLOCK,__FILE__,__LINE)
+
+#endif
 
 
 //====================================================================
@@ -510,6 +515,7 @@ namespace LHS
 	enum ACTIONRESULT
 	{
 		ACTION_FINISH = 0,
+		ACTION_REFINISH,
 		ACTION_FAIL,
 		ACTION_PLAY,
 		ACTION_STAND,

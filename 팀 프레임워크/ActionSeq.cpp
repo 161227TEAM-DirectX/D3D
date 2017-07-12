@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "ActionSeq.h"
+#include "monster.h"
 
 ActionSeq::ActionSeq()
 	:Action(), CurrIdx(0), isCheck(false)
@@ -11,7 +12,7 @@ ActionSeq::~ActionSeq()
 {
 	for (int i = 0; i < vecAction.size(); i++)
 	{
-		SAFE_DELETE(vecAction[i]);
+		delete vecAction[i];
 	}
 	vecAction.clear();
 	vector<Action*>().swap(vecAction);
@@ -45,7 +46,12 @@ int ActionSeq::Update()
 	//CurrIdx값이 벡터의 사이즈보다 크거나 같다면 Update를 실행하지 마라
 	if (CurrIdx >= (int)vecAction.size())
 	{
-		return LHS::ACTIONRESULT::ACTION_FINISH;;
+		monster* temp = dynamic_cast<monster*>(vecAction[CurrIdx - 1]->getOwner());
+		float tempDistance = 0;
+		tempDistance = D3DXVec3Length(&(temp->getRegenPosition() - temp->_transform->GetWorldPosition()));
+		
+		if (tempDistance - Gap < PLAYERDISTANCE) return LHS::ACTIONRESULT::ACTION_MOVE;
+		else return LHS::ACTIONRESULT::ACTION_FINISH;
 	}
 	
 	//CurrIdx번째 액션의 Update()함수를 호출해라
@@ -71,6 +77,14 @@ int ActionSeq::Update()
 	case LHS::ACTIONRESULT::ACTION_FINISH:
 		CurrIdx++;
 		return LHS::ACTIONRESULT::ACTION_PLAY;
+	case LHS::ACTIONRESULT::ACTION_REFINISH:
+		if (CurrIdx + 1 < vecAction.size())
+		{
+			CurrIdx++;
+			return LHS::ACTIONRESULT::ACTION_PLAY;
+		}
+		else return LHS::ACTIONRESULT::ACTION_REFINISH;
+		
 	}
 }
 

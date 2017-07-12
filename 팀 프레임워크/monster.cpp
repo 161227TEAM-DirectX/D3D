@@ -63,6 +63,9 @@ void monster::baseObjectDisable()
 
 void monster::baseObjectUpdate()
 {
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	
+
 	stateSwitch();
 	name->update();
 
@@ -116,6 +119,9 @@ void monster::stateSwitch(void)
 	{
 		//리턴 값이 액션이 종료되었음을 알려올때 -> standing상태로 돌아간다.
 	case LHS::ACTIONRESULT::ACTION_FINISH:
+		NextAction = ACMANAGER->getAction("일반대기", *this);
+		break;
+	case LHS::ACTIONRESULT::ACTION_REFINISH:
 		NextAction = ACMANAGER->getAction("일반대기", *this);
 		break;
 		//액션을 할당, 다양한 문제가 생겼을 경우

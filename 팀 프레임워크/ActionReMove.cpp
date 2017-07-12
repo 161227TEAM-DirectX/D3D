@@ -4,7 +4,7 @@
 
 
 ActionReMove::ActionReMove()
-	:Action(), m_fPassedTime(0.0f)
+	:Action()
 {
 }
 
@@ -25,7 +25,6 @@ int ActionReMove::Start()
 	float tempY = rand->getHeight(to.x, to.z);
 	to.y = tempY;
 	rotateMonster = *owner->_transform;
-	m_fPassedTime = 0.0f;
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }
 
@@ -40,17 +39,14 @@ int ActionReMove::Update()
 
 	D3DXVECTOR3 length = owner->_transform->GetWorldPosition() - to;
 	float tempLength = D3DXVec3Length(&length);
-	m_fPassedTime += _timeDelta;
 	//경과시간이 액션시간보다 커지면 멈춰라?
 	if (tempLength - Gap <= LENGTHGAP || tempLength - Gap <= LENGTHGAP + 0.2f)
 	{
 		//객체의 위치를 to위치로 변경
 		//owner->_transform->SetWorldPosition(to);
 		//deleGate변수가 nullptr이 아니라면 함수 호출
-		return LHS::ACTIONRESULT::ACTION_FINISH;
+		return LHS::ACTIONRESULT::ACTION_REFINISH;
 	}
-	//선형보간을 위해 현재시간 / 전체 시간
-	float t = m_fPassedTime / actionTime;
 	//D3DXVECTOR3 p;				//선형보간한 위치값을 저장하는 벡터
 	//두 3D 벡터 사이에서 선형 보간을 수행합니다.
 	//D3DXVECTOR3 * D3DXVec3Lerp(

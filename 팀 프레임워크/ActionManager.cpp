@@ -93,4 +93,5 @@ Action * ActionManager::getAction(string Name, baseObject& who)
 
 void ActionManager::clearAction(void)
 {
+	actionName.clear();
 }

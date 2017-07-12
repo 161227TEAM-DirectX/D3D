@@ -86,6 +86,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 	//메시큐에서 얻어온 메시지가 종료메시지가 아니면 계속 루프
 	while (message.message != WM_QUIT)
 	{
+		//_crtBreakAlloc = 291595;
 		//메시지큐의 메시지를본다 
 		//하지만 마지막의 PM_REMOVE 옵션으로인해 본메시지는
 		//지운다.
