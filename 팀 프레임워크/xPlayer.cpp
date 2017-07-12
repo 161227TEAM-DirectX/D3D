@@ -906,6 +906,7 @@ void xPlayer::playerStateManager()
 		}
 		break;
 	case P_SLAM:
+		skillProcesser();
 		if (animName == "SLAM")
 		{
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.5 && _playerObject->_skinnedAnim->getAnimFactor() < 0.8)//애니메이션 다 재생했으면
@@ -934,6 +935,7 @@ void xPlayer::playerStateManager()
 		}
 		break;
 	case P_WHIRLWIND:
+		skillProcesser();
 		if (animName == "WW")
 		{
 			if (!SOUNDMANAGER->isPlaySound("휠윈드"))
@@ -988,22 +990,22 @@ void xPlayer::playerStateManager()
 		skillProcesser();
 		if (animName == "SPCD")
 		{
-			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
-			{
-				//_skillTrans->SetWorldMatrix(_EquipSocket.find("LHAND")->second->CombinedTransformationMatrix);
-				//_lightSkill->setPlayer(_skillTrans);
-				//_lightSkill->setPlayerDir(_playerObject->_transform);
-				//_lightSkill->Start();
+			//if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
+			//{
+			//	//_skillTrans->SetWorldMatrix(_EquipSocket.find("LHAND")->second->CombinedTransformationMatrix);
+			//	//_lightSkill->setPlayer(_skillTrans);
+			//	//_lightSkill->setPlayerDir(_playerObject->_transform);
+			//	//_lightSkill->Start();
 
-				if (_isOnBattle)
-				{
-					_state = P_READYTOATTACK;
-				}
-				else
-				{
-					_state = P_STAND;
-				}
-			}
+			//	if (_isOnBattle)
+			//	{
+			//		_state = P_READYTOATTACK;
+			//	}
+			//	else
+			//	{
+			//		_state = P_STAND;
+			//	}
+			//}
 		}
 		break;
 	case P_READYOMNI:
@@ -1017,17 +1019,18 @@ void xPlayer::playerStateManager()
 		skillProcesser();
 		if (animName == "SPCO")
 		{
-			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
-			{
-				if (_isOnBattle)
-				{
-					_state = P_READYTOATTACK;
-				}
-				else
-				{
-					_state = P_STAND;
-				}
-			}
+
+			//if (_playerObject->_skinnedAnim->getAnimFactor() > 0.95)//애니메이션 다 재생했으면
+			//{
+			//	if (_isOnBattle)
+			//	{
+			//		_state = P_READYTOATTACK;
+			//	}
+			//	else
+			//	{
+			//		_state = P_STAND;
+			//	}
+			//}
 		}
 		break;
 	case P_JUMPUP:
@@ -1242,20 +1245,14 @@ void xPlayer::playerAnimationManager()
 		_playerObject->_skinnedAnim->Play("RDSD", 0.2f);
 		break;
 	case P_CASTSPELL:
-		//SKM->findSK("매직슈터")->setSkillPosTrans(this->_playerObject->_transform);
-		////		SKM->findSK("매직슈터")->setSkillDirTrans(_testTrans);
-		//SKM->findSK("매직슈터")->setOneTargetTrans(_testTrans);
-		//SKM->findSK("매직슈터")->Start();
 		_playSpeed = 1.0f;
 		_playerObject->_skinnedAnim->PlayOneShotAfterHold("SPCD", 0.2f);
-		//_playerObject->_skinnedAnim->Play("SPCD", 0.2f);
 		break;
 	case P_READYOMNI:
 		_playerObject->_skinnedAnim->Play("RDSO", 0.2f);
 		break;
 	case P_CASTOMNI:
-		//SKM->findSK("힐")->setSkillPosTrans(this->_playerObject->_transform);
-		//SKM->findSK("힐")->Start();
+		_playSpeed = 1.0f;
 		_playerObject->_skinnedAnim->PlayOneShotAfterHold("SPCO", 0.2f);
 		break;
 	case P_JUMPUP:
@@ -1371,6 +1368,11 @@ void xPlayer::skillControl()
 			_isOnBattle = true;
 			_state = P_READYTOATTACK;
 		}
+	}
+
+	if (KEYMANAGER->isOnceKeyDown('8'))
+	{
+		_nowSelectedSkill = SKILL_WHIRLWIND;
 	}
 
 	if (KEYMANAGER->isOnceKeyDown('1'))
@@ -1895,7 +1897,7 @@ void xPlayer::skilltrigger()
 		case SKILL_LIGHTNING:
 			if (targetMonster != NULL)
 			{
-				playerSkillOmni(4.0f);
+				playerSkillOmni(6.0f);
 			}
 			//_state = P_READYOMNI;
 			break;
@@ -1988,11 +1990,8 @@ void xPlayer::useNowSkill()
 			}
 			break;
 		case SKILL_SHIELD:
-			if (targetMonster != NULL)
-			{
-				SKM->findSK("매직쉴드")->setSkillPosTrans(_playerObject->_transform);
-				SKM->findSK("매직쉴드")->Start();
-			}
+			SKM->findSK("매직쉴드")->setSkillPosTrans(_playerObject->_transform);
+			SKM->findSK("매직쉴드")->Start();
 			break;
 		case SKILL_METEOR:
 			if (targetMonster != NULL)
@@ -2002,6 +2001,9 @@ void xPlayer::useNowSkill()
 				SKM->findSK("샛별_떨구기")->setOneTargetTrans(targetMonster->_transform);
 				SKM->findSK("샛별_떨구기")->Start();
 			}
+			break;
+		case SKILL_WHIRLWIND:
+
 			break;
 		case SKILL_END:
 			break;
@@ -2021,12 +2023,37 @@ void xPlayer::skillProcesser() {
 		{
 			PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() + PLAYERMANAGER->Getatt());
 		}
+
+		if (SKM->findSK("힐")->getEnd())
+		{
+			if (_isOnBattle)
+			{
+				this->_state = P_READYTOATTACK;
+			}
+			else
+			{
+				this->_state = P_STAND;
+			}
+			_nowSelectedSkill = SKILL_NONE;
+		}
 		break;
 	case SKILL_MAGICMISSILE:
-		_playSpeed = 1.0 / _castingTime;
 		if (SKM->findSK("매직슈터")->getCollision())
 		{
 			targetMonster->setHP(targetMonster->getHP() - PLAYERMANAGER->Getatt());
+		}
+
+		if (SKM->findSK("매직슈터")->getEnd())
+		{
+			if (_isOnBattle)
+			{
+				this->_state = P_READYTOATTACK;
+			}
+			else
+			{
+				this->_state = P_STAND;
+			}
+			_nowSelectedSkill = SKILL_NONE;
 		}
 
 		//if (targetMonster != NULL)
@@ -2045,6 +2072,19 @@ void xPlayer::skillProcesser() {
 			targetMonster->setHP(targetMonster->getHP() - PLAYERMANAGER->Getatt());
 		}
 
+		if (SKM->findSK("라이트닝")->getEnd())
+		{
+			if (_isOnBattle)
+			{
+				this->_state = P_READYTOATTACK;
+			}
+			else
+			{
+				this->_state = P_STAND;
+			}
+			_nowSelectedSkill = SKILL_NONE;
+		}
+
 		//if (SKM->isEnd?)
 			//_state = P_STAND or P_;
 
@@ -2053,29 +2093,95 @@ void xPlayer::skillProcesser() {
 		break;
 
 	case SKILL_SKYSWD:
-		
-		if (targetMonster != nullptr)
+		if (SKM->findSK("하늘의_대검")->getCollision())
 		{
-			targetMonster->setHP(targetMonster->getHP() - PLAYERMANAGER->Getatt());
+			targetMonster->setHP(0);
 		}
-		
+
+		if (SKM->findSK("하늘의_대검")->getEnd())
+		{
+			if (_isOnBattle)
+			{
+				this->_state = P_READYTOATTACK;
+			}
+			else
+			{
+				this->_state = P_STAND;
+			}
+			_nowSelectedSkill = SKILL_NONE;
+		}
 
 		break;
 	case SKILL_FIRE:
-		if (targetMonster != nullptr)
+		if (SKM->findSK("파이어매직")->getCollision())
 		{
-			targetMonster->setHP(targetMonster->getHP() - PLAYERMANAGER->Getatt());
+			targetMonster->setHP(0);
+		}
+
+		if (SKM->findSK("파이어매직")->getEnd())
+		{
+			if (_isOnBattle)
+			{
+				this->_state = P_READYTOATTACK;
+			}
+			else
+			{
+				this->_state = P_STAND;
+			}
+			_nowSelectedSkill = SKILL_NONE;
 		}
 
 		break;
 	case SKILL_SHIELD:
-		
-
+		if (SKM->findSK("매직쉴드")->getEnd())
+		{
+			if (_isOnBattle)
+			{
+				this->_state = P_READYTOATTACK;
+			}
+			else
+			{
+				this->_state = P_STAND;
+			}
+			_nowSelectedSkill = SKILL_NONE;
+		}
 		break;
 	case SKILL_METEOR:
-		if (targetMonster != nullptr)
+		if (SKM->findSK("샛별_떨구기")->getCollision())
 		{
-			targetMonster->setHP(targetMonster->getHP() - PLAYERMANAGER->Getatt());
+			targetMonster->setHP(0);
+		}
+
+		if (SKM->findSK("샛별_떨구기")->getEnd())
+		{
+			if (_isOnBattle)
+			{
+				this->_state = P_READYTOATTACK;
+			}
+			else
+			{
+				this->_state = P_STAND;
+			}
+			_nowSelectedSkill = SKILL_NONE;
+		}
+
+		break;
+	case SKILL_WHIRLWIND:
+		if (KEYMANAGER->isStayKeyDown(VK_RBUTTON))
+		{
+			normalAttackDamageProcessing();
+		}
+		else
+		{
+			if (_isOnBattle)
+			{
+				this->_state = P_READYTOATTACK;
+			}
+			else
+			{
+				this->_state = P_STAND;
+			}
+			_nowSelectedSkill = SKILL_NONE;
 		}
 
 		break;
