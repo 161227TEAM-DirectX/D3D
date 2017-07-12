@@ -11,13 +11,13 @@ protected:
 		SR_Big,
 		SR_Custom
 	};
-//
-//#define SR_One		SR_One
-//#define	SR_Array	SR_Array
-//#define	SR_Big		SR_Big
-//#define SR_Custom	SR_Custom
+	//
+	//#define SR_One		SR_One
+	//#define	SR_Array	SR_Array
+	//#define	SR_Big		SR_Big
+	//#define SR_Custom	SR_Custom
 
-	//dxSkillFunction _skillFunc;
+		//dxSkillFunction _skillFunc;
 
 protected:
 	//렌더 타입 선언부
@@ -30,7 +30,7 @@ protected:
 	//스킬
 	float _castTime;
 
-	
+
 
 	//시작 불값
 	bool _skillStartOn;
@@ -74,9 +74,11 @@ protected:
 	//마지막 시간
 	float _resetTime;
 	float _currentResetTime;
-	
+
 	//디폴트 렌더 여부
 	//bool _defualtRendrOn;
+
+	bool _endOn;
 
 	dx::transform* _actionTrans;
 	dx::transform* _targetTrans;
@@ -94,8 +96,27 @@ public:
 	void Start()
 	{
 		if (_skillStartOn == FALSE) { _skillPrepareOn = true; };
-		_skillStartOn = true; 
+		_skillStartOn = true;
+		_endOn = false;
 	}
+
+	virtual bool getEnd(void)
+	{
+		if (_skillStartOn == FALSE)
+		{
+			if (_endOn == FALSE)
+			{
+				_endOn = true;
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		return false;
+	}
+
 	//업데이트 동작
 	virtual bool Prepare() = 0;
 	virtual bool Action() = 0;
@@ -119,8 +140,8 @@ public:
 public:
 	//일반
 	void setPreparePS(string psName) { PSM->initPS(_preparePS, psName); }
-	void setActionPS(string psName)  { PSM->initPS(_actionPS, psName); }
-	void setFinishPS(string psName)  { PSM->initPS(_finishPS, psName); }
+	void setActionPS(string psName) { PSM->initPS(_actionPS, psName); }
+	void setFinishPS(string psName) { PSM->initPS(_finishPS, psName); }
 
 public:
 	//벡터용
@@ -128,24 +149,27 @@ public:
 	void setArrayActionPS(string psName, int arrayNum) { PSM->initArrayPS(_vActionPS, arrayNum, psName); }
 	void setArrayFinishPS(string psName, int arrayNum) { PSM->initArrayPS(_vFinishPS, arrayNum, psName); }
 
-	
+
 
 public:
 	//포인터형 벡터용
 	void setMaxNumPreparePS(int MaxNum) { _pvPrepaerPS = new vector<dxParticleSystem*>[MaxNum]; _pvPrepaerMaxNum = MaxNum; }
-	void setMaxNumActionPS(int MaxNum) { _pvActionPS = new vector<dxParticleSystem*>[MaxNum]; _pvActionMaxNum= MaxNum; }
+	void setMaxNumActionPS(int MaxNum) { _pvActionPS = new vector<dxParticleSystem*>[MaxNum]; _pvActionMaxNum = MaxNum; }
 	void setMaxNumFinishPS(int MaxNum) { _pvFinishPS = new vector<dxParticleSystem*>[MaxNum]; _pvFinishMaxNum = MaxNum; }
 
-	void setPvPreparePS(int skillNum,string psName, int arrayNum) { PSM->initArrayPS(_pvPrepaerPS[skillNum], arrayNum, psName); }
+	void setPvPreparePS(int skillNum, string psName, int arrayNum) { PSM->initArrayPS(_pvPrepaerPS[skillNum], arrayNum, psName); }
 	void setPvActionPS(int skillNum, string psName, int arrayNum) { PSM->initArrayPS(_pvActionPS[skillNum], arrayNum, psName); }
 	void setPvFinishPS(int skillNum, string psName, int arrayNum) { PSM->initArrayPS(_pvFinishPS[skillNum], arrayNum, psName); }
 
 public:
 	bool getActive() { return _skillStartOn; }
+	//bool get
+
+
 
 protected:
 	bool AutoResetTime(float inTime);
-	
+
 
 protected:
 	//베지어 곡선용
@@ -158,11 +182,11 @@ protected:
 
 		tagBezierPoint()
 		{
-			P0 = P1 = P2 = P3 = D3DXVECTOR3(0,0,0);
+			P0 = P1 = P2 = P3 = D3DXVECTOR3(0, 0, 0);
 		}
 	};
 
-	int RandomTwoNum(int min,int max)
+	int RandomTwoNum(int min, int max)
 	{
 		int result;
 		while (true)
@@ -174,7 +198,7 @@ protected:
 	}
 
 	//3차 베지어 곡선 공식
-	D3DXVECTOR3 BezierP3Cube(D3DXVECTOR3 P0, D3DXVECTOR3 P1, D3DXVECTOR3 P2, D3DXVECTOR3 P3,float timePos, D3DXVECTOR3& outBP = D3DXVECTOR3(0,0,0))
+	D3DXVECTOR3 BezierP3Cube(D3DXVECTOR3 P0, D3DXVECTOR3 P1, D3DXVECTOR3 P2, D3DXVECTOR3 P3, float timePos, D3DXVECTOR3& outBP = D3DXVECTOR3(0, 0, 0))
 	{
 		D3DXVECTOR3 BezierPoint;
 
@@ -192,6 +216,8 @@ protected:
 
 		return BezierPoint;
 	}
+
+
 
 
 protected:
@@ -213,9 +239,11 @@ protected:
 		_finishPS = NULL;
 
 		_SkillRenderType = SR_One;
+
+		_endOn = true;
 	}
 
-	public:
+public:
 	//생성자
 	dxSkillContainer() {};
 	~dxSkillContainer() {};

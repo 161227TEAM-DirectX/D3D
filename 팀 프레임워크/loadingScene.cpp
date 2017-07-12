@@ -65,16 +65,16 @@ void loadingScene::render()
 
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
-	SoundLoading();
+	//SoundLoading();
 	//XMeshStaticLoading();	//주석을 풀어도 의미없다.안에 다 주석처리함!
 	XMeshSkinnedLoading();
 
 	//이거 주석 풀면 됨!!!
-//	PtcLoading();
+	PtcLoading();
 
-	UILoading();
+	//UILoading();
 	//UiTestLoading();
-	AniLoading();
+	//AniLoading();
 
 	m_isChange = true;
 

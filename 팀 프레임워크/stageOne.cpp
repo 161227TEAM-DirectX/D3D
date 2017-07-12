@@ -301,7 +301,7 @@ void stageOne::shadowInit(void)
 
 	_mainCamera->readyRenderToTexture(WINSIZEX, WINSIZEY);
 
-	sceneBaseDirectionLight->_transform->SetWorldPosition(0, 20, 0);
+	sceneBaseDirectionLight->_transform->SetWorldPosition(0, 40, 0);
 	sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(89), 0, 0);
 }
 

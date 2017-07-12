@@ -743,13 +743,13 @@ void xPlayer::playerStateManager()
 	case P_ATTACK2:
 		if (animName == "AT2H")
 		{
-			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.2 && _playerObject->_skinnedAnim->getAnimFactor() < 0.3)
+			/*if (_playerObject->_skinnedAnim->getAnimFactor() > 0.2 && _playerObject->_skinnedAnim->getAnimFactor() < 0.3)
 			{
 				if (!SOUNDMANAGER->isPlaySound("공격1"))
 				{
 					SOUNDMANAGER->play("공격1", 0.7f);
 				}
-			}
+			}*/
 
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.80)//애니메이션 다 재생했으면
 			{
@@ -1201,7 +1201,7 @@ void xPlayer::playerAnimationManager()
 
 		break;
 	case P_ATTACK2:
-		//SOUNDMANAGER->play("공격1", 0.7f);
+		SOUNDMANAGER->play("공격1", 0.7f);
 		_playerObject->_skinnedAnim->Play("AT2H", 0.3f);
 
 
@@ -1888,14 +1888,14 @@ void xPlayer::skilltrigger()
 		case SKILL_MAGICMISSILE:
 			if (targetMonster != NULL)
 			{
-				playerSkillDirect(2.0f);
+				playerSkillDirect(1.0f);
 			}
 			//_state = P_READYSPELL;
 			break;
 		case SKILL_LIGHTNING:
 			if (targetMonster != NULL)
 			{
-				playerSkillOmni(2.0f);
+				playerSkillOmni(4.0f);
 			}
 			//_state = P_READYOMNI;
 			break;
@@ -2023,7 +2023,7 @@ void xPlayer::skillProcesser() {
 		}
 		break;
 	case SKILL_MAGICMISSILE:
-
+		_playSpeed = 1.0 / _castingTime;
 		if (SKM->findSK("매직슈터")->getCollision())
 		{
 			targetMonster->setHP(targetMonster->getHP() - PLAYERMANAGER->Getatt());
@@ -2039,24 +2039,44 @@ void xPlayer::skillProcesser() {
 		//}
 		break;
 	case SKILL_LIGHTNING:
+
 		if (SKM->findSK("라이트닝")->getCollision())
 		{
 			targetMonster->setHP(targetMonster->getHP() - PLAYERMANAGER->Getatt());
 		}
+
+		//if (SKM->isEnd?)
+			//_state = P_STAND or P_;
+
 		/*SKM->findSK("실드")->setSkillPosTrans(_playerObject->_transform);
 		SKM->findSK("실드")->Start();*/
 		break;
 
 	case SKILL_SKYSWD:
+		
+		if (targetMonster != nullptr)
+		{
+			targetMonster->setHP(targetMonster->getHP() - PLAYERMANAGER->Getatt());
+		}
+		
 
 		break;
 	case SKILL_FIRE:
+		if (targetMonster != nullptr)
+		{
+			targetMonster->setHP(targetMonster->getHP() - PLAYERMANAGER->Getatt());
+		}
 
 		break;
 	case SKILL_SHIELD:
+		
 
 		break;
 	case SKILL_METEOR:
+		if (targetMonster != nullptr)
+		{
+			targetMonster->setHP(targetMonster->getHP() - PLAYERMANAGER->Getatt());
+		}
 
 		break;
 	case SKILL_END:

@@ -28,9 +28,9 @@ HRESULT kimsNewTest::init()
 	//카메라의 투영방식을 바꾼다...
 	_directionLightCamera->_isOrtho = true;
 	_directionLightCamera->_camNear = 0.01f;
-	_directionLightCamera->_camFar = 25;
+	_directionLightCamera->_camFar = 30;
 	_directionLightCamera->_aspect = 1;
-	_directionLightCamera->_orthoSize = 50;	//투영크기는 그림자크기로
+	_directionLightCamera->_orthoSize = 60;	//투영크기는 그림자크기로
 	_directionLightCamera->readyShadowTexture(4096);
 
 	_terrain = new terrain;
@@ -129,7 +129,7 @@ void kimsNewTest::update()
 
 	D3DXVECTOR3 lightDir = _sceneBaseDirectionLight->_transform->GetForward();			//방향성 광원의 방향
 
-	_directionLightCamera->SetWorldPosition(camPos.x, 5, camPos.z);
+	_directionLightCamera->SetWorldPosition(camPos.x, 20, camPos.z);
 	_directionLightCamera->LookDirection(lightDir);
 
 	_player->update();

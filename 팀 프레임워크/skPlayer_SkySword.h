@@ -4,7 +4,6 @@ class skPlayer_SkySword : public dxSkill
 {
 private:
 	
-
 	bool _tagetSettingOn;
 
 	float _limitShootTime;
@@ -15,6 +14,25 @@ private:
 	bool _oneSettingOn;
 
 	float _accel;
+
+	bool _collisionOn;
+
+public:
+	virtual bool getCollision()
+	{
+		if (_skillActionOn && _collisionOn)
+		{
+			if (_pvActionPS[0][0]->Transform()->GetWorldPosition().y <= -5.0f)
+			{
+				_collisionOn = false;
+				return true;
+			}
+
+
+		}
+		return FALSE;
+	}
+
 
 public:
 	virtual HRESULT init();
