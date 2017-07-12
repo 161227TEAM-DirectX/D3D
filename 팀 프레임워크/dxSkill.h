@@ -22,6 +22,8 @@ protected:
 
 	bool _OneActionSettingOn;
 
+	//bool _endOn;
+
 public:
 	//업데이트 동작
 	virtual bool Prepare() = 0;
@@ -50,8 +52,9 @@ public:
 	//virtual void setAction(transform* inTargetTrans) { _actionTrans = inTargetTrans; };
 
 public:
+	virtual bool getCollision(void) { return true; };
 
-	virtual bool getCollision() { return true; };
+	
 
 public:
 	//생성자
