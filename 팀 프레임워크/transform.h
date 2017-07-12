@@ -267,6 +267,7 @@ namespace dx
 		void DefaultControl(float _timeDelta);
 		void DefaultControl(float _timeDelta, bool isKMW);
 		void DefaultControl(float _timeDelta, int number);
+		void DefaultControl(float _timeDelta, float tmep);
 		void DefaultMyControl(float _timeDelta);
 
 		//Transform 에 대한 기즈모를 그린다.
