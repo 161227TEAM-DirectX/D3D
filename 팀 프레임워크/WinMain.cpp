@@ -86,7 +86,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 	//메시큐에서 얻어온 메시지가 종료메시지가 아니면 계속 루프
 	while (message.message != WM_QUIT)
 	{
-		//_crtBreakAlloc = 291595;
+		//_crtBreakAlloc = 141018;
 		//메시지큐의 메시지를본다 
 		//하지만 마지막의 PM_REMOVE 옵션으로인해 본메시지는
 		//지운다.
@@ -96,6 +96,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 			TranslateMessage(&message);  //눌린 키보드의 문자를 번역하여 WM_CHAR 메시지를 발생시킨다.
 			DispatchMessage(&message);	 //받아온 메시지 정보로 윈도우 프로시져 함수를 실행시킨다.
 		}
+
+//		_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 		//타임매니져 업데이트(FPS 60)
 		TIMEMANAGER->update(60.0f);

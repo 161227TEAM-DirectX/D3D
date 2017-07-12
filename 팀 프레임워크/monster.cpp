@@ -63,9 +63,6 @@ void monster::baseObjectDisable()
 
 void monster::baseObjectUpdate()
 {
-	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	
-
 	stateSwitch();
 	name->update();
 
@@ -99,9 +96,9 @@ void monster::baseObjectRender()
 	D3DXVECTOR3 temp = { _transform->GetWorldPosition().x, _boundBox._localMaxPos.y, _transform->GetWorldPosition().z };
 	name->render();
 
-	string temps = "hp:" + to_string(HP);
+	//string temps = "hp:" + to_string(HP);
 
-	FONTMANAGER->fontOut(temps.c_str(), 100, 100, D3DCOLOR_XRGB(255, 255, 255));
+	//FONTMANAGER->fontOut(temps.c_str(), 100, 100, D3DCOLOR_XRGB(255, 255, 255));
 
 	hitBox.renderGizmo(_transform, D3DCOLOR_XRGB(255, 0, 0));
 	range.renderGizmo(_transform, D3DCOLOR_XRGB(255, 255, 0));

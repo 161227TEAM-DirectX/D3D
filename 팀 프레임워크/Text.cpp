@@ -3,7 +3,7 @@
 
 
 Text::Text()
-	:strLength(0)
+	:strLength(0), str(nullptr)
 {
 	D3DXMatrixIdentity(&matBillBoard);
 }
@@ -63,6 +63,12 @@ void Text::init(string str, D3DXCOLOR color)
 
 	D3DXCreateTextW(_device, hdc, temp, 0.001f, 0.001f, &pMesh, nullptr, nullptr);
 	
+	if (this->str != nullptr)
+	{
+		SAFE_RELEASE(this->str);
+		SAFE_DELETE(this->str);
+	}
+
 //	D3DXMESH_MANAGED
 	//메쉬를 복사한다. str에
 	pMesh->CloneMeshFVF(pMesh->GetOptions(), VERTEX_PND::FVF, _device, &this->str);
