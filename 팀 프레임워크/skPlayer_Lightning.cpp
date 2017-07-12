@@ -27,7 +27,7 @@ HRESULT skPlayer_Lightning::init()
 	_actionAtiveNum = 0;
 
 	_limitShootTime = 0.3f;
-	_currentShootTime = 0.0f;
+	_currentCollisionTime = 0.0f;
 
 	return S_OK;
 }
@@ -92,5 +92,5 @@ void skPlayer_Lightning::Reset()
 	_actionAtiveNum = 0;
 
 	_limitShootTime = 0.3f;
-	_currentShootTime = 0.0f;
+	_currentCollisionTime = 0.0f;
 }
