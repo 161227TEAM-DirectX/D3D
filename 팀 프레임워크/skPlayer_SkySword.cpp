@@ -94,7 +94,7 @@ bool skPlayer_SkySword::Prepare()
 	//}
 
 	//_oneSettingOn = false;
-
+	_collisionOn = true;
 
 
 	return false;
@@ -180,4 +180,6 @@ void skPlayer_SkySword::Reset()
 
 	_limitShootTime = 0.3f;
 	_currentShootTime = 0.0f;
+
+	_collisionOn = true;
 }

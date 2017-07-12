@@ -28,7 +28,7 @@ HRESULT skPlayer_FireMagic::init()
 	_actionAtiveNum = 0;
 
 	_limitShootTime = 0.3f;
-	_currentShootTime = 0.0f;
+	_currentCollisionTime = 0.0f;
 
 
 	_oneSettingOn = true;
@@ -131,5 +131,5 @@ void skPlayer_FireMagic::Reset()
 	_actionAtiveNum = 0;
 
 	_limitShootTime = 0.3f;
-	_currentShootTime = 0.0f;
+	_currentCollisionTime = 0.0f;
 }
