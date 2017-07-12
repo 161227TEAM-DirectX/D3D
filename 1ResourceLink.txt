@@ -179,9 +179,9 @@ https://drive.google.com/open?id=0BzBsJiLsaAW9anhUcU9ZTGtxWkU
 7월 10일 이현총 파티클 리소스 통합
 =========================================================
 
-2017-07-11
+2017-07-12
 플레이어 리소스 교체
-resource/player/FHUMAN_NEW/FHUMAN.X 에 압축해제(교체)
+resource/player/FHUMAN_NEW/FHUMAN.X 에 압축해제(교체) -> 12일자에 다시 수정됨 다시 받으세용~
 
 http://naver.me/F4qLMBL2
 

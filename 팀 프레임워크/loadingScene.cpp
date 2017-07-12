@@ -53,11 +53,11 @@ void loadingScene::render()
 	{
 		//g_eSelectMode = E_MAPTOOL;
 		//SCENEMANAGER->changeScene("gameSceneOne");//gameSceneOne
-		SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
+		//SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
 		//SCENEMANAGER->changeScene("gameSceneThree");//gameSceneThree
 		//SCENEMANAGER->changeScene("gameSceneFour");//gameSceneFour
 		//SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
-		//SCENEMANAGER->changeScene("kims");//kims
+		SCENEMANAGER->changeScene("kims");//kims
 		//SCENEMANAGER->changeScene("AItest");//AItest
 	}
 	LeaveCriticalSection(&_cs);
@@ -67,7 +67,7 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
 	SoundLoading();
 	//XMeshStaticLoading();	//주석을 풀어도 의미없다.안에 다 주석처리함!
-	XMeshSkinnedLoading();
+	//XMeshSkinnedLoading();
 
 	//이거 주석 풀면 됨!!!
 	//PtcLoading();

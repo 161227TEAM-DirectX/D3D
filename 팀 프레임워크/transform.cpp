@@ -1296,41 +1296,40 @@ namespace dx {
 	//디폴트 컨트롤 을해준다.
 	void transform::DefaultControl(float _timeDelta)
 	{
-		if (!KEYMANAGER->isToggleKey(VK_OEM_3))
+		if (!KEYMANAGER->isToggleKey(VK_NUMPAD0))
 		{
 			static float prevM_PosX = GetMousePos().x;
 			//static float prevM_PosY = GetMousePos().y;
 			D3DXMATRIX matRotate;
 			D3DXMatrixIdentity(&matRotate);
-			
+
 			if (KEYMANAGER->isStayKeyDown('E'))
 			{
-				D3DXMatrixRotationY(&matRotate, 20 * D3DXToRadian(1) * _timeDelta);
+				D3DXMatrixRotationAxis(&matRotate, &D3DXVECTOR3(0, 1, 0), 20 * D3DXToRadian(1) * _timeDelta);
 				D3DXVec3TransformCoord(&_relativeCamPos, &_relativeCamPos, &matRotate);
 			}
 
 			if (KEYMANAGER->isStayKeyDown('Q'))
 			{
-				D3DXMatrixRotationY(&matRotate, -20 * D3DXToRadian(1) * _timeDelta);
+				D3DXMatrixRotationAxis(&matRotate, &D3DXVECTOR3(0, 1, 0), -20 * D3DXToRadian(1) * _timeDelta);
 				D3DXVec3TransformCoord(&_relativeCamPos, &_relativeCamPos, &matRotate);
 			}
 
 			if (KEYMANAGER->isStayKeyDown('F'))
 			{
-
-				D3DXMatrixRotationX(&matRotate, 20 * D3DXToRadian(1) * _timeDelta);
+				D3DXMatrixRotationAxis(&matRotate, &this->GetRight(), -20 * D3DXToRadian(1) * _timeDelta);
 				D3DXVec3TransformCoord(&_relativeCamPos, &_relativeCamPos, &matRotate);
 			}
 
 			if (KEYMANAGER->isStayKeyDown('R'))
 			{
-				D3DXMatrixRotationX(&matRotate, -20 * D3DXToRadian(1) * _timeDelta);
+				D3DXMatrixRotationAxis(&matRotate, &this->GetRight(), 20 * D3DXToRadian(1) * _timeDelta);
 				D3DXVec3TransformCoord(&_relativeCamPos, &_relativeCamPos, &matRotate);
 			}
 
 			D3DXVec3TransformCoord(&_relativeCamPos, &_relativeCamPos, &matRotate);
 
-			if(KEYMANAGER->isOnceKeyDown(VK_MBUTTON))
+			if (KEYMANAGER->isOnceKeyDown(VK_MBUTTON))
 			{
 				prevM_PosX = GetMousePos().x;
 			}
@@ -1347,25 +1346,28 @@ namespace dx {
 						D3DXMatrixIdentity(&matRotate);
 						D3DXMatrixRotationY(&matRotate, -90 * D3DXToRadian(1) * _timeDelta);
 					}
-					else if(deltaX < 0)
+					else if (deltaX < 0)
 					{
 						D3DXMatrixIdentity(&matRotate);
 						D3DXMatrixRotationY(&matRotate, 90 * D3DXToRadian(1) * _timeDelta);
-					}
-/*
-					if (deltaY > 0)
-					{
-						D3DXMatrixIdentity(&matRotate);
-						D3DXMatrixRotationX(&matRotate, -15 * D3DXToRadian(1) * _timeDelta);
-					}
-					else if (deltaY < 0)
-					{
 
-						D3DXMatrixIdentity(&matRotate);
-						D3DXMatrixRotationX(&matRotate, 15 * D3DXToRadian(1) * _timeDelta);
-					}*/
 
-					
+						this->GetWorldRotateQuaternion();
+					}
+					/*
+										if (deltaY > 0)
+										{
+											D3DXMatrixIdentity(&matRotate);
+											D3DXMatrixRotationX(&matRotate, -15 * D3DXToRadian(1) * _timeDelta);
+										}
+										else if (deltaY < 0)
+										{
+
+											D3DXMatrixIdentity(&matRotate);
+											D3DXMatrixRotationX(&matRotate, 15 * D3DXToRadian(1) * _timeDelta);
+										}*/
+
+
 
 					D3DXVec3TransformCoord(&_relativeCamPos, &_relativeCamPos, &matRotate);
 
@@ -1375,12 +1377,59 @@ namespace dx {
 			}
 			if (_linkTrans != nullptr)
 			{
-				this->LookPosition(_linkTrans->GetWorldPosition() + _linkTrans->GetForward()/3);
+				this->LookPosition(_linkTrans->GetWorldPosition() + _linkTrans->GetForward() / 3);
 				this->SetWorldPosition(_linkTrans->GetWorldPosition() + _relativeCamPos);
 			}
 		}
 		else
 		{
+			D3DXVECTOR3 inputVector(0, 0, 0);
+
+			if (KEYMANAGER->isStayKeyDown(VK_NUMPAD8))
+			{
+				inputVector.z = 1.0f;
+			}
+
+			else if (KEYMANAGER->isStayKeyDown(VK_NUMPAD5))
+			{
+				inputVector.z = -1.0f;
+			}
+
+			if (KEYMANAGER->isStayKeyDown(VK_NUMPAD4))
+			{
+				inputVector.x = -1.0f;
+			}
+
+			else if (KEYMANAGER->isStayKeyDown(VK_NUMPAD6))
+			{
+				inputVector.x = 1.0f;
+			}
+
+			if (KEYMANAGER->isStayKeyDown(VK_ADD))
+			{
+				inputVector.y = 1.0f;
+			}
+
+			else if (KEYMANAGER->isStayKeyDown(VK_SUBTRACT))
+			{
+				inputVector.y = -1.0f;
+			}
+
+			//제로 벡터가 아닐때
+			if (VECTORZERO(inputVector) == false)
+			{
+				//정규화
+				D3DXVec3Normalize(&inputVector, &inputVector);
+			}
+
+			//이동 해라
+			//타겟벡터 
+			D3DXVECTOR3 target = inputVector * maxSpeed;
+			this->MovePositionSelf(target * _timeDelta);
+
+			//==================================================================
+
+
 			static float prevM_PosX = GetMousePos().x;
 			static float prevM_PosY = GetMousePos().y;
 			D3DXMATRIX matRotate;
@@ -1391,15 +1440,15 @@ namespace dx {
 			float deltaY = prevM_PosY - GetMousePos().y;
 
 
-			if (KEYMANAGER->isStayKeyDown( VK_RBUTTON))
+			if (KEYMANAGER->isStayKeyDown(VK_RBUTTON))
 			{
 				D3DXVECTOR3 forward = this->GetForward();
 
 				D3DXMATRIX mat1, mat2;
 
-				D3DXMatrixRotationY(&mat1, deltaX * D3DXToRadian(1) * 3 * _timeDelta);
+				D3DXMatrixRotationAxis(&mat1, &D3DXVECTOR3(0, 1, 0), deltaX * D3DXToRadian(1) * 5 * _timeDelta);//사랑한다 로테이션 액시스
 
-				D3DXMatrixRotationX(&mat2, deltaY * D3DXToRadian(1) * 3 * _timeDelta);
+				D3DXMatrixRotationAxis(&mat2, &this->GetRight(), deltaY * D3DXToRadian(1) * 5 * _timeDelta);
 
 				matRotate = mat1*mat2;
 
@@ -1407,27 +1456,6 @@ namespace dx {
 
 				this->LookDirection(forward);
 			}
-
-
-//			D3DXMatrixRotationY(&matRotate, -deltaX * D3DXToRadian(1) * _timeDelta);
-
-
-
-	
-
-
-			/*
-			if (deltaY > 0)
-			{
-			D3DXMatrixIdentity(&matRotate);
-			D3DXMatrixRotationX(&matRotate, -15 * D3DXToRadian(1) * _timeDelta);
-			}
-			else if (deltaY < 0)
-			{
-
-			D3DXMatrixIdentity(&matRotate);
-			D3DXMatrixRotationX(&matRotate, 15 * D3DXToRadian(1) * _timeDelta);
-			}*/
 
 
 
@@ -1449,7 +1477,7 @@ namespace dx {
 
 			static float accelate = 30.0f;						//초당 이동 증가값
 			static float nowSpeed = 3.0f;						//현재 속도
-			static float maxSpeed = 10.0f;						//최고 속도 
+			static float maxSpeed = 10.0f;						//최고 속도
 
 			//최초 누를때는 마우스 위치를 가운데로 놓고 시작
 			if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
@@ -1509,7 +1537,7 @@ namespace dx {
 					D3DXVec3Normalize(&inputVector, &inputVector);
 				}
 
-				
+
 				////
 				//// 가속개념 있는 이동
 				////
@@ -1556,13 +1584,13 @@ namespace dx {
 				//
 
 				//이동 해라
-				//타겟벡터 
+				//타겟벡터
 				D3DXVECTOR3 target = inputVector * maxSpeed;
 				this->MovePositionSelf(target * _timeDelta);
 
 				//
 				// 회전 처리
-				// 
+				//
 				//화면의 중심위치
 				int screenCenterX = WINSIZEX / 2;
 				int screenCenterY = WINSIZEY / 2;
@@ -1607,7 +1635,7 @@ namespace dx {
 		m_fAccelate = accelate;
 		m_fNowSpeed = nowSpeed;
 		m_fMaxSpeed = maxSpeed;
-		
+
 		//최초 누를때는 마우스 위치를 가운데로 놓고 시작
 		if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
 		{
