@@ -37,7 +37,7 @@ void particleTest13::release()
 void particleTest13::update()
 {
 
-	_mainCamera->DefaultControl(_timeDelta);
+	_mainCamera->DefaultControl(_timeDelta, 0.0f);
 	_mainCamera->updateCamToDevice();
 
 
