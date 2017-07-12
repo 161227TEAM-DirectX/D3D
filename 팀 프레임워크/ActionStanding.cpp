@@ -16,7 +16,6 @@ int ActionStanding::Start()
 {
 	if (!owner)return LHS::ACTIONRESULT::ACTION_FINISH;
 	owner->getSkinnedAnim().Play("Stand");
-//	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 	PassedTime = 0.0f;
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }
@@ -68,9 +67,6 @@ int ActionStanding::Update()
 	tempdistance = D3DXVec3Length(&(temp->getRegenPosition() - playerObject->_transform->GetWorldPosition()));
 	if (tempdistance - Gap <= PLAYERDISTANCE)
 	{
-		if (deleGate) deleGate->OnActionFinish(this, true);
-
-		owner->getSkinnedAnim().Stop();
 		return LHS::ACTIONRESULT::ACTION_MOVE;
 	}
 //	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))

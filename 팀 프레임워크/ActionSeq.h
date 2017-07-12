@@ -1,7 +1,7 @@
 #pragma once
 #include "Action.h"
 
-class ActionSeq : public Action, public iActionDelegate
+class ActionSeq : public Action
 {
 private:
 	vector<Action*> vecAction;			//액션클래스의 주소값을 저장하는 벡터 - 실행해야 하는 액션들이 저장되어 있다.
@@ -20,9 +20,5 @@ public:
 	virtual int Update() override;
 
 	void Render() override;
-	
-	//iActionDelegate클래스의 OnActionFinish()재정의
-	virtual void OnActionFinish(Action* pSender) override;
-	virtual void OnActionFinish(Action* pSender, bool isCollision) override;
 };
 

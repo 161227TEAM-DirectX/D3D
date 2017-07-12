@@ -104,15 +104,7 @@ int bossActionFlyMove::Update()
 			break;
 		}
 		case bossActionFlyMove::landing:
-		{
-			/*lerpTransform = *owner->_transform;
-			D3DXVECTOR3 tempPos(0.0f, 0.0f, 0.0f);
-			owner->_transform->LookPosition(tempPos);
-			owner->_transform->RotateSlerp(lerpTransform, *owner->_transform, _timeDelta * 2);
-			owner->_transform->MovePositionSelf(0.0f, 0.0f, 0.5f);
-			if (D3DXVec3Length(&(owner->_transform->GetWorldPosition() - tempPos)) <= 0.7f) return LHS::ACTIONRESULT::ACTION_LANDING;*/
 			return LHS::ACTIONRESULT::ACTION_LANDING;
-		}
 		case bossActionFlyMove::oxpattern:
 		{
 			lerpTransform = *owner->_transform;

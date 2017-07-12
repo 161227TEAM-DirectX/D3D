@@ -47,8 +47,6 @@ int ActionReMove::Update()
 		//객체의 위치를 to위치로 변경
 		//owner->_transform->SetWorldPosition(to);
 		//deleGate변수가 nullptr이 아니라면 함수 호출
-		if (deleGate)deleGate->OnActionFinish(this);
-
 		return LHS::ACTIONRESULT::ACTION_FINISH;
 	}
 	//선형보간을 위해 현재시간 / 전체 시간
@@ -90,7 +88,6 @@ int ActionReMove::Update()
 	{
 		if (PHYSICSMANAGER->isOverlap(owner->_transform, &owner->_boundBox, (*object)[i]->_transform, &(*object)[i]->_boundBox))
 		{
-			if (deleGate) deleGate->OnActionFinish(this, true);
 //			owner->getSkinnedAnim().Stop();
 
 			return LHS::ACTIONRESULT::ACTION_REMOVE;

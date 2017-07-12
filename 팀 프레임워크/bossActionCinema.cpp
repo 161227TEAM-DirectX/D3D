@@ -40,7 +40,6 @@ int bossActionCinema::Update()
 
 			if (owner->getSkinnedAnim().getAnimationPlayFactor() > ANIMATIONENDTIME)
 			{
-				if (deleGate) deleGate->OnActionFinish(this, true);
 				SOUNDMANAGER->stop("»þ¿ìÆÃ4");
 				return LHS::ACTIONRESULT::ACTION_MOVE;
 			}

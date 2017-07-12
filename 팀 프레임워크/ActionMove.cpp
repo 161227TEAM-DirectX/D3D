@@ -56,15 +56,6 @@ int ActionMove::Update()
 		return LHS::ACTIONRESULT::ACTION_ATT;
 	}
 
-	//플레이어가 내 탐색 범위를 벗어나게 되면 스탠딩 상태로 돌아간다.
-	float tempDistance = 0;
-	tempDistance = D3DXVec3Length(&(temp->getRegenPosition() - temp->_transform->GetWorldPosition()));
-	if (tempDistance - Gap >= PLAYERDISTANCE)
-	{
-		//if (deleGate)deleGate->OnActionFinish(this, true);
-		return LHS::ACTIONRESULT::ACTION_REMOVE;
-	}
-
 	m_fPassedTime += _timeDelta;
 	//경과시간이 액션시간보다 커지면 멈춰라?
 	//if (m_fPassedTime >= actionTime)
@@ -85,15 +76,21 @@ int ActionMove::Update()
 		//객체의 위치를 to위치로 변경
 		//owner->_transform->SetWorldPosition(to);
 
-		
+		//플레이어가 내 탐색 범위를 벗어나게 되면 스탠딩 상태로 돌아간다.
+		float tempDistance = 0;
+		tempDistance = D3DXVec3Length(&(temp->getRegenPosition() - temp->_transform->GetWorldPosition()));
+		if (tempDistance - Gap >= PLAYERDISTANCE)
+		{
+			//if (deleGate)deleGate->OnActionFinish(this, true);
+			return LHS::ACTIONRESULT::ACTION_REMOVE;
+		}
+
 		//if (!PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 		//{
 		//	if (deleGate) deleGate->OnActionFinish(this, true);
 		//	return LHS::ACTIONRESULT::ACTION_REMOVE;
 		//}
 
-		//deleGate변수가 nullptr이 아니라면 함수 호출
-		if (deleGate)deleGate->OnActionFinish(this);
 		return LHS::ACTIONRESULT::ACTION_FINISH;
 	}
 	//선형보간을 위해 현재시간 / 전체 시간

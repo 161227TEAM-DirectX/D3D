@@ -48,20 +48,7 @@ int bossActionFly::Update()
 		//애니메이션이 종료 된다면.
 		if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 		{
-			if (owner->_transform->GetWorldPosition().y >= 50.0f) return LHS::ACTIONRESULT::ACTION_FLY_MOVE_ATT;
-			//다른행동을 취해야 할 부분.
-			//if (owner->_transform->GetWorldPosition().y < 50.0f)
-			//{
-			//	matTranslation = owner->getSkinnedAnim().getSkinnedMesh()->GetFineBONE("Deathwing_Bone03")->CombinedTransformationMatrix;
-			//	owner->_transform->MovePositionSelf(0.0f, matTranslation._42, 0.0f);
-			//}
-			//else
-			//{
-			//	return LHS::ACTIONRESULT::ACTION_FLY_MOVE_ATT;
-			//}
-			//owner->_transform->SetWorldMatrix(matTranslation);
-			//임시로 play로 돌린다.
-			
+			if (owner->_transform->GetWorldPosition().y >= 50.0f) return LHS::ACTIONRESULT::ACTION_FLY_MOVE_ATT;			
 		}
 
 		//임시적으로 높이값을 제한한다.
@@ -72,24 +59,6 @@ int bossActionFly::Update()
 			owner->_transform->MovePositionSelf(0.0f, matTranslation._42 * 0.01f, 0.0f);
 		}
 	}
-
-	//if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.99f)
-	//{
-	//	owner->getSkinnedAnim().Play("Animation_48");
-	//	//if (strcmp("Animation_44", owner->getSkinnedAnim().getAnimationSet()->GetName()))
-	//	//{
-	//	//	return LHS::ACTIONRESULT::ACTION_PLAY;
-	//	//	if
-	//	//}
-	//	//else
-	//	//{
-	//	//	owner->getSkinnedAnim().Play("Animation_48");
-	//	//}
-	//}
-	//else
-	//{
-	//	return LHS::ACTIONRESULT::ACTION_PLAY;
-	//}
 
 	//공격에 따른 범위가 필요, 큰 데미지 적용, 넉백가능?
 

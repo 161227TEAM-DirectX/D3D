@@ -18,9 +18,7 @@ int ActionAttack::Start()
 {
 	if (!owner)return LHS::ACTIONRESULT::ACTION_FINISH;
 	monster* temp = dynamic_cast<monster*>(owner);
-	owner->getSkinnedAnim().Stop();
 	owner->getSkinnedAnim().Play("Attack01");
-//	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 	damage->init(temp->getAtt(), LHS::FONT_RED);
 	yPosition = playerObject->_boundBox._localMaxPos.y;
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;

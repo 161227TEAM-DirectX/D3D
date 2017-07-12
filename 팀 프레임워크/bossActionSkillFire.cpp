@@ -87,16 +87,11 @@ int bossActionSkillFire::Update()
 			{
 				float tempAtt = (float)temp->getAtt() * myUtil::RandomFloatRange(0.05f, 0.09f);
 				dotTime = 2.0f;
-				//PLAYERMANAGER->SetHp( PLAYERMANAGER->GetHp() - ((float)temp->getAtt() * myUtil::RandomFloatRange(0.05f, 0.09f)));
 				enemy->playerDamaged(tempAtt, 0.6f, 15.0f);
 				damage->init(tempAtt, LHS::FONTCOLOR::FONT_RED);
 				yPosition = playerObject->_boundBox._localMaxPos.y;
-				//cout << "mForword.x : " << temp->_transform->GetForward().x << "mForword.y : " << temp->_transform->GetForward().y << "mForword.z : " << temp->_transform->GetForward().z << endl;
-				//cout << "enemy.x:" << enemyNormal.x << "enemy.y:" << enemyNormal.y << "enemy.z:" << enemyNormal.z << endl;
-				//cout << "dotTime: " << dotTime << endl;
 			}
 		}
-		//cout << "angle : " << angle << endl;
 	}
 
 	yPosition += 0.01f;

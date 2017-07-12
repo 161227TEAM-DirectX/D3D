@@ -18,7 +18,6 @@ int bossActionMove::Start()
 
 	//baseObject의 transform을 호출하여 world위치를 from으로 변경
 	owner->getSkinnedAnim().Play("Animation_56");
-//	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 	if (!SOUNDMANAGER->isPlaySound("걷기"))
 	{
 		SOUNDMANAGER->play("걷기");

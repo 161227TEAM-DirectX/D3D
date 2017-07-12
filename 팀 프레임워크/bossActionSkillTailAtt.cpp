@@ -26,12 +26,10 @@ int bossActionSkillTailAtt::Start()
 	case 1:
 		//보스몬스터의 공격모션 아무거나 시작.
 		owner->getSkinnedAnim().Play("Animation_18");
-//		owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 		break;
 	case 2:
 		//보스몬스터의 공격모션 아무거나 시작.
 		owner->getSkinnedAnim().Play("Animation_68");
-	//	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 		break;
 	}
 
@@ -48,8 +46,6 @@ int bossActionSkillTailAtt::Update()
 	//액션이 종료.
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 	{
-		//owner->getSkinnedAnim().Stop();
-		//return LHS::ACTIONRESULT::ACTION_ATT;
 		D3DXVECTOR3 enemyNormal = playerObject->_transform->GetWorldPosition() - temp->_transform->GetWorldPosition();
 		D3DXVec3Normalize(&enemyNormal, &enemyNormal);
 		float angle = D3DXVec3Dot(&temp->_transform->GetForward(), &enemyNormal);
@@ -58,7 +54,6 @@ int bossActionSkillTailAtt::Update()
 		{
 			float tempAtt = temp->getAtt() * myUtil::RandomFloatRange(0.9f, 1.8f);
 			//케릭터의 체력을 한번에 깍는다.
-			//PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - temp->getAtt() * myUtil::RandomFloatRange(0.9f, 1.8f));
 			enemy->playerDamaged(tempAtt, 0.0f, 0.0f, 50.0f, 2.0f);
 			damage->init(tempAtt, LHS::FONTCOLOR::FONT_RED);
 			yPosition = playerObject->_boundBox._localMaxPos.y;
@@ -71,13 +66,11 @@ int bossActionSkillTailAtt::Update()
 			case 1:
 				//보스몬스터의 공격모션 아무거나 시작.
 				owner->getSkinnedAnim().Play("Animation_18");
-//				owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 				SOUNDMANAGER->play("꼬리공격");
 				break;
 			case 2:
 				//보스몬스터의 공격모션 아무거나 시작.
 				owner->getSkinnedAnim().Play("Animation_68");
-//				owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 				SOUNDMANAGER->play("꼬리공격");
 				break;
 			}

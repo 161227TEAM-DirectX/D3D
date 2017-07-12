@@ -15,7 +15,6 @@ ActionSeq::~ActionSeq()
 	}
 	vecAction.clear();
 	vector<Action*>().swap(vecAction);
-	SAFE_DELETE(deleGate);
 }
 
 void ActionSeq::AddAction(Action * tAction)
@@ -68,7 +67,9 @@ int ActionSeq::Update()
 	case LHS::ACTIONRESULT::ACTION_STUN:
 		return LHS::ACTIONRESULT::ACTION_STUN;
 	case LHS::ACTIONRESULT::ACTION_PLAY:
+		return LHS::ACTIONRESULT::ACTION_PLAY;
 	case LHS::ACTIONRESULT::ACTION_FINISH:
+		CurrIdx++;
 		return LHS::ACTIONRESULT::ACTION_PLAY;
 	}
 }
@@ -81,36 +82,5 @@ void ActionSeq::Render()
 		string temp = vecAction[CurrIdx]->getOwner()->getSkinnedAnim().getAnimationSet()->GetName();
 		temp + to_string(CurrIdx);
 		FONTMANAGER->fontOut(temp.c_str(), 150, 150, WHITE);
-	}
-}
-
-void ActionSeq::OnActionFinish(Action * pSender)
-{
-	//CurrIdx증가
-	++CurrIdx;
-	//CurrIdx값이 벡터의 사이즈보다 크거나 같다면
-	if (CurrIdx >= (int)vecAction.size())
-	{
-		//deleGate가 nullptr이 아니라 생성되어 있다면
-		if (deleGate)
-		{
-			deleGate->OnActionFinish(this);
-		}
-		
-		//함수를 빠져 나가라
-		return;
-	}
-
-	//벡터의 사이즈보다 작다면 Start함수를 호출
-	vecAction[CurrIdx]->Start();
-}
-
-void ActionSeq::OnActionFinish(Action * pSender, bool isCollision)
-{
-	if (isCollision)
-	{
-		if (deleGate) deleGate->OnActionFinish(this, isCollision);
-	
-		return;
 	}
 }

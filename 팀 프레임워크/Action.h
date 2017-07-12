@@ -5,19 +5,10 @@ class baseObject;
 class terrain;
 class xPlayer;
 
-class iActionDelegate
-{
-public:
-	//액션이 종료 될때 호출되는 함수 - 상속받는 클래스가 무조건 정의해야 한다.
-	virtual void OnActionFinish(Action* pSender) = 0;
-	virtual void OnActionFinish(Action* pSender, bool isCollision) = 0;
-};
-
 class Action
 {
 protected:
 	baseObject*				owner;				// 액션의 주체(baseObject)
-	iActionDelegate*		deleGate;			// 액션 종료시 호출될 함수를 위한 클래스변수
 	terrain*				rand;				// 액션 및 이동 중 높이값을 가져오기 위한 변수
 	vector<baseObject*>*	object;				// 오브젝트 정보, 장애물
 	xPlayer*				enemy;				// 플레이어 정보
@@ -35,10 +26,6 @@ public:
 	inline baseObject* getOwner(void) { return owner; }
 	//움직일 개체 셋터
 	inline void setOwner(baseObject& tempOwner) { owner = &tempOwner; }
-
-	//델리게이트?? 설정
-	inline iActionDelegate* getDelegate(void) { return deleGate; }
-	inline void setDelegate(iActionDelegate* tempDele) { deleGate = tempDele; }
 
 	inline void setObject(vector<baseObject*>& temp) { this->object = &temp; }
 

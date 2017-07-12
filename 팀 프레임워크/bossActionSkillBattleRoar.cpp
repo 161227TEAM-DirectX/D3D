@@ -20,7 +20,6 @@ int bossActionSkillBattleRoar::Start()
 
 	//보스몬스터의 공격모션 아무거나 시작.
 	owner->getSkinnedAnim().Play("Animation_13");
-//	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 	//공격방식 변경 -> 0이면 스턴을 위한 방식 / 1이면 range범위에서의 전방위 마법공격 -> 둘다 도트뎀(데미지는 마법공격이 더 강하도록 설정)
 	attackStyle = myUtil::RandomIntRange(0, 1);
 
@@ -84,7 +83,6 @@ int bossActionSkillBattleRoar::Update()
 			{
 				float tempAtt = (float)temp->getAtt()*myUtil::RandomFloatRange(1.3f, 1.8f);
 				dotTime = 2.0f;
-				//PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - ((float)temp->getAtt()*myUtil::RandomFloatRange(1.3f, 1.8f)));
 				enemy->playerDamaged(tempAtt, 0.6f, 25.0f, 0.0f, 0.0f);
 				damage->init(tempAtt, LHS::FONTCOLOR::FONT_RED);
 				yPosition = playerObject->_boundBox._localMaxPos.y;
@@ -96,7 +94,6 @@ int bossActionSkillBattleRoar::Update()
 				float tempAtt = (float)temp->getAtt() * myUtil::RandomFloatRange(0.1f, 0.3f);
 				dotTime = 2.0f;
 				//플레이어의 상태를 스턴으로 변경해야 한다. 데미지는 마법공격보다 낮게 책정.
-				//PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - ((float)temp->getAtt() * myUtil::RandomFloatRange(0.1f, 0.3f)));
 				enemy->playerDamaged(tempAtt, 0.0f, 0.0f, 100.0f, 2.0f);
 				damage->init(tempAtt, LHS::FONTCOLOR::FONT_RED);
 				yPosition = playerObject->_boundBox._localMaxPos.y;
