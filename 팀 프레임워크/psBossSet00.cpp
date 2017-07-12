@@ -144,37 +144,38 @@ void psBossSet00::GrandMagic00(string psName)
 {
 	dxParticleSystemSet::init();
 
-	_planeEMT = NULL;
-	_planeEMT = new dxPlaneEmitter;
-	_planeEMT->init("ParticleResources/Texture/Lightning08_f27x1.png", 10, 0.2f, 200);
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/Lightning08_f27x1.png", 10, 0.2f, 200);
 
-	_planeEMT->InitRandomLifeTime(1.0f,1.2f);
-	_planeEMT->SetStartLimitTime(0.8f);
+	_boardEMT->InitRandomLifeTime(1.0f,1.2f);
+	_boardEMT->SetStartLimitTime(0.8f);
 
 
-	_planeEMT->InitCenterPointHV(0.5f, 0.0f);
+	_boardEMT->InitCenterPointHV(0.5f, 0.0f);
 	
-	_planeEMT->InitConstHV(1.0f,5.0f);
-	_planeEMT->InitRandomSize(3.6f,3.6f);
+	_boardEMT->InitConstHV(1.0f,7.0f);
+	_boardEMT->InitRandomSize(3.6f,3.6f);
 
-	_planeEMT->InitRotateStartAngleY(-90.0f, -90.0f);
+	/*_planeEMT->InitRotateStartAngleY(-90.0f, -90.0f);
 
 	_planeEMT->InitRotateStartAngleZ(-90.0f, -90.0f);
 
-	_planeEMT->InitRotateStartAngleX(0.0f, 360.0f);
+	_planeEMT->InitRotateStartAngleX(0.0f, 360.0f);*/
+
+	_boardEMT->SettingBillBoardY();
 
 
-
-	_planeEMT->InitRandomPositionY(-4.0f, -4.0f);
-	_planeEMT->InitAnimation(27,1);
-
-
-	_planeEMT->SetPositionType(PTC_SPHERE);
-	_planeEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
-	_planeEMT->InitRandomPosSphereRadius(10.0f, 16.5f);
+	_boardEMT->InitRandomPositionY(-7.0f, -7.0f);
+	_boardEMT->InitAnimation(27,1);
 
 
-	_PS->addEmitter(_planeEMT);
+	_boardEMT->SetPositionType(PTC_SPHERE);
+	_boardEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
+	_boardEMT->InitRandomPosSphereRadius(15.0f, 32.5f);
+
+
+	_PS->addEmitter(_boardEMT);
 
 
 	_boardEMT = NULL;
@@ -186,19 +187,19 @@ void psBossSet00::GrandMagic00(string psName)
 	//_boardEMT->SetStartLimitTime(0.6f);
 	_boardEMT->SetActiveLimitTime(4.4f);
 
-	_boardEMT->InitRandomSize(4.0f, 6.0f);
-	_boardEMT->addSizeGraph(0.3f, 12.0f, 18.0f);
-	_boardEMT->addSizeGraph(1.0f, 8.0f, 10.0f);
+	_boardEMT->InitRandomSize(9.0f, 11.0f);
+	_boardEMT->addSizeGraph(0.3f, 17.0f, 23.0f);
+	_boardEMT->addSizeGraph(1.0f, 13.0f, 15.0f);
 	//_boardEMT->InitRandomSizeEnd(8.0f, 18.2f);
 
 	_boardEMT->SetPositionType(PTC_SPHERE);
 	_boardEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
 
 
-	_boardEMT->InitRandomPosSphereRadius(0.5f, 3.5f);
+	_boardEMT->InitRandomPosSphereRadius(0.7f, 3.8f);
 	//_boardEMT->InitRandomPosExplosionVel(10.0f, 10.0f);
 	_boardEMT->InitRandomPosExplosionVel(0.0f, 0.0f);
-	_boardEMT->addPosExplosionVelGraph(0.4f, 1.0f, 14.0f);
+	_boardEMT->addPosExplosionVelGraph(0.4f, 1.0f, 24.0f);
 	_boardEMT->addPosExplosionVelGraph(0.5f, 0.0f, 0.0f);
 	_boardEMT->addPosExplosionVelGraph(1.0f, 0.0f, 0.0f);
 
@@ -232,9 +233,9 @@ void psBossSet00::GrandMagic00(string psName)
 	_boardEMT->SetStartLimitTime(2.2f);
 	//_boardEMT->SetActiveLimitTime(5.4f);
 
-	_boardEMT->InitRandomSize(4.0f, 6.0f);
-	_boardEMT->addSizeGraph(0.3f, 12.0f, 18.0f);
-	_boardEMT->addSizeGraph(1.0f, 8.0f, 10.0f);
+	_boardEMT->InitRandomSize(9.0f, 11.0f);
+	_boardEMT->addSizeGraph(0.3f, 17.0f, 23.0f);
+	_boardEMT->addSizeGraph(1.0f, 13.0f, 15.0f);
 	//_boardEMT->InitRandomSizeEnd(8.0f, 18.2f);
 
 	_boardEMT->SetPositionType(PTC_SPHERE);
@@ -243,7 +244,7 @@ void psBossSet00::GrandMagic00(string psName)
 	//테스트용
 	//_boardEMT->InitRandomPosSphereRadius(10.5f, 10.5f);
 
-	_boardEMT->InitRandomPosSphereRadius(1.0f, 19.0f);
+	_boardEMT->InitRandomPosSphereRadius(1.0f, 22.0f);
 	//_boardEMT->InitRandomPosExplosionVel(10.0f, 10.0f);
 	//_boardEMT->InitRandomPosExplosionVel(0.0f, 0.0f);
 	//_boardEMT->addPosExplosionVelGraph(0.3f, 0.8f, 12.0f);

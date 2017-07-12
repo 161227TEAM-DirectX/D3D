@@ -22,7 +22,8 @@ int bossActionSkillBattleRoar::Start()
 	owner->getSkinnedAnim().Play("Animation_13");
 	//공격방식 변경 -> 0이면 스턴을 위한 방식 / 1이면 range범위에서의 전방위 마법공격 -> 둘다 도트뎀(데미지는 마법공격이 더 강하도록 설정)
 	attackStyle = myUtil::RandomIntRange(0, 1);
-
+	SKM->findSK("대마법")->setSkillPosTrans(owner->_transform);
+	SKM->findSK("대마법")->Start();
 
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
 }
@@ -30,7 +31,8 @@ int bossActionSkillBattleRoar::Start()
 int bossActionSkillBattleRoar::Update()
 {
 	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
-
+	
+	
 	PHYSICSMANAGER->isBlocking(owner, playerObject);
 	//이제부터 나와 적의 각도를 구해보자~ 예~~~
 	//먼저 현재 나의 위치에서 적을 바라보는 벡터를 구한다.

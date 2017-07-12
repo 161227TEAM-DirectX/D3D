@@ -24,9 +24,15 @@ bool skBoss_Breath::Prepare()
 {
 
 	//_pvPrepaerPS[0][0]->Transform()->SetWorldMatrix(_skillPosTrans->GetFinalMatrix());
+	
 	_pvPrepaerPS[0][0]->Transform()->SetWorldPosition(_skillPosTrans->GetWorldPosition());
 	_pvPrepaerPS[0][0]->Transform()->LookDirection(_skillDirTrans->GetForward());
 	_pvPrepaerPS[0][0]->update();
+
+	if (_pvPrepaerPS[0][0]->autoTimeReset(false))
+	{
+		_skillResetOn = true;
+	}
 	//_pvPrepaerPS[0][0]->Transform()->RotateWorld(0.0f,0.0f,0.01f);
 	/*if (_pvPrepaerPS[0][0]->autoTimeReset(false))
 	{

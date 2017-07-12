@@ -12,7 +12,7 @@ HRESULT skBoss_GrandMagic::init()
 	setPvPreparePS(0, "대마법진", 1);
 	//setPvActionPS(0, "대규모마법", 1);
 
-	_pvPrepaerPS[0][0]->SetLimitTime(7.0f);
+	_pvPrepaerPS[0][0]->SetLimitTime(5.0f);
 	//_pvActionPS[0][0]->SetLimitTime(8.0f);
 
 	return S_OK;
@@ -27,7 +27,7 @@ bool skBoss_GrandMagic::Prepare()
 {
 	D3DXVECTOR3 pos = _skillPosTrans->GetWorldPosition();
 
-	pos.y += 20.0f;
+	pos.y += 25.0f;
 
 	//_pvPrepaerPS[0][0]->Transform()->SetWorldMatrix(_skillPosTrans->GetFinalMatrix());
 	_pvPrepaerPS[0][0]->Transform()->SetWorldPosition(pos);

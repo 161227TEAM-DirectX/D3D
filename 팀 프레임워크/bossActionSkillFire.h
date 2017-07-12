@@ -11,6 +11,8 @@ private:
 	boundBox breathRange;
 	float yPosition;
 	damageText* damage;
+	dx::transform test;
+	dx::transform test2;
 public:
 	bossActionSkillFire();
 	~bossActionSkillFire();

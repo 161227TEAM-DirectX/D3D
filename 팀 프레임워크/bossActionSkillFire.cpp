@@ -22,13 +22,23 @@ int bossActionSkillFire::Start()
 	//보스몬스터의 공격모션 아무거나 시작.
 	owner->getSkinnedAnim().Play("Animation_65");
 	owner->getSkinnedAnim().SetPlaySpeed(0.8f);
-
+	//test.SetWorldMatrix(owner->getSkinnedAnim().getSkinnedMesh()->GetFineBONE("Deathwing_Bone102")->CombinedTransformationMatrix);
+	owner->getSkinnedAnim().AddBoneTransform("Deathwing_Bone102", &test);
+	owner->getSkinnedAnim().AddBoneTransform("Deathwing_Bone87", &test2);
+	
+	SKM->findSK("브레스")->setSkillPosTrans(&test);
+	SKM->findSK("브레스")->setSkillDirTrans(&test2);
+	SKM->findSK("브레스")->Start();
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }
 
 int bossActionSkillFire::Update()
 {
 	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
+
+	D3DXVECTOR3 tempVec = test.GetWorldPosition() - test2.GetWorldPosition();
+
+	test2.LookDirection(tempVec);
 
 	PHYSICSMANAGER->isBlocking(owner, playerObject);
 

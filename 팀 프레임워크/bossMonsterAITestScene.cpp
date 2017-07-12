@@ -225,7 +225,8 @@ void bossMonsterAITestScene::release()
 
 void bossMonsterAITestScene::update()
 {
-	_mainCamera->updateBase();
+	_mainCamera->DefaultControl(_timeDelta, 0.0f);
+	_mainCamera->updateCamToDevice();
 	//player->update();
 
 //	player->out_setTargetByMouse(_mainCamera);
