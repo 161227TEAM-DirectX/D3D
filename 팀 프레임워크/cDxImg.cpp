@@ -152,17 +152,17 @@ void cDxImg::render(float srcX, float srcY, float srcWidth, float srcHeight, flo
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 
 	m_fMiniStartX = srcX - moveX;
-	if (m_fMiniStartX <= 0.0f)
-		m_fMiniStartX = 0.0f;
-	if (m_fMiniStartX >= this->m_stSize.fWidth - srcWidth)
-		m_fMiniStartX = this->m_stSize.fWidth - srcWidth;
+	//if (m_fMiniStartX <= 0.0f)
+	//	m_fMiniStartX = 0.0f;
+	//if (m_fMiniStartX >= this->m_stSize.fWidth - srcWidth)
+	//	m_fMiniStartX = this->m_stSize.fWidth - srcWidth;
 
 
 	m_fMiniStartY = srcY - moveY;
-	if (m_fMiniStartY <= 0.0f)
-		m_fMiniStartY = 0.0f;
-	if (m_fMiniStartY >= this->m_stSize.fHeight - srcHeight)
-		m_fMiniStartY = this->m_stSize.fHeight - srcHeight;
+	//if (m_fMiniStartY <= 0.0f)
+	//	m_fMiniStartY = 0.0f;
+	//if (m_fMiniStartY >= this->m_stSize.fHeight - srcHeight)
+	//	m_fMiniStartY = this->m_stSize.fHeight - srcHeight;
 
 
 	m_fMiniWidth = m_fMiniStartX + srcWidth;

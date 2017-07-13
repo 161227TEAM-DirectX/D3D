@@ -160,8 +160,8 @@ HRESULT cUIPlayer::init()
 	int mapY = WINSIZEY / 2;
 
 	//맵1
-	//temp = new cDxImgUI("worldmap");
-	temp = new cDxImgUI("전체맵테스트");
+	temp = new cDxImgUI("worldmap");
+	//temp = new cDxImgUI("worldmapTest");
 	temp->GetUI()->SetPosition(D3DXVECTOR3(mapX, mapY, 0));
 	temp->GetUI()->SetCenterDraw(true);
 	m_vecWorldmap.push_back(temp);
@@ -276,9 +276,7 @@ HRESULT cUIPlayer::init()
 	DXIMG_MANAGER->GetDxImg("radar")->SetCenterDraw(true);
 	DXIMG_MANAGER->GetDxImg("radar")->SetImgAlpha(64);
 
-	DXIMG_MANAGER->GetDxImg(m_szMinimap)->SetPosition(D3DXVECTOR3(WINSIZEX - DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fWidth / 2, 0, 0));
-	DXIMG_MANAGER->GetDxImg(m_szMinimap)->SetCenterDraw(false);
-
+	
 	//비례식
 	//m_fMinimapMoveX = DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fWidth * m_fPlayerPosX / m_fTerrainSizeX;
 	//m_fMinimapMoveY = DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fHeight * (m_fTerrainSizeX - m_fPlayerPosY) / m_fTerrainSizeX;
@@ -286,6 +284,12 @@ HRESULT cUIPlayer::init()
 	m_fMinimapMoveX = m_vecWorldmap[m_nMapNum]->GetUI()->GetSize().fWidth * m_fPlayerPosX / m_fTerrainSizeX;
 	m_fMinimapMoveY = m_vecWorldmap[m_nMapNum]->GetUI()->GetSize().fHeight * (m_fTerrainSizeX - m_fPlayerPosY) / m_fTerrainSizeX;
 
+
+	
+
+	//우상단의 미니맵
+	DXIMG_MANAGER->GetDxImg(m_szMinimap)->SetPosition(D3DXVECTOR3(WINSIZEX - DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fWidth / 2, 0, 0));
+	DXIMG_MANAGER->GetDxImg(m_szMinimap)->SetCenterDraw(false);
 
 	//미니맵 플레이어 -> 미니맵에서의 위치를 비례식으로 구해낸다.
 	DXIMG_MANAGER->GetDxImg("minimap_player")->SetPosition(D3DXVECTOR3(m_fMinimapMoveX / 2 + DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetPosition().x,
@@ -297,7 +301,6 @@ HRESULT cUIPlayer::init()
 	DXIMG_MANAGER->GetDxImg("radar")->SetPosition(D3DXVECTOR3(DXIMG_MANAGER->GetDxImg("minimap_player")->GetPosition().x,
 															  DXIMG_MANAGER->GetDxImg("minimap_player")->GetPosition().y,
 															  0));
-
 
 
 	//=================================================================================
@@ -626,6 +629,8 @@ void cUIPlayer::update()
 	m_fMinimapMoveX = m_vecWorldmap[m_nMapNum]->GetUI()->GetSize().fWidth * m_fPlayerPosX / m_fTerrainSizeX;
 	m_fMinimapMoveY = m_vecWorldmap[m_nMapNum]->GetUI()->GetSize().fHeight * (m_fTerrainSizeX - m_fPlayerPosY) / m_fTerrainSizeX;
 
+	
+
 
 
 	//================================================================================
@@ -756,8 +761,8 @@ void cUIPlayer::render()
 		DXIMG_MANAGER->render(m_szMinimap,
 							  DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fWidth / 4,
 							  DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fHeight / 4,
-							  DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fWidth / 2,
-							  DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fHeight / 2,
+							  DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fWidth / 2,		//보여줄 가로길이
+							  DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fHeight / 2,		//보여줄 세로길이
 							  DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fWidth / 2 - m_fMinimapMoveX,
 							  DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fHeight / 2 - m_fMinimapMoveY);
 
@@ -766,6 +771,8 @@ void cUIPlayer::render()
 		m_pMiniMap->render();
 	}
 	m_pBtnMap->render();
+
+	
 
 	//===============================================
 	// 인벤토리를 그리자.
@@ -829,10 +836,7 @@ void cUIPlayer::render()
 	}
 
 
-	/*FONTMANAGER->fontOut("%f %f",
-	DXIMG_MANAGER->GetDxImg("worldmap_point")->getPos().x,
-	DXIMG_MANAGER->GetDxImg("worldmap_point")->getPos().y,
-	100, 100, WHITE);*/
+	FONTMANAGER->fontOut("%f", DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fWidth / 2 - m_fMinimapMoveX, 100,100, WHITE);
 
 	m_pYouDied->render();
 }

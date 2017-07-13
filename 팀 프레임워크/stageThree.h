@@ -44,6 +44,7 @@ public:
 	void release();
 	void update();
 	void render();
+	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 	//그림자를 위한 초기화 작업 공간
 	void shadowInit(void);

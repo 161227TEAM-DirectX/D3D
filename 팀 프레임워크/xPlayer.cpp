@@ -344,7 +344,7 @@ void xPlayer::update()
 		_mountObject->_skinnedAnim->SetPlaySpeed(_playSpeed);
 	}
 
-	if (!KEYMANAGER->isToggleKey(VK_OEM_3))
+	if (!KEYMANAGER->isToggleKey(VK_OEM_3) && !g_isChat)
 	{
 		PlayerInputControl();
 	}
@@ -1326,10 +1326,22 @@ void xPlayer::rotateControl(dx::transform * trans)
 {
 	if (KEYMANAGER->isStayKeyDown('A'))
 	{
+		if (_playerObject->_transform->GetAngleY() <= -360)
+		{
+			_playerObject->_transform->SetAngleY(0);
+		}
+		_playerObject->_transform->SetAngleY(_playerObject->_transform->GetAngleY() - 3);
+
 		trans->RotateSelf(0.0f, -D3DXToRadian(3), 0.0f);
 	}
 	if (KEYMANAGER->isStayKeyDown('D'))
 	{
+		if (_playerObject->_transform->GetAngleY() >= 360)
+		{
+			_playerObject->_transform->SetAngleY(0);
+		}
+		_playerObject->_transform->SetAngleY(_playerObject->_transform->GetAngleY() + 3);
+
 		trans->RotateSelf(0.0f, D3DXToRadian(3), 0.0f);
 	}
 }
