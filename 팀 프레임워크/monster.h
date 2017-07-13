@@ -43,7 +43,16 @@ public:
 	virtual ~monster();
 
 	inline int& getHP(void) { return HP; }
-	inline void setHP(const int& temp) { HP = temp; }
+	inline void setHP(const int& temp) 
+	{
+		switch (result)
+		{
+		case LHS::ACTIONRESULT::ACTION_SAFE:
+			break;
+		default:
+			HP = temp;
+		}
+	}
 
 	inline int& getGold(void) { return gold; }
 	inline void setGold(const int& temp) { gold = temp; }

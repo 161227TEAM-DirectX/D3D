@@ -32,6 +32,8 @@ int bossActionMove::Update()
 
 	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
 
+	if (temp->getHP() <= 0) return LHS::ACTIONRESULT::ACTION_DIE;
+
 	PHYSICSMANAGER->isBlocking(owner, playerObject);
 	//몬스터의 현재 위치를 저장한다.
 	from = owner->_transform->GetWorldPosition();
@@ -54,10 +56,11 @@ int bossActionMove::Update()
 
 	//현재 구현해야 할 내역이 시작되는 부분이다.
 	//한번 생성해 놓아서 index가 초기화가 필요하다.
-	index = myUtil::RandomFloatRange(0.1f, 1.0f);
+	if(owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME) index = myUtil::RandomFloatRange(0.1f, 1.0f);
 
-	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
-	{
+	//무브 애니메이션이 끝나면.
+	//if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
+	//{
 		//걷다가 hit박스에 플레이어가 있다면.
 		if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
 		{
@@ -70,6 +73,7 @@ int bossActionMove::Update()
 			SOUNDMANAGER->stop("걷기");
 			if (index >= 0.98f && index <= 0.99f) return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
 			else if (index >= 0.99f && index <= 1.0f) return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
+			else if (index - Gap >= 0.97f && index - Gap <= 0.975) return LHS::ACTIONRESULT::ACTION_FLY;
 		}
 
 		//확률적으로 날기패턴으로 이동
@@ -77,7 +81,7 @@ int bossActionMove::Update()
 		{
 			return LHS::ACTIONRESULT::ACTION_FLY;
 		}
-	}
+	//}
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }

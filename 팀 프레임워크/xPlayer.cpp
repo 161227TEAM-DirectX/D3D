@@ -1382,11 +1382,6 @@ void xPlayer::skillControl()
 		}
 	}
 
-	if (KEYMANAGER->isOnceKeyDown('8'))
-	{
-		_nowSelectedSkill = SKILL_WHIRLWIND;
-	}
-
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
 		//데미지, 경직시간, 경직확률, 스턴확률, 스턴시간 
@@ -1430,6 +1425,12 @@ void xPlayer::skillControl()
 		//_nowSelectedSkill = SKILL_SLAM;
 		_nowSelectedSkill = SKILL_METEOR;
 	}
+
+	if (KEYMANAGER->isOnceKeyDown('8'))
+	{
+		_nowSelectedSkill = SKILL_WHIRLWIND;
+	}
+
 
 }
 

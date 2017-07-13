@@ -35,7 +35,7 @@ int ActionReMove::Update()
 	monster* temp = dynamic_cast<monster*>(owner);
 
 	//Á×À½Á¶°Ç
-	if (temp->getHP() < 0)return LHS::ACTIONRESULT::ACTION_DIE;
+	if (temp->getHP() <= 0)return LHS::ACTIONRESULT::ACTION_DIE;
 
 	D3DXVECTOR3 length = owner->_transform->GetWorldPosition() - to;
 	float tempLength = D3DXVec3Length(&length);

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "bossActionFly.h"
+#include "bossMonster.h"
 
 
 bossActionFly::bossActionFly()
@@ -16,6 +17,11 @@ int bossActionFly::Start()
 	if (!owner)return LHS::ACTIONRESULT::ACTION_FINISH;
 
 	owner->getSkinnedAnim().Play("Animation_44");
+	test = *owner->_transform;
+	test.MovePositionSelf(0.0f, 1.0f, 0.0f);
+	EFFECT->findEffect("날기_먼지")->setLimitTime(5.0f);
+	EFFECT->findEffect("날기_먼지")->Start(&test);
+
 
 	D3DXMatrixIdentity(&matTranslation);
 
@@ -24,6 +30,9 @@ int bossActionFly::Start()
 
 int bossActionFly::Update()
 {
+	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
+	if (temp->getHP() <= 0) return LHS::ACTIONRESULT::ACTION_FLY_DIE;
+
 	string name = owner->getSkinnedAnim().getAnimationSet()->GetName();
 	float a = owner->getSkinnedAnim().getAnimationPlayFactor();
 	//날기 시작하는 부분

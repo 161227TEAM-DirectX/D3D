@@ -23,8 +23,6 @@ int bossActionSkillFire::Start()
 	owner->getSkinnedAnim().Play("Animation_65");
 	owner->getSkinnedAnim().SetPlaySpeed(0.8f);
 	//test.SetWorldMatrix(owner->getSkinnedAnim().getSkinnedMesh()->GetFineBONE("Deathwing_Bone129__Breath")->CombinedTransformationMatrix);
-	//owner->getSkinnedAnim().AddBoneTransform("Deathwing_Bone102", &test);
-	//owner->getSkinnedAnim().AddBoneTransform("Deathwing_Bone87", &test2);
 	owner->getSkinnedAnim().AddBoneTransform("Deathwing_Bone129__Breath", &test);
 	SKM->findSK("브레스")->setSkillPosTrans(&test);
 	SKM->findSK("브레스")->setSkillDirTrans(&test);
@@ -35,6 +33,12 @@ int bossActionSkillFire::Start()
 int bossActionSkillFire::Update()
 {
 	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
+	if (temp->getHP() <= 0)
+	{
+		SKM->findSK("브레스")->setResetOn();
+		owner->getSkinnedAnim().RemoveBoneTransform("Deathwing_Bone129__Breath");
+		return LHS::ACTIONRESULT::ACTION_DIE;
+	}
 
 	PHYSICSMANAGER->isBlocking(owner, playerObject);
 
@@ -60,6 +64,8 @@ int bossActionSkillFire::Update()
 		//액션 종료 조건이 필요.
 		if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 		{
+			SKM->findSK("브레스")->setResetOn();
+			owner->getSkinnedAnim().RemoveBoneTransform("Deathwing_Bone129__Breath");
 			SOUNDMANAGER->stop("브레스2");
 
 			//꼬리치기 조건
@@ -82,7 +88,7 @@ int bossActionSkillFire::Update()
 
 			owner->getSkinnedAnim().SetPlaySpeed(1.0f);
 			//일반적인 경우 바로 이동패턴으로 넘어가자.
-			//return LHS::ACTIONRESULT::ACTION_MOVE;
+			return LHS::ACTIONRESULT::ACTION_MOVE;
 		}
 
 		//케릭터의 위치에 따라 브레스 대미지가 들어가는 구간을 설정하는 if문

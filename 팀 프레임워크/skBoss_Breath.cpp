@@ -10,7 +10,7 @@ HRESULT skBoss_Breath::init()
 	setMaxNumPreparePS(2);
 	setPvPreparePS(0, "ºê·¹½º", 1);
 
-	_pvPrepaerPS[0][0]->SetLimitTime(20.0f);
+	_pvPrepaerPS[0][0]->SetLimitTime(10.5f);
 
 	return S_OK;
 
@@ -29,10 +29,10 @@ bool skBoss_Breath::Prepare()
 	_pvPrepaerPS[0][0]->Transform()->LookDirection(_skillDirTrans->GetRight());
 	_pvPrepaerPS[0][0]->update();
 
-	if (_pvPrepaerPS[0][0]->autoTimeReset(false))
-	{
-		_skillResetOn = true;
-	}
+	/*if (_pvPrepaerPS[0][0]->autoTimeReset(false))
+	{*/
+		//_skillResetOn = true;
+	//}
 	//_pvPrepaerPS[0][0]->Transform()->RotateWorld(0.0f,0.0f,0.01f);
 	/*if (_pvPrepaerPS[0][0]->autoTimeReset(false))
 	{
