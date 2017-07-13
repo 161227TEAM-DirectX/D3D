@@ -106,6 +106,8 @@ HRESULT stageThree::init()
 	player->out_setlinkTerrain(*_terrain);
 	player->init();
 	//player->getPlayerObject()->_transform->SetWorldPosition(5.0f, tempY, 5.0f);
+	player->getPlayerObject()->_transform->LookDirection(D3DXVECTOR3(0, 0, -1));
+	player->getPlayerObject()->_transform->SetAngleY(180);
 	player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	for (int i = 0; i < player->getRenderObject().size(); i++)
@@ -139,6 +141,7 @@ HRESULT stageThree::init()
 	m_pUIPlayer->linkMinimapPlayerMove(player->getPlayerObject()->_transform->GetWorldPosition().x + _terrain->GetTerrainSizeX() / 2,
 									   player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
 									   _terrain->GetTerrainSizeX());
+
 	m_pUIPlayer->SetMinimap("worldmap3View");
 	m_pUIPlayer->SetMapNum(2);
 	m_pUIPlayer->init();
@@ -160,7 +163,7 @@ void stageThree::update()
 		if (cinematicBool == false)
 		{
 			_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
-			_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, -5));
+			_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 10, 15));
 			cinematicBool = true;
 		}
 		else
