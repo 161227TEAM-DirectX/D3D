@@ -15,6 +15,7 @@ private:
 	float _limitTime;
 	float _currentTime;
 
+	int _effectMax;
 
 	string _psName;
 
@@ -44,7 +45,17 @@ public:
 
 	//void setPosTrans(dx::transform* posTrans);
 
-	void setLimitTime(float inTime) { _limitTime = inTime; };
+	//void setLimitTime(float inTime) { _limitTime = inTime; };
+
+	void setLimitTime(float inTime)
+	{
+		for (int i = 0; i < 12; i++)
+		{
+			_vPS[i]->SetLimitTime(inTime);
+		}
+		
+		//_limitTime = inTime;
+	}
 	//void Start() { _startOn = true; };
 	//void Start(D3DXVECTOR3* pos, D3DXVECTOR3* dir);//실패(주소는)
 
