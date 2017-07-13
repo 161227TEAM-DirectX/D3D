@@ -21,6 +21,7 @@ public:
 		//_mapPS.insert(pair<string, dxParticleSystem*>(psName,inPS));
 		dxEffect* effect = new dxEffect;
 		effect->setPS(psName);
+		effect->init();
 		_mapEff.insert(pair<string, dxEffect*>(psName, effect));
 
 	}
