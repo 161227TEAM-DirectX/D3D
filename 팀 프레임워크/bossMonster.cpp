@@ -9,8 +9,6 @@ bossMonster::bossMonster() : monster(), Frequency(0)
 
 bossMonster::~bossMonster()
 {
-	SAFE_DELETE(CurrAction);
-	SAFE_DELETE(NextAction);
 }
 
 void bossMonster::baseObjectEnable()
@@ -45,8 +43,8 @@ void bossMonster::baseObjectDisable()
 
 void bossMonster::baseObjectUpdate()
 {
-//	switchState();
-	testKeyAI();
+	switchState();
+//	testKeyAI();
 
 	if (NextAction != nullptr)
 	{

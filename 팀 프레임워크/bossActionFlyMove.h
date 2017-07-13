@@ -25,11 +25,10 @@ private:
 	float angle;
 	FLYSTATE isRound;
 	int ch;
-	float tempRadian;
-	float tempLenge;
 	bool isAttack;
 	float count;
-	float attackCount;
+	int attackEnergyBallCount;
+	float attackTime;
 public:
 	bossActionFlyMove();
 	~bossActionFlyMove();

@@ -4,7 +4,8 @@
 
 
 bossActionFlyMove::bossActionFlyMove()
-	:Action(), angle(0.0f), isRound(FLYSTATE::straight), isAttack(false), tempRadian(0.0f), tempLenge(0.0f), MOVESIZE(5.0f), count(0), attackCount(0.0f)
+	:Action(), angle(0.0f), isRound(FLYSTATE::straight), isAttack(false), MOVESIZE(5.0f), count(0),
+	attackEnergyBallCount(0), attackTime(0.0f)
 {
 }
 
@@ -33,11 +34,6 @@ int bossActionFlyMove::Start()
 
 int bossActionFlyMove::Update()
 {
-	if (KEYMANAGER->isOnceKeyDown(VK_F11))
-	{
-		isRound = FLYSTATE::landing;
-	}
-
 	string temp = owner->getSkinnedAnim().getAnimationSet()->GetName();
 
 	if (!strcmp("Animation_48", temp.c_str()))
@@ -62,18 +58,21 @@ int bossActionFlyMove::Update()
 			{
 				//if (ch == 0)
 				//{
-					isRound = bossActionFlyMove::FLYSTATE::round;
+				//	isRound = bossActionFlyMove::FLYSTATE::round;
+				//	SKM->findSK("에너지탄")->setSkillPosTrans(owner->_transform);
+				//	SKM->findSK("에너지탄")->setOneTargetTrans(playerObject->_transform);
+				//	attackEnergyBallCount = myUtil::RandomIntRange(5, 10);
 				//}
 				//else if (ch == 1)
 				//{
-					//isRound = FLYSTATE::oxpattern;
+					isRound = FLYSTATE::oxpattern;
 				//}
 			}
 			break;
 		}
 		case bossActionFlyMove::round:	//회전하는 위치까지 왔을 경우
 		{
-			attackCount += _timeDelta;
+			attackTime += _timeDelta;
 			lerpTransform = *owner->_transform;
 			angle += D3DXToRadian(30)*_timeDelta;
 			if (angle > D3DX_PI * 2) angle = 0.0f;
@@ -89,35 +88,43 @@ int bossActionFlyMove::Update()
 			owner->_transform->RotateSlerp(lerpTransform, *owner->_transform, _timeDelta * 2);
 			owner->_transform->SetWorldPosition(tempPos);
 
-			//공격코드 필요.
-			if (!isAttack)
+			if (attackEnergyBallCount == 0)
 			{
-				SKM->findSK("에너지탄")->setSkillPosTrans(owner->_transform);
-				SKM->findSK("에너지탄")->setOneTargetTrans(playerObject->_transform);
-				SKM->findSK("에너지탄")->Start();
-				//SKM->findSK("에너지탄")->setSkillDirTrans(_player);
-				
-				playerPos = D3DXVECTOR3(playerObject->_transform->GetWorldPosition() - owner->_transform->GetWorldPosition());
-				fireBall.LookPosition(playerPos);
-				fireballBox.setBound(&playerPos, &D3DXVECTOR3(1.0f, 1.0f, 1.0f));
-				isAttack = true;
+				isRound = bossActionFlyMove::landing;
+				break;
 			}
 
-			//if (attackCount >= 5.0f) isRound = round;
-
-			if (attackCount >= 5.0f)
+			//공격코드 필요.
+			if (!isAttack && (attackEnergyBallCount != 0))
 			{
-			//	SKM->findSK("에너지탄")->setSkillPosTrans(owner->_transform);
-			//	SKM->findSK("에너지탄")->setOneTargetTrans(playerObject->_transform);
-				if (SKM->findSK("에너지탄")->getEnd())
+				SKM->findSK("에너지탄")->Start();
+				isAttack = true;
+				attackEnergyBallCount--;
+			}
+			//바닥에 떨어졌냐 1번의 true가 반환된다.
+			if (SKM->findSK("에너지탄")->getCollision())
+			{
+				fireballBox.setBound(&playerObject->_transform->GetWorldPosition(), &D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+			}
+
+			//끝이났냐? 1번의 true가 나온다.
+			if (SKM->findSK("에너지탄")->getEnd())
+			{
+				isAttack = false;
+				fireballBox.setBound(&D3DXVECTOR3(0.0f, 0.0f, 0.0f), &D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+				attackTime = 0.0f;
+			}
+
+			if (PHYSICSMANAGER->isOverlap(&fireBall, &fireballBox, playerObject->_transform, &playerObject->_boundBox))
+			{
+				if (attackTime >= 1.0f)
 				{
-					SKM->findSK("에너지탄")->Start();
-					attackCount = 0.0f;
+					enemy->playerDamaged(10000);
+					attackTime = 0.0f;
 				}
 			}
 
 			//공격 후 일정 위치로 다시 이동이 필요.
-
 			break;
 		}
 		case bossActionFlyMove::landing:
@@ -129,17 +136,17 @@ int bossActionFlyMove::Update()
 			D3DXVECTOR3 temp = owner->_transform->GetWorldPosition();
 			temp.y = 0.0f;
 			D3DXVec3Normalize(&temp, &temp);
-			tempRadian = D3DXVec3Dot(&temp, &D3DXVECTOR3(0.0f, 0.0f, 1.0f));
-			if (tempRadian <= 1.0f && tempRadian >= (1.0f - Gap))
+			float Radian = D3DXVec3Dot(&temp, &D3DXVECTOR3(0.0f, 0.0f, 1.0f));
+			if (Radian <= 1.0f && Radian >= (1.0f - Gap))
 			{
 				owner->_transform->LookPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 				owner->_transform->RotateSlerp(lerpTransform, *owner->_transform, _timeDelta * 2);
 				D3DXVECTOR3 tempOld = owner->_transform->GetForward();
 				D3DXVECTOR3 curTemp = playerObject->_transform->GetWorldPosition() - owner->_transform->GetWorldPosition();
 				D3DXVec3Normalize(&curTemp, &curTemp);
-				tempLenge = D3DXVec3Dot(&tempOld, &curTemp);
+				float Lenge = D3DXVec3Dot(&tempOld, &curTemp);
 				count += 0.05f;
-				if (tempLenge >= 0.99f && count >= 5)
+				if (Lenge >= 0.99f && count >= 5)
 				{
 					return LHS::ACTIONRESULT::ACTION_PA_OX;
 				}
@@ -168,14 +175,15 @@ int bossActionFlyMove::Update()
 void bossActionFlyMove::Render()
 {
 	char temp[128];
-	sprintf_s(temp, "%f", tempRadian);
-	FONTMANAGER->fontOut(temp, 500, 500, WHITE);
-
-	sprintf_s(temp, "%f", tempLenge);
-	FONTMANAGER->fontOut(temp, 550, 550, WHITE);
 
 	sprintf_s(temp, "x: %f, y: %f, z: %f", owner->_transform->GetWorldPosition().x, owner->_transform->GetWorldPosition().y, owner->_transform->GetWorldPosition().z);
 	FONTMANAGER->fontOut(temp, 300, 300, WHITE);
+
+	sprintf_s(temp, "%f", attackTime);
+	FONTMANAGER->fontOut(temp, 350, 350, WHITE);
+
+	sprintf_s(temp, "%f", attackEnergyBallCount);
+	FONTMANAGER->fontOut(temp, 350, 400, WHITE);
 }
 
 void bossActionFlyMove::attackFireBall(void)
