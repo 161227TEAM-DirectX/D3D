@@ -5,6 +5,7 @@
 cDxImgButton::cDxImgButton(cDxImg* off, cDxImg* over, D3DXVECTOR2 vecPos, string sBtnName, bool isCenter, bool isBoundingBox)
 	: m_isOver(false)
 	, m_sBtnName(sBtnName)
+	, m_isCheck(false)
 {
 	m_pOff = off;
 	m_pOff->SetCenterDraw(isCenter);
@@ -61,4 +62,6 @@ void cDxImgButton::setPos(D3DXVECTOR2 vecPos)
 {
 	m_pOff->SetPosition(D3DXVECTOR3(vecPos.x, vecPos.y, 0));
 	m_pOver->SetPosition(D3DXVECTOR3(vecPos.x, vecPos.y, 0));
+
+	m_rtBtn = m_pOff->getRect();
 }

@@ -52,5 +52,10 @@ public:
 	void renderBarX();
 
 	RECT getRect();
+
+	inline void setPos(float x, float y) { this->SetPosition(D3DXVECTOR3(x, y, 0)); }
+	inline int getPosX()const { return this->GetPosition().x; }
+	inline int getPosY()const { return this->GetPosition().y; }
+	inline D3DXVECTOR2 getPos()const { return D3DXVECTOR2(getPosX(), getPosY()); }
 };
 

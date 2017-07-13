@@ -409,6 +409,36 @@
     <Filter Include="팀 포트폴리오\01.맵툴\3.IO매니져\몬스터박스">
       <UniqueIdentifier>{fd02f866-3c43-4843-b4ee-49f3121259ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Z테스트\김만웅\11.미니맵+플레이어 연동">
+      <UniqueIdentifier>{a5c27ce8-cf91-4733-8865-2f6da9b3a1a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\김만웅\12.스킬북">
+      <UniqueIdentifier>{19c30bfd-c91a-4c0d-a2b5-7e4907ae8cae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Z테스트\김만웅\13.UI스킬">
+      <UniqueIdentifier>{4a00f1f2-3b85-49eb-b7f1-0d97f3c40c2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\02.UI\기본">
+      <UniqueIdentifier>{5dcdd387-1bfa-4a2c-a0c8-985bd0eb6a5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\02.UI\퀘스트">
+      <UniqueIdentifier>{1c51f3ea-2c5a-4d71-b803-0eb0cdea5d50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\02.UI\스킬북">
+      <UniqueIdentifier>{d45cd365-6549-4ecf-a90a-8731d5232f80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\02.UI\스킬">
+      <UniqueIdentifier>{9558bf78-8802-4c39-bafe-3ea0d56a89ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\02.UI\시네마틱">
+      <UniqueIdentifier>{2e556f12-1fc3-49c5-b643-7fb082d2f05b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="팀 포트폴리오\02.UI\죽음">
+      <UniqueIdentifier>{832c1cdf-6ab1-4dbe-be12-042c8e5520d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameManager%28매크로%29\Mouse">
+      <UniqueIdentifier>{ec0f4617-7470-43e9-9475-d1c8c49a4838}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainGame.cpp">
@@ -906,17 +936,8 @@
     <ClCompile Include="cubeLight.cpp">
       <Filter>Z테스트\김태훈</Filter>
     </ClCompile>
-    <ClCompile Include="cDxImgButton.cpp">
-      <Filter>팀 포트폴리오\02.UI</Filter>
-    </ClCompile>
     <ClCompile Include="cUIManager.cpp">
       <Filter>GameManager%28매크로%29\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="cDxImgBar.cpp">
-      <Filter>팀 포트폴리오\02.UI</Filter>
-    </ClCompile>
-    <ClCompile Include="cDxImgUI.cpp">
-      <Filter>팀 포트폴리오\02.UI</Filter>
     </ClCompile>
     <ClCompile Include="cBarTest.cpp">
       <Filter>Z테스트\김만웅\05.UI 재설계</Filter>
@@ -1086,6 +1107,42 @@
     </ClCompile>
     <ClCompile Include="ioSaveMonsterBoxManager.cpp">
       <Filter>Z테스트\이현수</Filter>
+    </ClCompile>
+    <ClCompile Include="cMinimapPlayerTest.cpp">
+      <Filter>Z테스트\김만웅\11.미니맵+플레이어 연동</Filter>
+    </ClCompile>
+    <ClCompile Include="cSkillBookTest.cpp">
+      <Filter>Z테스트\김만웅\12.스킬북</Filter>
+    </ClCompile>
+    <ClCompile Include="cSkillTest.cpp">
+      <Filter>Z테스트\김만웅\13.UI스킬</Filter>
+    </ClCompile>
+    <ClCompile Include="cDxImgBar.cpp">
+      <Filter>팀 포트폴리오\02.UI\기본</Filter>
+    </ClCompile>
+    <ClCompile Include="cDxImgButton.cpp">
+      <Filter>팀 포트폴리오\02.UI\기본</Filter>
+    </ClCompile>
+    <ClCompile Include="cDxImgUI.cpp">
+      <Filter>팀 포트폴리오\02.UI\기본</Filter>
+    </ClCompile>
+    <ClCompile Include="cUISkill.cpp">
+      <Filter>팀 포트폴리오\02.UI\스킬</Filter>
+    </ClCompile>
+    <ClCompile Include="cUISkillBook.cpp">
+      <Filter>팀 포트폴리오\02.UI\스킬북</Filter>
+    </ClCompile>
+    <ClCompile Include="cUICinema.cpp">
+      <Filter>팀 포트폴리오\02.UI\시네마틱</Filter>
+    </ClCompile>
+    <ClCompile Include="cUIYouDied.cpp">
+      <Filter>팀 포트폴리오\02.UI\죽음</Filter>
+    </ClCompile>
+    <ClCompile Include="cUIQuest.cpp">
+      <Filter>팀 포트폴리오\02.UI\퀘스트</Filter>
+    </ClCompile>
+    <ClCompile Include="cMouseManager.cpp">
+      <Filter>GameManager%28매크로%29\Mouse</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1584,17 +1641,8 @@
     <ClInclude Include="cubeLight.h">
       <Filter>Z테스트\김태훈</Filter>
     </ClInclude>
-    <ClInclude Include="cDxImgButton.h">
-      <Filter>팀 포트폴리오\02.UI</Filter>
-    </ClInclude>
     <ClInclude Include="cUIManager.h">
       <Filter>GameManager%28매크로%29\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="cDxImgBar.h">
-      <Filter>팀 포트폴리오\02.UI</Filter>
-    </ClInclude>
-    <ClInclude Include="cDxImgUI.h">
-      <Filter>팀 포트폴리오\02.UI</Filter>
     </ClInclude>
     <ClInclude Include="cBarTest.h">
       <Filter>Z테스트\김만웅\05.UI 재설계</Filter>
@@ -1764,6 +1812,42 @@
     </ClInclude>
     <ClInclude Include="ioSaveMonsterBoxManager.h">
       <Filter>Z테스트\이현수</Filter>
+    </ClInclude>
+    <ClInclude Include="cMinimapPlayerTest.h">
+      <Filter>Z테스트\김만웅\11.미니맵+플레이어 연동</Filter>
+    </ClInclude>
+    <ClInclude Include="cSkillBookTest.h">
+      <Filter>Z테스트\김만웅\12.스킬북</Filter>
+    </ClInclude>
+    <ClInclude Include="cSkillTest.h">
+      <Filter>Z테스트\김만웅\13.UI스킬</Filter>
+    </ClInclude>
+    <ClInclude Include="cDxImgUI.h">
+      <Filter>팀 포트폴리오\02.UI\기본</Filter>
+    </ClInclude>
+    <ClInclude Include="cDxImgBar.h">
+      <Filter>팀 포트폴리오\02.UI\기본</Filter>
+    </ClInclude>
+    <ClInclude Include="cDxImgButton.h">
+      <Filter>팀 포트폴리오\02.UI\기본</Filter>
+    </ClInclude>
+    <ClInclude Include="cUISkill.h">
+      <Filter>팀 포트폴리오\02.UI\스킬</Filter>
+    </ClInclude>
+    <ClInclude Include="cUISkillBook.h">
+      <Filter>팀 포트폴리오\02.UI\스킬북</Filter>
+    </ClInclude>
+    <ClInclude Include="cUICinema.h">
+      <Filter>팀 포트폴리오\02.UI\시네마틱</Filter>
+    </ClInclude>
+    <ClInclude Include="cUIYouDied.h">
+      <Filter>팀 포트폴리오\02.UI\죽음</Filter>
+    </ClInclude>
+    <ClInclude Include="cUIQuest.h">
+      <Filter>팀 포트폴리오\02.UI\퀘스트</Filter>
+    </ClInclude>
+    <ClInclude Include="cMouseManager.h">
+      <Filter>GameManager%28매크로%29\Mouse</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

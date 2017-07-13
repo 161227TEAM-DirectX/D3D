@@ -57,29 +57,31 @@ void loadingScene::render()
 		//SCENEMANAGER->changeScene("gameSceneThree");//gameSceneThree
 		//SCENEMANAGER->changeScene("gameSceneFour");//gameSceneFour
 		//SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
+		SCENEMANAGER->changeScene("test");
 		//SCENEMANAGER->changeScene("kims");//kims
-		SCENEMANAGER->changeScene("AItest");//AItest
+		//SCENEMANAGER->changeScene("AItest");//AItest
 	}
 	LeaveCriticalSection(&_cs);
 }
 
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
-	SoundLoading();
+	//SoundLoading();
 	//XMeshStaticLoading();	//주석을 풀어도 의미없다.안에 다 주석처리함!
-	XMeshSkinnedLoading();
+	//XMeshSkinnedLoading();
 
 	//이거 주석 풀면 됨!!!
-	PtcLoading();
+	//PtcLoading();
 
 	UILoading();
-	//UiTestLoading();
 	AniLoading();
 
 	m_isChange = true;
 
 	return S_OK;
 }
+
+
 
 void loadingScene::UILoading()
 {
@@ -113,25 +115,112 @@ void loadingScene::UILoading()
 	DXIMG_MANAGER->AddDxImg("shopSlot_over02", new cDxImg(FILEPATH_MANAGER->GetFilepath("shopSlot_over02")));
 
 	DXIMG_MANAGER->AddDxImg("minimap", new cDxImg(FILEPATH_MANAGER->GetFilepath("minimap")));
+	DXIMG_MANAGER->AddDxImg("minimap_cover", new cDxImg(FILEPATH_MANAGER->GetFilepath("minimap_cover")));
+	DXIMG_MANAGER->AddDxImg("minimap_player", new cDxImg(FILEPATH_MANAGER->GetFilepath("minimap_player")));
+	DXIMG_MANAGER->AddDxImg("btn_minimap_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_minimap_off")));
+	DXIMG_MANAGER->AddDxImg("btn_minimap_on", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_minimap_on")));
+
+	DXIMG_MANAGER->AddDxImg("worldmap_cover", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmap_cover")));
+	DXIMG_MANAGER->AddDxImg("worldmap_point", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmap_point")));
+
 
 	DXIMG_MANAGER->AddDxImg("btn_invetory_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_invetory_off")));
 	DXIMG_MANAGER->AddDxImg("btn_invetory_over", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_invetory_over")));
+
 	DXIMG_MANAGER->AddDxImg("btn_skillbook_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_skillbook_off")));
 	DXIMG_MANAGER->AddDxImg("btn_skillbook_over", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_skillbook_over")));
+
 	DXIMG_MANAGER->AddDxImg("btn_worldmap_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_worldmap_off")));
 	DXIMG_MANAGER->AddDxImg("btn_worldmap_over", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_worldmap_over")));
+
+	DXIMG_MANAGER->AddDxImg("btn_quest_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_quest_off")));
+	DXIMG_MANAGER->AddDxImg("btn_quest_on", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_quest_on")));
+
+	DXIMG_MANAGER->AddDxImg("btn_questBox_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_questBox_off")));
+	DXIMG_MANAGER->AddDxImg("btn_questBox_on", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_questBox_on")));
+
 	DXIMG_MANAGER->AddDxImg("numbox_money", new cDxImg(FILEPATH_MANAGER->GetFilepath("numbox_money")));
 	DXIMG_MANAGER->AddDxImg("numbox_soul", new cDxImg(FILEPATH_MANAGER->GetFilepath("numbox_soul")));
 
+	DXIMG_MANAGER->AddDxImg("miniQuestBox", new cDxImg(FILEPATH_MANAGER->GetFilepath("miniQuestBox")));
+	DXIMG_MANAGER->AddDxImg("questBox", new cDxImg(FILEPATH_MANAGER->GetFilepath("questBox")));
+
+	DXIMG_MANAGER->AddDxImg("btn_skill00_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_skill00_off")));
+	DXIMG_MANAGER->AddDxImg("btn_skill01_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_skill01_off")));
+	DXIMG_MANAGER->AddDxImg("btn_skill02_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_skill02_off")));
+	DXIMG_MANAGER->AddDxImg("btn_skill03_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_skill03_off")));
+	DXIMG_MANAGER->AddDxImg("btn_skill04_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_skill04_off")));
+	DXIMG_MANAGER->AddDxImg("btn_skill05_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_skill05_off")));
+	DXIMG_MANAGER->AddDxImg("btn_skill06_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_skill06_off")));
+	DXIMG_MANAGER->AddDxImg("btn_skill07_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_skill07_off")));
+
+	DXIMG_MANAGER->AddDxImg("btn_skill00_on", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_skill00_on")));
+	DXIMG_MANAGER->AddDxImg("btn_skill01_on", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_skill01_on")));
+	DXIMG_MANAGER->AddDxImg("btn_skill02_on", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_skill02_on")));
+	DXIMG_MANAGER->AddDxImg("btn_skill03_on", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_skill03_on")));
+	DXIMG_MANAGER->AddDxImg("btn_skill04_on", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_skill04_on")));
+	DXIMG_MANAGER->AddDxImg("btn_skill05_on", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_skill05_on")));
+	DXIMG_MANAGER->AddDxImg("btn_skill06_on", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_skill06_on")));
+	DXIMG_MANAGER->AddDxImg("btn_skill07_on", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_skill07_on")));
+
+	DXIMG_MANAGER->AddDxImg("btn_gold_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_gold_off")));
+	DXIMG_MANAGER->AddDxImg("btn_gold_on", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_gold_on")));
+
+	DXIMG_MANAGER->AddDxImg("btn_soul_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_soul_off")));
+	DXIMG_MANAGER->AddDxImg("btn_soul_on", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_soul_on")));
+
+
+
+
+
+	DXIMG_MANAGER->AddDxImg("skillbookText00", new cDxImg(FILEPATH_MANAGER->GetFilepath("skillbookText00")));
+	DXIMG_MANAGER->AddDxImg("skillbookText01", new cDxImg(FILEPATH_MANAGER->GetFilepath("skillbookText01")));
+	DXIMG_MANAGER->AddDxImg("skillbookText02", new cDxImg(FILEPATH_MANAGER->GetFilepath("skillbookText02")));
+	DXIMG_MANAGER->AddDxImg("skillbookText03", new cDxImg(FILEPATH_MANAGER->GetFilepath("skillbookText03")));
+	DXIMG_MANAGER->AddDxImg("skillbookText04", new cDxImg(FILEPATH_MANAGER->GetFilepath("skillbookText04")));
+	DXIMG_MANAGER->AddDxImg("skillbookText05", new cDxImg(FILEPATH_MANAGER->GetFilepath("skillbookText05")));
+	DXIMG_MANAGER->AddDxImg("skillbookText06", new cDxImg(FILEPATH_MANAGER->GetFilepath("skillbookText06")));
+	DXIMG_MANAGER->AddDxImg("skillbookText07", new cDxImg(FILEPATH_MANAGER->GetFilepath("skillbookText07")));
+
+	DXIMG_MANAGER->AddDxImg("mouseCursor", new cDxImg(FILEPATH_MANAGER->GetFilepath("mouseCursor")));
+
+
 	DXIMG_MANAGER->AddDxImg("이벤트씬_위", new cDxImg(FILEPATH_MANAGER->GetFilepath("이벤트씬")));
 	DXIMG_MANAGER->AddDxImg("이벤트씬_아래", new cDxImg(FILEPATH_MANAGER->GetFilepath("이벤트씬")));
-}
 
-void loadingScene::UiTestLoading()
-{
+	DXIMG_MANAGER->AddDxImg("worldmap", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmap")));
+	DXIMG_MANAGER->AddDxImg("worldmap2", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmap2")));
+	DXIMG_MANAGER->AddDxImg("worldmap3", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmap3")));
+
+
+	DXIMG_MANAGER->AddDxImg("worldmap_cover", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmap_cover")));
+	DXIMG_MANAGER->AddDxImg("worldmap", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmap")));
+	DXIMG_MANAGER->AddDxImg("worldmap2", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmap2")));
+	DXIMG_MANAGER->AddDxImg("worldmap3", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmap3")));
+
+	DXIMG_MANAGER->AddDxImg("Miniworldmap", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmap")));
+
+	DXIMG_MANAGER->AddDxImg("worldmapTest", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmapTest")));
+
+	DXIMG_MANAGER->AddDxImg("chat_Icon", new cDxImg(FILEPATH_MANAGER->GetFilepath("chat_Icon")));
+	DXIMG_MANAGER->AddDxImg("map_Icon", new cDxImg(FILEPATH_MANAGER->GetFilepath("map_Icon")));
+	DXIMG_MANAGER->AddDxImg("quest_Icon", new cDxImg(FILEPATH_MANAGER->GetFilepath("quest_Icon")));
+	DXIMG_MANAGER->AddDxImg("quest", new cDxImg(FILEPATH_MANAGER->GetFilepath("quest")));
+
+	DXIMG_MANAGER->AddDxImg("gold_god", new cDxImg(FILEPATH_MANAGER->GetFilepath("gold_god")));
+	DXIMG_MANAGER->AddDxImg("death_soul", new cDxImg(FILEPATH_MANAGER->GetFilepath("death_soul")));
+
+
+
+
+
+
+
 	//=======================================================================
+	// Test
+	//=======================================================================
+	
 	// DXIMG
-	//=======================================================================
 	DXIMG_MANAGER->AddDxImg("minimap", new cDxImg(FILEPATH_MANAGER->GetFilepath("minimap")));
 	DXIMG_MANAGER->AddDxImg("minimap2", new cDxImg(FILEPATH_MANAGER->GetFilepath("minimap")));
 	DXIMG_MANAGER->AddDxImg("minimap3", new cDxImg(FILEPATH_MANAGER->GetFilepath("minimap3")));
@@ -213,26 +302,94 @@ void loadingScene::UiTestLoading()
 
 	DXIMG_MANAGER->AddDxImg("gamemapTest", new cDxImg(FILEPATH_MANAGER->GetFilepath("gamemapTest")));
 
+	DXIMG_MANAGER->AddDxImg("questBtn_Off", new cDxImg(FILEPATH_MANAGER->GetFilepath("questBtn_Off")));
+	DXIMG_MANAGER->AddDxImg("questBtn_Over", new cDxImg(FILEPATH_MANAGER->GetFilepath("questBtn_Over")));
+	DXIMG_MANAGER->AddDxImg("questSlot_Test", new cDxImg(FILEPATH_MANAGER->GetFilepath("questSlot_Test")));
 
-	//=======================================================================
+	DXIMG_MANAGER->AddDxImg("skill0_On", new cDxImg(FILEPATH_MANAGER->GetFilepath("skill0_On")));
+	DXIMG_MANAGER->AddDxImg("skill1_On", new cDxImg(FILEPATH_MANAGER->GetFilepath("skill1_On")));
+	DXIMG_MANAGER->AddDxImg("skill2_On", new cDxImg(FILEPATH_MANAGER->GetFilepath("skill2_On")));
+	DXIMG_MANAGER->AddDxImg("skill3_On", new cDxImg(FILEPATH_MANAGER->GetFilepath("skill3_On")));
+	DXIMG_MANAGER->AddDxImg("skill4_On", new cDxImg(FILEPATH_MANAGER->GetFilepath("skill4_On")));
+	DXIMG_MANAGER->AddDxImg("skill5_On", new cDxImg(FILEPATH_MANAGER->GetFilepath("skill5_On")));
+	DXIMG_MANAGER->AddDxImg("skill6_On", new cDxImg(FILEPATH_MANAGER->GetFilepath("skill6_On")));
+	DXIMG_MANAGER->AddDxImg("skill7_On", new cDxImg(FILEPATH_MANAGER->GetFilepath("skill7_On")));
+
+	DXIMG_MANAGER->AddDxImg("skill0_Off", new cDxImg(FILEPATH_MANAGER->GetFilepath("skill0_Off")));
+	DXIMG_MANAGER->AddDxImg("skill1_Off", new cDxImg(FILEPATH_MANAGER->GetFilepath("skill1_Off")));
+	DXIMG_MANAGER->AddDxImg("skill2_Off", new cDxImg(FILEPATH_MANAGER->GetFilepath("skill2_Off")));
+	DXIMG_MANAGER->AddDxImg("skill3_Off", new cDxImg(FILEPATH_MANAGER->GetFilepath("skill3_Off")));
+	DXIMG_MANAGER->AddDxImg("skill4_Off", new cDxImg(FILEPATH_MANAGER->GetFilepath("skill4_Off")));
+	DXIMG_MANAGER->AddDxImg("skill5_Off", new cDxImg(FILEPATH_MANAGER->GetFilepath("skill5_Off")));
+	DXIMG_MANAGER->AddDxImg("skill6_Off", new cDxImg(FILEPATH_MANAGER->GetFilepath("skill6_Off")));
+	DXIMG_MANAGER->AddDxImg("skill7_Off", new cDxImg(FILEPATH_MANAGER->GetFilepath("skill7_Off")));
+
+	DXIMG_MANAGER->AddDxImg("쿨타임0", new cDxImg(FILEPATH_MANAGER->GetFilepath("쿨타임")));
+	DXIMG_MANAGER->AddDxImg("쿨타임1", new cDxImg(FILEPATH_MANAGER->GetFilepath("쿨타임")));
+	DXIMG_MANAGER->AddDxImg("쿨타임2", new cDxImg(FILEPATH_MANAGER->GetFilepath("쿨타임")));
+	DXIMG_MANAGER->AddDxImg("쿨타임3", new cDxImg(FILEPATH_MANAGER->GetFilepath("쿨타임")));
+	DXIMG_MANAGER->AddDxImg("쿨타임4", new cDxImg(FILEPATH_MANAGER->GetFilepath("쿨타임")));
+	DXIMG_MANAGER->AddDxImg("쿨타임5", new cDxImg(FILEPATH_MANAGER->GetFilepath("쿨타임")));
+	DXIMG_MANAGER->AddDxImg("쿨타임6", new cDxImg(FILEPATH_MANAGER->GetFilepath("쿨타임")));
+	DXIMG_MANAGER->AddDxImg("쿨타임7", new cDxImg(FILEPATH_MANAGER->GetFilepath("쿨타임")));
+
+	DXIMG_MANAGER->AddDxImg("전체맵에서의위치", new cDxImg(FILEPATH_MANAGER->GetFilepath("전체맵에서의위치")));
+	DXIMG_MANAGER->AddDxImg("전체맵테스트", new cDxImg(FILEPATH_MANAGER->GetFilepath("전체맵테스트")));
+
+	DXIMG_MANAGER->AddDxImg("스킬설명0", new cDxImg(FILEPATH_MANAGER->GetFilepath("스킬설명")));
+	DXIMG_MANAGER->AddDxImg("스킬설명1", new cDxImg(FILEPATH_MANAGER->GetFilepath("스킬설명")));
+	DXIMG_MANAGER->AddDxImg("스킬설명2", new cDxImg(FILEPATH_MANAGER->GetFilepath("스킬설명")));
+	DXIMG_MANAGER->AddDxImg("스킬설명3", new cDxImg(FILEPATH_MANAGER->GetFilepath("스킬설명")));
+	DXIMG_MANAGER->AddDxImg("스킬설명4", new cDxImg(FILEPATH_MANAGER->GetFilepath("스킬설명")));
+	DXIMG_MANAGER->AddDxImg("스킬설명5", new cDxImg(FILEPATH_MANAGER->GetFilepath("스킬설명")));
+	DXIMG_MANAGER->AddDxImg("스킬설명6", new cDxImg(FILEPATH_MANAGER->GetFilepath("스킬설명")));
+	DXIMG_MANAGER->AddDxImg("스킬설명7", new cDxImg(FILEPATH_MANAGER->GetFilepath("스킬설명")));
+
+	DXIMG_MANAGER->AddDxImg("죽었을때화면", new cDxImg(FILEPATH_MANAGER->GetFilepath("죽었을때화면")));
+	DXIMG_MANAGER->AddDxImg("YOU DIED", new cDxImg(FILEPATH_MANAGER->GetFilepath("YOU DIED")));
+
+	DXIMG_MANAGER->AddDxImg("dragon_soul", new cDxImg(FILEPATH_MANAGER->GetFilepath("dragon_soul")));
+	DXIMG_MANAGER->AddDxImg("money_gold", new cDxImg(FILEPATH_MANAGER->GetFilepath("money_gold")));
+
+	DXIMG_MANAGER->AddDxImg("mouse", new cDxImg(FILEPATH_MANAGER->GetFilepath("mouse")));
+
+
+
 	//텍스쳐를 저장하자.
-	//=======================================================================
 	TEXTURE_MANAGER->GetTexture(FILEPATH_MANAGER->GetFilepath("splat_base"));
 
 
-
-
-
-	//=======================================================================
 	//스테틱메쉬를 저장하자.
-	//=======================================================================
 	//MESHSTATIC_MANAGER->AddMeshStatic("GunShip", RM_XMESH->getResource(FILEPATH_MANAGER->GetFilepath("GunShip")));
 
 }
 
+
+
 void loadingScene::AniLoading()
 {
 	vector<cDxImg*> temp;
+
+	//======================================================================================================
+	//  Skill Book
+	//======================================================================================================
+	temp.clear();
+	for (int i = 1; i <= 38; i++)
+	{
+		if (i < 10)
+		{
+			temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("skillbook0" + to_string(i))));
+		}
+		else	//11~99까지
+		{
+			temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("skillbook" + to_string(i))));
+		}
+	}
+	DXIMGANI_MANAGER->AddDxImgAni("skillbook01", temp, ST_DXIMGANI(3));
+
+
+
+
 	//======================================================================================================
 	//  force
 	//======================================================================================================

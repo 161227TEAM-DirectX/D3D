@@ -271,18 +271,95 @@ void cRegistBase::UIRegist()
 	FILEPATH_MANAGER->AddFilepath("shopSlot_over02", "ResourceUI/game/shopSlot_over02.png");
 
 	FILEPATH_MANAGER->AddFilepath("minimap", "ResourceUI/game/minimap.png");
+	FILEPATH_MANAGER->AddFilepath("minimap_cover", "ResourceUI/game/minimap_cover.png");
+	FILEPATH_MANAGER->AddFilepath("minimap_player", "ResourceUI/game/minimap_player.png");
+	FILEPATH_MANAGER->AddFilepath("btn_minimap_off", "ResourceUI/game/btn_minimap_off.png");
+	FILEPATH_MANAGER->AddFilepath("btn_minimap_on", "ResourceUI/game/btn_minimap_on.png");
+
+	FILEPATH_MANAGER->AddFilepath("worldmap_cover", "ResourceUI/game/worldmap_cover.png");
+	FILEPATH_MANAGER->AddFilepath("worldmap_point", "ResourceUI/game/worldmap_point.png");
+
 
 	FILEPATH_MANAGER->AddFilepath("btn_invetory_off", "ResourceUI/game/btn_invetory_off.png");
 	FILEPATH_MANAGER->AddFilepath("btn_invetory_over", "ResourceUI/game/btn_invetory_over.png");
+
 	FILEPATH_MANAGER->AddFilepath("btn_skillbook_off", "ResourceUI/game/btn_skillbook_off.png");
 	FILEPATH_MANAGER->AddFilepath("btn_skillbook_over", "ResourceUI/game/btn_skillbook_over.png");
+
 	FILEPATH_MANAGER->AddFilepath("btn_worldmap_off", "ResourceUI/game/btn_worldmap_off.png");
 	FILEPATH_MANAGER->AddFilepath("btn_worldmap_over", "ResourceUI/game/btn_worldmap_over.png");
+
+	FILEPATH_MANAGER->AddFilepath("btn_quest_off", "ResourceUI/game/btn_quest_off.png");
+	FILEPATH_MANAGER->AddFilepath("btn_quest_on", "ResourceUI/game/btn_quest_on.png");
+
+	FILEPATH_MANAGER->AddFilepath("btn_questBox_off", "ResourceUI/game/btn_questBox_off.png");
+	FILEPATH_MANAGER->AddFilepath("btn_questBox_on", "ResourceUI/game/btn_questBox_on.png");
+
 	FILEPATH_MANAGER->AddFilepath("numbox_money", "ResourceUI/game/numbox_money.png");
 	FILEPATH_MANAGER->AddFilepath("numbox_soul", "ResourceUI/game/numbox_soul.png");
 
-	//위험경고용 텍스터 파일
-	FILEPATH_MANAGER->AddFilepath("emergency", "Resource/Meshes/emergency.png");
+	FILEPATH_MANAGER->AddFilepath("miniQuestBox", "ResourceUI/game/miniQuestBox.png");
+	FILEPATH_MANAGER->AddFilepath("questBox", "ResourceUI/game/questBox.png");
+
+	FILEPATH_MANAGER->AddFilepath("btn_skill00_off", "ResourceUI/game/btn_skill00_off.png");
+	FILEPATH_MANAGER->AddFilepath("btn_skill01_off", "ResourceUI/game/btn_skill01_off.png");
+	FILEPATH_MANAGER->AddFilepath("btn_skill02_off", "ResourceUI/game/btn_skill02_off.png");
+	FILEPATH_MANAGER->AddFilepath("btn_skill03_off", "ResourceUI/game/btn_skill03_off.png");
+	FILEPATH_MANAGER->AddFilepath("btn_skill04_off", "ResourceUI/game/btn_skill04_off.png");
+	FILEPATH_MANAGER->AddFilepath("btn_skill05_off", "ResourceUI/game/btn_skill05_off.png");
+	FILEPATH_MANAGER->AddFilepath("btn_skill06_off", "ResourceUI/game/btn_skill06_off.png");
+	FILEPATH_MANAGER->AddFilepath("btn_skill07_off", "ResourceUI/game/btn_skill07_off.png");
+
+	FILEPATH_MANAGER->AddFilepath("btn_skill00_on", "ResourceUI/game/btn_skill00_on.png");
+	FILEPATH_MANAGER->AddFilepath("btn_skill01_on", "ResourceUI/game/btn_skill01_on.png");
+	FILEPATH_MANAGER->AddFilepath("btn_skill02_on", "ResourceUI/game/btn_skill02_on.png");
+	FILEPATH_MANAGER->AddFilepath("btn_skill03_on", "ResourceUI/game/btn_skill03_on.png");
+	FILEPATH_MANAGER->AddFilepath("btn_skill04_on", "ResourceUI/game/btn_skill04_on.png");
+	FILEPATH_MANAGER->AddFilepath("btn_skill05_on", "ResourceUI/game/btn_skill05_on.png");
+	FILEPATH_MANAGER->AddFilepath("btn_skill06_on", "ResourceUI/game/btn_skill06_on.png");
+	FILEPATH_MANAGER->AddFilepath("btn_skill07_on", "ResourceUI/game/btn_skill07_on.png");
+
+	FILEPATH_MANAGER->AddFilepath("btn_gold_off", "ResourceUI/game/btn_gold_off.png");
+	FILEPATH_MANAGER->AddFilepath("btn_gold_on", "ResourceUI/game/btn_gold_on.png");
+
+	FILEPATH_MANAGER->AddFilepath("btn_soul_off", "ResourceUI/game/btn_soul_off.png");
+	FILEPATH_MANAGER->AddFilepath("btn_soul_on", "ResourceUI/game/btn_soul_on.png");
+
+
+
+
+
+
+	FILEPATH_MANAGER->AddFilepath("skillbookText00", "ResourceUI/game/skillbookText00.png");
+	FILEPATH_MANAGER->AddFilepath("skillbookText01", "ResourceUI/game/skillbookText01.png");
+	FILEPATH_MANAGER->AddFilepath("skillbookText02", "ResourceUI/game/skillbookText02.png");
+	FILEPATH_MANAGER->AddFilepath("skillbookText03", "ResourceUI/game/skillbookText03.png");
+	FILEPATH_MANAGER->AddFilepath("skillbookText04", "ResourceUI/game/skillbookText04.png");
+	FILEPATH_MANAGER->AddFilepath("skillbookText05", "ResourceUI/game/skillbookText05.png");
+	FILEPATH_MANAGER->AddFilepath("skillbookText06", "ResourceUI/game/skillbookText06.png");
+	FILEPATH_MANAGER->AddFilepath("skillbookText07", "ResourceUI/game/skillbookText07.png");
+
+	FILEPATH_MANAGER->AddFilepath("mouseCursor", "ResourceUI/game/mouseCursor.png");
+
+	FILEPATH_MANAGER->AddFilepath("worldmap_cover", "ResourceUI/game/worldmap_cover.png");
+	FILEPATH_MANAGER->AddFilepath("worldmap", "ResourceUI/game/worldmap.png");
+	FILEPATH_MANAGER->AddFilepath("worldmap2", "ResourceUI/game/worldmap2.png");
+	FILEPATH_MANAGER->AddFilepath("worldmap3", "ResourceUI/game/worldmap3.png");
+
+	FILEPATH_MANAGER->AddFilepath("worldmapTest", "ResourceUI/game/worldmapTest.png");
+
+	FILEPATH_MANAGER->AddFilepath("chat_Icon", "ResourceUI/game/chat_Icon.png");
+	FILEPATH_MANAGER->AddFilepath("map_Icon", "ResourceUI/game/map_Icon.png");
+	FILEPATH_MANAGER->AddFilepath("quest_Icon", "ResourceUI/game/quest_Icon.png");
+	FILEPATH_MANAGER->AddFilepath("quest", "ResourceUI/game/quest.png");
+
+	FILEPATH_MANAGER->AddFilepath("죽었을때화면", "ResourceUI/game/죽었을때화면.png");
+	FILEPATH_MANAGER->AddFilepath("YOU DIED", "ResourceUI/game/YOU DIED.png");
+
+	FILEPATH_MANAGER->AddFilepath("gold_god", "ResourceUI/game/gold_god.png");
+	FILEPATH_MANAGER->AddFilepath("death_soul", "ResourceUI/game/death_soul.png");
+
+
 
 	//=============================================================================
 	//test
@@ -368,12 +445,87 @@ void cRegistBase::UIRegist()
 	FILEPATH_MANAGER->AddFilepath("gamemapTest", "ResourceUI/test/gamemapTest.png");
 
 	FILEPATH_MANAGER->AddFilepath("이벤트씬", "ResourceUI/test/이벤트씬.png");
+
+	FILEPATH_MANAGER->AddFilepath("questBtn_Over", "ResourceUI/test/questBtn_Over.png");
+	FILEPATH_MANAGER->AddFilepath("questBtn_Off", "ResourceUI/test/questBtn_Off.png");
+
+	FILEPATH_MANAGER->AddFilepath("questSlot_Test", "ResourceUI/test/questSlot_Test.png");
+
+	FILEPATH_MANAGER->AddFilepath("skill0_On", "ResourceUI/test/skill/skill0_On.png");
+	FILEPATH_MANAGER->AddFilepath("skill0_Off", "ResourceUI/test/skill/skill0_Off.png");
+	FILEPATH_MANAGER->AddFilepath("skill1_On", "ResourceUI/test/skill/skill1_On.png");
+	FILEPATH_MANAGER->AddFilepath("skill1_Off", "ResourceUI/test/skill/skill1_Off.png");
+	FILEPATH_MANAGER->AddFilepath("skill2_On", "ResourceUI/test/skill/skill2_On.png");
+	FILEPATH_MANAGER->AddFilepath("skill2_Off", "ResourceUI/test/skill/skill2_Off.png");
+	FILEPATH_MANAGER->AddFilepath("skill3_On", "ResourceUI/test/skill/skill3_On.png");
+	FILEPATH_MANAGER->AddFilepath("skill3_Off", "ResourceUI/test/skill/skill3_Off.png");
+	FILEPATH_MANAGER->AddFilepath("skill4_On", "ResourceUI/test/skill/skill4_On.png");
+	FILEPATH_MANAGER->AddFilepath("skill4_Off", "ResourceUI/test/skill/skill4_Off.png");
+	FILEPATH_MANAGER->AddFilepath("skill5_On", "ResourceUI/test/skill/skill5_On.png");
+	FILEPATH_MANAGER->AddFilepath("skill5_Off", "ResourceUI/test/skill/skill5_Off.png");
+	FILEPATH_MANAGER->AddFilepath("skill6_On", "ResourceUI/test/skill/skill6_On.png");
+	FILEPATH_MANAGER->AddFilepath("skill6_Off", "ResourceUI/test/skill/skill6_Off.png");
+	FILEPATH_MANAGER->AddFilepath("skill7_On", "ResourceUI/test/skill/skill7_On.png");
+	FILEPATH_MANAGER->AddFilepath("skill7_Off", "ResourceUI/test/skill/skill7_Off.png");
+
+	FILEPATH_MANAGER->AddFilepath("쿨타임", "ResourceUI/test/skill/쿨타임.png");
+
+	FILEPATH_MANAGER->AddFilepath("전체맵에서의위치", "ResourceUI/test/전체맵에서의위치.png");
+	FILEPATH_MANAGER->AddFilepath("전체맵테스트", "ResourceUI/test/전체맵테스트.png");
+	FILEPATH_MANAGER->AddFilepath("스킬설명", "ResourceUI/test/skill/스킬설명.png");
+
+	FILEPATH_MANAGER->AddFilepath("money_gold", "ResourceUI/test/money_gold.png");
+	FILEPATH_MANAGER->AddFilepath("dragon_soul", "ResourceUI/test/dragon_soul.png");
+
+	FILEPATH_MANAGER->AddFilepath("mouse", "ResourceUI/test/mouse.png");
 }
 
 
 
 void cRegistBase::AniRegist()
 {
+	//SkillBook
+	FILEPATH_MANAGER->AddFilepath("skillbook01", "ResourceUI/animation/skillbook/skillbook01.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook02", "ResourceUI/animation/skillbook/skillbook02.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook03", "ResourceUI/animation/skillbook/skillbook03.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook04", "ResourceUI/animation/skillbook/skillbook04.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook05", "ResourceUI/animation/skillbook/skillbook05.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook06", "ResourceUI/animation/skillbook/skillbook06.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook07", "ResourceUI/animation/skillbook/skillbook07.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook08", "ResourceUI/animation/skillbook/skillbook08.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook09", "ResourceUI/animation/skillbook/skillbook09.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook10", "ResourceUI/animation/skillbook/skillbook10.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook11", "ResourceUI/animation/skillbook/skillbook11.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook12", "ResourceUI/animation/skillbook/skillbook12.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook13", "ResourceUI/animation/skillbook/skillbook13.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook14", "ResourceUI/animation/skillbook/skillbook14.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook15", "ResourceUI/animation/skillbook/skillbook15.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook16", "ResourceUI/animation/skillbook/skillbook16.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook17", "ResourceUI/animation/skillbook/skillbook17.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook18", "ResourceUI/animation/skillbook/skillbook18.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook19", "ResourceUI/animation/skillbook/skillbook19.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook20", "ResourceUI/animation/skillbook/skillbook20.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook21", "ResourceUI/animation/skillbook/skillbook21.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook22", "ResourceUI/animation/skillbook/skillbook22.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook23", "ResourceUI/animation/skillbook/skillbook23.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook24", "ResourceUI/animation/skillbook/skillbook24.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook25", "ResourceUI/animation/skillbook/skillbook25.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook26", "ResourceUI/animation/skillbook/skillbook26.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook27", "ResourceUI/animation/skillbook/skillbook27.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook28", "ResourceUI/animation/skillbook/skillbook28.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook29", "ResourceUI/animation/skillbook/skillbook29.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook30", "ResourceUI/animation/skillbook/skillbook30.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook31", "ResourceUI/animation/skillbook/skillbook31.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook32", "ResourceUI/animation/skillbook/skillbook32.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook33", "ResourceUI/animation/skillbook/skillbook33.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook34", "ResourceUI/animation/skillbook/skillbook34.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook35", "ResourceUI/animation/skillbook/skillbook35.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook36", "ResourceUI/animation/skillbook/skillbook36.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook37", "ResourceUI/animation/skillbook/skillbook37.png");
+	FILEPATH_MANAGER->AddFilepath("skillbook38", "ResourceUI/animation/skillbook/skillbook38.png");
+
+
+
 	//Fire01
 	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_00", "ResourceUI/animation/Fire01/output-00.png");
 	FILEPATH_MANAGER->AddFilepath("Ani_Fire01_01", "ResourceUI/animation/Fire01/output-01.png");

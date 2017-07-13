@@ -19,7 +19,6 @@ public:
 	static HRESULT ThreadInit(LPVOID lpVod);
 
 	static void UILoading();
-	static void UiTestLoading();
 	static void AniLoading();
 	static void PtcLoading();
 	static void XMeshStaticLoading();

@@ -9,6 +9,7 @@ class cDxImgButton
 	SYNTHESIZE(cDxImg*, m_pOver, Over);			//오버 버튼 이미지
 	SYNTHESIZE(bool, m_isOver, IsOver);			//오버되었는지
 	SYNTHESIZE(RECT, m_rtBtn, RtBtn);
+	SYNTHESIZE(bool, m_isCheck, IsCheck);		//체크했는지
 
 public:
 	cDxImgButton(cDxImg* off, cDxImg* over, D3DXVECTOR2 vecPos, string sBtnName, bool isCenter = false, bool isBoundingBox = false);

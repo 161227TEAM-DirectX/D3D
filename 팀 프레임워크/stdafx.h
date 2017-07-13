@@ -140,7 +140,12 @@ enum eImgLayer
 	E_NONE3
 };
 
-
+//애니메이션 상태
+enum eAniState
+{
+	E_ANI_STOP,
+	E_ANI_PLAY
+};
 
 
 
@@ -212,20 +217,44 @@ struct ST_SIZEF
 	ST_SIZEF(float _fWidth, float _fHeight) : fWidth(_fWidth), fHeight(_fHeight) {}
 };
 
+
 struct ST_DXIMGANI
 {
-	int nAniIndex;	//애니메이션 인덱스(번호)
-	int nAniCount;	//애니메이션 카운트(시간)
-	int nAniTime;	//애니메이션 타임(간격)
+	int nAniIndex;		//애니메이션 인덱스(번호)
+	int nAniCount;		//애니메이션 카운트(시간)
+	int nAniTime;		//애니메이션 타임(간격)
+	bool isOnce;		//애니메이션을 한번만 돌릴건지
+	bool isReverse;		//애니메이션을 거꾸로 돌릴건지
+
+	bool isSection;		//애니메이션 재생구간을 정할건지
+	int nStartIdx;		//애니메이션 시작 인덱스
+	int nEndIdx;		//애니메이션 종료 인덱스
+
+	eAniState nAniType;	//애니메이션 상태
 
 	ST_DXIMGANI()
 		: nAniIndex(0)
 		, nAniCount(0)
-		, nAniTime(3) {}
+		, nAniTime(3)
+		, isOnce(false)
+		, isReverse(false)
+		, isSection(false)
+		, nStartIdx(0)
+		, nEndIdx(0)
+		, nAniType(E_ANI_STOP)
+	{}
+
 	ST_DXIMGANI(int aniTime)
 		: nAniIndex(0)
 		, nAniCount(0)
-		, nAniTime(aniTime) {}
+		, nAniTime(aniTime)
+		, isOnce(false)
+		, isReverse(false)
+		, isSection(false)
+		, nStartIdx(0)
+		, nEndIdx(0)
+		, nAniType(E_ANI_STOP)
+	{}
 };
 
 
@@ -429,7 +458,7 @@ using namespace myUtil;
 #include "cXmeshManager.h"
 #include "cUIManager.h"
 #include "cStaticMeshManager.h"
-
+#include "cMouseManager.h"
 
 
 

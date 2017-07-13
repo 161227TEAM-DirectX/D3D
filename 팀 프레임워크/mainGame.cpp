@@ -10,6 +10,14 @@
 #include "cTerrainTest3.h"
 #include "cCameraTest.h"
 #include "cCutsceneTest.h"
+#include "cUserInterfaceTest2.h"
+#include "cCameraTest.h"
+#include "cMinimapTest.h"
+#include "cMinimapTest2.h"
+#include "cMinimapPlayerTest.h"
+//#include "cSkillBookTest.h"
+//#include "cSkillTest.h"
+//
 #include "EndingScene.h"
 #include "kimsNewTest.h"
 
@@ -17,21 +25,22 @@ mainGame::mainGame()
 {
 	REGIST_SGT->Init();
 
-	SCENEMANAGER->addScene("kims", new kimsNewTest, false);
+	//SCENEMANAGER->addScene("kims", new kimsNewTest, false);
 
-	SCENEMANAGER->addScene("test", new cCutsceneTest, false);
+	//SCENEMANAGER->addScene("test", new cCutsceneTest, false);
 
 	SCENEMANAGER->addScene("loading", new loadingScene, true);
+	SCENEMANAGER->addScene("test", new cMinimapPlayerTest, false);
 
 	//SCENEMANAGER->addScene("test", new cMinimapTest, false);
-	SCENEMANAGER->addScene("start", new startScene, false);
-	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
+	//SCENEMANAGER->addScene("start", new startScene, false);
+	//SCENEMANAGER->addScene("maptool", new mapToolScene, false);
 	//SCENEMANAGER->addScene("particleTest5", new particleTest05, false);
 	//SCENEMANAGER->addScene("particleTest6", new particleTest06, true);
-	SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
+	//SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
 
 	//SCENEMANAGER->addScene("start", new startScene, false);
-	SCENEMANAGER->addScene("EndingScene", new EndingScene, false);
+	//SCENEMANAGER->addScene("EndingScene", new EndingScene, false);
 	//SCENEMANAGER->addScene("particleTest5", new particleTest05, false);
 	//SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
 
@@ -42,7 +51,7 @@ mainGame::mainGame()
 
 	//SCENEMANAGER->addScene("test", new cGameUITest, false);
 	//SCENEMANAGER->addScene("test", new cMinimapTest, false);
-	SCENEMANAGER->addScene("AItest", new bossMonsterAITestScene);
+	//SCENEMANAGER->addScene("AItest", new bossMonsterAITestScene);
 }
 
 mainGame::~mainGame()
@@ -157,6 +166,8 @@ void mainGame::render(void)
 			EFFECT->render();
 
 			SKM->render();
+
+			MOUSE_MANAGER->render();
 
 			//디버그 모드에서만 실행
 #ifdef _DEBUG 

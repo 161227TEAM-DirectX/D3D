@@ -33,5 +33,7 @@ public:
 	void render();
 
 	bool IsFullBar();
+
+	inline int getCursorBar()const { return m_pMove->GetCurX(); }
 };
 
