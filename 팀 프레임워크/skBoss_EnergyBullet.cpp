@@ -23,6 +23,8 @@ HRESULT skBoss_EnergyBullet::init()
 
 	_oneSettingOn = true;
 
+	_groundPos = 0.0f;
+
 	return S_OK;
 }
 
@@ -36,11 +38,16 @@ bool skBoss_EnergyBullet::Prepare()
 	/*_skillActionOn = true;
 	_skillFinshOn = true;*/
 
-	_pvPrepaerPS[0][0]->Transform()->SetWorldPosition(_skillPosTrans->GetWorldPosition());
+	D3DXVECTOR3 startPos = _skillPosTrans->GetWorldPosition();
+	//startPos.y = _skillPosTrans->GetWorldPosition().y + 8.0f;
+
+	//_pvPrepaerPS[0][0]->Transform()->LookDirection(_skillPosTrans->GetForward());
+	_pvPrepaerPS[0][0]->Transform()->SetWorldPosition(startPos + (_skillPosTrans->GetUp()*10.0f));
 	_pvPrepaerPS[0][0]->update();
 
 	if (_pvPrepaerPS[0][0]->autoTimeReset(false))
 	{
+		_pvPrepaerPS[0][0]->SetActive(FALSE);
 		_skillPrepareOn = false;
 		_skillActionOn = true;
 	}
@@ -55,8 +62,11 @@ bool skBoss_EnergyBullet::Action()
 	{
 		_pvActionPS[0][0]->Transform()->SetWorldPosition(_pvPrepaerPS[0][0]->Transform()->GetWorldPosition());
 		_pvActionPS[0][0]->Transform()->LookPosition(_oneTargetTrans->GetWorldPosition());
+		_groundPos = _oneTargetTrans->GetWorldPosition().y + 0.5f;
 
 		_oneSettingOn = false;
+
+
 	}
 
 	
@@ -66,7 +76,7 @@ bool skBoss_EnergyBullet::Action()
 	
 
 
-	if (_pvActionPS[0][0]->Transform()->GetWorldPosition().y <= 0.1f)
+	if (_pvActionPS[0][0]->Transform()->GetWorldPosition().y <= _groundPos)
 	{
 
 		_skillActionOn = false;
@@ -80,7 +90,7 @@ void skBoss_EnergyBullet::Finsh()
 {
 	D3DXVECTOR3 actionPos = _pvActionPS[0][0]->Transform()->GetWorldPosition();
 
-	actionPos.y = 0.1f;
+	actionPos.y = _groundPos;
 	//actionPos = D3DXVECTOR3(0.0f,0.0f,0.0f);
 
 	_pvFinishPS[0][0]->Transform()->SetWorldPosition(actionPos);
@@ -89,11 +99,14 @@ void skBoss_EnergyBullet::Finsh()
 
 	if (_pvFinishPS[0][0]->autoTimeReset(false))
 	{
+		
 		_skillResetOn = true;
 	}
 }
 
 void skBoss_EnergyBullet::Reset()
 {
+	_pvPrepaerPS[0][0]->SetActive(TRUE);
+	//_pvActionPS[0][0]->reset();
 	_oneSettingOn = true;
 }

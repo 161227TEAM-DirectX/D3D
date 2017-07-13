@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "bossActionFlyMove.h"
+#include "xPlayer.h"
 
 
 bossActionFlyMove::bossActionFlyMove()
@@ -59,14 +60,14 @@ int bossActionFlyMove::Update()
 			
 			if (D3DXVec3Length(&(owner->_transform->GetWorldPosition() - tempPos)) <= 0.7f)
 			{
-				if (ch == 0)
-				{
+				//if (ch == 0)
+				//{
 					isRound = bossActionFlyMove::FLYSTATE::round;
-				}
-				else if (ch == 1)
-				{
-					isRound = FLYSTATE::oxpattern;
-				}
+				//}
+				//else if (ch == 1)
+				//{
+					//isRound = FLYSTATE::oxpattern;
+				//}
 			}
 			break;
 		}
@@ -89,15 +90,31 @@ int bossActionFlyMove::Update()
 			owner->_transform->SetWorldPosition(tempPos);
 
 			//공격코드 필요.
-			if (isAttack)
+			if (!isAttack)
 			{
+				SKM->findSK("에너지탄")->setSkillPosTrans(owner->_transform);
+				SKM->findSK("에너지탄")->setOneTargetTrans(playerObject->_transform);
+				SKM->findSK("에너지탄")->Start();
+				//SKM->findSK("에너지탄")->setSkillDirTrans(_player);
+				
 				playerPos = D3DXVECTOR3(playerObject->_transform->GetWorldPosition() - owner->_transform->GetWorldPosition());
 				fireBall.LookPosition(playerPos);
 				fireballBox.setBound(&playerPos, &D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 				isAttack = true;
 			}
 
-			if (attackCount >= 5.0f) return LHS::ACTIONRESULT::ACTION_LANDING;
+			//if (attackCount >= 5.0f) isRound = round;
+
+			if (attackCount >= 5.0f)
+			{
+			//	SKM->findSK("에너지탄")->setSkillPosTrans(owner->_transform);
+			//	SKM->findSK("에너지탄")->setOneTargetTrans(playerObject->_transform);
+				if (SKM->findSK("에너지탄")->getEnd())
+				{
+					SKM->findSK("에너지탄")->Start();
+					attackCount = 0.0f;
+				}
+			}
 
 			//공격 후 일정 위치로 다시 이동이 필요.
 
