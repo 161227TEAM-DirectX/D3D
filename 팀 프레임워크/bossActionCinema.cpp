@@ -17,7 +17,6 @@ int bossActionCinema::Start()
 	if (!owner) return LHS::ACTIONRESULT::ACTION_FINISH;
 
 	owner->getSkinnedAnim().Play("Animation_62");
-//	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
 	SOUNDMANAGER->play("º¸½º¼û¼Ò¸®2", 0.5f);
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;

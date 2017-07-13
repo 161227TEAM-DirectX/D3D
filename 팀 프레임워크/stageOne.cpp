@@ -133,6 +133,7 @@ void stageOne::release()
 	{
 		SAFE_DELETE(_renderObject[i]);
 	}
+	
 	SAFE_DELETE(m_pUIPlayer);
 	SAFE_DELETE(_mainCamera);
 	SAFE_DELETE(_directionLightCamera);

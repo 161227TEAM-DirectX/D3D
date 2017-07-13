@@ -192,13 +192,13 @@ HRESULT cUIPlayer::init()
 	//스킬 셋팅
 	cUISkill* tempSkill;
 
-	tempSkill = new cUISkill("btn_skill00_on", "btn_skill00_off", "쿨타임0", '1', 1308, 761, false);	m_vecUISkill.push_back(tempSkill);
-	tempSkill = new cUISkill("btn_skill01_on", "btn_skill01_off", "쿨타임1", '2', m_vecUISkill[0]->GetUI()->getPos().x + 64 + 10, 761, false);	m_vecUISkill.push_back(tempSkill);
+	tempSkill = new cUISkill("btn_skill03_on", "btn_skill03_off", "쿨타임3", '1', 1308, 761, false);	m_vecUISkill.push_back(tempSkill);
+	tempSkill = new cUISkill("btn_skill06_on", "btn_skill06_off", "쿨타임6", '2', m_vecUISkill[0]->GetUI()->getPos().x + 64 + 10, 761, false);	m_vecUISkill.push_back(tempSkill);
 	tempSkill = new cUISkill("btn_skill02_on", "btn_skill02_off", "쿨타임2", '3', m_vecUISkill[1]->GetUI()->getPos().x + 64 + 10, 761, false);	m_vecUISkill.push_back(tempSkill);
-	tempSkill = new cUISkill("btn_skill03_on", "btn_skill03_off", "쿨타임3", '4', m_vecUISkill[2]->GetUI()->getPos().x + 64 + 10, 761, false);	m_vecUISkill.push_back(tempSkill);
-	tempSkill = new cUISkill("btn_skill04_on", "btn_skill04_off", "쿨타임4", '5', 1308, 833, false);	m_vecUISkill.push_back(tempSkill);
+	tempSkill = new cUISkill("btn_skill04_on", "btn_skill04_off", "쿨타임4", '4',  m_vecUISkill[2]->GetUI()->getPos().x + 64 + 10, 761, false);	m_vecUISkill.push_back(tempSkill);
+	tempSkill = new cUISkill("btn_skill00_on", "btn_skill00_off", "쿨타임0", '5', 1308, 833, false);	m_vecUISkill.push_back(tempSkill);
 	tempSkill = new cUISkill("btn_skill05_on", "btn_skill05_off", "쿨타임5", '6', m_vecUISkill[0]->GetUI()->getPos().x + 64 + 10, 833, false);	m_vecUISkill.push_back(tempSkill);
-	tempSkill = new cUISkill("btn_skill06_on", "btn_skill06_off", "쿨타임6", '7', m_vecUISkill[1]->GetUI()->getPos().x + 64 + 10, 833, false);	m_vecUISkill.push_back(tempSkill);
+	tempSkill = new cUISkill("btn_skill01_on", "btn_skill01_off", "쿨타임1", '7',  m_vecUISkill[1]->GetUI()->getPos().x + 64 + 10, 833, false);	m_vecUISkill.push_back(tempSkill);
 	tempSkill = new cUISkill("btn_skill07_on", "btn_skill07_off", "쿨타임7", '8', m_vecUISkill[2]->GetUI()->getPos().x + 64 + 10, 833, false);	m_vecUISkill.push_back(tempSkill);
 
 
@@ -292,8 +292,8 @@ HRESULT cUIPlayer::init()
 	DXIMG_MANAGER->GetDxImg(m_szMinimap)->SetCenterDraw(false);
 
 	//미니맵 플레이어 -> 미니맵에서의 위치를 비례식으로 구해낸다.
-	DXIMG_MANAGER->GetDxImg("minimap_player")->SetPosition(D3DXVECTOR3(m_fMinimapMoveX / 2 + DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetPosition().x,
-																	   m_fMinimapMoveY / 2 + DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetPosition().y,
+	DXIMG_MANAGER->GetDxImg("minimap_player")->SetPosition(D3DXVECTOR3(m_pMiniMap->GetUI()->GetSize().fWidth / 2 + DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetPosition().x,
+																	   m_pMiniMap->GetUI()->GetSize().fHeight / 2 + DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetPosition().y,
 																	   0));
 	DXIMG_MANAGER->GetDxImg("minimap_player")->SetCenterDraw(true);
 
@@ -381,27 +381,27 @@ void cUIPlayer::update()
 	//=================================================================================
 	// 체력
 	//=================================================================================
-	//m_pBar->moveBar((float)PLAYERMANAGER->GetHp() / (float)PLAYERMANAGER->GetMaxHp() * 100);
+	m_pBar->moveBar((float)PLAYERMANAGER->GetHp() / (float)PLAYERMANAGER->GetMaxHp() * 100);
 	//m_pBar->moveBar(0.0f);
 
-	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
-	{
-		m_pBar->moveBar(-1);
-	}
-	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
-	{
-		m_pBar->moveBar(1);
-	}
+	//if (GetAsyncKeyState(VK_LEFT) & 0x8000)
+	//{
+	//	m_pBar->moveBar(-1);
+	//}
+	//if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
+	//{
+	//	m_pBar->moveBar(1);
+	//}
 
-	//체력이 0이하가 된다면...
-	if (m_pBar->getCursorBar() <= 0)
-	{
-		m_pYouDied->SetIsDied(true);
-	}
-	else
-	{
-		m_pYouDied->SetIsDied(false);
-	}
+	////체력이 0이하가 된다면...
+	//if (m_pBar->getCursorBar() <= 0)
+	//{
+	//	m_pYouDied->SetIsDied(true);
+	//}
+	//else
+	//{
+	//	m_pYouDied->SetIsDied(false);
+	//}
 
 
 	//=================================================================================

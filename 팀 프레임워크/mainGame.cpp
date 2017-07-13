@@ -18,6 +18,7 @@
 //#include "cSkillBookTest.h"
 //#include "cSkillTest.h"
 #include "cImgPartRenderTest.h"
+#include "cBossUITest.h"
 //
 #include "EndingScene.h"
 #include "kimsNewTest.h"
@@ -31,7 +32,7 @@ mainGame::mainGame()
 	//SCENEMANAGER->addScene("test", new cCutsceneTest, false);
 
 	SCENEMANAGER->addScene("loading", new loadingScene, true);
-	SCENEMANAGER->addScene("test", new cMinimapPlayerTest, false);
+	SCENEMANAGER->addScene("test", new cBossUITest, false);
 
 	//SCENEMANAGER->addScene("test", new cMinimapTest, false);
 	//SCENEMANAGER->addScene("start", new startScene, false);
@@ -40,19 +41,21 @@ mainGame::mainGame()
 	//SCENEMANAGER->addScene("particleTest6", new particleTest06, true);
 	//SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
 
-	//SCENEMANAGER->addScene("start", new startScene, false);
-	//SCENEMANAGER->addScene("EndingScene", new EndingScene, false);
+	
+	
 	//SCENEMANAGER->addScene("particleTest5", new particleTest05, false);
 	//SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
 
+	SCENEMANAGER->addScene("start", new startScene, false);
 	SCENEMANAGER->addScene("gameSceneOne", new stageOne);
 	SCENEMANAGER->addScene("gameSceneTwo", new stageTwo);
 	SCENEMANAGER->addScene("gameSceneThree", new stageThree);
 	SCENEMANAGER->addScene("gameSceneFour", new stageFour);
+	SCENEMANAGER->addScene("EndingScene", new EndingScene, false);
 
 	//SCENEMANAGER->addScene("test", new cGameUITest, false);
 	//SCENEMANAGER->addScene("test", new cMinimapTest, false);
-	SCENEMANAGER->addScene("AItest", new bossMonsterAITestScene);
+	//SCENEMANAGER->addScene("AItest", new bossMonsterAITestScene);
 }
 
 mainGame::~mainGame()
@@ -61,74 +64,20 @@ mainGame::~mainGame()
 }
 
 
-//==================================================================
-//		## ÃÊ±âÈ­ ## init(void)
-//==================================================================
 HRESULT mainGame::init(void)
 {
-	//===================================================================================
-	//ÀÌÇöÃÑ ¾À Å×½ºÆ® Çì´õÆÄÀÏ
-	//===================================================================================
-		//SCENEMANAGER->addScene("test", new particleTest);
-		//SCENEMANAGER->addScene("test", new particleTest02);
-		//SCENEMANAGER->addScene("test", new particleTest03);
-		//SCENEMANAGER->addScene("test", new particleTest04);
-		//SCENEMANAGER->addScene("test", new particleTest05);
-		//SCENEMANAGER->addScene("test", new particleTest06);
-		//SCENEMANAGER->addScene("test", new particleTest07);
-		//SCENEMANAGER->addScene("test", new particleTest08);
-		//SCENEMANAGER->addScene("test", new particleTest09);
-		//SCENEMANAGER->addScene("test", new particleTest10);
-
-
-
-	//===================================================================================
-	//ÀÌÇö¼ö ¾À Å×½ºÆ® Çì´õÆÄÀÏ
-	//===================================================================================
-		//¾ÀÃß°¡
-		//SCENEMANAGER->addScene("testMON", new terrainPickingTest, false);
-
-
-
-	//===================================================================================
-	//±è¸¸¿õ ¾À Å×½ºÆ® Çì´õÆÄÀÏ
-	//===================================================================================
-		////¾ÀÃß°¡
-		//SCENEMANAGER->addScene("test", new cLoadingBarTest);
-		//SCENEMANAGER->addScene("test", new cLoadingTest);
-		//SCENEMANAGER->addScene("test", new cImageTest,false);
-
-
-
-	//===================================================================================
-	//±èÅÂÈÆ ¾À Å×½ºÆ® Çì´õÆÄÀÏ
-	//===================================================================================
-		//SCENEMANAGER->addScene("test", new kimsNewTest, false);
-		//SCENEMANAGER->addScene("test", new cubeLight, false);
-
-
-
-	//===================================================================================
-	//±èÅÂ½Â ¾À Å×½ºÆ® Çì´õÆÄÀÏ
-	//===================================================================================
-
-
-		//¾ÀÃÊ±âÈ­
-		//SCENEMANAGER->changeScene("testMON");
-		//SCENEMANAGER->changeScene("test");
+	
 	return S_OK;
 }
 
-//==================================================================
-//		## ÇØÁ¦ ## release(void)
-//==================================================================
+
+
 void mainGame::release(void)
 {
 }
 
-//==================================================================
-//		## ¾÷µ¥ÀÌÆ® ## update(void)
-//==================================================================
+
+
 void mainGame::update(void)
 {
 	//¾À¸Å´ÏÁ® ¾÷µ¥ÀÌÆ®
@@ -138,9 +87,8 @@ void mainGame::update(void)
 	SOUNDMANAGER->update();
 }
 
-//==================================================================
-//		## ·»´õ ## render(void)
-//==================================================================
+
+
 void mainGame::render(void)
 {
 	switch (g_eSelectMode)
@@ -162,7 +110,7 @@ void mainGame::render(void)
 			//µğ¹ÙÀÌ½º ·»´õ¸µ ½ÃÀÛ
 			_device->BeginScene();
 
-			SCENEMANAGER->render();//ÀÌ°Å È¸ÀÇ°¡ ÇÊ¿äÇÏ°Ú±º(UI°ãÄ§ ¹®Á¦)
+			SCENEMANAGER->render();
 			
 			EFFECT->render();
 

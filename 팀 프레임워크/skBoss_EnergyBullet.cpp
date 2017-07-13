@@ -83,6 +83,8 @@ bool skBoss_EnergyBullet::Action()
 		_skillFinshOn = true;
 	}
 
+	_collisionOn = true;
+
 	return false;
 }
 

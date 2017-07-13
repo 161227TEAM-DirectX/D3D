@@ -9,8 +9,6 @@ bossMonster::bossMonster() : monster(), Frequency(0)
 
 bossMonster::~bossMonster()
 {
-	SAFE_DELETE(CurrAction);
-	SAFE_DELETE(NextAction);
 }
 
 void bossMonster::baseObjectEnable()
@@ -45,8 +43,8 @@ void bossMonster::baseObjectDisable()
 
 void bossMonster::baseObjectUpdate()
 {
-//	switchState();
-	testKeyAI();
+	switchState();
+//	testKeyAI();
 
 	if (NextAction != nullptr)
 	{
@@ -77,8 +75,6 @@ void bossMonster::baseObjectRender()
 
 void bossMonster::switchState(void)
 {
-	if (HP <= 0) result = LHS::ACTIONRESULT::ACTION_DIE;
-
 	switch (result)
 	{
 	case LHS::ACTION_ATT:
@@ -129,6 +125,8 @@ void bossMonster::switchState(void)
 	case LHS::ACTIONRESULT::ACTION_PA_OX:
 		NextAction = ACMANAGER->getAction("OX∆–≈œ", *this);
 		break;
+	case LHS::ACTIONRESULT::ACTION_SAFE:
+		return;
 	}
 }
 

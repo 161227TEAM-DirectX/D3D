@@ -34,7 +34,7 @@ int ActionMove::Update()
 	monster* temp = dynamic_cast<monster*>(owner);
 
 	//죽음조건
-	if (temp->getHP() < 0)return LHS::ACTIONRESULT::ACTION_DIE;
+	if (temp->getHP() <= 0)return LHS::ACTIONRESULT::ACTION_DIE;
 
 	//장애물과 충돌하면 멈춘다. - 다시 이동??
 	for (int i = 0; i < object->size(); i++)

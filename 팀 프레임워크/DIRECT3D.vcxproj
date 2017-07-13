@@ -96,14 +96,6 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <HeapReserveSize>
-      </HeapReserveSize>
-      <HeapCommitSize>
-      </HeapCommitSize>
-      <StackReserveSize>
-      </StackReserveSize>
-      <StackCommitSize>
-      </StackCommitSize>
       <LargeAddressAware>true</LargeAddressAware>
     </Link>
   </ItemDefinitionGroup>
@@ -135,6 +127,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <LargeAddressAware>true</LargeAddressAware>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -192,6 +185,7 @@
     <ClInclude Include="cameraManager.h" />
     <ClInclude Include="cAniTest.h" />
     <ClInclude Include="cBarTest.h" />
+    <ClInclude Include="cBossUITest.h" />
     <ClInclude Include="cCameraTest.h" />
     <ClInclude Include="cCutsceneTest.h" />
     <ClInclude Include="cDxImg.h" />
@@ -351,10 +345,7 @@
     <ClInclude Include="SK00.h" />
     <ClInclude Include="skBoss_Breath.h" />
     <ClInclude Include="skBoss_EnergyBullet.h" />
-    <ClInclude Include="skBoss_FireField.h" />
-    <ClInclude Include="skBoss_FirePath.h" />
     <ClInclude Include="skBoss_GrandMagic.h" />
-    <ClInclude Include="skBoss_Scratch.h" />
     <ClInclude Include="skBoss_Shouting.h" />
     <ClInclude Include="skill00.h" />
     <ClInclude Include="skill00_01.h" />
@@ -431,6 +422,7 @@
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="cAniTest.cpp" />
     <ClCompile Include="cBarTest.cpp" />
+    <ClCompile Include="cBossUITest.cpp" />
     <ClCompile Include="cCameraTest.cpp" />
     <ClCompile Include="cCutsceneTest.cpp" />
     <ClCompile Include="cDxImg.cpp" />
@@ -589,10 +581,7 @@
     <ClCompile Include="SK00.cpp" />
     <ClCompile Include="skBoss_Breath.cpp" />
     <ClCompile Include="skBoss_EnergyBullet.cpp" />
-    <ClCompile Include="skBoss_FireField.cpp" />
-    <ClCompile Include="skBoss_FirePath.cpp" />
     <ClCompile Include="skBoss_GrandMagic.cpp" />
-    <ClCompile Include="skBoss_Scratch.cpp" />
     <ClCompile Include="skBoss_Shouting.cpp" />
     <ClCompile Include="skill00.cpp" />
     <ClCompile Include="skill00_01.cpp" />

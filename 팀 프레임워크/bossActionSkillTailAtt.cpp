@@ -40,6 +40,7 @@ int bossActionSkillTailAtt::Start()
 int bossActionSkillTailAtt::Update()
 {
 	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
+	if (temp->getHP() <= 0) return LHS::ACTIONRESULT::ACTION_DIE;
 
 	PHYSICSMANAGER->isBlocking(owner, playerObject);
 

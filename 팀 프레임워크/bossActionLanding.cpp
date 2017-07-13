@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "bossActionLanding.h"
+#include "bossMonster.h"
 
 
 bossActionLanding::bossActionLanding()
@@ -24,6 +25,9 @@ int bossActionLanding::Start()
 
 int bossActionLanding::Update()
 {
+	bossMonster* tempOwner = dynamic_cast<bossMonster*>(owner);
+	if (tempOwner->getHP() <= 0) return LHS::ACTIONRESULT::ACTION_FLY_DIE;
+
 	string temp = owner->getSkinnedAnim().getAnimationSet()->GetName();
 	if (!strcmp("Animation_39", temp.c_str()))
 	{

@@ -359,6 +359,12 @@ void cRegistBase::UIRegist()
 	FILEPATH_MANAGER->AddFilepath("gold_god", "ResourceUI/game/gold_god.png");
 	FILEPATH_MANAGER->AddFilepath("death_soul", "ResourceUI/game/death_soul.png");
 
+	FILEPATH_MANAGER->AddFilepath("bossbar_back", "ResourceUI/monster/bossbar_back.png");
+	FILEPATH_MANAGER->AddFilepath("bossbar_cover", "ResourceUI/monster/bossbar_cover.png");
+	FILEPATH_MANAGER->AddFilepath("bossbar_move", "ResourceUI/monster/bossbar_move.png");
+	FILEPATH_MANAGER->AddFilepath("monsterbar_back", "ResourceUI/monster/monsterbar_back.png");
+	FILEPATH_MANAGER->AddFilepath("monsterbar_cover", "ResourceUI/monster/monsterbar_cover.png");
+	FILEPATH_MANAGER->AddFilepath("monsterbar_move", "ResourceUI/monster/monsterbar_move.png");
 
 
 	//=============================================================================
@@ -1037,6 +1043,7 @@ void cRegistBase::XMeshSkinnedRegist()
 	FILEPATH_MANAGER->AddFilepath("몬스터_전갈", "Resource/Meshes/monster/scorpion_ok/x/scorpion.x");
 	FILEPATH_MANAGER->AddFilepath("몬스터_도마뱀", "Resource/Meshes/monster/thunderlizard_ok/x/thunderlizard.x");
 	FILEPATH_MANAGER->AddFilepath("몬스터_데스윙", "Resource/Meshes/BossMonster/deathwing_ok/newX/deathWing.x");
+	FILEPATH_MANAGER->AddFilepath("emergency", "Resource/Meshes/emergency.png");
 
 	//===========================================================================================================
 	//NPC

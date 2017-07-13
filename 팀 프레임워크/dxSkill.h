@@ -53,7 +53,7 @@ public:
 
 public:
 	virtual bool getCollision(void) { return true; };
-
+	virtual D3DXVECTOR3 getActionShperePos() { return D3DXVECTOR3(0,0,0); };
 	
 
 public:
