@@ -16,6 +16,11 @@ int bossActionFly::Start()
 	if (!owner)return LHS::ACTIONRESULT::ACTION_FINISH;
 
 	owner->getSkinnedAnim().Play("Animation_44");
+	test = *owner->_transform;
+	test.MovePositionSelf(0.0f, 1.0f, 0.0f);
+	EFFECT->findEffect("날기_먼지")->setLimitTime(5.0f);
+	EFFECT->findEffect("날기_먼지")->Start(&test);
+
 
 	D3DXMatrixIdentity(&matTranslation);
 

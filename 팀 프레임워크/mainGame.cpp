@@ -161,7 +161,7 @@ void mainGame::render(void)
 			//디바이스 렌더링 시작
 			_device->BeginScene();
 
-			SCENEMANAGER->render();//이거 회의가 필요하겠군(UI겹침 문제)
+			SCENEMANAGER->render();
 			
 			EFFECT->render();
 
