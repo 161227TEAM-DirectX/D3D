@@ -26,7 +26,7 @@ bool skBoss_Scratch::Prepare()
 	/*if (_oneSetting)
 	{*/
 		_pvPrepaerPS[0][0]->Transform()->SetWorldPosition(_skillPosTrans->GetWorldPosition());
-		_pvPrepaerPS[0][0]->Transform()->LookDirection(_skillDirTrans->GetForward());
+		_pvPrepaerPS[0][0]->Transform()->LookDirection(_skillDirTrans->GetRight());
 
 		_oneSetting = false;
 	//}

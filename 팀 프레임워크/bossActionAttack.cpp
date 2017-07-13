@@ -21,7 +21,13 @@ int bossActionAttack::Start()
 	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
 	//보스몬스터의 공격모션 아무거나 시작.
 	owner->getSkinnedAnim().Play("Animation_12");
-//	owner->getSkinnedAnim().SetPlaySpeed(0.5f);
+
+	owner->getSkinnedAnim().AddBoneTransform("Deathwing_Bone130", &effect);
+	effect.MovePositionSelf(0.0f, 1.0f, 0.0f);
+	SKM->findSK("화염장판")->setSkillPosTrans(&effect);
+	SKM->findSK("화염장판")->setSkillDirTrans(owner->_transform);
+	SKM->findSK("화염장판")->Start();
+
 	text->init(temp->getAtt(), LHS::FONT_RED);
 	SOUNDMANAGER->play("보스공격1");
 
@@ -50,6 +56,13 @@ int bossActionAttack::Update()
 	//애니메이션이 끝나갈때쯤이면
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 	{
+		removeTransform();
+		
+		if (SOUNDMANAGER->isPlaySound("보스공격1")) SOUNDMANAGER->stop("보스공격1");
+		else if (SOUNDMANAGER->isPlaySound("보스공격2")) SOUNDMANAGER->stop("보스공격2");
+		else if (SOUNDMANAGER->isPlaySound("보스공격3")) SOUNDMANAGER->stop("보스공격3");
+		else if (SOUNDMANAGER->isPlaySound("보스공격4")) SOUNDMANAGER->stop("보스공격4");
+
 		resultValue = myUtil::RandomFloatRange(0.88f, 1.0f);
 
 		//적이 나의 hit박스 안에 없다면 다른 패턴으로 간다.
@@ -61,91 +74,52 @@ int bossActionAttack::Update()
 				//이동
 				if (resultValue >= 0.1f && resultValue < 0.97f)
 				{
-					if (SOUNDMANAGER->isPlaySound("보스공격1")) SOUNDMANAGER->stop("보스공격1");
-					if (SOUNDMANAGER->isPlaySound("보스공격2")) SOUNDMANAGER->stop("보스공격2");
-					if (SOUNDMANAGER->isPlaySound("보스공격3")) SOUNDMANAGER->stop("보스공격3");
-					if (SOUNDMANAGER->isPlaySound("보스공격4")) SOUNDMANAGER->stop("보스공격4");
+//					if (SOUNDMANAGER->isPlaySound("보스공격1")) SOUNDMANAGER->stop("보스공격1");
+//					if (SOUNDMANAGER->isPlaySound("보스공격2")) SOUNDMANAGER->stop("보스공격2");
+//					if (SOUNDMANAGER->isPlaySound("보스공격3")) SOUNDMANAGER->stop("보스공격3");
+//					if (SOUNDMANAGER->isPlaySound("보스공격4")) SOUNDMANAGER->stop("보스공격4");
 					return LHS::ACTIONRESULT::ACTION_MOVE;
 				}
 				//배틀로어
 				else if (resultValue >= 0.98f && resultValue <= 0.99f)
 				{
-					if (SOUNDMANAGER->isPlaySound("보스공격1")) SOUNDMANAGER->stop("보스공격1");
-					if (SOUNDMANAGER->isPlaySound("보스공격2")) SOUNDMANAGER->stop("보스공격2");
-					if (SOUNDMANAGER->isPlaySound("보스공격3")) SOUNDMANAGER->stop("보스공격3");
-					if (SOUNDMANAGER->isPlaySound("보스공격4")) SOUNDMANAGER->stop("보스공격4");
+//					if (SOUNDMANAGER->isPlaySound("보스공격1")) SOUNDMANAGER->stop("보스공격1");
+//					if (SOUNDMANAGER->isPlaySound("보스공격2")) SOUNDMANAGER->stop("보스공격2");
+//					if (SOUNDMANAGER->isPlaySound("보스공격3")) SOUNDMANAGER->stop("보스공격3");
+//					if (SOUNDMANAGER->isPlaySound("보스공격4")) SOUNDMANAGER->stop("보스공격4");
 					return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
 				}
 				//브레스
 				else if (resultValue >= 0.99f && resultValue <= 1.0f)
 				{
-					if (SOUNDMANAGER->isPlaySound("보스공격1")) SOUNDMANAGER->stop("보스공격1");
-					if (SOUNDMANAGER->isPlaySound("보스공격2")) SOUNDMANAGER->stop("보스공격2");
-					if (SOUNDMANAGER->isPlaySound("보스공격3")) SOUNDMANAGER->stop("보스공격3");
-					if (SOUNDMANAGER->isPlaySound("보스공격4")) SOUNDMANAGER->stop("보스공격4");
+//					if (SOUNDMANAGER->isPlaySound("보스공격1")) SOUNDMANAGER->stop("보스공격1");
+//					if (SOUNDMANAGER->isPlaySound("보스공격2")) SOUNDMANAGER->stop("보스공격2");
+//					if (SOUNDMANAGER->isPlaySound("보스공격3")) SOUNDMANAGER->stop("보스공격3");
+//					if (SOUNDMANAGER->isPlaySound("보스공격4")) SOUNDMANAGER->stop("보스공격4");
 					return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
 				}
-				else if (resultValue - Gap >= 0.97f && resultValue - Gap <= 0.975f) return LHS::ACTIONRESULT::ACTION_FLY;
+				else if (resultValue - Gap >= 0.97f && resultValue - Gap <= 0.975f)
+				{
+					return LHS::ACTIONRESULT::ACTION_FLY;
+				}
 			}
 			//range안에 없다면 이동이다.
 			else
 			{
-				if (resultValue - Gap >= 0.97f && resultValue - Gap <= 0.975f) return LHS::ACTIONRESULT::ACTION_FLY;
+				if (resultValue - Gap >= 0.97f && resultValue - Gap <= 0.975f)
+				{
+					return LHS::ACTIONRESULT::ACTION_FLY;
+				}
 
-				if (SOUNDMANAGER->isPlaySound("보스공격1")) SOUNDMANAGER->stop("보스공격1");
-				if (SOUNDMANAGER->isPlaySound("보스공격2")) SOUNDMANAGER->stop("보스공격2");
-				if (SOUNDMANAGER->isPlaySound("보스공격3")) SOUNDMANAGER->stop("보스공격3");
-				if (SOUNDMANAGER->isPlaySound("보스공격4")) SOUNDMANAGER->stop("보스공격4");
+//				if (SOUNDMANAGER->isPlaySound("보스공격1")) SOUNDMANAGER->stop("보스공격1");
+//				if (SOUNDMANAGER->isPlaySound("보스공격2")) SOUNDMANAGER->stop("보스공격2");
+//				if (SOUNDMANAGER->isPlaySound("보스공격3")) SOUNDMANAGER->stop("보스공격3");
+//				if (SOUNDMANAGER->isPlaySound("보스공격4")) SOUNDMANAGER->stop("보스공격4");
 				return LHS::ACTIONRESULT::ACTION_MOVE;
 			}
 		}
 
-		//위의 조건들이 모두 틀렸다면 ATTACK을 시작하자.
-		int random = myUtil::RandomIntRange(1, 5);
-
-		switch (random)
-		{
-		case 1:
-			owner->getSkinnedAnim().Play("Animation_12");
-			break;
-		case 2:
-			owner->getSkinnedAnim().Play("Animation_10");
-			break;
-		case 3:
-			owner->getSkinnedAnim().Play("Animation_9");
-			break;
-		case 4:
-			owner->getSkinnedAnim().Play("Animation_11");
-			break;
-		case 5:
-			owner->getSkinnedAnim().Play("Animation_21");
-			break;
-		default:
-			owner->getSkinnedAnim().Play("Animation_10");
-			break;
-		}
-
-		if (SOUNDMANAGER->isPlaySound("보스공격1")) SOUNDMANAGER->stop("보스공격1");
-		if (SOUNDMANAGER->isPlaySound("보스공격2")) SOUNDMANAGER->stop("보스공격2");
-		if (SOUNDMANAGER->isPlaySound("보스공격3")) SOUNDMANAGER->stop("보스공격3");
-		if (SOUNDMANAGER->isPlaySound("보스공격4")) SOUNDMANAGER->stop("보스공격4");
-
-		random = myUtil::RandomIntRange(1, 4);
-		switch (random)
-		{
-		case 1:
-			SOUNDMANAGER->play("보스공격1");
-			break;
-		case 2:
-			SOUNDMANAGER->play("보스공격2");
-			break;
-		case 3:
-			SOUNDMANAGER->play("보스공격3");
-			break;
-		case 4:
-			SOUNDMANAGER->play("보스공격4");
-			break;
-		}
+		randomAttack();
 	}
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
@@ -154,9 +128,93 @@ int bossActionAttack::Update()
 void bossActionAttack::Render()
 {
 	if (text->getStrLength() > 1)text->render();
+}
 
-	char test[256];
-	sprintf(test, "%f", resultValue);
-	FONTMANAGER->fontOut(test, 250, 250, WHITE);
+void bossActionAttack::removeTransform(void)
+{
+	string tempAniName = owner->getSkinnedAnim().getNowPlayAnimSet()->GetName();
 
+	if (!tempAniName.compare("Animation_12"))
+	{
+		owner->getSkinnedAnim().RemoveBoneTransform("Deathwing_Bone130");
+		SKM->findSK("화염장판")->setResetOn();
+		return;
+	}
+	else if (!tempAniName.compare("Animation_9"))
+	{
+		return;
+	}
+	else if (!tempAniName.compare("Animation_11"))
+	{
+		return;
+	}
+	else if (!tempAniName.compare("Animation_21"))
+	{
+		return;
+	}
+	else if (!tempAniName.compare("Animation_10"))
+	{
+		owner->getSkinnedAnim().RemoveBoneTransform("Deathwing_Bone92");
+		SKM->findSK("할퀴기")->setResetOn();
+		return;
+	}
+}
+
+void bossActionAttack::randomAttack(void)
+{
+	int random = myUtil::RandomIntRange(1, 5);
+
+	//위의 조건들이 모두 틀렸다면 ATTACK을 시작하자.
+	switch (random)
+	{
+	case 1:
+		owner->getSkinnedAnim().Play("Animation_12");
+		owner->getSkinnedAnim().AddBoneTransform("Deathwing_Bone130", &effect);
+		effect.MovePositionSelf(0.0f, 1.0f, 0.0f);
+		
+		SKM->findSK("화염장판")->setSkillPosTrans(&effect);
+		SKM->findSK("화염장판")->setSkillDirTrans(owner->_transform);
+		
+		SKM->findSK("화염장판")->Start();
+		break;
+	case 2:
+		owner->getSkinnedAnim().Play("Animation_10");
+		owner->getSkinnedAnim().AddBoneTransform("Deathwing_Bone92", &effect);
+		//effect.MovePositionSelf(0.0f, 1.0f, 0.0f);
+
+		SKM->findSK("할퀴기")->setSkillPosTrans(&effect);
+		SKM->findSK("할퀴기")->setSkillDirTrans(&effect);
+
+		SKM->findSK("할퀴기")->Start();
+		break;
+	case 3:
+		owner->getSkinnedAnim().Play("Animation_9");
+		break;
+	case 4:
+		owner->getSkinnedAnim().Play("Animation_11");
+		break;
+	case 5:
+		owner->getSkinnedAnim().Play("Animation_21");
+		break;
+	default:
+		owner->getSkinnedAnim().Play("Animation_10");
+		break;
+	}
+
+	random = myUtil::RandomIntRange(1, 4);
+	switch (random)
+	{
+	case 1:
+		SOUNDMANAGER->play("보스공격1");
+		break;
+	case 2:
+		SOUNDMANAGER->play("보스공격2");
+		break;
+	case 3:
+		SOUNDMANAGER->play("보스공격3");
+		break;
+	case 4:
+		SOUNDMANAGER->play("보스공격4");
+		break;
+	}
 }

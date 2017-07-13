@@ -11,6 +11,8 @@ private:
 	vector<int> list;
 	damageText* text;
 	float yPosition;
+private:
+	dx::transform effect;
 public:
 	bossActionAttack();
 	~bossActionAttack();
@@ -21,5 +23,9 @@ public:
 	int Update() override;
 	//액션중에 랜더가 필요하면 실행하는 함수.
 	void Render() override;
+
+	//상태에 따라 트랜스폼 해제 함수
+	void removeTransform(void);
+	void randomAttack(void);
 };
 

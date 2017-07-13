@@ -55,7 +55,7 @@ mainGame::mainGame()
 
 	//SCENEMANAGER->addScene("test", new cGameUITest, false);
 	//SCENEMANAGER->addScene("test", new cMinimapTest, false);
-	//SCENEMANAGER->addScene("AItest", new bossMonsterAITestScene);
+	SCENEMANAGER->addScene("AItest", new bossMonsterAITestScene);
 }
 
 mainGame::~mainGame()
