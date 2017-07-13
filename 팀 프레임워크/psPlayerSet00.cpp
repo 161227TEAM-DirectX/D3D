@@ -1348,7 +1348,7 @@ void psPlayerSet00::SkySwordSet00(string psName)
 	_meshEMT->init("ParticleResources/Mesh/skySword.x",1, 7.2f,1);
 
 	_meshEMT->SetActiveLimitTime(7.2f);
-
+	_meshEMT->InitRandomSize(3.0f, 3.0f);
 	//_meshEMT->InitRandomSize(0.5f,0.5f);
 	//_meshEMT->InitRandomSize(0.8f,0.8f);
 	//_meshEMT->InitRandomLifeTime(4.2f, 4.2f);

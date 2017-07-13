@@ -64,13 +64,16 @@ void dxEffect::update()
 			{
 				//_vPS[i]->SetLimitTime(_limitTime);
 				//_vPS[i]->Transform()->SetWorldPosition(*(_vPos[i]));
+
+				
 				_vPS[i]->Transform()->SetWorldPosition(_vPosTrans[i]->GetWorldPosition());
 				//_vPS[i]->Transform()->SetWorldMatrix(_vPosTrans[i]->GetFinalMatrix());
-				if (_vDir.empty() == FALSE)
+				if (_vDirTrans[i] != NULL)
 				{
 					_vPS[i]->Transform()->LookDirection(_vDirTrans[i]->GetForward());
 					//_vPS[i]->Transform()->LookDirection(*_vDir[i]);
 				}
+				
 				_vPS[i]->update();
 
 				_vPS[i]->autoTimeReset();
@@ -82,6 +85,8 @@ void dxEffect::update()
 			}
 			else
 			{
+				
+
 				endCount++;
 			}
 
@@ -183,6 +188,11 @@ void dxEffect::Start(dx::transform * posTrans, dx::transform * dirTrans)
 			if (dirTrans != NULL)
 			{
 				_vDirTrans[i] = dirTrans;
+				
+			}
+			else
+			{
+				_vDirTrans[i] = NULL;
 			}
 			_vPosTrans[i] = posTrans;
 			_vPS[i]->SetActive(TRUE);

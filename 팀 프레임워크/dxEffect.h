@@ -49,7 +49,7 @@ public:
 
 	void setLimitTime(float inTime)
 	{
-		for (int i = 0; i < 12; i++)
+		for (int i = 0; i < _effectMax; i++)
 		{
 			_vPS[i]->SetLimitTime(inTime);
 		}

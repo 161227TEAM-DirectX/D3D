@@ -13,6 +13,12 @@ HRESULT psBossSet00::init()
 	this->EnergyBullet00("¿¡³ÊÁöÅº_ÁØºñ");
 	this->EnergyBullet01("¿¡³ÊÁöÅº");
 	this->EnergyBullet02("¿¡³ÊÁöÅº_Æø¹ß");
+
+	this->FireField00("ºÒ²ÉÆÛÁü");
+
+	this->Scratch00("ºÒ²ÉÇÒÄû±â");
+	this->FirePath00("ºÒ²É±æ");
+
 	
 
 	return S_OK;
@@ -564,3 +570,187 @@ void psBossSet00::EnergyBullet02(string psName)
 	PSM->addPS(psName, _PS);
 
 }
+
+void psBossSet00::FireField00(string psName)
+{
+	dxParticleSystemSet::init();
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/fire05_frame4x4.png", 40, 0.3f, 400);
+
+	//_boardEMT->InitRandomLifeTime(1.0f, 1.0f);
+	_boardEMT->InitAnimation(4, 4);
+	_boardEMT->InitConstAniReactivateNum(4);
+
+	_boardEMT->setInitActiveLimitTime(2.0f);
+
+	_boardEMT->InitRandomLifeTime(1.5f, 4.2f);
+
+	_boardEMT->InitRandomSize(0.3f, 0.5f);
+	_boardEMT->InitRandomSizeEnd(8.0f, 14.2f);
+
+	//_boardEMT->SetPositionType(PTC_SPHERE);
+	//_boardEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
+	//_boardEMT->InitRandomPosSphereRadius(1.0f, 2.0f);
+	
+	_boardEMT->InitCircleRadiusY(3.0f, 5.0f);
+	_boardEMT->InitCircleStartAngleY(40.0f, 140.0f);
+	_boardEMT->InitRandomPosExplosionVel(5.0f, 15.0f);
+
+	//_boardEMT->InitRandomVelocityX(-3.0f, 3.0f);
+	//_boardEMT->InitRandomVelocityZ(2.0f,4.0f);
+
+
+	//_boardEMT->InitRandomPositionY(1.0f,1.0f);
+
+	//_boardEMT->InitRandomPositionX(-1.0f, 1.0f);
+	//_boardEMT->InitRandomPositionY(-0.5f, 0.5f);
+	//_boardEMT->InitRandomPositionZ(0.2f, 0.5f);
+
+	//_boardEMT->InitRandomVelocityX(-3.0f, 3.0f);
+	//_boardEMT->InitRandomVelocityY(0.5f, 0.8f);
+	//_boardEMT->InitRandomVelocityZ(2.0f, 2.0f);
+
+
+	//_pointEMT->InitRandomVelocityX(0.0f, 0.0f);
+	//_pointEMT->InitRandomVelocityY(1.0f, 2.0f);
+	//_pointEMT->InitRandomVelocityZ(0.0f, 0.0f);
+
+	//_pointEMT->InitRandomAccelerationX(0.0f,0.0f);
+	//_pointEMT->InitRandomAccelerationY(200.0f, 200.0f);
+	//_pointEMT->InitRandomAccelerationZ(0.0f,0.0f);
+
+	/*_pointEMT->InitRandomColorR(0.0f, 0.0f);
+	_pointEMT->InitRandomColorG(0.6f, 0.6f);
+	_pointEMT->InitRandomColorB(0.6f, 0.6f);*/
+
+	/*_pointEMT->InitRandomColorFadeR(0.1f, 1.0f);
+	_pointEMT->InitRandomColorFadeG(0.1f, 1.0f);
+	_pointEMT->InitRandomColorFadeB(0.0f, 0.0f);*/
+
+	_boardEMT->InitRandomAlpha(0.1f, 0.1f);
+	_boardEMT->addAlphaGraph(0.3f, 1.0f, 1.0f);
+	_boardEMT->addAlphaGraph(0.8f, 1.0f, 1.0f);
+	_boardEMT->addAlphaGraph(1.0f, 0.2f, 0.2f);
+
+	_PS->addEmitter(_boardEMT);
+
+	PSM->addPS(psName, _PS,true);
+
+}
+
+void psBossSet00::Scratch00(string psName)
+{
+	dxParticleSystemSet::init();
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/fire05_frame4x4.png", 12, 0.2f, 420);
+
+	//_boardEMT->InitRandomLifeTime(1.0f, 1.0f);
+	_boardEMT->InitAnimation(4, 4);
+	_boardEMT->InitConstAniReactivateNum(4);
+
+	_boardEMT->setInitActiveLimitTime(2.0f);
+
+	_boardEMT->InitRandomLifeTime(1.5f, 4.2f);
+
+	_boardEMT->InitRandomPositionX(-1.0, 1.0f);
+	_boardEMT->InitRandomPositionZ(1.0,5.0f);
+
+	_boardEMT->InitRandomSize(0.3f, 0.5f);
+	_boardEMT->InitRandomSizeEnd(8.0f, 14.2f);
+
+	//_boardEMT->SetPositionType(PTC_SPHERE);
+	//_boardEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
+	//_boardEMT->InitRandomPosSphereRadius(1.0f, 2.0f);
+
+	//_boardEMT->InitCircleRadiusY(3.0f, 5.0f);
+	//_boardEMT->InitCircleStartAngleY(40.0f, 140.0f);
+	//_boardEMT->InitRandomPosExplosionVel(5.0f, 15.0f);
+
+	//_boardEMT->InitRandomAlpha(0.1f, 0.1f);
+	_boardEMT->addAlphaGraph(0.3f, 1.0f, 1.0f);
+	_boardEMT->addAlphaGraph(0.8f, 1.0f, 1.0f);
+	_boardEMT->addAlphaGraph(1.0f, 0.2f, 0.2f);
+
+	_PS->addEmitter(_boardEMT);
+
+	PSM->addPS(psName, _PS);
+
+}
+
+void psBossSet00::FirePath00(string psName)
+{
+	dxParticleSystemSet::init();
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/fire05_frame4x4.png", 4, 0.15f, 3000);
+
+	//_boardEMT->InitRandomLifeTime(1.0f, 1.5f);
+	_boardEMT->InitAnimation(4, 4);
+	_boardEMT->InitConstAniReactivateNum(4);
+
+	//_boardEMT->setInitActiveLimitTime(2.0f);
+
+	_boardEMT->InitRandomLifeTime(1.5f, 4.2f);
+
+	_boardEMT->InitRandomPositionX(5.0, 5.0f);
+	_boardEMT->InitRandomPositionZ(0.0, 5.0f);
+
+	_boardEMT->InitRandomSize(1.0f, 2.5f);
+	_boardEMT->InitRandomSizeEnd(10.0f, 16.2f);
+
+	//_boardEMT->SetPositionType(PTC_SPHERE);
+	//_boardEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
+	//_boardEMT->InitRandomPosSphereRadius(1.0f, 2.0f);
+
+	//_boardEMT->InitCircleRadiusY(3.0f, 5.0f);
+	//_boardEMT->InitCircleStartAngleY(40.0f, 140.0f);
+	//_boardEMT->InitRandomPosExplosionVel(5.0f, 15.0f);
+
+	//_boardEMT->InitRandomAlpha(0.1f, 0.1f);
+	_boardEMT->addAlphaGraph(0.3f, 1.0f, 1.0f);
+	_boardEMT->addAlphaGraph(0.8f, 1.0f, 1.0f);
+	_boardEMT->addAlphaGraph(1.0f, 0.2f, 0.2f);
+
+	_PS->addEmitter(_boardEMT);
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/fire05_frame4x4.png", 4, 0.15f, 3000);
+
+	//_boardEMT->InitRandomLifeTime(1.0f, 1.5f);
+	_boardEMT->InitAnimation(4, 4);
+	_boardEMT->InitConstAniReactivateNum(4);
+
+	//_boardEMT->setInitActiveLimitTime(2.0f);
+
+	_boardEMT->InitRandomLifeTime(1.5f, 4.2f);
+
+	_boardEMT->InitRandomPositionX(-5.0, -5.0f);
+	_boardEMT->InitRandomPositionZ(0.0, 5.0f);
+
+	_boardEMT->InitRandomSize(1.0f, 2.5f);
+	_boardEMT->InitRandomSizeEnd(10.0f, 16.2f);
+
+	//_boardEMT->SetPositionType(PTC_SPHERE);
+	//_boardEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
+	//_boardEMT->InitRandomPosSphereRadius(1.0f, 2.0f);
+
+	//_boardEMT->InitCircleRadiusY(3.0f, 5.0f);
+	//_boardEMT->InitCircleStartAngleY(40.0f, 140.0f);
+	//_boardEMT->InitRandomPosExplosionVel(5.0f, 15.0f);
+
+	//_boardEMT->InitRandomAlpha(0.1f, 0.1f);
+	_boardEMT->addAlphaGraph(0.3f, 1.0f, 1.0f);
+	_boardEMT->addAlphaGraph(0.8f, 1.0f, 1.0f);
+	_boardEMT->addAlphaGraph(1.0f, 0.2f, 0.2f);
+
+	_PS->addEmitter(_boardEMT);
+
+	PSM->addPS(psName, _PS);
+}
+

@@ -17,6 +17,9 @@
 #include "skBoss_GrandMagic.h"
 #include "skBoss_Shouting.h"
 #include "skBoss_EnergyBullet.h"
+#include "skBoss_FireField.h"
+#include "skBoss_Scratch.h"
+#include "skBoss_FirePath.h"
 
 
 void dxSkillManager::skillSetting()
@@ -35,7 +38,10 @@ void dxSkillManager::skillSetting()
 	this->addSK("´ë¸¶¹ý", new skBoss_GrandMagic);
 	//this->addSK("»þ¿ìÆÃ", new skBoss_Shouting);//ÅÍÁü ÇÏÁö¸¶~
 	this->addSK("¿¡³ÊÁöÅº", new skBoss_EnergyBullet);
+	this->addSK("È­¿°ÀåÆÇ", new skBoss_FireField);
 
+	this->addSK("ÇÒÄû±â", new skBoss_Scratch);
+	this->addSK("ºÒ²É±æ", new skBoss_FirePath);
 
 }
 

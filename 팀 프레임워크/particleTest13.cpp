@@ -176,12 +176,45 @@ void particleTest13::update()
 
 	if (KEYMANAGER->isOnceKeyDown('P'))
 	{
-		SKM->findSK("»þ¿ìÆÃ")->setSkillPosTrans(_player);
+		/*SKM->findSK("»þ¿ìÆÃ")->setSkillPosTrans(_player);
 		SKM->findSK("»þ¿ìÆÃ")->setSkillDirTrans(_player);
 		SKM->findSK("»þ¿ìÆÃ")->setOneTargetTrans(_target);
-		SKM->findSK("»þ¿ìÆÃ")->Start();
+		SKM->findSK("»þ¿ìÆÃ")->Start();*/
+
+		EFFECT->findEffect("¾Õ¹ßÂï±â")->setLimitTime(5.0f);
+		EFFECT->findEffect("¾Õ¹ßÂï±â")->Start(_player);
+
 	}
 
+
+	if (KEYMANAGER->isOnceKeyDown('O'))
+	{
+		SKM->findSK("È­¿°ÀåÆÇ")->setSkillPosTrans(_player);
+		SKM->findSK("È­¿°ÀåÆÇ")->setSkillDirTrans(_player);
+		SKM->findSK("È­¿°ÀåÆÇ")->setOneTargetTrans(_target);
+		SKM->findSK("È­¿°ÀåÆÇ")->Start();
+
+		//EFFECT->findEffect("½ºÅÏ")->setLimitTime(2.0f);
+		//EFFECT->findEffect("½ºÅÏ")->Start(_player);
+		//EFFECT->findEffect("½ºÅÏ")->Start(_target);
+	}
+
+
+	if (KEYMANAGER->isOnceKeyDown('K'))
+	{
+		SKM->findSK("ÇÒÄû±â")->setSkillPosTrans(_player);
+		SKM->findSK("ÇÒÄû±â")->setSkillDirTrans(_player);
+		SKM->findSK("ÇÒÄû±â")->setOneTargetTrans(_target);
+		SKM->findSK("ÇÒÄû±â")->Start();
+	}
+
+	if (KEYMANAGER->isOnceKeyDown('I'))
+	{
+		SKM->findSK("ºÒ²É±æ")->setSkillPosTrans(_player);
+		SKM->findSK("ºÒ²É±æ")->setSkillDirTrans(_player);
+		SKM->findSK("ºÒ²É±æ")->setOneTargetTrans(_target);
+		SKM->findSK("ºÒ²É±æ")->Start();
+	}
 
 	//if (KEYMANAGER->isOnceKeyDown('P'))
 	//{

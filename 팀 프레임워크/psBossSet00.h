@@ -19,6 +19,12 @@ private:
 	void EnergyBullet01(string psName);
 	void EnergyBullet02(string psName);
 
+	void FireField00(string psName);
+
+	void Scratch00(string psName);
+	void FirePath00(string psName);
+	
+
 public:
 	psBossSet00() {};
 	~psBossSet00() {};

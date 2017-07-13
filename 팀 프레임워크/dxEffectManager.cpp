@@ -11,6 +11,7 @@ void dxEffectManager::EffectSetting()
 	this->addEffect("스턴");
 	this->addEffect("먼지");
 	this->addEffect("날기_먼지");
+	this->addEffect("앞발찍기");
 }
 
 void dxEffectManager::EffectRelease()
