@@ -185,6 +185,7 @@
     <ClInclude Include="cameraManager.h" />
     <ClInclude Include="cAniTest.h" />
     <ClInclude Include="cBarTest.h" />
+    <ClInclude Include="cBossUITest.h" />
     <ClInclude Include="cCameraTest.h" />
     <ClInclude Include="cCutsceneTest.h" />
     <ClInclude Include="cDxImg.h" />
@@ -421,6 +422,7 @@
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="cAniTest.cpp" />
     <ClCompile Include="cBarTest.cpp" />
+    <ClCompile Include="cBossUITest.cpp" />
     <ClCompile Include="cCameraTest.cpp" />
     <ClCompile Include="cCutsceneTest.cpp" />
     <ClCompile Include="cDxImg.cpp" />

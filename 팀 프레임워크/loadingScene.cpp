@@ -52,8 +52,8 @@ void loadingScene::render()
 	if (m_isChange /*&& m_pLoadingBar->IsFullBar()*/)
 	{
 		//g_eSelectMode = E_MAPTOOL;
-		//SCENEMANAGER->changeScene("test");
-		SCENEMANAGER->changeScene("gameSceneOne");//gameSceneOne
+		SCENEMANAGER->changeScene("test");
+		//SCENEMANAGER->changeScene("gameSceneOne");//gameSceneOne
 		//SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
 		//SCENEMANAGER->changeScene("gameSceneThree");//gameSceneThree
 		//SCENEMANAGER->changeScene("gameSceneFour");//gameSceneFour
@@ -66,8 +66,8 @@ void loadingScene::render()
 
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
-	XMeshSkinnedLoading();
-	PtcLoading();
+	//XMeshSkinnedLoading();
+	//PtcLoading();
 
 	SoundLoading();
 	UILoading();
@@ -207,6 +207,12 @@ void loadingScene::UILoading()
 	DXIMG_MANAGER->AddDxImg("gold_god", new cDxImg(FILEPATH_MANAGER->GetFilepath("gold_god")));
 	DXIMG_MANAGER->AddDxImg("death_soul", new cDxImg(FILEPATH_MANAGER->GetFilepath("death_soul")));
 
+	DXIMG_MANAGER->AddDxImg("bossbar_back", new cDxImg(FILEPATH_MANAGER->GetFilepath("bossbar_back")));
+	DXIMG_MANAGER->AddDxImg("bossbar_cover", new cDxImg(FILEPATH_MANAGER->GetFilepath("bossbar_cover")));
+	DXIMG_MANAGER->AddDxImg("bossbar_move", new cDxImg(FILEPATH_MANAGER->GetFilepath("bossbar_move")));
+	DXIMG_MANAGER->AddDxImg("monsterbar_back", new cDxImg(FILEPATH_MANAGER->GetFilepath("monsterbar_back")));
+	DXIMG_MANAGER->AddDxImg("monsterbar_cover", new cDxImg(FILEPATH_MANAGER->GetFilepath("monsterbar_cover")));
+	DXIMG_MANAGER->AddDxImg("monsterbar_move", new cDxImg(FILEPATH_MANAGER->GetFilepath("monsterbar_move")));
 
 
 

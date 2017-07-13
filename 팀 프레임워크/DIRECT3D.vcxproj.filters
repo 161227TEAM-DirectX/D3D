@@ -445,6 +445,9 @@
     <Filter Include="Z테스트\김만웅\14.이미지 부분렌더">
       <UniqueIdentifier>{4793cf5b-76fc-4eb7-a65a-fc94474bd553}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Z테스트\김만웅\15.보스UI">
+      <UniqueIdentifier>{ff54d0fa-a74b-4fb7-b791-6ef6a0e5a4ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainGame.cpp">
@@ -1153,6 +1156,9 @@
     <ClCompile Include="cImgPartRenderTest.cpp">
       <Filter>Z테스트\김만웅\14.이미지 부분렌더</Filter>
     </ClCompile>
+    <ClCompile Include="cBossUITest.cpp">
+      <Filter>Z테스트\김만웅\15.보스UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainGame.h">
@@ -1860,6 +1866,9 @@
     </ClInclude>
     <ClInclude Include="cImgPartRenderTest.h">
       <Filter>Z테스트\김만웅\14.이미지 부분렌더</Filter>
+    </ClInclude>
+    <ClInclude Include="cBossUITest.h">
+      <Filter>Z테스트\김만웅\15.보스UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
