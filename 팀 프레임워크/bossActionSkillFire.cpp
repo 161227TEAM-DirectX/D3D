@@ -43,7 +43,7 @@ int bossActionSkillFire::Update()
 		if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 		{
 			owner->getSkinnedAnim().Play("Animation_14");
-			owner->getSkinnedAnim().SetPlaySpeed(0.6f);
+			owner->getSkinnedAnim().SetPlaySpeed(0.2f);
 			SOUNDMANAGER->play("브레스2");
 		}
 		return LHS::ACTIONRESULT::ACTION_PLAY;
@@ -82,7 +82,7 @@ int bossActionSkillFire::Update()
 
 			owner->getSkinnedAnim().SetPlaySpeed(1.0f);
 			//일반적인 경우 바로 이동패턴으로 넘어가자.
-			return LHS::ACTIONRESULT::ACTION_MOVE;
+			//return LHS::ACTIONRESULT::ACTION_MOVE;
 		}
 
 		//케릭터의 위치에 따라 브레스 대미지가 들어가는 구간을 설정하는 if문

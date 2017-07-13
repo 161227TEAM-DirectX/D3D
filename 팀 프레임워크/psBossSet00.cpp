@@ -29,10 +29,10 @@ void psBossSet00::BreathSet00(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("ParticleResources/Texture/fire02_frame5x4.png", 15, 0.1f, 800);
+	_boardEMT->init("ParticleResources/Texture/fire02_frame5x4.png", 15, 0.1f, 830);
 	//_pointEMT->InitConstSize(2.4f);
-	_boardEMT->InitRandomSize(1.0f, 1.5f);
-	_boardEMT->InitRandomSizeEnd(2.3f, 2.8f);
+	_boardEMT->InitRandomSize(3.0f, 3.5f);
+	_boardEMT->InitRandomSizeEnd(6.3f, 8.8f);
 	//_pointEMT->addSizeGraph(0.5f, 2.8f, 2.8f);
 	//_pointEMT->addSizeGraph(1.0f, 2.2f, 2.2f);
 
@@ -42,7 +42,7 @@ void psBossSet00::BreathSet00(string psName)
 
 	//_boardEMT->InitRandomVelocityX(-3.0f, 3.0f);
 	//_boardEMT->InitRandomVelocityY(-1.0f, 1.0f);
-	_boardEMT->InitRandomVelocityZ(5.0f, 10.0f);
+	_boardEMT->InitRandomVelocityZ(10.0f, 20.0f);
 	//_boardEMT->InitRandomVelocityZ(0.05f, 0.05f);
 
 	//_pointEMT->InitRandomVelocityX(0.0f, 0.0f);

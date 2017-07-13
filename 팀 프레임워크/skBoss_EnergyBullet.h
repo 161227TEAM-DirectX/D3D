@@ -5,6 +5,8 @@ class skBoss_EnergyBullet :	public dxSkill
 private:
 	bool _oneSettingOn;
 
+	float _groundPos;
+
 public:
 	virtual HRESULT init();
 	virtual void release();

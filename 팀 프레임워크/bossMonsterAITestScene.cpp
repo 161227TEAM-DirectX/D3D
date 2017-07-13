@@ -193,10 +193,10 @@ HRESULT bossMonsterAITestScene::init()
 	IOSAVEMONSTERBOX->loadFile("test");
 
 	//보스몬스터 초기화
-//	boss->setMesh(XMESH_MANAGER->GetXmeshSkinned("데스윙"));
-//	boss->_transform->SetScale(2.0f, 2.0f, 2.0f);
-//	boss->_transform->SetWorldPosition(0.0f, 0.0f, 0.0f);
-//	boss->setActive(true);
+	boss->setMesh(XMESH_MANAGER->GetXmeshSkinned("데스윙"));
+	boss->_transform->SetScale(2.0f, 2.0f, 2.0f);
+	boss->_transform->SetWorldPosition(0.0f, 0.0f, 0.0f);
+	boss->setActive(true);
 
 	//플레이어 초기화
 	player->out_setlinkTerrain(*_terrain);
@@ -214,7 +214,7 @@ HRESULT bossMonsterAITestScene::init()
 	sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(89), 0, 0);
 
 	
-	InitMonster();
+//	InitMonster();
 
 	return S_OK;
 }
@@ -231,7 +231,7 @@ void bossMonsterAITestScene::update()
 
 //	player->out_setTargetByMouse(_mainCamera);
 	boss->update();
-	for (int i = 0; i < mon.size(); i++) mon[i]->update();
+//	for (int i = 0; i < mon.size(); i++) mon[i]->update();
 }
 
 void bossMonsterAITestScene::render()
@@ -253,5 +253,5 @@ void bossMonsterAITestScene::render()
 
 	boss->render();
 	player->render();
-	for (int i = 0; i < mon.size(); i++)mon[i]->render();
+//	for (int i = 0; i < mon.size(); i++)mon[i]->render();
 }
