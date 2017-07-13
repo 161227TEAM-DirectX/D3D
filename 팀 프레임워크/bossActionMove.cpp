@@ -56,7 +56,7 @@ int bossActionMove::Update()
 
 	//현재 구현해야 할 내역이 시작되는 부분이다.
 	//한번 생성해 놓아서 index가 초기화가 필요하다.
-	index = myUtil::RandomFloatRange(0.1f, 1.0f);
+	if(owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME) index = myUtil::RandomFloatRange(0.1f, 1.0f);
 
 	//무브 애니메이션이 끝나면.
 	//if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
