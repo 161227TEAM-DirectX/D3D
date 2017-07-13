@@ -92,7 +92,7 @@ HRESULT stageOne::init()
 	SOUNDMANAGER->play("필드1", 0.1f);
 
 	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
-	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, 5));
+	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, -5));
 
 
 	for (int i = 0; i < _renderObject.size(); i++)
@@ -102,12 +102,12 @@ HRESULT stageOne::init()
 			//이게 앞문
 			if(_renderObject[i]->getportalNumber() == 0)
 			{
-				_gate1 = _renderObject[i];
+				_gate2 = _renderObject[i];
 			}
 
 			if (_renderObject[i]->getportalNumber() == 1)
 			{
-				_gate2 = _renderObject[i];
+				_gate1 = _renderObject[i];
 			}
 		}
 	}

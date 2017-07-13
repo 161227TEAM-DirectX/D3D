@@ -143,6 +143,7 @@ HRESULT stageTwo::init()
 	ACMANAGER->Init(*_terrain, *player);
 
 	loadMonster();
+
 	loadNode();
 
 	player->out_setMonsterRegion(&_monsterRegion);
@@ -150,7 +151,7 @@ HRESULT stageTwo::init()
 	SOUNDMANAGER->play("필드1", 0.1f);
 
 	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
-	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3( 0, 5, 5));
+	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3( 0, 5, -5));
 
 	for (int i = 0; i < _renderObject.size(); i++)
 	{
@@ -171,12 +172,15 @@ HRESULT stageTwo::init()
 
 
 	m_pUIPlayer = new cUIPlayer;
+	m_pUIPlayer->SetMinimap("worldmap2View");
+	m_pUIPlayer->SetMapNum(1);
+	m_pUIPlayer->SetPlayerPosX(player->getPlayerObject()->_transform->GetWorldPosition().x);
+	m_pUIPlayer->SetPlayerPosY(player->getPlayerObject()->_transform->GetWorldPosition().z);
+
 	m_pUIPlayer->linkMinimapPlayerAngle(player->getPlayerObject()->_transform->GetAngleY());
 	m_pUIPlayer->linkMinimapPlayerMove(player->getPlayerObject()->_transform->GetWorldPosition().x + _terrain->GetTerrainSizeX() / 2,
 									   player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
 									   _terrain->GetTerrainSizeX());
-	m_pUIPlayer->SetMinimap("worldmap2View");
-	m_pUIPlayer->SetMapNum(1);
 	m_pUIPlayer->init();
 
 	return S_OK;
@@ -373,9 +377,17 @@ void stageTwo::shadowUpdate(void)
 	this->readyShadowMap(&this->_renderObject, this->_terrainShadow);*/
 	//===========================================================================
 
-	if (!g_isChat)
+	
+	if(KEYMANAGER->isToggleKey('P'))
 	{
-		_mainCamera->updateBase();
+		_mainCamera->updateBase(true);
+	}
+	else
+	{
+		if (!g_isChat)
+		{
+			_mainCamera->updateBase();
+		}
 	}
 
 	D3DXVECTOR3 camPos = player->getPlayerObject()->_transform->GetWorldPosition();	//메인카메라의 위치
@@ -395,6 +407,7 @@ void stageTwo::shadowRender(void)
 
 void stageTwo::loadMonster(void)
 {
+
 	IOSAVEMONSTERBOX->loadFile("test");
 	IOSAVEMONSTERMANAGER->loadFile("몬스터");
 	vector<tagSaveMonster> temp;
@@ -421,7 +434,9 @@ void stageTwo::loadMonster(void)
 		tempMonster->SetObjectNumber(temp[i].monsterNumber);
 		_renderObject.push_back(tempMonster);
 		_monsterRegion.push_back(tempMonster);
+
 	}
+	int a = 0;
 }
 
 void stageTwo::loadNode(void)
@@ -451,6 +466,7 @@ void stageTwo::loadNode(void)
 			_terrain->getDijkstra().connectNode(tempSour, tempDest);
 		}
 	}
+	int a = 0;
 }
 
 xMesh * stageTwo::findMonster(int & index)

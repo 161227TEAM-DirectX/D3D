@@ -292,8 +292,8 @@ HRESULT cUIPlayer::init()
 	DXIMG_MANAGER->GetDxImg(m_szMinimap)->SetCenterDraw(false);
 
 	//미니맵 플레이어 -> 미니맵에서의 위치를 비례식으로 구해낸다.
-	DXIMG_MANAGER->GetDxImg("minimap_player")->SetPosition(D3DXVECTOR3(m_fMinimapMoveX / 2 + DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetPosition().x,
-																	   m_fMinimapMoveY / 2 + DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetPosition().y,
+	DXIMG_MANAGER->GetDxImg("minimap_player")->SetPosition(D3DXVECTOR3(m_pMiniMap->GetUI()->GetSize().fWidth / 2 + DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetPosition().x,
+																	   m_pMiniMap->GetUI()->GetSize().fHeight / 2 + DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetPosition().y,
 																	   0));
 	DXIMG_MANAGER->GetDxImg("minimap_player")->SetCenterDraw(true);
 
