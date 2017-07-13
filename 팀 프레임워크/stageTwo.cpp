@@ -143,6 +143,7 @@ HRESULT stageTwo::init()
 	ACMANAGER->Init(*_terrain, *player);
 
 	loadMonster();
+
 	loadNode();
 
 	player->out_setMonsterRegion(&_monsterRegion);
@@ -150,7 +151,7 @@ HRESULT stageTwo::init()
 	SOUNDMANAGER->play("필드1", 0.1f);
 
 	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
-	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3( 0, 5, 5));
+	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3( 0, 5, -5));
 
 	for (int i = 0; i < _renderObject.size(); i++)
 	{
@@ -395,6 +396,7 @@ void stageTwo::shadowRender(void)
 
 void stageTwo::loadMonster(void)
 {
+
 	IOSAVEMONSTERBOX->loadFile("test");
 	IOSAVEMONSTERMANAGER->loadFile("몬스터");
 	vector<tagSaveMonster> temp;
@@ -421,7 +423,9 @@ void stageTwo::loadMonster(void)
 		tempMonster->SetObjectNumber(temp[i].monsterNumber);
 		_renderObject.push_back(tempMonster);
 		_monsterRegion.push_back(tempMonster);
+
 	}
+	int a = 0;
 }
 
 void stageTwo::loadNode(void)
@@ -451,6 +455,7 @@ void stageTwo::loadNode(void)
 			_terrain->getDijkstra().connectNode(tempSour, tempDest);
 		}
 	}
+	int a = 0;
 }
 
 xMesh * stageTwo::findMonster(int & index)

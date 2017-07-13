@@ -160,7 +160,7 @@ void stageThree::update()
 		if (cinematicBool == false)
 		{
 			_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
-			_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, 5));
+			_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, -5));
 			cinematicBool = true;
 		}
 		else

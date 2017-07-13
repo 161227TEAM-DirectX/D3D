@@ -53,32 +53,23 @@ void loadingScene::render()
 	{
 		//g_eSelectMode = E_MAPTOOL;
 		//SCENEMANAGER->changeScene("test");
-		SCENEMANAGER->changeScene("gameSceneOne");//gameSceneOne
-		//SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
+		//SCENEMANAGER->changeScene("gameSceneOne");//gameSceneOne
+		SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
 		//SCENEMANAGER->changeScene("gameSceneThree");//gameSceneThree
 		//SCENEMANAGER->changeScene("gameSceneFour");//gameSceneFour
 		//SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
 		//SCENEMANAGER->changeScene("kims");//kims
-		SCENEMANAGER->changeScene("AItest");//AItest
+		//SCENEMANAGER->changeScene("AItest");//AItest
 	}
 	LeaveCriticalSection(&_cs);
 }
 
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
-<<<<<<< HEAD
 	XMeshSkinnedLoading();
 	PtcLoading();
-	SoundLoading();
-=======
-	SoundLoading();
-	//XMeshStaticLoading();	//주석을 풀어도 의미없다.안에 다 주석처리함!
-	XMeshSkinnedLoading();
 
-	//이거 주석 풀면 됨!!!
-	PtcLoading();
-
->>>>>>> 1b9394c8118ca55bf3d7febfa93e3a4db40f9f6e
+	SoundLoading();
 	UILoading();
 	AniLoading();
 
