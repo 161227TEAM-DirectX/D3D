@@ -192,13 +192,13 @@ HRESULT cUIPlayer::init()
 	//½ºÅ³ ¼ÂÆÃ
 	cUISkill* tempSkill;
 
-	tempSkill = new cUISkill("btn_skill00_on", "btn_skill00_off", "ÄðÅ¸ÀÓ0", '1', 1308, 761, false);	m_vecUISkill.push_back(tempSkill);
-	tempSkill = new cUISkill("btn_skill01_on", "btn_skill01_off", "ÄðÅ¸ÀÓ1", '2', m_vecUISkill[0]->GetUI()->getPos().x + 64 + 10, 761, false);	m_vecUISkill.push_back(tempSkill);
+	tempSkill = new cUISkill("btn_skill03_on", "btn_skill03_off", "ÄðÅ¸ÀÓ3", '1', 1308, 761, false);	m_vecUISkill.push_back(tempSkill);
+	tempSkill = new cUISkill("btn_skill06_on", "btn_skill06_off", "ÄðÅ¸ÀÓ6", '2', m_vecUISkill[0]->GetUI()->getPos().x + 64 + 10, 761, false);	m_vecUISkill.push_back(tempSkill);
 	tempSkill = new cUISkill("btn_skill02_on", "btn_skill02_off", "ÄðÅ¸ÀÓ2", '3', m_vecUISkill[1]->GetUI()->getPos().x + 64 + 10, 761, false);	m_vecUISkill.push_back(tempSkill);
-	tempSkill = new cUISkill("btn_skill03_on", "btn_skill03_off", "ÄðÅ¸ÀÓ3", '4', m_vecUISkill[2]->GetUI()->getPos().x + 64 + 10, 761, false);	m_vecUISkill.push_back(tempSkill);
-	tempSkill = new cUISkill("btn_skill04_on", "btn_skill04_off", "ÄðÅ¸ÀÓ4", '5', 1308, 833, false);	m_vecUISkill.push_back(tempSkill);
+	tempSkill = new cUISkill("btn_skill04_on", "btn_skill04_off", "ÄðÅ¸ÀÓ4", '4',  m_vecUISkill[2]->GetUI()->getPos().x + 64 + 10, 761, false);	m_vecUISkill.push_back(tempSkill);
+	tempSkill = new cUISkill("btn_skill00_on", "btn_skill00_off", "ÄðÅ¸ÀÓ0", '5', 1308, 833, false);	m_vecUISkill.push_back(tempSkill);
 	tempSkill = new cUISkill("btn_skill05_on", "btn_skill05_off", "ÄðÅ¸ÀÓ5", '6', m_vecUISkill[0]->GetUI()->getPos().x + 64 + 10, 833, false);	m_vecUISkill.push_back(tempSkill);
-	tempSkill = new cUISkill("btn_skill06_on", "btn_skill06_off", "ÄðÅ¸ÀÓ6", '7', m_vecUISkill[1]->GetUI()->getPos().x + 64 + 10, 833, false);	m_vecUISkill.push_back(tempSkill);
+	tempSkill = new cUISkill("btn_skill01_on", "btn_skill01_off", "ÄðÅ¸ÀÓ1", '7',  m_vecUISkill[1]->GetUI()->getPos().x + 64 + 10, 833, false);	m_vecUISkill.push_back(tempSkill);
 	tempSkill = new cUISkill("btn_skill07_on", "btn_skill07_off", "ÄðÅ¸ÀÓ7", '8', m_vecUISkill[2]->GetUI()->getPos().x + 64 + 10, 833, false);	m_vecUISkill.push_back(tempSkill);
 
 
@@ -381,27 +381,27 @@ void cUIPlayer::update()
 	//=================================================================================
 	// Ã¼·Â
 	//=================================================================================
-	//m_pBar->moveBar((float)PLAYERMANAGER->GetHp() / (float)PLAYERMANAGER->GetMaxHp() * 100);
+	m_pBar->moveBar((float)PLAYERMANAGER->GetHp() / (float)PLAYERMANAGER->GetMaxHp() * 100);
 	//m_pBar->moveBar(0.0f);
 
-	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
-	{
-		m_pBar->moveBar(-1);
-	}
-	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
-	{
-		m_pBar->moveBar(1);
-	}
+	//if (GetAsyncKeyState(VK_LEFT) & 0x8000)
+	//{
+	//	m_pBar->moveBar(-1);
+	//}
+	//if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
+	//{
+	//	m_pBar->moveBar(1);
+	//}
 
-	//Ã¼·ÂÀÌ 0ÀÌÇÏ°¡ µÈ´Ù¸é...
-	if (m_pBar->getCursorBar() <= 0)
-	{
-		m_pYouDied->SetIsDied(true);
-	}
-	else
-	{
-		m_pYouDied->SetIsDied(false);
-	}
+	////Ã¼·ÂÀÌ 0ÀÌÇÏ°¡ µÈ´Ù¸é...
+	//if (m_pBar->getCursorBar() <= 0)
+	//{
+	//	m_pYouDied->SetIsDied(true);
+	//}
+	//else
+	//{
+	//	m_pYouDied->SetIsDied(false);
+	//}
 
 
 	//=================================================================================
