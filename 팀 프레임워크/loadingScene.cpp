@@ -53,8 +53,8 @@ void loadingScene::render()
 	{
 		//g_eSelectMode = E_MAPTOOL;
 		//SCENEMANAGER->changeScene("test");
-		//SCENEMANAGER->changeScene("gameSceneOne");//gameSceneOne
-		SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
+		SCENEMANAGER->changeScene("gameSceneOne");//gameSceneOne
+		//SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
 		//SCENEMANAGER->changeScene("gameSceneThree");//gameSceneThree
 		//SCENEMANAGER->changeScene("gameSceneFour");//gameSceneFour
 		//SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
