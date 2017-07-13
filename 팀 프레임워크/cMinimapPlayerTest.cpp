@@ -81,9 +81,11 @@ void cMinimapPlayerTest::update()
 	D3DXVECTOR3 lightDir = _sceneBaseDirectionLight->_transform->GetForward();
 
 	//플레이어 업데이트
-	if (KEYMANAGER->isToggleKey('0'))
+	//if (KEYMANAGER->isToggleKey('0'))
 	{
 		_player->update();
+
+		//_player->out_setTargetByMouse(_mainCamera);
 	}
 	_player->getPlayerObject()->update();
 	
@@ -131,4 +133,9 @@ void cMinimapPlayerTest::render()
 	//FONTMANAGER->fontOut("GetMinimapMoveY : %f", m_pUIPlayer->GetMinimapMoveY(), 600, 180, WHITE);
 	//FONTMANAGER->fontOut("GetTerrainSizeX : %f", _terrain->GetTerrainSizeX(), 600, 200, WHITE);
 
+}
+
+void cMinimapPlayerTest::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	m_pUIPlayer->WndProc(hWnd,message,wParam,lParam);
 }

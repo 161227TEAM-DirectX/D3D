@@ -56,5 +56,7 @@ public:
 	void readyShadowMap(vector<baseObject*>* renderObjects, terrain* pTerrain = NULL);
 
 	void sceneChange();
+
+	virtual void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 };
 

@@ -39,6 +39,7 @@ void cUIchatting::update()
 
 	if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
 	{
+		g_isChat = !g_isChat;
 		//number값 조절하기
 		if (_number >= FOCUS::FOCUSTWO)
 		{

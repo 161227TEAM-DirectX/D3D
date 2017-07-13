@@ -478,6 +478,8 @@ void cRegistBase::UIRegist()
 	FILEPATH_MANAGER->AddFilepath("dragon_soul", "ResourceUI/test/dragon_soul.png");
 
 	FILEPATH_MANAGER->AddFilepath("mouse", "ResourceUI/test/mouse.png");
+
+	FILEPATH_MANAGER->AddFilepath("partTest", "ResourceUI/test/partTest.png");
 }
 
 

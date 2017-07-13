@@ -17,6 +17,7 @@
 #include "cMinimapPlayerTest.h"
 //#include "cSkillBookTest.h"
 //#include "cSkillTest.h"
+#include "cImgPartRenderTest.h"
 //
 #include "EndingScene.h"
 #include "kimsNewTest.h"

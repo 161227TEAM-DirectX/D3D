@@ -22,4 +22,6 @@ public:
 	virtual void release();
 	virtual void update();
 	virtual void render();
+
+	virtual void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 };
