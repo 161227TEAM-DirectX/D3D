@@ -47,10 +47,7 @@ public:
 	{
 		switch (result)
 		{
-		case LHS::ACTIONRESULT::ACTION_DIE:
-		case LHS::ACTIONRESULT::ACTION_FLY_DIE:
-		case LHS::ACTIONRESULT::ACTION_PA_OX:
-		case LHS::ACTIONRESULT::ACTION_FLY_MOVE_ATT:
+		case LHS::ACTIONRESULT::ACTION_SAFE:
 			break;
 		default:
 			HP = temp;

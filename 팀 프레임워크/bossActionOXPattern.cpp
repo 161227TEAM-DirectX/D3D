@@ -43,7 +43,7 @@ int bossActionOXPattern::Start()
 
 	vertexInit();
 
-	return LHS::ACTIONRESULT::ACTION_PLAY;
+	return LHS::ACTIONRESULT::ACTION_SAFE;
 }
 
 int bossActionOXPattern::Update()
@@ -84,7 +84,7 @@ int bossActionOXPattern::Update()
 		updateVertex();
 	}
 
-	return LHS::ACTIONRESULT::ACTION_PLAY;
+	return LHS::ACTIONRESULT::ACTION_SAFE;
 }
 
 void bossActionOXPattern::Render()

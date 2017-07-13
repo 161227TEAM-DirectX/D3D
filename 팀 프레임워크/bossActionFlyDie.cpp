@@ -43,5 +43,5 @@ int bossActionFlyDie::Update()
 		}
 	}
 
-	return LHS::ACTIONRESULT::ACTION_PLAY;
+	return LHS::ACTIONRESULT::ACTION_SAFE;
 }

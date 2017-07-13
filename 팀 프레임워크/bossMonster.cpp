@@ -125,6 +125,8 @@ void bossMonster::switchState(void)
 	case LHS::ACTIONRESULT::ACTION_PA_OX:
 		NextAction = ACMANAGER->getAction("OX∆–≈œ", *this);
 		break;
+	case LHS::ACTIONRESULT::ACTION_SAFE:
+		return;
 	}
 }
 
