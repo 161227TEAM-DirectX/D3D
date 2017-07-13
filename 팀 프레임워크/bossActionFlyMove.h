@@ -25,11 +25,10 @@ private:
 	float angle;
 	FLYSTATE isRound;
 	int ch;
-	float tempRadian;
-	float tempLenge;
 	bool isAttack;
 	float count;
-	float attackCount;
+	int attackEnergyBallCount;
+	float attackTime;
 public:
 	bossActionFlyMove();
 	~bossActionFlyMove();
@@ -38,9 +37,5 @@ public:
 	int Start() override;
 	//액션을 실행하는 함수 - 순수가상함수
 	int Update() override;
-
-	void Render() override;
-
-	void attackFireBall(void);
 };
 

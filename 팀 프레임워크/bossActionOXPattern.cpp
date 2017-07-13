@@ -51,6 +51,7 @@ int bossActionOXPattern::Update()
 	string temp;
 	temp = owner->getSkinnedAnim().getAnimationSet()->GetName();
 	chargeTime += 0.01f;
+
 	updateRangeC();
 
 	//애니메이션 변경점
@@ -73,7 +74,7 @@ int bossActionOXPattern::Update()
 			damageTime += _timeDelta;
 			if (damageTime >= 1.0f)
 			{
-				enemy->playerDamaged(20000);
+				enemy->playerDamaged(300000);
 				damageTime = 0.0f;
 			}
 		}

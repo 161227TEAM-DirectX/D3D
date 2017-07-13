@@ -117,6 +117,8 @@ public:
 		return false;
 	}
 
+	virtual void setResetOn() { _skillResetOn = true; };
+
 	//업데이트 동작
 	virtual bool Prepare() = 0;
 	virtual bool Action() = 0;

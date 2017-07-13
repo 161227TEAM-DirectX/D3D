@@ -31,7 +31,7 @@ int bossActionSkillBattleRoar::Start()
 int bossActionSkillBattleRoar::Update()
 {
 	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
-	
+	if (temp->getHP() <= 0) return LHS::ACTIONRESULT::ACTION_DIE;
 	
 	PHYSICSMANAGER->isBlocking(owner, playerObject);
 	//이제부터 나와 적의 각도를 구해보자~ 예~~~
