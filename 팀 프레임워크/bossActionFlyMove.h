@@ -37,9 +37,5 @@ public:
 	int Start() override;
 	//액션을 실행하는 함수 - 순수가상함수
 	int Update() override;
-
-	void Render() override;
-
-	void attackFireBall(void);
 };
 

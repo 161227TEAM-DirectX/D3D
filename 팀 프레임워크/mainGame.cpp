@@ -40,15 +40,17 @@ mainGame::mainGame()
 	//SCENEMANAGER->addScene("particleTest6", new particleTest06, true);
 	//SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
 
-	//SCENEMANAGER->addScene("start", new startScene, false);
-	//SCENEMANAGER->addScene("EndingScene", new EndingScene, false);
+	
+	
 	//SCENEMANAGER->addScene("particleTest5", new particleTest05, false);
 	//SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
 
+	SCENEMANAGER->addScene("start", new startScene, false);
 	SCENEMANAGER->addScene("gameSceneOne", new stageOne);
 	SCENEMANAGER->addScene("gameSceneTwo", new stageTwo);
 	SCENEMANAGER->addScene("gameSceneThree", new stageThree);
 	SCENEMANAGER->addScene("gameSceneFour", new stageFour);
+	SCENEMANAGER->addScene("EndingScene", new EndingScene, false);
 
 	//SCENEMANAGER->addScene("test", new cGameUITest, false);
 	//SCENEMANAGER->addScene("test", new cMinimapTest, false);

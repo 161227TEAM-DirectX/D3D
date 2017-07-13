@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "bossActionFly.h"
+#include "bossMonster.h"
 
 
 bossActionFly::bossActionFly()
@@ -29,6 +30,9 @@ int bossActionFly::Start()
 
 int bossActionFly::Update()
 {
+	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
+	if (temp->getHP() <= 0) return LHS::ACTIONRESULT::ACTION_FLY_DIE;
+
 	string name = owner->getSkinnedAnim().getAnimationSet()->GetName();
 	float a = owner->getSkinnedAnim().getAnimationPlayFactor();
 	//날기 시작하는 부분

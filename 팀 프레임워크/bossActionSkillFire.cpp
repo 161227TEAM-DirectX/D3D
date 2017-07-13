@@ -33,6 +33,12 @@ int bossActionSkillFire::Start()
 int bossActionSkillFire::Update()
 {
 	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
+	if (temp->getHP() <= 0)
+	{
+		SKM->findSK("ºê·¹½º")->setResetOn();
+		owner->getSkinnedAnim().RemoveBoneTransform("Deathwing_Bone129__Breath");
+		return LHS::ACTIONRESULT::ACTION_DIE;
+	}
 
 	PHYSICSMANAGER->isBlocking(owner, playerObject);
 

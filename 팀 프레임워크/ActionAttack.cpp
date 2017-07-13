@@ -29,7 +29,7 @@ int ActionAttack::Update()
 	monster* temp = dynamic_cast<monster*>(owner);
 
 	//죽음조건
-	if (temp->getHP() < 0)return LHS::ACTIONRESULT::ACTION_DIE;
+	if (temp->getHP() <= 0)return LHS::ACTIONRESULT::ACTION_DIE;
 
 	//모션 시작 시에
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() - Gap < 0.05f)

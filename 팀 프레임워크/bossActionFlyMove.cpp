@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "bossActionFlyMove.h"
 #include "xPlayer.h"
+#include "bossMonster.h"
 
 
 bossActionFlyMove::bossActionFlyMove()
@@ -34,15 +35,18 @@ int bossActionFlyMove::Start()
 
 int bossActionFlyMove::Update()
 {
-	string temp = owner->getSkinnedAnim().getAnimationSet()->GetName();
+	string tempName = owner->getSkinnedAnim().getAnimationSet()->GetName();
 
-	if (!strcmp("Animation_48", temp.c_str()))
+	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
+	if (temp->getHP() <= 0) return LHS::ACTIONRESULT::ACTION_FLY_DIE;
+
+	if (!strcmp("Animation_48", tempName.c_str()))
 	{
 		if (owner->getSkinnedAnim().getAnimationPlayFactor() > ANIMATIONENDTIME) owner->getSkinnedAnim().Play("Animation_39", 1.0f);
 	}
 
 	//애니메이션이 날며 이동하는 애니메이션으로 변경 되었을 경우.
-	if (!strcmp("Animation_39", temp.c_str()))
+	if (!strcmp("Animation_39", tempName.c_str()))
 	{
 		switch (isRound)
 		{
@@ -170,23 +174,4 @@ int bossActionFlyMove::Update()
 	}
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
-}
-
-void bossActionFlyMove::Render()
-{
-	char temp[128];
-
-	sprintf_s(temp, "x: %f, y: %f, z: %f", owner->_transform->GetWorldPosition().x, owner->_transform->GetWorldPosition().y, owner->_transform->GetWorldPosition().z);
-	FONTMANAGER->fontOut(temp, 300, 300, WHITE);
-
-	sprintf_s(temp, "%f", attackTime);
-	FONTMANAGER->fontOut(temp, 350, 350, WHITE);
-
-	sprintf_s(temp, "%f", attackEnergyBallCount);
-	FONTMANAGER->fontOut(temp, 350, 400, WHITE);
-}
-
-void bossActionFlyMove::attackFireBall(void)
-{
-	
 }

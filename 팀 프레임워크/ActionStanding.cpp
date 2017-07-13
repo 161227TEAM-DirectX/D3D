@@ -27,7 +27,7 @@ int ActionStanding::Update()
 	monster* temp = dynamic_cast<monster*>(owner);
 
 	//Á×À½Á¶°Ç
-	if (temp->getHP() < 0)return LHS::ACTIONRESULT::ACTION_DIE;
+	if (temp->getHP() <= 0)return LHS::ACTIONRESULT::ACTION_DIE;
 
 	if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 	{

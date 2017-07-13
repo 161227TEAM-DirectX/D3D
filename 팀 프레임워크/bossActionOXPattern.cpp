@@ -51,6 +51,7 @@ int bossActionOXPattern::Update()
 	string temp;
 	temp = owner->getSkinnedAnim().getAnimationSet()->GetName();
 	chargeTime += 0.01f;
+
 	updateRangeC();
 
 	//애니메이션 변경점
