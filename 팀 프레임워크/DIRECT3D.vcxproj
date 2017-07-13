@@ -345,7 +345,10 @@
     <ClInclude Include="SK00.h" />
     <ClInclude Include="skBoss_Breath.h" />
     <ClInclude Include="skBoss_EnergyBullet.h" />
+    <ClInclude Include="skBoss_FireField.h" />
+    <ClInclude Include="skBoss_FirePath.h" />
     <ClInclude Include="skBoss_GrandMagic.h" />
+    <ClInclude Include="skBoss_Scratch.h" />
     <ClInclude Include="skBoss_Shouting.h" />
     <ClInclude Include="skill00.h" />
     <ClInclude Include="skill00_01.h" />
@@ -581,7 +584,10 @@
     <ClCompile Include="SK00.cpp" />
     <ClCompile Include="skBoss_Breath.cpp" />
     <ClCompile Include="skBoss_EnergyBullet.cpp" />
+    <ClCompile Include="skBoss_FireField.cpp" />
+    <ClCompile Include="skBoss_FirePath.cpp" />
     <ClCompile Include="skBoss_GrandMagic.cpp" />
+    <ClCompile Include="skBoss_Scratch.cpp" />
     <ClCompile Include="skBoss_Shouting.cpp" />
     <ClCompile Include="skill00.cpp" />
     <ClCompile Include="skill00_01.cpp" />
