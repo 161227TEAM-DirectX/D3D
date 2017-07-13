@@ -442,6 +442,9 @@
     <Filter Include="GameFramework3D\Text">
       <UniqueIdentifier>{a771e926-96bb-4438-84ea-b8498f657919}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Z테스트\김만웅\14.이미지 부분렌더">
+      <UniqueIdentifier>{4793cf5b-76fc-4eb7-a65a-fc94474bd553}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainGame.cpp">
@@ -1147,6 +1150,9 @@
     <ClCompile Include="ioSaveMonsterBoxManager.cpp">
       <Filter>GameManager%28상속%29\IO</Filter>
     </ClCompile>
+    <ClCompile Include="cImgPartRenderTest.cpp">
+      <Filter>Z테스트\김만웅\14.이미지 부분렌더</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainGame.h">
@@ -1851,6 +1857,9 @@
     </ClInclude>
     <ClInclude Include="ioSaveMonsterBoxManager.h">
       <Filter>GameManager%28상속%29\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="cImgPartRenderTest.h">
+      <Filter>Z테스트\김만웅\14.이미지 부분렌더</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

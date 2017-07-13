@@ -19,11 +19,9 @@ HRESULT stageOne::init()
 	water->linkCamera(*_mainCamera);
 	toRotate = new dx::transform;
 	objectSet = new mapObject;
-	m_pUIPlayer = new cUIPlayer;
-
+	
 	this->shadowInit();
 
-	m_pUIPlayer->init();
 
 	_terrain = new terrain;
 	_terrain->setHeightmap("높이맵_1");
@@ -116,6 +114,16 @@ HRESULT stageOne::init()
 
 	//player->setBGate();
 
+	m_pUIPlayer = new cUIPlayer;
+	m_pUIPlayer->linkMinimapPlayerAngle(player->getPlayerObject()->_transform->GetAngleY());
+	m_pUIPlayer->linkMinimapPlayerMove(player->getPlayerObject()->_transform->GetWorldPosition().x + _terrain->GetTerrainSizeX() / 2,
+									   player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
+									   _terrain->GetTerrainSizeX());
+	m_pUIPlayer->SetMinimap("worldmapView");
+	m_pUIPlayer->SetMapNum(0);
+	m_pUIPlayer->init();
+
+
 	return S_OK;
 }
 
@@ -125,7 +133,7 @@ void stageOne::release()
 	{
 		SAFE_DELETE(_renderObject[i]);
 	}
-	
+	SAFE_DELETE(m_pUIPlayer);
 	SAFE_DELETE(_mainCamera);
 	SAFE_DELETE(_directionLightCamera);
 	SAFE_DELETE(sceneBaseDirectionLight);
@@ -143,8 +151,6 @@ void stageOne::release()
 
 void stageOne::update()
 {
-
-
 	shadowUpdate();
 
 	currTime += _timeDelta;
@@ -166,7 +172,7 @@ void stageOne::update()
 	sceneBaseDirectionLight->_transform->RotateSlerp(*sceneBaseDirectionLight->_transform, *toRotate, _timeDelta);
 
 	player->update();
-
+	
 	player->out_setTargetByMouse(_mainCamera);
 
 	//오브젝트 업데이트
@@ -174,7 +180,12 @@ void stageOne::update()
 
 	water->update(waterTemp.number);
 
+	//UI 업데이트
 	m_pUIPlayer->update();
+	m_pUIPlayer->linkMinimapPlayerAngle(player->getPlayerObject()->_transform->GetAngleY());
+	m_pUIPlayer->linkMinimapPlayerMove(player->getPlayerObject()->_transform->GetWorldPosition().x + _terrain->GetTerrainSizeX() / 2,
+									   player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
+									   _terrain->GetTerrainSizeX());
 
 	sceneChange();
 }
@@ -322,9 +333,10 @@ void stageOne::shadowUpdate(void)
 
 	//_directionLightCamera->SetWorldPosition(lightPos.x, lightPos.y, lightPos.z);
 	//_directionLightCamera->LookDirection(lightDir);
-
-
-	_mainCamera->updateBase();
+	if (!g_isChat)
+	{
+		_mainCamera->updateBase();
+	}
 
 	D3DXVECTOR3 camPos = player->getPlayerObject()->_transform->GetWorldPosition();	//메인카메라의 위치
 
@@ -400,4 +412,9 @@ void stageOne::sceneChange()
 			SCENEMANAGER->changeScene("gameSceneFour", false);
 		}
 	}
+}
+
+void stageOne::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	m_pUIPlayer->WndProc(hWnd,message,wParam,lParam);
 }

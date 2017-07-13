@@ -195,6 +195,7 @@
     <ClInclude Include="cGameUITest.h" />
     <ClInclude Include="characterController.h" />
     <ClInclude Include="cImageTest.h" />
+    <ClInclude Include="cImgPartRenderTest.h" />
     <ClInclude Include="CinematicManger.h" />
     <ClInclude Include="cMinimapPlayerTest.h" />
     <ClInclude Include="cMinimapTest.h" />
@@ -430,6 +431,7 @@
     <ClCompile Include="cGameUITest.cpp" />
     <ClCompile Include="characterController.cpp" />
     <ClCompile Include="cImageTest.cpp" />
+    <ClCompile Include="cImgPartRenderTest.cpp" />
     <ClCompile Include="CinematicManger.cpp" />
     <ClCompile Include="cMinimapPlayerTest.cpp" />
     <ClCompile Include="cMinimapTest.cpp" />

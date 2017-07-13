@@ -52,12 +52,12 @@ void loadingScene::render()
 	if (m_isChange /*&& m_pLoadingBar->IsFullBar()*/)
 	{
 		//g_eSelectMode = E_MAPTOOL;
-		//SCENEMANAGER->changeScene("gameSceneOne");//gameSceneOne
+		//SCENEMANAGER->changeScene("test");
+		SCENEMANAGER->changeScene("gameSceneOne");//gameSceneOne
 		//SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
 		//SCENEMANAGER->changeScene("gameSceneThree");//gameSceneThree
 		//SCENEMANAGER->changeScene("gameSceneFour");//gameSceneFour
 		//SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
-		SCENEMANAGER->changeScene("test");
 		//SCENEMANAGER->changeScene("kims");//kims
 		//SCENEMANAGER->changeScene("AItest");//AItest
 	}
@@ -66,13 +66,9 @@ void loadingScene::render()
 
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
-	//SoundLoading();
-	//XMeshStaticLoading();	//주석을 풀어도 의미없다.안에 다 주석처리함!
-	//XMeshSkinnedLoading();
-
-	//이거 주석 풀면 됨!!!
-	//PtcLoading();
-
+	XMeshSkinnedLoading();
+	PtcLoading();
+	SoundLoading();
 	UILoading();
 	AniLoading();
 
@@ -188,15 +184,15 @@ void loadingScene::UILoading()
 	DXIMG_MANAGER->AddDxImg("이벤트씬_위", new cDxImg(FILEPATH_MANAGER->GetFilepath("이벤트씬")));
 	DXIMG_MANAGER->AddDxImg("이벤트씬_아래", new cDxImg(FILEPATH_MANAGER->GetFilepath("이벤트씬")));
 
-	DXIMG_MANAGER->AddDxImg("worldmap", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmap")));
-	DXIMG_MANAGER->AddDxImg("worldmap2", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmap2")));
-	DXIMG_MANAGER->AddDxImg("worldmap3", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmap3")));
-
-
+	
 	DXIMG_MANAGER->AddDxImg("worldmap_cover", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmap_cover")));
 	DXIMG_MANAGER->AddDxImg("worldmap", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmap")));
 	DXIMG_MANAGER->AddDxImg("worldmap2", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmap2")));
 	DXIMG_MANAGER->AddDxImg("worldmap3", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmap3")));
+
+	DXIMG_MANAGER->AddDxImg("worldmapView", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmap")));
+	DXIMG_MANAGER->AddDxImg("worldmap2View", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmap2")));
+	DXIMG_MANAGER->AddDxImg("worldmap3View", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmap3")));
 
 	DXIMG_MANAGER->AddDxImg("Miniworldmap", new cDxImg(FILEPATH_MANAGER->GetFilepath("worldmap")));
 
@@ -353,6 +349,7 @@ void loadingScene::UILoading()
 
 	DXIMG_MANAGER->AddDxImg("mouse", new cDxImg(FILEPATH_MANAGER->GetFilepath("mouse")));
 
+	DXIMG_MANAGER->AddDxImg("partTest", new cDxImg(FILEPATH_MANAGER->GetFilepath("partTest")));
 
 
 	//텍스쳐를 저장하자.

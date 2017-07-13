@@ -65,12 +65,10 @@ HRESULT stageTwo::init()
 	water->linkCamera(*_mainCamera);
 	toRotate = new dx::transform;
 
-	m_pUIPlayer = new cUIPlayer;
-
+	
 	this->shadowInit();
 
-	m_pUIPlayer->init();
-
+	
 	//지형 초기화
 	_terrain = new terrain;
 	_terrain->setHeightmap("높이맵_1");
@@ -171,11 +169,22 @@ HRESULT stageTwo::init()
 		}
 	}
 
+
+	m_pUIPlayer = new cUIPlayer;
+	m_pUIPlayer->linkMinimapPlayerAngle(player->getPlayerObject()->_transform->GetAngleY());
+	m_pUIPlayer->linkMinimapPlayerMove(player->getPlayerObject()->_transform->GetWorldPosition().x + _terrain->GetTerrainSizeX() / 2,
+									   player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
+									   _terrain->GetTerrainSizeX());
+	m_pUIPlayer->SetMinimap("worldmap2View");
+	m_pUIPlayer->SetMapNum(1);
+	m_pUIPlayer->init();
+
 	return S_OK;
 }
 
 void stageTwo::release()
 {
+	SAFE_DELETE(m_pUIPlayer);
 	for (int i = 0; i < _renderObject.size(); i++)
 	{
 		SAFE_DELETE(_renderObject[i]);
@@ -227,7 +236,12 @@ void stageTwo::update()
 
 	water->update(waterTemp.number);
 
+	//UI 업데이트
 	m_pUIPlayer->update();
+	m_pUIPlayer->linkMinimapPlayerAngle(player->getPlayerObject()->_transform->GetAngleY());
+	m_pUIPlayer->linkMinimapPlayerMove(player->getPlayerObject()->_transform->GetWorldPosition().x + _terrain->GetTerrainSizeX() / 2,
+									   player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
+									   _terrain->GetTerrainSizeX());
 
 	sceneChange();
 }
@@ -359,7 +373,10 @@ void stageTwo::shadowUpdate(void)
 	this->readyShadowMap(&this->_renderObject, this->_terrainShadow);*/
 	//===========================================================================
 
-	_mainCamera->updateBase();
+	if (!g_isChat)
+	{
+		_mainCamera->updateBase();
+	}
 
 	D3DXVECTOR3 camPos = player->getPlayerObject()->_transform->GetWorldPosition();	//메인카메라의 위치
 
@@ -593,4 +610,9 @@ void stageTwo::sceneChange()
 			SCENEMANAGER->changeScene("gameSceneThree", false);
 		}
 	}
+}
+
+void stageTwo::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	m_pUIPlayer->WndProc(hWnd, message, wParam, lParam);
 }

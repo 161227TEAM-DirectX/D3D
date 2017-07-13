@@ -63,12 +63,10 @@ HRESULT stageThree::init()
 	env = new Environment;
 	water = new WaterTerrain;
 	water->linkCamera(*_mainCamera);
-	m_pUIPlayer = new cUIPlayer;
-
+	
 	this->shadowInit();
 
-	m_pUIPlayer->init();
-
+	
 	//지형 초기화
 	_terrain = new terrain;
 	_terrain->setHeightmap("높이맵_3");
@@ -136,11 +134,21 @@ HRESULT stageThree::init()
 	_mon.push_back(boss);
 	player->out_setMonsterRegion(&_mon);
 
+	m_pUIPlayer = new cUIPlayer;
+	m_pUIPlayer->linkMinimapPlayerAngle(player->getPlayerObject()->_transform->GetAngleY());
+	m_pUIPlayer->linkMinimapPlayerMove(player->getPlayerObject()->_transform->GetWorldPosition().x + _terrain->GetTerrainSizeX() / 2,
+									   player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
+									   _terrain->GetTerrainSizeX());
+	m_pUIPlayer->SetMinimap("worldmap3View");
+	m_pUIPlayer->SetMapNum(2);
+	m_pUIPlayer->init();
+
 	return S_OK;
 }
 
 void stageThree::release()
 {
+	SAFE_DELETE(m_pUIPlayer);
 }
 
 void stageThree::update()
@@ -157,7 +165,10 @@ void stageThree::update()
 		}
 		else
 		{
-			_mainCamera->updateBase();
+			if (!g_isChat)
+			{
+				_mainCamera->updateBase();
+			}
 		}
 	}
 
@@ -172,7 +183,12 @@ void stageThree::update()
 
 	water->update(waterTemp.number);
 
+	//UI 업데이트
 	m_pUIPlayer->update();
+	m_pUIPlayer->linkMinimapPlayerAngle(player->getPlayerObject()->_transform->GetAngleY());
+	m_pUIPlayer->linkMinimapPlayerMove(player->getPlayerObject()->_transform->GetWorldPosition().x + _terrain->GetTerrainSizeX() / 2,
+									   player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
+									   _terrain->GetTerrainSizeX());
 }
 
 void stageThree::render()
@@ -227,6 +243,11 @@ void stageThree::render()
 		m_pUIPlayer->render();
 	}
 
+}
+
+void stageThree::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	m_pUIPlayer->WndProc(hWnd, message, wParam, lParam);
 }
 
 void stageThree::shadowInit(void)
