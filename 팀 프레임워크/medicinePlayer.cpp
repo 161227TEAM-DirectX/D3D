@@ -30,9 +30,19 @@ void medicinePlayer::update(void)
 			}
 			else
 			{
-				//여기다가 연동된 HP값 넣기
-				//--
-				//
+				int SUM = 0;
+
+				if (_vHPMedicinePlayerInforMation[0].hpAbility + PLAYERMANAGER->GetHp() > PLAYERMANAGER->GetMaxHp())
+				{
+					SUM = PLAYERMANAGER->GetMaxHp();
+				}
+				else
+				{
+					SUM = _vHPMedicinePlayerInforMation[0].hpAbility + PLAYERMANAGER->GetHp();
+				}
+
+				PLAYERMANAGER->SetHp(SUM);
+				
 				_vHPMedicinePlayerInforMation[0].medicineCount--;
 			}
 		}
@@ -50,8 +60,8 @@ void medicinePlayer::update(void)
 			else
 			{
 				//여기다가 연동된 MP값 넣기
-				//--
-				//
+			    //MP는 스킬을 쓸댸 연동이 필요없어서 안했음.
+				//HP만 있으면 된다고 판단
 				_vMPMedicinePlayerInforMation[0].medicineCount--;
 			}
 		}
@@ -64,7 +74,7 @@ void medicinePlayer::update(void)
 			RHtemp = _vHPMedicinePlayerRender[0];
 			IHtemp = _vHPMedicinePlayerInforMation[0];
 
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON), true)
+			if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
 			{
 				_HPdublePick++;
 
@@ -92,7 +102,7 @@ void medicinePlayer::update(void)
 			RMtemp = _vMPMedicinePlayerRender[0];
 			IMtemp = _vMPMedicinePlayerInforMation[0];
 
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON), true)
+			if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
 			{
 				_MPdublePick++;
 
@@ -137,8 +147,8 @@ void medicinePlayer::render(void)
 	{
 		for (int i = 0; i < _vHPMedicinePlayerRender.size(); i++)
 		{
-			_vHPMedicinePlayerRender[i].rc2 = { DXIMG_MANAGER->GetDxImg("quickSlotUI_back")->getRect().left + 1090, DXIMG_MANAGER->GetDxImg("quickSlotUI_back")->getRect().top + 85, _vHPMedicinePlayerRender[i].rc2.left + 53,_vHPMedicinePlayerRender[i].rc2.top + 53 };
-			SPRITEMANAGER->renderRectTexture(_vHPMedicinePlayerRender[i].tex, &_vHPMedicinePlayerRender[i].rc1, &_vHPMedicinePlayerRender[i].rc2, 0, 0, 64, 64, DXIMG_MANAGER->GetDxImg("quickSlotUI_back")->getRect().left + 1090, DXIMG_MANAGER->GetDxImg("quickSlotUI_back")->getRect().top + 85);
+			_vHPMedicinePlayerRender[i].rc2 = { DXIMG_MANAGER->GetDxImg("quickSlotUI_back")->getRect().left + 528, DXIMG_MANAGER->GetDxImg("quickSlotUI_back")->getRect().top + 81, _vHPMedicinePlayerRender[i].rc2.left + 53,_vHPMedicinePlayerRender[i].rc2.top + 53 };
+			SPRITEMANAGER->renderRectTexture(_vHPMedicinePlayerRender[i].tex, &_vHPMedicinePlayerRender[i].rc1, &_vHPMedicinePlayerRender[i].rc2, 0, 0, 64, 64, DXIMG_MANAGER->GetDxImg("quickSlotUI_back")->getRect().left + 528, DXIMG_MANAGER->GetDxImg("quickSlotUI_back")->getRect().top + 81);
 
 			if (_vHPMedicinePlayerInforMation[i].medicineCount < 10)
 			{
@@ -155,8 +165,8 @@ void medicinePlayer::render(void)
 	{
 		for (int i = 0; i < _vMPMedicinePlayerRender.size(); i++)
 		{
-			_vMPMedicinePlayerRender[i].rc2 = { DXIMG_MANAGER->GetDxImg("quickSlotUI_back")->getRect().left + 1145, DXIMG_MANAGER->GetDxImg("quickSlotUI_back")->getRect().top + 85, _vMPMedicinePlayerRender[i].rc2.left + 53,_vMPMedicinePlayerRender[i].rc2.top + 53 };
-			SPRITEMANAGER->renderRectTexture(_vMPMedicinePlayerRender[i].tex, &_vMPMedicinePlayerRender[i].rc1, &_vMPMedicinePlayerRender[i].rc2, 0, 0, 64, 64, DXIMG_MANAGER->GetDxImg("quickSlotUI_back")->getRect().left + 1145, DXIMG_MANAGER->GetDxImg("quickSlotUI_back")->getRect().top + 85);
+			_vMPMedicinePlayerRender[i].rc2 = { DXIMG_MANAGER->GetDxImg("quickSlotUI_back")->getRect().left + 578, DXIMG_MANAGER->GetDxImg("quickSlotUI_back")->getRect().top + 81, _vMPMedicinePlayerRender[i].rc2.left + 53,_vMPMedicinePlayerRender[i].rc2.top + 53 };
+			SPRITEMANAGER->renderRectTexture(_vMPMedicinePlayerRender[i].tex, &_vMPMedicinePlayerRender[i].rc1, &_vMPMedicinePlayerRender[i].rc2, 0, 0, 64, 64, DXIMG_MANAGER->GetDxImg("quickSlotUI_back")->getRect().left + 578, DXIMG_MANAGER->GetDxImg("quickSlotUI_back")->getRect().top + 81);
 
 			if (_vMPMedicinePlayerInforMation[i].medicineCount < 10)
 			{

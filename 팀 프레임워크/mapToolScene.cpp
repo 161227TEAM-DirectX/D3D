@@ -80,7 +80,9 @@ void mapToolScene::render()
 
 		_leftViewHead->render();
 
-		GIZMOMANAGER->WorldGrid(1, 10);
+		MOUSE_MANAGER->render();
+
+		//GIZMOMANAGER->WorldGrid(1, 10);
 
 		//타임매니져 렌더
 		TIMEMANAGER->render();
@@ -115,6 +117,8 @@ void mapToolScene::render()
 		_device->BeginScene();
 
 		_rightView->render();
+
+		MOUSE_MANAGER->render();
 
 		//디바이스 렌더 종료
 		_device->EndScene();
