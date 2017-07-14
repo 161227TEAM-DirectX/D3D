@@ -31,12 +31,13 @@ HRESULT loadingScene::init()
 	InitializeCriticalSection(&_cs);
 
 	DWORD dwThID[6];
-	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInit, this, NULL, &dwThID[1]));
+	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInit, this, NULL, &dwThID[1]));//·Îµù¾À
 
 	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene1, this, NULL, &dwThID[2]));
 	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene2, this, NULL, &dwThID[3]));
 	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene3, this, NULL, &dwThID[4]));
 	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene4, this, NULL, &dwThID[5]));
+
 	return S_OK;
 }
 
@@ -63,10 +64,11 @@ void loadingScene::render()
 		//&& m_isChangeScene3 
 		//&& m_isChangeScene4
 		//&& m_pLoadingBar->IsFullBar()
+
 		)
 	{
 		//SCENEMANAGER->changeScene("test");
-		
+
 		//g_isMaptool = true;
 		//SCENEMANAGER->changeScene("maptool");
 
