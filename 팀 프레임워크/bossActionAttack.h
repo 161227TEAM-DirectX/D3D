@@ -11,6 +11,9 @@ private:
 	vector<int> list;
 	damageText* text;
 	float yPosition;
+
+	int ActionRandom;
+
 private:
 	dx::transform effect;
 public:

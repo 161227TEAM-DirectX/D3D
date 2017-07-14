@@ -4,7 +4,7 @@
 #include "damageText.h"
 
 
-bossActionAttack::bossActionAttack() :Action(), resultValue(0), yPosition(0.0f)
+bossActionAttack::bossActionAttack() :Action(), resultValue(0), yPosition(0.0f), ActionRandom(0)
 {
 	text = new damageText;
 }
@@ -141,8 +141,8 @@ void bossActionAttack::Render()
 	if (EFFECT->findEffect("¾Õ¹ßÂï±â")->getActive()) FONTMANAGER->fontOut("¾Õ¹ßÂï±â true", 200, 350, WHITE);
 	else FONTMANAGER->fontOut("¾Õ¹ßÂï±â false", 200, 350, WHITE);
 
-	if (SKM->findSK("ÇÒÄû±â")->getActive()) FONTMANAGER->fontOut("ÇÒÄû±â true", 200, 400, WHITE);
-	else FONTMANAGER->fontOut("ÇÒÄû±â false", 200, 400, WHITE);
+	if (SKM->findSK("ÇÒÄû±â_¿À¸¥¹ß")->getActive()) FONTMANAGER->fontOut("ÇÒÄû±â_¿À¸¥¹ß true", 200, 400, WHITE);
+	else FONTMANAGER->fontOut("ÇÒÄû±â_¿À¸¥¹ß false", 200, 400, WHITE);
 }
 
 void bossActionAttack::removeTransform(void)
@@ -152,7 +152,7 @@ void bossActionAttack::removeTransform(void)
 	if (!tempAniName.compare("Animation_12"))
 	{
 		owner->getSkinnedAnim().RemoveBoneTransform("Deathwing_Bone130");
-		SKM->findSK("È­¿°ÀåÆÇ")->setResetOn();
+		//SKM->findSK("È­¿°ÀåÆÇ")->setResetOn();
 		return;
 	}
 	else if (!tempAniName.compare("Animation_9"))
@@ -166,32 +166,48 @@ void bossActionAttack::removeTransform(void)
 	else if (!tempAniName.compare("Animation_21"))
 	{
 		owner->getSkinnedAnim().RemoveBoneTransform("Deathwing_Bone92");
-		EFFECT->findEffect("¾Õ¹ßÂï±â")->resetOn();
+		//EFFECT->findEffect("¾Õ¹ßÂï±â")->resetOn();
 		return;
 	}
 	else if (!tempAniName.compare("Animation_10"))
 	{
 		owner->getSkinnedAnim().RemoveBoneTransform("Deathwing_Bone92");
-		SKM->findSK("ÇÒÄû±â")->setResetOn();
+		//SKM->findSK("ÇÒÄû±â")->setResetOn();
 		return;
 	}
 }
 
 void bossActionAttack::randomAttack(void)
 {
-	int random = myUtil::RandomIntRange(1, 5);
+//	int random = myUtil::RandomIntRange(1, 5);
+	int preNum = ActionRandom;
+	ActionRandom = myUtil::RandomIntRange(1, 5);
+	while (ActionRandom == preNum)
+	{
+		ActionRandom = myUtil::RandomIntRange(1, 5);
+	}
 
 	//À§ÀÇ Á¶°ÇµéÀÌ ¸ðµÎ Æ²·È´Ù¸é ATTACKÀ» ½ÃÀÛÇÏÀÚ.
-	switch (random)
+	switch (ActionRandom)
 	{
 	case 1:
 		owner->getSkinnedAnim().Play("Animation_12");
 		owner->getSkinnedAnim().AddBoneTransform("Deathwing_Bone130", &effect);
 		effect.MovePositionSelf(0.0f, 1.0f, 0.0f);
 		
-		SKM->findSK("È­¿°ÀåÆÇ")->setSkillPosTrans(&effect);
-		SKM->findSK("È­¿°ÀåÆÇ")->setSkillDirTrans(owner->_transform);
-		SKM->findSK("È­¿°ÀåÆÇ")->Start();
+		if (SKM->findSK("È­¿°ÀåÆÇ")->getActive() == FALSE)
+		{
+			SKM->findSK("È­¿°ÀåÆÇ")->setSkillPosTrans(&effect);
+			SKM->findSK("È­¿°ÀåÆÇ")->setSkillDirTrans(owner->_transform);
+			SKM->findSK("È­¿°ÀåÆÇ")->Start();
+		}
+		else
+		{
+			SKM->findSK("È­¿°ÀåÆÇ2")->setSkillPosTrans(&effect);
+			SKM->findSK("È­¿°ÀåÆÇ2")->setSkillDirTrans(owner->_transform);
+			SKM->findSK("È­¿°ÀåÆÇ2")->Start();
+		}
+
 		break;
 	case 2:
 		owner->getSkinnedAnim().Play("Animation_10");
@@ -199,10 +215,10 @@ void bossActionAttack::randomAttack(void)
 		owner->getSkinnedAnim().AddBoneTransform("Deathwing_Bone92", &effect);
 		//effect.MovePositionSelf(0.0f, 1.0f, 0.0f);
 
-		SKM->findSK("ÇÒÄû±â")->setSkillPosTrans(&effect);
-		SKM->findSK("ÇÒÄû±â")->setSkillDirTrans(&effect);
+		SKM->findSK("ÇÒÄû±â_¿À¸¥¹ß")->setSkillPosTrans(&effect);
+		SKM->findSK("ÇÒÄû±â_¿À¸¥¹ß")->setSkillDirTrans(&effect);
 
-		SKM->findSK("ÇÒÄû±â")->Start();
+		SKM->findSK("ÇÒÄû±â_¿À¸¥¹ß")->Start();
 		break;
 	case 3:
 		owner->getSkinnedAnim().Play("Animation_9");
@@ -219,7 +235,7 @@ void bossActionAttack::randomAttack(void)
 		break;
 	}
 
-	random = myUtil::RandomIntRange(1, 4);
+	int random = myUtil::RandomIntRange(1, 4);
 	switch (random)
 	{
 	case 1:
