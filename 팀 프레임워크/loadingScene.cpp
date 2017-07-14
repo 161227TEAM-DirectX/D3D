@@ -26,13 +26,6 @@ HRESULT loadingScene::init()
 	SOUNDMANAGER->addSound("로딩", FILEPATH_MANAGER->GetFilepath("로딩"), true, true);
 	SOUNDMANAGER->play("로딩", 0.5f);
 
-	//로딩씬에 필요한 이미지들은 미리 로딩해둔다.
-	DXIMG_MANAGER->AddDxImg("로딩화면", new cDxImg(FILEPATH_MANAGER->GetFilepath("로딩화면")));
-	DXIMG_MANAGER->AddDxImg("loadingbar_move", new cDxImg(FILEPATH_MANAGER->GetFilepath("loadingbar_move")));
-	DXIMG_MANAGER->AddDxImg("loadingbar_back", new cDxImg(FILEPATH_MANAGER->GetFilepath("loadingbar_back")));
-	DXIMG_MANAGER->AddDxImg("loadingbar_cover", new cDxImg(FILEPATH_MANAGER->GetFilepath("loadingbar_cover")));
-
-
 	m_pLoadingBar = new cDxImgBar("loadingbar_cover", "loadingbar_back", "loadingbar_move",
 								  D3DXVECTOR2(WINSIZEX / 2, WINSIZEY / 2 + 400), true);
 	InitializeCriticalSection(&_cs);
@@ -40,10 +33,11 @@ HRESULT loadingScene::init()
 	DWORD dwThID[6];
 	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInit, this, NULL, &dwThID[1]));//로딩씬
 
-	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene1, this, NULL, &dwThID[2]));//스테이지1
-	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene2, this, NULL, &dwThID[3]));//스테이지2
-	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene3, this, NULL, &dwThID[4]));//스테이지3
-	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene4, this, NULL, &dwThID[5]));//스테이지4
+	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene1, this, NULL, &dwThID[2]));
+	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene2, this, NULL, &dwThID[3]));
+	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene3, this, NULL, &dwThID[4]));
+	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene4, this, NULL, &dwThID[5]));
+
 	return S_OK;
 }
 
@@ -66,22 +60,22 @@ void loadingScene::render()
 
 	if (m_isChange
 		&& m_isChangeScene1
-		&& m_isChangeScene2 
-		&& m_isChangeScene3 
-		&& m_isChangeScene4
-		&& m_pLoadingBar->IsFullBar()
+		//&& m_isChangeScene2 
+		//&& m_isChangeScene3 
+		//&& m_isChangeScene4
+		//&& m_pLoadingBar->IsFullBar()
+
 		)
 	{
-		//g_eSelectMode = E_MAPTOOL;
 		//SCENEMANAGER->changeScene("test");
-		//SCENEMANAGER->changeScene("start");
-		SCENEMANAGER->changeScene("gameSceneOne");//gameSceneOne
-		//SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
-		//SCENEMANAGER->changeScene("gameSceneThree");//gameSceneThree
-		//SCENEMANAGER->changeScene("gameSceneFour");//gameSceneFour
-		//SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
-		//SCENEMANAGER->changeScene("kims");//kims
-		//SCENEMANAGER->changeScene("AItest");//AItest
+		SCENEMANAGER->changeScene("start");
+		//SCENEMANAGER->changeScene("gameSceneOne");	//gameSceneOne
+		//SCENEMANAGER->changeScene("gameSceneTwo");	//gameSceneTwo
+		//SCENEMANAGER->changeScene("gameSceneThree");	//gameSceneThree
+		//SCENEMANAGER->changeScene("gameSceneFour");	//gameSceneFour
+		//SCENEMANAGER->changeScene("EndingScene");		//gameSceneTwo
+		//SCENEMANAGER->changeScene("kims");			//kims
+		//SCENEMANAGER->changeScene("AItest");			//AItest
 	}
 	LeaveCriticalSection(&_cs);
 }
@@ -92,7 +86,6 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 	PtcLoading();
 
 	SoundLoading();
-
 
 	//ex_pStage1->loadingStage();
 	//ex_pStage2->loadingScene();
@@ -129,6 +122,7 @@ HRESULT loadingScene::ThreadInitScene3(LPVOID lpVod)
 HRESULT loadingScene::ThreadInitScene4(LPVOID lpVod)
 {
 	ex_pStage4->loadingStage();
+	ex_pEnding->loadingScene();
 	m_isChangeScene4 = true;
 	return S_OK;
 }
@@ -137,6 +131,12 @@ HRESULT loadingScene::ThreadInitScene4(LPVOID lpVod)
 
 void loadingScene::UILoading()
 {
+	//로딩씬에 필요한 이미지
+	DXIMG_MANAGER->AddDxImg("로딩화면", new cDxImg(FILEPATH_MANAGER->GetFilepath("로딩화면")));
+	DXIMG_MANAGER->AddDxImg("loadingbar_move", new cDxImg(FILEPATH_MANAGER->GetFilepath("loadingbar_move")));
+	DXIMG_MANAGER->AddDxImg("loadingbar_back", new cDxImg(FILEPATH_MANAGER->GetFilepath("loadingbar_back")));
+	DXIMG_MANAGER->AddDxImg("loadingbar_cover", new cDxImg(FILEPATH_MANAGER->GetFilepath("loadingbar_cover")));
+
 	DXIMG_MANAGER->AddDxImg("시작화면", new cDxImg(FILEPATH_MANAGER->GetFilepath("시작화면")));
 
 	DXIMG_MANAGER->AddDxImg("btn_exit_off", new cDxImg(FILEPATH_MANAGER->GetFilepath("btn_exit_off")));
@@ -1239,7 +1239,8 @@ void loadingScene::SoundLoading()
 {
 	//시작화면
 	SOUNDMANAGER->addSound("시작", FILEPATH_MANAGER->GetFilepath("시작"), true, true);
-	
+	SOUNDMANAGER->addSound("시작화면선택", FILEPATH_MANAGER->GetFilepath("시작화면선택"), false, false);
+
 	//플레이어/마을
 	SOUNDMANAGER->addSound("마을1", FILEPATH_MANAGER->GetFilepath("마을"), true, true);
 	SOUNDMANAGER->addSound("필드1", FILEPATH_MANAGER->GetFilepath("필드"), true, true);

@@ -2,60 +2,32 @@
 #include "mainGame.h"
 
 #include "startScene.h"
+#include "loadingScene.h"
 #include "mapToolScene.h"
 //
-#include "loadingScene.h"
-//
-#include "cTerrainTest2.h"
-#include "cTerrainTest3.h"
-#include "cCameraTest.h"
-#include "cCutsceneTest.h"
-#include "cUserInterfaceTest2.h"
-#include "cCameraTest.h"
-#include "cMinimapTest.h"
-#include "cMinimapTest2.h"
-#include "cMinimapPlayerTest.h"
-//#include "cSkillBookTest.h"
-//#include "cSkillTest.h"
-#include "cImgPartRenderTest.h"
-#include "cBossUITest.h"
-//
-//#include "EndingScene.h"
 #include "kimsNewTest.h"
 
 mainGame::mainGame()
 {
 	REGIST_SGT->Init();
 
-	//SCENEMANAGER->addScene("kims", new kimsNewTest, false);
-
 	//SCENEMANAGER->addScene("test", new cCutsceneTest, false);
 
 	SCENEMANAGER->addScene("loading", new loadingScene, true);
-	//SCENEMANAGER->addScene("test", new cBossUITest, false);
-
-	//SCENEMANAGER->addScene("test", new cMinimapTest, false);
-	//SCENEMANAGER->addScene("start", new startScene, false);
-	//SCENEMANAGER->addScene("maptool", new mapToolScene, false);
-	//SCENEMANAGER->addScene("particleTest5", new particleTest05, false);
-	//SCENEMANAGER->addScene("particleTest6", new particleTest06, true);
-	//SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
-
 	
-	
-	//SCENEMANAGER->addScene("particleTest5", new particleTest05, false);
-	//SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
-
 	SCENEMANAGER->addScene("start", new startScene, false);
+
+	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
+	
 	SCENEMANAGER->addScene("gameSceneOne", ex_pStage1);
 	SCENEMANAGER->addScene("gameSceneTwo", ex_pStage2);
 	SCENEMANAGER->addScene("gameSceneThree", ex_pStage3);
 	SCENEMANAGER->addScene("gameSceneFour", ex_pStage4);
-	//SCENEMANAGER->addScene("EndingScene", ex_pEnding, false);
+	
+	SCENEMANAGER->addScene("EndingScene", ex_pEnding, false);
 
-	//SCENEMANAGER->addScene("test", new cGameUITest, false);
-	//SCENEMANAGER->addScene("test", new cMinimapTest, false);
 	//SCENEMANAGER->addScene("AItest", new bossMonsterAITestScene);
+	//SCENEMANAGER->addScene("kims", new kimsNewTest, false);
 }
 
 mainGame::~mainGame()
@@ -66,10 +38,8 @@ mainGame::~mainGame()
 
 HRESULT mainGame::init(void)
 {
-	
 	return S_OK;
 }
-
 
 
 void mainGame::release(void)
@@ -77,16 +47,17 @@ void mainGame::release(void)
 }
 
 
-
 void mainGame::update(void)
 {
-	//씬매니져 업데이트
-	SCENEMANAGER->update();
-	EFFECT->update();
-	SKM->update();
-	SOUNDMANAGER->update();
-}
+	SCENEMANAGER->update();		//씬	
 
+	if (g_eSelectMode == eSelectMode::E_MAPTOOL)
+	{
+		EFFECT->update();			//이펙트
+		SKM->update();				//스킬매니져
+		SOUNDMANAGER->update();		//사운드
+	}
+}
 
 
 void mainGame::render(void)
@@ -104,7 +75,7 @@ void mainGame::render(void)
 			1.0f,								//깊이버퍼를 청소할 값 (0 ~ 1, 0이 카메라에서 제일 가깝고 1이 카메라에서 제일 멀다)
 			0);									//스텐실 버퍼를 채울값
 
-												//버퍼 청소가 성공했다면
+		//버퍼 청소가 성공했다면
 		if (SUCCEEDED(result))
 		{
 			//디바이스 렌더링 시작
@@ -146,9 +117,8 @@ void mainGame::render(void)
 	}
 }
 
-//==================================================================
-//		## 메인프로시져 ## MainProc()
-//==================================================================
+
+
 LRESULT mainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
 	SCENEMANAGER->WndProc(hWnd, iMessage, wParam, lParam);
