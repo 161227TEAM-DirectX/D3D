@@ -2,7 +2,7 @@
 #include "bossMonster.h"
 
 
-bossMonster::bossMonster() : monster(), Frequency(0)
+bossMonster::bossMonster() : monster()
 {
 }
 
@@ -30,8 +30,11 @@ void bossMonster::baseObjectEnable()
 	def = 550;
 
 	_skinnedAnim->AddBoneTransform("Deathwing_Bone130", &fieldTrans);
+	fieldTrans.SetWorldPosition(0, 0.5f, 0);
 	_skinnedAnim->AddBoneTransform("Deathwing_Bone92", &rightTrans);
 	_skinnedAnim->AddBoneTransform("Deathwing_Bone89", &leftTrans);
+	_skinnedAnim->AddBoneTransform("Deathwing_Bone01_Waist", &tailTrans);
+	_skinnedAnim->AddBoneTransform("Deathwing_Bone129__Breath", &breathTrans);
 
 	//컨트롤에 의한 초기 액션
 	CurrAction = ACMANAGER->getAction("보스시네마", *this);

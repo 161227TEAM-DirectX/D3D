@@ -40,9 +40,20 @@ int bossActionFlyMove::Update()
 	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
 	if (temp->getHP() <= 0) return LHS::ACTIONRESULT::ACTION_FLY_DIE;
 
+	temp->gettailTrans().SetWorldPosition(temp->gettailTrans().GetWorldPosition().x, 
+		rand->getHeight(temp->gettailTrans().GetWorldPosition().x, temp->gettailTrans().GetWorldPosition().z), 
+		temp->gettailTrans().GetWorldPosition().z);
+
 	if (!strcmp("Animation_48", tempName.c_str()))
 	{
-		if (owner->getSkinnedAnim().getAnimationPlayFactor() > ANIMATIONENDTIME) owner->getSkinnedAnim().Play("Animation_39", 1.0f);
+		if (owner->getSkinnedAnim().getAnimationPlayFactor() > ANIMATIONENDTIME)
+		{
+			owner->getSkinnedAnim().Play("Animation_39", 1.0f);
+			SKM->findSK("불꽃길")->setSkillPosTrans(&temp->gettailTrans());
+			SKM->findSK("불꽃길")->setSkillDirTrans(&temp->gettailTrans());
+			
+			SKM->findSK("불꽃길")->Start();
+		}
 	}
 
 	//애니메이션이 날며 이동하는 애니메이션으로 변경 되었을 경우.

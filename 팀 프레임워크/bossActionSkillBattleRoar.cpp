@@ -17,12 +17,13 @@ bossActionSkillBattleRoar::~bossActionSkillBattleRoar()
 int bossActionSkillBattleRoar::Start()
 {
 	if (!owner)return LHS::ACTIONRESULT::ACTION_FINISH;
+	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
 
 	//보스몬스터의 공격모션 아무거나 시작.
 	owner->getSkinnedAnim().Play("Animation_13");
 	//공격방식 변경 -> 0이면 스턴을 위한 방식 / 1이면 range범위에서의 전방위 마법공격 -> 둘다 도트뎀(데미지는 마법공격이 더 강하도록 설정)
-	//attackStyle = myUtil::RandomIntRange(0, 1);
-	attackStyle = 0;
+	attackStyle = myUtil::RandomIntRange(0, 1);
+	//attackStyle = 0;
 	if(attackStyle == 1)
 	{
 		SKM->findSK("대마법")->setSkillPosTrans(owner->_transform);
@@ -30,11 +31,10 @@ int bossActionSkillBattleRoar::Start()
 	}
 	else
 	{
-		//mainCamera->SetShakePosFlag(3);
-		//mainCamera->ShakePos(3.0f, 0.0f);
+		SKM->findSK("샤우팅")->setSkillPosTrans(&temp->getbreathTrans());
+		SKM->findSK("샤우팅")->Start();
 	}
 	
-
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
 }
 
@@ -90,7 +90,6 @@ int bossActionSkillBattleRoar::Update()
 		switch (attackStyle)
 		{
 		case 0:
-			//mainCamera->ShakeUpdate(_timeDelta);
 			//적의 HP를 감소시키자. 마법공격. -> 데미지는 높지만 스턴을 걸지 않는다.
 			if (dotTime < 0)
 			{
@@ -124,11 +123,4 @@ int bossActionSkillBattleRoar::Update()
 void bossActionSkillBattleRoar::Render()
 {
 	if (damage->getStrLength() > 1)damage->render();
-
-	//char temp[128];
-	//sprintf_s(temp, "%.2f,    %.2f,    %.2f", mainCamera->GetWorldPosition().x, mainCamera->GetWorldPosition().y, mainCamera->GetWorldPosition().z);
-	//FONTMANAGER->fontOut(temp, 200, 450, WHITE);
-
-	//sprintf_s(temp, "%.2f,   %.2f,     %.2f", mainCamera->GetForward().x, mainCamera->GetForward().y, mainCamera->GetForward().z);
-	//FONTMANAGER->fontOut(temp, 200, 500, WHITE);
 }

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "bossActionLanding.h"
 #include "bossMonster.h"
+#include "dxSkill.h"
 
 
 bossActionLanding::bossActionLanding()
@@ -28,6 +29,10 @@ int bossActionLanding::Update()
 	bossMonster* tempOwner = dynamic_cast<bossMonster*>(owner);
 	if (tempOwner->getHP() <= 0) return LHS::ACTIONRESULT::ACTION_FLY_DIE;
 
+	tempOwner->gettailTrans().SetWorldPosition(tempOwner->gettailTrans().GetWorldPosition().x,
+		rand->getHeight(tempOwner->gettailTrans().GetWorldPosition().x, tempOwner->gettailTrans().GetWorldPosition().z),
+		tempOwner->gettailTrans().GetWorldPosition().z);
+
 	string temp = owner->getSkinnedAnim().getAnimationSet()->GetName();
 	if (!strcmp("Animation_39", temp.c_str()))
 	{
@@ -41,6 +46,11 @@ int bossActionLanding::Update()
 			owner->getSkinnedAnim().Play("Animation_43");
 			return LHS::ACTIONRESULT::ACTION_PLAY;
 		}
+
+		SKM->findSK("불꽃길")->setSkillPosTrans(&tempOwner->gettailTrans());
+		SKM->findSK("불꽃길")->setSkillDirTrans(&tempOwner->gettailTrans());
+
+		SKM->findSK("불꽃길")->Start();
 	}
 
 	//내려올때의 애니메이션

@@ -18,10 +18,7 @@ int bossActionMove::Start()
 
 	//baseObject의 transform을 호출하여 world위치를 from으로 변경
 	owner->getSkinnedAnim().Play("Animation_56");
-	if (!SOUNDMANAGER->isPlaySound("걷기"))
-	{
-		SOUNDMANAGER->play("걷기");
-	}
+	SOUNDMANAGER->play("걷기");
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }
@@ -58,30 +55,26 @@ int bossActionMove::Update()
 	//한번 생성해 놓아서 index가 초기화가 필요하다.
 	if(owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME) index = myUtil::RandomFloatRange(0.1f, 1.0f);
 
-	//무브 애니메이션이 끝나면.
-	//if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
-	//{
-		//걷다가 hit박스에 플레이어가 있다면.
-		if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
-		{
-			SOUNDMANAGER->stop("걷기");
-			return LHS::ACTIONRESULT::ACTION_ATT;
-		}
-		//걷다가 range박스 안에 플레이어가 있다면.
-		if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
-		{
-			SOUNDMANAGER->stop("걷기");
-			if (index >= 0.98f && index <= 0.99f) return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
-			else if (index >= 0.99f && index <= 1.0f) return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
-			else if (index - Gap >= 0.97f && index - Gap <= 0.975) return LHS::ACTIONRESULT::ACTION_FLY;
-		}
+	//걷다가 hit박스에 플레이어가 있다면.
+	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
+	{
+		SOUNDMANAGER->stop("걷기");
+		return LHS::ACTIONRESULT::ACTION_ATT;
+	}
+	//걷다가 range박스 안에 플레이어가 있다면.
+	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
+	{
+		SOUNDMANAGER->stop("걷기");
+		if (index >= 0.98f && index <= 0.99f) return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
+		else if (index >= 0.99f && index <= 1.0f) return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
+		else if (index - Gap >= 0.97f && index - Gap <= 0.975) return LHS::ACTIONRESULT::ACTION_FLY;
+	}
 
-		//확률적으로 날기패턴으로 이동
-		if (index - Gap >= 0.97f && index - Gap <= 0.975f)
-		{
-			return LHS::ACTIONRESULT::ACTION_FLY;
-		}
-	//}
+	//확률적으로 날기패턴으로 이동
+	if (index - Gap >= 0.97f && index - Gap <= 0.975f)
+	{
+		return LHS::ACTIONRESULT::ACTION_FLY;
+	}
 
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }

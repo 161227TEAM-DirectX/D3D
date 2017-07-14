@@ -18,14 +18,13 @@ bossActionSkillFire::~bossActionSkillFire()
 int bossActionSkillFire::Start()
 {
 	if (!owner)return LHS::ACTIONRESULT::ACTION_FINISH;
-
+	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
 	//보스몬스터의 공격모션 아무거나 시작.
 	owner->getSkinnedAnim().Play("Animation_65");
 	owner->getSkinnedAnim().SetPlaySpeed(0.8f);
-	//test.SetWorldMatrix(owner->getSkinnedAnim().getSkinnedMesh()->GetFineBONE("Deathwing_Bone129__Breath")->CombinedTransformationMatrix);
-	owner->getSkinnedAnim().AddBoneTransform("Deathwing_Bone129__Breath", &test);
-	SKM->findSK("브레스")->setSkillPosTrans(&test);
-	SKM->findSK("브레스")->setSkillDirTrans(&test);
+
+	SKM->findSK("브레스")->setSkillPosTrans(&temp->getbreathTrans());
+	SKM->findSK("브레스")->setSkillDirTrans(&temp->getbreathTrans());
 	SKM->findSK("브레스")->Start();
 	return LHS::ACTIONRESULT::ACTION_PLAY;
 }
@@ -35,8 +34,6 @@ int bossActionSkillFire::Update()
 	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
 	if (temp->getHP() <= 0)
 	{
-		SKM->findSK("브레스")->setResetOn();
-		owner->getSkinnedAnim().RemoveBoneTransform("Deathwing_Bone129__Breath");
 		return LHS::ACTIONRESULT::ACTION_DIE;
 	}
 
@@ -48,6 +45,7 @@ int bossActionSkillFire::Update()
 		{
 			owner->getSkinnedAnim().Play("Animation_14");
 			owner->getSkinnedAnim().SetPlaySpeed(0.2f);
+			SOUNDMANAGER->setMusicSpeed("브레스2", 0.8f);
 			SOUNDMANAGER->play("브레스2");
 		}
 		return LHS::ACTIONRESULT::ACTION_PLAY;
@@ -64,8 +62,7 @@ int bossActionSkillFire::Update()
 		//액션 종료 조건이 필요.
 		if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 		{
-			SKM->findSK("브레스")->setResetOn();
-			owner->getSkinnedAnim().RemoveBoneTransform("Deathwing_Bone129__Breath");
+			SOUNDMANAGER->setMusicSpeed("브레스2", 1.0f);
 			SOUNDMANAGER->stop("브레스2");
 
 			//꼬리치기 조건

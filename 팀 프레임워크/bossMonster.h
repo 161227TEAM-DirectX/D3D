@@ -3,11 +3,11 @@
 class bossMonster : public monster
 {
 private:
-	int Frequency;								//ºóµµÀ²
-	
 	dx::transform rightTrans;
 	dx::transform leftTrans;
 	dx::transform fieldTrans;
+	dx::transform tailTrans;
+	dx::transform breathTrans;
 public:
 	bossMonster();
 	~bossMonster();
@@ -24,9 +24,17 @@ public:
 
 	inline dx::transform& getrightTrans(void) { return rightTrans; }
 	inline void setrightTrans(dx::transform& temp) { this->rightTrans = temp; }
+
 	inline dx::transform& getleftTrans(void) { return leftTrans; }
 	inline void setleftTrans(dx::transform& temp) { this->leftTrans = temp; }
+
 	inline dx::transform& getfieldTrans(void) { return fieldTrans; }
 	inline void setfieldTrans(dx::transform& temp) { this->fieldTrans = temp; }
+
+	inline dx::transform& gettailTrans(void) { return tailTrans; }
+	inline void settailTrans(dx::transform& temp) { this->tailTrans = temp; }
+
+	inline dx::transform& getbreathTrans(void) { return breathTrans; }
+	inline void setbreathTrans(dx::transform& temp) { this->breathTrans = temp; }
 };
 

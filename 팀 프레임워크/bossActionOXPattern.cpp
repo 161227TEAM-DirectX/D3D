@@ -71,11 +71,14 @@ int bossActionOXPattern::Update()
 			}
 			//브레스 출력
 			//데미지 적용.
-			damageTime += _timeDelta;
-			if (damageTime >= 1.0f)
+			if (PHYSICSMANAGER->isOverlap(&boxTransform, &damageBox, playerObject->_transform, &playerObject->_boundBox))
 			{
-				enemy->playerDamaged(300000);
-				damageTime = 0.0f;
+				damageTime += _timeDelta;
+				if (damageTime >= 1.0f)
+				{
+					enemy->playerDamaged(300000);
+					damageTime = 0.0f;
+				}
 			}
 		}
 	}
