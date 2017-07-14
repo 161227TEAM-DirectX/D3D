@@ -603,3 +603,4 @@ extern eSelectMode		g_eSelectMode;	//게임모드인지 맵툴모드인지
 extern int forceNumber;
 extern int MoveBack;
 extern bool				g_isChat;		//채팅중인지
+extern bool				g_isMaptool;	//맵툴모드로 바꾸었는지

@@ -61,7 +61,9 @@ stageTwo::~stageTwo()
 
 HRESULT stageTwo::init()
 {
+	SOUNDMANAGER->play("필드1", 0.1f);
 
+	player->getPlayerObject()->_transform->SetWorldPosition(PLAYERMANAGER->GetPos());
 
 	return S_OK;
 }
@@ -586,6 +588,7 @@ void stageTwo::loadingScene()
 	player->out_setlinkTerrain(*_terrain);
 	player->init();
 	//player->getPlayerObject()->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+	
 	player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	for (int i = 0; i < player->getRenderObject().size(); i++)
@@ -601,7 +604,7 @@ void stageTwo::loadingScene()
 
 	player->out_setMonsterRegion(&_monsterRegion);
 
-	SOUNDMANAGER->play("필드1", 0.1f);
+
 
 	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
 	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, -5));

@@ -15,7 +15,7 @@ class cDxImgBar
 	SYNTHESIZE(cDxImg*, m_pMove, Move);
 	SYNTHESIZE(int, m_nTimeCount, TimeCount);
 
-	SYNTHESIZE(int, m_fGaugeSpeed, GaugeSpeed);
+	SYNTHESIZE(float, m_fGaugeSpeed, GaugeSpeed);
 	SYNTHESIZE(int, m_fGaugeInterval, GaugeInterval);
 
 public:

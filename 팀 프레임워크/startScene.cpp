@@ -11,6 +11,8 @@ startScene::~startScene()
 
 HRESULT startScene::init()
 {
+	SOUNDMANAGER->play("시작", 0.1f);
+
 	for (int i=0; i < DXIMGANI_MANAGER->getAniSize("Ani_Fire01"); i++)
 	{
 		DXIMGANI_MANAGER->setDxImgAniPosition("Ani_Fire01_" + to_string(i), D3DXVECTOR2(i * 50, 800));
@@ -26,20 +28,20 @@ HRESULT startScene::init()
 
 	temp = new cDxImgButton(DXIMG_MANAGER->GetDxImg("btn_option_off"),
 							DXIMG_MANAGER->GetDxImg("btn_option_over"),
-							D3DXVECTOR2(130, 25), "설정버튼");
+							D3DXVECTOR2(130, 25), "맵툴버튼");
 	m_vecBtn.push_back(temp);
 
 
 	temp = new cDxImgButton(DXIMG_MANAGER->GetDxImg("btn_gameStart_off"),
 							DXIMG_MANAGER->GetDxImg("btn_gameStart_over"),
-							D3DXVECTOR2(1200, 600), "시작버튼");
+							D3DXVECTOR2(1100, 700), "시작버튼");
 	m_vecBtn.push_back(temp);
 
 
-	temp = new cDxImgButton(DXIMG_MANAGER->GetDxImg("btn_mapTool_off"),
-							DXIMG_MANAGER->GetDxImg("btn_mapTool_over"),
-							D3DXVECTOR2(1200, 750), "맵툴버튼");
-	m_vecBtn.push_back(temp);
+	//temp = new cDxImgButton(DXIMG_MANAGER->GetDxImg("btn_mapTool_off"),
+	//						DXIMG_MANAGER->GetDxImg("btn_mapTool_over"),
+	//						D3DXVECTOR2(1200, 750), "맵툴버튼");
+	//m_vecBtn.push_back(temp);
 
 	return S_OK;
 }

@@ -58,6 +58,10 @@ stageFour::~stageFour()
 
 HRESULT stageFour::init()
 {
+	SOUNDMANAGER->play("필드1", 0.1f);
+
+	player->getPlayerObject()->_transform->SetWorldPosition(PLAYERMANAGER->GetPos());
+
 	return S_OK;
 }
 
@@ -384,8 +388,7 @@ void stageFour::loadingStage()
 
 	ACMANAGER->Init(*_terrain, *player);
 
-	SOUNDMANAGER->play("필드1", 0.1f);
-
+	
 	for (int i = 0; i < _renderObject.size(); i++)
 	{
 		if ((192 == _renderObject[i]->getObjectNumber()) || (190 == _renderObject[i]->getObjectNumber()))
