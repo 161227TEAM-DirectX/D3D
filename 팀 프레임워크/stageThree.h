@@ -31,14 +31,13 @@ private:
 	bool cinematicBool;
 	tagSaveMap envTemp;
 	tagSaveMap waterTemp;
+
 private:
 	cUIPlayer* m_pUIPlayer;
-public:
-	stageThree() { clear(); }
-	~stageThree() { destroy(); }
 
-	HRESULT clear(void);
-	void destroy(void);
+public:
+	stageThree();
+	~stageThree();
 
 	HRESULT init();
 	void release();
@@ -54,5 +53,9 @@ public:
 	void shadowRender(void);
 
 	void readyShadowMap(vector<baseObject*>* renderObjects, terrain* pTerrain = NULL);
+
+	void loadingStage();
 };
+
+extern stageThree* ex_pStage3;
 

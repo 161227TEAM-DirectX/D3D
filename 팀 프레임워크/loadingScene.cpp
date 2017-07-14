@@ -53,25 +53,32 @@ void loadingScene::render()
 	{
 		//g_eSelectMode = E_MAPTOOL;
 		//SCENEMANAGER->changeScene("test");
+		SCENEMANAGER->changeScene("start");
 		//SCENEMANAGER->changeScene("gameSceneOne");//gameSceneOne
 		//SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
 		//SCENEMANAGER->changeScene("gameSceneThree");//gameSceneThree
 		//SCENEMANAGER->changeScene("gameSceneFour");//gameSceneFour
 		//SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
 		//SCENEMANAGER->changeScene("kims");//kims
-		SCENEMANAGER->changeScene("AItest");//AItest
+		//SCENEMANAGER->changeScene("AItest");//AItest
 	}
 	LeaveCriticalSection(&_cs);
 }
 
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
-	XMeshSkinnedLoading();
-	PtcLoading();
+	//XMeshSkinnedLoading();
+	//PtcLoading();
 
 	SoundLoading();
 	UILoading();
 	AniLoading();
+
+	//ex_pStage1->loadingStage();
+	//ex_pStage2->loadingScene();
+	//ex_pStage3->loadingStage();
+	//ex_pStage4->loadingStage();
+	//ex_pEnding->loadingScene();
 
 	m_isChange = true;
 
@@ -556,6 +563,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_0", temp, ST_DXIMGANI(1));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 
 	temp.clear();
@@ -568,6 +576,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_1", temp, ST_DXIMGANI(2));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 
 	temp.clear();
@@ -580,7 +589,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_2", temp, ST_DXIMGANI(3));
-
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -592,6 +601,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_3", temp, ST_DXIMGANI(4));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -603,6 +613,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_4", temp, ST_DXIMGANI(5));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -614,6 +625,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_5", temp, ST_DXIMGANI(6));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -625,6 +637,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_6", temp, ST_DXIMGANI(7));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -636,6 +649,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_7", temp, ST_DXIMGANI(8));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -647,6 +661,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_8", temp, ST_DXIMGANI(9));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -658,7 +673,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_9", temp, ST_DXIMGANI(1));
-
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -670,7 +685,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_10", temp, ST_DXIMGANI(2));
-
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -682,7 +697,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_11", temp, ST_DXIMGANI(3));
-
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -694,6 +709,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_12", temp, ST_DXIMGANI(4));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -705,6 +721,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_13", temp, ST_DXIMGANI(5));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -716,6 +733,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_14", temp, ST_DXIMGANI(6));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -727,6 +745,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_15", temp, ST_DXIMGANI(7));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -738,6 +757,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_16", temp, ST_DXIMGANI(8));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -749,6 +769,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_17", temp, ST_DXIMGANI(9));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -760,7 +781,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_18", temp, ST_DXIMGANI(1));
-
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -772,7 +793,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_19", temp, ST_DXIMGANI(2));
-
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -784,7 +805,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_20", temp, ST_DXIMGANI(3));
-
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -796,6 +817,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_21", temp, ST_DXIMGANI(4));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -807,6 +829,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_22", temp, ST_DXIMGANI(5));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -818,6 +841,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_23", temp, ST_DXIMGANI(6));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -829,6 +853,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_24", temp, ST_DXIMGANI(7));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -840,6 +865,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_25", temp, ST_DXIMGANI(8));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -851,6 +877,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_26", temp, ST_DXIMGANI(9));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -862,6 +889,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_27", temp, ST_DXIMGANI(1));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -873,6 +901,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_28", temp, ST_DXIMGANI(2));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -884,6 +913,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_29", temp, ST_DXIMGANI(3));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 
 	temp.clear();
 	for (int i = 0; i < 10; i++)
@@ -895,6 +925,7 @@ void loadingScene::AniLoading()
 		temp.push_back(new cDxImg(FILEPATH_MANAGER->GetFilepath("Ani_Fire01_" + to_string(i))));
 	}
 	DXIMGANI_MANAGER->AddDxImgAni("Ani_Fire01_30", temp, ST_DXIMGANI(4));
+	DXIMGANI_MANAGER->setAniOverlap("Ani_Fire01");
 }
 
 void loadingScene::PtcLoading()

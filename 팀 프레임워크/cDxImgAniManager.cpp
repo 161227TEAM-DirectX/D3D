@@ -109,6 +109,13 @@ vector<cDxImg*> cDxImgAniManager::GetDxImgAni(string sKey)
 	return m_mapDxImgAni[sKey];
 }
 
+int cDxImgAniManager::getAniSize(string sKey)
+{
+	assert(m_mapDxImgNum.find(sKey) != m_mapDxImgNum.end() &&
+		   "키에 해당하는 값을 찾을 수 없습니다.");
+	return m_mapDxImgNum[sKey];
+}
+
 
 
 void cDxImgAniManager::render(string sKey)

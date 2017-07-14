@@ -42,10 +42,10 @@
 //===================================================================================
 //∞‘¿” æ¿
 //===================================================================================
-#include "stageOne.h"
-#include "stageTwo.h"
-#include "stageThree.h"
-#include "stageFour.h"
+//#include "stageOne.h"
+//#include "stageTwo.h"
+//#include "stageThree.h"
+//#include "stageFour.h"
 
 class mainGame
 {

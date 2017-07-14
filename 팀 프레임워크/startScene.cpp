@@ -11,7 +11,7 @@ startScene::~startScene()
 
 HRESULT startScene::init()
 {
-	for (int i=0; i < DXIMGANI_MANAGER->getSize() - 1; i++)
+	for (int i=0; i < DXIMGANI_MANAGER->getAniSize("Ani_Fire01"); i++)
 	{
 		DXIMGANI_MANAGER->setDxImgAniPosition("Ani_Fire01_" + to_string(i), D3DXVECTOR2(i * 50, 800));
 	}
@@ -84,7 +84,7 @@ void startScene::render()
 {
 	DXIMG_MANAGER->GetDxImg("시작화면")->render();
 
-	for (int i=0; i < DXIMGANI_MANAGER->getSize() - 1; i++)
+	for (int i=0; i < DXIMGANI_MANAGER->getAniSize("Ani_Fire01"); i++)
 	{
 		DXIMGANI_MANAGER->render("Ani_Fire01_" + to_string(i));
 	}
@@ -93,4 +93,6 @@ void startScene::render()
 	{
 		m_vecBtn[i]->render();
 	}
+
+	FONTMANAGER->fontOut("%d", DXIMGANI_MANAGER->getSize() - 1, 100, 100, WHITE);
 }

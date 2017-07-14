@@ -5,26 +5,34 @@
 #include "mapObject.h"
 #include "xPlayer.h"
 
-HRESULT stageFour::clear(void)
+stageFour* ex_pStage4 = new stageFour;
+
+stageFour::stageFour()
+	: player(nullptr)
+	, _mainCamera(nullptr)
+	, _directionLightCamera(nullptr)
+	, sceneBaseDirectionLight(nullptr)
+	, _terrain(nullptr)
+	, _terrainShadow(nullptr)
+	, objectSet(nullptr)
+	, env(nullptr)
+	, water(nullptr)
+	, toRotate(nullptr)
+	, _gate1(nullptr)
+	, _shadowDistance(0.0f)
+	, currTime(0.0f)
+	, angleZ(89)
+	, cinematicBool(false)
 {
 	_renderObject.clear();
-	_shadowDistance = 0.0f;
-	angleZ = 89;
-	currTime = 0.0f;
-	_mainCamera = nullptr;
-	_directionLightCamera = nullptr;
-	sceneBaseDirectionLight = nullptr;
-	player = nullptr;
-	env = nullptr;
-	water = nullptr;
-	toRotate = nullptr;
-	objectSet = nullptr;
-	cinematicBool = false;
+	_cullObject.clear();
+	D3DXMatrixIdentity(&matRotate);
 
-	return S_OK;
+	memset(&envTemp, 0, sizeof(tagSaveMap));
+	memset(&waterTemp, 0, sizeof(tagSaveMap));
 }
 
-void stageFour::destroy(void)
+stageFour::~stageFour()
 {
 	for (int i = 0; i < _renderObject.size(); i++)
 	{
@@ -41,7 +49,245 @@ void stageFour::destroy(void)
 	SAFE_DELETE(objectSet);
 }
 
+
+
 HRESULT stageFour::init()
+{
+	return S_OK;
+}
+
+
+
+void stageFour::release()
+{
+}
+
+
+
+void stageFour::update()
+{
+
+	//시네마틱 이벤트씬 로드 
+	CINEMATICMANAGER->cinematicE4Load(_mainCamera, CINEMATICMANAGER->GetGScineMticE4Bool());
+
+	if (CINEMATICMANAGER->GetGScineMticE4Bool() == true)
+	{
+		if (cinematicBool == false)
+		{
+			_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
+			_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, 5));
+			cinematicBool = true;
+		}
+		else
+		{
+			_mainCamera->updateBase();
+		}
+	}
+
+	shadowUpdate();
+
+	currTime += _timeDelta;
+	if (currTime > 1)
+	{
+		//D3DXVECTOR3 matAxis(0.0f, 0.0f, 1.0f);
+		D3DXMatrixIdentity(&matRotate);
+		//D3DXMatrixRotationAxis(&matRotate, &matAxis, D3DXToRadian(angleZ));
+		D3DXMatrixRotationX(&matRotate, D3DXToRadian(angleZ));
+		//_sceneBaseDirectionLight->_transform->RotateWorld(0.0f, 0.0f, D3DXToRadian(angleZ));
+		//sceneBaseDirectionLight->_transform->SetRotateWorld(matRotate);
+		toRotate->SetRotateWorld(matRotate);
+		angleZ--;
+		if (angleZ <= 0) angleZ = 360;
+		else if (angleZ >= 360) angleZ = 0;
+		currTime = 0;
+	}
+
+	sceneBaseDirectionLight->_transform->RotateSlerp(*sceneBaseDirectionLight->_transform, *toRotate, _timeDelta);
+
+	player->update();
+
+	player->out_setTargetByMouse(_mainCamera);
+
+	//오브젝트 업데이트
+	for (int i = 0; i < _renderObject.size(); i++) _renderObject[i]->update();
+
+	water->update(waterTemp.number);
+
+	sceneChange();
+}
+
+
+
+void stageFour::render()
+{
+	_directionLightCamera->_frustum.renderGizmo();
+
+	//카메라에 컬링된것만
+	this->_cullObject.clear();
+	for (int i = 0; i < this->_renderObject.size(); i++)
+	{
+		//프러스텀 확인
+		if (_mainCamera->_frustum.isInFrustum(_renderObject[i]))
+		{
+			this->_cullObject.push_back(_renderObject[i]);
+		}
+	}
+	objectSet->portalRender(_mainCamera);
+
+	_terrain->render(_mainCamera, sceneBaseDirectionLight, _directionLightCamera);
+
+
+	env->renderEnvironment(envTemp.number);
+	water->render(waterTemp.number);
+
+	//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅
+	xMeshStatic::setCamera(_mainCamera);
+	//xMeshStatic::setTechniqueName("ReciveShadow");
+	xMeshStatic::setTechniqueName("Toon");
+	xMeshStatic::_staticMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resource/Testures/Ramp_1.png"));
+	xMeshStatic::setBaseLight(this->sceneBaseDirectionLight);
+
+	xMeshSkinned::setCamera(_mainCamera);
+	//xMeshSkinned::setTechniqueName("ReciveShadow");
+	xMeshSkinned::setTechniqueName("Toon");
+	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resource/Testures/Ramp_1.png"));
+	xMeshSkinned::setBaseLight(this->sceneBaseDirectionLight);
+
+
+	for (int i = 0; i < this->_cullObject.size(); i++)
+	{
+		this->_cullObject[i]->render();
+		if (_cullObject[i] == player->getPlayerObject())
+		{
+			player->out_ItemUpdate();
+			player->out_updateBladeLight();
+		}
+	}
+	player->render();
+
+	CINEMATICMANAGER->cinematicE4Render(_mainCamera);
+}
+
+
+
+void stageFour::shadowInit(void)
+{
+	//배경씬 기본 빛 초기화
+	sceneBaseDirectionLight->_color = D3DXCOLOR(1, 1, 1, 1);
+	sceneBaseDirectionLight->_intensity = 1.0f;
+
+	//그림자를 만들 카메라 박스 크기 조절용 변수 초기화
+	_shadowDistance = 10.0f;
+
+	//그림자 카메라의 투영 방식 변경 및 근접 / 원거리 크기 조절
+	_directionLightCamera->_isOrtho = true;
+	_directionLightCamera->_camNear = 0.01f;
+	_directionLightCamera->_camFar = 30;
+	_directionLightCamera->_aspect = 1;
+	_directionLightCamera->_orthoSize = 60;	//투영크기는 그림자크기로
+	_directionLightCamera->readyShadowTexture(4096);
+
+	_mainCamera->readyRenderToTexture(WINSIZEX, WINSIZEY);
+
+	sceneBaseDirectionLight->_transform->SetWorldPosition(0, 20, 0);
+	sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(89), 0, 0);
+}
+
+
+
+void stageFour::shadowUpdate(void)
+{
+	////sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
+
+	////광원 위치
+	//D3DXVECTOR3 camPos = _mainCamera->GetWorldPosition();	//메인카메라의 위치
+	//D3DXVECTOR3 camFront = _mainCamera->GetForward();		//메인카메리의 정면
+	//D3DXVECTOR3 lightDir = sceneBaseDirectionLight->_transform->GetForward();	//방향성 빛의 방향
+
+	//D3DXVECTOR3 lightPos = camPos +
+	//	(camFront * (_shadowDistance * 0.5f)) +
+	//	(-lightDir * _shadowDistance);
+
+	//_directionLightCamera->SetWorldPosition(lightPos.x, lightPos.y, lightPos.z);
+	//_directionLightCamera->LookDirection(lightDir);
+
+	////쉐도우맵 준비
+	//this->readyShadowMap(&this->_renderObject, this->_terrainShadow);
+	D3DXVECTOR3 camPos = player->getPlayerObject()->_transform->GetWorldPosition();	//메인카메라의 위치
+
+	D3DXVECTOR3 lightDir = sceneBaseDirectionLight->_transform->GetForward();			//방향성 광원의 방향
+
+	_directionLightCamera->SetWorldPosition(camPos.x, camPos.y + 5, camPos.z);
+	_directionLightCamera->LookDirection(lightDir);
+
+	//쉐도우맵 준비
+	this->readyShadowMap(&this->_renderObject, this->_terrainShadow);
+}
+
+
+
+void stageFour::readyShadowMap(vector<baseObject*>* renderObjects, terrain * pTerrain)
+{
+	//방향성광원에 붙은 카메라의 Frustum 업데이트
+	_directionLightCamera->updateMatrix();
+	_directionLightCamera->updateFrustum();
+
+	//다이렉션라이팅 카메라에 들어오는 애들만 그린다...
+	static vector<baseObject*>	shadowCullObject;
+	shadowCullObject.clear();
+
+	for (int i = 0; i < renderObjects->size(); i++)
+	{
+		//프러스텀 안에 있니?
+		if (this->_mainCamera->_frustum.isInFrustum((*renderObjects)[i]))
+		{
+			shadowCullObject.push_back((*renderObjects)[i]);
+		}
+	}
+
+	//쉐도우 맵 그린다.
+	_directionLightCamera->renderTextureBegin(0xffffffff);
+
+	//고정메쉬 세팅
+	xMeshStatic::setCamera(this->_directionLightCamera);
+	xMeshStatic::setTechniqueName("CreateShadow");
+
+	//스킨드메쉬 세팅
+	xMeshSkinned::setCamera(this->_directionLightCamera);
+	xMeshSkinned::setTechniqueName("CreateShadow");
+
+	for (int i = 0; i < shadowCullObject.size(); i++)
+	{
+		if (shadowCullObject[i]->_ignoreCreateShadow == false)
+		{
+			shadowCullObject[i]->render();
+		}
+	}
+
+	//만약 Terrain 도 쉐도우 맵을 그려야한다면...
+	if (pTerrain != NULL)
+	{
+		pTerrain->renderShadow(_mainCamera);
+	}
+
+	_directionLightCamera->renderTextureEnd();
+}
+
+
+
+void stageFour::sceneChange()
+{
+	if (PHYSICSMANAGER->isOverlap(player->getPlayerObject(), _gate1))
+	{
+		PLAYERMANAGER->SetPos(D3DXVECTOR3(0, 0, -110));
+		//PLAYERMANAGER->SetPos(D3DXVECTOR3(5.5f, 0, 110.0f));
+		SCENEMANAGER->changeScene("gameSceneOne", false);
+	}
+}
+
+
+
+void stageFour::loadingStage()
 {
 	_mainCamera = new camera;
 	_directionLightCamera = new camera;
@@ -122,7 +368,7 @@ HRESULT stageFour::init()
 	ACMANAGER->Init(*_terrain, *player);
 
 	SOUNDMANAGER->play("필드1", 0.1f);
-	
+
 	for (int i = 0; i < _renderObject.size(); i++)
 	{
 		if ((192 == _renderObject[i]->getObjectNumber()) || (190 == _renderObject[i]->getObjectNumber()))
@@ -139,222 +385,4 @@ HRESULT stageFour::init()
 	CINEMATICMANAGER->init();
 	//로드된값 집어 넣기 
 	CINEMATICMANAGER->cinematicE4Init();
-
-	return S_OK;
-}
-
-void stageFour::release()
-{
-}
-
-void stageFour::update()
-{
-
-	//시네마틱 이벤트씬 로드 
-	CINEMATICMANAGER->cinematicE4Load(_mainCamera, CINEMATICMANAGER->GetGScineMticE4Bool());
-
-	if (CINEMATICMANAGER->GetGScineMticE4Bool() == true)
-	{
-		if (cinematicBool == false)
-		{
-			_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
-			_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, 5));
-			cinematicBool = true;
-		}
-		else
-		{
-			_mainCamera->updateBase();
-		}
-	}
-
-	shadowUpdate();
-
-	currTime += _timeDelta;
-	if (currTime > 1)
-	{
-		//D3DXVECTOR3 matAxis(0.0f, 0.0f, 1.0f);
-		D3DXMatrixIdentity(&matRotate);
-		//D3DXMatrixRotationAxis(&matRotate, &matAxis, D3DXToRadian(angleZ));
-		D3DXMatrixRotationX(&matRotate, D3DXToRadian(angleZ));
-		//_sceneBaseDirectionLight->_transform->RotateWorld(0.0f, 0.0f, D3DXToRadian(angleZ));
-		//sceneBaseDirectionLight->_transform->SetRotateWorld(matRotate);
-		toRotate->SetRotateWorld(matRotate);
-		angleZ--;
-		if (angleZ <= 0) angleZ = 360;
-		else if (angleZ >= 360) angleZ = 0;
-		currTime = 0;
-	}
-
-	sceneBaseDirectionLight->_transform->RotateSlerp(*sceneBaseDirectionLight->_transform, *toRotate, _timeDelta);
-
-	player->update();
-
-	player->out_setTargetByMouse(_mainCamera);
-
-	//오브젝트 업데이트
-	for (int i = 0; i < _renderObject.size(); i++) _renderObject[i]->update();
-
-	water->update(waterTemp.number);
-
-	sceneChange();
-}
-
-void stageFour::render()
-{
-	_directionLightCamera->_frustum.renderGizmo();
-
-	//카메라에 컬링된것만
-	this->_cullObject.clear();
-	for (int i = 0; i < this->_renderObject.size(); i++)
-	{
-		//프러스텀 확인
-		if (_mainCamera->_frustum.isInFrustum(_renderObject[i]))
-		{
-			this->_cullObject.push_back(_renderObject[i]);
-		}
-	}
-	objectSet->portalRender(_mainCamera);
-
-	_terrain->render(_mainCamera, sceneBaseDirectionLight, _directionLightCamera);
-
-
-	env->renderEnvironment(envTemp.number);
-	water->render(waterTemp.number);
-
-	//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅
-	xMeshStatic::setCamera(_mainCamera);
-	//xMeshStatic::setTechniqueName("ReciveShadow");
-	xMeshStatic::setTechniqueName("Toon");
-	xMeshStatic::_staticMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resource/Testures/Ramp_1.png"));
-	xMeshStatic::setBaseLight(this->sceneBaseDirectionLight);
-
-	xMeshSkinned::setCamera(_mainCamera);
-	//xMeshSkinned::setTechniqueName("ReciveShadow");
-	xMeshSkinned::setTechniqueName("Toon");
-	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resource/Testures/Ramp_1.png"));
-	xMeshSkinned::setBaseLight(this->sceneBaseDirectionLight);
-
-
-	for (int i = 0; i < this->_cullObject.size(); i++)
-	{
-		this->_cullObject[i]->render();
-		if (_cullObject[i] == player->getPlayerObject())
-		{
-			player->out_ItemUpdate();
-			player->out_updateBladeLight();
-		}
-	}
-	player->render();
-
-	CINEMATICMANAGER->cinematicE4Render(_mainCamera);
-}
-
-void stageFour::shadowInit(void)
-{
-	//배경씬 기본 빛 초기화
-	sceneBaseDirectionLight->_color = D3DXCOLOR(1, 1, 1, 1);
-	sceneBaseDirectionLight->_intensity = 1.0f;
-
-	//그림자를 만들 카메라 박스 크기 조절용 변수 초기화
-	_shadowDistance = 10.0f;
-
-	//그림자 카메라의 투영 방식 변경 및 근접 / 원거리 크기 조절
-	_directionLightCamera->_isOrtho = true;
-	_directionLightCamera->_camNear = 0.01f;
-	_directionLightCamera->_camFar = 30;
-	_directionLightCamera->_aspect = 1;
-	_directionLightCamera->_orthoSize = 60;	//투영크기는 그림자크기로
-	_directionLightCamera->readyShadowTexture(4096);
-
-	_mainCamera->readyRenderToTexture(WINSIZEX, WINSIZEY);
-
-	sceneBaseDirectionLight->_transform->SetWorldPosition(0, 20, 0);
-	sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(89), 0, 0);
-}
-
-void stageFour::shadowUpdate(void)
-{
-	////sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
-
-	////광원 위치
-	//D3DXVECTOR3 camPos = _mainCamera->GetWorldPosition();	//메인카메라의 위치
-	//D3DXVECTOR3 camFront = _mainCamera->GetForward();		//메인카메리의 정면
-	//D3DXVECTOR3 lightDir = sceneBaseDirectionLight->_transform->GetForward();	//방향성 빛의 방향
-
-	//D3DXVECTOR3 lightPos = camPos +
-	//	(camFront * (_shadowDistance * 0.5f)) +
-	//	(-lightDir * _shadowDistance);
-
-	//_directionLightCamera->SetWorldPosition(lightPos.x, lightPos.y, lightPos.z);
-	//_directionLightCamera->LookDirection(lightDir);
-
-	////쉐도우맵 준비
-	//this->readyShadowMap(&this->_renderObject, this->_terrainShadow);
-	D3DXVECTOR3 camPos = player->getPlayerObject()->_transform->GetWorldPosition();	//메인카메라의 위치
-
-	D3DXVECTOR3 lightDir = sceneBaseDirectionLight->_transform->GetForward();			//방향성 광원의 방향
-
-	_directionLightCamera->SetWorldPosition(camPos.x, camPos.y + 5, camPos.z);
-	_directionLightCamera->LookDirection(lightDir);
-
-	//쉐도우맵 준비
-	this->readyShadowMap(&this->_renderObject, this->_terrainShadow);
-}
-
-void stageFour::readyShadowMap(vector<baseObject*>* renderObjects, terrain * pTerrain)
-{
-	//방향성광원에 붙은 카메라의 Frustum 업데이트
-	_directionLightCamera->updateMatrix();
-	_directionLightCamera->updateFrustum();
-
-	//다이렉션라이팅 카메라에 들어오는 애들만 그린다...
-	static vector<baseObject*>	shadowCullObject;
-	shadowCullObject.clear();
-
-	for (int i = 0; i < renderObjects->size(); i++)
-	{
-		//프러스텀 안에 있니?
-		if (this->_mainCamera->_frustum.isInFrustum((*renderObjects)[i]))
-		{
-			shadowCullObject.push_back((*renderObjects)[i]);
-		}
-	}
-
-	//쉐도우 맵 그린다.
-	_directionLightCamera->renderTextureBegin(0xffffffff);
-
-	//고정메쉬 세팅
-	xMeshStatic::setCamera(this->_directionLightCamera);
-	xMeshStatic::setTechniqueName("CreateShadow");
-
-	//스킨드메쉬 세팅
-	xMeshSkinned::setCamera(this->_directionLightCamera);
-	xMeshSkinned::setTechniqueName("CreateShadow");
-
-	for (int i = 0; i < shadowCullObject.size(); i++)
-	{
-		if (shadowCullObject[i]->_ignoreCreateShadow == false)
-		{
-			shadowCullObject[i]->render();
-		}
-	}
-
-	//만약 Terrain 도 쉐도우 맵을 그려야한다면...
-	if (pTerrain != NULL)
-	{
-		pTerrain->renderShadow(_mainCamera);
-	}
-
-	_directionLightCamera->renderTextureEnd();
-}
-
-
-void stageFour::sceneChange()
-{
-	if (PHYSICSMANAGER->isOverlap(player->getPlayerObject(), _gate1))
-	{
-		PLAYERMANAGER->SetPos(D3DXVECTOR3(0, 0, -110));
-		//PLAYERMANAGER->SetPos(D3DXVECTOR3(5.5f, 0, 110.0f));
-		SCENEMANAGER->changeScene("gameSceneOne", false);
-	}
 }

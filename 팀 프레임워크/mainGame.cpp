@@ -20,7 +20,7 @@
 #include "cImgPartRenderTest.h"
 #include "cBossUITest.h"
 //
-#include "EndingScene.h"
+//#include "EndingScene.h"
 #include "kimsNewTest.h"
 
 mainGame::mainGame()
@@ -47,11 +47,11 @@ mainGame::mainGame()
 	//SCENEMANAGER->addScene("particleTest13", new particleTest13, false);
 
 	SCENEMANAGER->addScene("start", new startScene, false);
-	SCENEMANAGER->addScene("gameSceneOne", new stageOne);
-	SCENEMANAGER->addScene("gameSceneTwo", new stageTwo);
-	SCENEMANAGER->addScene("gameSceneThree", new stageThree);
-	SCENEMANAGER->addScene("gameSceneFour", new stageFour);
-	SCENEMANAGER->addScene("EndingScene", new EndingScene, false);
+	SCENEMANAGER->addScene("gameSceneOne", ex_pStage1);
+	SCENEMANAGER->addScene("gameSceneTwo", ex_pStage2);
+	SCENEMANAGER->addScene("gameSceneThree", ex_pStage3);
+	SCENEMANAGER->addScene("gameSceneFour", ex_pStage4);
+	SCENEMANAGER->addScene("EndingScene", ex_pEnding, false);
 
 	//SCENEMANAGER->addScene("test", new cGameUITest, false);
 	//SCENEMANAGER->addScene("test", new cMinimapTest, false);

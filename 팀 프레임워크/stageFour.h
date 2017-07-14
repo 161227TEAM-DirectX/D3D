@@ -33,17 +33,15 @@ private:
 	bool cinematicBool;
 	tagSaveMap envTemp;
 	tagSaveMap waterTemp;
+
 public:
-	stageFour() { clear(); }
-	~stageFour() { destroy(); }
+	stageFour();
+	~stageFour();
 
-	HRESULT clear(void);
-	void destroy(void);
-
-	HRESULT init() override;
-	void release() override;
-	void update() override;
-	void render() override;
+	HRESULT init();
+	void release();
+	void update();
+	void render();
 
 	//그림자를 위한 초기화 작업 공간
 	void shadowInit(void);
@@ -53,5 +51,8 @@ public:
 	void readyShadowMap(vector<baseObject*>* renderObjects, terrain* pTerrain = NULL);
 
 	void sceneChange();
+
+	void loadingStage();
 };
 
+extern stageFour* ex_pStage4;

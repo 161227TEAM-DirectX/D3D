@@ -1,78 +1,37 @@
 #include "stdafx.h"
 #include "EndingScene.h"
 
+EndingScene* ex_pEnding = new EndingScene;
+
+EndingScene::EndingScene()
+	: _terrain(nullptr)
+	, _camera(nullptr)
+{
+	_renderObject.clear();
+
+	memset(&envTemp, 0, sizeof(tagSaveMap));
+	memset(&waterTemp, 0, sizeof(tagSaveMap));
+
+	npcVector.clear();
+}
+
+EndingScene::~EndingScene()
+{
+}
+
 HRESULT EndingScene::init()
 {
-	//카메라 기초세팅
-	_camera = new camera;
-	_camera->SetLocalPosition(0, 0, 0);
-
-	for (int i = 1; i <= 10; i++)
-	{
-		baseObject* NPC = new baseObject;
-		NPC->setActive(true);
-		npcVector.push_back(NPC);
-	}
-
-	//메쉬 초기화
-	this->meshInit();
-	
-	sceneBaseDirectionLight._color = D3DXCOLOR(1, 1, 1, 1);
-	sceneBaseDirectionLight._intensity = 1.0f;
-	sceneBaseDirectionLight._transform->SetWorldPosition(0, 20, 0);
-	sceneBaseDirectionLight._transform->RotateWorld(0, D3DXToRadian(90), 0);
-
-	//지형로드부분
-	_terrain = new terrain;
-	_terrain->setHeightmap(IOMAPMANAGER->loadMapInfo("엔딩지형").heightMap, true);
-	_terrain->setTile0(IOMAPMANAGER->loadMapInfo("엔딩지형").tile0, true);
-	_terrain->setTile1(IOMAPMANAGER->loadMapInfo("엔딩지형").tile1, true);
-	_terrain->setTile2(IOMAPMANAGER->loadMapInfo("엔딩지형").tile2, true);
-	_terrain->setTile3(IOMAPMANAGER->loadMapInfo("엔딩지형").tile3, true);
-	_terrain->setSplat(IOMAPMANAGER->loadMapInfo("엔딩지형").splat, true);
-	_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("엔딩지형").vecPos);
-	_terrain->setting();
-	_terrain->changeHeightTerrain();
-
-	//오브젝트로드부분
-	IOSAVEOBJECTMANAGER->loadFile("엔딩오브젝트");
-	for (int i = 0; i < IOSAVEOBJECTMANAGER->getCount(); i++)
-	{
-		tagSaveObject object;
-		memset(&object, 0, sizeof(tagSaveObject));
-
-		object = IOSAVEOBJECTMANAGER->findTag("넘버" + to_string(i + 1));
-		baseObject* temp = new baseObject;
-		D3DXMATRIX matRotate;
-		objectSet.objectSet(object.objectNumber, temp, matRotate, object.objectX, object.objectY, object.objectZ, object.objectScale, object.objectRotate);
-
-		_renderObject.push_back(temp);
-	}
-
-	//물부분,환경맵부분
-	IOSAVEMANAGER->loadFile("엔딩환경");
-
-	envTemp = IOSAVEMANAGER->findTag("환경맵");
-	waterTemp = IOSAVEMANAGER->findTag("물결맵");
-
-	water.linkCamera(*_camera);
-	water.init(3.0f, 256);
-
-	env.init();
-	env.linkCamera(*_camera);
-
-	//시네마틱설정
-	CINEMATICMANAGER->init();
-	//로드된값 집어 넣기 
-	CINEMATICMANAGER->cinematicEndingInit();
-
 	return S_OK;
 }
+
+
 
 void EndingScene::release()
 {
 
 }
+
+
 
 void EndingScene::update()
 {
@@ -96,6 +55,8 @@ void EndingScene::update()
 	}
 
 }
+
+
 
 void EndingScene::render()
 {
@@ -140,6 +101,8 @@ void EndingScene::render()
 		break;
 	}
 }
+
+
 
 void EndingScene::meshInit()
 {
@@ -199,7 +162,7 @@ void EndingScene::meshInit()
 		DXIMGANI_MANAGER->GetDxImgAni("김태승")[i]->SetPosition(D3DXVECTOR3(WINSIZEX / 2, 820, 0));
 		DXIMGANI_MANAGER->GetDxImgAni("김태승")[i]->SetCenterDraw(true);
 	}
-	DXIMGANI_MANAGER->setDxAniIsOnce("김태승",true);
+	DXIMGANI_MANAGER->setDxAniIsOnce("김태승", true);
 
 	for (int i = 0; i < DXIMGANI_MANAGER->GetDxImgAni("이현총").size(); i++)
 	{
@@ -228,4 +191,72 @@ void EndingScene::meshInit()
 		DXIMGANI_MANAGER->GetDxImgAni("김태훈")[i]->SetCenterDraw(true);
 	}
 	DXIMGANI_MANAGER->setDxAniIsOnce("김태훈", true);
+}
+
+
+
+void EndingScene::loadingScene()
+{
+	//카메라 기초세팅
+	_camera = new camera;
+	_camera->SetLocalPosition(0, 0, 0);
+
+	for (int i = 1; i <= 10; i++)
+	{
+		baseObject* NPC = new baseObject;
+		NPC->setActive(true);
+		npcVector.push_back(NPC);
+	}
+
+	//메쉬 초기화
+	this->meshInit();
+
+	sceneBaseDirectionLight._color = D3DXCOLOR(1, 1, 1, 1);
+	sceneBaseDirectionLight._intensity = 1.0f;
+	sceneBaseDirectionLight._transform->SetWorldPosition(0, 20, 0);
+	sceneBaseDirectionLight._transform->RotateWorld(0, D3DXToRadian(90), 0);
+
+	//지형로드부분
+	_terrain = new terrain;
+	_terrain->setHeightmap(IOMAPMANAGER->loadMapInfo("엔딩지형").heightMap, true);
+	_terrain->setTile0(IOMAPMANAGER->loadMapInfo("엔딩지형").tile0, true);
+	_terrain->setTile1(IOMAPMANAGER->loadMapInfo("엔딩지형").tile1, true);
+	_terrain->setTile2(IOMAPMANAGER->loadMapInfo("엔딩지형").tile2, true);
+	_terrain->setTile3(IOMAPMANAGER->loadMapInfo("엔딩지형").tile3, true);
+	_terrain->setSplat(IOMAPMANAGER->loadMapInfo("엔딩지형").splat, true);
+	_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("엔딩지형").vecPos);
+	_terrain->setting();
+	_terrain->changeHeightTerrain();
+
+	//오브젝트로드부분
+	IOSAVEOBJECTMANAGER->loadFile("엔딩오브젝트");
+	for (int i = 0; i < IOSAVEOBJECTMANAGER->getCount(); i++)
+	{
+		tagSaveObject object;
+		memset(&object, 0, sizeof(tagSaveObject));
+
+		object = IOSAVEOBJECTMANAGER->findTag("넘버" + to_string(i + 1));
+		baseObject* temp = new baseObject;
+		D3DXMATRIX matRotate;
+		objectSet.objectSet(object.objectNumber, temp, matRotate, object.objectX, object.objectY, object.objectZ, object.objectScale, object.objectRotate);
+
+		_renderObject.push_back(temp);
+	}
+
+	//물부분,환경맵부분
+	IOSAVEMANAGER->loadFile("엔딩환경");
+
+	envTemp = IOSAVEMANAGER->findTag("환경맵");
+	waterTemp = IOSAVEMANAGER->findTag("물결맵");
+
+	water.linkCamera(*_camera);
+	water.init(3.0f, 256);
+
+	env.init();
+	env.linkCamera(*_camera);
+
+	//시네마틱설정
+	CINEMATICMANAGER->init();
+	//로드된값 집어 넣기 
+	CINEMATICMANAGER->cinematicEndingInit();
 }
