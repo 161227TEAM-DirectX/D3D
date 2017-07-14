@@ -55,6 +55,8 @@ HRESULT stageFour::init()
 {
 	SOUNDMANAGER->play("ÇÊµå1", 0.1f);
 
+	player->getPlayerObject()->_transform->SetWorldPosition(PLAYERMANAGER->GetPos());
+
 	return S_OK;
 }
 

@@ -38,12 +38,12 @@ HRESULT loadingScene::init()
 	InitializeCriticalSection(&_cs);
 
 	DWORD dwThID[6];
-	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInit, this, NULL, &dwThID[1]));
+	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInit, this, NULL, &dwThID[1]));//로딩씬
 
-	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene1, this, NULL, &dwThID[2]));
-	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene2, this, NULL, &dwThID[3]));
-	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene3, this, NULL, &dwThID[4]));
-	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene4, this, NULL, &dwThID[5]));
+	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene1, this, NULL, &dwThID[2]));//스테이지1
+	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene2, this, NULL, &dwThID[3]));//스테이지2
+	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene3, this, NULL, &dwThID[4]));//스테이지3
+	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene4, this, NULL, &dwThID[5]));//스테이지4
 	return S_OK;
 }
 
@@ -65,17 +65,17 @@ void loadingScene::render()
 	m_pLoadingBar->render();
 
 	if (m_isChange
-		//&& m_isChangeScene1
-		//&& m_isChangeScene2 
-		//&& m_isChangeScene3 
-		//&& m_isChangeScene4
-		//&& m_pLoadingBar->IsFullBar()
+		&& m_isChangeScene1
+		&& m_isChangeScene2 
+		&& m_isChangeScene3 
+		&& m_isChangeScene4
+		&& m_pLoadingBar->IsFullBar()
 		)
 	{
 		//g_eSelectMode = E_MAPTOOL;
 		//SCENEMANAGER->changeScene("test");
-		SCENEMANAGER->changeScene("start");
-		//SCENEMANAGER->changeScene("gameSceneOne");//gameSceneOne
+		//SCENEMANAGER->changeScene("start");
+		SCENEMANAGER->changeScene("gameSceneOne");//gameSceneOne
 		//SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
 		//SCENEMANAGER->changeScene("gameSceneThree");//gameSceneThree
 		//SCENEMANAGER->changeScene("gameSceneFour");//gameSceneFour

@@ -86,6 +86,8 @@ HRESULT stageThree::init()
 	m_pUIPlayer->SetMapNum(2);
 	m_pUIPlayer->init();
 
+	player->getPlayerObject()->_transform->SetWorldPosition(PLAYERMANAGER->GetPos());
+
 	return S_OK;
 }
 
