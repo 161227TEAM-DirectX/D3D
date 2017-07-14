@@ -9,6 +9,7 @@ bool loadingScene::m_isChangeScene4 = false;
 
 loadingScene::loadingScene()
 {
+	
 }
 
 
@@ -18,6 +19,13 @@ loadingScene::~loadingScene()
 
 HRESULT loadingScene::init()
 {
+	UILoading();
+	AniLoading();
+	
+	FILEPATH_MANAGER->AddFilepath("로딩", "Resource/Sound/로딩.mp3");
+	SOUNDMANAGER->addSound("로딩", FILEPATH_MANAGER->GetFilepath("로딩"), true, true);
+	SOUNDMANAGER->play("로딩", 0.5f);
+
 	//로딩씬에 필요한 이미지들은 미리 로딩해둔다.
 	DXIMG_MANAGER->AddDxImg("로딩화면", new cDxImg(FILEPATH_MANAGER->GetFilepath("로딩화면")));
 	DXIMG_MANAGER->AddDxImg("loadingbar_move", new cDxImg(FILEPATH_MANAGER->GetFilepath("loadingbar_move")));
@@ -27,20 +35,15 @@ HRESULT loadingScene::init()
 
 	m_pLoadingBar = new cDxImgBar("loadingbar_cover", "loadingbar_back", "loadingbar_move",
 								  D3DXVECTOR2(WINSIZEX / 2, WINSIZEY / 2 + 400), true);
-
 	InitializeCriticalSection(&_cs);
-
-	UILoading();
-	AniLoading();
 
 	DWORD dwThID[6];
 	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInit, this, NULL, &dwThID[1]));
 
-	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene1, this, NULL, &dwThID[2]));
+	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene1, this, NULL, &dwThID[2]));
 	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene2, this, NULL, &dwThID[3]));
 	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene3, this, NULL, &dwThID[4]));
 	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene4, this, NULL, &dwThID[5]));
-
 	return S_OK;
 }
 
@@ -62,10 +65,11 @@ void loadingScene::render()
 	m_pLoadingBar->render();
 
 	if (m_isChange
-		&& m_isChangeScene1
+		//&& m_isChangeScene1
 		//&& m_isChangeScene2 
 		//&& m_isChangeScene3 
-		//&& m_isChangeScene4/*&& m_pLoadingBar->IsFullBar()*/
+		//&& m_isChangeScene4
+		//&& m_pLoadingBar->IsFullBar()
 		)
 	{
 		//g_eSelectMode = E_MAPTOOL;
@@ -88,6 +92,7 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 	PtcLoading();
 
 	SoundLoading();
+
 
 	//ex_pStage1->loadingStage();
 	//ex_pStage2->loadingScene();
@@ -1232,6 +1237,9 @@ void loadingScene::XMeshSkinnedLoading()
 
 void loadingScene::SoundLoading()
 {
+	//시작화면
+	SOUNDMANAGER->addSound("시작", FILEPATH_MANAGER->GetFilepath("시작"), true, true);
+	
 	//플레이어/마을
 	SOUNDMANAGER->addSound("마을1", FILEPATH_MANAGER->GetFilepath("마을"), true, true);
 	SOUNDMANAGER->addSound("필드1", FILEPATH_MANAGER->GetFilepath("필드"), true, true);

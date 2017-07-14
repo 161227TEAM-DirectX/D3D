@@ -46,8 +46,7 @@ stageOne::~stageOne()
 
 HRESULT stageOne::init()
 {
-
-
+	SOUNDMANAGER->play("필드1", 0.1f);
 
 	return S_OK;
 }
@@ -405,7 +404,7 @@ void stageOne::loadingStage()
 
 	ACMANAGER->Init(*_terrain, *player);
 
-	SOUNDMANAGER->play("필드1", 0.1f);
+	
 
 	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
 	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, -5));

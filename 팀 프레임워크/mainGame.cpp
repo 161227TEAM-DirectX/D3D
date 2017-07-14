@@ -32,7 +32,7 @@ mainGame::mainGame()
 	//SCENEMANAGER->addScene("test", new cCutsceneTest, false);
 
 	SCENEMANAGER->addScene("loading", new loadingScene, true);
-	SCENEMANAGER->addScene("test", new cBossUITest, false);
+	//SCENEMANAGER->addScene("test", new cBossUITest, false);
 
 	//SCENEMANAGER->addScene("test", new cMinimapTest, false);
 	//SCENEMANAGER->addScene("start", new startScene, false);
@@ -51,11 +51,11 @@ mainGame::mainGame()
 	SCENEMANAGER->addScene("gameSceneTwo", ex_pStage2);
 	SCENEMANAGER->addScene("gameSceneThree", ex_pStage3);
 	SCENEMANAGER->addScene("gameSceneFour", ex_pStage4);
-	SCENEMANAGER->addScene("EndingScene", ex_pEnding, false);
+	//SCENEMANAGER->addScene("EndingScene", ex_pEnding, false);
 
 	//SCENEMANAGER->addScene("test", new cGameUITest, false);
 	//SCENEMANAGER->addScene("test", new cMinimapTest, false);
-	SCENEMANAGER->addScene("AItest", new bossMonsterAITestScene);
+	//SCENEMANAGER->addScene("AItest", new bossMonsterAITestScene);
 }
 
 mainGame::~mainGame()

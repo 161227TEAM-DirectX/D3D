@@ -61,7 +61,7 @@ stageTwo::~stageTwo()
 
 HRESULT stageTwo::init()
 {
-
+	SOUNDMANAGER->play("필드1", 0.1f);
 
 	return S_OK;
 }
@@ -601,7 +601,7 @@ void stageTwo::loadingScene()
 
 	player->out_setMonsterRegion(&_monsterRegion);
 
-	SOUNDMANAGER->play("필드1", 0.1f);
+
 
 	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
 	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, -5));

@@ -11,6 +11,8 @@ startScene::~startScene()
 
 HRESULT startScene::init()
 {
+	SOUNDMANAGER->play("Ω√¿€", 0.1f);
+
 	for (int i=0; i < DXIMGANI_MANAGER->getAniSize("Ani_Fire01"); i++)
 	{
 		DXIMGANI_MANAGER->setDxImgAniPosition("Ani_Fire01_" + to_string(i), D3DXVECTOR2(i * 50, 800));
