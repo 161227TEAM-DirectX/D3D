@@ -21,10 +21,11 @@ int bossActionAttack::Start()
 	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
 	//º¸½º¸ó½ºÅÍÀÇ °ø°Ý¸ð¼Ç ¾Æ¹«°Å³ª ½ÃÀÛ.
 	owner->getSkinnedAnim().Play("Animation_12");
+	dx::transform* tempTrans = &temp->getfieldTrans();
 
-	owner->getSkinnedAnim().AddBoneTransform("Deathwing_Bone130", &effect);
+	owner->getSkinnedAnim().AddBoneTransform("Deathwing_Bone130", tempTrans);
 	effect.MovePositionSelf(0.0f, 1.0f, 0.0f);
-	SKM->findSK("È­¿°ÀåÆÇ")->setSkillPosTrans(&effect);
+	SKM->findSK("È­¿°ÀåÆÇ")->setSkillPosTrans(tempTrans);
 	SKM->findSK("È­¿°ÀåÆÇ")->setSkillDirTrans(owner->_transform);
 	SKM->findSK("È­¿°ÀåÆÇ")->Start();
 
@@ -135,23 +136,25 @@ void bossActionAttack::Render()
 	FONTMANAGER->fontOut(temp, 200, 200, WHITE);
 	FONTMANAGER->fontOut(owner->getSkinnedAnim().getNowPlayAnimSet()->GetName(), 200, 250, WHITE);
 	
-	if (SKM->findSK("È­¿°ÀåÆÇ")->getActive()) FONTMANAGER->fontOut("È­¿°ÀåÆÇ true", 200, 300, WHITE);
-	else FONTMANAGER->fontOut("È­¿°ÀåÆÇ false", 200, 300, WHITE);
+	//if (SKM->findSK("È­¿°ÀåÆÇ")->getActive()) FONTMANAGER->fontOut("È­¿°ÀåÆÇ true", 200, 300, WHITE);
+	//else FONTMANAGER->fontOut("È­¿°ÀåÆÇ false", 200, 300, WHITE);
 
-	if (EFFECT->findEffect("¾Õ¹ßÂï±â")->getActive()) FONTMANAGER->fontOut("¾Õ¹ßÂï±â true", 200, 350, WHITE);
-	else FONTMANAGER->fontOut("¾Õ¹ßÂï±â false", 200, 350, WHITE);
+	//if (EFFECT->findEffect("¾Õ¹ßÂï±â")->getActive()) FONTMANAGER->fontOut("¾Õ¹ßÂï±â true", 200, 350, WHITE);
+	//else FONTMANAGER->fontOut("¾Õ¹ßÂï±â false", 200, 350, WHITE);
 
-	if (SKM->findSK("ÇÒÄû±â_¿À¸¥¹ß")->getActive()) FONTMANAGER->fontOut("ÇÒÄû±â_¿À¸¥¹ß true", 200, 400, WHITE);
-	else FONTMANAGER->fontOut("ÇÒÄû±â_¿À¸¥¹ß false", 200, 400, WHITE);
+	//if (SKM->findSK("ÇÒÄû±â_¿À¸¥¹ß")->getActive()) FONTMANAGER->fontOut("ÇÒÄû±â_¿À¸¥¹ß true", 200, 400, WHITE);
+	//else FONTMANAGER->fontOut("ÇÒÄû±â_¿À¸¥¹ß false", 200, 400, WHITE);
 }
 
 void bossActionAttack::removeTransform(void)
 {
 	string tempAniName = owner->getSkinnedAnim().getNowPlayAnimSet()->GetName();
+//	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
 
 	if (!tempAniName.compare("Animation_12"))
 	{
-		owner->getSkinnedAnim().RemoveBoneTransform("Deathwing_Bone130");
+		//owner->getSkinnedAnim().RemoveBoneTransform("Deathwing_Bone130");
+		//temp->getTrans().Reset();
 		//SKM->findSK("È­¿°ÀåÆÇ")->setResetOn();
 		return;
 	}
@@ -161,17 +164,21 @@ void bossActionAttack::removeTransform(void)
 	}
 	else if (!tempAniName.compare("Animation_11"))
 	{
+		//owner->getSkinnedAnim().RemoveApplyTransform("Deathwing_Bone89");
+		//temp->getTrans().Reset();
 		return;
 	}
 	else if (!tempAniName.compare("Animation_21"))
 	{
-		owner->getSkinnedAnim().RemoveBoneTransform("Deathwing_Bone92");
+		//owner->getSkinnedAnim().RemoveBoneTransform("Deathwing_Bone92");
 		//EFFECT->findEffect("¾Õ¹ßÂï±â")->resetOn();
+		//temp->getTrans().Reset();
 		return;
 	}
 	else if (!tempAniName.compare("Animation_10"))
 	{
-		owner->getSkinnedAnim().RemoveBoneTransform("Deathwing_Bone92");
+		//owner->getSkinnedAnim().RemoveBoneTransform("Deathwing_Bone92");
+		//temp->getTrans().Reset();
 		//SKM->findSK("ÇÒÄû±â")->setResetOn();
 		return;
 	}
@@ -187,23 +194,25 @@ void bossActionAttack::randomAttack(void)
 		ActionRandom = myUtil::RandomIntRange(1, 5);
 	}
 
+	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
+
 	//À§ÀÇ Á¶°ÇµéÀÌ ¸ðµÎ Æ²·È´Ù¸é ATTACKÀ» ½ÃÀÛÇÏÀÚ.
 	switch (ActionRandom)
 	{
 	case 1:
 		owner->getSkinnedAnim().Play("Animation_12");
-		owner->getSkinnedAnim().AddBoneTransform("Deathwing_Bone130", &effect);
-		effect.MovePositionSelf(0.0f, 1.0f, 0.0f);
+		//owner->getSkinnedAnim().AddBoneTransform("Deathwing_Bone130", &temp->getfieldTrans());
+		temp->getfieldTrans().MovePositionSelf(0.0f, 1.0f, 0.0f);
 		
 		if (SKM->findSK("È­¿°ÀåÆÇ")->getActive() == FALSE)
 		{
-			SKM->findSK("È­¿°ÀåÆÇ")->setSkillPosTrans(&effect);
+			SKM->findSK("È­¿°ÀåÆÇ")->setSkillPosTrans(&temp->getfieldTrans());
 			SKM->findSK("È­¿°ÀåÆÇ")->setSkillDirTrans(owner->_transform);
 			SKM->findSK("È­¿°ÀåÆÇ")->Start();
 		}
 		else
 		{
-			SKM->findSK("È­¿°ÀåÆÇ2")->setSkillPosTrans(&effect);
+			SKM->findSK("È­¿°ÀåÆÇ2")->setSkillPosTrans(&temp->getfieldTrans());
 			SKM->findSK("È­¿°ÀåÆÇ2")->setSkillDirTrans(owner->_transform);
 			SKM->findSK("È­¿°ÀåÆÇ2")->Start();
 		}
@@ -212,11 +221,11 @@ void bossActionAttack::randomAttack(void)
 	case 2:
 		owner->getSkinnedAnim().Play("Animation_10");
 		//owner->getSkinnedAnim().SetPlaySpeed(0.2f);
-		owner->getSkinnedAnim().AddBoneTransform("Deathwing_Bone92", &effect);
+		//owner->getSkinnedAnim().AddBoneTransform("Deathwing_Bone92", &temp->getrightTrans());
 		//effect.MovePositionSelf(0.0f, 1.0f, 0.0f);
 
-		SKM->findSK("ÇÒÄû±â_¿À¸¥¹ß")->setSkillPosTrans(&effect);
-		SKM->findSK("ÇÒÄû±â_¿À¸¥¹ß")->setSkillDirTrans(&effect);
+		SKM->findSK("ÇÒÄû±â_¿À¸¥¹ß")->setSkillPosTrans(&temp->getrightTrans());
+		SKM->findSK("ÇÒÄû±â_¿À¸¥¹ß")->setSkillDirTrans(&temp->getrightTrans());
 
 		SKM->findSK("ÇÒÄû±â_¿À¸¥¹ß")->Start();
 		break;
@@ -225,13 +234,19 @@ void bossActionAttack::randomAttack(void)
 		break;
 	case 4:
 		owner->getSkinnedAnim().Play("Animation_11");
+		//owner->getSkinnedAnim().AddBoneTransform("Deathwing_Bone89", &temp->getleftTrans());
+
+		SKM->findSK("ÇÒÄû±â_¿Þ¹ß")->setSkillPosTrans(&temp->getleftTrans());
+		SKM->findSK("ÇÒÄû±â_¿Þ¹ß")->setSkillDirTrans(&temp->getleftTrans());
+
+		SKM->findSK("ÇÒÄû±â_¿Þ¹ß")->Start();
 		break;
 	case 5:
 		owner->getSkinnedAnim().Play("Animation_21");
-		owner->getSkinnedAnim().AddBoneTransform("Deathwing_Bone92", &effect);
+		//owner->getSkinnedAnim().AddBoneTransform("Deathwing_Bone92", &temp->getrightStumTrans());
 
 		EFFECT->findEffect("¾Õ¹ßÂï±â")->setLimitTime(5.0f);
-		EFFECT->findEffect("¾Õ¹ßÂï±â")->Start(&effect);
+		EFFECT->findEffect("¾Õ¹ßÂï±â")->Start(&temp->getrightTrans());
 		break;
 	}
 

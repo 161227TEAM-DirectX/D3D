@@ -4,6 +4,10 @@ class bossMonster : public monster
 {
 private:
 	int Frequency;								//ºóµµÀ²
+	
+	dx::transform rightTrans;
+	dx::transform leftTrans;
+	dx::transform fieldTrans;
 public:
 	bossMonster();
 	~bossMonster();
@@ -17,5 +21,12 @@ public:
 
 	void switchState(void);
 	void testKeyAI(void);
+
+	inline dx::transform& getrightTrans(void) { return rightTrans; }
+	inline void setrightTrans(dx::transform& temp) { this->rightTrans = temp; }
+	inline dx::transform& getleftTrans(void) { return leftTrans; }
+	inline void setleftTrans(dx::transform& temp) { this->leftTrans = temp; }
+	inline dx::transform& getfieldTrans(void) { return fieldTrans; }
+	inline void setfieldTrans(dx::transform& temp) { this->fieldTrans = temp; }
 };
 

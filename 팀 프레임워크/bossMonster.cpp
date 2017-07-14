@@ -29,6 +29,10 @@ void bossMonster::baseObjectEnable()
 	att = 1000;
 	def = 550;
 
+	_skinnedAnim->AddBoneTransform("Deathwing_Bone130", &fieldTrans);
+	_skinnedAnim->AddBoneTransform("Deathwing_Bone92", &rightTrans);
+	_skinnedAnim->AddBoneTransform("Deathwing_Bone89", &leftTrans);
+
 	//컨트롤에 의한 초기 액션
 	CurrAction = ACMANAGER->getAction("보스시네마", *this);
 	result = (LHS::ACTIONRESULT)CurrAction->Start();
