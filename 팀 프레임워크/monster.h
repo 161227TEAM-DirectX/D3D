@@ -94,4 +94,3 @@ public:
 	// 특수 명칭 부여 함수
 	void authorizeName(void);
 };
-

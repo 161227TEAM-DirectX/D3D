@@ -53,22 +53,22 @@ void loadingScene::render()
 	{
 		//g_eSelectMode = E_MAPTOOL;
 		//SCENEMANAGER->changeScene("test");
-		SCENEMANAGER->changeScene("start");
+		//SCENEMANAGER->changeScene("start");
 		//SCENEMANAGER->changeScene("gameSceneOne");//gameSceneOne
 		//SCENEMANAGER->changeScene("gameSceneTwo");//gameSceneTwo
 		//SCENEMANAGER->changeScene("gameSceneThree");//gameSceneThree
 		//SCENEMANAGER->changeScene("gameSceneFour");//gameSceneFour
 		//SCENEMANAGER->changeScene("EndingScene");//gameSceneTwo
 		//SCENEMANAGER->changeScene("kims");//kims
-		//SCENEMANAGER->changeScene("AItest");//AItest
+		SCENEMANAGER->changeScene("AItest");//AItest
 	}
 	LeaveCriticalSection(&_cs);
 }
 
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
-	//XMeshSkinnedLoading();
-	//PtcLoading();
+	XMeshSkinnedLoading();
+	PtcLoading();
 
 	SoundLoading();
 	UILoading();

@@ -4,6 +4,7 @@ class Action;
 class terrain;
 class baseObject;
 class xPlayer;
+class camera;
 
 #define ACMANAGER ActionManager::GetInstance()
 
@@ -15,6 +16,7 @@ private:
 	vector<baseObject*>* objectVector;
 	vector<baseObject*> tempObjectVector;
 	xPlayer*	player;
+	camera* mainCamera;
 public:
 	ActionManager();
 	~ActionManager();
@@ -25,6 +27,14 @@ public:
 		linkTerrain(temp);
 		linkObjectVector(object);
 		linkPlayer(player);
+	}
+
+	//지형 오브젝트벡터, 플레이어, 메인카메라
+	void Init(terrain& temp, xPlayer& player, camera& mainCamera)
+	{
+		linkTerrain(temp);
+		linkPlayer(player);
+		linkCamera(mainCamera);
 	}
 
 	void Init(terrain& temp, xPlayer& player)
@@ -41,7 +51,7 @@ public:
 	void linkTerrain(terrain& temp) { this->land = &temp; }
 	void linkObjectVector(vector<baseObject*>& temp) { objectVector = &temp; }
 	void linkPlayer(xPlayer& temp) { this->player = &temp; }
-
+	void linkCamera(camera& temp) { this->mainCamera = &temp; }
 	Action* getAction(string, baseObject&);
 	void clearAction(void);
 
