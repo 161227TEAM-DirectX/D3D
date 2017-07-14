@@ -2051,11 +2051,13 @@ void xPlayer::skillProcesser() {
 		}
 		break;
 	case SKILL_MAGICMISSILE:
-		if (SKM->findSK("¸ÅÁ÷½´ÅÍ")->getCollision())
+		if (targetMonster != nullptr)
 		{
-			targetMonster->setHP(targetMonster->getHP() - PLAYERMANAGER->Getatt());
+			if (SKM->findSK("¸ÅÁ÷½´ÅÍ")->getCollision())
+			{
+				targetMonster->setHP(targetMonster->getHP() - PLAYERMANAGER->Getatt());
+			}
 		}
-
 		if (SKM->findSK("¸ÅÁ÷½´ÅÍ")->getEnd())
 		{
 			if (_isOnBattle)
@@ -2079,12 +2081,13 @@ void xPlayer::skillProcesser() {
 		//}
 		break;
 	case SKILL_LIGHTNING:
-
-		if (SKM->findSK("¶óÀÌÆ®´×")->getCollision())
+		if (targetMonster != nullptr)
 		{
-			targetMonster->setHP(targetMonster->getHP() - PLAYERMANAGER->Getatt());
+			if (SKM->findSK("¶óÀÌÆ®´×")->getCollision())
+			{
+				targetMonster->setHP(targetMonster->getHP() - PLAYERMANAGER->Getatt());
+			}
 		}
-
 		if (SKM->findSK("¶óÀÌÆ®´×")->getEnd())
 		{
 			if (_isOnBattle)
@@ -2106,9 +2109,12 @@ void xPlayer::skillProcesser() {
 		break;
 
 	case SKILL_SKYSWD:
-		if (SKM->findSK("ÇÏ´ÃÀÇ_´ë°Ë")->getCollision())
+		if (targetMonster != nullptr)
 		{
-			targetMonster->setHP(0);
+			if (SKM->findSK("ÇÏ´ÃÀÇ_´ë°Ë")->getCollision())
+			{
+				targetMonster->setHP(0);
+			}
 		}
 
 		if (SKM->findSK("ÇÏ´ÃÀÇ_´ë°Ë")->getEnd())
@@ -2126,9 +2132,12 @@ void xPlayer::skillProcesser() {
 
 		break;
 	case SKILL_FIRE:
-		if (SKM->findSK("ÆÄÀÌ¾î¸ÅÁ÷")->getCollision())
+		if (targetMonster != nullptr)
 		{
-			targetMonster->setHP(0);
+			if (SKM->findSK("ÆÄÀÌ¾î¸ÅÁ÷")->getCollision())
+			{
+				targetMonster->setHP(0);
+			}
 		}
 
 		if (SKM->findSK("ÆÄÀÌ¾î¸ÅÁ÷")->getEnd())
@@ -2160,9 +2169,12 @@ void xPlayer::skillProcesser() {
 		}
 		break;
 	case SKILL_METEOR:
-		if (SKM->findSK("»ûº°_¶³±¸±â")->getCollision())
+		if (targetMonster != nullptr)
 		{
-			targetMonster->setHP(0);
+			if (SKM->findSK("»ûº°_¶³±¸±â")->getCollision())
+			{
+				targetMonster->setHP(0);
+			}
 		}
 
 		if (SKM->findSK("»ûº°_¶³±¸±â")->getEnd())

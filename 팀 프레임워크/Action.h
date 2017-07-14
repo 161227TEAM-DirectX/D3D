@@ -4,6 +4,7 @@ class Action;
 class baseObject;
 class terrain;
 class xPlayer;
+class camera;
 
 class Action
 {
@@ -13,6 +14,7 @@ protected:
 	vector<baseObject*>*	object;				// 오브젝트 정보, 장애물
 	xPlayer*				enemy;				// 플레이어 정보
 	baseObject*				playerObject;		// 플레이어 오브젝트 정보
+	camera*					mainCamera;
 
 	float _oldTimeDelta;
 	const float Gap;
@@ -37,6 +39,8 @@ public:
 	}
 
 	inline void setPlayerObject(baseObject& temp) { this->playerObject = &temp; }
+
+	inline void setCamera(camera& temp) { this->mainCamera = &temp; }
 
 	//액션의 시작을 정의하는 함수 - 순수가상함수
 	virtual int Start() = 0;

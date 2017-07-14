@@ -4,6 +4,7 @@
 class Environment;
 class WaterTerrain;
 class mapObject;
+class cUIPlayer;
 
 class stageFour : public iGameNode
 {
@@ -22,6 +23,8 @@ private:
 	dx::transform*		toRotate;				//태양 보정값용
 
 	baseObject*			_gate1;
+private:
+	cUIPlayer* m_pUIPlayer;
 private:
 	vector<baseObject*> _renderObject;
 	vector<baseObject*>	_cullObject;
@@ -53,6 +56,8 @@ public:
 	void sceneChange();
 
 	void loadingStage();
+
+	virtual void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 extern stageFour* ex_pStage4;

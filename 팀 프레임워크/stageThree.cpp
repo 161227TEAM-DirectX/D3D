@@ -53,6 +53,41 @@ stageThree::~stageThree()
 
 HRESULT stageThree::init()
 {
+	SOUNDMANAGER->play("보스1", 0.1f);
+
+	//액션 매니저 초기화
+	ACMANAGER->Init(*_terrain, *player);
+
+	float tempY = _terrain->getHeight(5.0f, 5.0f);
+	tempY = _terrain->getHeight(0.0f, 0.0f);
+	IOSAVEMONSTERBOX->loadFile("test");
+	//보스몬스터 초기화
+	boss->setMesh(XMESH_MANAGER->GetXmeshSkinned("데스윙"));
+	boss->_transform->SetScale(2.0f, 2.0f, 2.0f);
+	boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+	boss->setActive(true);
+	_renderObject.push_back(boss);
+
+	
+	//초기화
+	CINEMATICMANAGER->init();
+	//로드된값 집어 넣기 
+	CINEMATICMANAGER->cinematicBossInit();
+	_mon.push_back(boss);
+	player->out_setMonsterRegion(&_mon);
+
+	m_pUIPlayer = new cUIPlayer;
+	m_pUIPlayer->linkMinimapPlayerAngle(player->getPlayerObject()->_transform->GetAngleY());
+	m_pUIPlayer->linkMinimapPlayerMove(player->getPlayerObject()->_transform->GetWorldPosition().x + _terrain->GetTerrainSizeX() / 2,
+									   player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
+									   _terrain->GetTerrainSizeX());
+
+	m_pUIPlayer->SetMinimap("worldmap3View");
+	m_pUIPlayer->SetMapNum(2);
+	m_pUIPlayer->init();
+
+	player->getPlayerObject()->_transform->SetWorldPosition(PLAYERMANAGER->GetPos());
+
 	return S_OK;
 }
 
@@ -326,8 +361,6 @@ void stageThree::loadingStage()
 	envTemp = IOSAVEMANAGER->findTag("환경맵");
 	waterTemp = IOSAVEMANAGER->findTag("물결맵");
 
-	float tempY = _terrain->getHeight(5.0f, 5.0f);
-
 	//플레이어 초기화
 	player->out_setlinkTerrain(*_terrain);
 	player->init();
@@ -340,36 +373,4 @@ void stageThree::loadingStage()
 	{
 		_renderObject.push_back(player->getRenderObject()[i]);
 	}
-
-	//액션 매니저 초기화
-	ACMANAGER->Init(*_terrain, *player);
-
-	tempY = _terrain->getHeight(0.0f, 0.0f);
-	IOSAVEMONSTERBOX->loadFile("test");
-	//보스몬스터 초기화
-	boss->setMesh(XMESH_MANAGER->GetXmeshSkinned("데스윙"));
-	boss->_transform->SetScale(2.0f, 2.0f, 2.0f);
-	boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
-	boss->setActive(true);
-	_renderObject.push_back(boss);
-
-	SOUNDMANAGER->play("보스1", 0.1f);
-
-	//초기화
-	CINEMATICMANAGER->init();
-	//로드된값 집어 넣기 
-	CINEMATICMANAGER->cinematicBossInit();
-	_mon.push_back(boss);
-	player->out_setMonsterRegion(&_mon);
-
-	m_pUIPlayer = new cUIPlayer;
-	m_pUIPlayer->linkMinimapPlayerAngle(player->getPlayerObject()->_transform->GetAngleY());
-	m_pUIPlayer->linkMinimapPlayerMove(player->getPlayerObject()->_transform->GetWorldPosition().x + _terrain->GetTerrainSizeX() / 2,
-									   player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
-									   _terrain->GetTerrainSizeX());
-
-	m_pUIPlayer->SetMinimap("worldmap3View");
-	m_pUIPlayer->SetMapNum(2);
-	m_pUIPlayer->init();
-
 }

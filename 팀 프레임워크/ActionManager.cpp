@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "xPlayer.h"
 #include "monster.h"
+#include "camera.h"
 #include "ActionManager.h"
 #include "Action.h"
 #include "ActionAttack.h"
@@ -82,6 +83,7 @@ Action * ActionManager::getAction(string Name, baseObject& who)
 	if (player != nullptr) temp->setEnemy(*player);
 	if (player != nullptr) temp->setPlayerObject(*player->getPlayerObject());
 	if(objectVector != nullptr) temp->setObject(*objectVector);
+	if (mainCamera != nullptr) temp->setCamera(*mainCamera);
 	else
 	{
 		objectVector = &tempObjectVector;

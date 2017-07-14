@@ -205,7 +205,7 @@ HRESULT bossMonsterAITestScene::init()
 	sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(89), 0, 0);
 
 	//액션 매니저 초기화
-	ACMANAGER->Init(*_terrain, *player);
+	ACMANAGER->Init(*_terrain, *player, *_mainCamera);
 
 	//보스몬스터 초기화
 	boss->setMesh(XMESH_MANAGER->GetXmeshSkinned("데스윙"));
@@ -253,4 +253,11 @@ void bossMonsterAITestScene::render()
 	boss->render();
 	player->render();
 //	for (int i = 0; i < mon.size(); i++)mon[i]->render();
+
+	//char temp[128];
+	//sprintf_s(temp, "%.2f     %.2f     %.2f", _mainCamera->GetWorldPosition().x, _mainCamera->GetWorldPosition().y, _mainCamera->GetWorldPosition().z);
+	//FONTMANAGER->fontOut(temp, 300, 600, WHITE);
+
+	//sprintf_s(temp, "%.2f     %.2f     %.2f", _mainCamera->GetForward().x, _mainCamera->GetForward().y, _mainCamera->GetWorldPosition().z);
+	//FONTMANAGER->fontOut(temp, 300, 650, WHITE);
 }
