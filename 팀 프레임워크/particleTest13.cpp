@@ -216,6 +216,18 @@ void particleTest13::update()
 		SKM->findSK("불꽃길")->Start();
 	}
 
+	if (KEYMANAGER->isOnceKeyDown('M'))
+	{
+		SKM->findSK("브레스")->setSkillPosTrans(_player);
+		SKM->findSK("브레스")->setSkillDirTrans(_player);
+		//SKM->findSK("불꽃길")->setOneTargetTrans(_target);
+		SKM->findSK("브레스")->Start();
+	}
+
+
+
+
+
 	//if (KEYMANAGER->isOnceKeyDown('P'))
 	//{
 	//	SCENEMANAGER->changeScene("gameSceneOne");//gameSceneTwo
