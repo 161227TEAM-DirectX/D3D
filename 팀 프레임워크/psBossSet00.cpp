@@ -117,6 +117,10 @@ void psBossSet00::ShoutingSet00(string psName)
 	_planeEMT->InitRandomSize(1.0f,1.0f);
 	_planeEMT->InitRandomSizeEnd(38.0f, 52.0f);
 
+
+	//시작시간 조절!!!!!!!!!!!
+	_planeEMT->SetStartLimitTime(0.8f);
+
 	_planeEMT->SetPositionType();
 	//_planeEMT->InitDirSphere(1.0f,1.0f,0.0f);
 	//_planeEMT->InitRandomPosSphereRadius(1.0f,1.0f);

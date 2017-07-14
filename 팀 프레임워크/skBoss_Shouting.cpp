@@ -22,6 +22,7 @@ void skBoss_Shouting::release()
 bool skBoss_Shouting::Prepare()
 {
 
+	_pvPrepaerPS[0][0]->Transform()->SetWorldPosition(_skillPosTrans->GetWorldPosition());
 	_pvPrepaerPS[0][0]->update();
 
 	if (_pvPrepaerPS[0][0]->autoTimeReset(false))
