@@ -202,10 +202,10 @@ void particleTest13::update()
 
 	if (KEYMANAGER->isOnceKeyDown('K'))
 	{
-		SKM->findSK("ÇÒÄû±â")->setSkillPosTrans(_player);
-		SKM->findSK("ÇÒÄû±â")->setSkillDirTrans(_player);
-		SKM->findSK("ÇÒÄû±â")->setOneTargetTrans(_target);
-		SKM->findSK("ÇÒÄû±â")->Start();
+		SKM->findSK("ÇÒÄû±â_¿À¸¥¹ß")->setSkillPosTrans(_player);
+		SKM->findSK("ÇÒÄû±â_¿À¸¥¹ß")->setSkillDirTrans(_player);
+		SKM->findSK("ÇÒÄû±â_¿À¸¥¹ß")->setOneTargetTrans(_target);
+		SKM->findSK("ÇÒÄû±â_¿À¸¥¹ß")->Start();
 	}
 
 	if (KEYMANAGER->isOnceKeyDown('I'))
@@ -224,7 +224,13 @@ void particleTest13::update()
 		SKM->findSK("ºê·¹½º")->Start();
 	}
 
-
+	if (KEYMANAGER->isOnceKeyDown('N'))
+	{
+		SKM->findSK("»ş¿ìÆÃ")->setSkillPosTrans(_player);
+		SKM->findSK("»ş¿ìÆÃ")->setSkillDirTrans(_player);
+		//SKM->findSK("ºÒ²É±æ")->setOneTargetTrans(_target);
+		SKM->findSK("»ş¿ìÆÃ")->Start();
+	}
 
 
 

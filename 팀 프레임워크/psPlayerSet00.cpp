@@ -1079,8 +1079,8 @@ void psPlayerSet00::ShootingStarSet02(string psName)
 	_planeEMT->InitRandomLifeTime(0.6f, 0.6f);
 
 	_planeEMT->InitRandomSize(12.0f, 12.0f);
-	_planeEMT->addSizeGraph(0.5f, 8.0f, 8.0f);
-	_planeEMT->addSizeGraph(1.0f, 12.0f, 12.0f);
+	//_planeEMT->addSizeGraph(0.5f, 8.0f, 8.0f);
+	//_planeEMT->addSizeGraph(1.0f, 12.0f, 12.0f);
 	
 	_planeEMT->InitRotateStartAngleX(90.0f, 90.0f);
 	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);
@@ -1106,8 +1106,8 @@ void psPlayerSet00::ShootingStarSet02(string psName)
 	_planeEMT->InitRandomLifeTime(0.6f, 0.6f);
 
 	_planeEMT->InitRandomSize(6.0f, 6.0f);
-	_planeEMT->addSizeGraph(0.5f, 4.0f, 4.0f);
-	_planeEMT->addSizeGraph(1.0f, 6.0f, 6.0f);
+	//_planeEMT->addSizeGraph(0.5f, 4.0f, 4.0f);
+	//_planeEMT->addSizeGraph(1.0f, 6.0f, 6.0f);
 
 	_planeEMT->InitRotateStartAngleX(90.0f, 90.0f);
 	//_boardEMT->InitRandomSizeEnd(8.0f, 8.0f);

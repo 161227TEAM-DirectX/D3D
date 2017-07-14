@@ -5,7 +5,7 @@ HRESULT psBossSet00::init()
 {
 	//파티클 이름이 잘 보이게 일부러 이름 넣는 인자값을 준다.
 	this->BreathSet00("브레스");
-	//this->ShoutingSet00("샤우팅");
+	this->ShoutingSet00("샤우팅");
 
 	this->GrandMagic00("대마법진");
 	this->GrandMagic01("대규모마법");
@@ -110,43 +110,68 @@ void psBossSet00::ShoutingSet00(string psName)
 {
 	dxParticleSystemSet::init();
 
-	_boardEMT = NULL;
-	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("ParticleResources/Texture/OneSmoke00.png", 10, 0.1f, 50);
+	_planeEMT = NULL;
+	_planeEMT = new dxPlaneEmitter;
+	_planeEMT->init("ParticleResources/Texture/shoutingCircle01.png", 4, 0.2f, 50);
 	
-	_boardEMT->InitRandomSize(4.0f,4.0f);
-	_planeEMT->InitRandomSizeEnd(20.0f, 20.0f);
+	_planeEMT->InitRandomSize(1.0f,1.0f);
+	_planeEMT->InitRandomSizeEnd(38.0f, 52.0f);
 
-	_boardEMT->SetPositionType();
-	_boardEMT->InitDirSphere(1.0f,1.0f,0.0f);
-	_boardEMT->InitRandomPosSphereRadius(1.0f,1.0f);
-	_boardEMT->InitRandomPosExplosionVel(5.0f,5.0f);
+	_planeEMT->SetPositionType();
+	//_planeEMT->InitDirSphere(1.0f,1.0f,0.0f);
+	//_planeEMT->InitRandomPosSphereRadius(1.0f,1.0f);
+	//_planeEMT->InitRandomPosExplosionVel(5.0f,5.0f);
 
-	_boardEMT->InitRotateStartAngleZ(0.0f, 360.0f);
+	_planeEMT->InitRotateStartAngleX(0.0f, 360.0f);
+	_planeEMT->InitRotateStartAngleY(0.0f, 360.0f);
+	_planeEMT->InitRotateStartAngleZ(0.0f, 360.0f);
 
-	_boardEMT->InitRandomLifeTime(0.5f, 0.5f);
+	_planeEMT->InitRandomLifeTime(0.7f, 0.7f);
 
-	_PS->addEmitter(_boardEMT);
+	_planeEMT->InitRandomAlpha(0.1f, 0.2f);
+	_planeEMT->addAlphaGraph(0.8f, 0.3f, 0.4f);
+	_planeEMT->addAlphaGraph(1.0f, 0.0f, 0.0f);
 
-	PSM->addPS(psName, _PS);
 
-	_boardEMT = NULL;
-	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("ParticleResources/Texture/OneSmoke01.png", 10, 0.5f, 50);
+	_PS->addEmitter(_planeEMT);
 
-	_boardEMT->InitRandomSize(1.0f, 1.0f);
+	//_boardEMT = NULL;
+	//_boardEMT = new dxBoardEmitter;
+	//_boardEMT->init("ParticleResources/Texture/OneSmoke00.png", 10, 0.1f, 50);
+	//
+	//_boardEMT->InitRandomSize(4.0f,4.0f);
 	//_planeEMT->InitRandomSizeEnd(20.0f, 20.0f);
 
-	_boardEMT->SetPositionType();
-	_boardEMT->InitDirSphere(1.0f, 1.0f, 0.0f);
-	_boardEMT->InitRandomPosSphereRadius(1.0f, 1.0f);
-	_boardEMT->InitRandomPosExplosionVel(5.0f, 5.0f);
+	//_boardEMT->SetPositionType();
+	//_boardEMT->InitDirSphere(1.0f,1.0f,0.0f);
+	//_boardEMT->InitRandomPosSphereRadius(1.0f,1.0f);
+	//_boardEMT->InitRandomPosExplosionVel(5.0f,5.0f);
 
-	_boardEMT->InitRandomLifeTime(0.5f, 0.5f);
+	//_boardEMT->InitRotateStartAngleZ(0.0f, 360.0f);
 
-	_boardEMT->InitRotateStartAngleZ(0.0f,360.0f);
+	//_boardEMT->InitRandomLifeTime(0.5f, 0.5f);
 
-	_PS->addEmitter(_boardEMT);
+	//_PS->addEmitter(_boardEMT);
+
+	//PSM->addPS(psName, _PS);
+
+	//_boardEMT = NULL;
+	//_boardEMT = new dxBoardEmitter;
+	//_boardEMT->init("ParticleResources/Texture/OneSmoke01.png", 10, 0.5f, 50);
+
+	//_boardEMT->InitRandomSize(1.0f, 1.0f);
+	////_planeEMT->InitRandomSizeEnd(20.0f, 20.0f);
+
+	//_boardEMT->SetPositionType();
+	//_boardEMT->InitDirSphere(1.0f, 1.0f, 0.0f);
+	//_boardEMT->InitRandomPosSphereRadius(1.0f, 1.0f);
+	//_boardEMT->InitRandomPosExplosionVel(5.0f, 5.0f);
+
+	//_boardEMT->InitRandomLifeTime(0.5f, 0.5f);
+
+	//_boardEMT->InitRotateStartAngleZ(0.0f,360.0f);
+
+	//_PS->addEmitter(_boardEMT);
 
 	PSM->addPS(psName, _PS);
 }

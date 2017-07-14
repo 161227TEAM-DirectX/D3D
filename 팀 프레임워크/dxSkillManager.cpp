@@ -36,7 +36,7 @@ void dxSkillManager::skillSetting()
 	//보스 스킬 등록
 	this->addSK("브레스", new skBoss_Breath);
 	this->addSK("대마법", new skBoss_GrandMagic);
-	//this->addSK("샤우팅", new skBoss_Shouting);//터짐 하지마~
+	this->addSK("샤우팅", new skBoss_Shouting);//터짐 하지마~
 	this->addSK("에너지탄", new skBoss_EnergyBullet);
 	this->addSK("화염장판", new skBoss_FireField);
 	this->addSK("화염장판2", new skBoss_FireField);
