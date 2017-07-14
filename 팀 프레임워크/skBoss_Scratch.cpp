@@ -10,7 +10,7 @@ HRESULT skBoss_Scratch::init()
 	//setPvActionPS(0, "¸ÕÁö_ÆÛÁü", 1);
 	setPvPreparePS(0, "ºÒ²ÉÇÒÄû±â", 1);
 
-	_pvPrepaerPS[0][0]->SetLimitTime(5.0f);
+	_pvPrepaerPS[0][0]->SetLimitTime(2.0f);
 
 	_oneSetting = true;
 
@@ -25,12 +25,16 @@ bool skBoss_Scratch::Prepare()
 {
 	/*if (_oneSetting)
 	{*/
-		_pvPrepaerPS[0][0]->Transform()->SetWorldPosition(_skillPosTrans->GetWorldPosition());
-		_pvPrepaerPS[0][0]->Transform()->LookDirection(_skillDirTrans->GetRight());
 
-		//_oneSetting = false;
-	//}
-	
+	D3DXVECTOR3 pos = _skillPosTrans->GetWorldPosition();
+	pos.y = 0.1;
+
+	_pvPrepaerPS[0][0]->Transform()->SetWorldPosition(pos);
+	_pvPrepaerPS[0][0]->Transform()->LookDirection(_skillDirTrans->GetRight());
+
+	//_oneSetting = false;
+//}
+
 	_pvPrepaerPS[0][0]->update();
 
 	if (_pvPrepaerPS[0][0]->autoTimeReset(false))

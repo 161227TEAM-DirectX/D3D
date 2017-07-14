@@ -39,8 +39,10 @@ void dxSkillManager::skillSetting()
 	//this->addSK("»þ¿ìÆÃ", new skBoss_Shouting);//ÅÍÁü ÇÏÁö¸¶~
 	this->addSK("¿¡³ÊÁöÅº", new skBoss_EnergyBullet);
 	this->addSK("È­¿°ÀåÆÇ", new skBoss_FireField);
+	this->addSK("È­¿°ÀåÆÇ2", new skBoss_FireField);
 
-	this->addSK("ÇÒÄû±â", new skBoss_Scratch);
+	this->addSK("ÇÒÄû±â_¿Þ¹ß", new skBoss_Scratch);
+	this->addSK("ÇÒÄû±â_¿À¸¥¹ß", new skBoss_Scratch);
 	this->addSK("ºÒ²É±æ", new skBoss_FirePath);
 
 }
