@@ -12,6 +12,7 @@
 #include "playerItem.h"
 #include "medicineShop.h"
 #include "force.h"
+#include "medicinePlayer.h"
 
 cUIPlayer::cUIPlayer()
 	: m_pPlBar(nullptr)			//체력바 본체
@@ -321,6 +322,9 @@ HRESULT cUIPlayer::init()
 	_force = new force;
 	_force->init();
 
+	_medicinePlayer = new medicinePlayer;
+	_medicinePlayer->init();
+
 	_shop->setInvenLink(_inven);
 	_shop->setPlayerItemLink(_playerItem);
 
@@ -328,11 +332,14 @@ HRESULT cUIPlayer::init()
 	_inven->setPlayerItemLink(_playerItem);
 	_inven->setmedicineShopLink(_medicineShop);
 	_inven->setForceLink(_force);
+	_inven->setMedicinePlayerLink(_medicinePlayer);
 
 	_playerItem->setInvenLink(_inven);
 	_playerItem->setShopLink(_shop);
 
 	_medicineShop->setmedicineShopLink(_inven);
+
+	_medicinePlayer->setInvenLink(_inven);
 
 	_force->setForceLink(_inven);
 
@@ -479,6 +486,8 @@ void cUIPlayer::update()
 		_force->update();
 		break;
 	}
+
+	_medicinePlayer->update();
 
 	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON, false))
 	{
@@ -700,6 +709,8 @@ void cUIPlayer::render()
 		_force->render();
 		break;
 	}
+
+	_medicinePlayer->render();
 
 
 	m_pBtnWeapon->render();

@@ -46,8 +46,9 @@ stageOne::~stageOne()
 
 HRESULT stageOne::init()
 {
+	SOUNDMANAGER->play("필드1", 0.1f);
 
-
+	player->getPlayerObject()->_transform->SetWorldPosition(PLAYERMANAGER->GetPos());
 
 	return S_OK;
 }
@@ -396,6 +397,7 @@ void stageOne::loadingStage()
 	player->out_setlinkTerrain(*_terrain);
 	player->init();
 	//player->getPlayerObject()->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+	
 	player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
 	for (int i = 0; i < player->getRenderObject().size(); i++)
@@ -405,7 +407,7 @@ void stageOne::loadingStage()
 
 	ACMANAGER->Init(*_terrain, *player);
 
-	SOUNDMANAGER->play("필드1", 0.1f);
+	
 
 	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
 	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, -5));

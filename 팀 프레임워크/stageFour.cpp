@@ -4,6 +4,7 @@
 #include "WaterTerrain.h"
 #include "mapObject.h"
 #include "xPlayer.h"
+#include "cUIPlayer.h"
 
 stageFour* ex_pStage4 = new stageFour;
 
@@ -23,6 +24,7 @@ stageFour::stageFour()
 	, currTime(0.0f)
 	, angleZ(89)
 	, cinematicBool(false)
+	, m_pUIPlayer(nullptr)
 {
 	_renderObject.clear();
 	_cullObject.clear();
@@ -38,6 +40,8 @@ stageFour::~stageFour()
 	{
 		SAFE_DELETE(_renderObject[i]);
 	}
+
+	SAFE_DELETE(m_pUIPlayer);
 	SAFE_DELETE(_mainCamera);
 	SAFE_DELETE(_directionLightCamera);
 	SAFE_DELETE(sceneBaseDirectionLight);
@@ -47,12 +51,17 @@ stageFour::~stageFour()
 	SAFE_DELETE(water);
 	SAFE_DELETE(toRotate);
 	SAFE_DELETE(objectSet);
+	SAFE_DELETE(m_pUIPlayer);
 }
 
 
 
 HRESULT stageFour::init()
 {
+	SOUNDMANAGER->play("필드1", 0.1f);
+
+	player->getPlayerObject()->_transform->SetWorldPosition(PLAYERMANAGER->GetPos());
+
 	return S_OK;
 }
 
@@ -66,6 +75,12 @@ void stageFour::release()
 
 void stageFour::update()
 {
+	//UI 업데이트
+	m_pUIPlayer->update();
+	m_pUIPlayer->linkMinimapPlayerAngle(player->getPlayerObject()->_transform->GetAngleY());
+	m_pUIPlayer->linkMinimapPlayerMove(player->getPlayerObject()->_transform->GetWorldPosition().x + _terrain->GetTerrainSizeX() / 2,
+		player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
+		_terrain->GetTerrainSizeX());
 
 	//시네마틱 이벤트씬 로드 
 	CINEMATICMANAGER->cinematicE4Load(_mainCamera, CINEMATICMANAGER->GetGScineMticE4Bool());
@@ -163,9 +178,15 @@ void stageFour::render()
 			player->out_updateBladeLight();
 		}
 	}
+
 	player->render();
 
 	CINEMATICMANAGER->cinematicE4Render(_mainCamera);
+
+	if (CINEMATICMANAGER->GetGScineMticE4Bool() == true)
+	{
+		m_pUIPlayer->render();
+	}
 }
 
 
@@ -367,8 +388,7 @@ void stageFour::loadingStage()
 
 	ACMANAGER->Init(*_terrain, *player);
 
-	SOUNDMANAGER->play("필드1", 0.1f);
-
+	
 	for (int i = 0; i < _renderObject.size(); i++)
 	{
 		if ((192 == _renderObject[i]->getObjectNumber()) || (190 == _renderObject[i]->getObjectNumber()))
@@ -385,4 +405,18 @@ void stageFour::loadingStage()
 	CINEMATICMANAGER->init();
 	//로드된값 집어 넣기 
 	CINEMATICMANAGER->cinematicE4Init();
+
+	m_pUIPlayer = new cUIPlayer;
+	m_pUIPlayer->linkMinimapPlayerAngle(player->getPlayerObject()->_transform->GetAngleY());
+	m_pUIPlayer->linkMinimapPlayerMove(player->getPlayerObject()->_transform->GetWorldPosition().x + _terrain->GetTerrainSizeX() / 2,
+		player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
+		_terrain->GetTerrainSizeX());
+	m_pUIPlayer->SetMinimap("worldmapView");
+	m_pUIPlayer->SetMapNum(0);
+	m_pUIPlayer->init();
+}
+
+void stageFour::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	m_pUIPlayer->WndProc(hWnd, message, wParam, lParam);
 }
