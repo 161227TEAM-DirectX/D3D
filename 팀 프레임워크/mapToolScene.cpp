@@ -80,6 +80,10 @@ void mapToolScene::render()
 
 		_leftViewHead->render();
 
+		//MOUSE_MANAGER->render();
+		DXIMG_MANAGER->GetDxImg("mouseCursor")->setPos(GetMousePos().x, GetMousePos().y);
+		DXIMG_MANAGER->GetDxImg("mouseCursor")->render();
+
 		GIZMOMANAGER->WorldGrid(1, 10);
 
 		//타임매니져 렌더

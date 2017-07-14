@@ -34,7 +34,7 @@ HRESULT startScene::init()
 
 	temp = new cDxImgButton(DXIMG_MANAGER->GetDxImg("btn_gameStart_off"),
 							DXIMG_MANAGER->GetDxImg("btn_gameStart_over"),
-							D3DXVECTOR2(1200, 750), "시작버튼");
+							D3DXVECTOR2(1100, 700), "시작버튼");
 	m_vecBtn.push_back(temp);
 
 
