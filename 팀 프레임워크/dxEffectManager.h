@@ -48,6 +48,9 @@ public:
 		return FALSE;
 	}
 
+	
+
+
 public:
 	void EffectSetting();
 	void EffectRelease();

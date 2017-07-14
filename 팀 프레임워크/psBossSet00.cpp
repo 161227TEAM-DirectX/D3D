@@ -646,9 +646,11 @@ void psBossSet00::Scratch00(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("ParticleResources/Texture/fire05_frame4x4.png", 12, 0.2f, 420);
+	_boardEMT->init("ParticleResources/Texture/fire05_frame4x4.png", 12, 0.1f, 720);
 
 	//_boardEMT->InitRandomLifeTime(1.0f, 1.0f);
+	_boardEMT->SetStartLimitTime(0.8f);
+
 	_boardEMT->InitAnimation(4, 4);
 	_boardEMT->InitConstAniReactivateNum(4);
 

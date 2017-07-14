@@ -62,6 +62,20 @@ public:
 	void Start(dx::transform* posTrans, dx::transform* dirTrans = NULL);
 
 	
+	void resetOn()
+	{
+		for (int i = 0; i < _effectMax; i++)
+		{
+			_vPS[i]->reset();
+			_vPS[i]->SetActive(FALSE);
+		}
+	}
+
+	virtual bool getActive()
+	{
+		return _startOn;
+	}
+
 
 public:
 	dxEffect()

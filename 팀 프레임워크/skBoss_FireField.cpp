@@ -27,6 +27,7 @@ bool skBoss_FireField::Prepare()
 	{
 		_pvPrepaerPS[0][0]->Transform()->SetWorldPosition(_skillPosTrans->GetWorldPosition());
 		_pvPrepaerPS[0][0]->Transform()->LookDirection(_skillDirTrans->GetForward());
+		
 
 		_oneSetting = false;
 	}

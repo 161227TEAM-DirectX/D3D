@@ -389,6 +389,7 @@ void psEffectSet00::EffectSet04(string psName)
 	_boardEMT = new dxBoardEmitter;
 	_boardEMT->init("ParticleResources/Texture/smoke02_frame4x4.png", 80, 1.2f, 80);
 	//_pointEMT->InitConstSize(2.4f);
+	_boardEMT->SetStartLimitTime(1.1f);
 
 	_boardEMT->setInitActiveLimitTime(1.2f);
 

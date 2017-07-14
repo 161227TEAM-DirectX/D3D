@@ -60,43 +60,46 @@ void dxEffect::update()
 		int endCount = 0;
 		for (int i = 0; i < _vPS.size(); i++)
 		{
-			if (_vPS[i]->GetActive())
-			{
-				//_vPS[i]->SetLimitTime(_limitTime);
-				//_vPS[i]->Transform()->SetWorldPosition(*(_vPos[i]));
 
-				
-				_vPS[i]->Transform()->SetWorldPosition(_vPosTrans[i]->GetWorldPosition());
-				//_vPS[i]->Transform()->SetWorldMatrix(_vPosTrans[i]->GetFinalMatrix());
-				if (_vDirTrans[i] != NULL)
+			if (_vPS[i]->Transform() != NULL)
+			{
+				if (_vPS[i]->GetActive())
 				{
-					_vPS[i]->Transform()->LookDirection(_vDirTrans[i]->GetForward());
-					//_vPS[i]->Transform()->LookDirection(*_vDir[i]);
+					//_vPS[i]->SetLimitTime(_limitTime);
+					//_vPS[i]->Transform()->SetWorldPosition(*(_vPos[i]));
+
+
+					_vPS[i]->Transform()->SetWorldPosition(_vPosTrans[i]->GetWorldPosition());
+					//_vPS[i]->Transform()->SetWorldMatrix(_vPosTrans[i]->GetFinalMatrix());
+					if (_vDirTrans[i] != NULL)
+					{
+						_vPS[i]->Transform()->LookDirection(_vDirTrans[i]->GetForward());
+						//_vPS[i]->Transform()->LookDirection(*_vDir[i]);
+					}
+
+					_vPS[i]->update();
+
+					_vPS[i]->autoTimeReset();
+
+					/*if (_vPS[i]->autoTimeReset())
+					{
+						_vPS[i]->SetActive(FALSE);
+					}*/
 				}
-				
-				_vPS[i]->update();
-
-				_vPS[i]->autoTimeReset();
-
-				/*if (_vPS[i]->autoTimeReset())
+				else
 				{
-					_vPS[i]->SetActive(FALSE);
-				}*/
-			}
-			else
-			{
-				
 
-				endCount++;
-			}
 
-			//완전 정지
-			if (endCount >  _vPS.size())
-			{
-				_startOn = FALSE;
-			}
+					endCount++;
+				}
 
-			
+				//완전 정지
+				if (endCount > _vPS.size())
+				{
+					_startOn = FALSE;
+				}
+
+			}
 		}
 	}
 
@@ -194,7 +197,11 @@ void dxEffect::Start(dx::transform * posTrans, dx::transform * dirTrans)
 			{
 				_vDirTrans[i] = NULL;
 			}
-			_vPosTrans[i] = posTrans;
+
+			if (posTrans != NULL)
+			{
+				_vPosTrans[i] = posTrans;
+			}
 			_vPS[i]->SetActive(TRUE);
 
 			break;
