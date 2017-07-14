@@ -200,7 +200,8 @@ void cRegistBase::BrushRegist()
 void cRegistBase::SoundRegist()
 {
 	FILEPATH_MANAGER->AddFilepath("시작", "Resource/Sound/시작화면.mp3");
-	
+	FILEPATH_MANAGER->AddFilepath("시작화면선택", "Resource/Sound/시작화면선택.ogg");
+
 	FILEPATH_MANAGER->AddFilepath("필드", "Resource/Sound/FieldBGM1.mp3");
 	FILEPATH_MANAGER->AddFilepath("보스", "Resource/Sound/BossBGM1.mp3");
 	FILEPATH_MANAGER->AddFilepath("마을", "Resource/Sound/TownBGM1.mp3");

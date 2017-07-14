@@ -5,6 +5,7 @@ class startScene : public iGameNode
 {
 private:
 	vector<cDxImgButton*> m_vecBtn;
+	bool m_isBtnSound = false;
 
 public:
 	startScene();
