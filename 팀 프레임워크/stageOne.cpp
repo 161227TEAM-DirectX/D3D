@@ -6,122 +6,47 @@
 #include "mapObject.h"
 #include "cUIPlayer.h"
 
-HRESULT stageOne::init()
+stageOne* ex_pStage1 = new stageOne;
+
+stageOne::stageOne()
+	: player(nullptr)
+	, _mainCamera(nullptr)
+	, _directionLightCamera(nullptr)
+	, sceneBaseDirectionLight(nullptr)
+	, _terrain(nullptr)
+	, _terrainShadow(nullptr)
+	, objectSet(nullptr)
+	, env(nullptr)
+	, water(nullptr)
+	, toRotate(nullptr)
+	, _gate1(nullptr)
+	, _gate2(nullptr)
+	, _shadowDistance(0.0f)
+	, currTime(0.0f)
+	, angleZ(89)
+	, m_pUIPlayer(nullptr)
 {
 	_renderObject.clear();
+	_cullObject.clear();
 
-	_mainCamera = new camera;
-	_directionLightCamera = new camera;
-	sceneBaseDirectionLight = new lightDirection;
-	player = new xPlayer;
-	env = new Environment;
-	water = new WaterTerrain;
-	water->linkCamera(*_mainCamera);
-	toRotate = new dx::transform;
-	objectSet = new mapObject;
-	
-	this->shadowInit();
+	D3DXMatrixIdentity(&matRotate);
+
+	memset(&envTemp, 0, sizeof(tagSaveMap));
+	memset(&waterTemp, 0, sizeof(tagSaveMap));
 
 
-	_terrain = new terrain;
-	_terrain->setHeightmap("높이맵_1");
-	_terrain->setTile0(IOMAPMANAGER->loadMapInfo("마을지형").tile0, true);
-	_terrain->setTile1(IOMAPMANAGER->loadMapInfo("마을지형").tile1, true);
-	_terrain->setTile2(IOMAPMANAGER->loadMapInfo("마을지형").tile2, true);
-	_terrain->setTile3(IOMAPMANAGER->loadMapInfo("마을지형").tile3, true);
-	_terrain->setSplat(IOMAPMANAGER->loadMapInfo("마을지형").splat, true);
-	_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("마을지형").vecPos);
-	_terrain->setting();
-	_terrain->changeHeightTerrain();
-
-	_terrainShadow = new terrain;
-	_terrainShadow->setHeightmap("높이맵_1");
-	_terrainShadow->setTile0(IOMAPMANAGER->loadMapInfo("마을지형").tile0, true);
-	_terrainShadow->setTile1(IOMAPMANAGER->loadMapInfo("마을지형").tile1, true);
-	_terrainShadow->setTile2(IOMAPMANAGER->loadMapInfo("마을지형").tile2, true);
-	_terrainShadow->setTile3(IOMAPMANAGER->loadMapInfo("마을지형").tile3, true);
-	_terrainShadow->setSplat(IOMAPMANAGER->loadMapInfo("마을지형").splat, true);
-	_terrainShadow->setMapPosition(IOMAPMANAGER->loadMapInfo("마을지형").vecPos);
-	_terrainShadow->setting();
-	_terrainShadow->changeHeightTerrain();
-
-	//환경맵 초기화
-	env->init();
-	env->linkCamera(*_mainCamera);
-
-	water->init(3.0f, 256);
-
-	//맵 오브젝트 초기화
-	IOSAVEOBJECTMANAGER->loadFile("마을오브젝트");
-	for (int i = 0; i < IOSAVEOBJECTMANAGER->getCount(); i++)
-	{
-		tagSaveObject object;
-		memset(&object, 0, sizeof(tagSaveObject));
-
-		object = IOSAVEOBJECTMANAGER->findTag("넘버" + to_string(i + 1));
-		baseObject* temp = new baseObject;
-		D3DXMATRIX matRotate;
-		
-		objectSet->objectSet(object.objectNumber, temp, matRotate, object.objectX, object.objectY, object.objectZ, object.objectScale, object.objectRotate);
-
-		_renderObject.push_back(temp);
-	}
-
-	//환경맵 / 물결맵 불러오기
-	IOSAVEMANAGER->loadFile("마을세이브맵");
-
-	envTemp = IOSAVEMANAGER->findTag("환경맵");
-	waterTemp = IOSAVEMANAGER->findTag("물결맵");
-
-	float tempY = _terrain->getHeight(0.0f, 0.0f);
 
 
-	//플레이어 초기화
-	player->out_setlinkTerrain(*_terrain);
-	player->init();
-	//player->getPlayerObject()->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
-	player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
 
-	for (int i = 0; i < player->getRenderObject().size(); i++)
-	{
-		_renderObject.push_back(player->getRenderObject()[i]);
-	}
+}
 
-	ACMANAGER->Init(*_terrain, *player);
-	
-	SOUNDMANAGER->play("필드1", 0.1f);
+stageOne::~stageOne()
+{
+}
 
-	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
-	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, -5));
+HRESULT stageOne::init()
+{
 
-
-	for (int i = 0; i < _renderObject.size(); i++)
-	{
-		if ((192 == _renderObject[i]->getObjectNumber()) || (190 == _renderObject[i]->getObjectNumber()) )
-		{
-			//이게 앞문
-			if(_renderObject[i]->getportalNumber() == 0)
-			{
-				_gate2 = _renderObject[i];
-			}
-
-			if (_renderObject[i]->getportalNumber() == 1)
-			{
-				_gate1 = _renderObject[i];
-			}
-		}
-	}
-
-	//player->setBGate();
-
-	m_pUIPlayer = new cUIPlayer;
-	m_pUIPlayer->linkMinimapPlayerAngle(player->getPlayerObject()->_transform->GetAngleY());
-	m_pUIPlayer->linkMinimapPlayerMove(player->getPlayerObject()->_transform->GetWorldPosition().x + _terrain->GetTerrainSizeX() / 2,
-									   player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
-									   _terrain->GetTerrainSizeX());
-	m_pUIPlayer->SetMinimap("worldmapView");
-	m_pUIPlayer->SetMapNum(0);
-	m_pUIPlayer->init();
 
 
 	return S_OK;
@@ -133,7 +58,7 @@ void stageOne::release()
 	{
 		SAFE_DELETE(_renderObject[i]);
 	}
-	
+
 	SAFE_DELETE(m_pUIPlayer);
 	SAFE_DELETE(_mainCamera);
 	SAFE_DELETE(_directionLightCamera);
@@ -173,7 +98,7 @@ void stageOne::update()
 	sceneBaseDirectionLight->_transform->RotateSlerp(*sceneBaseDirectionLight->_transform, *toRotate, _timeDelta);
 
 	player->update();
-	
+
 	player->out_setTargetByMouse(_mainCamera);
 
 	//오브젝트 업데이트
@@ -249,30 +174,7 @@ void stageOne::render()
 
 HRESULT stageOne::clear(void)
 {
-	_shadowDistance = 0.0f;
-	angleZ = 89;
-	currTime = 0.0f;
 
-	_mainCamera = nullptr;
-	_directionLightCamera = nullptr;
-	sceneBaseDirectionLight = nullptr;
-	player = nullptr;
-	env = nullptr;
-	water = nullptr;
-	toRotate = nullptr;
-	objectSet = nullptr;
-	_terrain = nullptr;
-	_terrainShadow = nullptr;
-	m_pUIPlayer = nullptr;
-	
-
-	_renderObject.clear();
-	_cullObject.clear();
-
-	memset(&envTemp, 0, sizeof(tagSaveMap));
-	memset(&waterTemp, 0, sizeof(tagSaveMap));
-
-	D3DXMatrixIdentity(&matRotate);
 	return S_OK;
 }
 
@@ -319,7 +221,7 @@ void stageOne::shadowInit(void)
 
 void stageOne::shadowUpdate(void)
 {
-	
+
 	//sceneBaseDirectionLight->_transform->DefaultMyControl(_timeDelta);
 
 	//광원 위치
@@ -417,5 +319,123 @@ void stageOne::sceneChange()
 
 void stageOne::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	m_pUIPlayer->WndProc(hWnd,message,wParam,lParam);
+	m_pUIPlayer->WndProc(hWnd, message, wParam, lParam);
+}
+
+void stageOne::loadingStage()
+{
+	//_renderObject.clear();
+
+	_mainCamera = new camera;
+	_directionLightCamera = new camera;
+	sceneBaseDirectionLight = new lightDirection;
+	player = new xPlayer;
+	env = new Environment;
+	water = new WaterTerrain;
+	water->linkCamera(*_mainCamera);
+	toRotate = new dx::transform;
+	objectSet = new mapObject;
+
+	this->shadowInit();
+
+
+	_terrain = new terrain;
+	_terrain->setHeightmap("높이맵_1");
+	_terrain->setTile0(IOMAPMANAGER->loadMapInfo("마을지형").tile0, true);
+	_terrain->setTile1(IOMAPMANAGER->loadMapInfo("마을지형").tile1, true);
+	_terrain->setTile2(IOMAPMANAGER->loadMapInfo("마을지형").tile2, true);
+	_terrain->setTile3(IOMAPMANAGER->loadMapInfo("마을지형").tile3, true);
+	_terrain->setSplat(IOMAPMANAGER->loadMapInfo("마을지형").splat, true);
+	_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("마을지형").vecPos);
+	_terrain->setting();
+	_terrain->changeHeightTerrain();
+
+	_terrainShadow = new terrain;
+	_terrainShadow->setHeightmap("높이맵_1");
+	_terrainShadow->setTile0(IOMAPMANAGER->loadMapInfo("마을지형").tile0, true);
+	_terrainShadow->setTile1(IOMAPMANAGER->loadMapInfo("마을지형").tile1, true);
+	_terrainShadow->setTile2(IOMAPMANAGER->loadMapInfo("마을지형").tile2, true);
+	_terrainShadow->setTile3(IOMAPMANAGER->loadMapInfo("마을지형").tile3, true);
+	_terrainShadow->setSplat(IOMAPMANAGER->loadMapInfo("마을지형").splat, true);
+	_terrainShadow->setMapPosition(IOMAPMANAGER->loadMapInfo("마을지형").vecPos);
+	_terrainShadow->setting();
+	_terrainShadow->changeHeightTerrain();
+
+	//환경맵 초기화
+	env->init();
+	env->linkCamera(*_mainCamera);
+
+	water->init(3.0f, 256);
+
+	//맵 오브젝트 초기화
+	IOSAVEOBJECTMANAGER->loadFile("마을오브젝트");
+	for (int i = 0; i < IOSAVEOBJECTMANAGER->getCount(); i++)
+	{
+		tagSaveObject object;
+		memset(&object, 0, sizeof(tagSaveObject));
+
+		object = IOSAVEOBJECTMANAGER->findTag("넘버" + to_string(i + 1));
+		baseObject* temp = new baseObject;
+		D3DXMATRIX matRotate;
+
+		objectSet->objectSet(object.objectNumber, temp, matRotate, object.objectX, object.objectY, object.objectZ, object.objectScale, object.objectRotate);
+
+		_renderObject.push_back(temp);
+	}
+
+	//환경맵 / 물결맵 불러오기
+	IOSAVEMANAGER->loadFile("마을세이브맵");
+
+	envTemp = IOSAVEMANAGER->findTag("환경맵");
+	waterTemp = IOSAVEMANAGER->findTag("물결맵");
+
+	float tempY = _terrain->getHeight(0.0f, 0.0f);
+
+
+	//플레이어 초기화
+	player->out_setlinkTerrain(*_terrain);
+	player->init();
+	//player->getPlayerObject()->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+	player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
+
+	for (int i = 0; i < player->getRenderObject().size(); i++)
+	{
+		_renderObject.push_back(player->getRenderObject()[i]);
+	}
+
+	ACMANAGER->Init(*_terrain, *player);
+
+	SOUNDMANAGER->play("필드1", 0.1f);
+
+	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
+	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, -5));
+
+
+	for (int i = 0; i < _renderObject.size(); i++)
+	{
+		if ((192 == _renderObject[i]->getObjectNumber()) || (190 == _renderObject[i]->getObjectNumber()))
+		{
+			//이게 앞문
+			if (_renderObject[i]->getportalNumber() == 0)
+			{
+				_gate2 = _renderObject[i];
+			}
+
+			if (_renderObject[i]->getportalNumber() == 1)
+			{
+				_gate1 = _renderObject[i];
+			}
+		}
+	}
+
+	//player->setBGate();
+
+	m_pUIPlayer = new cUIPlayer;
+	m_pUIPlayer->linkMinimapPlayerAngle(player->getPlayerObject()->_transform->GetAngleY());
+	m_pUIPlayer->linkMinimapPlayerMove(player->getPlayerObject()->_transform->GetWorldPosition().x + _terrain->GetTerrainSizeX() / 2,
+									   player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
+									   _terrain->GetTerrainSizeX());
+	m_pUIPlayer->SetMinimap("worldmapView");
+	m_pUIPlayer->SetMapNum(0);
+	m_pUIPlayer->init();
 }

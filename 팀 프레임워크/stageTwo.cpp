@@ -7,34 +7,36 @@
 #include "monster.h"
 #include "cUIPlayer.h"
 
-HRESULT stageTwo::clear(void)
+stageTwo* ex_pStage2 = new stageTwo;
+
+stageTwo::stageTwo()
+	: _mainCamera(nullptr)
+	, _directionLightCamera(nullptr)
+	, sceneBaseDirectionLight(nullptr)
+	, player(nullptr)
+	, objectSet(nullptr)
+	, _terrain(nullptr)
+	, _terrainShadow(nullptr)
+	, env(nullptr)
+	, water(nullptr)
+	, toRotate(nullptr)
+	, _gate1(nullptr)
+	, _gate2(nullptr)
+	, _shadowDistance(0.0f)
+	, currTime(0.0f)
+	, angleZ(89)
 {
 	_renderObject.clear();
+	_cullObject.clear();
+	_monsterRegion.clear();
 
-	_shadowDistance = 0.0f;
-	currTime = 0.0f;
-	angleZ = 89;
-
-	player = nullptr;
-	_mainCamera = nullptr;
-	_directionLightCamera = nullptr;
-	sceneBaseDirectionLight = nullptr;
-	objectSet = nullptr;
-	env = nullptr;
-	water = nullptr;
-	toRotate = nullptr;
-	m_pUIPlayer = nullptr;
-	_terrain = nullptr;
-	_terrainShadow = nullptr;
 	D3DXMatrixIdentity(&matRotate);
 
 	memset(&envTemp, 0, sizeof(tagSaveMap));
 	memset(&waterTemp, 0, sizeof(tagSaveMap));
-
-	return S_OK;
 }
 
-void stageTwo::destroy(void)
+stageTwo::~stageTwo()
 {
 	for (int i = 0; i < _renderObject.size(); i++)
 	{
@@ -51,137 +53,15 @@ void stageTwo::destroy(void)
 	SAFE_DELETE(m_pUIPlayer);
 	SAFE_DELETE(player);
 	SAFE_DELETE(objectSet);
+	SAFE_DELETE(_gate2);
+	SAFE_DELETE(_gate1);
 }
+
+
 
 HRESULT stageTwo::init()
 {
-	player = new xPlayer;
-	_mainCamera = new camera;
-	_directionLightCamera = new camera;
-	sceneBaseDirectionLight = new lightDirection;
-	objectSet = new mapObject;
-	env = new Environment;
-	water = new WaterTerrain;
-	water->linkCamera(*_mainCamera);
-	toRotate = new dx::transform;
 
-	
-	this->shadowInit();
-
-	
-	//지형 초기화
-	_terrain = new terrain;
-	_terrain->setHeightmap("높이맵_1");
-	_terrain->setTile0(IOMAPMANAGER->loadMapInfo("사냥터지형").tile0, true);
-	_terrain->setTile1(IOMAPMANAGER->loadMapInfo("사냥터지형").tile1, true);
-	_terrain->setTile2(IOMAPMANAGER->loadMapInfo("사냥터지형").tile2, true);
-	_terrain->setTile3(IOMAPMANAGER->loadMapInfo("사냥터지형").tile3, true);
-	_terrain->setSplat(IOMAPMANAGER->loadMapInfo("사냥터지형").splat, true);
-	_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("사냥터지형").vecPos);
-	_terrain->setting();
-	_terrain->changeHeightTerrain();
-
-	//그림자 지형 초기화
-	_terrainShadow = new terrain;
-	_terrainShadow->setHeightmap("높이맵_1");
-	_terrainShadow->setTile0(IOMAPMANAGER->loadMapInfo("사냥터지형").tile0, true);
-	_terrainShadow->setTile1(IOMAPMANAGER->loadMapInfo("사냥터지형").tile1, true);
-	_terrainShadow->setTile2(IOMAPMANAGER->loadMapInfo("사냥터지형").tile2, true);
-	_terrainShadow->setTile3(IOMAPMANAGER->loadMapInfo("사냥터지형").tile3, true);
-	_terrainShadow->setSplat(IOMAPMANAGER->loadMapInfo("사냥터지형").splat, true);
-	_terrainShadow->setMapPosition(IOMAPMANAGER->loadMapInfo("사냥터지형").vecPos);
-	_terrainShadow->setting();
-	_terrainShadow->changeHeightTerrain();
-
-	//환경맵 초기화
-	env->init();
-	env->linkCamera(*_mainCamera);
-
-	water->init(3.0f, 256);
-
-	//맵 오브젝트 초기화
-	IOSAVEOBJECTMANAGER->loadFile("사냥터오브젝트");
-	for (int i = 0; i < IOSAVEOBJECTMANAGER->getCount(); i++)
-	{
-		int x = IOSAVEOBJECTMANAGER->getCount();
-		tagSaveObject object;
-		memset(&object, 0, sizeof(tagSaveObject));
-
-		object = IOSAVEOBJECTMANAGER->findTag("넘버" + to_string(i + 1));
-		baseObject* temp = new baseObject;
-		D3DXMATRIX matRotate;
-		objectSet->objectSet(object.objectNumber, temp, matRotate, object.objectX, object.objectY, object.objectZ, object.objectScale, object.objectRotate);
-
-
-		int a = object.objectNumber;
-		
-
-		_renderObject.push_back(temp);
-	}
-
-
-	//환경맵 / 물결맵 불러오기
-	IOSAVEMANAGER->loadFile("사냥터세이브맵");
-
-	envTemp = IOSAVEMANAGER->findTag("환경맵");
-	waterTemp = IOSAVEMANAGER->findTag("물결맵");
-
-	float tempY = _terrain->getHeight(0.0f, 0.0f);
-
-
-	//플레이어 초기화
-	player->out_setlinkTerrain(*_terrain);
-	player->init();
-	//player->getPlayerObject()->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
-	player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
-
-	for (int i = 0; i < player->getRenderObject().size(); i++)
-	{
-		_renderObject.push_back(player->getRenderObject()[i]);
-	}
-
-	ACMANAGER->Init(*_terrain, *player);
-
-	loadMonster();
-
-	loadNode();
-
-	player->out_setMonsterRegion(&_monsterRegion);
-
-	SOUNDMANAGER->play("필드1", 0.1f);
-
-	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
-	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3( 0, 5, -5));
-
-	for (int i = 0; i < _renderObject.size(); i++)
-	{
-		if (192 == _renderObject[i]->getObjectNumber() || 190 == _renderObject[i]->getObjectNumber())
-		{
-			//이게 앞문
-			if (_renderObject[i]->getportalNumber() == 0)
-			{
-				_gate1 = _renderObject[i];
-			}
-
-			if (_renderObject[i]->getportalNumber() == 1)
-			{
-				_gate2 = _renderObject[i];
-			}
-		}
-	}
-
-
-	m_pUIPlayer = new cUIPlayer;
-	m_pUIPlayer->SetMinimap("worldmap2View");
-	m_pUIPlayer->SetMapNum(1);
-	m_pUIPlayer->SetPlayerPosX(player->getPlayerObject()->_transform->GetWorldPosition().x);
-	m_pUIPlayer->SetPlayerPosY(player->getPlayerObject()->_transform->GetWorldPosition().z);
-
-	m_pUIPlayer->linkMinimapPlayerAngle(player->getPlayerObject()->_transform->GetAngleY());
-	m_pUIPlayer->linkMinimapPlayerMove(player->getPlayerObject()->_transform->GetWorldPosition().x + _terrain->GetTerrainSizeX() / 2,
-									   player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
-									   _terrain->GetTerrainSizeX());
-	m_pUIPlayer->init();
 
 	return S_OK;
 }
@@ -210,7 +90,7 @@ void stageTwo::release()
 
 void stageTwo::update()
 {
-	
+
 
 	shadowUpdate();
 
@@ -285,7 +165,7 @@ void stageTwo::render()
 	xMeshSkinned::_sSkinnedMeshEffect->SetTexture("Ramp_Tex", RM_TEXTURE->getResource("Resource/Testures/Ramp_1.png"));
 	xMeshSkinned::setBaseLight(this->sceneBaseDirectionLight);
 
-	
+
 
 	for (int i = 0; i < this->_cullObject.size(); i++)
 	{
@@ -367,8 +247,8 @@ void stageTwo::shadowUpdate(void)
 	D3DXVECTOR3 lightDir = sceneBaseDirectionLight->_transform->GetForward();	//방향성 빛의 방향
 
 	D3DXVECTOR3 lightPos = camPos +
-		(camFront * (_shadowDistance * 0.5f)) +
-		(-lightDir * _shadowDistance);
+	(camFront * (_shadowDistance * 0.5f)) +
+	(-lightDir * _shadowDistance);
 
 	_directionLightCamera->SetWorldPosition(lightPos.x, lightPos.y, lightPos.z);
 	_directionLightCamera->LookDirection(lightDir);
@@ -377,8 +257,8 @@ void stageTwo::shadowUpdate(void)
 	this->readyShadowMap(&this->_renderObject, this->_terrainShadow);*/
 	//===========================================================================
 
-	
-	if(KEYMANAGER->isToggleKey('P'))
+
+	if (KEYMANAGER->isToggleKey('P'))
 	{
 		_mainCamera->updateBase(true);
 	}
@@ -622,6 +502,139 @@ void stageTwo::sceneChange()
 			SCENEMANAGER->changeScene("gameSceneThree", false);
 		}
 	}
+}
+
+
+
+void stageTwo::loadingScene()
+{
+	player = new xPlayer;
+	_mainCamera = new camera;
+	_directionLightCamera = new camera;
+	sceneBaseDirectionLight = new lightDirection;
+	objectSet = new mapObject;
+	env = new Environment;
+	water = new WaterTerrain;
+	water->linkCamera(*_mainCamera);
+	toRotate = new dx::transform;
+
+
+	this->shadowInit();
+
+
+	//지형 초기화
+	_terrain = new terrain;
+	_terrain->setHeightmap("높이맵_1");
+	_terrain->setTile0(IOMAPMANAGER->loadMapInfo("사냥터지형").tile0, true);
+	_terrain->setTile1(IOMAPMANAGER->loadMapInfo("사냥터지형").tile1, true);
+	_terrain->setTile2(IOMAPMANAGER->loadMapInfo("사냥터지형").tile2, true);
+	_terrain->setTile3(IOMAPMANAGER->loadMapInfo("사냥터지형").tile3, true);
+	_terrain->setSplat(IOMAPMANAGER->loadMapInfo("사냥터지형").splat, true);
+	_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("사냥터지형").vecPos);
+	_terrain->setting();
+	_terrain->changeHeightTerrain();
+
+	//그림자 지형 초기화
+	_terrainShadow = new terrain;
+	_terrainShadow->setHeightmap("높이맵_1");
+	_terrainShadow->setTile0(IOMAPMANAGER->loadMapInfo("사냥터지형").tile0, true);
+	_terrainShadow->setTile1(IOMAPMANAGER->loadMapInfo("사냥터지형").tile1, true);
+	_terrainShadow->setTile2(IOMAPMANAGER->loadMapInfo("사냥터지형").tile2, true);
+	_terrainShadow->setTile3(IOMAPMANAGER->loadMapInfo("사냥터지형").tile3, true);
+	_terrainShadow->setSplat(IOMAPMANAGER->loadMapInfo("사냥터지형").splat, true);
+	_terrainShadow->setMapPosition(IOMAPMANAGER->loadMapInfo("사냥터지형").vecPos);
+	_terrainShadow->setting();
+	_terrainShadow->changeHeightTerrain();
+
+	//환경맵 초기화
+	env->init();
+	env->linkCamera(*_mainCamera);
+
+	water->init(3.0f, 256);
+
+	//맵 오브젝트 초기화
+	IOSAVEOBJECTMANAGER->loadFile("사냥터오브젝트");
+	for (int i = 0; i < IOSAVEOBJECTMANAGER->getCount(); i++)
+	{
+		int x = IOSAVEOBJECTMANAGER->getCount();
+		tagSaveObject object;
+		memset(&object, 0, sizeof(tagSaveObject));
+
+		object = IOSAVEOBJECTMANAGER->findTag("넘버" + to_string(i + 1));
+		baseObject* temp = new baseObject;
+		D3DXMATRIX matRotate;
+		objectSet->objectSet(object.objectNumber, temp, matRotate, object.objectX, object.objectY, object.objectZ, object.objectScale, object.objectRotate);
+
+
+		int a = object.objectNumber;
+
+
+		_renderObject.push_back(temp);
+	}
+
+
+	//환경맵 / 물결맵 불러오기
+	IOSAVEMANAGER->loadFile("사냥터세이브맵");
+
+	envTemp = IOSAVEMANAGER->findTag("환경맵");
+	waterTemp = IOSAVEMANAGER->findTag("물결맵");
+
+	float tempY = _terrain->getHeight(0.0f, 0.0f);
+
+
+	//플레이어 초기화
+	player->out_setlinkTerrain(*_terrain);
+	player->init();
+	//player->getPlayerObject()->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+	player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
+
+	for (int i = 0; i < player->getRenderObject().size(); i++)
+	{
+		_renderObject.push_back(player->getRenderObject()[i]);
+	}
+
+	ACMANAGER->Init(*_terrain, *player);
+
+	loadMonster();
+
+	loadNode();
+
+	player->out_setMonsterRegion(&_monsterRegion);
+
+	SOUNDMANAGER->play("필드1", 0.1f);
+
+	_mainCamera->out_SetLinkTrans(player->getPlayerObject()->_transform);
+	_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 5, -5));
+
+	for (int i = 0; i < _renderObject.size(); i++)
+	{
+		if (192 == _renderObject[i]->getObjectNumber() || 190 == _renderObject[i]->getObjectNumber())
+		{
+			//이게 앞문
+			if (_renderObject[i]->getportalNumber() == 0)
+			{
+				_gate1 = _renderObject[i];
+			}
+
+			if (_renderObject[i]->getportalNumber() == 1)
+			{
+				_gate2 = _renderObject[i];
+			}
+		}
+	}
+
+
+	m_pUIPlayer = new cUIPlayer;
+	m_pUIPlayer->SetMinimap("worldmap2View");
+	m_pUIPlayer->SetMapNum(1);
+	m_pUIPlayer->SetPlayerPosX(player->getPlayerObject()->_transform->GetWorldPosition().x);
+	m_pUIPlayer->SetPlayerPosY(player->getPlayerObject()->_transform->GetWorldPosition().z);
+
+	m_pUIPlayer->linkMinimapPlayerAngle(player->getPlayerObject()->_transform->GetAngleY());
+	m_pUIPlayer->linkMinimapPlayerMove(player->getPlayerObject()->_transform->GetWorldPosition().x + _terrain->GetTerrainSizeX() / 2,
+									   player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
+									   _terrain->GetTerrainSizeX());
+	m_pUIPlayer->init();
 }
 
 void stageTwo::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

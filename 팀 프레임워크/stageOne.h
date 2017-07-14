@@ -15,7 +15,7 @@ private:
 
 	terrain*			_terrain;			//지형클래스
 	terrain*			_terrainShadow;		//지형 그림자
-	mapObject* objectSet;						//지형오브젝트 셋팅 클래스
+	mapObject* objectSet;					//지형오브젝트 셋팅 클래스
 
 	Environment*		env;				//환경맵
 	WaterTerrain*		water;				//물지형 맵
@@ -37,8 +37,8 @@ private:
 private:
 	cUIPlayer* m_pUIPlayer;
 public:
-	stageOne() { clear(); }
-	~stageOne() { destroy(); }
+	stageOne();
+	~stageOne();
 
 	HRESULT init();
 	void release();
@@ -58,5 +58,8 @@ public:
 	void sceneChange();
 
 	virtual void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
+	void loadingStage();
 };
 
+extern stageOne* ex_pStage1;

@@ -5,15 +5,16 @@
 #include "Environment.h"
 #include "WaterTerrain.h"
 
-enum ENDINGNUMBER {EONE = 1,ETWO,ETHREE,EFOUR,EFIVE};
+enum ENDINGNUMBER { EONE = 1, ETWO, ETHREE, EFOUR, EFIVE };
 
 class EndingScene : public iGameNode
 {
 private:
-	terrain*			_terrain;
-	mapObject          objectSet;
+	terrain*		_terrain;
+	mapObject		objectSet;
 	Environment		env;
-	WaterTerrain		water;
+	WaterTerrain	water;
+
 private:
 	camera* _camera;
 	lightDirection sceneBaseDirectionLight;
@@ -23,6 +24,9 @@ private:
 
 	vector<baseObject*> npcVector;
 public:
+	EndingScene();
+	~EndingScene();
+	
 	virtual HRESULT init();
 	virtual void release();
 	virtual void update();
@@ -30,7 +34,7 @@ public:
 
 	void meshInit();
 
-	EndingScene() {}
-	~EndingScene() {}
+	void loadingScene();
 };
 
+extern EndingScene* ex_pEnding;

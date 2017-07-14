@@ -6,7 +6,7 @@ class WaterTerrain;
 class monster;
 class cUIPlayer;
 
-class stageTwo :	public iGameNode
+class stageTwo : public iGameNode
 {
 private:
 	camera* _mainCamera;						//메인카메라
@@ -40,11 +40,8 @@ private:
 	cUIPlayer* m_pUIPlayer;
 
 public:
-	stageTwo() { clear(); }
-	~stageTwo() { destroy(); }
-
-	HRESULT clear(void);
-	void destroy(void);
+	stageTwo();
+	~stageTwo();
 
 	HRESULT init();
 	void release();
@@ -68,5 +65,8 @@ public:
 	void readyShadowMap(vector<baseObject*>* renderObjects, terrain* pTerrain = NULL);
 
 	void sceneChange();
+
+	void loadingScene();
 };
 
+extern stageTwo* ex_pStage2;

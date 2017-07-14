@@ -8,35 +8,31 @@
 #include "WaterTerrain.h"
 #include "cUIPlayer.h"
 
-HRESULT stageThree::clear(void)
+stageThree* ex_pStage3 = new stageThree;
+
+stageThree::stageThree()
+	: boss(nullptr)
+	, player(nullptr)
+	, _mainCamera(nullptr)
+	, _directionLightCamera(nullptr)
+	, sceneBaseDirectionLight(nullptr)
+	, _terrain(nullptr)
+	, _terrainShadow(nullptr)
+	, env(nullptr)
+	, water(nullptr)
+	, _shadowDistance(0.0f)
+	, cinematicBool(false)
+	, m_pUIPlayer(nullptr)
 {
 	_mon.clear();
 	_renderObject.clear();
-	_shadowDistance = 0.0f;
-
-	boss = nullptr;
-	player = nullptr;
-	_mainCamera = nullptr;
-	_directionLightCamera = nullptr;
-	sceneBaseDirectionLight = nullptr;
-	_terrain = nullptr;
-	_terrainShadow = nullptr;
-	env = nullptr;
-	water = nullptr;
-	m_pUIPlayer = nullptr;
-
-	_renderObject.clear();
 	_cullObject.clear();
-
-	cinematicBool = false;
 
 	memset(&envTemp, 0, sizeof(tagSaveMap));
 	memset(&waterTemp, 0, sizeof(tagSaveMap));
-
-	return S_OK;
 }
 
-void stageThree::destroy(void)
+stageThree::~stageThree()
 {
 	for (int i = 0; i < _renderObject.size(); i++)
 	{
@@ -53,99 +49,10 @@ void stageThree::destroy(void)
 	SAFE_DELETE(m_pUIPlayer);
 }
 
+
+
 HRESULT stageThree::init()
 {
-	boss = new bossMonster;
-	player = new xPlayer;
-	_mainCamera = new camera;
-	_directionLightCamera = new camera;
-	sceneBaseDirectionLight = new lightDirection;
-	env = new Environment;
-	water = new WaterTerrain;
-	water->linkCamera(*_mainCamera);
-	
-	this->shadowInit();
-
-	
-	//지형 초기화
-	_terrain = new terrain;
-	_terrain->setHeightmap("높이맵_3");
-	_terrain->setTile0(IOMAPMANAGER->loadMapInfo("보스지형").tile0, true);
-	_terrain->setTile1(IOMAPMANAGER->loadMapInfo("보스지형").tile1, true);
-	_terrain->setTile2(IOMAPMANAGER->loadMapInfo("보스지형").tile2, true);
-	_terrain->setTile3(IOMAPMANAGER->loadMapInfo("보스지형").tile3, true);
-	_terrain->setSplat(IOMAPMANAGER->loadMapInfo("보스지형").splat, true);
-	_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("보스지형").vecPos);
-	_terrain->setting();
-	_terrain->changeHeightTerrain();
-
-	//그림자 지형 초기화
-	_terrainShadow = new terrain;
-	_terrainShadow->setHeightmap("높이맵_3");
-	_terrainShadow->setTile0(IOMAPMANAGER->loadMapInfo("보스지형").tile0, true);
-	_terrainShadow->setTile1(IOMAPMANAGER->loadMapInfo("보스지형").tile1, true);
-	_terrainShadow->setTile2(IOMAPMANAGER->loadMapInfo("보스지형").tile2, true);
-	_terrainShadow->setTile3(IOMAPMANAGER->loadMapInfo("보스지형").tile3, true);
-	_terrainShadow->setSplat(IOMAPMANAGER->loadMapInfo("보스지형").splat, true);
-	_terrainShadow->setMapPosition(IOMAPMANAGER->loadMapInfo("보스지형").vecPos);
-	_terrainShadow->setting();
-	_terrainShadow->changeHeightTerrain();
-
-	env->init();
-	env->linkCamera(*_mainCamera);
-	water->init(3.0f, 256);
-
-	//환경맵 / 물결맵 불러오기
-	IOSAVEMANAGER->loadFile("보스세이브맵");
-	envTemp = IOSAVEMANAGER->findTag("환경맵");
-	waterTemp = IOSAVEMANAGER->findTag("물결맵");
-
-	float tempY = _terrain->getHeight(5.0f, 5.0f); 
-
-	//플레이어 초기화
-	player->out_setlinkTerrain(*_terrain);
-	player->init();
-	//player->getPlayerObject()->_transform->SetWorldPosition(5.0f, tempY, 5.0f);
-	player->getPlayerObject()->_transform->LookDirection(D3DXVECTOR3(0, 0, -1));
-	player->getPlayerObject()->_transform->SetAngleY(180);
-	player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
-
-	for (int i = 0; i < player->getRenderObject().size(); i++)
-	{
-		_renderObject.push_back(player->getRenderObject()[i]);
-	}
-
-	//액션 매니저 초기화
-	ACMANAGER->Init(*_terrain, *player);
-
-	tempY = _terrain->getHeight(0.0f, 0.0f);
-	IOSAVEMONSTERBOX->loadFile("test");
-	//보스몬스터 초기화
-	boss->setMesh(XMESH_MANAGER->GetXmeshSkinned("데스윙"));
-	boss->_transform->SetScale(2.0f, 2.0f, 2.0f);
-	boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
-	boss->setActive(true);
-	_renderObject.push_back(boss);
-
-	SOUNDMANAGER->play("보스1", 0.1f);
-
-	//초기화
-	CINEMATICMANAGER->init();
-	//로드된값 집어 넣기 
-	CINEMATICMANAGER->cinematicBossInit();
-	_mon.push_back(boss);
-	player->out_setMonsterRegion(&_mon);
-
-	m_pUIPlayer = new cUIPlayer;
-	m_pUIPlayer->linkMinimapPlayerAngle(player->getPlayerObject()->_transform->GetAngleY());
-	m_pUIPlayer->linkMinimapPlayerMove(player->getPlayerObject()->_transform->GetWorldPosition().x + _terrain->GetTerrainSizeX() / 2,
-									   player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
-									   _terrain->GetTerrainSizeX());
-
-	m_pUIPlayer->SetMinimap("worldmap3View");
-	m_pUIPlayer->SetMapNum(2);
-	m_pUIPlayer->init();
-
 	return S_OK;
 }
 
@@ -212,7 +119,7 @@ void stageThree::render()
 	_terrain->render(_mainCamera, sceneBaseDirectionLight, _directionLightCamera);
 
 	env->renderEnvironment(envTemp.number);
-//	water->render(waterTemp.number);
+	//	water->render(waterTemp.number);
 
 	//쉐도우랑 같이 그릴려면 ReciveShadow 로 Technique 셋팅
 	xMeshStatic::setCamera(_mainCamera);
@@ -271,7 +178,7 @@ void stageThree::shadowInit(void)
 	//_mainCamera->readyRenderToTexture(WINSIZEX, WINSIZEY);
 	//sceneBaseDirectionLight->_transform->SetWorldPosition(0, 20, 0);
 	//sceneBaseDirectionLight->_transform->RotateWorld(D3DXToRadian(89), 0, 0);
-	
+
 	//배경씬 기본 빛 초기화
 	sceneBaseDirectionLight->_color = D3DXCOLOR(1, 1, 1, 1);
 	sceneBaseDirectionLight->_intensity = 1.0f;
@@ -370,4 +277,99 @@ void stageThree::readyShadowMap(vector<baseObject*>* renderObjects, terrain * pT
 	}
 
 	_directionLightCamera->renderTextureEnd();
+}
+
+void stageThree::loadingStage()
+{
+	boss = new bossMonster;
+	player = new xPlayer;
+	_mainCamera = new camera;
+	_directionLightCamera = new camera;
+	sceneBaseDirectionLight = new lightDirection;
+	env = new Environment;
+	water = new WaterTerrain;
+	water->linkCamera(*_mainCamera);
+
+	this->shadowInit();
+
+
+	//지형 초기화
+	_terrain = new terrain;
+	_terrain->setHeightmap("높이맵_3");
+	_terrain->setTile0(IOMAPMANAGER->loadMapInfo("보스지형").tile0, true);
+	_terrain->setTile1(IOMAPMANAGER->loadMapInfo("보스지형").tile1, true);
+	_terrain->setTile2(IOMAPMANAGER->loadMapInfo("보스지형").tile2, true);
+	_terrain->setTile3(IOMAPMANAGER->loadMapInfo("보스지형").tile3, true);
+	_terrain->setSplat(IOMAPMANAGER->loadMapInfo("보스지형").splat, true);
+	_terrain->setMapPosition(IOMAPMANAGER->loadMapInfo("보스지형").vecPos);
+	_terrain->setting();
+	_terrain->changeHeightTerrain();
+
+	//그림자 지형 초기화
+	_terrainShadow = new terrain;
+	_terrainShadow->setHeightmap("높이맵_3");
+	_terrainShadow->setTile0(IOMAPMANAGER->loadMapInfo("보스지형").tile0, true);
+	_terrainShadow->setTile1(IOMAPMANAGER->loadMapInfo("보스지형").tile1, true);
+	_terrainShadow->setTile2(IOMAPMANAGER->loadMapInfo("보스지형").tile2, true);
+	_terrainShadow->setTile3(IOMAPMANAGER->loadMapInfo("보스지형").tile3, true);
+	_terrainShadow->setSplat(IOMAPMANAGER->loadMapInfo("보스지형").splat, true);
+	_terrainShadow->setMapPosition(IOMAPMANAGER->loadMapInfo("보스지형").vecPos);
+	_terrainShadow->setting();
+	_terrainShadow->changeHeightTerrain();
+
+	env->init();
+	env->linkCamera(*_mainCamera);
+	water->init(3.0f, 256);
+
+	//환경맵 / 물결맵 불러오기
+	IOSAVEMANAGER->loadFile("보스세이브맵");
+	envTemp = IOSAVEMANAGER->findTag("환경맵");
+	waterTemp = IOSAVEMANAGER->findTag("물결맵");
+
+	float tempY = _terrain->getHeight(5.0f, 5.0f);
+
+	//플레이어 초기화
+	player->out_setlinkTerrain(*_terrain);
+	player->init();
+	//player->getPlayerObject()->_transform->SetWorldPosition(5.0f, tempY, 5.0f);
+	player->getPlayerObject()->_transform->LookDirection(D3DXVECTOR3(0, 0, -1));
+	player->getPlayerObject()->_transform->SetAngleY(180);
+	player->getPlayerObject()->_transform->SetScale(1.0f, 1.0f, 1.0f);
+
+	for (int i = 0; i < player->getRenderObject().size(); i++)
+	{
+		_renderObject.push_back(player->getRenderObject()[i]);
+	}
+
+	//액션 매니저 초기화
+	ACMANAGER->Init(*_terrain, *player);
+
+	tempY = _terrain->getHeight(0.0f, 0.0f);
+	IOSAVEMONSTERBOX->loadFile("test");
+	//보스몬스터 초기화
+	boss->setMesh(XMESH_MANAGER->GetXmeshSkinned("데스윙"));
+	boss->_transform->SetScale(2.0f, 2.0f, 2.0f);
+	boss->_transform->SetWorldPosition(0.0f, tempY, 0.0f);
+	boss->setActive(true);
+	_renderObject.push_back(boss);
+
+	SOUNDMANAGER->play("보스1", 0.1f);
+
+	//초기화
+	CINEMATICMANAGER->init();
+	//로드된값 집어 넣기 
+	CINEMATICMANAGER->cinematicBossInit();
+	_mon.push_back(boss);
+	player->out_setMonsterRegion(&_mon);
+
+	m_pUIPlayer = new cUIPlayer;
+	m_pUIPlayer->linkMinimapPlayerAngle(player->getPlayerObject()->_transform->GetAngleY());
+	m_pUIPlayer->linkMinimapPlayerMove(player->getPlayerObject()->_transform->GetWorldPosition().x + _terrain->GetTerrainSizeX() / 2,
+									   player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
+									   _terrain->GetTerrainSizeX());
+
+	m_pUIPlayer->SetMinimap("worldmap3View");
+	m_pUIPlayer->SetMapNum(2);
+	m_pUIPlayer->init();
+
 }
