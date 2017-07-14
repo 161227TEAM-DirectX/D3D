@@ -56,6 +56,8 @@ public:
 	virtual D3DXVECTOR3 getActionShperePos() { return D3DXVECTOR3(0,0,0); };
 	
 
+//	this->ContainerInit();
+
 public:
 	//»ı¼ºÀÚ
 	dxSkill()

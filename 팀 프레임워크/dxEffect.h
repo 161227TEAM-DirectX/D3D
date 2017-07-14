@@ -62,7 +62,7 @@ public:
 	void Start(dx::transform* posTrans, dx::transform* dirTrans = NULL);
 
 	
-	void resetOn()
+	virtual void resetOn()
 	{
 		for (int i = 0; i < _effectMax; i++)
 		{

@@ -2,6 +2,10 @@
 #include "loadingScene.h"
 
 bool loadingScene::m_isChange = false;
+bool loadingScene::m_isChangeScene1 = false;
+bool loadingScene::m_isChangeScene2 = false;
+bool loadingScene::m_isChangeScene3 = false;
+bool loadingScene::m_isChangeScene4 = false;
 
 loadingScene::loadingScene()
 {
@@ -26,9 +30,17 @@ HRESULT loadingScene::init()
 
 	InitializeCriticalSection(&_cs);
 
-	DWORD dwThID[2];
+	UILoading();
+	AniLoading();
+
+	DWORD dwThID[6];
 	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInit, this, NULL, &dwThID[1]));
-	
+
+	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene1, this, NULL, &dwThID[2]));
+	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene2, this, NULL, &dwThID[3]));
+	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene3, this, NULL, &dwThID[4]));
+	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene4, this, NULL, &dwThID[5]));
+
 	return S_OK;
 }
 
@@ -49,7 +61,12 @@ void loadingScene::render()
 	DXIMG_MANAGER->GetDxImg("로딩화면")->render();
 	m_pLoadingBar->render();
 
-	if (m_isChange /*&& m_pLoadingBar->IsFullBar()*/)
+	if (m_isChange
+		&& m_isChangeScene1
+		//&& m_isChangeScene2 
+		//&& m_isChangeScene3 
+		//&& m_isChangeScene4/*&& m_pLoadingBar->IsFullBar()*/
+		)
 	{
 		//g_eSelectMode = E_MAPTOOL;
 		//SCENEMANAGER->changeScene("test");
@@ -71,8 +88,6 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 	PtcLoading();
 
 	SoundLoading();
-	UILoading();
-	AniLoading();
 
 	//ex_pStage1->loadingStage();
 	//ex_pStage2->loadingScene();
@@ -82,6 +97,34 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 
 	m_isChange = true;
 
+	return S_OK;
+}
+
+HRESULT loadingScene::ThreadInitScene1(LPVOID lpVod)
+{
+	ex_pStage1->loadingStage();
+	m_isChangeScene1 = true;
+	return S_OK;
+}
+
+HRESULT loadingScene::ThreadInitScene2(LPVOID lpVod)
+{
+	ex_pStage2->loadingScene();
+	m_isChangeScene2 = true;
+	return S_OK;
+}
+
+HRESULT loadingScene::ThreadInitScene3(LPVOID lpVod)
+{
+	ex_pStage3->loadingStage();
+	m_isChangeScene3 = true;
+	return S_OK;
+}
+
+HRESULT loadingScene::ThreadInitScene4(LPVOID lpVod)
+{
+	ex_pStage4->loadingStage();
+	m_isChangeScene4 = true;
 	return S_OK;
 }
 

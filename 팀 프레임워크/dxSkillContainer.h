@@ -117,7 +117,36 @@ public:
 		return false;
 	}
 
-	virtual void setResetOn() { _skillResetOn = true; };
+	virtual void setResetOn()
+	{
+		//스킬 리셋
+		_skillResetOn = true;
+		if (_skillResetOn)
+		{
+			//기본 리셋
+			for (int num = 0; num < _pvPrepaerMaxNum; num++)
+			{
+				if (_pvPrepaerPS[num].empty() == FALSE) { for (int i = 0; i < _pvPrepaerPS[num].size(); i++) { _pvPrepaerPS[num][i]->reset(); } }
+			}
+			for (int num = 0; num < _pvActionMaxNum; num++)
+			{
+				if (_pvActionPS[num].empty() == FALSE) { for (int i = 0; i < _pvActionPS[num].size(); i++) { _pvActionPS[num][i]->reset(); } }
+			}
+			for (int num = 0; num < _pvFinishMaxNum; num++)
+			{
+				if (_pvFinishPS[num].empty() == FALSE) { for (int i = 0; i < _pvFinishPS[num].size(); i++) { _pvFinishPS[num][i]->reset(); } }
+			}
+
+			this->Reset();
+
+			//동작 초기화
+			_skillResetOn = false;
+			_skillPrepareOn = false;
+			_skillActionOn = false;
+			_skillFinshOn = false;
+			_skillStartOn = false;
+		}
+	};
 
 	//업데이트 동작
 	virtual bool Prepare() = 0;

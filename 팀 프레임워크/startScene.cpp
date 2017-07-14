@@ -93,6 +93,4 @@ void startScene::render()
 	{
 		m_vecBtn[i]->render();
 	}
-
-	FONTMANAGER->fontOut("%d", DXIMGANI_MANAGER->getSize() - 1, 100, 100, WHITE);
 }
