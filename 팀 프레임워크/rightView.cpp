@@ -246,6 +246,9 @@ void rightView::render(void)
 	this->buttonObMiddle();
 	this->buttonENVMiddle();
 	this->buttonTerMiddle();
+
+	DXIMG_MANAGER->GetDxImg("mouseCursor")->setPos(GetMousePos().x, GetMousePos().y);
+	DXIMG_MANAGER->GetDxImg("mouseCursor")->render();
 }
 
 void rightView::buttonTop()

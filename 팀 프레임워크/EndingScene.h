@@ -5,7 +5,13 @@
 #include "Environment.h"
 #include "WaterTerrain.h"
 
-enum ENDINGNUMBER { EONE = 1, ETWO, ETHREE, EFOUR, EFIVE };
+enum ENDINGNUMBER { EONE = 1, ETWO, ETHREE, EFOUR, EFIVE, SIX };
+
+struct ENDINGTEXURES
+{
+	LPDIRECT3DTEXTURE9 tex;
+	RECT rc1, rc2;
+};
 
 class EndingScene : public iGameNode
 {
@@ -23,10 +29,15 @@ private:
 	tagSaveMap waterTemp;
 
 	vector<baseObject*> npcVector;
+	ENDINGTEXURES directxBye;
+	ENDINGTEXURES directxBye2;
+	int byeX;
+	int byeY;
+	bool stop;
 public:
 	EndingScene();
 	~EndingScene();
-	
+
 	virtual HRESULT init();
 	virtual void release();
 	virtual void update();

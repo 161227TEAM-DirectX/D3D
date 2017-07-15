@@ -231,6 +231,10 @@ void cRegistBase::SoundRegist()
 	FILEPATH_MANAGER->AddFilepath("몬스터대기", "Resource/Sound/monster/ancientofarcane_aggro_01.ogg");
 	FILEPATH_MANAGER->AddFilepath("몬스터공격", "Resource/Sound/monster/ancientofarcane_attack_02.ogg");
 	FILEPATH_MANAGER->AddFilepath("몬스터죽음", "Resource/Sound/monster/ancientofarcane_death_02.ogg");
+
+	FILEPATH_MANAGER->AddFilepath("맵툴배경", "Resource/Sound/BGM/맵툴배경.mp3");
+	FILEPATH_MANAGER->AddFilepath("엔딩배경", "Resource/Sound/BGM/엔딩배경.mp3");
+	FILEPATH_MANAGER->AddFilepath("최종엔딩배경", "Resource/Sound/BGM/최종엔딩배경.mp3");
 }
 
 

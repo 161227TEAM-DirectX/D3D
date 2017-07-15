@@ -33,8 +33,8 @@ HRESULT loadingScene::init()
 	DWORD dwThID[6];
 	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInit, this, NULL, &dwThID[1]));//로딩씬
 
-	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene1, this, NULL, &dwThID[2]));
-	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene2, this, NULL, &dwThID[3]));
+	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene1, this, NULL, &dwThID[2]));
+	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene2, this, NULL, &dwThID[3]));
 	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene3, this, NULL, &dwThID[4]));
 	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene4, this, NULL, &dwThID[5]));
 
@@ -59,7 +59,7 @@ void loadingScene::render()
 	m_pLoadingBar->render();
 
 	if (m_isChange
-		&& m_isChangeScene1
+		//&& m_isChangeScene1
 		//&& m_isChangeScene2 
 		//&& m_isChangeScene3 
 		//&& m_isChangeScene4
@@ -74,12 +74,12 @@ void loadingScene::render()
 
 		//SCENEMANAGER->changeScene("start");
 		//SCENEMANAGER->changeScene("gameSceneOne");	//gameSceneOne
-		//SCENEMANAGER->changeScene("gameSceneTwo");	//gameSceneTwo
+		SCENEMANAGER->changeScene("gameSceneTwo");	//gameSceneTwo
 		//SCENEMANAGER->changeScene("gameSceneThree");	//gameSceneThree
 		//SCENEMANAGER->changeScene("gameSceneFour");		//gameSceneFour
 		//SCENEMANAGER->changeScene("EndingScene");		//gameSceneTwo
 		//SCENEMANAGER->changeScene("kims");			//kims
-		SCENEMANAGER->changeScene("AItest");			//AItest
+		//SCENEMANAGER->changeScene("AItest");			//AItest
 	}
 	LeaveCriticalSection(&_cs);
 }
@@ -1277,5 +1277,10 @@ void loadingScene::SoundLoading()
 	SOUNDMANAGER->addSound("몬스터대기", FILEPATH_MANAGER->GetFilepath("몬스터대기"), false, true);
 	SOUNDMANAGER->addSound("몬스터공격", FILEPATH_MANAGER->GetFilepath("몬스터공격"));
 	SOUNDMANAGER->addSound("몬스터죽음", FILEPATH_MANAGER->GetFilepath("몬스터죽음"));
+
+	//맵툴배경, 엔딩배경
+	SOUNDMANAGER->addSound("맵툴배경1", FILEPATH_MANAGER->GetFilepath("맵툴배경"), true, true);
+	SOUNDMANAGER->addSound("엔딩배경1", FILEPATH_MANAGER->GetFilepath("엔딩배경"), false, false);
+	SOUNDMANAGER->addSound("최종엔딩배경1", FILEPATH_MANAGER->GetFilepath("최종엔딩배경"), true, false);
 }
 
