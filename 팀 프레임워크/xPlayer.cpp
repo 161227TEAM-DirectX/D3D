@@ -366,6 +366,7 @@ void xPlayer::render()
 	{
 		FONTMANAGER->fontOut("몬스터HP : " + to_string(targetMonster->getHP()), 300, 300, 0xffffffff);
 		FONTMANAGER->fontOut("공격력 : " + to_string(PLAYERMANAGER->Getatt()), 300, 350, 0xffffffff);
+		targetMonster->setIsRender(true);
 	}
 
 	//렌더링은 씬에 렌더오브젝트를 넘겨 처리한다.
@@ -1609,6 +1610,7 @@ void xPlayer::normalAttackDamageProcessing()
 		{
 			if (PHYSICSMANAGER->isOverlap(this->_playerObject->_transform, &this->_attackBound, (*iter)->_transform, &(*iter)->_boundBox))
 			{
+				targetMonster = (*iter);
 				(*iter)->setHP((*iter)->getHP() - PLAYERMANAGER->Getatt());
 				_dmText->init(PLAYERMANAGER->Getatt(), LHS::FONTCOLOR::FONT_WHITE);
 				/*if ((*iter)->getHP() < 0)
@@ -1811,6 +1813,7 @@ void xPlayer::out_setTargetByMouse(camera* mainCamera)
 {
 	if (_monsterPool != nullptr && KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
+		if(targetMonster != nullptr) targetMonster->setIsRender(false);
 		targetMonster = NULL;//타겟을 강제로 비운다.
 		for (int i = 0; i < _monsterPool->size(); i++)
 		{

@@ -9,6 +9,7 @@ bossMonster::bossMonster() : monster()
 
 bossMonster::~bossMonster()
 {
+	SAFE_DELETE(m_pBar);
 }
 
 void bossMonster::baseObjectEnable()
@@ -36,6 +37,14 @@ void bossMonster::baseObjectEnable()
 	_skinnedAnim->AddBoneTransform("Deathwing_Bone01_Waist", &tailTrans);
 	_skinnedAnim->AddBoneTransform("Deathwing_Bone129__Breath", &breathTrans);
 
+	//보스몬스터 체력UI 초기화
+	m_pBar = new cDxImgBar("bossbar_cover",
+		"bossbar_back",
+		"bossbar_move",
+		D3DXVECTOR2(WINSIZEX / 2, 43),
+		true);
+	m_pBar->setMoveGauge(m_pBar->GetMove()->GetSize().fWidth);
+
 	//컨트롤에 의한 초기 액션
 	CurrAction = ACMANAGER->getAction("보스시네마", *this);
 	result = (LHS::ACTIONRESULT)CurrAction->Start();
@@ -43,8 +52,7 @@ void bossMonster::baseObjectEnable()
 
 void bossMonster::baseObjectDisable()
 {
-	SAFE_DELETE(CurrAction);
-	SAFE_DELETE(NextAction);
+	//SAFE_DELETE(m_pBar);
 	_transform->SetWorldPosition(0.0f, 0.0f, 0.0f);
 }
 
@@ -52,6 +60,10 @@ void bossMonster::baseObjectUpdate()
 {
 	switchState();
 //	testKeyAI();
+
+	//보스몬스터 체력바 연동
+	//보스 현재 체력 / 보스 최대 체력 * 100
+	m_pBar->moveBar((float)HP / (float)100000 * 100);
 
 	if (NextAction != nullptr)
 	{
@@ -71,6 +83,8 @@ void bossMonster::baseObjectNoActiveUpdate()
 
 void bossMonster::baseObjectRender()
 {
+	m_pBar->render();
+
 	if (_skinnedAnim != nullptr) _skinnedAnim->render(_transform);
 	CurrAction->Render();
 
