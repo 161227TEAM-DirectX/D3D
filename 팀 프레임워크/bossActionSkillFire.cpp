@@ -34,6 +34,8 @@ int bossActionSkillFire::Update()
 	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
 	if (temp->getHP() <= 0)
 	{
+		owner->getSkinnedAnim().SetPlaySpeed(1.0f);
+		SKM->findSK("ºê·¹½º")->InitActiveSettingOn();
 		return LHS::ACTIONRESULT::ACTION_DIE;
 	}
 

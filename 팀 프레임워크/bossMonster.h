@@ -1,5 +1,6 @@
 #pragma once
 #include "monster.h"
+
 class bossMonster : public monster
 {
 private:
@@ -8,6 +9,9 @@ private:
 	dx::transform fieldTrans;
 	dx::transform tailTrans;
 	dx::transform breathTrans;
+private:
+	cDxImgBar* m_pBar;
+
 public:
 	bossMonster();
 	~bossMonster();

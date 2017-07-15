@@ -18,6 +18,7 @@ class monster : public baseObject
 private:
 protected:
 	int HP;										//체력
+	int MAXHP;									//최대 체력값
 	int gold;									//돈
 	int soul;									//소울 - 몬스터를 잡아서 나오는 특수 숫자
 	int att;									//공격력
@@ -33,6 +34,10 @@ protected:
 	string	prefixName;							//몬스터 접두사
 	string	lastName;							//몬스터 이름
 	D3DXCOLOR nameColor;						//몬스터 이름 컬러
+
+private:
+	cDxImgBar* m_pBar;
+	bool isRender;
 
 protected:
 	Action*					CurrAction;				//현재 활성화된 행동 클래스
@@ -81,6 +86,9 @@ public:
 	inline Text& getText(void) { return *name; }
 
 	inline string getLastName(void) { return lastName; }
+
+	inline bool getIsRender(void) { return isRender; }
+	inline void setIsRender(bool temp) { this->isRender = temp; }
 
 	//override로 필요하면 재정의 해서 사용하기
  	virtual void baseObjectEnable() override;			//BaseObject가 활성화 될때 실행

@@ -108,7 +108,7 @@ public:
 	xPlayerStatus() { 
 		_pos = { 0 ,0, 0 };
 		_armor = A_PLATE;
-		_orgAtt = 1000000;
+		_orgAtt = 1000;
 		_att = _orgAtt;
 		_MaxHp = 1000000;
 		_hp = _MaxHp;

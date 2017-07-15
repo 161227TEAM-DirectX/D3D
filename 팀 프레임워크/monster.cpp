@@ -10,7 +10,7 @@
 //}
 
 monster::monster(string Name)
-	: baseObject(), CurrAction(nullptr), NextAction(nullptr), dieCount(60)
+	: baseObject(), CurrAction(nullptr), NextAction(nullptr), dieCount(60), isRender(false)
 {
 	name = new Text;
 	prefixName = "";
@@ -36,7 +36,8 @@ void monster::baseObjectEnable()
 
 	name->setPos(D3DXVECTOR3(_transform->GetWorldPosition().x, _boundBox._localMaxPos.y, _transform->GetWorldPosition().z));
 
-	HP = myUtil::RandomIntRange(MINHM, MAXHM);
+	MAXHP = myUtil::RandomIntRange(MINHM, MAXHM);
+	HP = MAXHP;
 	mana = myUtil::RandomIntRange(MINHM, MAXHM);
 	gold = myUtil::RandomIntRange(MINGS, MAXGS);
 	soul = myUtil::RandomIntRange(MINGS, MAXGS);
@@ -50,6 +51,13 @@ void monster::baseObjectEnable()
 
 	name->init(tempName, nameColor);
 
+	m_pBar = new cDxImgBar("bossbar_cover",
+		"bossbar_back",
+		"bossbar_move",
+		D3DXVECTOR2(WINSIZEX / 2, 43),
+		true);
+	m_pBar->setMoveGauge(m_pBar->GetMove()->GetSize().fWidth);
+
 	result = (LHS::ACTIONRESULT)CurrAction->Start();
 }
 
@@ -57,6 +65,7 @@ void monster::baseObjectDisable()
 {
 	SAFE_DELETE(CurrAction);
 	SAFE_DELETE(NextAction);
+	isRender = false;
 
 	this->_transform->SetWorldPosition(regenPosition);
 }
@@ -65,6 +74,8 @@ void monster::baseObjectUpdate()
 {
 	stateSwitch();
 	name->update();
+
+	if(isRender) m_pBar->moveBar((float)HP / (float)MAXHP * 100);
 
 	if (NextAction != nullptr)
 	{
@@ -80,6 +91,7 @@ void monster::baseObjectUpdate()
 
 void monster::baseObjectNoActiveUpdate()
 {
+	isRender = false;
 	if (TIMEMANAGER->getWorldTime() - startTime > dieCount)
 	{
 		result = LHS::ACTIONRESULT::ACTION_STAND;
@@ -90,6 +102,12 @@ void monster::baseObjectNoActiveUpdate()
 void monster::baseObjectRender()
 {
 	if (_skinnedAnim != nullptr) _skinnedAnim->render(_transform);
+
+	if (isRender)
+	{
+		m_pBar->render();
+	}
+	
 
 	CurrAction->Render();
 
