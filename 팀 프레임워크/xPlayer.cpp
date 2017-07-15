@@ -2032,13 +2032,16 @@ void xPlayer::skillProcesser() {
 	case SKILL_NONE:
 		break;
 	case SKILL_HEAL:
-		if ((_state == P_CASTOMNI && _prevState != P_CASTOMNI) || (_state == P_CASTSPELL && _prevState != P_CASTSPELL))//
-		{
-			PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() + PLAYERMANAGER->Getatt());
-		}
-
 		if (SKM->findSK("Èú")->getEnd())
 		{
+			if (PLAYERMANAGER->GetMaxHp() < PLAYERMANAGER->GetHp() + PLAYERMANAGER->Getatt())
+			{
+				PLAYERMANAGER->SetHp(PLAYERMANAGER->GetMaxHp());
+			}
+			else
+			{
+				PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() + PLAYERMANAGER->Getatt());
+			}
 			if (_isOnBattle)
 			{
 				this->_state = P_READYTOATTACK;

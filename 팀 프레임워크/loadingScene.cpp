@@ -33,8 +33,8 @@ HRESULT loadingScene::init()
 	DWORD dwThID[6];
 	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInit, this, NULL, &dwThID[1]));//·Îµù¾À
 
-	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene1, this, NULL, &dwThID[2]));
-	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene2, this, NULL, &dwThID[3]));
+	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene1, this, NULL, &dwThID[2]));
+	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene2, this, NULL, &dwThID[3]));
 	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene3, this, NULL, &dwThID[4]));
 	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene4, this, NULL, &dwThID[5]));
 
@@ -59,8 +59,8 @@ void loadingScene::render()
 	m_pLoadingBar->render();
 
 	if (m_isChange
-		&& m_isChangeScene1
-		//&& m_isChangeScene2 
+		//&& m_isChangeScene1
+		&& m_isChangeScene2 
 		//&& m_isChangeScene3 
 		//&& m_isChangeScene4
 		//&& m_pLoadingBar->IsFullBar()
@@ -74,12 +74,12 @@ void loadingScene::render()
 
 		//SCENEMANAGER->changeScene("start");
 		//SCENEMANAGER->changeScene("gameSceneOne");	//gameSceneOne
-		//SCENEMANAGER->changeScene("gameSceneTwo");	//gameSceneTwo
+		SCENEMANAGER->changeScene("gameSceneTwo");	//gameSceneTwo
 		//SCENEMANAGER->changeScene("gameSceneThree");	//gameSceneThree
 		//SCENEMANAGER->changeScene("gameSceneFour");		//gameSceneFour
 		//SCENEMANAGER->changeScene("EndingScene");		//gameSceneTwo
 		//SCENEMANAGER->changeScene("kims");			//kims
-		SCENEMANAGER->changeScene("AItest");			//AItest
+		//SCENEMANAGER->changeScene("AItest");			//AItest
 	}
 	LeaveCriticalSection(&_cs);
 }
