@@ -21,6 +21,8 @@ EndingScene::~EndingScene()
 
 HRESULT EndingScene::init()
 {
+	loadingScene();
+
 	return S_OK;
 }
 
@@ -54,12 +56,38 @@ void EndingScene::update()
 		npcVector[i]->update();
 	}
 
+	switch (CINEMATICMANAGER->GetGSnumber())
+	{
+	case  ENDINGNUMBER::SIX:
+		byeY--;
+		break;
+	}
+
+	//사운드
+	if (CINEMATICMANAGER->GetGSnumber() == ENDINGNUMBER::SIX)
+	{
+		if (SOUNDMANAGER->isPlaySound("엔딩배경1"))
+		{
+			SOUNDMANAGER->stop("엔딩배경1");
+			stop = true;
+		}
+
+		if (stop == true)
+		{
+			//엔딩노래
+			SOUNDMANAGER->play("최종엔딩배경1", 0.5f);
+			stop = false;
+		}
+	}
+
 }
 
 
 
 void EndingScene::render()
 {
+	CINEMATICMANAGER->cinematicEndingRender();
+
 	objectSet.objectRenderTool2(_renderObject, _camera, &sceneBaseDirectionLight);
 
 	_terrain->render(_camera, &sceneBaseDirectionLight);
@@ -98,6 +126,11 @@ void EndingScene::render()
 
 	case ENDINGNUMBER::EFIVE:
 		DXIMGANI_MANAGER->render("이현수");
+		break;
+
+	case ENDINGNUMBER::SIX:
+		SPRITEMANAGER->renderRectTexture(directxBye.tex, &directxBye.rc1, &directxBye.rc2, 0, 0, 410, 120, WINSIZEX / 2 - 220, 770);
+		SPRITEMANAGER->renderRectTexture(directxBye2.tex, &directxBye2.rc1, &directxBye2.rc2, 0, 0, 512, 2048, byeX, byeY);
 		break;
 	}
 }
@@ -259,4 +292,15 @@ void EndingScene::loadingScene()
 	CINEMATICMANAGER->init();
 	//로드된값 집어 넣기 
 	CINEMATICMANAGER->cinematicEndingInit();
+
+	//마지막인사
+	directxBye.tex = RM_TEXTURE->getResource("Resource/endingtexture/인사.png");
+	directxBye2.tex = RM_TEXTURE->getResource("Resource/endingtexture/마지막.png");
+	byeY = 900;
+	byeX = WINSIZEX - 380;
+	stop = false;
+
+	//노래배경
+	SOUNDMANAGER->play("엔딩배경1", 0.5f);
 }
+

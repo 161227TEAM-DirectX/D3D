@@ -80,11 +80,6 @@ void mapToolScene::render()
 
 		_leftViewHead->render();
 
-		MOUSE_MANAGER->render();
-
-		DXIMG_MANAGER->GetDxImg("mouseCursor")->setPos(GetMousePos().x, GetMousePos().y);
-		DXIMG_MANAGER->GetDxImg("mouseCursor")->render();
-
 		//타임매니져 렌더
 		TIMEMANAGER->render();
 
@@ -118,8 +113,6 @@ void mapToolScene::render()
 		_device->BeginScene();
 
 		_rightView->render();
-
-		MOUSE_MANAGER->render();
 
 		//디바이스 렌더 종료
 		_device->EndScene();

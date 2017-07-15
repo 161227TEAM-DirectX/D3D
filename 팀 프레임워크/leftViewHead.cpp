@@ -1131,6 +1131,9 @@ void leftViewHead::render()
 
 	//다익스트라 노드 그리기
 	_terrain->getDijkstra().render();
+
+	DXIMG_MANAGER->GetDxImg("mouseCursor")->setPos(GetMousePos().x, GetMousePos().y);
+	DXIMG_MANAGER->GetDxImg("mouseCursor")->render();
 }
 
 void leftViewHead::monsterSelect(string str, int monsterNumber)
