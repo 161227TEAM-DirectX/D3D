@@ -63,6 +63,8 @@ protected:
 	bool _InitActiveStop;
 	bool _initActiveTimeOn;
 
+	bool _InitActiveMenualStopOn;
+
 	float _initActiveLimitTime;
 	float _initActiveCurrentTime;
 
@@ -293,6 +295,7 @@ public:
 		_InitActiveStop = FALSE;
 		_initActiveCurrentTime = 0.0f;
 
+		_InitActiveMenualStopOn = FALSE;
 
 		_ptcList.clear();
 		_ptcList.resize(_totalPtcNum);
@@ -339,6 +342,9 @@ public:
 
 	void SettingBillBoardY(void) { _billBoardY_On = TRUE; };
 	
+	void InitActiveSettingOn(bool inOn) { _InitActiveMenualStopOn = inOn; };
+
+
 public:
 	void EmitterInit(void)
 	{
@@ -395,6 +401,8 @@ public:
 		_initActiveLimitTime = 0.0f;
 		_initActiveCurrentTime = 0.0f;
 
+
+		_InitActiveMenualStopOn = FALSE;
 
 		_billBoardY_On = FALSE;
 

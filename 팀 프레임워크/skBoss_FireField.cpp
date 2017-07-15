@@ -10,7 +10,7 @@ HRESULT skBoss_FireField::init()
 	//setPvActionPS(0, "¸ÕÁö_ÆÛÁü", 1);
 	setPvPreparePS(0, "ºÒ²ÉÆÛÁü", 1);
 
-	_pvPrepaerPS[0][0]->SetLimitTime(5.0f);
+	_pvPrepaerPS[0][0]->SetLimitTime(6.0f);
 
 	_oneSetting = true;
 

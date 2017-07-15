@@ -25,6 +25,7 @@ int bossActionAttack::Start()
 	SKM->findSK("È­¿°ÀåÆÇ")->setSkillPosTrans(&temp->getfieldTrans());
 	SKM->findSK("È­¿°ÀåÆÇ")->setSkillDirTrans(owner->_transform);
 	SKM->findSK("È­¿°ÀåÆÇ")->Start();
+	//SKM->findSK("È­¿°ÀåÆÇ")->re();
 
 	text->init(temp->getAtt(), LHS::FONT_RED);
 	SOUNDMANAGER->play("º¸½º°ø°Ý1");
@@ -81,7 +82,7 @@ int bossActionAttack::Update()
 				//ºê·¹½º
 				else if (resultValue >= 0.99f && resultValue <= 1.0f)
 				{
-					return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
+				return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
 				}
 				else if (resultValue - Gap >= 0.97f && resultValue - Gap <= 0.975f)
 				{
@@ -95,7 +96,7 @@ int bossActionAttack::Update()
 				{
 					return LHS::ACTIONRESULT::ACTION_FLY;
 				}
-		
+				
 				return LHS::ACTIONRESULT::ACTION_MOVE;
 			}
 		}
@@ -108,12 +109,6 @@ int bossActionAttack::Update()
 void bossActionAttack::Render()
 {
 	if (text->getStrLength() > 1)text->render();
-	effect.RenderGimozo();
-	char temp[128];
-	sprintf_s(temp, "%.2f     %.2f     %.2f", effect.GetWorldPosition().x, effect.GetWorldPosition().y, effect.GetWorldPosition().z);
-
-	FONTMANAGER->fontOut(temp, 200, 200, WHITE);
-	FONTMANAGER->fontOut(owner->getSkinnedAnim().getNowPlayAnimSet()->GetName(), 200, 250, WHITE);
 }
 
 void bossActionAttack::randomAttack(void)
@@ -172,7 +167,7 @@ void bossActionAttack::randomAttack(void)
 	case 5:
 		owner->getSkinnedAnim().Play("Animation_21");
 
-		EFFECT->findEffect("¾Õ¹ßÂï±â")->setLimitTime(5.0f);
+		EFFECT->findEffect("¾Õ¹ßÂï±â")->setLimitTime(3.5f);
 		EFFECT->findEffect("¾Õ¹ßÂï±â")->Start(&temp->getrightTrans());
 		break;
 	}

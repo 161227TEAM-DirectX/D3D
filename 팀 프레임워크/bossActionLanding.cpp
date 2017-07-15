@@ -67,6 +67,7 @@ int bossActionLanding::Update()
 		//애니메이션이 끝나면
 		if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 		{
+			SKM->findSK("불꽃길")->InitActiveSettingOn();
 			return LHS::ACTIONRESULT::ACTION_MOVE;
 		}
 	}

@@ -37,6 +37,10 @@ HRESULT dxBoardEmitter::init(string textureFileName, int OneTimePaticleNum, floa
 
 	//_InitActiveStop == TRUE;
 
+	//_InitActiveStop = FALSE;
+
+	_InitActiveMenualStopOn = FALSE;
+
 	return S_OK;
 }
 
@@ -86,7 +90,7 @@ void dxBoardEmitter::update()
 			//iter->isInit = false;
 		}
 
-		if ((_spawnTime <= _spawnCurrentTime) && _InitActiveStop == FALSE)
+		if ((_spawnTime <= _spawnCurrentTime) && _InitActiveStop == FALSE && _InitActiveMenualStopOn == FALSE)
 		{
 			if (iter->isAlive == false && checkNum < _onePtcNum)
 			{

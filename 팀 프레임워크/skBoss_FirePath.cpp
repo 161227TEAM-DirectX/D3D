@@ -10,7 +10,7 @@ HRESULT skBoss_FirePath::init()
 	//setPvActionPS(0, "¸ÕÁö_ÆÛÁü", 1);
 	setPvPreparePS(0, "ºÒ²É±æ", 1);
 
-	_pvPrepaerPS[0][0]->SetLimitTime(15.0f);
+	_pvPrepaerPS[0][0]->SetLimitTime(60.0f);
 
 	_oneSetting = true;
 

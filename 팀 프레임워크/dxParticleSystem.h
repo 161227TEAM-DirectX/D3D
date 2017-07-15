@@ -28,6 +28,9 @@ private:
 
 	bool _AllRealTimeTrackingOn;
 
+	//파티클 정지용(자연스럽게 사라지기 위함.)
+	bool _InitActiveStop;
+
 	//쓰레드
 	//thread* _randerThread;
 
@@ -62,6 +65,9 @@ public:
 	bool autoTimeReset(bool ResetFunOn = true);
 
 	void setAllRealTimeTrackingOn(bool realTimeTrackingOn) { _AllRealTimeTrackingOn = realTimeTrackingOn; };
+
+
+	void InitActiveSettingOn(bool inOn) { _InitActiveStop = inOn; };
 
 	//렌더 쓰레드 -> 생각해보니 이렇게 쓰면 쓰레드 의미가 없다......고로 안씀
 	//void autoRenderThread(void)
@@ -106,6 +112,8 @@ public:
 		_EmitterCountNum = 0;
 
 		_AllRealTimeTrackingOn = false;
+
+		_InitActiveStop = FALSE;
 
 		//렌더 쓰레드
 		//_randerThreadOneSettingOn = false;

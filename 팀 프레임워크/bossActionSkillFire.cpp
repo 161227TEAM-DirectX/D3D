@@ -72,6 +72,7 @@ int bossActionSkillFire::Update()
 				if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 				{
 					owner->getSkinnedAnim().SetPlaySpeed(1.0f);
+					SKM->findSK("브레스")->InitActiveSettingOn();
 					return LHS::ACTIONRESULT::ACTION_SKILL_TAIL;
 				}
 			}
@@ -79,10 +80,12 @@ int bossActionSkillFire::Update()
 			//hit박스 안에 있다면
 			if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getHitBox(), playerObject->_transform, &playerObject->_boundBox))
 			{
+				SKM->findSK("브레스")->InitActiveSettingOn();
 				owner->getSkinnedAnim().SetPlaySpeed(1.0f);
 				return LHS::ACTIONRESULT::ACTION_ATT;
 			}
 
+			SKM->findSK("브레스")->InitActiveSettingOn();
 			owner->getSkinnedAnim().SetPlaySpeed(1.0f);
 			//일반적인 경우 바로 이동패턴으로 넘어가자.
 			return LHS::ACTIONRESULT::ACTION_MOVE;

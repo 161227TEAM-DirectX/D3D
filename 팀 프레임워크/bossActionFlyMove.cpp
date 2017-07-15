@@ -143,6 +143,7 @@ int bossActionFlyMove::Update()
 			break;
 		}
 		case bossActionFlyMove::landing:
+			//SKM->findSK("ºÒ²É±æ")->InitActiveSettingOn();
 			return LHS::ACTIONRESULT::ACTION_LANDING;
 		case bossActionFlyMove::oxpattern:
 		{

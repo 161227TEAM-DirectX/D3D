@@ -148,6 +148,27 @@ public:
 		}
 	};
 
+
+	virtual void InitActiveSettingOn(bool inOn = TRUE)
+	{
+		//_InitActiveStop = inOn; 
+		//기본 리셋
+		for (int num = 0; num < _pvPrepaerMaxNum; num++)
+		{
+			if (_pvPrepaerPS[num].empty() == FALSE) { for (int i = 0; i < _pvPrepaerPS[num].size(); i++) { _pvPrepaerPS[num][i]->InitActiveSettingOn(inOn); } }
+		}
+		for (int num = 0; num < _pvActionMaxNum; num++)
+		{
+			if (_pvActionPS[num].empty() == FALSE) { for (int i = 0; i < _pvActionPS[num].size(); i++) { _pvActionPS[num][i]->InitActiveSettingOn(inOn); } }
+		}
+		for (int num = 0; num < _pvFinishMaxNum; num++)
+		{
+			if (_pvFinishPS[num].empty() == FALSE) { for (int i = 0; i < _pvFinishPS[num].size(); i++) { _pvFinishPS[num][i]->InitActiveSettingOn(inOn); } }
+		}
+
+	};
+
+
 	//업데이트 동작
 	virtual bool Prepare() = 0;
 	virtual bool Action() = 0;

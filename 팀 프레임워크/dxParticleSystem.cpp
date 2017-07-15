@@ -62,6 +62,8 @@ HRESULT dxParticleSystem::init()
 		}
 	}
 
+	_InitActiveStop = FALSE;
+
 	return S_OK;
 }
 
@@ -90,6 +92,8 @@ void dxParticleSystem::reset()
 			_vEmitter[i]->reset();
 		}
 	}
+	_InitActiveStop = FALSE;
+
 	_trans->Reset();
 	_isActive = true;
 	_currentTime = 0.0f;
@@ -129,6 +133,9 @@ void dxParticleSystem::update()
 				_vEmitter[_EmitterCountNum]->setParticleSystemTrans(_trans);
 			}
 		}
+
+		//자연스럽게 사라지기 위함 용
+		_vEmitter[_EmitterCountNum]->InitActiveSettingOn(_InitActiveStop);
 
 		//사이즈 세팅->시간 맞추기용
 		_vEmitter[_EmitterCountNum]->setEmitterNum(_vEmitter.size());

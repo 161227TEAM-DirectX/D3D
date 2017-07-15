@@ -41,7 +41,7 @@ void psBossSet00::BreathSet00(string psName)
 	_boardEMT->InitRandomSizeEnd(8.3f, 10.8f);
 	//_pointEMT->addSizeGraph(0.5f, 2.8f, 2.8f);
 	//_pointEMT->addSizeGraph(1.0f, 2.2f, 2.2f);
-
+	_boardEMT->setInitActiveLimitTime(8.5f);
 	//_boardEMT->InitRandomPositionX(-1.0f, 1.0f);
 	//_boardEMT->InitRandomPositionY(-0.5f, 0.5f);
 	//_boardEMT->InitRandomPositionZ(0.0f, 0.5f);
@@ -706,7 +706,7 @@ void psBossSet00::FirePath00(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("ParticleResources/Texture/fire05_frame4x4.png", 4, 0.15f, 3000);
+	_boardEMT->init("ParticleResources/Texture/fire05_frame4x4.png", 4, 0.2f, 5000);
 
 	//_boardEMT->InitRandomLifeTime(1.0f, 1.5f);
 	_boardEMT->InitAnimation(4, 4);
@@ -715,7 +715,7 @@ void psBossSet00::FirePath00(string psName)
 	//_boardEMT->setInitActiveLimitTime(2.0f);
 	_boardEMT->InitCenterPointHV(0.5f, 1.0f);
 
-	_boardEMT->InitRandomLifeTime(1.5f, 4.2f);
+	_boardEMT->InitRandomLifeTime(1.3f, 2.0f);
 
 	_boardEMT->InitRandomPositionX(5.0, 5.0f);
 	_boardEMT->InitRandomPositionZ(0.0, 5.0f);
@@ -740,7 +740,7 @@ void psBossSet00::FirePath00(string psName)
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("ParticleResources/Texture/fire05_frame4x4.png", 4, 0.15f, 3000);
+	_boardEMT->init("ParticleResources/Texture/fire05_frame4x4.png", 4, 0.2f, 5000);
 
 	//_boardEMT->InitRandomLifeTime(1.0f, 1.5f);
 	_boardEMT->InitAnimation(4, 4);
@@ -749,7 +749,7 @@ void psBossSet00::FirePath00(string psName)
 	//_boardEMT->setInitActiveLimitTime(2.0f);
 	_boardEMT->InitCenterPointHV(0.5f, 1.0f);
 
-	_boardEMT->InitRandomLifeTime(1.5f, 4.2f);
+	_boardEMT->InitRandomLifeTime(1.3f, 2.2f);
 
 	_boardEMT->InitRandomPositionX(-5.0, -5.0f);
 	_boardEMT->InitRandomPositionZ(0.0, 5.0f);
