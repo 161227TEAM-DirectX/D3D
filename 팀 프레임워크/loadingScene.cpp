@@ -60,7 +60,7 @@ void loadingScene::render()
 
 	if (m_isChange
 		//&& m_isChangeScene1
-		&& m_isChangeScene2 
+		//&& m_isChangeScene2 
 		//&& m_isChangeScene3 
 		//&& m_isChangeScene4
 		//&& m_pLoadingBar->IsFullBar()
@@ -1277,5 +1277,10 @@ void loadingScene::SoundLoading()
 	SOUNDMANAGER->addSound("몬스터대기", FILEPATH_MANAGER->GetFilepath("몬스터대기"), false, true);
 	SOUNDMANAGER->addSound("몬스터공격", FILEPATH_MANAGER->GetFilepath("몬스터공격"));
 	SOUNDMANAGER->addSound("몬스터죽음", FILEPATH_MANAGER->GetFilepath("몬스터죽음"));
+
+	//맵툴배경, 엔딩배경
+	SOUNDMANAGER->addSound("맵툴배경1", FILEPATH_MANAGER->GetFilepath("맵툴배경"), true, true);
+	SOUNDMANAGER->addSound("엔딩배경1", FILEPATH_MANAGER->GetFilepath("엔딩배경"), false, false);
+	SOUNDMANAGER->addSound("최종엔딩배경1", FILEPATH_MANAGER->GetFilepath("최종엔딩배경"), true, false);
 }
 
