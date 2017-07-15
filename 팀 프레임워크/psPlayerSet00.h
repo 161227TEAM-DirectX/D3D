@@ -33,6 +33,8 @@ private:
 	void SkySwordSet02(string psName);
 
 
+	void WhirlwindSet00(string psName);
+
 public:
 	psPlayerSet00() {};
 	~psPlayerSet00() {};

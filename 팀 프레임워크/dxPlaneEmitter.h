@@ -30,7 +30,11 @@ public:
 private:
 	void ActiveUpdatePlane(tagDxParticleEX * ptcVertex, DWORD * ptcIndex, vector<tagDxAttribute>::iterator iter, DWORD drawParticleNum);
 
-
+	virtual void copyNew()
+	{
+		_ptcVertex = new tagDxParticleEX[_totalPtcNum * 4];
+		_ptcIndex = new DWORD[_totalPtcNum * 6];
+	}
 
 public:
 	dxPlaneEmitter()

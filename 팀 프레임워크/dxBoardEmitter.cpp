@@ -95,6 +95,7 @@ void dxBoardEmitter::update()
 			if (iter->isAlive == false && checkNum < _onePtcNum)
 			{
 
+
 				//재활성화
 				iter->isAlive = true;
 				iter->emitterNum = _emitterNum;

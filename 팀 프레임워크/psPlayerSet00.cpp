@@ -39,7 +39,7 @@ HRESULT psPlayerSet00::init()
 	this->SkySwordSet01("대검_이펙트");
 	this->SkySwordSet02("대검_먼지");
 
-
+	this->WhirlwindSet00("빙글빙글");
 
 
 	return S_OK;
@@ -1472,6 +1472,44 @@ void psPlayerSet00::SkySwordSet02(string psName)
 
 	_PS->addEmitter(_boardEMT);
 
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/fire05_frame4x4.png", 12, 0.05f, 720);
+
+	//_boardEMT->InitRandomLifeTime(1.0f, 1.0f);
+	_boardEMT->SetStartLimitTime(0.8f);
+
+	_boardEMT->InitAnimation(4, 4);
+	_boardEMT->InitConstAniReactivateNum(3);
+
+	_boardEMT->setInitActiveLimitTime(2.0f);
+
+	_boardEMT->InitRandomLifeTime(0.4f, 0.6f);
+
+	_boardEMT->InitCenterPointHV(0.5f, 1.0f);
+
+	_boardEMT->InitRandomPositionX(-1.0, 1.0f);
+	_boardEMT->InitRandomPositionZ(1.0, 5.0f);
+
+	_boardEMT->InitRandomSize(0.3f, 0.5f);
+	_boardEMT->InitRandomSizeEnd(8.0f, 14.2f);
+
+	//_boardEMT->SetPositionType(PTC_SPHERE);
+	//_boardEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
+	//_boardEMT->InitRandomPosSphereRadius(1.0f, 2.0f);
+
+	//_boardEMT->InitCircleRadiusY(3.0f, 5.0f);
+	//_boardEMT->InitCircleStartAngleY(40.0f, 140.0f);
+	//_boardEMT->InitRandomPosExplosionVel(5.0f, 15.0f);
+
+	//_boardEMT->InitRandomAlpha(0.1f, 0.1f);
+	_boardEMT->addAlphaGraph(0.3f, 1.0f, 1.0f);
+	_boardEMT->addAlphaGraph(0.8f, 1.0f, 1.0f);
+	_boardEMT->addAlphaGraph(1.0f, 0.2f, 0.2f);
+
+
+	_PS->addEmitter(_boardEMT);
+
 
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
@@ -1511,4 +1549,120 @@ void psPlayerSet00::SkySwordSet02(string psName)
 	_PS->addEmitter(_boardEMT);
 
 	PSM->addPS(psName, _PS, true);
+}
+
+void psPlayerSet00::WhirlwindSet00(string psName)
+{
+	dxParticleSystemSet::init();
+
+	_planeEMT = NULL;
+	_planeEMT = new dxPlaneEmitter;
+	_planeEMT->init("ParticleResources/Texture/shoutingCircle01.png", 4, 0.25f, 50);
+
+	_planeEMT->InitRandomSize(1.0f, 1.0f);
+	_planeEMT->InitRandomSizeEnd(5.0f, 12.0f);
+
+
+	//시작시간 조절!!!!!!!!!!!
+	_planeEMT->SetStartLimitTime(1.0f);
+
+	_planeEMT->setRealtimeTrackingPosOn();
+
+	_planeEMT->SetPositionType();
+	//_planeEMT->InitDirSphere(1.0f,1.0f,0.0f);
+	//_planeEMT->InitRandomPosSphereRadius(1.0f,1.0f);
+	//_planeEMT->InitRandomPosExplosionVel(5.0f,5.0f);
+
+	_planeEMT->InitRotateStartAngleX(-30.0f, 30.0f);
+	_planeEMT->InitRotateStartAngleY(0.0f, 360.0f);
+	_planeEMT->InitRotateStartAngleZ(-30.0f, 30.0f);
+
+	_planeEMT->InitRandomLifeTime(0.7f, 0.7f);
+
+	_planeEMT->InitRandomAlpha(0.1f, 0.2f);
+	_planeEMT->addAlphaGraph(0.8f, 0.3f, 0.4f);
+	_planeEMT->addAlphaGraph(1.0f, 0.0f, 0.0f);
+
+
+	_planeEMT->InitRandomPositionY(0.5f, 0.5f);
+
+	_PS->addEmitter(_planeEMT);
+
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/fire02_frame4x4.png", 1, 0.1f, 80);
+
+	//_boardEMT->InitRandomLifeTime(1.0f, 1.0f);
+	//_boardEMT->SetStartLimitTime(0.8f);
+
+	_boardEMT->InitAnimation(4, 4);
+	_boardEMT->InitConstAniReactivateNum(3);
+
+	//_boardEMT->setInitActiveLimitTime(2.0f);
+
+	_boardEMT->InitRandomLifeTime(1.4f, 1.6f);
+
+	_boardEMT->InitCenterPointHV(0.5f, 1.0f);
+
+	
+
+	//_boardEMT->InitRandomPositionX(-1.0, 1.0f);
+	//_boardEMT->InitRandomPositionZ(1.0,5.0f);
+
+	_boardEMT->InitRandomSize(0.3f, 0.5f);
+	_boardEMT->InitRandomSizeEnd(3.0f, 4.2f);
+
+	//_boardEMT->SetPositionType(PTC_SPHERE);
+	//_boardEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
+	//_boardEMT->InitRandomPosSphereRadius(1.0f, 2.0f);
+
+	//_boardEMT->InitCircleRadiusY(3.0f, 5.0f);
+	//_boardEMT->InitCircleStartAngleY(40.0f, 140.0f);
+	//_boardEMT->InitRandomPosExplosionVel(5.0f, 15.0f);
+
+	_boardEMT->InitRandomAlpha(0.1f, 0.1f);
+	_boardEMT->addAlphaGraph(0.3f, 0.0f, 1.0f);
+	_boardEMT->addAlphaGraph(0.8f, 0.6f, 0.7f);
+	_boardEMT->addAlphaGraph(1.0f, 0.2f, 0.2f);
+
+	_PS->addEmitter(_boardEMT);
+
+
+
+
+	//_boardEMT = NULL;
+	//_boardEMT = new dxBoardEmitter;
+	//_boardEMT->init("ParticleResources/Texture/smoke02_frame4x4.png", 12, 0.5f, 360);
+	////_pointEMT->InitConstSize(2.4f);
+
+	//_boardEMT->setInitActiveLimitTime(2.0f);
+
+	//_boardEMT->InitRandomLifeTime(2.5f, 3.2f);
+
+	//_boardEMT->InitRandomSize(0.0f, 0.2f);
+	//_boardEMT->InitRandomSizeEnd(8.0f, 18.2f);
+
+	//_boardEMT->SetPositionType(PTC_SPHERE);
+	//_boardEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
+	//_boardEMT->InitRandomPosSphereRadius(1.0f, 2.0f);
+	//_boardEMT->InitRandomPosExplosionVel(5.0f, 8.0f);
+
+	//_boardEMT->InitCenterPointHV(0.5f, 1.0f);
+
+	//_boardEMT->InitRandomAlpha(0.1f, 0.1f);
+	//_boardEMT->addAlphaGraph(0.3f, 1.0f, 1.0f);
+	//_boardEMT->addAlphaGraph(0.8f, 1.0f, 1.0f);
+	//_boardEMT->addAlphaGraph(1.0f, 0.2f, 0.2f);
+	//
+	//_boardEMT->InitAnimation(4, 4);
+	
+
+
+
+	_PS->addEmitter(_boardEMT);
+
+
+	PSM->addPS(psName, _PS);
+
 }

@@ -37,7 +37,11 @@ public:
 	D3DXVECTOR3 _vtxPosMax;
 
 public:
-
+	virtual void copyNew()
+	{
+		//_ptcVertex = new tagDxParticleEX[_totalPtcNum * 4];
+		//_ptcIndex = new DWORD[_totalPtcNum * 6];
+	}
 
 public:
 	virtual HRESULT init(string xFileName, int OneTimePaticleNum = 10, float spawnTime = 0.1f, int totalPaticleNum = 1.0f);

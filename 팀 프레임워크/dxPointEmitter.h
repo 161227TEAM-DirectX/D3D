@@ -59,6 +59,12 @@ public:
 		_drawVtx = new tagDxParticle[(int)_vbSize];
 	}*/
 
+	virtual void copyNew()
+	{
+		//_ptcVertex = new tagDxParticleEX[_totalPtcNum * 4];
+		//_ptcIndex = new DWORD[_totalPtcNum * 6];
+	}
+
 public:
 	dxPointEmitter()
 	{

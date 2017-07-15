@@ -19,6 +19,7 @@ HRESULT psBossSet00::init()
 	this->Scratch00("ºÒ²ÉÇÒÄû±â");
 	this->FirePath00("ºÒ²É±æ");
 
+	this->PatternOX00("OXÆÐÅÏ");
 	
 
 	return S_OK;
@@ -773,5 +774,53 @@ void psBossSet00::FirePath00(string psName)
 	_PS->addEmitter(_boardEMT);
 
 	PSM->addPS(psName, _PS);
+}
+
+void psBossSet00::PatternOX00(string psName)
+{
+	dxParticleSystemSet::init();
+
+
+	_boardEMT = NULL;
+	_boardEMT = new dxBoardEmitter;
+	_boardEMT->init("ParticleResources/Texture/fire06_frame4x4.png", 22, 1.5f, 440);
+
+	_boardEMT->InitAnimation(4, 4);
+	_boardEMT->InitConstAniReactivateNum(12);
+
+	//_boardEMT->setInitActiveLimitTime(2.0f);
+
+	_boardEMT->InitRandomLifeTime(2.6f, 4.4f);
+
+	_boardEMT->InitRandomSize(20.3f, 20.5f);
+	_boardEMT->InitRandomSizeEnd(38.0f, 44.2f);
+
+	_boardEMT->InitCenterPointHV(0.5f, 1.0f);
+
+
+	//_boardEMT->InitRandomPositionX(-7.0f,-7.0f);
+	//_boardEMT->InitRandomPositionZ(-10.0f,-10.0f);
+
+	//_boardEMT->SetPositionType();
+	//_boardEMT->InitDirSphere(1.0f,0.0f,1.0f);
+	//_boardEMT->rad
+
+
+	_boardEMT->InitCircleRadiusY(1.0f, 8.0f);
+	_boardEMT->InitCircleStartAngleY(-90.0f, 0.0f);
+	_boardEMT->InitRandomPosExplosionVel(36.0f, 42.0f);
+
+
+	_boardEMT->InitRandomAlpha(0.1f, 0.1f);
+	_boardEMT->addAlphaGraph(0.3f, 1.0f, 1.0f);
+	_boardEMT->addAlphaGraph(0.8f, 1.0f, 1.0f);
+	_boardEMT->addAlphaGraph(1.0f, 0.2f, 0.2f);
+
+	_PS->addEmitter(_boardEMT);
+
+
+
+	PSM->addPS(psName, _PS, true);
+
 }
 

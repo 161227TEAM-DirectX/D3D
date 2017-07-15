@@ -344,6 +344,8 @@ public:
 	
 	void InitActiveSettingOn(bool inOn) { _InitActiveMenualStopOn = inOn; };
 
+public:
+	virtual void copyNew() = 0;
 
 public:
 	void EmitterInit(void)

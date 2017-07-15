@@ -232,7 +232,19 @@ void particleTest13::update()
 		SKM->findSK("»þ¿ìÆÃ")->Start();
 	}
 
+	if (KEYMANAGER->isOnceKeyDown('J'))
+	{
+		SKM->findSK("ÆÐÅÏ")->setSkillPosTrans(_player);
+		SKM->findSK("ÆÐÅÏ")->setSkillDirTrans(_player);
+		SKM->findSK("ÆÐÅÏ")->Start();
+	}
 
+	if (KEYMANAGER->isOnceKeyDown('H'))
+	{
+		SKM->findSK("ºù±Ûºù±Û")->setSkillPosTrans(_player);
+		SKM->findSK("ºù±Ûºù±Û")->setSkillDirTrans(_player);
+		SKM->findSK("ºù±Ûºù±Û")->Start();
+	}
 
 	//if (KEYMANAGER->isOnceKeyDown('P'))
 	//{

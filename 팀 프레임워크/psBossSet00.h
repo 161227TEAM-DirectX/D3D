@@ -24,6 +24,9 @@ private:
 	void Scratch00(string psName);
 	void FirePath00(string psName);
 	
+	void PatternOX00(string psName);
+	
+
 
 public:
 	psBossSet00() {};

@@ -11,6 +11,7 @@
 #include "skPlayer_Lightning.h"
 #include "skPlayer_ShootingStar.h"
 #include "skPlayer_SkySword.h"
+#include "skPlayer_Whirlwind.h"
 
 // ## [ 보스 스킬 ] ## ==================================================
 #include "skBoss_Breath.h"
@@ -20,6 +21,8 @@
 #include "skBoss_FireField.h"
 #include "skBoss_Scratch.h"
 #include "skBoss_FirePath.h"
+
+#include "skBoss_PatternOX.h"
 
 
 void dxSkillManager::skillSetting()
@@ -32,6 +35,7 @@ void dxSkillManager::skillSetting()
 	this->addSK("라이트닝", new skPlayer_Lightning);
 	this->addSK("샛별_떨구기", new skPlayer_ShootingStar);
 	this->addSK("하늘의_대검", new skPlayer_SkySword);
+	this->addSK("빙글빙글", new skPlayer_Whirlwind);
 
 	//보스 스킬 등록
 	this->addSK("브레스", new skBoss_Breath);
@@ -44,6 +48,10 @@ void dxSkillManager::skillSetting()
 	this->addSK("할퀴기_왼발", new skBoss_Scratch);
 	this->addSK("할퀴기_오른발", new skBoss_Scratch);
 	this->addSK("불꽃길", new skBoss_FirePath);
+
+	this->addSK("패턴", new skBoss_PatternOX);
+
+
 
 }
 

@@ -75,7 +75,7 @@ void dxPlaneEmitter::update()
 			iter->age = 0.0f;
 		}
 
-		if (_spawnTime <= _spawnCurrentTime)
+		if ((_spawnTime <= _spawnCurrentTime) && _InitActiveStop == FALSE && _InitActiveMenualStopOn == FALSE)
 		{
 			if (iter->isAlive == false && checkNum < _onePtcNum)
 			{
@@ -121,6 +121,22 @@ void dxPlaneEmitter::update()
 	//스폰 시간 업
 	_spawnCurrentTime += DeltaTime;
 
+
+	//초기화 업데이트 부분 활성화 시간 설정(자연스럽게 사라지게 하기)
+	if (_initActiveTimeOn)
+	{
+		_initActiveCurrentTime += DeltaTime;
+
+
+		if (_initActiveLimitTime <= _initActiveCurrentTime)
+		{
+			_InitActiveStop = TRUE;
+		}
+	}
+	else
+	{
+		_InitActiveStop = FALSE;
+	}
 	
 }
 
