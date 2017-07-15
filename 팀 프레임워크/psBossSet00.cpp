@@ -119,7 +119,7 @@ void psBossSet00::ShoutingSet00(string psName)
 
 
 	//시작시간 조절!!!!!!!!!!!
-	_planeEMT->SetStartLimitTime(0.8f);
+	_planeEMT->SetStartLimitTime(1.0f);
 
 	_planeEMT->SetPositionType();
 	//_planeEMT->InitDirSphere(1.0f,1.0f,0.0f);

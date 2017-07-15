@@ -26,13 +26,13 @@ int bossActionSkillBattleRoar::Start()
 	//attackStyle = 0;
 	if(attackStyle == 1)
 	{
-		SKM->findSK("대마법")->setSkillPosTrans(owner->_transform);
-		SKM->findSK("대마법")->Start();
+		SKM->findSK("샤우팅")->setSkillPosTrans(&temp->getbreathTrans());
+		SKM->findSK("샤우팅")->Start();
 	}
 	else
 	{
-		SKM->findSK("샤우팅")->setSkillPosTrans(&temp->getbreathTrans());
-		SKM->findSK("샤우팅")->Start();
+		SKM->findSK("대마법")->setSkillPosTrans(owner->_transform);
+		SKM->findSK("대마법")->Start();
 	}
 	
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;

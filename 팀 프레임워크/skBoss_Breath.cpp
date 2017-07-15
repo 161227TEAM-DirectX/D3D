@@ -10,7 +10,7 @@ HRESULT skBoss_Breath::init()
 	setMaxNumPreparePS(2);
 	setPvPreparePS(0, "ºê·¹½º", 1);
 
-	_pvPrepaerPS[0][0]->SetLimitTime(7.5f);
+	_pvPrepaerPS[0][0]->SetLimitTime(10.5f);
 
 	return S_OK;
 
