@@ -47,8 +47,8 @@ int bossActionSkillFire::Update()
 		{
 			owner->getSkinnedAnim().Play("Animation_14");
 			owner->getSkinnedAnim().SetPlaySpeed(0.2f);
-			SOUNDMANAGER->setMusicSpeed("브레스2", 0.8f);
 			SOUNDMANAGER->play("브레스2");
+			SOUNDMANAGER->setMusicSpeed("브레스2", 0.6f);
 		}
 		return LHS::ACTIONRESULT::ACTION_PLAY;
 	}

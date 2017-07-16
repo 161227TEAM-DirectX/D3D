@@ -32,7 +32,8 @@ HRESULT loadingScene::init()
 
 	DWORD dwThID[6];
 	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInit, this, NULL, &dwThID[1]));//로딩씬
-	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene1, this, NULL, &dwThID[2]));
+	
+	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene1, this, NULL, &dwThID[2]));
 	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene2, this, NULL, &dwThID[3]));
 	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene3, this, NULL, &dwThID[4]));
 	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene4, this, NULL, &dwThID[5]));
@@ -58,7 +59,7 @@ void loadingScene::render()
 	m_pLoadingBar->render();
 
 	if (m_isChange
-		&& m_isChangeScene1
+		//&& m_isChangeScene1
 		//&& m_isChangeScene2 
 		//&& m_isChangeScene3 
 		//&& m_isChangeScene4
@@ -71,8 +72,8 @@ void loadingScene::render()
 		//g_isMaptool = true;
 		//SCENEMANAGER->changeScene("maptool");
 
-		//SCENEMANAGER->changeScene("start");
-		SCENEMANAGER->changeScene("gameSceneOne");	//gameSceneOne
+		SCENEMANAGER->changeScene("EndingScene");
+		//SCENEMANAGER->changeScene("gameSceneOne");	//gameSceneOne
 		//SCENEMANAGER->changeScene("gameSceneTwo");	//gameSceneTwo
 		//SCENEMANAGER->changeScene("gameSceneThree");	//gameSceneThree
 		//SCENEMANAGER->changeScene("gameSceneFour");		//gameSceneFour
@@ -86,10 +87,10 @@ void loadingScene::render()
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
 	//맵툴모드이면 스테틱메쉬를 로드하자...
-	//if (g_eSelectMode == E_MAPTOOL)
-	//{
-	//	XMeshStaticLoading();
-	//}
+	if (g_eSelectMode == E_MAPTOOL)
+	{
+		XMeshStaticLoading();
+	}
 
 	XMeshSkinnedLoading();
 	PtcLoading();
@@ -109,22 +110,21 @@ HRESULT loadingScene::ThreadInitScene1(LPVOID lpVod)
 
 HRESULT loadingScene::ThreadInitScene2(LPVOID lpVod)
 {
-	//ex_pStage2->loadingScene();
+	ex_pStage2->loadingScene();
 	m_isChangeScene2 = true;
 	return S_OK;
 }
 
 HRESULT loadingScene::ThreadInitScene3(LPVOID lpVod)
 {
-	//ex_pStage3->loadingStage();
+	ex_pStage3->loadingStage();
 	m_isChangeScene3 = true;
 	return S_OK;
 }
 
 HRESULT loadingScene::ThreadInitScene4(LPVOID lpVod)
 {
-	///ex_pStage4->loadingStage();
-	///ex_pEnding->loadingScene();
+	ex_pStage4->loadingStage();
 	m_isChangeScene4 = true;
 	return S_OK;
 }
@@ -1276,6 +1276,12 @@ void loadingScene::SoundLoading()
 	SOUNDMANAGER->addSound("몬스터대기", FILEPATH_MANAGER->GetFilepath("몬스터대기"), false, true);
 	SOUNDMANAGER->addSound("몬스터공격", FILEPATH_MANAGER->GetFilepath("몬스터공격"));
 	SOUNDMANAGER->addSound("몬스터죽음", FILEPATH_MANAGER->GetFilepath("몬스터죽음"));
+	SOUNDMANAGER->addSound("보스날기시작", FILEPATH_MANAGER->GetFilepath("보스날기시작"));
+	SOUNDMANAGER->addSound("보스날기중", FILEPATH_MANAGER->GetFilepath("보스날기중"), false, true);
+	SOUNDMANAGER->addSound("보스날기대기중", FILEPATH_MANAGER->GetFilepath("보스날기시작"), false, true);
+	SOUNDMANAGER->addSound("파이어", FILEPATH_MANAGER->GetFilepath("파이어"), false, true);
+	SOUNDMANAGER->addSound("파이어폭발", FILEPATH_MANAGER->GetFilepath("파이어폭발"));
+	SOUNDMANAGER->addSound("플레임", FILEPATH_MANAGER->GetFilepath("플레임"), false, true);
 
 	//맵툴배경, 엔딩배경
 	SOUNDMANAGER->addSound("맵툴배경1", FILEPATH_MANAGER->GetFilepath("맵툴배경"), true, true);

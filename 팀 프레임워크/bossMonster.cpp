@@ -88,10 +88,10 @@ void bossMonster::baseObjectRender()
 	if (_skinnedAnim != nullptr) _skinnedAnim->render(_transform);
 	CurrAction->Render();
 
-	hitBox.renderGizmo(_transform, D3DCOLOR_XRGB(255,0,0));
-	range.renderGizmo(_transform, D3DCOLOR_XRGB(255,255,0));
+//	hitBox.renderGizmo(_transform, D3DCOLOR_XRGB(255,0,0));
+//	range.renderGizmo(_transform, D3DCOLOR_XRGB(255,255,0));
 
-	_boundBox.renderGizmo(_transform);
+//	_boundBox.renderGizmo(_transform);
 }
 
 void bossMonster::switchState(void)

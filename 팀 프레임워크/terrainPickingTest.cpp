@@ -195,7 +195,7 @@ void terrainPickingTest::update(void)
 void terrainPickingTest::render(void)
 {
 	shadowRender();
-	_directionLightCamera->_frustum.renderGizmo();
+	//_directionLightCamera->_frustum.renderGizmo();
 
 	//카메라에 컬링된거만....
 	this->_cullObjects.clear();

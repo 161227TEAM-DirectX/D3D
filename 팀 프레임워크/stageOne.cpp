@@ -119,7 +119,7 @@ void stageOne::update()
 
 void stageOne::render()
 {
-	_directionLightCamera->_frustum.renderGizmo();
+	//_directionLightCamera->_frustum.renderGizmo();
 
 	//카메라에 컬링된것만
 	this->_cullObject.clear();
@@ -405,7 +405,7 @@ void stageOne::loadingStage()
 		_renderObject.push_back(player->getRenderObject()[i]);
 	}
 
-	ACMANAGER->Init(*_terrain, *player);
+//	ACMANAGER->Init(*_terrain, *player);
 
 	
 

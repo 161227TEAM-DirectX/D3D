@@ -196,7 +196,7 @@ void kimsNewTest::render()
 	
 	this->readyShadowMap(&this->_cullObjects, this->_terrainShadow);
 
-	_directionLightCamera->_frustum.renderGizmo();
+	//_directionLightCamera->_frustum.renderGizmo();
 	//_mainCamera->_frustum.renderGizmo();
 	
 	_mount->_skinnedAnim->renderBoneName(_mainCamera, _mount->_transform);

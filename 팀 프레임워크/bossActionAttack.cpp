@@ -69,32 +69,32 @@ int bossActionAttack::Update()
 			if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 			{
 				//이동
-				if (resultValue >= 0.1f && resultValue < 0.97f)
-				{
-					return LHS::ACTIONRESULT::ACTION_MOVE;
-				}
-				//배틀로어
-				else if (resultValue >= 0.98f && resultValue <= 0.99f)
-				{
-					return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
-				}
-				//브레스
-				else if (resultValue >= 0.99f && resultValue <= 1.0f)
-				{
-				return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
-				}
-				else if (resultValue - Gap >= 0.97f && resultValue - Gap <= 0.975f)
-				{
+				//if (resultValue >= 0.1f && resultValue < 0.97f)
+				//{
+				//	return LHS::ACTIONRESULT::ACTION_MOVE;
+				//}
+				////배틀로어
+				//else if (resultValue >= 0.98f && resultValue <= 0.99f)
+				//{
+				//	return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
+				//}
+				////브레스
+				//else if (resultValue >= 0.99f && resultValue <= 1.0f)
+				//{
+				//return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
+				//}
+				//else if (resultValue - Gap >= 0.97f && resultValue - Gap <= 0.975f)
+				//{
 					return LHS::ACTIONRESULT::ACTION_FLY;
-				}
+				//}
 			}
 			//range안에 없다면 이동이다.
 			else
 			{
-				if (resultValue - Gap >= 0.97f && resultValue - Gap <= 0.975f)
-				{
+				//if (resultValue - Gap >= 0.97f && resultValue - Gap <= 0.975f)
+				//{
 					return LHS::ACTIONRESULT::ACTION_FLY;
-				}
+				//}
 				
 				return LHS::ACTIONRESULT::ACTION_MOVE;
 			}

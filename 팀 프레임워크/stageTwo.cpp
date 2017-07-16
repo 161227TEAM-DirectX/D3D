@@ -134,7 +134,7 @@ void stageTwo::update()
 
 void stageTwo::render()
 {
-	_directionLightCamera->_frustum.renderGizmo();
+	//_directionLightCamera->_frustum.renderGizmo();
 
 	//카메라에 컬링된것만
 	this->_cullObject.clear();
@@ -289,7 +289,6 @@ void stageTwo::shadowRender(void)
 
 void stageTwo::loadMonster(void)
 {
-
 	IOSAVEMONSTERBOX->loadFile("test");
 	IOSAVEMONSTERMANAGER->loadFile("몬스터");
 	vector<tagSaveMonster> temp;

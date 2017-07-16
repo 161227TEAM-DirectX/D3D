@@ -21,15 +21,15 @@ Node::~Node()
 
 void Node::Render()
 {
-	D3DXMATRIXA16 matT;
-	D3DXMATRIX oldMat;
-	D3DXMatrixTranslation(&matT,
-		position.x,
-		position.y,
-		position.z);
-	_device->GetTransform(D3DTS_WORLD, &oldMat);
-	_device->SetTransform(D3DTS_WORLD, &matT);
-	_device->SetFVF(mesh->GetFVF());
-	mesh->DrawSubset(0);
-	_device->SetTransform(D3DTS_WORLD, &oldMat);
+	//D3DXMATRIXA16 matT;
+	//D3DXMATRIX oldMat;
+	//D3DXMatrixTranslation(&matT,
+	//	position.x,
+	//	position.y,
+	//	position.z);
+	//_device->GetTransform(D3DTS_WORLD, &oldMat);
+	//_device->SetTransform(D3DTS_WORLD, &matT);
+	//_device->SetFVF(mesh->GetFVF());
+	//mesh->DrawSubset(0);
+	//_device->SetTransform(D3DTS_WORLD, &oldMat);
 }

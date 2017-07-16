@@ -90,11 +90,11 @@ int ActionSeq::Update()
 
 void ActionSeq::Render()
 {
-	if (CurrIdx < vecAction.size())
-	{
-		vecAction[CurrIdx]->Render();
-		string temp = vecAction[CurrIdx]->getOwner()->getSkinnedAnim().getAnimationSet()->GetName();
-		temp + to_string(CurrIdx);
-		FONTMANAGER->fontOut(temp.c_str(), 150, 150, WHITE);
-	}
+	//if (CurrIdx < vecAction.size())
+	//{
+	//	vecAction[CurrIdx]->Render();
+	//	string temp = vecAction[CurrIdx]->getOwner()->getSkinnedAnim().getAnimationSet()->GetName();
+	//	temp + to_string(CurrIdx);
+	//	FONTMANAGER->fontOut(temp.c_str(), 150, 150, WHITE);
+	//}
 }

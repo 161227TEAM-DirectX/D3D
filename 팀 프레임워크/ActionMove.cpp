@@ -144,7 +144,5 @@ int ActionMove::Update()
 
 void ActionMove::Render()
 {
-	char temp[128];
-	sprintf_s(temp, "%f", length);
-	FONTMANAGER->fontOut(temp, 250, 250, WHITE);
+
 }
