@@ -35,6 +35,7 @@ HRESULT xPlayer::init()
 	_isJump = false;
 	_isBladePosInit = false;
 	_isMount = false;
+	_isInvincible = false;
 
 	//데이터를 로딩해 이전의 스테이터스와 장비상태를 초기화한다.
 	LoadData();
@@ -323,6 +324,18 @@ HRESULT xPlayer::init()
 
 void xPlayer::update()
 {
+	if (KEYMANAGER->isOnceKeyDown('0'))
+	{
+		if (_isInvincible)
+		{
+			_isInvincible = false;
+		}
+		else
+		{
+			_isInvincible = true;
+		}
+	}
+
 	updateEquipments();
 
 	//_dmText->setPos();
@@ -1536,6 +1549,8 @@ void xPlayer::playerSkillOmni(float castingTime)
 void xPlayer::playerDamaged(int damage, float damagedTime, float delayRate, float StunRate, float StunedTime)
 {
 	if (_state == P_DEATH) return;
+
+	if (_isInvincible) return;
 
 	if (_isMount)
 	{

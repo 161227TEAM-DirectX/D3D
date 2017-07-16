@@ -110,7 +110,7 @@ private:
 
 	int sampleMax;
 
-
+	bool _isInvincible;
 
 private:
 	baseObject* _playerObject;
