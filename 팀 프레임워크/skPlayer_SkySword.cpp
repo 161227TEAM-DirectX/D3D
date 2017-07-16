@@ -17,13 +17,22 @@ HRESULT skPlayer_SkySword::init()
 
 	for (int i = 0; i < _pvActionMaxNum; i++)
 	{
-		_pvActionPS[i][0]->SetLimitTime(7.0f);
+		_pvActionPS[i][0]->SetLimitTime(9.6f);
 	}
 	_pvActionPS[2][0]->SetActive(FALSE);
 
+	//_pvActionPS[0][0]->SetLimitTime(8.8f);
 
 	//_OneActionSettingOn = true;
 
+	SOUNDMANAGER->addSound("Ãµ°Ë_ÆøÆÄ","Resource/Sound/skillSound/ÇÏ´ÃÀÇ ´ë°Ë_ÆøÆÄ.mp3");
+	SOUNDMANAGER->addSound("Ãµ°Ë_ÆøÆÄ2","Resource/Sound/skillSound/ÇÏ´ÃÀÇ ´ë°Ë_ÆøÆÄ2.mp3");
+	SOUNDMANAGER->addSound("Ãµ°Ë_ÈÄÆøÇ³","Resource/Sound/skillSound/ÇÏ´ÃÀÇ ´ë°Ë_ÈÄÆøÇ³.mp3",false, true);
+
+	for (int i = 0; i < 3; i++)
+	{
+		_soundOn[i] = TRUE;
+	}
 
 	_actionAtiveNum = 0;
 
@@ -33,6 +42,10 @@ HRESULT skPlayer_SkySword::init()
 	_oneSettingOn = true;
 
 	_accel = 0.0f;
+
+	_oneSoundSetting = false;
+
+	_currentSoundTime = 0.0f;
 
 	return S_OK;
 }
@@ -95,7 +108,8 @@ bool skPlayer_SkySword::Prepare()
 
 	//_oneSettingOn = false;
 	_collisionOn = true;
-
+	
+	
 
 	return false;
 }
@@ -124,18 +138,44 @@ bool skPlayer_SkySword::Action()
 	//_pvActionPS[0][0]->Transform()->SetWorldPosition(currentPos+movePos);
 	if (_pvActionPS[0][0]->Transform()->GetWorldPosition().y >= -10.0f)
 	{
+		
+
 		_pvActionPS[0][0]->Transform()->MovePositionLocal(0.0f, (-20.0f + _accel)*_timeDelta, 0.0f);
 	}
 	//_pvActionPS[0][0]->update();
 
 	if (_pvActionPS[0][0]->Transform()->GetWorldPosition().y >= 0.0f)
 	{
+
 		_pvActionPS[1][0]->Transform()->SetWorldPosition(_pvActionPS[0][0]->Transform()->GetWorldPosition());
 	}
 
 	//¸ÕÁö¿© ÀÛµ¿ÇÏ¶ó
 	if (_pvActionPS[0][0]->Transform()->GetWorldPosition().y <= 90.0f)
 	{
+		_currentSoundTime += _timeDelta;
+
+		for (int i = 0; i < 3; i++)
+		{
+			if (_soundOn[0] && i == 0 && _currentSoundTime >= 0.3f)
+			{
+				//SOUNDMANAGER->play("Ãµ°Ë_ÆøÆÄ");
+				_soundOn[0] = FALSE;
+			}
+			if (_soundOn[1] && i == 1 && _currentSoundTime >= 0.3f)
+			{
+				SOUNDMANAGER->play("Ãµ°Ë_ÆøÆÄ2");
+				_soundOn[1] = FALSE;
+			}
+			if (_soundOn[2] && i == 2 && _currentSoundTime >= 1.5f)
+			{
+				SOUNDMANAGER->play("Ãµ°Ë_ÈÄÆøÇ³");
+				_soundOn[2] = FALSE;
+			}
+			
+		}
+		
+
 		_pvActionPS[2][0]->SetActive(TRUE);
 		
 	}
@@ -156,6 +196,7 @@ bool skPlayer_SkySword::Action()
 		_skillResetOn = true;
 	}
 
+	
 
 
 	return false;
@@ -178,8 +219,18 @@ void skPlayer_SkySword::Reset()
 
 	_actionAtiveNum = 0;
 
+	for (int i = 0; i < 3; i++)
+	{
+		_soundOn[i] = TRUE;
+	}
+
 	_limitShootTime = 0.3f;
 	_currentShootTime = 0.0f;
 
 	_collisionOn = true;
+
+	_currentSoundTime = 0.0f;
+
+	SOUNDMANAGER->stop("Ãµ°Ë_ÈÄÆøÇ³");
+
 }

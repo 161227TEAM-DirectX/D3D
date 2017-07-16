@@ -17,6 +17,10 @@ private:
 
 	bool _collisionOn;
 
+	bool _soundOn[3];
+
+	float _currentSoundTime;
+
 public:
 	virtual bool getCollision()
 	{
