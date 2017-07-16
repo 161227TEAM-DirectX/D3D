@@ -489,7 +489,7 @@ void stageTwo::sceneChange()
 
 	if (PHYSICSMANAGER->isOverlap(player->getPlayerObject(), _gate1))
 	{
-		PLAYERMANAGER->SetPos(D3DXVECTOR3(5.5f, 0, 110.0f));
+		PLAYERMANAGER->SetPos(D3DXVECTOR3(5.5f, 0, 100.0f));
 		//PLAYERMANAGER->SetPos(D3DXVECTOR3(0, 0, -110));
 		SCENEMANAGER->changeScene("gameSceneOne");
 	}

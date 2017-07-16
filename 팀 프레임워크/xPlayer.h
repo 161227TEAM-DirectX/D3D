@@ -107,6 +107,7 @@ private:
 	deque<D3DXVECTOR3> _vecPosEdge;	//검광의 윗단
 
 	int sampleMax;		//검광의 좌표 최대 개수
+	float yPosition;	//폰트 데미지 y값 위치
 
 	bool _isInvincible;	//플레이어 무적화 (데미지 및 피격, 스턴 처리 하지 않음.)
 

@@ -338,11 +338,6 @@ void xPlayer::update()
 
 	updateEquipments();
 
-	//_dmText->setPos();
-	/*for (int i = 0; i < this->_renderObjects.size(); i++)
-	{
-		this->_renderObjects[i]->render();
-	}*/
 
 	setHeight(getPlayerObject()->_transform);
 
@@ -365,6 +360,13 @@ void xPlayer::update()
 	playerAnimationManager();
 
 	useNowSkill();
+
+	if (targetMonster != nullptr)
+	{
+		yPosition += 0.01f;
+		_dmText->setPos(D3DXVECTOR3(targetMonster->_transform->GetWorldPosition().x, yPosition, targetMonster->_transform->GetWorldPosition().z));
+		_dmText->update();
+	}
 
 	_prevState = _state;
 }
@@ -416,6 +418,11 @@ void xPlayer::render()
 	if (NULL != targetMonster)
 	{
 		targetMonster->_boundBox.renderGizmo(targetMonster->_transform);
+	}
+
+	if (_dmText->getStrLength())
+	{
+		_dmText->render();
 	}
 }
 
@@ -1616,7 +1623,10 @@ void xPlayer::normalAttackDamageProcessing()
 			{
 				targetMonster = (*iter);
 				(*iter)->setHP((*iter)->getHP() - PLAYERMANAGER->Getatt());
-				_dmText->init(PLAYERMANAGER->Getatt(), LHS::FONTCOLOR::FONT_WHITE);
+				_dmText->init(PLAYERMANAGER->Getatt(), LHS::FONTCOLOR::FONT_BLUE);
+				yPosition = targetMonster->_boundBox.getLocalMaxPos().y;
+				_dmText->setPos(D3DXVECTOR3(targetMonster->_transform->GetWorldPosition().x, yPosition, targetMonster->_transform->GetWorldPosition().z));
+				
 				/*if ((*iter)->getHP() < 0)
 				{
 					exit(0);
