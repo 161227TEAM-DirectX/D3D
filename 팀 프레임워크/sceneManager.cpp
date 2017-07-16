@@ -86,7 +86,7 @@ HRESULT sceneManager::changeScene(string sceneName, bool isFirst)
 
 	if (isFirst == false)
 	{
-		_currentScene->release();
+		//_currentScene->release();
 	}
 
 	//여기까지 왔으면 문제 없으니 씬 초기화 하고 변경해준다

@@ -34,7 +34,7 @@ HRESULT loadingScene::init()
 	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInit, this, NULL, &dwThID[1]));//로딩씬
 	
 	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene1, this, NULL, &dwThID[2]));
-	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene2, this, NULL, &dwThID[3]));
+	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene2, this, NULL, &dwThID[3]));
 	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene3, this, NULL, &dwThID[4]));
 	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene4, this, NULL, &dwThID[5]));
 
@@ -60,13 +60,12 @@ void loadingScene::render()
 
 	if (m_isChange
 		//&& m_isChangeScene1
-		//&& m_isChangeScene2 
+		&& m_isChangeScene2 
 		//&& m_isChangeScene3 
 		//&& m_isChangeScene4
-		&& m_pLoadingBar->IsFullBar()
-
-		)
+		&& m_pLoadingBar->IsFullBar())
 	{
+		//SOUNDMANAGER->stop("로딩");
 		//SCENEMANAGER->changeScene("test");
 
 		//g_isMaptool = true;
@@ -81,6 +80,7 @@ void loadingScene::render()
 		//SCENEMANAGER->changeScene("EndingScene");		//gameSceneTwo
 		//SCENEMANAGER->changeScene("kims");			//kims
 		//SCENEMANAGER->changeScene("AItest");			//AItest
+		
 	}
 	LeaveCriticalSection(&_cs);
 }
@@ -1297,7 +1297,7 @@ void loadingScene::SoundLoading()
 
 	//맵툴배경, 엔딩배경
 	SOUNDMANAGER->addSound("맵툴배경1", FILEPATH_MANAGER->GetFilepath("맵툴배경"), true, true);
-	SOUNDMANAGER->addSound("엔딩배경1", FILEPATH_MANAGER->GetFilepath("엔딩배경"), false, false);
+	SOUNDMANAGER->addSound("엔딩배경1", FILEPATH_MANAGER->GetFilepath("엔딩배경"), true, true);
 	SOUNDMANAGER->addSound("최종엔딩배경1", FILEPATH_MANAGER->GetFilepath("최종엔딩배경"), true, false);
 }
 

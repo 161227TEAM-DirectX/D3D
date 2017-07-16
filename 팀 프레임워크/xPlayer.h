@@ -62,35 +62,35 @@ struct tagIndex
 class xPlayer :	public iGameNode
 {
 private:
-	bool _isJump;
-	bool _isOnBattle;
-	bool _isMount;
-	//float _houlse
-	float _sitHeight;
-
 	PL_STATE _state;
 	PL_STATE _prevState;
 	SkillType _nowSelectedSkill;
 
 	PL_WEAPON _weaponCurrent;
 	PL_SHIELD _shieldCurrent;
+
+	bool _isJump;
+	bool _isOnBattle;
+
+	bool _isMount;//마운트가 소환되었는가
+	float _sitHeight;//말 탑승시 안장의 높이
 	
-	float _moveSpeed;
-	float _damagedTime;
-	float _stunnedTime;
-	float _castingTime;
+	float _moveSpeed;	
+	float _damagedTime;	
+	float _stunnedTime;	
+	float _castingTime;	
 	
-	float _baseHeight;//점프시작높이
-	float _jumpHeight;//점프높이!
-	float _jumpPower;//점프파워
-	float _degree;//2차방정식에 따른 높이
-	float _jumpSpeed;
+	float _baseHeight;	//점프시작높이
+	float _jumpHeight;	//점프높이!
+	float _jumpPower;	//점프파워
+	float _degree;		//2차방정식에 따른 높이
+	float _jumpSpeed;	//
 
-	float _playSpeed;
+	float _playSpeed;	//
 
-	float nowPeriod;
+	float nowPeriod;	//
 
-	float _BladeLength;
+	float _BladeLength;	//
 
 	DWORD vertexNum ;
 	DWORD primitives;
@@ -99,18 +99,17 @@ private:
 	D3DXVECTOR3 posHand;
 	D3DXVECTOR3 posEdge;
 
-	deque<MYLIGHTVERTEX> _vertexDeque;
+	deque<MYLIGHTVERTEX> _vertexDeque;	//
 
-	MYLIGHTVERTEX* pVertices;
+	MYLIGHTVERTEX* pVertices;		//검광출력을 위한 버텍스
 
-	deque<D3DXVECTOR3> _vecPosHand;
-	deque<D3DXVECTOR3> _vecPosEdge;
+	deque<D3DXVECTOR3> _vecPosHand;	//검광의 밑단
+	deque<D3DXVECTOR3> _vecPosEdge;	//검광의 윗단
 
-	bool _isBladePosInit;
+	int sampleMax;		//검광의 좌표 최대 개수
+	float yPosition;	//폰트 데미지 y값 위치
 
-	int sampleMax;
-
-	bool _isInvincible;
+	bool _isInvincible;	//플레이어 무적화 (데미지 및 피격, 스턴 처리 하지 않음.)
 
 private:
 	baseObject* _playerObject;
