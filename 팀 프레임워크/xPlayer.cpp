@@ -2019,7 +2019,6 @@ void xPlayer::useNowSkill()
 				SKM->findSK("파이어매직")->setOneTargetTrans(targetMonster->_transform);
 				SKM->findSK("파이어매직")->Start();
 
-
 				SOUNDMANAGER->play("불꽃");
 				//SOUNDMANAGER->setMusicSpeed("불꽃",1.0f);
 			}

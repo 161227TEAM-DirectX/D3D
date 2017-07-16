@@ -6,6 +6,9 @@
 
 #include <SDKDDKVer.h>
 
+//릴리즈 오류차단
+//#define _CRT_SECURE_NO_WARNINGS
+
 #define WIN32_LEAN_AND_MEAN             // 거의 사용되지 않는 내용은 Windows 헤더에서 제외합니다.
 
 // Windows 헤더 파일:
@@ -43,11 +46,6 @@ using namespace std;
 //#pragma comment(linker,"/entry:WinMainCRTStartup /subsystem:console")
 
 
-#ifndef _DEBUG
-
-#define new new(_CLIENT_BLOCK,__FILE__,__LINE)
-
-#endif
 
 
 //====================================================================
@@ -55,7 +53,7 @@ using namespace std;
 //====================================================================
 #define WINNAME (LPTSTR)(TEXT("161227TEAM"))
 #define WINSTARTX	150
-#define WINSTARTY	30
+#define WINSTARTY	0
 #define WINSIZEX	1600
 #define WINSIZEY	900
 #define WINSTYLE	WS_OVERLAPPEDWINDOW

@@ -1,4 +1,4 @@
-﻿ParticleResources/
+ParticleResources/
 Debug/
 Resource/
 ResourceAnimation/
@@ -8,3 +8,5 @@ ipch/
 ResourceUI/
 DIRECT3D.VC.db
 x64/
+팀 프레임워크/Release/
+팀 프레임워크/DIRECT3D.vcxproj.user

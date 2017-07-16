@@ -24,6 +24,8 @@ LPD3DXEFFECT rmShaderFX::loadResource(string filePath, void * pParam)
 	shaderFlag = shaderFlag | D3DXSHADER_DEBUG;
 #endif
 
+	//shaderFlag = shaderFlag | D3DXSHADER_DEBUG;
+
 	//fxFile 로 부터 Effect 객체 로딩
 	D3DXCreateEffectFromFile(
 		_device,			//디바이스
