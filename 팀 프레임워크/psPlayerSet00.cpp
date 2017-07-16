@@ -1395,44 +1395,77 @@ void psPlayerSet00::SkySwordSet01(string psName)
 {
 	dxParticleSystemSet::init();
 
-	_pointEMT = NULL;
-	_pointEMT = new dxPointEmitter;
-	_pointEMT->init("ParticleResources/Texture/default.png", 70, 0.2f, 700.0f);
-	_pointEMT->InitRandomLifeTime(2.0f, 3.0f);
+	//_pointEMT = NULL;
+	//_pointEMT = new dxPointEmitter;
+	//_pointEMT->init("ParticleResources/Texture/default.png", 70, 0.2f, 700.0f);
+	//_pointEMT->InitRandomLifeTime(2.0f, 3.0f);
 
 
-	_pointEMT->InitRandomColorR(OneColorByte(250), OneColorByte(250));
-	_pointEMT->InitRandomColorG(OneColorByte(50), OneColorByte(50));
-	_pointEMT->InitRandomColorFadeR(OneColorByte(230), OneColorByte(230));
-	_pointEMT->InitRandomColorFadeG(OneColorByte(240), OneColorByte(240));
+	//_pointEMT->InitRandomColorR(OneColorByte(250), OneColorByte(250));
+	//_pointEMT->InitRandomColorG(OneColorByte(50), OneColorByte(50));
+	//_pointEMT->InitRandomColorFadeR(OneColorByte(230), OneColorByte(230));
+	//_pointEMT->InitRandomColorFadeG(OneColorByte(240), OneColorByte(240));
 
-	_pointEMT->SetPositionType(PTC_SPHERE);
-	_pointEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
-	_pointEMT->InitRandomPosSphereRadius(0.0f, 2.0f);
-	_pointEMT->InitRandomPosExplosionVel(2.0f, 4.0f);
-	_pointEMT->InitRandomPosRotAngleSpeedY(100.0f, 200.0f);
+	//_pointEMT->SetPositionType(PTC_SPHERE);
+	//_pointEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
+	//_pointEMT->InitRandomPosSphereRadius(0.0f, 2.0f);
+	//_pointEMT->InitRandomPosExplosionVel(2.0f, 4.0f);
+	//_pointEMT->InitRandomPosRotAngleSpeedY(100.0f, 200.0f);
 
-	_pointEMT->InitRandomSize(0.6f,0.6f);
-	_pointEMT->InitRandomSizeEnd(0.3f,0.3f);
+	//_pointEMT->InitRandomSize(0.6f,0.6f);
+	//_pointEMT->InitRandomSizeEnd(0.3f,0.3f);
 
-	//_pointEMT->InitRandomSize(0.5f, 0.5f);
-	//_pointEMT->InitRandomSize(0.8f, 0.8f);
-	//_pointEMT->InitRandomLifeTime(4.2f, 4.2f);
-	//_pointEMT->InitRandomPositionY(100.0f, 100.0f);
-	_pointEMT->InitRandomVelocityY(4.0f, 8.0f);
-	//_pointEMT->addVelocityGraphY(0.8f, -30.0f, -30.0f);
-	//_pointEMT->addVelocityGraphY(1.0f, 0.0f, 0.0f);
+	////_pointEMT->InitRandomSize(0.5f, 0.5f);
+	////_pointEMT->InitRandomSize(0.8f, 0.8f);
+	////_pointEMT->InitRandomLifeTime(4.2f, 4.2f);
+	////_pointEMT->InitRandomPositionY(100.0f, 100.0f);
+	//_pointEMT->InitRandomVelocityY(4.0f, 8.0f);
+	////_pointEMT->addVelocityGraphY(0.8f, -30.0f, -30.0f);
+	////_pointEMT->addVelocityGraphY(1.0f, 0.0f, 0.0f);
 
-	_pointEMT->InitRandomAccelerationY(10.0f, 20.0f);
-	//_pointEMT->addAccelGraphY(0.75f, -116.0f, -116.0f);
-	////_meshEMT->addAccelGraphY(0.85f, -240.0f, -240.0f);
-	//_pointEMT->addAccelGraphY(1.0f, 0.0f, 0.0f);
+	//_pointEMT->InitRandomAccelerationY(10.0f, 20.0f);
+	////_pointEMT->addAccelGraphY(0.75f, -116.0f, -116.0f);
+	//////_meshEMT->addAccelGraphY(0.85f, -240.0f, -240.0f);
+	////_pointEMT->addAccelGraphY(1.0f, 0.0f, 0.0f);
 
-	//_meshEMT->addVelocityGraphY(0.3f,-10.0f, -10.0f);
-	//_meshEMT->addVelocityGraphY(0.8f, -20.0f, -20.0f);
-	//_meshEMT->addVelocityGraphY(1.0f, 0.0f, 0.0f);
+	////_meshEMT->addVelocityGraphY(0.3f,-10.0f, -10.0f);
+	////_meshEMT->addVelocityGraphY(0.8f, -20.0f, -20.0f);
+	////_meshEMT->addVelocityGraphY(1.0f, 0.0f, 0.0f);
 
-	_PS->addEmitter(_pointEMT);
+	//_PS->addEmitter(_pointEMT);
+
+	_planeEMT = NULL;
+	_planeEMT = new dxPlaneEmitter;
+	_planeEMT->init("ParticleResources/Texture/shoutingCircle01.png", 1, 0.2f, 50);
+
+	_planeEMT->InitRandomSize(10.0f, 10.0f);
+	_planeEMT->InitRandomSizeEnd(50.0f, 50.0f);
+
+
+	//시작시간 조절!!!!!!!!!!!
+	_planeEMT->SetStartLimitTime(1.0f);
+
+	_planeEMT->SetPositionType();
+	//_planeEMT->InitDirSphere(1.0f,1.0f,0.0f);
+	//_planeEMT->InitRandomPosSphereRadius(1.0f,1.0f);
+	//_planeEMT->InitRandomPosExplosionVel(5.0f,5.0f);
+
+	//_planeEMT->InitRotateStartAngleX(0.0f, 360.0f);
+	//_planeEMT->InitRotateStartAngleY(0.0f, 360.0f);
+	//_planeEMT->InitRotateStartAngleZ(0.0f, 360.0f);
+
+	//_planeEMT->InitRandomPositionY(100.0f, 100.0f);
+
+	_planeEMT->InitRandomLifeTime(1.2f, 1.2f);
+
+	_planeEMT->InitRandomAlpha(0.2f, 0.2f);
+	_planeEMT->addAlphaGraph(0.8f, 0.4f, 0.4f);
+	_planeEMT->addAlphaGraph(1.0f, 0.0f, 0.0f);
+
+
+	_PS->addEmitter(_planeEMT);
+
+
 
 	PSM->addPS(psName, _PS);
 
