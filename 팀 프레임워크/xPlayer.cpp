@@ -627,10 +627,10 @@ void xPlayer::PlayerInputControl()//이 친구가 상태값에 종속 적이라면?
 void xPlayer::playerStateManager()
 {
 
-	if (_state != P_WHIRLWIND)
+	/*if (_state != P_WHIRLWIND)
 	{
 		SOUNDMANAGER->stop("휠윈드");
-	}
+	}*/
 
 	if (_state != P_RUN && _state != P_WALKBACK)
 		SOUNDMANAGER->stop("걸음소리1");
@@ -1962,6 +1962,9 @@ void xPlayer::useNowSkill()
 		case SKILL_HEAL:
 			SKM->findSK("힐")->setSkillPosTrans(_playerObject->_transform);
 			SKM->findSK("힐")->Start();
+
+			SOUNDMANAGER->play("힐링", 0.7f);
+			SOUNDMANAGER->setMusicSpeed("힐링", 1.0f);
 			break;
 		case SKILL_MAGICMISSILE:
 			if (targetMonster != NULL)
@@ -1998,6 +2001,10 @@ void xPlayer::useNowSkill()
 				SKM->findSK("파이어매직")->setSkillDirTrans(this->_playerObject->_transform);
 				SKM->findSK("파이어매직")->setOneTargetTrans(targetMonster->_transform);
 				SKM->findSK("파이어매직")->Start();
+
+
+				SOUNDMANAGER->play("불꽃", 1.0f);
+				SOUNDMANAGER->setMusicSpeed("불꽃",1.0f);
 			}
 			break;
 		case SKILL_SHIELD:
@@ -2153,6 +2160,7 @@ void xPlayer::skillProcesser() {
 				this->_state = P_STAND;
 			}
 			_nowSelectedSkill = SKILL_NONE;
+			SOUNDMANAGER->stop("불꽃");
 		}
 
 		break;
@@ -2216,6 +2224,8 @@ void xPlayer::skillProcesser() {
 
 			_attackTrans.SetWorldPosition(0, 0.5f, 0.8);
 			_attackBound.setBound(&_attackTrans.GetWorldPosition(), &D3DXVECTOR3(0.5, 0.5, 0.5));
+
+			SOUNDMANAGER->stop("휠윈드");
 		}
 		break;
 	case SKILL_END:

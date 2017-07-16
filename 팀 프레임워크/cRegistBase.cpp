@@ -211,6 +211,17 @@ void cRegistBase::SoundRegist()
 	FILEPATH_MANAGER->AddFilepath("¸»¹ß±Á¼Ò¸®", "Resource/Sound/¸»¹ß±Á¼Ò¸®1.mp3");
 	FILEPATH_MANAGER->AddFilepath("Çª½º·Î´Ù", "Resource/Sound/Çª½º·Î´Ù.mp3");
 	FILEPATH_MANAGER->AddFilepath("ÈÙÀ©µå", "Resource/Sound/ÈÙÀ©µå.mp3");
+	FILEPATH_MANAGER->AddFilepath("ºÒ²É", "Resource/Sound/ºÒ²É1.mp3");
+	FILEPATH_MANAGER->AddFilepath("Èú¸µ", "Resource/Sound/Èú¸µ1.mp3");
+
+	FILEPATH_MANAGER->AddFilepath("ÇÏ´ÃÀÇ´ë°Ë", "Resource/Sound/ÇÏ´ÃÀÇ ´ë°Ë_ÆøÆÄ.mp3");
+
+	FILEPATH_MANAGER->AddFilepath("½¯µå1", "Resource/Sound/½¯µå.ogg");
+	FILEPATH_MANAGER->AddFilepath("½¯µå2", "Resource/Sound/½¯µå2.ogg");
+	FILEPATH_MANAGER->AddFilepath("¸ÅÁ÷½´ÅÍ", "Resource/Sound/¸ÅÁ÷½´ÅÍ.mp3"); 
+	
+	FILEPATH_MANAGER->AddFilepath("¹ø°³", "Resource/Sound/¹ø°³ÀÌÆåÆ®¼Ò¸®.wav");
+	FILEPATH_MANAGER->AddFilepath("º°ºû", "Resource/Sound/º°ºûÀÌÆåÆ®¼Ò¸®.wav");
 
 	FILEPATH_MANAGER->AddFilepath("º¸½º¿ïÀ½¼Ò¸®", "Resource/Sound/deathWing/deathwing_shouting_good.mp3");
 	FILEPATH_MANAGER->AddFilepath("º¸½º¿ïÀ½¼Ò¸®2", "Resource/Sound/deathWing/event_deathwingattacks_roar_01.ogg");

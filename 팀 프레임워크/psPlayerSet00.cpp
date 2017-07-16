@@ -528,6 +528,8 @@ void psPlayerSet00::FireMagicSet01(string psName)
 	_boardEMT->InitAnimation(4, 4);
 	_boardEMT->InitConstAniReactivateNum(3);
 
+	_boardEMT->InitCenterPointHV(0.5f, 1.0f);
+
 	_boardEMT->InitRandomAlpha(0.8f, 0.8f);
 	_boardEMT->addAlphaGraph(0.8, 1.0f, 1.0f);
 	_boardEMT->addAlphaGraph(1.0f, 0.1f, 0.1f);
