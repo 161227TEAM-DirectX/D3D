@@ -118,10 +118,10 @@ void monster::baseObjectRender()
 
 	//FONTMANAGER->fontOut(temps.c_str(), 100, 100, D3DCOLOR_XRGB(255, 255, 255));
 
-	hitBox.renderGizmo(_transform, D3DCOLOR_XRGB(255, 0, 0));
-	range.renderGizmo(_transform, D3DCOLOR_XRGB(255, 255, 0));
+//	hitBox.renderGizmo(_transform, D3DCOLOR_XRGB(255, 0, 0));
+//	range.renderGizmo(_transform, D3DCOLOR_XRGB(255, 255, 0));
 
-	_boundBox.renderGizmo(_transform);
+//	_boundBox.renderGizmo(_transform);
 }
 
 void monster::stateSwitch(void)

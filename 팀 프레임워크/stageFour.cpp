@@ -135,7 +135,7 @@ void stageFour::update()
 
 void stageFour::render()
 {
-	_directionLightCamera->_frustum.renderGizmo();
+	//_directionLightCamera->_frustum.renderGizmo();
 
 	//카메라에 컬링된것만
 	this->_cullObject.clear();

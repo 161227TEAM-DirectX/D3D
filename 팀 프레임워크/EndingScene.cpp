@@ -23,6 +23,11 @@ HRESULT EndingScene::init()
 {
 	loadingScene();
 
+	//노래배경
+	SOUNDMANAGER->play("엔딩배경1", 0.5f);
+
+//	loadingScene();
+
 	return S_OK;
 }
 
@@ -299,8 +304,5 @@ void EndingScene::loadingScene()
 	byeY = 900;
 	byeX = WINSIZEX - 380;
 	stop = false;
-
-	//노래배경
-	SOUNDMANAGER->play("엔딩배경1", 0.5f);
 }
 

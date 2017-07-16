@@ -20,6 +20,7 @@ int bossActionLanding::Start()
 	if (!owner)return LHS::ACTIONRESULT::ACTION_FINISH;
 
 	owner->getSkinnedAnim().Play("Animation_39");
+	SOUNDMANAGER->play("보스날기중");
 
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
 }
@@ -68,6 +69,7 @@ int bossActionLanding::Update()
 		if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 		{
 			SKM->findSK("불꽃길")->InitActiveSettingOn();
+			SOUNDMANAGER->stop("보스날기중");
 			return LHS::ACTIONRESULT::ACTION_MOVE;
 		}
 	}

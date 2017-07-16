@@ -21,7 +21,7 @@ int bossActionFly::Start()
 	test.MovePositionSelf(0.0f, 1.0f, 0.0f);
 	EFFECT->findEffect("날기_먼지")->setLimitTime(5.0f);
 	EFFECT->findEffect("날기_먼지")->Start(&test);
-
+	SOUNDMANAGER->play("보스날기시작");
 
 	D3DXMatrixIdentity(&matTranslation);
 
@@ -57,7 +57,11 @@ int bossActionFly::Update()
 		//애니메이션이 종료 된다면.
 		if (owner->getSkinnedAnim().getAnimationPlayFactor() >= ANIMATIONENDTIME)
 		{
-			if (owner->_transform->GetWorldPosition().y >= 50.0f) return LHS::ACTIONRESULT::ACTION_FLY_MOVE_ATT;			
+			if (owner->_transform->GetWorldPosition().y >= 50.0f)
+			{
+				SOUNDMANAGER->stop("보스날기시작");
+				return LHS::ACTIONRESULT::ACTION_FLY_MOVE_ATT;
+			}
 		}
 
 		//임시적으로 높이값을 제한한다.

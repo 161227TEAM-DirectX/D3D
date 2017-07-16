@@ -51,6 +51,8 @@ int bossActionOXPattern::Start()
 
 	vertexInit();
 
+	SOUNDMANAGER->play("보스날기대기중");
+
 	return LHS::ACTIONRESULT::ACTION_SAFE;
 }
 
@@ -69,6 +71,7 @@ int bossActionOXPattern::Update()
 		if (!strcmp("Animation_48", temp.c_str()))
 		{
 			owner->getSkinnedAnim().Play("Animation_0", 0.5f);
+			SOUNDMANAGER->play("플레임");
 		}
 
 		if (!strcmp("Animation_0", temp.c_str()))
@@ -78,6 +81,8 @@ int bossActionOXPattern::Update()
 			if (ActionTime >= 8.0f)
 			{
 				SKM->findSK("패턴")->InitActiveSettingOn();
+				SOUNDMANAGER->stop("보스날기대기중");
+				SOUNDMANAGER->stop("플레임");
 				return LHS::ACTIONRESULT::ACTION_LANDING;
 			}
 			//브레스 출력
@@ -103,7 +108,6 @@ int bossActionOXPattern::Update()
 
 void bossActionOXPattern::Render()
 {
-	damageBox.renderGizmo(&boxTransform);
 	DWORD FVF;
 	_device->GetFVF(&FVF);
 

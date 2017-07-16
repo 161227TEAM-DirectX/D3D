@@ -38,7 +38,10 @@ int bossActionFlyMove::Update()
 	string tempName = owner->getSkinnedAnim().getAnimationSet()->GetName();
 
 	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
-	if (temp->getHP() <= 0) return LHS::ACTIONRESULT::ACTION_FLY_DIE;
+	if (temp->getHP() <= 0)
+	{
+		return LHS::ACTIONRESULT::ACTION_FLY_DIE;
+	}
 
 	temp->gettailTrans().SetWorldPosition(temp->gettailTrans().GetWorldPosition().x, 
 		rand->getHeight(temp->gettailTrans().GetWorldPosition().x, temp->gettailTrans().GetWorldPosition().z), 
@@ -71,17 +74,17 @@ int bossActionFlyMove::Update()
 			
 			if (D3DXVec3Length(&(owner->_transform->GetWorldPosition() - tempPos)) <= 0.7f)
 			{
-				if (ch == 0)
-				{
-					isRound = bossActionFlyMove::FLYSTATE::round;
-					SKM->findSK("에너지탄")->setSkillPosTrans(owner->_transform);
-					SKM->findSK("에너지탄")->setOneTargetTrans(playerObject->_transform);
-					attackEnergyBallCount = myUtil::RandomIntRange(5, 10);
-				}
-				else if (ch == 1)
-				{
+			//	if (ch == 0)
+			//	{
+			//		isRound = bossActionFlyMove::FLYSTATE::round;
+			//		SKM->findSK("에너지탄")->setSkillPosTrans(owner->_transform);
+			//		SKM->findSK("에너지탄")->setOneTargetTrans(playerObject->_transform);
+			//		attackEnergyBallCount = myUtil::RandomIntRange(5, 10);
+			//	}
+			//	else if (ch == 1)
+			//	{
 					isRound = FLYSTATE::oxpattern;
-				}
+			//	}
 			}
 			break;
 		}
@@ -113,18 +116,22 @@ int bossActionFlyMove::Update()
 			if (!isAttack && (attackEnergyBallCount != 0))
 			{
 				SKM->findSK("에너지탄")->Start();
+				SOUNDMANAGER->play("파이어");
 				isAttack = true;
 				attackEnergyBallCount--;
 			}
 			//바닥에 떨어졌냐 1번의 true가 반환된다.
 			if (SKM->findSK("에너지탄")->getCollision())
 			{
+				SOUNDMANAGER->stop("파이어");
 				fireballBox.setBound(&playerObject->_transform->GetWorldPosition(), &D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+				SOUNDMANAGER->play("파이어폭발");
 			}
 
 			//끝이났냐? 1번의 true가 나온다.
 			if (SKM->findSK("에너지탄")->getEnd())
 			{
+				if (SOUNDMANAGER->isPlaySound("파이어폭발")) SOUNDMANAGER->stop("파이어폭발");
 				isAttack = false;
 				fireballBox.setBound(&D3DXVECTOR3(0.0f, 0.0f, 0.0f), &D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 				attackTime = 0.0f;
