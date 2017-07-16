@@ -1505,43 +1505,43 @@ void psPlayerSet00::SkySwordSet02(string psName)
 
 	_PS->addEmitter(_boardEMT);
 
-	_boardEMT = NULL;
-	_boardEMT = new dxBoardEmitter;
-	_boardEMT->init("ParticleResources/Texture/fire05_frame4x4.png", 12, 0.05f, 720);
+	//_boardEMT = NULL;
+	//_boardEMT = new dxBoardEmitter;
+	//_boardEMT->init("ParticleResources/Texture/fire05_frame4x4.png", 12, 0.05f, 720);
 
-	//_boardEMT->InitRandomLifeTime(1.0f, 1.0f);
-	_boardEMT->SetStartLimitTime(0.8f);
+	////_boardEMT->InitRandomLifeTime(1.0f, 1.0f);
+	//_boardEMT->SetStartLimitTime(0.8f);
 
-	_boardEMT->InitAnimation(4, 4);
-	_boardEMT->InitConstAniReactivateNum(3);
+	//_boardEMT->InitAnimation(4, 4);
+	//_boardEMT->InitConstAniReactivateNum(3);
 
-	_boardEMT->setInitActiveLimitTime(2.0f);
+	//_boardEMT->setInitActiveLimitTime(2.0f);
 
-	_boardEMT->InitRandomLifeTime(0.4f, 0.6f);
+	//_boardEMT->InitRandomLifeTime(0.4f, 0.6f);
 
-	_boardEMT->InitCenterPointHV(0.5f, 1.0f);
+	//_boardEMT->InitCenterPointHV(0.5f, 1.0f);
 
-	_boardEMT->InitRandomPositionX(-1.0, 1.0f);
-	_boardEMT->InitRandomPositionZ(1.0, 5.0f);
+	//_boardEMT->InitRandomPositionX(-1.0, 1.0f);
+	//_boardEMT->InitRandomPositionZ(1.0, 5.0f);
 
-	_boardEMT->InitRandomSize(0.3f, 0.5f);
-	_boardEMT->InitRandomSizeEnd(8.0f, 14.2f);
+	//_boardEMT->InitRandomSize(0.3f, 0.5f);
+	//_boardEMT->InitRandomSizeEnd(8.0f, 14.2f);
 
-	//_boardEMT->SetPositionType(PTC_SPHERE);
-	//_boardEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
-	//_boardEMT->InitRandomPosSphereRadius(1.0f, 2.0f);
+	////_boardEMT->SetPositionType(PTC_SPHERE);
+	////_boardEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
+	////_boardEMT->InitRandomPosSphereRadius(1.0f, 2.0f);
 
-	//_boardEMT->InitCircleRadiusY(3.0f, 5.0f);
-	//_boardEMT->InitCircleStartAngleY(40.0f, 140.0f);
-	//_boardEMT->InitRandomPosExplosionVel(5.0f, 15.0f);
+	////_boardEMT->InitCircleRadiusY(3.0f, 5.0f);
+	////_boardEMT->InitCircleStartAngleY(40.0f, 140.0f);
+	////_boardEMT->InitRandomPosExplosionVel(5.0f, 15.0f);
 
-	//_boardEMT->InitRandomAlpha(0.1f, 0.1f);
-	_boardEMT->addAlphaGraph(0.3f, 1.0f, 1.0f);
-	_boardEMT->addAlphaGraph(0.8f, 1.0f, 1.0f);
-	_boardEMT->addAlphaGraph(1.0f, 0.2f, 0.2f);
+	////_boardEMT->InitRandomAlpha(0.1f, 0.1f);
+	//_boardEMT->addAlphaGraph(0.3f, 1.0f, 1.0f);
+	//_boardEMT->addAlphaGraph(0.8f, 1.0f, 1.0f);
+	//_boardEMT->addAlphaGraph(1.0f, 0.2f, 0.2f);
 
 
-	_PS->addEmitter(_boardEMT);
+	//_PS->addEmitter(_boardEMT);
 
 
 	_boardEMT = NULL;

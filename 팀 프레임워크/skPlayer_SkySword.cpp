@@ -111,7 +111,7 @@ bool skPlayer_SkySword::Action()
 		_pvActionPS[2][0]->Transform()->SetWorldPosition(tagetPos);
 
 		//대검 초기 위치
-		tagetPos.y = 130.0f;
+		tagetPos.y = 180.0f;
 		_pvActionPS[0][0]->Transform()->SetWorldPosition(tagetPos);
 		
 		_oneSettingOn = false;
