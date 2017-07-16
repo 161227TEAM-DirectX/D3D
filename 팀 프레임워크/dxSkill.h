@@ -27,7 +27,7 @@ protected:
 	float _limitTime;
 	float _currentTime;
 
-	//bool _endOn;
+	bool _oneSoundSetting;
 
 public:
 	//업데이트 동작
