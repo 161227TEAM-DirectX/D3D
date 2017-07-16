@@ -33,7 +33,7 @@ HRESULT xPlayer::init()
 
 	_isOnBattle = false;
 	_isJump = false;
-	_isBladePosInit = false;
+	
 	_isMount = false;
 	_isInvincible = false;
 

@@ -80,7 +80,7 @@ void cUIchatting::update()
 		//ENTER가 한번더 선택되면 날려버리기 (EDIT)
 		//입력되어있는 텍스쳐도 날려버리기
 		_chattingUi.uiNumber = false;
-		SetFocus(NULL);
+		SetFocus(_hWnd);
 		SetWindowText(EDIT, 0);
 		memset(_Text, 0, sizeof(_Text));
 		memset(&_Schatting, 0, sizeof(_Schatting));
