@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "bossActionOXPattern.h"
 #include "xPlayer.h"
+#include "bossMonster.h"
 
 bossActionOXPattern::bossActionOXPattern()
 	:Action(), chargeTime(0.0f), randomOX(0), rangeC(0.2f), damageTime(0.0f), ActionTime(0.0f)
@@ -27,13 +28,20 @@ bossActionOXPattern::~bossActionOXPattern()
 int bossActionOXPattern::Start()
 {
 	randomOX = myUtil::RandomIntRange(1, 2);
+
+	bossMonster* temp = dynamic_cast<bossMonster*>(owner);
+
 	switch (randomOX)
 	{
 	case 1:
 		damageBox.setBound(&D3DXVECTOR3(75.0f, 0.0f, 0.0), &D3DXVECTOR3(75.0f, 0.1f, 75.0f));
+		temp->getOXPattern().SetWorldPosition(damageBox.getLocalCenter());
+		SKM->findSK("패턴")->setSkillPosTrans(&temp->getOXPattern());
 		break;
 	case 2:
 		damageBox.setBound(&D3DXVECTOR3(-75.0f, 0.0f, 0.0), &D3DXVECTOR3(75.0f, 0.1f, 75.0f));
+		temp->getOXPattern().SetWorldPosition(damageBox.getLocalCenter());
+		SKM->findSK("패턴")->setSkillPosTrans(&temp->getOXPattern());
 		break;
 	}
 	owner->getSkinnedAnim().Play("Animation_48",0.5f);
@@ -50,6 +58,7 @@ int bossActionOXPattern::Update()
 {
 	string temp;
 	temp = owner->getSkinnedAnim().getAnimationSet()->GetName();
+	bossMonster* tempOwner = dynamic_cast<bossMonster*>(owner);
 	chargeTime += 0.01f;
 
 	updateRangeC();
@@ -64,9 +73,11 @@ int bossActionOXPattern::Update()
 
 		if (!strcmp("Animation_0", temp.c_str()))
 		{
+			SKM->findSK("패턴")->Start();
 			ActionTime += _timeDelta;
 			if (ActionTime >= 8.0f)
 			{
+				SKM->findSK("패턴")->InitActiveSettingOn();
 				return LHS::ACTIONRESULT::ACTION_LANDING;
 			}
 			//브레스 출력
