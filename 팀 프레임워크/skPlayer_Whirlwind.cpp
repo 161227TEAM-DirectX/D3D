@@ -24,8 +24,11 @@ HRESULT skPlayer_Whirlwind::init()
 
 	_actionAtiveNum = 0;
 
-	_limitShootTime = 0.3f;
-	_currentShootTime = 0.0f;
+
+	_LimitTimeOn = false;
+
+	_limitTime = 2.0f;
+	_currentTime = 0.0f;
 
 	return S_OK;
 }
@@ -49,15 +52,28 @@ bool skPlayer_Whirlwind::Prepare()
 	//_pvPrepaerPS[1][0]->Transform()->SetWorldPosition(_oneTagerTrans->GetWorldPosition());
 	//_pvPrepaerPS[1][0]->update();
 
-
-	if (_pvPrepaerPS[0][0]->autoTimeReset(false))
+	if (_LimitTimeOn)
 	{
-		//_skillPrepareOn = false;
-		//_skillActionOn = true;
-		_skillResetOn = true;
+		
+		_currentTime += _timeDelta;
+		
+		if (_limitTime <= _currentTime)
+		{
+			_skillResetOn = true;
+		}
+
 	}
 
+
+	/*if (_pvPrepaerPS[0][0]->autoTimeReset(false))
+	{*/
+		//_skillPrepareOn = false;
+		//_skillActionOn = true;
+		//_skillResetOn = true;
+	//}
+
 	
+
 
 	return false;
 }
@@ -80,8 +96,10 @@ void skPlayer_Whirlwind::Reset()
 {
 	_OneActionSettingOn = true;
 
+	_LimitTimeOn = false;
+
 	_actionAtiveNum = 0;
 
-	_limitShootTime = 0.3f;
-	_currentShootTime = 0.0f;
+	//_limitShootTime = 0.3f;
+	_currentTime = 0.0f;
 }

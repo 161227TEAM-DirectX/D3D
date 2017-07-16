@@ -25,12 +25,11 @@ int bossActionAttack::Start()
 	SKM->findSK("È­¿°ÀåÆÇ")->setSkillPosTrans(&temp->getfieldTrans());
 	SKM->findSK("È­¿°ÀåÆÇ")->setSkillDirTrans(owner->_transform);
 	SKM->findSK("È­¿°ÀåÆÇ")->Start();
-	//SKM->findSK("È­¿°ÀåÆÇ")->re();
 
 	text->init(temp->getAtt(), LHS::FONT_RED);
 	SOUNDMANAGER->play("º¸½º°ø°Ý1");
 
-	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
+	return LHS::ACTIONRESULT::ACTION_PLAY;
 }
 
 int bossActionAttack::Update()

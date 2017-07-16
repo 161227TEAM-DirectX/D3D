@@ -27,7 +27,10 @@ mainGame::mainGame()
 	
 	SCENEMANAGER->addScene("EndingScene", ex_pEnding, false);
 
+	SCENEMANAGER->addScene("test", new particleTest13, false);
+
 	//SCENEMANAGER->addScene("AItest", new bossMonsterAITestScene);
+
 	//SCENEMANAGER->addScene("kims", new kimsNewTest, false);
 }
 

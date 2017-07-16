@@ -12,7 +12,7 @@ HRESULT skBoss_PatternOX::init()
 
 	for (int i = 0; i < _pvPrepaerPS[0].size(); i++)
 	{
-		_pvPrepaerPS[0][i]->SetLimitTime(10.0f);
+		_pvPrepaerPS[0][i]->SetLimitTime(16.0f);
 	}
 	
 	//for (int i = 0; i < 4; i++)

@@ -5,10 +5,17 @@ class skPlayer_Whirlwind : public dxSkill
 private:
 	bool _tagetSettingOn;
 
-	float _limitShootTime;
-	float _currentShootTime;
+	/*bool _timeOn;
+
+	float _limitTime;
+	float _currentTime;*/
+
+
+
 
 	int _actionAtiveNum;
+
+
 
 public:
 	virtual HRESULT init();

@@ -395,7 +395,7 @@ void xPlayer::render()
 	}
 
 
-	if (!_isMount)
+	if (!_isMount && _nowSelectedSkill != SKILL_WHIRLWIND)
 	{
 		drawBladeLight();
 	}
@@ -529,17 +529,6 @@ void xPlayer::PlayerInputControl()//ÀÌ Ä£±¸°¡ »óÅÂ°ª¿¡ Á¾¼Ó ÀûÀÌ¶ó¸é?
 	case P_WHIRLWIND:
 		moveControl(_playerObject->_transform);
 		rotateControl(_playerObject->_transform);
-		if (KEYMANAGER->isOnceKeyUp(VK_RBUTTON))
-		{
-			if (_isOnBattle)
-			{
-				this->_state = P_READYTOATTACK;
-			}
-			else
-			{
-				this->_state = P_STAND;
-			}
-		}
 		break;
 	case P_READYSPELL:
 		break;
@@ -1813,7 +1802,7 @@ void xPlayer::out_setTargetByMouse(camera* mainCamera)
 {
 	if (_monsterPool != nullptr && KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
-		if(targetMonster != nullptr) targetMonster->setIsRender(false);
+		if (targetMonster != nullptr) targetMonster->setIsRender(false);
 		targetMonster = NULL;//Å¸°ÙÀ» °­Á¦·Î ºñ¿î´Ù.
 		for (int i = 0; i < _monsterPool->size(); i++)
 		{
@@ -1943,6 +1932,12 @@ void xPlayer::skilltrigger()
 			break;
 		case SKILL_WHIRLWIND:
 			_state = P_WHIRLWIND;
+			SKM->findSK("ºù±Ûºù±Û")->setSkillPosTrans(this->_playerObject->_transform);
+			SKM->findSK("ºù±Ûºù±Û")->Start();
+			//°ø°Ý¹üÀ§ º¯°æ
+			_attackTrans.SetWorldPosition(0.0f, 0.5f, 0.0f);
+			_attackBound.setBound(&_attackTrans.GetWorldPosition(), &D3DXVECTOR3(1.0, 0.5, 1.0));
+
 			break;
 		case SKILL_SLAM:
 			_state = P_SLAM;
@@ -2019,6 +2014,7 @@ void xPlayer::useNowSkill()
 			}
 			break;
 		case SKILL_WHIRLWIND:
+
 
 			break;
 		case SKILL_END:
@@ -2204,6 +2200,10 @@ void xPlayer::skillProcesser() {
 		}
 		else
 		{
+			//SKM->findSK("ºù±Ûºù±Û")->setResetOn();
+
+			SKM->findSK("ºù±Ûºù±Û")->InitActiveSettingOn();
+			SKM->findSK("ºù±Ûºù±Û")->resetTimeOn();
 			if (_isOnBattle)
 			{
 				this->_state = P_READYTOATTACK;
@@ -2213,8 +2213,10 @@ void xPlayer::skillProcesser() {
 				this->_state = P_STAND;
 			}
 			_nowSelectedSkill = SKILL_NONE;
-		}
 
+			_attackTrans.SetWorldPosition(0, 0.5f, 0.8);
+			_attackBound.setBound(&_attackTrans.GetWorldPosition(), &D3DXVECTOR3(0.5, 0.5, 0.5));
+		}
 		break;
 	case SKILL_END:
 		break;

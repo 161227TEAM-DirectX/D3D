@@ -9,6 +9,7 @@ private:
 	dx::transform fieldTrans;
 	dx::transform tailTrans;
 	dx::transform breathTrans;
+	dx::transform oxPattern;
 private:
 	cDxImgBar* m_pBar;
 
@@ -40,5 +41,8 @@ public:
 
 	inline dx::transform& getbreathTrans(void) { return breathTrans; }
 	inline void setbreathTrans(dx::transform& temp) { this->breathTrans = temp; }
+
+	inline dx::transform& getOXPattern(void) { return oxPattern; }
+	inline void setOXPattern(dx::transform& temp) { this->oxPattern = temp; }
 };
 

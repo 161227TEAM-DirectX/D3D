@@ -22,6 +22,11 @@ protected:
 
 	bool _OneActionSettingOn;
 
+	bool _LimitTimeOn;
+
+	float _limitTime;
+	float _currentTime;
+
 	//bool _endOn;
 
 public:
@@ -57,6 +62,9 @@ public:
 	
 
 //	this->ContainerInit();
+public:
+	void resetTimeOn(float inTime = 2.0f) { _limitTime = inTime; _LimitTimeOn = true; }
+
 
 public:
 	//»ý¼ºÀÚ
