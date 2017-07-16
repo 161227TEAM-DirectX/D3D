@@ -26,6 +26,7 @@ private:
 private:
 	vector<baseObject*> _renderObject;
 	vector<baseObject*>	_cullObject;
+	vector<baseObject*>	_staticMeshs;
 	D3DXMATRIX matRotate;
 private:
 	float _shadowDistance;
