@@ -72,9 +72,9 @@ void loadingScene::render()
 		//g_isMaptool = true;
 		//SCENEMANAGER->changeScene("maptool");
 
-		//SCENEMANAGER->changeScene("start");
+		SCENEMANAGER->changeScene("start");
 		//SCENEMANAGER->changeScene("gameSceneOne");	//gameSceneOne
-		SCENEMANAGER->changeScene("gameSceneTwo");	//gameSceneTwo
+		//SCENEMANAGER->changeScene("gameSceneTwo");	//gameSceneTwo
 		//SCENEMANAGER->changeScene("gameSceneThree");	//gameSceneThree
 		//SCENEMANAGER->changeScene("gameSceneFour");		//gameSceneFour
 		//SCENEMANAGER->changeScene("EndingScene");		//gameSceneTwo
@@ -87,14 +87,14 @@ void loadingScene::render()
 HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 {
 	//맵툴모드이면 스테틱메쉬를 로드하자...
-	if (g_eSelectMode == E_MAPTOOL)
-	{
-		XMeshStaticLoading();
-	}
+	//if (g_eSelectMode == E_MAPTOOL)
+	//{
+	//	XMeshStaticLoading();
+	//}
 
-	XMeshSkinnedLoading();
+	//XMeshSkinnedLoading();
 	PtcLoading();
-	SoundLoading();
+	//SoundLoading();
 
 	m_isChange = true;
 
@@ -103,21 +103,21 @@ HRESULT loadingScene::ThreadInit(LPVOID lpVod)
 
 HRESULT loadingScene::ThreadInitScene1(LPVOID lpVod)
 {
-	ex_pStage1->loadingStage();
+	//ex_pStage1->loadingStage();
 	m_isChangeScene1 = true;
 	return S_OK;
 }
 
 HRESULT loadingScene::ThreadInitScene2(LPVOID lpVod)
 {
-	ex_pStage2->loadingScene();
+	//ex_pStage2->loadingScene();
 	m_isChangeScene2 = true;
 	return S_OK;
 }
 
 HRESULT loadingScene::ThreadInitScene3(LPVOID lpVod)
 {
-	ex_pStage3->loadingStage();
+	//ex_pStage3->loadingStage();
 	m_isChangeScene3 = true;
 	return S_OK;
 }
