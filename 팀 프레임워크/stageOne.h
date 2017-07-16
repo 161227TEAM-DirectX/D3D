@@ -15,7 +15,7 @@ private:
 
 	terrain*			_terrain;			//지형클래스
 	terrain*			_terrainShadow;		//지형 그림자
-	mapObject* objectSet;					//지형오브젝트 셋팅 클래스
+	mapObject*			objectSet;			//지형오브젝트 셋팅 클래스
 
 	Environment*		env;				//환경맵
 	WaterTerrain*		water;				//물지형 맵
@@ -26,6 +26,7 @@ private:
 private:
 	vector<baseObject*> _renderObject;
 	vector<baseObject*>	_cullObject;
+	vector<baseObject*>	_staticMeshs;
 	D3DXMATRIX matRotate;
 private:
 	float _shadowDistance;

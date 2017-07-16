@@ -35,6 +35,7 @@ HRESULT xPlayer::init()
 	_isJump = false;
 	_isBladePosInit = false;
 	_isMount = false;
+	_isInvincible = false;
 
 	//데이터를 로딩해 이전의 스테이터스와 장비상태를 초기화한다.
 	LoadData();
@@ -323,6 +324,18 @@ HRESULT xPlayer::init()
 
 void xPlayer::update()
 {
+	if (KEYMANAGER->isOnceKeyDown('0'))
+	{
+		if (_isInvincible)
+		{
+			_isInvincible = false;
+		}
+		else
+		{
+			_isInvincible = true;
+		}
+	}
+
 	updateEquipments();
 
 	//_dmText->setPos();
@@ -627,10 +640,10 @@ void xPlayer::PlayerInputControl()//이 친구가 상태값에 종속 적이라면?
 void xPlayer::playerStateManager()
 {
 
-	if (_state != P_WHIRLWIND)
+	/*if (_state != P_WHIRLWIND)
 	{
 		SOUNDMANAGER->stop("휠윈드");
-	}
+	}*/
 
 	if (_state != P_RUN && _state != P_WALKBACK)
 		SOUNDMANAGER->stop("걸음소리1");
@@ -1537,6 +1550,8 @@ void xPlayer::playerDamaged(int damage, float damagedTime, float delayRate, floa
 {
 	if (_state == P_DEATH) return;
 
+	if (_isInvincible) return;
+
 	if (_isMount)
 	{
 		_isMount = false;
@@ -1962,6 +1977,9 @@ void xPlayer::useNowSkill()
 		case SKILL_HEAL:
 			SKM->findSK("힐")->setSkillPosTrans(_playerObject->_transform);
 			SKM->findSK("힐")->Start();
+
+			SOUNDMANAGER->play("힐링", 0.7f);
+			SOUNDMANAGER->setMusicSpeed("힐링", 1.0f);
 			break;
 		case SKILL_MAGICMISSILE:
 			if (targetMonster != NULL)
@@ -1971,6 +1989,7 @@ void xPlayer::useNowSkill()
 				SKM->findSK("매직슈터")->setOneTargetTrans(targetMonster->_transform);
 				SKM->findSK("매직슈터")->Start();
 				//SKM->findSK("매직슈터")->setOneTargetTrans(targetMonster->_transform);
+				SOUNDMANAGER->play("매직슈터");
 			}
 			break;
 		case SKILL_LIGHTNING:
@@ -1980,6 +1999,7 @@ void xPlayer::useNowSkill()
 				SKM->findSK("라이트닝")->setSkillDirTrans(this->_playerObject->_transform);
 				SKM->findSK("라이트닝")->setOneTargetTrans(targetMonster->_transform);
 				SKM->findSK("라이트닝")->Start();
+				SOUNDMANAGER->play("번개");
 			}
 			break;
 		case SKILL_SKYSWD:
@@ -1998,11 +2018,16 @@ void xPlayer::useNowSkill()
 				SKM->findSK("파이어매직")->setSkillDirTrans(this->_playerObject->_transform);
 				SKM->findSK("파이어매직")->setOneTargetTrans(targetMonster->_transform);
 				SKM->findSK("파이어매직")->Start();
+
+
+				SOUNDMANAGER->play("불꽃");
+				//SOUNDMANAGER->setMusicSpeed("불꽃",1.0f);
 			}
 			break;
 		case SKILL_SHIELD:
 			SKM->findSK("매직쉴드")->setSkillPosTrans(_playerObject->_transform);
 			SKM->findSK("매직쉴드")->Start();
+			SOUNDMANAGER->play("쉴드1");
 			break;
 		case SKILL_METEOR:
 			if (targetMonster != NULL)
@@ -2011,6 +2036,7 @@ void xPlayer::useNowSkill()
 				SKM->findSK("샛별_떨구기")->setSkillDirTrans(this->_playerObject->_transform);
 				SKM->findSK("샛별_떨구기")->setOneTargetTrans(targetMonster->_transform);
 				SKM->findSK("샛별_떨구기")->Start();
+				SOUNDMANAGER->play("별빛");
 			}
 			break;
 		case SKILL_WHIRLWIND:
@@ -2058,6 +2084,7 @@ void xPlayer::skillProcesser() {
 			if (SKM->findSK("매직슈터")->getCollision())
 			{
 				targetMonster->setHP(targetMonster->getHP() - PLAYERMANAGER->Getatt());
+
 			}
 		}
 		if (SKM->findSK("매직슈터")->getEnd())
@@ -2101,6 +2128,7 @@ void xPlayer::skillProcesser() {
 				this->_state = P_STAND;
 			}
 			_nowSelectedSkill = SKILL_NONE;
+			SOUNDMANAGER->stop("번개");
 		}
 
 		//if (SKM->isEnd?)
@@ -2153,6 +2181,7 @@ void xPlayer::skillProcesser() {
 				this->_state = P_STAND;
 			}
 			_nowSelectedSkill = SKILL_NONE;
+			SOUNDMANAGER->stop("불꽃");
 		}
 
 		break;
@@ -2168,6 +2197,7 @@ void xPlayer::skillProcesser() {
 				this->_state = P_STAND;
 			}
 			_nowSelectedSkill = SKILL_NONE;
+			SOUNDMANAGER->stop("쉴드1");
 		}
 		break;
 	case SKILL_METEOR:
@@ -2190,6 +2220,7 @@ void xPlayer::skillProcesser() {
 				this->_state = P_STAND;
 			}
 			_nowSelectedSkill = SKILL_NONE;
+			SOUNDMANAGER->stop("별빛");
 		}
 
 		break;
@@ -2216,6 +2247,8 @@ void xPlayer::skillProcesser() {
 
 			_attackTrans.SetWorldPosition(0, 0.5f, 0.8);
 			_attackBound.setBound(&_attackTrans.GetWorldPosition(), &D3DXVECTOR3(0.5, 0.5, 0.5));
+
+			SOUNDMANAGER->stop("휠윈드");
 		}
 		break;
 	case SKILL_END:

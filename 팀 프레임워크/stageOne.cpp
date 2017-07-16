@@ -28,6 +28,7 @@ stageOne::stageOne()
 {
 	_renderObject.clear();
 	_cullObject.clear();
+	_staticMeshs.clear();
 
 	D3DXMatrixIdentity(&matRotate);
 
@@ -42,6 +43,7 @@ stageOne::stageOne()
 
 stageOne::~stageOne()
 {
+
 }
 
 HRESULT stageOne::init()
@@ -114,7 +116,18 @@ void stageOne::update()
 									   player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
 									   _terrain->GetTerrainSizeX());
 
+
+	
+
 	sceneChange();
+	for (int i = 0; i < _staticMeshs.size(); i++)
+	{
+		D3DXVECTOR3 Length = player->getPlayerObject()->_transform->GetWorldPosition() - _staticMeshs[i]->_transform->GetWorldPosition();
+		if (D3DXVec3Length(&Length) < 5)
+		{
+			PHYSICSMANAGER->isBlocking(player->getPlayerObject(), _staticMeshs[i], 1.0f);
+		}
+	}
 }
 
 void stageOne::render()
@@ -382,6 +395,7 @@ void stageOne::loadingStage()
 		objectSet->objectSet(object.objectNumber, temp, matRotate, object.objectX, object.objectY, object.objectZ, object.objectScale, object.objectRotate);
 
 		_renderObject.push_back(temp);
+		_staticMeshs.push_back(temp);
 	}
 
 	//È¯°æ¸Ê / ¹°°á¸Ê ºÒ·¯¿À±â

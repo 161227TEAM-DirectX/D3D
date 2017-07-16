@@ -200,17 +200,32 @@ void cRegistBase::BrushRegist()
 void cRegistBase::SoundRegist()
 {
 	FILEPATH_MANAGER->AddFilepath("시작", "Resource/Sound/시작화면.mp3");
-	FILEPATH_MANAGER->AddFilepath("시작화면선택", "Resource/Sound/시작화면선택.ogg");
+	//FILEPATH_MANAGER->AddFilepath("시작화면선택", "Resource/Sound/시작화면선택.ogg");
 
-	FILEPATH_MANAGER->AddFilepath("필드", "Resource/Sound/FieldBGM1.mp3");
-	FILEPATH_MANAGER->AddFilepath("보스", "Resource/Sound/BossBGM1.mp3");
-	FILEPATH_MANAGER->AddFilepath("마을", "Resource/Sound/TownBGM1.mp3");
-	FILEPATH_MANAGER->AddFilepath("공격", "Resource/Sound/공격1.mp3");
-	FILEPATH_MANAGER->AddFilepath("베기", "Resource/Sound/베기1.mp3");
-	FILEPATH_MANAGER->AddFilepath("걸음소리", "Resource/Sound/걸음소리1.mp3");
-	FILEPATH_MANAGER->AddFilepath("말발굽소리", "Resource/Sound/말발굽소리1.mp3");
-	FILEPATH_MANAGER->AddFilepath("푸스로다", "Resource/Sound/푸스로다.mp3");
-	FILEPATH_MANAGER->AddFilepath("휠윈드", "Resource/Sound/휠윈드.mp3");
+	FILEPATH_MANAGER->AddFilepath("필드", "Resource/Sound/BGM/FieldBGM1.mp3");
+	FILEPATH_MANAGER->AddFilepath("보스", "Resource/Sound/BGM/BossBGM1.mp3");
+	FILEPATH_MANAGER->AddFilepath("마을", "Resource/Sound/BGM/TownBGM1.mp3");
+
+	FILEPATH_MANAGER->AddFilepath("공격", "Resource/Sound/player/공격1.mp3");
+	FILEPATH_MANAGER->AddFilepath("베기", "Resource/Sound/player/베기1.mp3");
+	FILEPATH_MANAGER->AddFilepath("걸음소리", "Resource/Sound/player/걸음소리1.mp3");
+	FILEPATH_MANAGER->AddFilepath("말발굽소리", "Resource/Sound/player/말발굽소리1.mp3");
+
+	FILEPATH_MANAGER->AddFilepath("푸스로다", "Resource/Sound/skill/푸스로다.mp3");
+
+	FILEPATH_MANAGER->AddFilepath("휠윈드", "Resource/Sound/skill/휠윈드.mp3");
+	FILEPATH_MANAGER->AddFilepath("불꽃", "Resource/Sound/skill/불꽃1.mp3");
+	FILEPATH_MANAGER->AddFilepath("힐링", "Resource/Sound/skill/힐링1.mp3");
+
+	FILEPATH_MANAGER->AddFilepath("천검폭파", "Resource/Sound/skill/천검폭파.mp3");
+	FILEPATH_MANAGER->AddFilepath("천검후폭풍", "Resource/Sound/skill/천검후폭풍.mp3");
+
+	FILEPATH_MANAGER->AddFilepath("쉴드1", "Resource/Sound/skill/쉴드.ogg");
+	FILEPATH_MANAGER->AddFilepath("쉴드2", "Resource/Sound/skill/쉴드2.ogg");
+	FILEPATH_MANAGER->AddFilepath("매직슈터", "Resource/Sound/skill/매직슈터.mp3"); 
+	
+	FILEPATH_MANAGER->AddFilepath("번개", "Resource/Sound/skill/번개이펙트소리.wav");
+	FILEPATH_MANAGER->AddFilepath("별빛", "Resource/Sound/skill/별빛이펙트소리.wav");
 
 	FILEPATH_MANAGER->AddFilepath("보스울음소리", "Resource/Sound/deathWing/deathwing_shouting_good.mp3");
 	FILEPATH_MANAGER->AddFilepath("보스울음소리2", "Resource/Sound/deathWing/event_deathwingattacks_roar_01.ogg");

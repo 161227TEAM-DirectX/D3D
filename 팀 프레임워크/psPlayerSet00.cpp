@@ -528,6 +528,8 @@ void psPlayerSet00::FireMagicSet01(string psName)
 	_boardEMT->InitAnimation(4, 4);
 	_boardEMT->InitConstAniReactivateNum(3);
 
+	_boardEMT->InitCenterPointHV(0.5f, 1.0f);
+
 	_boardEMT->InitRandomAlpha(0.8f, 0.8f);
 	_boardEMT->addAlphaGraph(0.8, 1.0f, 1.0f);
 	_boardEMT->addAlphaGraph(1.0f, 0.1f, 0.1f);
@@ -1345,9 +1347,10 @@ void psPlayerSet00::SkySwordSet00(string psName)
 
 	_meshEMT = NULL;
 	_meshEMT = new dxMeshEmitter;
-	_meshEMT->init("ParticleResources/Mesh/skySword.x",1, 7.2f,1);
+	_meshEMT->init("ParticleResources/Mesh/skySword.x",1, 9.5f,1);
 
-	_meshEMT->SetActiveLimitTime(7.2f);
+	_meshEMT->SetActiveLimitTime(8.2f);
+	_meshEMT->InitRandomLifeTime(9.5f,9.5f);
 	_meshEMT->InitRandomSize(3.0f, 3.0f);
 	//_meshEMT->InitRandomSize(0.5f,0.5f);
 	//_meshEMT->InitRandomSize(0.8f,0.8f);
@@ -1441,7 +1444,7 @@ void psPlayerSet00::SkySwordSet01(string psName)
 	_planeEMT->InitRandomSize(10.0f, 10.0f);
 	_planeEMT->InitRandomSizeEnd(50.0f, 50.0f);
 
-
+	_planeEMT->setInitActiveLimitTime(8.0f);
 	//시작시간 조절!!!!!!!!!!!
 	_planeEMT->SetStartLimitTime(1.0f);
 
@@ -1483,7 +1486,7 @@ void psPlayerSet00::SkySwordSet02(string psName)
 	_boardEMT = new dxBoardEmitter;
 	_boardEMT->init("ParticleResources/Texture/smoke02_frame4x4.png", 70, 0.5f, 300);
 
-	//_boardEMT->SetStartLimitTime(2.5f);
+	_boardEMT->setInitActiveLimitTime(6.5f);
 
 	_boardEMT->InitRandomLifeTime(2.5f, 3.2f);
 
@@ -1549,6 +1552,8 @@ void psPlayerSet00::SkySwordSet02(string psName)
 	_boardEMT->init("ParticleResources/Texture/smoke02_frame4x4.png", 70, 0.5f, 300);
 
 	_boardEMT->SetStartLimitTime(0.2f);
+
+	_boardEMT->setInitActiveLimitTime(6.5f);
 
 	_boardEMT->InitRandomLifeTime(2.5f, 3.2f);
 
