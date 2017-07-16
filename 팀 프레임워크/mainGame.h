@@ -4,14 +4,14 @@
 //===================================================================================
 //이현총 씬 테스트 헤더파일
 //===================================================================================
-#include "particleTest04.h"
-#include "particleTest05.h"
-#include "particleTest06.h"
-#include "particleTest07.h"
-#include "particleTest08.h"
-#include "particleTest09.h"
-#include "particleTest10.h"
-#include "particleTest11.h"
+//#include "particleTest04.h"
+//#include "particleTest05.h"
+//#include "particleTest06.h"
+//#include "particleTest07.h"
+//#include "particleTest08.h"
+//#include "particleTest09.h"
+//#include "particleTest10.h"
+//#include "particleTest11.h"
 #include "particleTest13.h"
 
 

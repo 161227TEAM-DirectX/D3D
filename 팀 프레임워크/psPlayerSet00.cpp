@@ -1592,12 +1592,12 @@ void psPlayerSet00::WhirlwindSet00(string psName)
 	_planeEMT = new dxPlaneEmitter;
 	_planeEMT->init("ParticleResources/Texture/shoutingCircle01.png", 4, 0.25f, 50);
 
-	_planeEMT->InitRandomSize(1.0f, 1.0f);
-	_planeEMT->InitRandomSizeEnd(5.0f, 12.0f);
+	_planeEMT->InitRandomSize(0.6f, 0.7f);
+	_planeEMT->InitRandomSizeEnd(2.2f, 3.2f);
 
 
 	//시작시간 조절!!!!!!!!!!!
-	_planeEMT->SetStartLimitTime(1.0f);
+	//_planeEMT->SetStartLimitTime(1.0f);
 
 	_planeEMT->setRealtimeTrackingPosOn();
 
@@ -1643,8 +1643,8 @@ void psPlayerSet00::WhirlwindSet00(string psName)
 	//_boardEMT->InitRandomPositionX(-1.0, 1.0f);
 	//_boardEMT->InitRandomPositionZ(1.0,5.0f);
 
-	_boardEMT->InitRandomSize(0.3f, 0.5f);
-	_boardEMT->InitRandomSizeEnd(3.0f, 4.2f);
+	_boardEMT->InitRandomSize(0.2f, 0.3f);
+	_boardEMT->InitRandomSizeEnd(1.4f, 1.8f);
 
 	//_boardEMT->SetPositionType(PTC_SPHERE);
 	//_boardEMT->InitDirSphere(1.0f, 0.0f, 1.0f);
