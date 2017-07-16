@@ -25,9 +25,9 @@ HRESULT skPlayer_SkySword::init()
 
 	//_OneActionSettingOn = true;
 
-	SOUNDMANAGER->addSound("Ãµ°Ë_ÆøÆÄ","Resource/Sound/skillSound/ÇÏ´ÃÀÇ ´ë°Ë_ÆøÆÄ.mp3");
-	SOUNDMANAGER->addSound("Ãµ°Ë_ÆøÆÄ2","Resource/Sound/skillSound/ÇÏ´ÃÀÇ ´ë°Ë_ÆøÆÄ2.mp3");
-	SOUNDMANAGER->addSound("Ãµ°Ë_ÈÄÆøÇ³","Resource/Sound/skillSound/ÇÏ´ÃÀÇ ´ë°Ë_ÈÄÆøÇ³.mp3",false, true);
+	//SOUNDMANAGER->addSound("Ãµ°Ë_ÆøÆÄ","Resource/Sound/skillSound/ÇÏ´ÃÀÇ ´ë°Ë_ÆøÆÄ.mp3");
+	//SOUNDMANAGER->addSound("Ãµ°Ë_ÆøÆÄ2","Resource/Sound/skillSound/ÇÏ´ÃÀÇ ´ë°Ë_ÆøÆÄ2.mp3");
+	//SOUNDMANAGER->addSound("Ãµ°Ë_ÈÄÆøÇ³","Resource/Sound/skillSound/ÇÏ´ÃÀÇ ´ë°Ë_ÈÄÆøÇ³.mp3",false, true);
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -146,7 +146,6 @@ bool skPlayer_SkySword::Action()
 
 	if (_pvActionPS[0][0]->Transform()->GetWorldPosition().y >= 0.0f)
 	{
-
 		_pvActionPS[1][0]->Transform()->SetWorldPosition(_pvActionPS[0][0]->Transform()->GetWorldPosition());
 	}
 
@@ -164,7 +163,7 @@ bool skPlayer_SkySword::Action()
 			}
 			if (_soundOn[1] && i == 1 && _currentSoundTime >= 0.3f)
 			{
-				SOUNDMANAGER->play("Ãµ°Ë_ÆøÆÄ2");
+				SOUNDMANAGER->play("Ãµ°ËÆøÆÄ");
 				_soundOn[1] = FALSE;
 			}
 			if (_soundOn[2] && i == 2 && _currentSoundTime >= 1.5f)

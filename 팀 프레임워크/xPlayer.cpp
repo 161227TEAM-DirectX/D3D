@@ -1974,6 +1974,7 @@ void xPlayer::useNowSkill()
 				SKM->findSK("¸ÅÁ÷½´ÅÍ")->setOneTargetTrans(targetMonster->_transform);
 				SKM->findSK("¸ÅÁ÷½´ÅÍ")->Start();
 				//SKM->findSK("¸ÅÁ÷½´ÅÍ")->setOneTargetTrans(targetMonster->_transform);
+				SOUNDMANAGER->play("¸ÅÁ÷½´ÅÍ");
 			}
 			break;
 		case SKILL_LIGHTNING:
@@ -1983,6 +1984,7 @@ void xPlayer::useNowSkill()
 				SKM->findSK("¶óÀÌÆ®´×")->setSkillDirTrans(this->_playerObject->_transform);
 				SKM->findSK("¶óÀÌÆ®´×")->setOneTargetTrans(targetMonster->_transform);
 				SKM->findSK("¶óÀÌÆ®´×")->Start();
+				SOUNDMANAGER->play("¹ø°³");
 			}
 			break;
 		case SKILL_SKYSWD:
@@ -2003,13 +2005,14 @@ void xPlayer::useNowSkill()
 				SKM->findSK("ÆÄÀÌ¾î¸ÅÁ÷")->Start();
 
 
-				SOUNDMANAGER->play("ºÒ²É", 1.0f);
-				SOUNDMANAGER->setMusicSpeed("ºÒ²É",1.0f);
+				SOUNDMANAGER->play("ºÒ²É");
+				//SOUNDMANAGER->setMusicSpeed("ºÒ²É",1.0f);
 			}
 			break;
 		case SKILL_SHIELD:
 			SKM->findSK("¸ÅÁ÷½¯µå")->setSkillPosTrans(_playerObject->_transform);
 			SKM->findSK("¸ÅÁ÷½¯µå")->Start();
+			SOUNDMANAGER->play("½¯µå1");
 			break;
 		case SKILL_METEOR:
 			if (targetMonster != NULL)
@@ -2018,6 +2021,7 @@ void xPlayer::useNowSkill()
 				SKM->findSK("»ûº°_¶³±¸±â")->setSkillDirTrans(this->_playerObject->_transform);
 				SKM->findSK("»ûº°_¶³±¸±â")->setOneTargetTrans(targetMonster->_transform);
 				SKM->findSK("»ûº°_¶³±¸±â")->Start();
+				SOUNDMANAGER->play("º°ºû");
 			}
 			break;
 		case SKILL_WHIRLWIND:
@@ -2065,6 +2069,7 @@ void xPlayer::skillProcesser() {
 			if (SKM->findSK("¸ÅÁ÷½´ÅÍ")->getCollision())
 			{
 				targetMonster->setHP(targetMonster->getHP() - PLAYERMANAGER->Getatt());
+
 			}
 		}
 		if (SKM->findSK("¸ÅÁ÷½´ÅÍ")->getEnd())
@@ -2108,6 +2113,7 @@ void xPlayer::skillProcesser() {
 				this->_state = P_STAND;
 			}
 			_nowSelectedSkill = SKILL_NONE;
+			SOUNDMANAGER->stop("¹ø°³");
 		}
 
 		//if (SKM->isEnd?)
@@ -2176,6 +2182,7 @@ void xPlayer::skillProcesser() {
 				this->_state = P_STAND;
 			}
 			_nowSelectedSkill = SKILL_NONE;
+			SOUNDMANAGER->stop("½¯µå1");
 		}
 		break;
 	case SKILL_METEOR:
@@ -2198,6 +2205,7 @@ void xPlayer::skillProcesser() {
 				this->_state = P_STAND;
 			}
 			_nowSelectedSkill = SKILL_NONE;
+			SOUNDMANAGER->stop("º°ºû");
 		}
 
 		break;

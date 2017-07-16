@@ -33,7 +33,7 @@ HRESULT loadingScene::init()
 	DWORD dwThID[6];
 	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInit, this, NULL, &dwThID[1]));//로딩씬
 	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene1, this, NULL, &dwThID[2]));
-	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene2, this, NULL, &dwThID[3]));
+	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene2, this, NULL, &dwThID[3]));
 	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene3, this, NULL, &dwThID[4]));
 	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene4, this, NULL, &dwThID[5]));
 
@@ -59,7 +59,7 @@ void loadingScene::render()
 
 	if (m_isChange
 		//&& m_isChangeScene1
-		&& m_isChangeScene2 
+		//&& m_isChangeScene2 
 		//&& m_isChangeScene3 
 		//&& m_isChangeScene4
 		//&& m_pLoadingBar->IsFullBar()
@@ -71,9 +71,9 @@ void loadingScene::render()
 		//g_isMaptool = true;
 		//SCENEMANAGER->changeScene("maptool");
 
-		//SCENEMANAGER->changeScene("start");
+		SCENEMANAGER->changeScene("start");
 		//SCENEMANAGER->changeScene("gameSceneOne");	//gameSceneOne
-		SCENEMANAGER->changeScene("gameSceneTwo");	//gameSceneTwo
+		//SCENEMANAGER->changeScene("gameSceneTwo");	//gameSceneTwo
 		//SCENEMANAGER->changeScene("gameSceneThree");	//gameSceneThree
 		//SCENEMANAGER->changeScene("gameSceneFour");		//gameSceneFour
 		//SCENEMANAGER->changeScene("EndingScene");		//gameSceneTwo
@@ -1242,7 +1242,7 @@ void loadingScene::SoundLoading()
 {
 	//시작화면
 	SOUNDMANAGER->addSound("시작", FILEPATH_MANAGER->GetFilepath("시작"), true, true);
-	SOUNDMANAGER->addSound("시작화면선택", FILEPATH_MANAGER->GetFilepath("시작화면선택"), false, false);
+	//SOUNDMANAGER->addSound("시작화면선택", FILEPATH_MANAGER->GetFilepath("시작화면선택"), false, false);
 
 	//플레이어/마을
 	SOUNDMANAGER->addSound("마을1", FILEPATH_MANAGER->GetFilepath("마을"), true, true);
@@ -1257,6 +1257,15 @@ void loadingScene::SoundLoading()
 	SOUNDMANAGER->addSound("휠윈드", FILEPATH_MANAGER->GetFilepath("휠윈드"), false, false);
 	SOUNDMANAGER->addSound("불꽃", FILEPATH_MANAGER->GetFilepath("불꽃"), false, true);
 	SOUNDMANAGER->addSound("힐링", FILEPATH_MANAGER->GetFilepath("힐링"), false, false);
+
+	SOUNDMANAGER->addSound("천검폭파", FILEPATH_MANAGER->GetFilepath("천검폭파"), false, false);
+	SOUNDMANAGER->addSound("천검후폭풍", FILEPATH_MANAGER->GetFilepath("천검후폭풍"), false, false);
+
+	SOUNDMANAGER->addSound("쉴드1", FILEPATH_MANAGER->GetFilepath("쉴드1"), false, false);
+	SOUNDMANAGER->addSound("쉴드2", FILEPATH_MANAGER->GetFilepath("쉴드2"), false, false);
+	SOUNDMANAGER->addSound("매직슈터", FILEPATH_MANAGER->GetFilepath("매직슈터"), false, false);
+	SOUNDMANAGER->addSound("번개", FILEPATH_MANAGER->GetFilepath("번개"), false, false);
+	SOUNDMANAGER->addSound("별빛", FILEPATH_MANAGER->GetFilepath("별빛"), false, false);
 
 	//몬스터/보스
 	SOUNDMANAGER->addSound("샤우팅", FILEPATH_MANAGER->GetFilepath("보스울음소리"), false, false);

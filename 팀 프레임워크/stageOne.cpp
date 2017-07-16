@@ -42,6 +42,7 @@ stageOne::stageOne()
 
 stageOne::~stageOne()
 {
+
 }
 
 HRESULT stageOne::init()
@@ -113,6 +114,8 @@ void stageOne::update()
 	m_pUIPlayer->linkMinimapPlayerMove(player->getPlayerObject()->_transform->GetWorldPosition().x + _terrain->GetTerrainSizeX() / 2,
 									   player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
 									   _terrain->GetTerrainSizeX());
+
+
 
 	sceneChange();
 }
