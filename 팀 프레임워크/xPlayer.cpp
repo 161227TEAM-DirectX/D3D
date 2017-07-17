@@ -129,7 +129,7 @@ HRESULT xPlayer::init()
 	//웨폰 오브젝트 초기화 디폴트로 블랙윙을 가져오고 w_none이면 액티브 하지 않는다.
 	_weaponObject = new baseObject;
 
-	PLAYERMANAGER->SetWeapon(W_BLACK_WING);
+	//PLAYERMANAGER->SetWeapon(W_BLACK_WING);
 
 	switch (PLAYERMANAGER->GetWeapon())
 	{
@@ -765,7 +765,7 @@ void xPlayer::playerStateManager()
 		{
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.2 && _playerObject->_skinnedAnim->getAnimFactor() < 0.3)
 			{
-				normalAttackDamageProcessing();
+				
 				if (!SOUNDMANAGER->isPlaySound("공격1"))
 				{
 					SOUNDMANAGER->play("공격1", 0.7f);
@@ -778,7 +778,7 @@ void xPlayer::playerStateManager()
 				//{
 				//	//exit(0);
 				//}
-				//normalAttackDamageProcessing();
+				normalAttackDamageProcessing();
 				if (!_isJump)
 				{
 					if (_isOnBattle)
@@ -2238,7 +2238,7 @@ void xPlayer::skillProcesser() {
 		{
 			if (SKM->findSK("샛별_떨구기")->getCollision())
 			{
-				targetMonster->setHP(0);
+				targetMonster->setHP(targetMonster->getHP() - PLAYERMANAGER->Getatt());
 			}
 		}
 

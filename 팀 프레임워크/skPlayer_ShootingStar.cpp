@@ -44,6 +44,13 @@ HRESULT skPlayer_ShootingStar::init()
 
 	_currentCollisionTime = 0.0f;
 
+
+	for (int i = 0; i < 40; i++)
+	{
+		collisionCheckOn[i] = FALSE;
+	}
+
+
 	return S_OK;
 }
 
@@ -206,6 +213,8 @@ void skPlayer_ShootingStar::Finsh()
 				_pvFinishPS[0][i]->reset();
 				_pvFinishPS[0][i]->SetTime(0.0f);
 				_pvFinishPS[0][i]->SetActive(FALSE);
+				collisionCheckOn[i] = FALSE;
+
 			}
 
 			_pvFinishPS[0][i]->SetTime(_pvFinishPS[0][i]->GetTime() + _timeDelta);
@@ -249,4 +258,11 @@ void skPlayer_ShootingStar::Reset()
 		_pvActionPS[0][i]->SetActive(FALSE);
 		_pvFinishPS[0][i]->SetActive(FALSE);
 	}
+
+
+	for (int i = 0; i < 40; i++)
+	{
+		collisionCheckOn[i] = FALSE;
+	}
+
 }
