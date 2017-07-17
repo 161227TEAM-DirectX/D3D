@@ -112,7 +112,7 @@ void stageTwo::update()
 		currTime = 0;
 	}
 
-	sceneBaseDirectionLight->_transform->RotateSlerp(*sceneBaseDirectionLight->_transform, *toRotate, _timeDelta);
+	//sceneBaseDirectionLight->_transform->RotateSlerp(*sceneBaseDirectionLight->_transform, *toRotate, _timeDelta);
 
 	player->update();
 	player->out_setTargetByMouse(_mainCamera);
@@ -642,4 +642,5 @@ void stageTwo::loadingScene()
 void stageTwo::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	m_pUIPlayer->WndProc(hWnd, message, wParam, lParam);
+	_mainCamera->WndProc(hWnd, message, wParam, lParam);
 }

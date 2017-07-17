@@ -117,7 +117,7 @@ void stageFour::update()
 		currTime = 0;
 	}
 
-	sceneBaseDirectionLight->_transform->RotateSlerp(*sceneBaseDirectionLight->_transform, *toRotate, _timeDelta);
+	//sceneBaseDirectionLight->_transform->RotateSlerp(*sceneBaseDirectionLight->_transform, *toRotate, _timeDelta);
 
 	player->update();
 
@@ -419,4 +419,5 @@ void stageFour::loadingStage()
 void stageFour::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	m_pUIPlayer->WndProc(hWnd, message, wParam, lParam);
+	_mainCamera->WndProc(hWnd, message, wParam, lParam);
 }

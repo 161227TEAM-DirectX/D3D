@@ -193,6 +193,7 @@ void stageThree::render()
 void stageThree::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	m_pUIPlayer->WndProc(hWnd, message, wParam, lParam);
+	_mainCamera->WndProc(hWnd, message, wParam, lParam);
 }
 
 void stageThree::shadowInit(void)

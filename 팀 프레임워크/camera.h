@@ -14,6 +14,7 @@ public:
 	frustum				_frustum;				//프러스텀
 	float				_zoom;
 
+	SYNTHESIZE(float, _offHeight, OffHeight);
 protected:
 	D3DXMATRIXA16		_matView;				//뷰행렬
 	D3DXMATRIXA16		_matProjection;			//투영행렬

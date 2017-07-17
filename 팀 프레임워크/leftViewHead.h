@@ -18,19 +18,18 @@ struct LEFTVIEWUI
 class leftViewHead : public iGameNode
 {
 private:
-
-	rightView*			_rightView;		//라이트뷰클래스
-	terrainSc*			_terrainSc;		//지형클래스
+	rightView*			_rightView;			//라이트뷰클래스
+	terrainSc*			_terrainSc;			//지형클래스
 	terrain*			_terrain;			//지형클래스
 	Environment*		_environment;		//환경맵클래스
 	lightDirection*		_directionLight;	//빛클래스
-	mapObject*			_mapObject;		//맵오브젝트
-	WaterTerrain*		_waterTerrain;    //물결 오브젝트
+	mapObject*			_mapObject;			//맵오브젝트
+	WaterTerrain*		_waterTerrain;		//물결 오브젝트
 	camera*				_mainCamera;		//그래
 
 	vector<baseObject*>	_monster;
 
-	lightDirection*			_sceneBaseDirectionLight;	//씬에 배치된 기본라이팅
+	lightDirection*		_sceneBaseDirectionLight;	//씬에 배치된 기본라이팅
 
 private:
 	D3DXVECTOR3		_hitPos;	    //히트 포지션
@@ -70,6 +69,7 @@ private:
 	int dest;
 	bool first;
 	//LOAD부분
+
 private:
 	tagSaveObject object;
 	//텍스쳐칠하는부분
@@ -126,4 +126,3 @@ public:
 
 	void loadNode(void);
 };
-
