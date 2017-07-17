@@ -64,6 +64,8 @@ HRESULT stageTwo::init()
 	SOUNDMANAGER->play("ÇÊµå1", 0.1f);
 
 	player->getPlayerObject()->_transform->SetWorldPosition(PLAYERMANAGER->GetPos());
+	CINEMATICMANAGER->init();
+	CINEMATICMANAGER->cinematicSwordInit();
 
 	return S_OK;
 }
@@ -259,6 +261,11 @@ void stageTwo::shadowUpdate(void)
 	this->readyShadowMap(&this->_renderObject, this->_terrainShadow);*/
 	//===========================================================================
 
+	if (KEYMANAGER->isOnceKeyDown('4'))
+	{
+		CINEMATICMANAGER->init();
+		CINEMATICMANAGER->cinematicSwordInit();
+	}
 
 	if (KEYMANAGER->isToggleKey('P'))
 	{
@@ -268,7 +275,15 @@ void stageTwo::shadowUpdate(void)
 	{
 		if (!g_isChat)
 		{
-			_mainCamera->updateBase();
+			if ((player->getState() == P_CASTSPELL || player->getState() == P_CASTOMNI) && player->getSkill() == SKILL_SKYSWD)
+			{
+				//CINEMATICMANAGER->cinematicBossSave(&SKM->findSK("ÇÏ´ÃÀÇ_´ë°Ë")->getSkySwordPos(),_mainCamera); //, SKM->findSK("ÇÏ´ÃÀÇ_´ë°Ë")->getSkySwordTrans()
+				CINEMATICMANAGER->cinematicBossLoad(&SKM->findSK("ÇÏ´ÃÀÇ_´ë°Ë")->getSkySwordPos(), _mainCamera, SKM->findSK("ÇÏ´ÃÀÇ_´ë°Ë")->getSkySwordTrans()); //
+			}
+			else
+			{
+				_mainCamera->updateBase();
+			}
 		}
 	}
 
@@ -276,7 +291,7 @@ void stageTwo::shadowUpdate(void)
 
 	D3DXVECTOR3 lightDir = sceneBaseDirectionLight->_transform->GetForward();			//¹æÇâ¼º ±¤¿øÀÇ ¹æÇâ
 
-	_directionLightCamera->SetWorldPosition(camPos.x, camPos.y + 5, camPos.z);
+	_directionLightCamera->SetWorldPosition(camPos.x, camPos.y + _directionLightCamera->GetOffHeight(), camPos.z);
 	_directionLightCamera->LookDirection(lightDir);
 
 	//½¦µµ¿ì¸Ê ÁØºñ
@@ -643,4 +658,5 @@ void stageTwo::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	m_pUIPlayer->WndProc(hWnd, message, wParam, lParam);
 	_mainCamera->WndProc(hWnd, message, wParam, lParam);
+	_directionLightCamera->WndProc(hWnd, message, wParam, lParam);
 }

@@ -1903,6 +1903,7 @@ void xPlayer::unSummonMount()
 	_isMount = false;
 	_mountObject->setActive(false);
 	_playerObject->_transform->ReleaseParent();
+	_playerObject->_transform->SetRotateWorld(_mountObject->_transform->GetWorldRotateMatrix());
 	_state = P_JUMPDOWN;
 	_moveSpeed = 1.5f;
 }
@@ -1919,7 +1920,7 @@ void xPlayer::skilltrigger()
 		case SKILL_NONE:
 			break;
 		case SKILL_HEAL:
-			playerSkillOmni(2.0f);
+			playerSkillOmni(1.0f);
 			//_state = P_READYOMNI;
 			break;
 		case SKILL_MAGICMISSILE:
@@ -1932,29 +1933,29 @@ void xPlayer::skilltrigger()
 		case SKILL_LIGHTNING:
 			if (targetMonster != NULL)
 			{
-				playerSkillOmni(6.0f);
+				playerSkillOmni(1.0f);
 			}
 			//_state = P_READYOMNI;
 			break;
 		case SKILL_SKYSWD:
 			if (targetMonster != NULL)
 			{
-				playerSkillDirect(5.0F);
+				playerSkillDirect(2.0F);
 			}
 			break;
 		case SKILL_FIRE:
 			if (targetMonster != NULL)
 			{
-				playerSkillDirect(5.0F);
+				playerSkillDirect(2.0F);
 			}
 			break;
 		case SKILL_SHIELD:
-			playerSkillDirect(5.0F);
+			playerSkillDirect(1.0F);
 			break;
 		case SKILL_METEOR:
 			if (targetMonster != NULL)
 			{
-				playerSkillDirect(5.0F);
+				playerSkillDirect(2.0F);
 			}
 			break;
 		case SKILL_ROAR:
@@ -2039,6 +2040,7 @@ void xPlayer::useNowSkill()
 			}
 			break;
 		case SKILL_SHIELD:
+			_isInvincible = true;
 			SKM->findSK("¸ÅÁ÷½¯µå")->setSkillPosTrans(_playerObject->_transform);
 			SKM->findSK("¸ÅÁ÷½¯µå")->Start();
 			SOUNDMANAGER->play("½¯µå1");
@@ -2202,6 +2204,7 @@ void xPlayer::skillProcesser() {
 	case SKILL_SHIELD:
 		if (SKM->findSK("¸ÅÁ÷½¯µå")->getEnd())
 		{
+			_isInvincible = false;
 			if (_isOnBattle)
 			{
 				this->_state = P_READYTOATTACK;

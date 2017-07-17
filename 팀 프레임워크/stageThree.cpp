@@ -112,10 +112,19 @@ void stageThree::update()
 		{
 			if (!g_isChat)
 			{
-				_mainCamera->updateBase();
+				if ((player->getState() == P_CASTSPELL || player->getState() == P_CASTOMNI) && player->getSkill() == SKILL_SKYSWD)
+				{
+					CINEMATICMANAGER->cinematicBossLoad(&SKM->findSK("하늘의_대검")->getSkySwordPos(), _mainCamera, SKM->findSK("하늘의_대검")->getSkySwordTrans());
+				}
+				else
+				{
+					_mainCamera->updateBase();
+				}
 			}
 		}
 	}
+
+
 
 	shadowUpdate();
 
@@ -134,6 +143,8 @@ void stageThree::update()
 	m_pUIPlayer->linkMinimapPlayerMove(player->getPlayerObject()->_transform->GetWorldPosition().x + _terrain->GetTerrainSizeX() / 2,
 									   player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
 									   _terrain->GetTerrainSizeX());
+
+
 }
 
 void stageThree::render()
@@ -194,6 +205,7 @@ void stageThree::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	m_pUIPlayer->WndProc(hWnd, message, wParam, lParam);
 	_mainCamera->WndProc(hWnd, message, wParam, lParam);
+	_directionLightCamera->WndProc(hWnd, message, wParam, lParam);
 }
 
 void stageThree::shadowInit(void)
@@ -256,7 +268,7 @@ void stageThree::shadowUpdate(void)
 
 	D3DXVECTOR3 lightDir = sceneBaseDirectionLight->_transform->GetForward();			//방향성 광원의 방향
 
-	_directionLightCamera->SetWorldPosition(camPos.x, camPos.y + 20, camPos.z);
+	_directionLightCamera->SetWorldPosition(camPos.x, camPos.y + _directionLightCamera->GetOffHeight(), camPos.z);
 	_directionLightCamera->LookDirection(lightDir);
 
 	//쉐도우맵 준비

@@ -38,6 +38,17 @@ public:
 	}
 
 
+	virtual D3DXVECTOR3 getSkySwordPos()
+	{
+		return _pvActionPS[0][0]->Transform()->GetWorldPosition();
+	}
+
+	virtual dx::transform* getSkySwordTrans()
+	{
+		return _pvActionPS[0][0]->Transform();
+	}
+
+
 public:
 	virtual HRESULT init();
 	virtual void release();

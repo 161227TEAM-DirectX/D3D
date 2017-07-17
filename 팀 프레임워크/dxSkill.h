@@ -65,6 +65,10 @@ public:
 public:
 	void resetTimeOn(float inTime = 2.0f) { _limitTime = inTime; _LimitTimeOn = true; }
 
+	virtual D3DXVECTOR3 getSkySwordPos() { return D3DXVECTOR3(0,0,0); }
+
+	virtual dx::transform* getSkySwordTrans() {	return nullptr;	}
+
 
 public:
 	//»ý¼ºÀÚ

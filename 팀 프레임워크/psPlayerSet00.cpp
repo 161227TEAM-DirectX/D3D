@@ -687,7 +687,7 @@ void psPlayerSet00::LightningSet00(string psName)
 	_planeEMT = NULL;
 	_planeEMT = new dxPlaneEmitter;
 	_planeEMT->init("ParticleResources/Texture/magicCircleAni_f25x2.png", 1, 1.0f, 1);
-	_planeEMT->SetStartLimitTime(2.0f);
+	_planeEMT->SetStartLimitTime(0.1f);
 
 	_planeEMT->InitAnimation(25, 2);
 	_planeEMT->InitAniPlaySection(15,35);
@@ -707,7 +707,7 @@ void psPlayerSet00::LightningSet00(string psName)
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
 	_boardEMT->init("ParticleResources/Texture/groundLightnimg_f22x4.png", 5, 0.8f, 40);
-	_boardEMT->SetStartLimitTime(2.0f);
+	_boardEMT->SetStartLimitTime(0.1f);
 	//_boardEMT->SetActiveLimitTime(2.0f);
 
 	_boardEMT->InitRandomAlpha(0.7f, 0.9f);
@@ -742,7 +742,7 @@ void psPlayerSet00::LightningSet00(string psName)
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
 	_boardEMT->init("ParticleResources/Texture/Lightning05_f54x1.png", 2, 0.8f, 200);
-	_boardEMT->SetStartLimitTime(2.0f);
+	_boardEMT->SetStartLimitTime(0.2f);
 	//_boardEMT->SetActiveLimitTime(1.0f);
 
 	_boardEMT->InitRandomAlpha(0.8f, 1.0f);
@@ -780,7 +780,7 @@ void psPlayerSet00::LightningSet00(string psName)
 	_boardEMT = NULL;
 	_boardEMT = new dxBoardEmitter;
 	_boardEMT->init("ParticleResources/Texture/Lightning05_f54x1.png", 2, 0.8f, 200);
-	_boardEMT->SetStartLimitTime(2.0f);
+	_boardEMT->SetStartLimitTime(0.2f);
 	//_boardEMT->SetActiveLimitTime(1.0f);
 
 	_boardEMT->InitRandomAlpha(0.8f, 1.0f);
@@ -811,7 +811,7 @@ void psPlayerSet00::LightningSet00(string psName)
 	_planeEMT = NULL;
 	_planeEMT = new dxPlaneEmitter;
 	_planeEMT->init("ParticleResources/Texture/LightningCircle_f43x2.png", 1, 2.0f, 1);
-	_planeEMT->SetStartLimitTime(2.0f);
+	_planeEMT->SetStartLimitTime(0.1f);
 
 	_planeEMT->InitRandomAlpha(0.8f,0.8f);
 	_planeEMT->InitRandomSize(4.0f, 4.0f);
@@ -839,7 +839,7 @@ void psPlayerSet00::LightningSet00(string psName)
 	_planeEMT = NULL;
 	_planeEMT = new dxPlaneEmitter;
 	_planeEMT->init("ParticleResources/Texture/circleEffect_f21x1.png", 1, 0.6f, 1);
-	_planeEMT->SetStartLimitTime(2.0f);
+	_planeEMT->SetStartLimitTime(0.1f);
 
 	_planeEMT->InitRandomAlpha(0.8f, 0.8f);
 	_planeEMT->InitRandomSize(4.0f, 4.0f);
@@ -1349,7 +1349,7 @@ void psPlayerSet00::SkySwordSet00(string psName)
 	_meshEMT = new dxMeshEmitter;
 	_meshEMT->init("ParticleResources/Mesh/skySword.x",1, 9.5f,1);
 
-	_meshEMT->SetActiveLimitTime(8.2f);
+	//_meshEMT->SetActiveLimitTime(8.2f);
 	_meshEMT->InitRandomLifeTime(9.5f,9.5f);
 	_meshEMT->InitRandomSize(3.0f, 3.0f);
 	//_meshEMT->InitRandomSize(0.5f,0.5f);
