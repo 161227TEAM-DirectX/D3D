@@ -62,7 +62,7 @@ void loadingScene::render()
 		&& m_isChangeScene1
 		//&& m_isChangeScene2 
 		//&& m_isChangeScene3 
-		&& m_isChangeScene4
+		//&& m_isChangeScene4
 		&& m_pLoadingBar->IsFullBar()
 		)
 	{
@@ -72,7 +72,8 @@ void loadingScene::render()
 		//g_isMaptool = true;
 		//SCENEMANAGER->changeScene("maptool");
 
-		//SCENEMANAGER->changeScene("start");
+		SCENEMANAGER->changeScene("start");
+		//SCENEMANAGER->changeScene("EndingScene");
 		//SCENEMANAGER->changeScene("gameSceneOne");	//gameSceneOne
 		//SCENEMANAGER->changeScene("gameSceneTwo");	//gameSceneTwo
 		//SCENEMANAGER->changeScene("gameSceneThree");	//gameSceneThree

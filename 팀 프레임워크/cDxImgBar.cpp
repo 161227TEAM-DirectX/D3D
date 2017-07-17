@@ -27,7 +27,7 @@ cDxImgBar::cDxImgBar(string sCover, string sBack, string sMove, D3DXVECTOR2 vecP
 	, m_pBack(NULL)
 	, m_pMove(NULL)
 	, m_nTimeCount(0)
-	, m_fGaugeSpeed(1)
+	, m_fGaugeSpeed(1.0f)
 	, m_fGaugeInterval(0)
 {
 	m_eBarType = E_BTN3;

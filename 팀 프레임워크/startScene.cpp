@@ -11,7 +11,7 @@ startScene::~startScene()
 
 HRESULT startScene::init()
 {
-	SOUNDMANAGER->play("시작", 0.1f);
+	SOUNDMANAGER->play("시작", 0.5f);
 
 	for (int i=0; i < DXIMGANI_MANAGER->getAniSize("Ani_Fire01"); i++)
 	{
