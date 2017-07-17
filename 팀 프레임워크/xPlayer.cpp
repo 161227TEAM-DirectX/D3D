@@ -129,7 +129,7 @@ HRESULT xPlayer::init()
 	//웨폰 오브젝트 초기화 디폴트로 블랙윙을 가져오고 w_none이면 액티브 하지 않는다.
 	_weaponObject = new baseObject;
 
-	PLAYERMANAGER->SetWeapon(W_BLACK_WING);
+	//PLAYERMANAGER->SetWeapon(W_BLACK_WING);
 
 	switch (PLAYERMANAGER->GetWeapon())
 	{
