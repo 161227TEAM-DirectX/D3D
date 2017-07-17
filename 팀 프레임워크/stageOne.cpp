@@ -188,11 +188,6 @@ void stageOne::render()
 	player->render();
 
 	m_pUIPlayer->render();
-
-	FONTMANAGER->fontOut("%.f",
-						 RM_XMESH->getResource(FILEPATH_MANAGER->GetFilepath("Xmesh_ob000"))->getScale()
-						 , 100, 100, WHITE);
-
 }
 
 HRESULT stageOne::clear(void)

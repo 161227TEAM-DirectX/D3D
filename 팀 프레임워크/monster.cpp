@@ -37,7 +37,6 @@ void monster::baseObjectEnable()
 	name->setPos(D3DXVECTOR3(_transform->GetWorldPosition().x, _boundBox._localMaxPos.y, _transform->GetWorldPosition().z));
 
 	HP = myUtil::RandomIntRange(MINHM, MAXHM);
-//	HP = MAXHP;
 	mana = myUtil::RandomIntRange(MINHM, MAXHM);
 	gold = myUtil::RandomIntRange(MINGS, MAXGS);
 	soul = myUtil::RandomIntRange(MINGS, MAXGS);
@@ -72,6 +71,7 @@ void monster::baseObjectDisable()
 
 void monster::baseObjectUpdate()
 {
+	if (HP < 0) HP = 0;
 	stateSwitch();
 	name->update();
 
