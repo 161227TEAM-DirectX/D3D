@@ -383,9 +383,13 @@ void xPlayer::render()
 	//{
 	//	FONTMANAGER->fontOut("몬스터HP : " + to_string(targetMonster->getHP()), 300, 300, 0xffffffff);
 	//	FONTMANAGER->fontOut("공격력 : " + to_string(PLAYERMANAGER->Getatt()), 300, 350, 0xffffffff);
-	//	targetMonster->setIsRender(true);
+	//	
 	//}
-
+	if (targetMonster != NULL)
+	{
+		targetMonster->setIsRender(true);
+	}
+	
 	//렌더링은 씬에 렌더오브젝트를 넘겨 처리한다.
 	if (KEYMANAGER->isToggleKey(VK_F7))
 	{
