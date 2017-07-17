@@ -108,10 +108,9 @@ void leftViewHead::update()
 
 	//æ˜µ•¿Ã∆Æ ∫Œ∫–
 	this->save();				//µ•¿Ã≈Õ ∑ŒµÂ
-	this->terrainUpdate();
 	this->PickUdate();
+	this->terrainUpdate();
 	this->textureColorUpdate();
-	this->monsterMaptul();
 
 	//∏ÛΩ∫≈Õ æ˜µ•¿Ã∆Æ ∫Œ∫–
 	for (int i = 0; i < _monster.size(); i++)
@@ -129,6 +128,52 @@ void leftViewHead::PickUdate()
 	{
 		D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
 		_mainCamera->computeRay(&ray, &_screenPos, 1);
+
+		switch (_rightView->GetGSnumberMonster())
+		{
+		case 1:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("∞Ò∑Ω", 1);
+			break;
+		case 2:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("∞≥", 2);
+			break;
+		case 3:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("∏‰µ≈¡ˆ", 3);
+			break;
+		case 4:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("≥™π´¡¸Ω¬", 4);
+			break;
+		case 5:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("∫Í∑Á≈ª∑ÁΩ∫", 5);
+			break;
+		case 6:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("»˜µÂ∂Û", 6);
+			break;
+		case 7:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("ªı", 7);
+			break;
+		case 8:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("æ«æÓ", 8);
+			break;
+		case 9:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("∞ı", 9);
+			break;
+		case 10:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("µ“∞°µÂ", 10);
+			break;
+		case 11:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("«œ««", 11);
+			break;
+		case 12:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("∑¶≈Õ", 12);
+			break;
+		case 13:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("¿¸∞•", 13);
+			break;
+		case 14:
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("µµ∏∂πÏ", 14);
+			break;
+		}
 
 		if (_rightView->getnumberObject() != 0)
 		{
@@ -174,6 +219,52 @@ void leftViewHead::PickUdate()
 
 				InfoObjectTemp.push_back(ObjecTemp);
 			}
+		}
+
+		//≥ÎµÂ¡ˆ¡§
+		switch (_rightView->GetGSnumberNodeInstal())
+		{
+		case 1:
+		{
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+			{
+				_terrain->isIntersectRay(&_hitPos, &ray);
+				if (_hitPos.y > 0.1f)
+				{
+					_hitPos.y = 0;
+				}
+				_terrain->getDijkstra().addNode(_hitPos);
+			}
+		}
+		break;
+		}
+
+		//≥ÎµÂ ø¨∞·
+		switch (_rightView->GetGSnumberNodelink())
+		{
+		case 1:
+		{
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+			{
+				const vector<Node*>& temp = _terrain->getDijkstra().getVecNode();
+
+				_terrain->isIntersectRay(&_hitPos, &ray);
+				for (int i = 0; i < temp.size(); i++)
+				{
+					if (PHYSICSMANAGER->isRayHitSphere(&ray, &temp[i]->getPosition(), temp[i]->getRadius(), nullptr, nullptr))
+					{
+						if (sour == -1) sour = i;
+						else if (dest == -1)
+						{
+							dest = i;
+							_terrain->getDijkstra().connectNode(sour, dest);
+						}
+					}
+				}
+			}
+		}
+		break;
+
 		}
 
 		//ø¿∫Í¡ß∆Æ ªË¡¶
@@ -572,109 +663,7 @@ void leftViewHead::terrainTextureUpate()
 
 void leftViewHead::monsterMaptul()
 {
-	if (_ptMousePos.x < leftViewPort.X + leftViewPort.Width && _ptMousePos.x >= 0)
-	{
-		//≥ÎµÂ¡ˆ¡§
-		switch (_rightView->GetGSnumberNodeInstal())
-		{
-		case 1:
-		{
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
-			{
-				D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
-				_mainCamera->computeRay(&ray, &_screenPos, 1);
-
-				_terrain->isIntersectRay(&_hitPos, &ray);
-				if (_hitPos.y > 0.1f)
-				{
-					_hitPos.y = 0;
-				}
-				_terrain->getDijkstra().addNode(_hitPos);
-			}
-		}
-		break;
-		}
-
-		//≥ÎµÂ ø¨∞·
-		switch (_rightView->GetGSnumberNodelink())
-		{
-		case 1:
-		{
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
-			{
-				const vector<Node*>& temp = _terrain->getDijkstra().getVecNode();
-
-				D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
-				_mainCamera->computeRay(&ray, &_screenPos, 1);
-
-				_terrain->isIntersectRay(&_hitPos, &ray);
-				for (int i = 0; i < temp.size(); i++)
-				{
-					if (PHYSICSMANAGER->isRayHitSphere(&ray, &temp[i]->getPosition(), temp[i]->getRadius(), nullptr, nullptr))
-					{
-						if (sour == -1) sour = i;
-						else if (dest == -1)
-						{
-							dest = i;
-							_terrain->getDijkstra().connectNode(sour, dest);
-						}
-					}
-				}
-			}
-		}
-		break;
-
-		}
-
-		switch (_rightView->GetGSnumberMonster())
-		{
-		case 1:
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("∞Ò∑Ω", 1);
-			break;
-		case 2:
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("∞≥", 2);
-			break;
-		case 3:
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("∏‰µ≈¡ˆ", 3);
-			break;
-		case 4:
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("≥™π´¡¸Ω¬", 4);
-			break;
-		case 5:
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("∫Í∑Á≈ª∑ÁΩ∫", 5);
-			break;
-		case 6:
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("»˜µÂ∂Û", 6);
-			break;
-		case 7:
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("ªı", 7);
-			break;
-		case 8:
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("æ«æÓ", 8);
-			break;
-		case 9:
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("∞ı", 9);
-			break;
-		case 10:
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("µ“∞°µÂ", 10);
-			break;
-		case 11:
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("«œ««", 11);
-			break;
-		case 12:
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("∑¶≈Õ", 12);
-			break;
-		case 13:
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("¿¸∞•", 13);
-			break;
-		case 14:
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) monsterSelect("µµ∏∂πÏ", 14);
-			break;
-		}
-
-
-	}
-
+	
 
 }
 
@@ -1140,9 +1129,6 @@ void leftViewHead::monsterSelect(string str, int monsterNumber)
 {
 	monster* temp = new monster(findMonsterName(monsterNumber));
 	temp->_transform->SetScale(1.0f, 1.0f, 1.0f);
-
-	D3DXVECTOR2 _screenPos(_ptMousePos.x, _ptMousePos.y);
-	_mainCamera->computeRay(&ray, &_screenPos, 1);
 
 	_terrain->isIntersectRay(&_hitPos, &ray);
 

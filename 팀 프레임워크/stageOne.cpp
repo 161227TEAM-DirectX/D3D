@@ -43,7 +43,7 @@ stageOne::~stageOne()
 
 HRESULT stageOne::init()
 {
-	SOUNDMANAGER->play("필드1", 0.1f);
+	SOUNDMANAGER->play("마을1", 0.1f);
 
 	D3DXVECTOR3 posaaa = PLAYERMANAGER->GetPos();
 	player->getPlayerObject()->_transform->SetLocalPosition(PLAYERMANAGER->GetPos());
