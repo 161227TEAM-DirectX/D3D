@@ -14,7 +14,7 @@ HRESULT skPlayer_Lightning::init()
 	setPvPreparePS(0, "번개준비", 1);
 	setPvActionPS(0, "번개", 1);
 
-	_pvPrepaerPS[0][0]->SetLimitTime(1.0f);
+	_pvPrepaerPS[0][0]->SetLimitTime(0.0f);
 	_pvActionPS[0][0]->SetLimitTime(6.0f);
 
 	/*for (int i = 0; i < _pvFinishPS[0].size(); i++)

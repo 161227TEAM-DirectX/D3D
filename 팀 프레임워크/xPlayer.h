@@ -204,6 +204,10 @@ public:
 	//플레이어 행동 종합선물세트 쓰지말자
 	void actionControl();
 
+	PL_STATE getState() { return _state; }
+	SkillType getSkill() { return _nowSelectedSkill; }
+
+
 	//외부에 렌더링할 오브젝트의 값을 전달한다.->구조상의 문제가 있음... 합리적이지 못함.
 	baseObject* getPlayerObject() { return _playerObject; }
 

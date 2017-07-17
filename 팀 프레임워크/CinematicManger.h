@@ -46,6 +46,7 @@ private:
 public:
 	void init();
 
+	void cinematicSwordInit();
 	void cinematicBossInit();
 	void cinematicBossLoad(D3DXVECTOR3* position, camera* camera, dx::transform* transform);
 	void cinematicBossSave(D3DXVECTOR3* position, camera* camera);

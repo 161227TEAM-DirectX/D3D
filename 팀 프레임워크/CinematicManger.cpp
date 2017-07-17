@@ -16,6 +16,19 @@ void CinematicManger::init()
 
 	cineMticE4Bool = false;
 	cineMticBossBool = false;
+	
+	vcinematic.clear();
+}
+
+void CinematicManger::cinematicSwordInit()
+{
+	IOCINEMATICMANAGER->loadFile("검2");
+
+	for (int i = 0; i < IOCINEMATICMANAGER->getCount(); i++)
+	{
+		cinematic = IOCINEMATICMANAGER->findTag("카메라" + to_string(i));
+		vcinematic.push_back(cinematic);
+	}
 }
 
 void CinematicManger::cinematicBossInit()
@@ -43,7 +56,7 @@ void CinematicManger::cinematicBossLoad(D3DXVECTOR3 * position, camera * camera,
 			D3DXVec3TransformCoord(&temp, &temp, &transform->GetWorldRotateMatrix());
 
 			camera->LookPosition((lookPos + D3DXVECTOR3(0, vcinematic[iCount].Height, 0)));
-			camera->SetWorldPosition((position->x + temp.x), position->y + temp.y, (position->z + temp.z));
+			camera->SetWorldPosition(position->x + temp.x, position->y + temp.y, position->z + temp.z);
 
 			iCount++;
 
@@ -78,29 +91,29 @@ void CinematicManger::cinematicBossSave(D3DXVECTOR3 * position, camera * camera)
 	//위로 올라가는거
 	if (KEYMANAGER->isStayKeyDown('Y'))
 	{
-		cameraHeight.y += 0.1f;
-		cameraY += 0.1f;
+		cameraHeight.y += 2.0f;
+		cameraY += 2.0f;
 	}
 	//아래로 내려가는거
 	if (KEYMANAGER->isStayKeyDown('U'))
 	{
-		cameraHeight.y -= 0.1f;
-		cameraY -= 0.1f;
+		cameraHeight.y -= 2.0f;
+		cameraY -= 2.0f;
 	}
 	//각도를 위로올리는거
 	if (KEYMANAGER->isStayKeyDown('H'))
 	{
-		cameraHeight.y += 0.1f;
+		cameraHeight.y += 2.0f;
 	}
 	//각도를 아래로내리는거
 	if (KEYMANAGER->isStayKeyDown('J'))
 	{
-		cameraHeight.y -= 0.1f;
+		cameraHeight.y -= 2.0f;
 	}
 
 	//캠확대 , 축소
-	if (KEYMANAGER->isStayKeyDown('I')) 	cameraXZ += 0.1f;
-	if (KEYMANAGER->isStayKeyDown('O')) 	cameraXZ -= 0.1f;
+	if (KEYMANAGER->isStayKeyDown('I')) 	cameraXZ += 0.5f;
+	if (KEYMANAGER->isStayKeyDown('O')) 	cameraXZ -= 0.5f;
 
 	if (KEYMANAGER->isStayKeyDown('Z'))
 	{
@@ -129,9 +142,9 @@ void CinematicManger::cinematicBossSave(D3DXVECTOR3 * position, camera * camera)
 	if (KEYMANAGER->isToggleKey('M'))
 	{
 		Ctemp.infoName = "카메라" + to_string(iCount);
-		Ctemp.X = camera->getCameraPos().x;
-		Ctemp.Y = camera->getCameraPos().y;
-		Ctemp.Z = camera->getCameraPos().z;
+		Ctemp.X = camera->getCameraPos().x - lookPos.x;
+		Ctemp.Y = camera->getCameraPos().y - lookPos.y;
+		Ctemp.Z = camera->getCameraPos().z - lookPos.z;
 		Ctemp.Height = cameraHeight.y;
 
 		vCTemp.push_back(Ctemp);
@@ -147,7 +160,7 @@ void CinematicManger::cinematicBossSave(D3DXVECTOR3 * position, camera * camera)
 
 	if (KEYMANAGER->isOnceKeyDown('N'))
 	{
-		IOCINEMATICMANAGER->saveFile("보스시네마틱", vCTemp);
+		IOCINEMATICMANAGER->saveFile("검", vCTemp);
 	}
 }
 

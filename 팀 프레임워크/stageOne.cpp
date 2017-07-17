@@ -45,7 +45,8 @@ HRESULT stageOne::init()
 {
 	SOUNDMANAGER->play("ÇÊµå1", 0.1f);
 
-	player->getPlayerObject()->_transform->SetWorldPosition(PLAYERMANAGER->GetPos());
+	D3DXVECTOR3 posaaa = PLAYERMANAGER->GetPos();
+	player->getPlayerObject()->_transform->SetLocalPosition(PLAYERMANAGER->GetPos());
 
 	return S_OK;
 }
