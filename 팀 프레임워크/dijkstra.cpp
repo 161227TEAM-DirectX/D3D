@@ -23,21 +23,24 @@ dijkstra::~dijkstra()
 
 void dijkstra::render(void)
 {
-	//D3DXMATRIXA16 matT;
-	//D3DXMATRIX oldMat;
-	//
-	//_device->GetTransform(D3DTS_WORLD, &oldMat);
-	//_device->SetTransform(D3DTS_WORLD, &matT);
-	//
-	//for (int i = 0; i < adj.size(); i++)
-	//{
-	//	for (int j = 0; j < adj[i].size(); j++)
-	//	{
-	//		GIZMOMANAGER->Line(vecNode[i]->getPosition(), vecNode[adj[i][j].first]->getPosition(), D3DCOLOR_XRGB(255,0,255));
-	//	}
-	//}
-	//
-	//_device->SetTransform(D3DTS_WORLD, &oldMat);
+	if (KEYMANAGER->isToggleKey('O'))
+	{
+		D3DXMATRIXA16 matT;
+		D3DXMATRIX oldMat;
+
+		_device->GetTransform(D3DTS_WORLD, &oldMat);
+		_device->SetTransform(D3DTS_WORLD, &matT);
+
+		for (int i = 0; i < adj.size(); i++)
+		{
+			for (int j = 0; j < adj[i].size(); j++)
+			{
+				GIZMOMANAGER->Line(vecNode[i]->getPosition(), vecNode[adj[i][j].first]->getPosition(), D3DCOLOR_XRGB(255, 0, 255));
+			}
+		}
+
+		_device->SetTransform(D3DTS_WORLD, &oldMat);
+	}
 }
 
 void dijkstra::addNode(D3DXVECTOR3 pos)
