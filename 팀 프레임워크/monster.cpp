@@ -36,8 +36,8 @@ void monster::baseObjectEnable()
 
 	name->setPos(D3DXVECTOR3(_transform->GetWorldPosition().x, _boundBox._localMaxPos.y, _transform->GetWorldPosition().z));
 
-	MAXHP = myUtil::RandomIntRange(MINHM, MAXHM);
-	HP = MAXHP;
+	HP = myUtil::RandomIntRange(MINHM, MAXHM);
+//	HP = MAXHP;
 	mana = myUtil::RandomIntRange(MINHM, MAXHM);
 	gold = myUtil::RandomIntRange(MINGS, MAXGS);
 	soul = myUtil::RandomIntRange(MINGS, MAXGS);
@@ -46,7 +46,7 @@ void monster::baseObjectEnable()
 	CurrAction = ACMANAGER->getAction("일반대기", *this);
 
 	authorizeName();
-
+	MAXHP = HP;
 	string tempName = prefixName + lastName;
 
 	name->init(tempName, nameColor);
@@ -75,7 +75,10 @@ void monster::baseObjectUpdate()
 	stateSwitch();
 	name->update();
 
-	if(isRender) m_pBar->moveBar((float)HP / (float)MAXHP * 100);
+	if (isRender)
+	{
+		m_pBar->moveBar((float)HP / (float)MAXHP * 100);
+	}
 
 	if (NextAction != nullptr)
 	{
