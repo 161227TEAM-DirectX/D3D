@@ -42,6 +42,8 @@ HRESULT skPlayer_ShootingStar::init()
 	_limitDropTime = 3.0f;
 	_currentDropTime = 0.0f;
 
+	_currentCollisionTime = 0.0f;
+
 	return S_OK;
 }
 

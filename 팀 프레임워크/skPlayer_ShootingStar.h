@@ -23,10 +23,33 @@ private:
 
 	int _activeCount;
 
+	float _currentCollisionTime;
+
+
 	D3DXVECTOR3 _startPos;
 
 
-	
+public:
+	virtual bool getCollision()
+	{
+		if (_skillActionOn)
+		{
+			_currentCollisionTime += _timeDelta;
+			if (_pvActionPS[0][0]->GetLimitTime() / 5.0f <= _currentCollisionTime)
+			{
+
+				_currentCollisionTime = 0.0f;
+				return true;
+			}
+
+		}
+		else
+		{
+			_currentCollisionTime = 0.0f;
+		}
+		return FALSE;
+	}
+
 
 public:
 	virtual HRESULT init();

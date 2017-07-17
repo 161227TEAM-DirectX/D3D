@@ -36,7 +36,7 @@ int ActionAttack::Update()
 	{
 		//대미지를 넣는 구문이 필요
 		yPosition = playerObject->_boundBox._localMaxPos.y;
-		enemy->playerDamaged(temp->getAtt(), 1.0f, 15.0f, 0.1f, 0.5f);
+		enemy->playerDamaged(temp->getAtt(), 0.5f, 8.0f, 0.1f, 0.5f);
 		SOUNDMANAGER->play("몬스터공격");
 	}
 

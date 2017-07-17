@@ -10,6 +10,8 @@ HRESULT xPlayer::init()
 	_handTrans = new dx::transform;
 	_edgeTrans = new dx::transform;
 
+	monsterCenter = new dx::transform;
+
 	_nowSelectedSkill = SKILL_NONE;
 
 	//메시 로딩
@@ -761,17 +763,17 @@ void xPlayer::playerStateManager()
 	case P_ATTACK2:
 		if (animName == "AT2H")
 		{
-			/*if (_playerObject->_skinnedAnim->getAnimFactor() > 0.2 && _playerObject->_skinnedAnim->getAnimFactor() < 0.3)
+			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.2 && _playerObject->_skinnedAnim->getAnimFactor() < 0.3)
 			{
+				normalAttackDamageProcessing();
 				if (!SOUNDMANAGER->isPlaySound("공격1"))
 				{
 					SOUNDMANAGER->play("공격1", 0.7f);
 				}
-			}*/
+			}
 
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.80)//애니메이션 다 재생했으면
 			{
-				normalAttackDamageProcessing();
 				//if (PHYSICSMANAGER->isOverlap(_playerObject->_transform, &_attackBound, targetMonster->_transform, &targetMonster->_boundBox))
 				//{
 				//	//exit(0);
@@ -842,7 +844,6 @@ void xPlayer::playerStateManager()
 			else if (_playerObject->_skinnedAnim->getAnimFactor() > 0.5)//애니메이션 다 재생했으면
 			{
 				normalAttackDamageProcessing();
-
 				if (_isOnBattle)
 				{
 					_state = P_ATTACK;
@@ -852,7 +853,6 @@ void xPlayer::playerStateManager()
 				else
 				{
 					_state = P_ATTACK;
-
 					//_state = P_STAND;
 				}
 			}
@@ -894,7 +894,7 @@ void xPlayer::playerStateManager()
 	case P_ATTACK6:
 		if (animName == "AT1H2")
 		{
-			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.5 && _playerObject->_skinnedAnim->getAnimFactor() < 0.8)//애니메이션 다 재생했으면
+			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.5 && _playerObject->_skinnedAnim->getAnimFactor() < 0.6)//애니메이션 다 재생했으면
 			{
 				//if (PHYSICSMANAGER->isOverlap(_playerObject->_transform, &_attackBound, targetMonster->_transform, &targetMonster->_boundBox))
 				//{
@@ -1493,7 +1493,7 @@ void xPlayer::playerAttack()
 	//if (!(_state == P_STAND || _state == P_RUN || _state == P_MOVE || _state == P_WALKBACK || _state == P_READYTOATTACK)) { return; }
 
 	//검광 위치 초기화.
-
+	_isOnBattle = true;
 
 	float rand = RandomFloatRange(0, 100);
 	if (rand < PLAYERMANAGER->GetCrit())
@@ -1573,6 +1573,8 @@ void xPlayer::playerDamaged(int damage, float damagedTime, float delayRate, floa
 		this->unSummonMount();
 	}
 
+	_isOnBattle = true;
+
 	PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() - damage);
 
 	//무거운 공격! 경직에 걸렸다.
@@ -1634,7 +1636,18 @@ void xPlayer::normalAttackDamageProcessing()
 				_dmText->init(PLAYERMANAGER->Getatt(), LHS::FONTCOLOR::FONT_BLUE);
 				yPosition = targetMonster->_boundBox.getLocalMaxPos().y;
 				_dmText->setPos(D3DXVECTOR3(targetMonster->_transform->GetWorldPosition().x, yPosition, targetMonster->_transform->GetWorldPosition().z));
-				
+
+				monsterCenter->SetWorldPosition((*iter)->_transform->GetWorldPosition());
+
+				D3DXVECTOR3 pos = monsterCenter->GetWorldPosition();
+
+				pos.y += (*iter)->_boundBox.getHalfSize().y;
+
+				monsterCenter->SetWorldPosition(pos);
+
+				EFFECT->findEffect("피격")->setLimitTime(0.5f);
+				EFFECT->findEffect("피격")->Start(monsterCenter);
+
 				/*if ((*iter)->getHP() < 0)
 				{
 					exit(0);

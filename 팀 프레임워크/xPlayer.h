@@ -111,6 +111,8 @@ private:
 
 	bool _isInvincible;	//플레이어 무적화 (데미지 및 피격, 스턴 처리 하지 않음.)
 
+	dx::transform* monsterCenter;
+
 private:
 	baseObject* _playerObject;
 	baseObject* _mountObject;
