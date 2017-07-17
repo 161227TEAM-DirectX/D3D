@@ -767,21 +767,21 @@ void cUIPlayer::render()
 	//===============================================
 	//미니맵 틀을 그리자.
 	//===============================================
-	if (m_pBtnMap->GetIsCheck() && m_pBtnMap->GetOff()->GetPosition().y == 320)
-	{
-		DXIMG_MANAGER->render(m_szMinimap,
-							  DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fWidth / 4,
-							  DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fHeight / 4,
-							  DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fWidth / 2,		//보여줄 가로길이
-							  DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fHeight / 2,		//보여줄 세로길이
-							  DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fWidth / 2 - m_fMinimapMoveX,
-							  DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fHeight / 2 - m_fMinimapMoveY);
+	//if (m_pBtnMap->GetIsCheck() && m_pBtnMap->GetOff()->GetPosition().y == 320)
+	//{
+	//	DXIMG_MANAGER->render(m_szMinimap,
+	//						  DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fWidth / 4,
+	//						  DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fHeight / 4,
+	//						  DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fWidth / 2,		//보여줄 가로길이
+	//						  DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fHeight / 2,		//보여줄 세로길이
+	//						  DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fWidth / 2 - m_fMinimapMoveX,
+	//						  DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fHeight / 2 - m_fMinimapMoveY);
 
-		DXIMG_MANAGER->GetDxImg("radar")->render(0, 0, m_fRaderAngle - 180);
-		DXIMG_MANAGER->render("minimap_player");
-		m_pMiniMap->render();
-	}
-	m_pBtnMap->render();
+	//	DXIMG_MANAGER->GetDxImg("radar")->render(0, 0, m_fRaderAngle - 180);
+	//	DXIMG_MANAGER->render("minimap_player");
+	//	m_pMiniMap->render();
+	//}
+	//m_pBtnMap->render();
 
 	
 
@@ -847,7 +847,7 @@ void cUIPlayer::render()
 	}
 
 
-	FONTMANAGER->fontOut("%f", DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fWidth / 2 - m_fMinimapMoveX, 100,100, WHITE);
+//	FONTMANAGER->fontOut("%f", DXIMG_MANAGER->GetDxImg(m_szMinimap)->GetSize().fWidth / 2 - m_fMinimapMoveX, 100,100, WHITE);
 
 	m_pYouDied->render();
 }

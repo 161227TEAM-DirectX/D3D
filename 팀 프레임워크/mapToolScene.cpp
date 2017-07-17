@@ -15,6 +15,8 @@ mapToolScene::~mapToolScene()
 
 HRESULT mapToolScene::init()
 {
+	SOUNDMANAGER->play("맵툴배경1");
+
 	//초기화
 	_rightView = new rightView;
 	_rightView->init();
@@ -81,7 +83,7 @@ void mapToolScene::render()
 		_leftViewHead->render();
 
 		//타임매니져 렌더
-		TIMEMANAGER->render();
+		//TIMEMANAGER->render();
 
 		//디바이스 렌더 종료
 		_device->EndScene();

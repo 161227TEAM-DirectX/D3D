@@ -373,10 +373,10 @@ void xPlayer::update()
 
 void xPlayer::render()
 {
-	_sitPos->RenderGimozo();
+	//_sitPos->RenderGimozo();
 	//_handTrans->RenderGimozo();
 	//_edgeTrans->RenderGimozo();
-	_mountObject->_transform->RenderGimozo();
+	//_mountObject->_transform->RenderGimozo();
 	if (targetMonster != NULL)
 	{
 		FONTMANAGER->fontOut("¸ó½ºÅÍHP : " + to_string(targetMonster->getHP()), 300, 300, 0xffffffff);
