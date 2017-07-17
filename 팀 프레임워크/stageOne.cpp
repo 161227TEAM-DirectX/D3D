@@ -34,11 +34,6 @@ stageOne::stageOne()
 
 	memset(&envTemp, 0, sizeof(tagSaveMap));
 	memset(&waterTemp, 0, sizeof(tagSaveMap));
-
-
-
-
-
 }
 
 stageOne::~stageOne()
@@ -81,24 +76,38 @@ void stageOne::release()
 void stageOne::update()
 {
 	shadowUpdate();
-
-	currTime += _timeDelta;
-	if (currTime > 1)
+	if (KEYMANAGER->isStayKeyDown(VK_UP))
 	{
-		//D3DXVECTOR3 matAxis(0.0f, 0.0f, 1.0f);
-		D3DXMatrixIdentity(&matRotate);
-		//D3DXMatrixRotationAxis(&matRotate, &matAxis, D3DXToRadian(angleZ));
-		D3DXMatrixRotationX(&matRotate, D3DXToRadian(angleZ));
-		//_sceneBaseDirectionLight->_transform->RotateWorld(0.0f, 0.0f, D3DXToRadian(angleZ));
-		//sceneBaseDirectionLight->_transform->SetRotateWorld(matRotate);
-		toRotate->SetRotateWorld(matRotate);
+		angleZ++;
+	}
+	else if (KEYMANAGER->isStayKeyDown(VK_DOWN))
+	{
 		angleZ--;
-		if (angleZ <= 0) angleZ = 360;
-		else if (angleZ >= 360) angleZ = 0;
-		currTime = 0;
 	}
 
-	sceneBaseDirectionLight->_transform->RotateSlerp(*sceneBaseDirectionLight->_transform, *toRotate, _timeDelta);
+	if (angleZ <= 0) angleZ = 360;
+	else if (angleZ >= 360) angleZ = 0;
+
+	D3DXMatrixIdentity(&matRotate);
+	D3DXMatrixRotationX(&matRotate, D3DXToRadian(angleZ));
+
+	sceneBaseDirectionLight->_transform->SetRotateWorld(matRotate);
+
+	//currTime += _timeDelta;
+	//if (currTime > 1)
+	//{
+	//	//D3DXVECTOR3 matAxis(0.0f, 0.0f, 1.0f);
+	//	//D3DXMatrixIdentity(&matRotate);
+	//	//D3DXMatrixRotationAxis(&matRotate, &matAxis, D3DXToRadian(angleZ));
+	//	
+	//	//_sceneBaseDirectionLight->_transform->RotateWorld(0.0f, 0.0f, D3DXToRadian(angleZ));
+	//	//sceneBaseDirectionLight->_transform->SetRotateWorld(matRotate);
+	//	//toRotate->SetRotateWorld(matRotate);
+	//	//angleZ--;
+	//	currTime = 0;
+	//}
+
+	//sceneBaseDirectionLight->_transform->RotateSlerp(*sceneBaseDirectionLight->_transform, *toRotate, _timeDelta);
 
 	player->update();
 
@@ -116,10 +125,9 @@ void stageOne::update()
 									   player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
 									   _terrain->GetTerrainSizeX());
 
-
-	
-
 	sceneChange();
+
+
 	for (int i = 0; i < _staticMeshs.size(); i++)
 	{
 		D3DXVECTOR3 Length = player->getPlayerObject()->_transform->GetWorldPosition() - _staticMeshs[i]->_transform->GetWorldPosition();
@@ -259,7 +267,7 @@ void stageOne::shadowUpdate(void)
 
 	D3DXVECTOR3 lightDir = sceneBaseDirectionLight->_transform->GetForward();			//¹æÇâ¼º ±¤¿øÀÇ ¹æÇâ
 
-	_directionLightCamera->SetWorldPosition(camPos.x, camPos.y + 5, camPos.z);
+	_directionLightCamera->SetWorldPosition(camPos.x, camPos.y + _directionLightCamera->GetOffHeight(), camPos.z);
 	_directionLightCamera->LookDirection(lightDir);
 
 	//½¦µµ¿ì¸Ê ÁØºñ
@@ -334,6 +342,8 @@ void stageOne::sceneChange()
 void stageOne::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	m_pUIPlayer->WndProc(hWnd, message, wParam, lParam);
+	_mainCamera->WndProc(hWnd, message, wParam, lParam);
+	_directionLightCamera->WndProc(hWnd, message, wParam, lParam);
 }
 
 void stageOne::loadingStage()

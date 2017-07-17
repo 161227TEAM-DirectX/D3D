@@ -14,6 +14,8 @@ camera::camera() : _isOrtho(FALSE), _renderTexture(NULL), _renderSurface(NULL), 
 	_orthoSize = 10.0f;
 
 	_zoom = 1.0f;
+
+	_offHeight = 5.0f;
 }
 
 camera::~camera()
@@ -349,15 +351,24 @@ void camera::renderTextureEnd()
 	SAFE_RELEASE(_deviceDepthAndStencilSurface);
 }
 
-
 void camera::zoomIn()
 {
-	this->MovePositionWorld( this->GetForward() * 0.2f);
+	this->MovePositionWorld( this->GetForward() * 0.2f);//ÀÚÀ¯½ÃÁ¡¿ë
+
+	this->_relativeCamPos *= 0.9;//ÄõÅÍºä¿ë
+	this->_camFar *= 0.9;
+	this->_orthoSize *= 0.9;
+	this->_offHeight *= 0.9;
 }
 
 void camera::zoomOut()
 {
-	this->MovePositionWorld( this->GetForward() * -0.2f);
+	this->MovePositionWorld( this->GetForward() * -0.2f);//ÀÚÀ¯½ÃÁ¡¿ë
+
+	this->_relativeCamPos *= 1.1;//ÄõÅÍºä¿ë
+	this->_camFar *= 1.1;
+	this->_orthoSize *= 1.1;
+	this->_offHeight *= 1.1;
 }
 
 void camera::rotateSLerp()

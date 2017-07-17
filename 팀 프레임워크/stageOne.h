@@ -23,6 +23,8 @@ private:
 
 	baseObject*			_gate1;
 	baseObject*			_gate2;
+
+	
 private:
 	vector<baseObject*> _renderObject;
 	vector<baseObject*>	_cullObject;

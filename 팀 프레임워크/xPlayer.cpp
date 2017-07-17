@@ -373,10 +373,10 @@ void xPlayer::update()
 
 void xPlayer::render()
 {
-	_sitPos->RenderGimozo();
+	
 	//_handTrans->RenderGimozo();
 	//_edgeTrans->RenderGimozo();
-	_mountObject->_transform->RenderGimozo();
+	
 	if (targetMonster != NULL)
 	{
 		FONTMANAGER->fontOut("¸ó½ºÅÍHP : " + to_string(targetMonster->getHP()), 300, 300, 0xffffffff);
@@ -407,6 +407,13 @@ void xPlayer::render()
 		FONTMANAGER->fontOut("Height : " + to_string(_jumpHeight), 600, 75, 0xffffffff);
 
 		RM_SKINNED->getResource("Resource/Player/FHUMAN_NEW/FHUMAN.X")->ShowAnimationName(0, 0);
+
+		if (NULL != targetMonster)
+		{
+			targetMonster->_boundBox.renderGizmo(targetMonster->_transform);
+		}
+
+		_mountObject->_transform->RenderGimozo();
 	}
 
 
@@ -415,10 +422,6 @@ void xPlayer::render()
 		drawBladeLight();
 	}
 
-	if (NULL != targetMonster)
-	{
-		targetMonster->_boundBox.renderGizmo(targetMonster->_transform);
-	}
 
 	if (_dmText->getStrLength())
 	{
