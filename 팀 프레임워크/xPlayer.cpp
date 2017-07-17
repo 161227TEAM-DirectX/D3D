@@ -379,12 +379,12 @@ void xPlayer::render()
 	//_edgeTrans->RenderGimozo();
 	//_mountObject->_transform->RenderGimozo();
 
-	if (targetMonster != NULL)
+	/*if (targetMonster != NULL)
 	{
 		FONTMANAGER->fontOut("몬스터HP : " + to_string(targetMonster->getHP()), 300, 300, 0xffffffff);
 		FONTMANAGER->fontOut("공격력 : " + to_string(PLAYERMANAGER->Getatt()), 300, 350, 0xffffffff);
 		targetMonster->setIsRender(true);
-	}
+	}*/
 
 	//렌더링은 씬에 렌더오브젝트를 넘겨 처리한다.
 	if (KEYMANAGER->isToggleKey(VK_F7))
@@ -1903,6 +1903,7 @@ void xPlayer::unSummonMount()
 	_isMount = false;
 	_mountObject->setActive(false);
 	_playerObject->_transform->ReleaseParent();
+	_playerObject->_transform->SetRotateWorld(_mountObject->_transform->GetWorldRotateMatrix());
 	_state = P_JUMPDOWN;
 	_moveSpeed = 1.5f;
 }
