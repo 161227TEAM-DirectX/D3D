@@ -25,6 +25,8 @@ private:
 
 	float _currentCollisionTime;
 
+	bool collisionCheckOn[40];
+
 
 	D3DXVECTOR3 _startPos;
 
@@ -32,23 +34,20 @@ private:
 public:
 	virtual bool getCollision()
 	{
-		if (_skillActionOn)
+		if (_skillFinshOn)
 		{
-			_currentCollisionTime += _timeDelta;
-			if (_pvActionPS[0][0]->GetLimitTime() / 5.0f <= _currentCollisionTime)
+			for (int i = 0; i < _pvFinishPS[0].size(); i++)
 			{
-
-				_currentCollisionTime = 0.0f;
-				return true;
+				if (_pvFinishPS[0][i]->GetActive() && collisionCheckOn[i] == FALSE)
+				{
+					collisionCheckOn[i] = true;
+					return true;
+				}
 			}
-
-		}
-		else
-		{
-			_currentCollisionTime = 0.0f;
 		}
 		return FALSE;
 	}
+
 
 
 public:

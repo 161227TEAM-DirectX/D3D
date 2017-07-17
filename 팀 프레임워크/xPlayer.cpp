@@ -765,7 +765,7 @@ void xPlayer::playerStateManager()
 		{
 			if (_playerObject->_skinnedAnim->getAnimFactor() > 0.2 && _playerObject->_skinnedAnim->getAnimFactor() < 0.3)
 			{
-				normalAttackDamageProcessing();
+				
 				if (!SOUNDMANAGER->isPlaySound("°ø°Ý1"))
 				{
 					SOUNDMANAGER->play("°ø°Ý1", 0.7f);
@@ -778,7 +778,7 @@ void xPlayer::playerStateManager()
 				//{
 				//	//exit(0);
 				//}
-				//normalAttackDamageProcessing();
+				normalAttackDamageProcessing();
 				if (!_isJump)
 				{
 					if (_isOnBattle)
@@ -2238,7 +2238,7 @@ void xPlayer::skillProcesser() {
 		{
 			if (SKM->findSK("»ûº°_¶³±¸±â")->getCollision())
 			{
-				targetMonster->setHP(0);
+				targetMonster->setHP(targetMonster->getHP() - PLAYERMANAGER->Getatt());
 			}
 		}
 
