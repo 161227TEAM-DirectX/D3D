@@ -18,6 +18,7 @@ int bossActionFlyDie::Start()
 
 	//보스몬스터의 공격모션 아무거나 시작.
 	owner->getSkinnedAnim().Play("Animation_31");
+	SOUNDMANAGER->play("보스죽음2");
 
 	return (int)LHS::ACTIONRESULT::ACTION_PLAY;
 }
@@ -40,6 +41,7 @@ int bossActionFlyDie::Update()
 		if (owner->_transform->GetWorldPosition().y <= tempY)
 		{
 			owner->getSkinnedAnim().PlayOneShotAfterHold("Animation_30");
+			SOUNDMANAGER->stop("보스죽음2");
 		}
 	}
 

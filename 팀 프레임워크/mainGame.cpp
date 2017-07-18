@@ -18,7 +18,7 @@ mainGame::mainGame()
 	SCENEMANAGER->addScene("start", new startScene, false);
 
 	//g_eSelectMode = E_MAPTOOL;
-	SCENEMANAGER->addScene("maptool", new mapToolScene, false);
+	//SCENEMANAGER->addScene("maptool", new mapToolScene, false);
 	
 	SCENEMANAGER->addScene("gameSceneOne", ex_pStage1);
 	SCENEMANAGER->addScene("gameSceneTwo", ex_pStage2);
@@ -28,7 +28,7 @@ mainGame::mainGame()
 	SCENEMANAGER->addScene("EndingScene", ex_pEnding, false);
 
 	//SCENEMANAGER->addScene("test", new particleTest13, false);
-
+	
 	//SCENEMANAGER->addScene("AItest", new bossMonsterAITestScene);
 
 	//SCENEMANAGER->addScene("kims", new kimsNewTest, false);

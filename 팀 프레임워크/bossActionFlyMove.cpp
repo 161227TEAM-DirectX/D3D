@@ -74,17 +74,17 @@ int bossActionFlyMove::Update()
 			
 			if (D3DXVec3Length(&(owner->_transform->GetWorldPosition() - tempPos)) <= 0.7f)
 			{
-			//	if (ch == 0)
-			//	{
-			//		isRound = bossActionFlyMove::FLYSTATE::round;
-			//		SKM->findSK("¿¡³ÊÁöÅº")->setSkillPosTrans(owner->_transform);
-			//		SKM->findSK("¿¡³ÊÁöÅº")->setOneTargetTrans(playerObject->_transform);
-			//		attackEnergyBallCount = myUtil::RandomIntRange(5, 10);
-			//	}
-			//	else if (ch == 1)
-			//	{
+				if (ch == 0)
+				{
+					isRound = bossActionFlyMove::FLYSTATE::round;
+					SKM->findSK("¿¡³ÊÁöÅº")->setSkillPosTrans(owner->_transform);
+					SKM->findSK("¿¡³ÊÁöÅº")->setOneTargetTrans(playerObject->_transform);
+					attackEnergyBallCount = myUtil::RandomIntRange(5, 10);
+				}
+				else if (ch == 1)
+				{
 					isRound = FLYSTATE::oxpattern;
-			//	}
+				}
 			}
 			break;
 		}

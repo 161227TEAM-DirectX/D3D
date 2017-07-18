@@ -30,6 +30,8 @@ private:
 	vector<monster*> _monsterRegion;
 	D3DXMATRIX matRotate;
 private:
+	bool swordBool;
+	bool swordBool2;
 	float _shadowDistance;
 	float currTime;
 	int angleZ;

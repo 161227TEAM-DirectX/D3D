@@ -16,8 +16,29 @@ void CinematicManger::init()
 
 	cineMticE4Bool = false;
 	cineMticBossBool = false;
+	cineMticSwordBool = false;
 	
 	vcinematic.clear();
+	vcinematicSword.clear();
+}
+
+void CinematicManger::initSword()
+{
+	cameraHeight = { 0, -5.0f, 0 };
+	RotateAngle = 0.0f;
+	RotateRadian = D3DXToRadian(15.0f);
+
+	cameraY = 2.0f;
+	cameraXZ = 5.0f;
+	iCount = 0;
+	ECount = 0;
+	SCount = 0;
+	time = 0;
+
+	cineMticSwordBool = false;
+
+	vcinematic.clear();
+	vcinematicSword.clear();
 }
 
 void CinematicManger::cinematicSwordInit()
@@ -26,8 +47,8 @@ void CinematicManger::cinematicSwordInit()
 
 	for (int i = 0; i < IOCINEMATICMANAGER->getCount(); i++)
 	{
-		cinematic = IOCINEMATICMANAGER->findTag("카메라" + to_string(i));
-		vcinematic.push_back(cinematic);
+		cinematicSword = IOCINEMATICMANAGER->findTag("카메라" + to_string(i));
+		vcinematicSword.push_back(cinematicSword);
 	}
 }
 
@@ -40,6 +61,34 @@ void CinematicManger::cinematicBossInit()
 		cinematic = IOCINEMATICMANAGER->findTag("카메라" + to_string(i));
 
 		vcinematic.push_back(cinematic);
+	}
+}
+
+void CinematicManger::cinematicSwordLoad(D3DXVECTOR3 * position, camera * camera, dx::transform * transform)
+{
+	if (cineMticSwordBool == false)
+	{
+		if (SCount < vcinematicSword.size())
+		{
+			lookPos = *position;
+
+			D3DXVECTOR3 temp = { vcinematicSword[SCount].X, vcinematicSword[SCount].Y, vcinematicSword[SCount].Z };
+
+			D3DXVec3TransformCoord(&temp, &temp, &transform->GetWorldRotateMatrix());
+
+			camera->LookPosition((lookPos + D3DXVECTOR3(0, vcinematicSword[SCount].Height, 0)));
+			camera->SetWorldPosition(position->x + temp.x, position->y + temp.y, position->z + temp.z);
+
+			SCount++;
+
+			camera->updateMatrix();
+			camera->updateCamToDevice();
+			camera->updateFrustum();
+		}
+		else
+		{
+			cineMticSwordBool = true;
+		}
 	}
 }
 

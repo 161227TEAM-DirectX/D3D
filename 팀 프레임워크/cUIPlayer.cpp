@@ -400,15 +400,15 @@ void cUIPlayer::update()
 	//	m_pBar->moveBar(1);
 	//}
 
-	////체력이 0이하가 된다면...
-	//if (m_pBar->getCursorBar() <= 0)
-	//{
-	//	m_pYouDied->SetIsDied(true);
-	//}
-	//else
-	//{
-	//	m_pYouDied->SetIsDied(false);
-	//}
+	//체력이 0이하가 된다면...
+	if (m_pBar->getCursorBar() <= 0)
+	{
+		m_pYouDied->SetIsDied(true);
+	}
+	else
+	{
+		m_pYouDied->SetIsDied(false);
+	}
 
 
 	//=================================================================================

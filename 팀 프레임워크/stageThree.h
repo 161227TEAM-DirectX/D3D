@@ -27,6 +27,7 @@ private:
 	vector<baseObject*>	_cullObject;
 
 private:
+	bool swordBool;
 	float _shadowDistance;
 	bool cinematicBool;
 	tagSaveMap envTemp;

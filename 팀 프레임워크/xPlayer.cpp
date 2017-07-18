@@ -398,30 +398,30 @@ void xPlayer::render()
 		_playerObject->_boundBox.renderGizmo(_playerObject->_transform);
 		_attackBound.renderGizmo(_playerObject->_transform);
 
-		FONTMANAGER->fontOut(to_string(_state), 100, 0, 0xffffffff);
-
-		FONTMANAGER->fontOut("HP : " + to_string(PLAYERMANAGER->GetHp()), 300, 0, 0xffffffff);
-
-		FONTMANAGER->fontOut("base : " + to_string(_baseHeight), 300, 25, 0xffffffff);
-
-		FONTMANAGER->fontOut("Degree : " + to_string(_degree), 300, 50, 0xffffffff);
-
-		FONTMANAGER->fontOut("posX : " + to_string(_playerObject->_transform->GetWorldPosition().x), 600, 0, 0xffff0000);
-
-		FONTMANAGER->fontOut("posY : " + to_string(_playerObject->_transform->GetWorldPosition().y), 600, 25, 0xff00ff00);
-
-		FONTMANAGER->fontOut("posZ : " + to_string(_playerObject->_transform->GetWorldPosition().z), 600, 50, 0xff0000ff);
-
-		FONTMANAGER->fontOut("Height : " + to_string(_jumpHeight), 600, 75, 0xffffffff);
-
-		RM_SKINNED->getResource("Resource/Player/FHUMAN_NEW/FHUMAN.X")->ShowAnimationName(0, 0);
-
-		if (NULL != targetMonster)
-		{
-			targetMonster->_boundBox.renderGizmo(targetMonster->_transform);
-		}
-
-		_mountObject->_transform->RenderGimozo();
+		//FONTMANAGER->fontOut(to_string(_state), 100, 0, 0xffffffff);
+		//
+		//FONTMANAGER->fontOut("HP : " + to_string(PLAYERMANAGER->GetHp()), 300, 0, 0xffffffff);
+		//
+		//FONTMANAGER->fontOut("base : " + to_string(_baseHeight), 300, 25, 0xffffffff);
+		//
+		//FONTMANAGER->fontOut("Degree : " + to_string(_degree), 300, 50, 0xffffffff);
+		//
+		//FONTMANAGER->fontOut("posX : " + to_string(_playerObject->_transform->GetWorldPosition().x), 600, 0, 0xffff0000);
+		//
+		//FONTMANAGER->fontOut("posY : " + to_string(_playerObject->_transform->GetWorldPosition().y), 600, 25, 0xff00ff00);
+		//
+		//FONTMANAGER->fontOut("posZ : " + to_string(_playerObject->_transform->GetWorldPosition().z), 600, 50, 0xff0000ff);
+		//
+		//FONTMANAGER->fontOut("Height : " + to_string(_jumpHeight), 600, 75, 0xffffffff);
+		//
+		//RM_SKINNED->getResource("Resource/Player/FHUMAN_NEW/FHUMAN.X")->ShowAnimationName(0, 0);
+		//
+		//if (NULL != targetMonster)
+		//{
+		//	targetMonster->_boundBox.renderGizmo(targetMonster->_transform);
+		//}
+		//
+		//_mountObject->_transform->RenderGimozo();
 	}
 
 	if (!_isMount && _nowSelectedSkill != SKILL_WHIRLWIND)
@@ -1984,6 +1984,7 @@ void xPlayer::skilltrigger()
 			//공격범위 변경
 			_attackTrans.SetWorldPosition(0.0f, 0.5f, 0.0f);
 			_attackBound.setBound(&_attackTrans.GetWorldPosition(), &D3DXVECTOR3(1.0, 0.5, 1.0));
+			_isInvincible = true;
 
 			break;
 		case SKILL_SLAM:
@@ -2097,7 +2098,8 @@ void xPlayer::skillProcesser() {
 			}
 			else
 			{
-				PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() + PLAYERMANAGER->Getatt());
+				//PLAYERMANAGER->SetHp(PLAYERMANAGER->GetMaxHp());
+				PLAYERMANAGER->SetHp(PLAYERMANAGER->GetHp() + PLAYERMANAGER->GetMaxHp()/4);
 			}
 			if (_isOnBattle)
 			{
@@ -2282,6 +2284,7 @@ void xPlayer::skillProcesser() {
 			_attackBound.setBound(&_attackTrans.GetWorldPosition(), &D3DXVECTOR3(0.5, 0.5, 0.5));
 
 			SOUNDMANAGER->stop("휠윈드");
+			_isInvincible = false;
 		}
 		break;
 	case SKILL_END:

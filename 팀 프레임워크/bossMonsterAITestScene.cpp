@@ -226,9 +226,10 @@ void bossMonsterAITestScene::update()
 {
 	_mainCamera->DefaultControl(_timeDelta, 0.0f);
 	_mainCamera->updateCamToDevice();
-	//player->update();
+	player->update();
+	player->getPlayerObject()->update();
 
-//	player->out_setTargetByMouse(_mainCamera);
+	player->out_setTargetByMouse(_mainCamera);
 	boss->update();
 //	for (int i = 0; i < mon.size(); i++) mon[i]->update();
 }
@@ -252,6 +253,7 @@ void bossMonsterAITestScene::render()
 
 	boss->render();
 	player->render();
+	player->getPlayerObject()->render();
 //	for (int i = 0; i < mon.size(); i++)mon[i]->render();
 
 	//char temp[128];

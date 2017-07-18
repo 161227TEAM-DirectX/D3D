@@ -99,6 +99,8 @@ void stageFour::update()
 		}
 	}
 
+	
+
 	shadowUpdate();
 
 	currTime += _timeDelta;

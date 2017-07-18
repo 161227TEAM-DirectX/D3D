@@ -67,12 +67,22 @@ int bossActionSkillTailAtt::Update()
 			case 1:
 				//보스몬스터의 공격모션 아무거나 시작.
 				owner->getSkinnedAnim().Play("Animation_18");
-				SOUNDMANAGER->play("꼬리공격");
+				if (SOUNDMANAGER->isPlaySound("꼬리공격"))
+				{
+					SOUNDMANAGER->stop("꼬리공격");
+					SOUNDMANAGER->play("꼬리공격");
+				}
+				else SOUNDMANAGER->play("꼬리공격");
 				break;
 			case 2:
 				//보스몬스터의 공격모션 아무거나 시작.
 				owner->getSkinnedAnim().Play("Animation_68");
-				SOUNDMANAGER->play("꼬리공격");
+				if (SOUNDMANAGER->isPlaySound("꼬리공격"))
+				{
+					SOUNDMANAGER->stop("꼬리공격");
+					SOUNDMANAGER->play("꼬리공격");
+				}
+				else SOUNDMANAGER->play("꼬리공격");
 				break;
 			}
 		}
@@ -85,13 +95,16 @@ int bossActionSkillTailAtt::Update()
 				switch (Frequency)
 				{
 				case 1:
+					SOUNDMANAGER->stop("꼬리공격");
 					return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
 				default:
+					SOUNDMANAGER->stop("꼬리공격");
 					return LHS::ACTIONRESULT::ACTION_MOVE;
 				}
 			}
 			else
 			{
+				SOUNDMANAGER->stop("꼬리공격");
 				return LHS::ACTIONRESULT::ACTION_MOVE;
 			}
 		}

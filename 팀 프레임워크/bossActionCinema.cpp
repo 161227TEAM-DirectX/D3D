@@ -40,6 +40,9 @@ int bossActionCinema::Update()
 			if (owner->getSkinnedAnim().getAnimationPlayFactor() > ANIMATIONENDTIME)
 			{
 				SOUNDMANAGER->stop("凜辦た4");
+				SOUNDMANAGER->setMusicSpeed("務晦", 1.0f);
+				if(SOUNDMANAGER->isPlaySound("務晦")) SOUNDMANAGER->stop("務晦");
+				if (SOUNDMANAGER->isPauseSound("務晦")) SOUNDMANAGER->stop("務晦");
 				return LHS::ACTIONRESULT::ACTION_MOVE;
 			}
 		}
@@ -49,6 +52,7 @@ int bossActionCinema::Update()
 			if (owner->getSkinnedAnim().getAnimationPlayFactor() > 0.90f)
 			{
 				SOUNDMANAGER->stop("務晦");
+				SOUNDMANAGER->setMusicSpeed("務晦", 1.0f);
 				owner->getSkinnedAnim().Stop();
 				owner->getSkinnedAnim().Play("Animation_13", 0.3f);
 			}

@@ -31,7 +31,8 @@ int bossActionMove::Update()
 
 	if (temp->getHP() <= 0) return LHS::ACTIONRESULT::ACTION_DIE;
 
-	PHYSICSMANAGER->isBlocking(owner, playerObject);
+	PHYSICSMANAGER->isBlocking(owner, playerObject, 1.0f);
+
 	//몬스터의 현재 위치를 저장한다.
 	from = owner->_transform->GetWorldPosition();
 	rotateTemp = *owner->_transform;
@@ -64,10 +65,21 @@ int bossActionMove::Update()
 	//걷다가 range박스 안에 플레이어가 있다면.
 	if (PHYSICSMANAGER->isOverlap(temp->_transform, &temp->getRange(), playerObject->_transform, &playerObject->_boundBox))
 	{
-		SOUNDMANAGER->stop("걷기");
-		if (index >= 0.98f && index <= 0.99f) return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
-		else if (index >= 0.99f && index <= 1.0f) return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
-		else if (index - Gap >= 0.97f && index - Gap <= 0.975) return LHS::ACTIONRESULT::ACTION_FLY;
+		if (index >= 0.98f && index <= 0.99f)
+		{
+			SOUNDMANAGER->stop("걷기");
+			return LHS::ACTIONRESULT::ACTION_SKILL_BATTLE_ROAR;
+		}
+		else if (index >= 0.99f && index <= 1.0f)
+		{
+			SOUNDMANAGER->stop("걷기");
+			return LHS::ACTIONRESULT::ACTION_SKILL_FIRE;
+		}
+		else if (index - Gap >= 0.97f && index - Gap <= 0.975)
+		{
+			SOUNDMANAGER->stop("걷기");
+			return LHS::ACTIONRESULT::ACTION_FLY;
+		}
 	}
 
 	//확률적으로 날기패턴으로 이동

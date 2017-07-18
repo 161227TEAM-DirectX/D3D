@@ -302,7 +302,7 @@ void EndingScene::loadingScene()
 	directxBye.tex = RM_TEXTURE->getResource("Resource/endingtexture/인사.png");
 	directxBye2.tex = RM_TEXTURE->getResource("Resource/endingtexture/마지막.png");
 	byeY = 900;
-	byeX = WINSIZEX - 380;
+	byeX = WINSIZEX - 500;
 	stop = false;
 }
 

@@ -20,6 +20,7 @@ private:
 
 	int iCount;
 	int ECount;
+	int SCount;
 	float time;
 	float cameraPositionX, cameraPositionY, cameraPositionZ;
 
@@ -31,6 +32,8 @@ private:
 private:
 	vector<tagSaveCinematic> vcinematic;
 	tagSaveCinematic         cinematic;
+	vector<tagSaveCinematic> vcinematicSword;
+	tagSaveCinematic         cinematicSword;
 	vector<tagSaveCinematic> vCTemp;
 	tagSaveCinematic Ctemp;
 
@@ -42,12 +45,15 @@ private:
 	SYNTHESIZE(int, number, GSnumber);
 	SYNTHESIZE(bool, cineMticE4Bool, GScineMticE4Bool);
 	SYNTHESIZE(bool, cineMticBossBool, GScineMticBossBool);
+	SYNTHESIZE(bool, cineMticSwordBool, GScineMticSwordBool);
 
 public:
 	void init();
+	void initSword();
 
 	void cinematicSwordInit();
 	void cinematicBossInit();
+	void cinematicSwordLoad(D3DXVECTOR3* position, camera* camera, dx::transform* transform);
 	void cinematicBossLoad(D3DXVECTOR3* position, camera* camera, dx::transform* transform);
 	void cinematicBossSave(D3DXVECTOR3* position, camera* camera);
 	void cinematicBossRender();

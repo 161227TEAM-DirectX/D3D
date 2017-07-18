@@ -36,8 +36,8 @@ HRESULT loadingScene::init()
 	
 	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene1, this, NULL, &dwThID[2]));
 	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene2, this, NULL, &dwThID[3]));
-	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene3, this, NULL, &dwThID[4]));
-	//CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene4, this, NULL, &dwThID[5]));
+	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene3, this, NULL, &dwThID[4]));
+	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadInitScene4, this, NULL, &dwThID[5]));
 
 	return S_OK;
 }
@@ -62,23 +62,23 @@ void loadingScene::render()
 	if (m_isChange
 		&& m_isChangeScene1
 		&& m_isChangeScene2 
-		//&& m_isChangeScene3 
-		//&& m_isChangeScene4
+		&& m_isChangeScene3 
+		&& m_isChangeScene4
 		&& m_pLoadingBar->IsFullBar()
 		)
 	{
-		//SOUNDMANAGER->stop("로딩");
+		SOUNDMANAGER->stop("로딩");
 		//SCENEMANAGER->changeScene("test");
 
 		//g_isMaptool = true;
 		//SCENEMANAGER->changeScene("maptool");
 
-		//SCENEMANAGER->changeScene("start");
-		//SCENEMANAGER->changeScene("EndingScene");
-		SCENEMANAGER->changeScene("gameSceneOne");	//gameSceneOne
+		SCENEMANAGER->changeScene("start");			
+		//SCENEMANAGER->changeScene("EndingScene");		
+		//ENEMANAGER->changeScene("gameSceneOne");		//gameSceneOne
 		//SCENEMANAGER->changeScene("gameSceneTwo");	//gameSceneTwo
 		//SCENEMANAGER->changeScene("gameSceneThree");	//gameSceneThree
-		//SCENEMANAGER->changeScene("gameSceneFour");		//gameSceneFour
+		//SCENEMANAGER->changeScene("gameSceneFour");	//gameSceneFour
 		//SCENEMANAGER->changeScene("EndingScene");		//gameSceneTwo
 		//SCENEMANAGER->changeScene("kims");			//kims
 		//SCENEMANAGER->changeScene("AItest");			//AItest

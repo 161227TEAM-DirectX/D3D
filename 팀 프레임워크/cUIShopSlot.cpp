@@ -40,7 +40,8 @@ void cUIShopSlot::update()
 	}
 
 
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
+		//if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
 		if (PtInRect(&GetRtBtn(), GetMousePos()))
 		{

@@ -66,7 +66,7 @@ HRESULT stageTwo::init()
 	player->getPlayerObject()->_transform->SetWorldPosition(PLAYERMANAGER->GetPos());
 	CINEMATICMANAGER->init();
 	CINEMATICMANAGER->cinematicSwordInit();
-
+	PLAYERMANAGER->SetHp(PLAYERMANAGER->GetMaxHp() / 2);
 	return S_OK;
 }
 
@@ -261,12 +261,11 @@ void stageTwo::shadowUpdate(void)
 	this->readyShadowMap(&this->_renderObject, this->_terrainShadow);*/
 	//===========================================================================
 
-	if (KEYMANAGER->isOnceKeyDown('4'))
+	if (KEYMANAGER->isOnceKeyDown('Z'))
 	{
-		CINEMATICMANAGER->init();
+		CINEMATICMANAGER->initSword();
 		CINEMATICMANAGER->cinematicSwordInit();
 	}
-
 	if (KEYMANAGER->isToggleKey('P'))
 	{
 		_mainCamera->updateBase(true);
@@ -277,8 +276,7 @@ void stageTwo::shadowUpdate(void)
 		{
 			if ((player->getState() == P_CASTSPELL || player->getState() == P_CASTOMNI) && player->getSkill() == SKILL_SKYSWD)
 			{
-				//CINEMATICMANAGER->cinematicBossSave(&SKM->findSK("ÇÏ´ÃÀÇ_´ë°Ë")->getSkySwordPos(),_mainCamera); //, SKM->findSK("ÇÏ´ÃÀÇ_´ë°Ë")->getSkySwordTrans()
-				CINEMATICMANAGER->cinematicBossLoad(&SKM->findSK("ÇÏ´ÃÀÇ_´ë°Ë")->getSkySwordPos(), _mainCamera, SKM->findSK("ÇÏ´ÃÀÇ_´ë°Ë")->getSkySwordTrans()); //
+				CINEMATICMANAGER->cinematicSwordLoad(&SKM->findSK("ÇÏ´ÃÀÇ_´ë°Ë")->getSkySwordPos(), _mainCamera, SKM->findSK("ÇÏ´ÃÀÇ_´ë°Ë")->getSkySwordTrans()); //
 			}
 			else
 			{
@@ -652,6 +650,8 @@ void stageTwo::loadingScene()
 									   player->getPlayerObject()->_transform->GetWorldPosition().z + _terrain->GetTerrainSizeZ() / 2,
 									   _terrain->GetTerrainSizeX());
 	m_pUIPlayer->init();
+
+	swordBool = false;
 }
 
 void stageTwo::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

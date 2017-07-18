@@ -21,7 +21,7 @@ Node::~Node()
 
 void Node::Render()
 {
-	if (KEYMANAGER->isToggleKey('O'))
+	if (KEYMANAGER->isToggleKey('='))
 	{
 		D3DXMATRIXA16 matT;
 		D3DXMATRIX oldMat;

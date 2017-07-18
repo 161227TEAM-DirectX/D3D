@@ -11,7 +11,7 @@ void medicine::settinhItem()
 	_medicine.number = 1;
 	_medicine.attack = 0;
 	_medicine.armorAbility = 0;
-	_medicine.hpAbility = 50;
+	_medicine.hpAbility = 50000;
 	_medicine.mpAbility = 0;
 	_medicine.medicineCount = 1;
 	_medicine.price = 100;
@@ -22,7 +22,7 @@ void medicine::settinhItem()
 	_medicine.number = 2;
 	_medicine.attack = 0;
 	_medicine.armorAbility = 0;
-	_medicine.hpAbility = 100;
+	_medicine.hpAbility = 100000;
 	_medicine.mpAbility = 0;
 	_medicine.medicineCount = 1;
 	_medicine.price = 200;

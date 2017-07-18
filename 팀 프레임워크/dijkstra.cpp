@@ -23,7 +23,7 @@ dijkstra::~dijkstra()
 
 void dijkstra::render(void)
 {
-	if (KEYMANAGER->isToggleKey('O'))
+	if (KEYMANAGER->isToggleKey('='))
 	{
 		D3DXMATRIXA16 matT;
 		D3DXMATRIX oldMat;

@@ -98,7 +98,10 @@ void stageThree::release()
 
 void stageThree::update()
 {
-	CINEMATICMANAGER->cinematicBossLoad(&boss->_transform->GetWorldPosition(), _mainCamera, boss->_transform);
+	if (CINEMATICMANAGER->GetGScineMticBossBool() == false)
+	{
+		CINEMATICMANAGER->cinematicBossLoad(&boss->_transform->GetWorldPosition(), _mainCamera, boss->_transform);
+	}
 
 	if (CINEMATICMANAGER->GetGScineMticBossBool() == true)
 	{
@@ -108,23 +111,26 @@ void stageThree::update()
 			_mainCamera->out_SetRelativeCamPos(D3DXVECTOR3(0, 10, 15));
 			cinematicBool = true;
 		}
-		else
-		{
-			if (!g_isChat)
-			{
-				if ((player->getState() == P_CASTSPELL || player->getState() == P_CASTOMNI) && player->getSkill() == SKILL_SKYSWD)
-				{
-					CINEMATICMANAGER->cinematicBossLoad(&SKM->findSK("ÇÏ´ÃÀÇ_´ë°Ë")->getSkySwordPos(), _mainCamera, SKM->findSK("ÇÏ´ÃÀÇ_´ë°Ë")->getSkySwordTrans());
-				}
-				else
-				{
-					_mainCamera->updateBase();
-				}
-			}
-		}
 	}
 
+	if (KEYMANAGER->isOnceKeyDown('Z'))
+	{
+		CINEMATICMANAGER->initSword();
+		CINEMATICMANAGER->cinematicSwordInit();
+	}
 
+	
+	if (!g_isChat)
+	{
+		if ((player->getState() == P_CASTSPELL || player->getState() == P_CASTOMNI) && player->getSkill() == SKILL_SKYSWD)
+		{
+			CINEMATICMANAGER->cinematicSwordLoad(&SKM->findSK("ÇÏ´ÃÀÇ_´ë°Ë")->getSkySwordPos(), _mainCamera, SKM->findSK("ÇÏ´ÃÀÇ_´ë°Ë")->getSkySwordTrans());
+		}
+		else
+		{
+			_mainCamera->updateBase();
+		}
+	}
 
 	shadowUpdate();
 
@@ -192,7 +198,11 @@ void stageThree::render()
 	}
 	player->render();
 
-	CINEMATICMANAGER->cinematicBossRender();
+	
+	if (CINEMATICMANAGER->GetGScineMticBossBool() == false)
+	{
+		CINEMATICMANAGER->cinematicBossRender();
+	}
 
 	if (CINEMATICMANAGER->GetGScineMticBossBool() == true)
 	{
